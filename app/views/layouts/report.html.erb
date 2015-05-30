@@ -1,0 +1,90 @@
+
+<!DOCTYPE html>
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js"> <!--<![endif]-->
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="icon" type="image/x-icon" href="<%= asset_path('favicon.ico') -%>">
+    <meta http-equiv="Content-Type" content="text/xml; charset=UTF-8" />
+    <%= yield(:head) if content_for?(:head) -%>
+    <link rel="alternate" type="application/atom+xml" title="EFF - Action Center" href="action.atom" />
+
+    <title><%= [@title, 'EFF Action Center'].compact.join(' | ') -%></title>
+    <%= stylesheet_link_tag "application", media: "all" %>
+    <%= csrf_meta_tags %>
+  </head>
+
+  <body class="<%= current_user ? 'logged-in' : '' %> <%= controller.controller_name  + "-" +action_name %>">
+
+  
+    <!--[if lt IE 7]>
+        <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
+    <![endif]-->
+
+  <!-- Define our SVG shapes -->
+  <svg style="display: none;">
+    <defs>
+      <polygon id="triangle" points="24,0 24,24 0,24 "/>
+      <polygon id="arrow" points="0,0 0,10 8,5 "/>
+    </defs>
+  </svg>
+
+  <div class="wrapper">
+    <div class="navbar-wrapper">
+      <div class="container">
+        <div class="alert-container">
+          <%- if !devise_error_messages? -%>
+            <%- if notice -%>
+              <div class="alert alert-info"><%= notice %><a id="close">[close]</a></div>
+            <% end -%>
+            <%- if alert -%>
+              <div class="alert alert-error"><%= alert %><a id="close">[close]</a></div>
+            <% end -%>
+          <% end -%>
+        </div>
+      </div>
+    </div>
+
+    <% if content_for?(:content) -%>
+      <%= yield(:content) -%>
+    <% else -%>
+      <%= yield %>
+    <% end -%>
+    <div class='push'></div>
+  </div>
+    <div class="footer">
+      <svg class="triangle" viewBox="0 0 24 23.8" preserveAspectRatio="none">
+        <use xlink:href="#triangle"></use>
+      </svg>
+      <div class="container-fluid">
+        <div class="col-sm-3 logo">
+          <div>
+            <a href="https://www.eff.org">
+              <i class="icon-eff-logo"></i>
+            </a>
+          </div>
+          <div>
+            <a href="https://www.eff.org/copyright" class="cc-notice">
+              <i class="icon-cc"></i> BY 3.0 US
+            </a>
+          </div>
+        </div>
+        <div class="col-sm-9 links">
+            <a target="_blank" href="https://www.eff.org/about/contact">Contact</a>
+        </div>
+      </div>
+    </div>
+
+  <%= javascript_include_tag "application"  %>
+
+  <div id="anon-stats">
+    <noscript><img src="https://anon-stats.eff.org/piwik.php?idsite=13&amp;rec=1&amp;action_name=<%= [@title, 'EFF Action Center'].compact.join(' | ') -%>" style="border:0" alt="" /></noscript>
+    <script>document.getElementById('anon-stats').innerHTML = '<img src="https://anon-stats.eff.org/piwik.php?idsite=13&amp;rec=1&amp;urlref='+document.referrer+'&amp;action_name=<%= [@title, 'EFF Action Center'].compact.join(' | ') -%>" style="border:0" alt="" />';</script>
+  </div>
+  <%= yield(:body) if content_for?(:body) -%>
+  </body>
+</html>

@@ -1,0 +1,14 @@
+<p class='share-graphic'>
+  <a href='<%= facebook_share_url(@actionPage) -%>'>
+    <%= image_tag 'share-on-fb-thin.png', alt: 'Share on Facebook' -%>
+  </a>
+  <a href='<%= twitter_share_url(@actionPage) -%>'>
+    <%= image_tag 'share-on-tw-thin.png', alt: 'Share on Twitter' -%>
+  </a>
+  <a href='<%= google_share_url(@actionPage) -%>'>
+    <%= image_tag 'share-on-g-thin.png', alt: 'Share on Google Plus' -%>
+  </a>
+  <a href='<%= email_friends_url(@actionPage) -%>'>
+    <%= image_tag 'share-on-email-thin.png', alt: 'Send an email' -%>
+  </a>
+</p>

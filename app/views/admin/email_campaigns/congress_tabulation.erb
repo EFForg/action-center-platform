@@ -1,0 +1,54 @@
+<script type='text/javascript'>
+  var staffer_report_url = "<%= staffer_report_admin_email_campaign_path(@email_campaign, 'placeholder') %>";
+
+  $(function(){
+    Step(
+      function fetchBreakdownAndNames(){
+        breakdown_cb = this.parallel();
+        names_cb = this.parallel();
+
+        ajax_get("<%= congress_forms_member_fills_url(@email_campaign.campaign_tag).html_safe %>", breakdown_cb);
+        ajax_get("<%= Rails.application.config.legislators_json_url %>", names_cb);
+      },
+      function processAndDisplay(e, breakdown, names){
+        if(e) return console.log(e);
+
+        var members_sorted = _.keys(breakdown).sort();
+
+        var tbody_html;
+        var total_count = 0;
+
+        _.each(members_sorted, function(bioid){
+          tbody_html += JST['admin/backbone/templates/email_campaign/congress_tabulation_row']({
+            bioguide_id: bioid,
+            staffer_report_url: staffer_report_url.replace('placeholder', bioid), 
+            name: names[bioid].name,
+            count: breakdown[bioid]
+          });
+          total_count += breakdown[bioid];
+        });
+        tbody_html += JST['admin/backbone/templates/email_campaign/congress_tabulation_row']({
+          bioguide_id: "",
+          staffer_report_url: "", 
+          name: "Total",
+          count: total_count
+        });
+        $("table#email_tabulation tbody").html(tbody_html);
+      }
+    );
+  });
+</script>
+<div class="container">
+  <h3>Congressional breakdown of emails sent for campaign:<br><i><%= @email_campaign.campaign_tag %></i></h3>
+  <table class='table table-striped' id='email_tabulation'>
+    <thead>
+      <tr>
+        <th>Bioguide ID</th>
+        <th>Member</th>
+        <th>Emails</th>
+      </tr>
+    </thead>
+    <tbody>
+    </tbody>
+  </table>
+</div>

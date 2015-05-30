@@ -1,0 +1,44 @@
+/*
+ * This is a manifest file that'll be compiled into application.css, which will include all the files
+ * listed below.
+ *
+ * Any CSS and SCSS file within this directory, lib/assets/stylesheets, vendor/assets/stylesheets,
+ * or vendor/assets/stylesheets of plugins, if any, can be referenced here using a relative path.
+ *
+ * You're free to add application-wide styles to this file and they'll appear at the top of the
+ * compiled file, but it's generally better to create a new file per style scope.
+ *
+ */
+/* Also, remember to change bootstrap-custom.scss if you want to add or remove bootstrap modules*/
+
+// See bourbon https://github.com/thoughtbot/bourbon
+
+/* Bootstrap Sass stuff */
+@import "bourbon";
+
+@import "application/fonts";
+
+/* Fontello generated files */
+@import "eff-icon-font";
+@import "animation";
+
+/* Bootstrap and its variables */
+@import "application/bootstrap-custom";
+@import "application/variables";
+
+/* Common files */
+@import "application/base";
+@import "application/social-buttons";
+@import "application/partner_pages";
+//@import "footer";
+
+
+/* Controllers*/
+@import "welcome";
+@import "users";
+@import "action_page";
+@import "sweetalert";
+
+/*
+*= require jquery.fileupload-ui
+*/

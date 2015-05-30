@@ -1,0 +1,15 @@
+<div class='letter' id="letter">
+  <div class='body'>
+    <div class='date'><%= I18n.l Time.now, format: "%B %-d, %Y" %></div>
+    <% if defined? description -%>
+      <div class='description'><%= markdown description %></div>
+    <% elsif @actionPage.petition.description -%>
+      <div class='title'><strong><%= @actionPage.petition.title -%></strong></div>
+      <div class='description'><%= markdown @actionPage.petition.description -%></div>
+    <% end -%>
+    <div class='signed'><%= I18n.t :signed  %></div>
+    <div class='close'>
+      <div class='name'><%= I18n.t :your_name %></div>
+    </div>
+  </div>
+</div>

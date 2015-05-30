@@ -1,0 +1,11 @@
+
+<div class="container">
+  <h2>Upload file(s)</h2>
+  <%= s3_cors_fileupload_form_tag :id => 'fileupload' %>
+
+  <div class="javascript-templates">
+    <%= render 'template_upload' %>
+    <%= render 'template_download' %>
+    <%= render 'template_uploaded' %>
+  </div>
+</div>

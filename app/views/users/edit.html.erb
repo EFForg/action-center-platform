@@ -1,0 +1,76 @@
+<div class="redtop">
+  <div class="container">
+    <h1>Edit your information</h1>
+  </div>
+
+  <svg class="triangle" viewBox="0 0 24 23.8" preserveAspectRatio="none">
+    <use xlink:href="#triangle"></use>
+  </svg>
+</div>
+
+<div class="container edit">
+  <div class="row">
+    <div class="col-md-9 col-md-offset-1">
+        <%= form_for(current_user, :html => { :method => :put, :class => 'form-horizontal personal-info' }) do |f| %>
+          <div class="form-group">
+            <%= f.label :first_name, :class => 'col-sm-3 control-label'  %>
+            <div class="col-sm-8">
+              <%= f.text_field :first_name, :autofocus => true, :class => 'form-control' %>
+            </div>
+          </div>
+          <div class="form-group">
+            <%= f.label :last_name, :class => 'col-sm-3 control-label'  %>
+            <div class="col-sm-8">
+              <%= f.text_field :last_name, :autofocus => true, :class => 'form-control' %>
+            </div>
+          </div>
+          <div class="form-group">
+            <%= f.label :street_address, :class => 'col-sm-3 control-label'  %>
+            <div class="col-sm-8">
+              <%= f.text_field :street_address, :autofocus => true, :class => 'form-control' %>
+            </div>
+          </div>
+          <div class="form-group">
+            <%= f.label :city, :class => 'col-sm-3 control-label'  %>
+            <div class="col-sm-8">
+              <%= f.text_field :city, :autofocus => true, :class => 'form-control' %>
+            </div>
+          </div>
+          <div class="form-group">
+              <%= f.label :state, :class => 'col-sm-3 control-label'  %>
+            <div class="col-sm-8">
+              <%= f.select :state, us_states, { prompt: 'State' }, :class => 'form-control' -%>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <%= f.label :country_code,  "Country", :class => 'col-sm-3 control-label'  %>
+            <div class="col-sm-8">
+              <%= f.select :country_code, country_codes, { prompt: 'Country' }, :class => 'form-control' -%>
+            </div>
+          </div>
+
+          <div class="form-group">
+                <%= f.label :zipcode, :class => 'col-sm-3 control-label'  %>
+            <div class="col-sm-8">
+              <%= f.text_field :zipcode, class: 'form-control', placeholder: 'Zip Code',
+              pattern: '\d{5}(-?\d{4})?', title: 'Enter your 5 or 9 digit zip code' -%>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <%= f.label :phone, class: 'col-sm-3 control-label' -%>
+            <div class="col-sm-8">
+              <%= f.text_field :phone, class: 'form-control', placeholder: 'Phone' -%>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <div class="col-sm-offset-3 col-sm-8">
+              <%= f.submit "Update", :class => 'btn btn-red-outline' %>
+            </div>
+          </div>
+        <% end %>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,22 @@
+<div class="tool mailing-list-tool">
+  <div class="tool-container">
+    <div class="tool-heading">
+      <h2 class="tool-title">
+        Join the mailing list
+      </h2>
+    </div>
+    <div class="tool-body">
+      <%= form_for :subscription, url: subscriptions_path, remote: true,
+        html: { id: 'subscription-form', class: '', role: "form" } do |f| -%>
+      <%= hidden_field_tag :authenticity_token, form_authenticity_token %>
+      <%= f.hidden_field :mailing_list, value: 'effector' -%>
+          <fieldset>
+        <%= f.email_field :email, id: :email, value: current_email,
+          class: "form-control", placeholder: "Email" -%>
+          </fieldset>
+      <%= f.submit 'Subscribe', class: 'btn', name: "commit" -%>
+      <% end %>
+    </div>
+  </div>
+</div>
+

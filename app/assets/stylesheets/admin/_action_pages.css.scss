@@ -1,0 +1,153 @@
+// This stuff is all mostly cruft from the first version of the admin UI. Not sure how much of it is still necessary! TODO: Clean this up.
+
+.action_pages-index, .partners-index {
+  font-size: 15px;
+  a i {
+    font-size: 12px;
+  }
+  i {
+    font-size: 26px;
+    line-height: 1.1;
+  }
+  .id-badge {
+    font-size: 10px;
+    position: relative;
+    bottom: 1px;
+  }
+  table {
+    margin-bottom:0;
+  }
+  .table > tbody > tr > td {
+    vertical-align: middle;
+  }
+  .xs-create-action {
+    margin-top:15px;
+    margin-bottom: 15px;
+    margin-left:10px;
+  }
+  #homepage-settings {
+    padding: 10px;
+  }
+  .panel-title {
+    a.btn.btn-default {
+      text-transform: none;
+      letter-spacing: 0;
+      position: relative;
+      top: -4px;
+    }
+  }
+
+  .action-icons {
+    max-width:30px;
+  }
+
+  .action-pages {
+    margin-bottom: 80px;
+    border-top:0;
+    .panel-body {
+      padding: 0;
+      .table {
+        margin-bottom:0;
+        .action-id {
+          text-align:center;
+          .badge {
+            background-color: transparent;
+            color: #323232;
+            font-size: 11px;
+            border: 1px solid #aaa;
+            font-weight:normal;
+          }
+        }
+      }
+    }
+  }
+}
+
+.action_pages-update,
+.action_pages-edit, .action_pages-new {
+  .published-checkbox {
+    margin-bottom:0;
+  }
+  .help-block {
+    font-size: 13px;
+  }
+  form#action-page-form {
+    margin-top: 0;
+  }
+}
+
+
+@media (max-width: 767px) {
+  .panel-collapse .panel-body {
+    padding:0;
+  }
+  .select-featured .panel-body {
+    padding: 10px;
+  }
+  .btn-group .btn {
+    margin-bottom:3px;
+  }
+  .update-action-bar {
+    height: 56px;
+  }
+  .action_pages-edit {
+    .published-container, .published-container.is-published {
+      margin-top: 16px;
+    }
+    form#action-page-form {
+      .help-block {
+        display:none;
+      }
+      input.update.btn,  a.preview {
+        margin-top: 10px;
+        font-size: 14px;
+      }
+    }
+  }
+}
+
+@media (max-width: 992px) {
+  h1 {
+    font-size: 32px;
+  }
+}
+
+.popover-content {
+  ul {
+  padding-left:10px;
+  font-size:13px;
+  }
+  pre {
+    font-size:13px;
+  }
+}
+
+body.dragging, body.dragging * {
+  cursor: move !important;
+}
+
+.dragged {
+  position: absolute;
+  opacity: 0.5;
+  z-index: 2000;
+}
+
+
+body.action_pages-staffer_report{
+  h1{
+    font-size: 40px;
+  }
+  h2{
+    font-size: 20px;
+    margin: 0px;
+  }
+  i.icon-eff-logo{
+    font-size: 50px;
+  }
+  div.chart_wrapper{
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    padding: 10px;
+    margin-top: 15px;
+  }
+}

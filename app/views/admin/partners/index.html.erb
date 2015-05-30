@@ -1,0 +1,61 @@
+<%= render 'admin/header' -%>
+<div class='container-fluid'>
+  <div class="tabs-left">
+    <%= render 'admin/nav_tabs' -%>
+    <!-- Tab panes -->
+    <div class="tab-content responsive">
+      <div class="tab-pane active" id="partners">
+        <h2>Partners</h2>
+        <p>This is where you can add a list of partner organizations that your organization runs joint campaigns with. Here is how that process works:</p>
+        <ul>
+          <li><strong>How partner signups work for users:</strong><br>
+            When partner signups are enabled for an action, an extra email signup checkbox shows your partner's name and privacy policy instead of your own. If the user opts in they'll be added to one of the lists below as a "subscriber."</li>
+          <li><strong>How a partner fetches their new subscriptions:</strong><br>
+            Partners need to have an Action Center login to access their new subscriptions. After they've created an account, you can link their account to their organization. Once they are added, they will see "Partner Dashboard" link in the header of the site and they can view and download their new subscribers.</li>
+        </ul>
+
+        <table class='table table-simple'>
+          <thead>
+            <tr>
+              <th>Organization name</th>
+              <th>Abbreviation</th>
+              <th>Privacy policy</th>
+              <th>Subscribers</th>
+              <th></th>
+            </tr>
+          </thead>
+
+          <tbody>
+            <% @partners.each do |partner| %>
+              <tr>
+                <td> 
+                  <%= link_to partner.name , [:admin, partner] -%>
+                </td>
+                <td> <%= partner.code -%> </td>
+                <td> <%= link_to 'Link', partner.privacy_url -%> </td>
+                <td> <%= partner.subscriptions.count -%> </td>
+                <td>
+                  <div class='btn-group'>
+                    <%= link_to 'View and edit →', partner, class: 'btn btn-sm btn-success'%>
+                    <%= link_to 'Delete', [:admin, partner], class: 'btn-sm btn btn-danger', method: :delete, data: { confirm: 'Are you sure?' } %>
+                  </div>
+              </tr>
+            <% end %>
+            <tr>
+              <td>
+                <%= link_to new_admin_partner_path(anchor: 'partners'), class: 'btn btn-sm btn-primary' do %>
+                  <i class="icon-doc-new"></i> Add new partner
+                <% end %>
+              </td>
+              <td colspan="4"></td>
+            </tr>
+          </tbody>
+        </table>
+
+        
+      </div>
+    </div>
+  </div>
+</div>
+
+

@@ -1,0 +1,29 @@
+[class*='partners-'] {
+  .table > thead > tr > th, .table > thead > tr > td, .table > tbody > tr > th, .table > tbody > tr > td, .table > tfoot > tr > th, .table > tfoot > tr > td {
+    vertical-align: middle;
+  }
+}
+
+.partners-index {
+  table {
+  margin-top: 30px;
+  }
+}
+
+.partners-show {
+  font-size: 14px;
+  h2 {
+    margin-top: 40px;
+    margin-bottom: 20px;
+    .small {
+      font-size: 13px;
+    }
+  }
+  table .btn {
+    margin-left: 5px;
+  }
+  h4 {
+    margin-top:30px;
+    margin-bottom: 15px;
+  }
+}

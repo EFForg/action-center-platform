@@ -1,0 +1,15 @@
+<div class="tool mailing-list-tool">
+  <div class="tool-container">
+    <div class="tool-heading">
+      <h2 class="tool-title">
+        We won!
+      </h2>
+    </div>
+    <div class="tool-body">
+      <% if @actionPage.enable_petition? %>
+        <div class='victory-count'><b><%= @signature_count -%></b> signatures total</div>
+      <% end %>
+      <%= markdown @actionPage.victory_message %>
+    </div>
+  </div>
+</div>

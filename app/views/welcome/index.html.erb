@@ -1,0 +1,83 @@
+<% content_for :head do -%>
+  <%= render 'welcome/meta_tags' -%>
+<% end -%>
+<div class="redtop home">
+  <div class="container">
+    <h1><%= t :front_page_header_html -%></h1>
+    <h2><%= t :summary -%></h2>
+    <% unless user_signed_in? -%>
+      <%= render 'subscriptions/form' -%>
+    <% end -%>
+  </div>
+
+  <svg class="triangle" viewBox="0 0 24 23.8" preserveAspectRatio="none">
+    <use xlink:href="#triangle"></use>
+  </svg>
+</div>
+
+
+<section class="featured-action">
+  <% if @featuredActionPage -%>
+    <div class="container">
+      <div class="row">
+        <div class="image col-sm-6 col-md-5 col-md-offset-1">
+          <%= link_to image_tag(@featuredActionPage.featured_image.url) , action_page_path(@featuredActionPage) -%>
+        </div>
+        <div class="col-sm-6 col-md-5">
+          <h2>
+            <%= @featuredActionPage.title -%>
+          </h2>
+          <%= markdown @featuredActionPage.summary -%>
+          <%= link_to t(:take_action), action_page_path(@featuredActionPage),
+            class: 'btn btn-lg btn-red' -%>
+        </div>
+      </div>
+    </div>
+  <% end %>
+  <svg class="triangle" viewBox="0 0 24 23.8" preserveAspectRatio="none">
+    <use xlink:href="#triangle"></use>
+  </svg>
+</section>
+
+<section class="more-actions">
+  <div class="container">
+
+    <div class="row">
+      <%- @actionPages.each do |actionPage| -%>
+        <div class="col-sm-4">
+          <div class="image">
+          <%= link_to image_tag(actionPage.featured_image.url), action_page_path(actionPage) %>
+          </div>
+          <div class="text">
+            <h3><%= actionPage.title -%></h3>
+            <%= markdown actionPage.summary -%>
+            <%= link_to action_page_path(actionPage) do%>
+                <span class="link-div hidden-xs"></span>
+            <% end %>
+        <%= link_to t(:take_action), action_page_path(actionPage),
+          class: 'btn btn-lg btn-red visible-xs' -%>
+          </div>
+        </div>
+      <% end %>
+    </div>
+
+    <p class="seemore"><a href="/action"><%= I18n.t(:see_all_campaigns) -%></a></p>
+
+  </div>
+<!-- 
+  <svg class="triangle" viewBox="0 0 24 23.8" preserveAspectRatio="none">
+    <use xlink:href="#triangle"></use>
+  </svg>
+ --></section>
+<!--
+<section class="mobile-apps">
+  <div class="container">
+    <div class="col-sm-6 image">
+      <%= image_tag("mobile-apps.png") %>
+    </div>
+    <div class="col-sm-6">
+        <h3>Download the EFF mobile app</h3>
+    </div>
+  </div>
+  </section>
+-->

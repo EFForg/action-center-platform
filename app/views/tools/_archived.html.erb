@@ -1,0 +1,18 @@
+<div class="tool mailing-list-tool">
+  <div class="tool-container">
+    <div class="tool-heading">
+      <h2 class="tool-title">
+        This action is now archived
+      </h2>
+    </div>
+    <div class="tool-body">
+      <% if @actionPage.archived_redirect_action_page_id? && current_user.admin?-%>
+        <p>Hi, Señor Administrator. This page will only be visible to users who have taken action, all other users will be redirected to <%= link_to action_page_path(@actionPage.archived_redirect_action_page_id) -%>.</p>
+      <% elsif @actionPage.archived_redirect_action_page_id? -%>
+        <p>Thanks for taking action! A followup action has now been posted which you can find here: <%= link_to action_page_path(@actionPage.archived_redirect_action_page_id) -%>.</p>
+      <% else -%>
+        <p>This action has been archived and can no longer be taken.</p>
+      <% end -%>
+    </div>
+  </div>
+</div>

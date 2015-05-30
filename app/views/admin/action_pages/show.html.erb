@@ -1,0 +1,24 @@
+<div class='container' id="admin-action-page">
+  <h2>Action page #<%= @actionPage.id -%></h2>
+  <div class='row'>
+    <label class='col-xs-2'>Title</label> <span class='col-xs-10'><%= @actionPage.title -%></span>
+  </div>
+  <div class='row'>
+    <label class='col-xs-2'>Published</label> <span class='col-xs-10'><%= @actionPage.published -%></span>
+  </div>
+  <div class='row'>
+    <label class='col-xs-2'>Created</label> <span class='col-xs-10'><%= @actionPage.created_at -%></span>
+  </div>
+  <div class='row'>
+    <label class='col-xs-2'>Updated</label> <span class='col-xs-10'><%= @actionPage.updated_at -%></span>
+  </div>
+  <div class='btn-bar'>
+    <%= link_to 'Edit', edit_admin_action_page_path(@actionPage), class: 'btn btn-primary' -%>
+    <% if @actionPage.published? -%>
+       <%= link_to 'Unpublish', admin_action_page_unpublish_path(action_page.id), class: 'btn btn-warning' -%>
+    <% else -%>
+      <%= link_to 'Publish', admin_action_page_publish_path(action_page.id), class: 'btn btn-success' -%>
+    <% end -%>
+     <%= link_to 'Delete', admin_action_page_destroy_path(action_page.id), data: {confirm: "Are you sure you want to delete this? If this action has been visible to users, you might want to archive it instead of deleting. That way you can redirect the action and the URL for this action won't be broken."}, class: 'btn btn-danger' -%>
+  </div>
+</div>

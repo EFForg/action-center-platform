@@ -1,0 +1,121 @@
+@font-face {
+  font-family: 'eff-icon-font';
+  src: url(font-path('eff-icon-font.eot?13832730'));
+  src: url(font-path('eff-icon-font.eot?13832730#iefix')) format('embedded-opentype'),
+       url(font-path('eff-icon-font.woff?13832730')) format('woff'),
+       url(font-path('eff-icon-font.ttf?13832730')) format('truetype'),
+       url(font-path('eff-icon-font.svg?13832730#eff-icon-font')) format('svg');
+  font-weight: normal;
+  font-style: normal;
+}
+/* Chrome hack: SVG is rendered more smooth in Windozze. 100% magic, uncomment if you need it. */
+/* Note, that will break hinting! In other OS-es font will be not as sharp as it could be */
+/*
+@media screen and (-webkit-min-device-pixel-ratio:0) {
+  @font-face {
+    font-family: 'eff-icon-font';
+    src: url(font-path('eff-icon-font.svg?13832730#eff-icon-font')) format('svg');
+  }
+}
+*/
+ 
+ %icon-base {
+  font-family: "eff-icon-font";
+  font-style: normal;
+  font-weight: normal;
+  speak: none;
+ 
+  display: inline-block;
+  text-decoration: inherit;
+  width: 1em;
+  margin-right: .2em;
+  text-align: center;
+  /* opacity: .8; */
+ 
+  /* For safety - reset parent styles, that can break glyph codes*/
+  font-variant: normal;
+  text-transform: none;
+ 
+  /* fix buttons height, for twitter bootstrap */
+  line-height: 1em;
+ 
+  /* Animation center compensation - margins should be symmetric */
+  /* remove if not needed */
+  margin-left: .2em;
+ 
+  /* you can be more comfortable with increased icons size */
+  /* font-size: 120%; */
+ 
+  /* Font smoothing. That was taken from TWBS */
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+ 
+  /* Uncomment for 3D effect */
+  /* text-shadow: 1px 1px 1px rgba(127, 127, 127, 0.3); */
+}
+ 
+%icon-spin4:before { @extend %icon-base; content: '\e800'; } /* '' */
+%icon-twitter:before { @extend %icon-base; content: '\e801'; } /* '' */
+%icon-cancel-circled-outline:before { @extend %icon-base; content: '\e802'; } /* '' */
+%icon-cc:before { @extend %icon-base; content: '\e803'; } /* '' */
+%icon-facebook:before { @extend %icon-base; content: '\e804'; } /* '' */
+%icon-gplus:before { @extend %icon-base; content: '\e805'; } /* '' */
+%icon-ok-circle:before { @extend %icon-base; content: '\e806'; } /* '' */
+%icon-error-alt:before { @extend %icon-base; content: '\e807'; } /* '' */
+%icon-attention:before { @extend %icon-base; content: '\e808'; } /* '' */
+%icon-eye:before { @extend %icon-base; content: '\e809'; } /* '' */
+%icon-facebook-1:before { @extend %icon-base; content: '\e80a'; } /* '' */
+%icon-googleplus:before { @extend %icon-base; content: '\e80b'; } /* '' */
+%icon-twitter-1:before { @extend %icon-base; content: '\e80c'; } /* '' */
+%icon-clipboard:before { @extend %icon-base; content: '\e80d'; } /* '' */
+%icon-mail:before { @extend %icon-base; content: '\e80e'; } /* '' */
+%icon-phone:before { @extend %icon-base; content: '\e80f'; } /* '' */
+%icon-doc-new:before { @extend %icon-base; content: '\e810'; } /* '' */
+%icon-link-ext:before { @extend %icon-base; content: '\e811'; } /* '' */
+%icon-trash:before { @extend %icon-base; content: '\e812'; } /* '' */
+%icon-pencil:before { @extend %icon-base; content: '\e813'; } /* '' */
+%icon-check:before { @extend %icon-base; content: '\e814'; } /* '' */
+%icon-link:before { @extend %icon-base; content: '\e815'; } /* '' */
+%icon-eff-action-logo:before { @extend %icon-base; content: '\e816'; } /* '' */
+%icon-eff-logo:before { @extend %icon-base; content: '\e817'; } /* '' */
+%icon-chart-bar:before { @extend %icon-base; content: '\e818'; } /* '' */
+%icon-arrow-left:before { @extend %icon-base; content: '\e819'; } /* '' */
+%icon-arrow-right:before { @extend %icon-base; content: '\e81a'; } /* '' */
+%icon-google:before { @extend %icon-base; content: '\e81b'; } /* '' */
+%icon-yahoo:before { @extend %icon-base; content: '\e81c'; } /* '' */
+%icon-windows:before { @extend %icon-base; content: '\e81d'; } /* '' */
+%icon-copy:before { @extend %icon-base; content: '\e81e'; } /* '' */
+%icon-loop:before { @extend %icon-base; content: '\e820'; } /* '' */
+
+.icon-spin4 { @extend %icon-spin4; }
+.icon-twitter { @extend %icon-twitter; }
+.icon-cancel-circled-outline { @extend %icon-cancel-circled-outline; }
+.icon-cc { @extend %icon-cc; }
+.icon-facebook { @extend %icon-facebook; }
+.icon-gplus { @extend %icon-gplus; }
+.icon-ok-circle { @extend %icon-ok-circle; }
+.icon-error-alt { @extend %icon-error-alt; }
+.icon-attention { @extend %icon-attention; }
+.icon-eye { @extend %icon-eye; }
+.icon-facebook-1 { @extend %icon-facebook-1; }
+.icon-googleplus { @extend %icon-googleplus; }
+.icon-twitter-1 { @extend %icon-twitter-1; }
+.icon-clipboard { @extend %icon-clipboard; }
+.icon-mail { @extend %icon-mail; }
+.icon-phone { @extend %icon-phone; }
+.icon-doc-new { @extend %icon-doc-new; }
+.icon-link-ext { @extend %icon-link-ext; }
+.icon-trash { @extend %icon-trash; }
+.icon-pencil { @extend %icon-pencil; }
+.icon-check { @extend %icon-check; }
+.icon-link { @extend %icon-link; }
+.icon-eff-action-logo { @extend %icon-eff-action-logo; }
+.icon-eff-logo { @extend %icon-eff-logo; }
+.icon-chart-bar { @extend %icon-chart-bar; }
+.icon-arrow-left { @extend %icon-arrow-left; }
+.icon-arrow-right { @extend %icon-arrow-right; }
+.icon-google { @extend %icon-google; }
+.icon-yahoo { @extend %icon-yahoo; }
+.icon-windows { @extend %icon-windows; }
+.icon-copy { @extend %icon-copy; }
+.icon-loop { @extend %icon-loop; }

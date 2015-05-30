@@ -1,0 +1,29 @@
+<script type='text/javascript'>
+  var bioid = "<%= @bioguide_id %>";
+  var name_cb = function(e, data){
+    if(e) return console.log(e);
+    $('#member_name').text(data[bioid]['type'] + ". " + data[bioid]['name']);
+  }
+  ajax_get("<%= Rails.application.config.legislators_json_url %>", name_cb);
+</script>
+<i class="icon-eff-logo"></i>
+<h1>Report for <span id='member_name'></span></h1>
+<h2>Campaign: <%= @email_campaign.campaign_tag %></h2>
+
+<div class='chart_wrapper'>
+  <label>Emails sent to your office:</label>
+  <%= line_chart(
+    congress_forms_date_fills_url(@email_campaign.campaign_tag, nil, nil, @bioguide_id),
+    height: "250px",
+    library: {canvasDimensions: {width: 600, height: 250}}
+  ) %>
+</div>
+
+<div class='chart_wrapper'>
+  <label>Emails sent to Congress:</label>
+  <%= line_chart(
+    congress_forms_date_fills_url(@email_campaign.campaign_tag),
+    height: "250px",
+    library: {canvasDimensions: {width: 600, height: 250}}
+  ) %>
+</div>

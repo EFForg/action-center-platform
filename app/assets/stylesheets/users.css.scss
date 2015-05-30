@@ -1,0 +1,272 @@
+.grey-box {
+  border: 1px solid #eee;
+  border-radius: 10px;
+  padding: 20px;
+}
+
+#settings {
+  i.action-type {
+    font-size: 16px;
+  }
+  .user-info {
+    @extend .grey-box;
+    font-size: 15px;
+    margin-top: 20px;
+    float:left;
+  }
+  h4:first-child {
+    margin-top: 5px;
+  }
+  .edit-settings {
+    font-size: 11px;
+    line-height: 1.1;
+    padding-bottom: 1px;
+    border: 0;
+    margin-bottom: 0;
+    margin-top: 0;
+    .btn-red-outline {
+      font-size: 11px;
+      line-height: 1.1;
+    }
+  }
+  h4 .edit-settings {
+    float: right;
+  }
+}
+
+.action-grid {
+  font-size: 14px;
+  float:left;
+
+	span {
+    font-size: 36px;
+    color: $blue;
+    font-weight: bold;
+    margin-right: 5px;
+    letter-spacing: -2px;
+  }
+  .quad-1, .quad-2, .quad-3, .quad-4 {
+    @extend .col-xs-6;
+  }
+  .quad-1 {
+    border-right:1px solid #e0e0e0;
+    border-bottom: 1px solid #e0e0e0;
+  }
+  .quad-2 {
+    border-bottom: 1px solid #e0e0e0;
+  }
+  .quad-3 {
+    border-right: 1px solid #e0e0e0;
+  }
+}
+
+.table-condensed {
+  font-size: 14px;
+}
+
+.users-show .action-stats {
+  @extend .grey-box;
+  float: left;
+  margin-bottom: 20px;
+  margin-top: 30px;
+
+  h3 { 
+    margin-top: 0; 
+    margin-bottom: 0;
+  }
+  .percentile {
+    clear:both;
+    span {
+      font-weight: bold;
+      color: $red;
+      letter-spacing: -1px;
+      font-size: 36px;
+    }
+    p {  
+      line-height: 1.1; 
+    }
+  }
+}
+
+.users-show .activity-stream {
+  .age {
+  font-size: 13px;
+  color: $mediumgrey;
+  margin-left: 4px;
+  }
+  table {
+    font-size: 15px;
+    .icon {
+      padding-right:0;
+      width:28px;
+    }
+    tbody > tr > td {
+      padding: 12px;
+      vertical-align: middle;
+      border: 0;
+    }
+  }
+  .btn-red {
+    border-radius: 8px;
+    text-transform: none;
+    font-style: italic;
+    font-weight: 300;
+    padding: 7px 12px;
+    font-size: 14px;
+    letter-spacing: 0px;
+  }
+  td.btn-col {
+    text-align: right;
+    min-width: 127px;
+  }
+  h3 {
+    margin-top: 40px;
+  }
+}
+
+span.green-rect {
+  line-height: 35px;
+  border-radius: 8px;
+  border: 1px solid $green;
+  color: $green;
+  padding: 8px 18px;
+  font-size: 14px;
+  &.has-icon {
+    padding-left:5px;
+    min-width: 99px;
+    i.icon-ok-circle {
+      font-size: 24px;
+      position: relative;
+      top: 3px;
+      margin-right: 5px;
+    }
+  }
+}
+
+.passwords-edit, .passwords-new, .confirmations-new, .sessions-new, .registrations-new, .registrations-create,  .confirmations-create, .confirmations-show {
+  .wrapper {
+    background-color: $red;
+    //min-height: 90%;
+  }
+  .redtop {
+    padding-bottom: 3em;
+    a {
+      color: #fff;
+      text-decoration: underline;
+    }
+  }
+  input.form-control {
+    border: 2px solid #fff;
+    border-radius: 7px;
+  }
+  .extra-links {
+    font-size: 15px;
+  }
+  .email-signup {
+    background-color: #fff;
+    color: #323232;
+    padding: 12px;
+    border-radius: 8px;
+  }
+  .error_explanation {
+    background-color: transparent;
+    border-radius: 7px;
+    margin-bottom: 15px;
+      -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 8px rgba(50, 90, 115, 0.3);
+      box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 8px rgba(50, 90, 115, 0.3);
+    font-size: 0.85em;
+    line-height: 1.3;
+
+    &> .panel-heading {
+      background-color: #323232;
+      padding: 5px 10px;
+      border-radius: 7px 7px 0 0;
+      color: #fff;
+      h3.panel-title {
+        text-transform: uppercase;
+        font-size: 11px;
+        letter-spacing: 1px;
+        margin-top: 1px;
+      }
+    }
+    &> .panel-body {
+      padding: 12px 15px 10px 15px
+    }
+    p {
+      margin-bottom: 3px;
+    }
+  }
+  input.btn {
+    font-size: 14px;
+    font-weight: bold;
+    color: #fff;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    background-color: #cc0000;
+    border: 3px solid #fff;
+    height: 55px;
+    padding: 0px 30px;
+    margin-top: 10px;
+    border-radius: 8px;
+    font-size: 14px;
+    -webkit-font-smoothing: antialiased;
+    -webkit-transition: background-color 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+    -o-transition: background-color 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+    transition: background-color 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+    &:hover {
+      background-color: #950002;
+      outline: 0;
+      box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 8px rgba(102, 175, 233, 0.6);
+    }
+  }
+}
+.users-show, .users-edit, .registrations-edit {
+  #settings, .edit {
+    margin-bottom: 50px;
+    margin-top: 20px;
+  }
+  .form-horizontal .control-label {
+    padding-top: 5px;
+  }
+  .personal-info {
+    margin-top:20px;
+  }
+  .redtop {
+    padding: 2.5em 0 0 0;
+    h1 {
+      margin-bottom: 0;
+      font-weight: bold;
+    }
+  }
+  h3 {
+    font-size: 35px;
+    margin-top: 60px;
+    margin-bottom: 20px;
+  }
+  h4 {
+    font-size: 18px;
+    margin-top: 40px;
+    margin-bottom: 10px;
+  }
+}
+
+.table.table-simple {
+  td {
+    border: 0;
+    vertical-align: baseline;
+    border-bottom: 1px solid #eee;
+    font-size: 0.9em;
+    padding: 6px;
+  }
+  td:first-child {
+    text-align: left;
+    text-transform: uppercase;
+    font-size: 0.8em;
+  }
+  td:last-child {
+    text-align: right;
+  }
+  tr:last-child td {
+    border-bottom: 0;
+  }
+}

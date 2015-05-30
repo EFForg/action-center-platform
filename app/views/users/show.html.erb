@@ -1,0 +1,206 @@
+<div class="redtop">
+  <div class="container">
+    <h1><%= t :your_account -%></h1>
+  </div>
+
+  <svg class="triangle" viewBox="0 0 24 23.8" preserveAspectRatio="none">
+    <use xlink:href="#triangle"></use>
+  </svg>
+</div>
+
+<div class="container" id="settings">
+  <div class="row">
+
+    <div class="col-md-8 ">
+
+      <div class="activity-stream">
+        <h3>Take action</h3>
+
+        <% # If our user doesn't have activity recording enabled, prompt them to enable it. %>
+        <% if !current_user.record_activity? -%>
+          <div class="alert alert-warning">
+            <%= form_for current_user, html: { method: :put , class: :enable_logging } do |f| %>
+              <%= f.hidden_field(:record_activity, :value => 'true') %>
+              It looks like activity recording isn't enabled, so we don't store a record which actions you've taken. 
+              <%= submit_tag "Enable activity logging", class: 'link-button' %> to see your activity here.
+            <% end -%>
+          </div>
+        <% end -%>
+
+        <table class="table table-striped">
+          <tbody>
+            <% @actionPages.each do |action_page| -%>
+              <% if !action_page.archived && action_page.published || action_page.archived  && action_page.published && @actions_taken.include?( action_page.id) -%>
+                <tr>
+                  <td class="icon">
+                    <%=
+                    icons_for_action_page(action_page).map{|c| tag('i', class: "action-type icon-#{c}")}.join.html_safe
+                    -%>
+                  </td>
+                  <td>
+                    <%= link_to action_page.title, action_page_path(action_page) -%>
+                    <span class="age">
+                      <%= distance_of_time_in_words_to_now(action_page.created_at) -%> old
+                    </span>
+                  </td>
+                  <td class="btn-col">
+                    <% if @actions_taken.include? action_page.id -%>
+                      <span class="green-rect has-icon">
+                        <i class="icon-ok-circle"></i> Done
+                      </span>
+                    <% else -%>
+                      <%= link_to "Take action", action_page_path(action_page), class:"btn btn-red-outline" -%>
+                    <% end -%>
+                  </td>
+                </tr>
+              <% end -%>
+            <% end -%>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <div class="col-md-4">
+
+      <div class="action-stats">
+        <h3>Stats</h3>
+        <div class="percentile">
+          <p>You are in the <span><%= get_percentile_ordinalized() %> </span>percentile of users.</p>
+        </div>
+        <p>Actions you've taken so far:</p>
+        <div class="action-grid">
+          <div class="quad-1">
+            <span>
+              <%= current_user.events.actions.calls.count %>
+            </span> 
+            call<%= "s" if current_user.events.actions.calls.count != 1 %>
+          </div>
+          <div class="quad-2">
+            <span>
+              <%= current_user.events.actions.signatures.count %>
+            </span> 
+            petition<%= "s" if current_user.events.actions.signatures.count != 1 -%>
+          </div>
+          <div class="quad-3">
+            <span>
+              <%= current_user.events.actions.emails.count %>
+            </span> 
+            email<%= "s" if current_user.events.actions.emails.count != 1 -%>
+          </div>
+          <div class="quad-4">
+            <span>
+              <%= current_user.events.actions.count -%>
+            </span> 
+            total
+          </div>
+        </div>
+      </div>
+
+      <div class="user-info">
+        <h4>
+          <%= link_to 'Edit', edit_user_path,
+            class: 'edit-settings btn btn-sm btn-red-outline' -%>
+          Personal information
+        </h4>
+        <table class="table table-simple">
+          <tbody>
+                <% if current_user.name.present? %>
+                  <tr><td>Name</td><td><%= current_user.name %></td></tr>
+                <% end %>
+
+                <% if current_user.street_address.present? %>
+                <tr><td>Street Address</td><td><%= current_user.street_address %></td></tr>
+                <% end %>
+
+                <% if current_user.city.present? %>
+                <tr><td>City</td><td><%= current_user.city %></td></tr>
+                <% end %>
+
+                <% if current_user.zipcode.present? %>
+                <tr><td>Zipcode</td><td><%= current_user.zipcode %></td></tr>
+                <% end %>
+
+                <% if current_user.state.present? %>
+                <tr><td>State</td><td><%= current_user.state %></td></tr>
+                <% end %>
+
+                <% if current_user.country_code.present? %>
+                <tr><td>Country</td><td><%= current_user.country_code %></td></tr>
+                <% end %>
+
+                <% if current_user.phone.present? %>
+                <tr><td>Phone</td><td><%= current_user.phone %></td></tr>
+                <% end %>
+
+          </tbody>
+        </table>
+
+        <h4>
+          <%= link_to 'Edit', edit_user_registration_path,
+            class: 'edit-settings btn btn-sm btn-red-outline' -%>
+          Email and password
+        </h4>
+
+        <table class="table table-simple">
+          <tbody>
+            <tr>
+              <td>Email</td><td><%= current_user.email %></td></tr>
+            <tr>
+              <td>Password</td><td>********</td></tr>
+          </tbody>
+        </table>
+
+      <h4 id="activity">
+        <%= button_to "Clear my activity", clear_activity_user_path, method: :delete,
+          data: { confirm: "Are you sure you want to delete your activity records?" },
+          class: 'btn btn-red-outline btn-sm edit-settings' %>
+          Activity
+      </h4>
+      <%= form_for(current_user, :remote => true,
+                   :html => { :method => :put , :class => 'record_activity' }) do |f| %>
+        <div class="email-signup">
+          I
+          <%= f.radio_button :record_activity, 'true', id: 'do-record' -%>
+          <label class="radio-inline" for="do-record">want</label>
+          <%= f.radio_button :record_activity, 'false', id: 'do-not-record' -%>
+          <label class="radio-inline" for="do-not-record">do not want</label>
+          <%= t :organization_abbreviation -%> to keep a record of actions I take
+          on the site, to be used for features like leaderboards or to give out
+          prizes to the most active action-takers.
+          <%= tag(:input, :type => "hidden", :name => request_forgery_protection_token.to_s, :value => form_authenticity_token) %>
+        </div>
+        <%= submit_tag "Save", class: 'shown-if-no-js btn btn-sm btn-red-outline' %>
+      <% end -%>
+
+      <h4>Delete your account</h4>
+      <p>Click below to permanently delete your action center account.</p>
+
+      <%= button_to "Delete my account", registration_path(current_user),
+        data: { confirm: 'Are you sure you want to permanently delete your account?' },
+        method: :delete, class: 'btn btn-sm btn-red-outline edit-settings' %>
+
+      <p class="small" style="margin-top: 12px">Please note that this does not affect your newsletter subscriptions or <%= t :organization_abbreviation -%> membership.</p>
+
+
+      <h4>Change your email preferences</h4>
+      <% if current_user.contact_id! -%>
+        <p>Click below to change your EFF newsletter subscriptions.</p>
+        <%= link_to "Edit subscriptions",
+          "#{SUPPORTERS_API_HOST}/update-preferences?id=#{current_user.contact_id}",
+          :class => 'btn btn-sm btn-red-outline edit-settings' -%>
+      <% else -%>
+        <form action="https://supporters.eff.org/" method="post" id="eff-supporters-library-account-form" accept-charset="UTF-8" _lpchecked="1">
+          <p>Want to change your EFF newsletter subscriptions? Click below and we'll email <%= current_user.email %> with instructions.</p>
+          <div class="form-group">
+            <label for="edit-email" class="sr-only">Email Address </label>
+            <input type="hidden" name="email" value="<%= current_user.email %>">
+          </div>
+          <input type="submit" id="edit-submit" name="op" value="Send me a link" class="btn btn-sm btn-red-outline">
+          <input type="hidden" name="form_build_id" value="form-w4OjonMGPm3-u3bgN5jbX43pS-archmsJkVORQvdPZ4">
+          <input type="hidden" name="form_id" value="eff_supporters_library_account_form" >
+        </form>
+      <% end -%>
+      </div>
+    </div>
+  </div>
+</div>

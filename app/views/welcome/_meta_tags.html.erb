@@ -1,0 +1,17 @@
+<% summary = t 'summary', locale: I18n.default_locale -%>
+<% title = t 'site_title', locale: I18n.default_locale -%>
+<meta name='description' content='<%= summary -%>'>
+
+<meta property='og:url' content='<%= root_url -%>'>
+<meta property='og:title' content='<%= title -%>'>
+<meta property='og:description' content='<%= summary -%>'>
+<meta property='og:image' content='<%= image_url("og-image-default.png")-%>'>
+<meta property='og:image:secure_url' content='<%= image_url("og-image-default.png")-%>'>
+
+
+<meta name='twitter:card' content='summary_large_image'>
+<meta name='twitter:site' content='<%= twitter_handle -%>'>
+<meta name='twitter:creator' content='<%= twitter_handle -%>'>
+<meta name='twitter:image:src' content='<%= image_url("twitter-card-homepage.png")-%>'>
+<meta name='twitter:title' content='<%= title -%>'>
+<meta name='twitter:description' content='<%= summary -%>'>

@@ -1,0 +1,34 @@
+<% content_for :head do -%>
+  <%= render 'action_page/meta_tags' -%>
+  <%= render 'action_page/background_image' -%>
+<% end -%>
+<div class="redtop">
+  <div class="container">
+    <div class="row">
+      <div class="col-sm-6 col-lg-6">
+        <h1><%= @actionPage.title -%></h1>
+        <div class='short-description'>
+          <%= markdown @actionPage.summary -%>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+<svg class="triangle" viewBox="0 0 24 23.8" preserveAspectRatio="none">
+  <use xlink:href="#triangle"></use>
+</svg>
+</div>
+<div class="container action-content" data-action-id="<%= @actionPage.id -%>" >
+  <div class="row">
+    <%= render "tools/container" %>
+    <div class="col-sm-7 col-md-6 col-lg-6">
+      <div class="description" id="description">
+        <%= markdown @actionPage.description -%>
+      </div>
+      <% if @actionPage.enable_petition? && @actionPage.petition && !@actionPage.description.include?('``` letter') -%>
+        <%= render(partial: "action_page/letter", layout: false) %>
+      <% end -%>
+    </div>
+
+  </div>
+</div>

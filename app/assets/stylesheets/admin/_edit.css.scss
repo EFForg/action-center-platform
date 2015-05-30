@@ -1,0 +1,268 @@
+
+/**********************
+Base styles
+*************+*********/
+
+h1 {
+  margin-bottom: 17px;
+}
+.edit-action {
+  font-size: 14px;
+}
+
+
+.table tbody tr.tweet-target td{
+  vertical-align: middle;
+}
+
+.epiceditor {
+  border: 1px solid #ccc;
+}
+
+.thumbnail {
+  margin-bottom:7px;
+}
+
+.character-counter-text {
+  text-align: right;
+  font-size: 11px;
+  span {
+    font-weight: bold;
+  }
+}
+
+label span {
+  font-weight: normal;
+  font-size: 11px;
+}
+
+#admin-action-page .btn-bar form {
+  display: inline-block;
+}
+.action-pages .panel-title > a {
+  color: #333333;
+}
+
+
+/**********************
+Main Form
+*************+*********/
+#action-page-form {
+  margin: 1em 0 3em;
+
+  textarea {
+    height: 10em;
+    resize: vertical;
+  }
+
+  input[type=text], textarea {
+    display: block;
+    width: 100%;
+    padding: 0.25em 0.5em;
+    border: 1px solid #cce;
+    border-radius: 4px;
+  }
+
+  input[type=submit] {
+    margin-top: 1em;
+  }
+
+  fieldset {
+    padding: 0 1em 0.5em;
+  }
+}
+
+
+/**********************
+Top bar
+*************+*********/
+
+.update-action-bar {
+  z-index: 10;
+  background-color: #f8f8f8;
+  padding-bottom: 0;
+  &.affix {
+    position: fixed;
+    width: 100%;
+    left: 0;
+    top: 0;
+    box-shadow: 0 0 5px 1px rgba(0, 0, 0, 0.1);
+  }
+  h1 {
+    margin-top: 20px;
+  }
+}
+
+a.preview {
+  vertical-align: top;
+  margin-top: 16px;
+}
+
+.save, .preview {
+  position: relative;
+  padding-left: 42px;
+
+  i {
+    font-size: 27px;
+    position: absolute;
+    left: 10px;
+    bottom: -1px;
+  }
+}
+
+.published-container {
+  margin-top:22px;
+  display:inline-block;
+  margin-right:10px;
+  label {
+    margin-bottom: 0;
+    font-size: 15px;
+    font-weight: normal;
+  }
+  input[type=checkbox] {
+    margin-right: 5px;
+    margin-top: 5px;
+  }
+}
+
+.panel-body {
+  input[type='checkbox'] {
+    margin-right:3px;
+  }
+}
+
+.panel-body {
+  padding-bottom: 10px;
+  li {
+    padding-left: 20px;
+  }
+}
+
+/**********************
+Forms
+*************+*********/
+.tab-pane > div > div > .form-group > label {
+  font-size: 20px;
+  font-weight: 100;
+  margin-top: 20px;
+}
+
+/**********************
+Action Settings
+*************+*********/
+.tools-container .panel-body label {
+  font-weight: normal;
+}
+
+#action_page_email_campaign_attributes_email_addresses{
+  display: none;
+}
+#action_page_email_campaign_attributes_bioguide_id{
+  display: none;
+}
+#text_replacement_form_group{
+  display: none;
+}
+#text_replacement_form_group label{
+  margin-top: 10px;
+  margin-bottom: 0px;
+  font-size: 13px;
+}
+
+/**********************
+Photo Settings
+*************+*********/
+#photo-settings {
+  h2 {
+    @media (min-width: $screen-md-min) {
+      margin-top: 0;
+    }
+  }
+  ul {
+    padding-left: 25px;
+    li {
+      margin-bottom: 5px;
+    }
+  }
+  .btn-sm {
+    margin: 10px 0;
+  }
+}
+
+/**********************
+Social/Email Settings
+*************+*********/
+#social-settings, #email-settings {
+  label {
+    font-size: 20px;
+    font-weight: 100;
+    margin-top: 20px;
+  }
+}
+#email-settings label {
+  font-size: 30px;
+}
+
+/**********************
+Arcive/Victory
+*************+*********/
+#victory {
+  .panel {
+    margin-top:20px;
+  }
+  h4 {
+    margin-top: 20px;
+  }
+}
+
+/**********************
+Analytics
+*************+*********/
+#analytics {
+  h3 {
+    margin-top: 50px;
+    margin-bottom: 20px;
+    &:first-child {
+      margin-top: 10px;
+    }
+  }
+  hr {
+    margin-top: 0;
+  }
+  .times-notification{
+    display: inline-block;
+  }
+}
+
+div#date_control_container{
+  margin-top: 10px;
+
+  input[type='text'].text-inline, button.submit-inline{
+    display: inline;
+    margin-top: 0px;
+  }
+  input[type='text'].text-inline{
+    width: 150px;
+  }
+}
+
+/**********************
+File upload/gallery
+*************+*********/
+
+.fileupload-buttonbar > div > .cancel,
+.fileupload-buttonbar > div > .delete,
+.fileupload-buttonbar > div > .toggle {
+  display: none;
+}
+
+.fileupload-buttonbar {
+  margin-bottom: 20px; 
+}
+
+// Fix Gallery button position on non-mobile devices
+@media (min-width: 798px) {
+  .tabs-left .open-gallery {
+    float: none !important;
+  }
+}

@@ -1,0 +1,262 @@
+
+/**********************
+Navbar styles
+*************+*********/
+.navbar-wrapper {
+  background-color: #f8f8f8;
+  & > .container {
+    width: 100%;
+    padding: 0;
+  }
+  .icon-eff-action-logo {
+    color: $red;
+  }
+}
+.navbar-wrapper .navbar-inverse {
+  background-color: #f8f8f8;
+}
+.navbar-inverse .navbar-nav > li > a { 
+  color: $red;
+  &:hover {
+    color: darken($red, 15%);
+  }
+}
+.navbar-inverse .navbar-toggle .icon-bar {
+  background-color: $red;
+}
+.navbar-inverse .navbar-toggle .icon-bar {
+  border-color: $red;
+}
+/**********************
+Simple header
+*************+*********/
+
+.simple-header {
+  border-bottom: 1px solid $lightgrey;
+  padding-bottom: 15px;
+  
+  h1.page-title {
+    font-weight: 100;
+  }
+}
+
+
+/**********************
+Simple table
+*************+*********/
+.table.table-simple td:first-child { 
+  text-transform: none;
+}
+
+/**********************
+Header styles
+*************+*********/
+
+h2, h3, h4, h5 {
+  font-weight: 100;
+}
+
+/**********************
+Chart
+*************+*********/
+
+// Override height of charts
+// This is a hack that I think we can remove once we manage to successfully update Chart.js to something greater than 1.0.1-beta4
+div[id^="chart-"] {
+  height: auto !important;
+  line-height: 1 !important;
+}
+
+/**********************
+Button styles
+*************+*********/
+
+.btn-success {
+  background-color: #fff;
+  color: #4cae4c;
+  @include transition( background-color 0.3s ease );
+
+  &:hover, &:focus {
+    background-color: lighten(#4cae4c, 47%);
+    color: #4cae4c;
+  }
+}
+.btn-info {
+  background-color: #fff;
+  color: #46b8da;
+  @include transition( background-color 0.3s ease );
+
+  &:hover, &:focus {
+    background-color: lighten(#46b8da, 40%);
+    color: #46b8da;
+  }
+}
+.btn-primary {
+  background-color: #fff;
+  color: #428bca;
+  @include transition( background-color 0.3s ease );
+
+  &:hover, &:focus {
+    background-color: lighten(#428bca, 40%);
+    color: #428bca;
+  }
+}
+
+/**********************
+Panels
+*************+*********/
+.panel-heading, .panel-default > .panel-heading {  
+  font-size: 18px;
+  font-weight: 100;
+  label {
+    margin: 0;
+    cursor: pointer;
+    cursor: hand;
+    font-weight: 100;
+  }
+  input {
+    margin: 7px 10px 0 0;
+  }
+}
+
+
+/**********************
+Form styles
+*************+*********/
+
+label {
+  display: block;
+  font-weight: bold;
+}
+
+input[type=checkbox] {
+  float: left;
+}
+
+/**********************
+Left-aligned tabs
+*************+*********/
+
+// For sizes less than 768px, our trusty fakeWaffle kicks in (see admin.js)
+@media (min-width: $screen-sm-min ) {
+  .tabs-left {
+    margin-top: 30px;
+    height: 100%;
+    display: table;
+    width: 100%;
+  }
+  .tabs-left > .nav-tabs {
+    border-bottom: 0;
+    margin-right: 0;
+    height: 100%;
+    width: 200px;
+    font-size: 14px;
+  }
+  .tab-content {
+    display: table-cell;
+    vertical-align: top;
+    width: 100%
+  }
+  .tab-content > .tab-pane,
+  .pill-content > .pill-pane {
+    display: none;
+    transform: translateX(100px);
+    transition: transform 0.3s, opacity 0.5s;
+    opacity: 0;
+  }
+
+  .tab-content > .active,
+  .pill-content > .active {
+    display: block;
+    transform: translateX(0);
+    opacity: 1;
+  }
+
+  .tabs-left > .nav-tabs > li {
+    float: none;
+  }
+
+  .tabs-left > .nav-tabs > li > a {
+    min-width: 74px;
+    margin-right: 0;
+    margin-bottom: 3px;
+    color: $mediumgrey;
+    @include transition( background 0.3s ease-in-out, color 0.3s ease-in-out, border 0.3s ease-in-out );
+
+    &:hover {
+      color: $red;
+    }
+  }
+
+  .tabs-left > .nav-tabs > li.active > a {
+    color: $blue;
+    font-weight: bold;
+    padding-left: 30px;
+    &:hover {
+      color: $blue;
+    }
+  }
+
+  .tabs-left > .nav-tabs {
+    float: left;
+    margin-right: 19px;
+    border-right: 1px solid #ddd;
+  }
+
+  .tabs-left > .nav-tabs > li > a {
+    margin-right: -1px;
+    -webkit-border-radius: 4px 0 0 4px;
+       -moz-border-radius: 4px 0 0 4px;
+            border-radius: 4px 0 0 4px;
+    @include transition( padding 0.3s ease-in-out );
+    &:hover {
+      padding-left: 30px;
+    }
+    
+    .tabs-left > .nav-tabs > li.active > a:hover {
+      // Prevent active tab from shifting right on hover.
+      padding-left: 0;
+    }
+  }
+
+  .tabs-left > .nav-tabs > li > a:hover,
+  .tabs-left > .nav-tabs > li > a:focus {
+    border-color: #eeeeee #dddddd #eeeeee #eeeeee;
+  }
+
+  .tabs-left > .nav-tabs .active > a,
+  .tabs-left > .nav-tabs .active > a:hover,
+  .tabs-left > .nav-tabs .active > a:focus {
+    border-color: #ddd transparent #ddd #ddd;
+    *border-right-color: #ffffff;
+  }
+
+  .tab-content {
+    display: table-cell;
+    vertical-align: top;
+  }
+} // END MEDIA QUERY
+
+@media (max-width: $screen-sm-max) and (min-width: 768px) {
+  .tabs-left > .nav-tabs {
+    width: 165px;
+    font-size: 13px;
+  }
+}
+#tabs {
+  i.icon {
+    font-size: inherit;
+    margin-right:5px;
+  }
+}
+
+.tab-content > .tab-pane, .pill-content > .pill-pane {
+    display: block;    /* undo display:none          */
+    height: 0;         /* height:0 is also invisible */ 
+    overflow: hidden;  /* no-overflow      */ 
+    padding: 0 !important;        
+}
+.tab-content > .active, .pill-content > .active {
+    height: auto;      /* let the content decide it  */
+    margin-bottom: 50px;
+} /* bootstrap hack end */

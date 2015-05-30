@@ -1,0 +1,32 @@
+<div class="redtop">
+  <div class="container">
+    <h1><%= t :organization_abbreviation -%> Campaigns</h1>
+  </div>
+  <svg class="triangle" viewBox="0 0 24 23.8" preserveAspectRatio="none">
+    <use xlink:href="#triangle"></use>
+  </svg>
+</div>
+
+<section class="more-actions">
+  <div class='container'>
+    <% @actionPages.each_slice(3) do |array_of_3_actions| %>
+      <div class="row">
+        <% array_of_3_actions.each do |actionPage|%>
+            <div class="col-sm-4">
+              <div class="image">
+                  <%= image_tag(actionPage.featured_image) %>
+              </div>
+              <div class="text">
+                <h3><%= actionPage.title -%></h3>
+                <p><%= markdown actionPage.summary -%></p>
+                <%= link_to action_page_path(actionPage) do%>
+                    <span class="link-div"></span>
+                <% end %>
+              </div>
+            </div>
+        <% end %>
+      </div>
+    <% end %>
+    <%= will_paginate @actionPages %>
+  </div>
+</section>

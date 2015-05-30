@@ -1,0 +1,41 @@
+<div class="blackflag">
+  <div class='container'>
+    <h2> Attn: <%= legislator_title(@legislator)-%> </h2>
+    <p><a href='#constituents'><%= @scorecard.counter -%> constituents</a> signed this petition</p>
+  </div>
+</div>
+<div class="redtop">
+  <div class="container">
+    <h1 class="tool-title"><%= @actionPage.title -%></h1>
+  </div>
+  <svg class="triangle" viewBox="0 0 24 23.8" preserveAspectRatio="none">
+    <use xlink:href="#triangle"></use>
+  </svg>
+</div>
+<div class="container " data-action-id="<%= @actionPage.id -%>" >
+  <div class="description" id="description">
+    <div class="letter" id="letter">
+      <div class='body'>
+        <div class='date'><%= Time.now.strftime("%B %-d, %Y") -%></div>
+        <div class='title'><%= @actionPage.petition.title -%></div>
+        <div class='description'><%= markdown @actionPage.petition.description -%></div>
+        <div class='signed'> Signed, </div>
+        <div class='close'></div>
+      </div>
+    </div>
+    <div id='constituents'>
+      <h3><b><%= @legislator.state_name -%></b></h3>
+      <table class="small table table-striped table-hover ">
+        <tbody>
+          <% @signatures.each do |signature| %>
+            <tr class='signature'>
+              <td class='name'><%= "#{signature.first_name.capitalize} #{signature.last_name.capitalize}"%></td>
+              <td><%= signature.city -%></td>
+              <td><%= signature.zipcode -%></td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>

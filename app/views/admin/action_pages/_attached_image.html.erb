@@ -1,0 +1,15 @@
+<%- has_image = image && image.url.present? && image.url != "missing.png"  -%>
+<div class='attached-image' id='attached-<%= image.name -%>'>
+  <p>
+    <button type=button id='attach-<%= image.name -%>' data-toggle="modal" data-target="#myModal" class='btn btn-info btn-sm attach-gallery-image'>
+      Select from gallery
+    </button>
+  </p>
+  <p class='image-preview <%= :hidden unless has_image -%>'>
+    <%= image_tag image, width: 200, class: 'thumbnail' %>
+    <%= label_tag "destroy_#{image.name}" do -%>
+      <%= check_box_tag "destroy_#{image.name}" -%>
+      Remove this image?
+    <% end -%>
+  </p>
+</div>

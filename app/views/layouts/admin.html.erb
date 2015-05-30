@@ -1,0 +1,29 @@
+<% content_for :head do %>
+ <%= stylesheet_link_tag 'admin/admin' %>
+ <%= javascript_include_tag 'admin-head' %>
+<% end %>
+
+<% content_for :body do %>
+  <script>
+    function initEpicEditor(container, textarea) {
+      if ($('#' + container).length && $('#' + textarea).length) {
+        return new EpicEditor({
+          container: container,
+          textarea: textarea,
+          basePath: '',
+          clientSideStorage: false,
+          theme: {
+            base: '<%= asset_path "EpicEditor/epiceditor/themes/base/epiceditor.css" -%>',
+            preview: '<%= asset_path "EpicEditor/epiceditor/themes/preview/github.css" -%>',
+            editor: '<%= asset_path "EpicEditor/epiceditor/themes/editor/epic-light.css" -%>'
+          },
+          autogrow: true,
+        }).load();
+      }
+    };
+  </script>
+  <%= javascript_include_tag "admin"  %>
+  <%= yield :charts_js %>
+<% end %>
+
+<%= render template: 'layouts/application' -%>

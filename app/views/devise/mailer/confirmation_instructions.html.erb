@@ -1,0 +1,5 @@
+<br><p style="margin-left:10px">Please confirm your new account using the link below:</p><br>
+
+<p style="margin-left:10px; font-size:18px;"><%= link_to 'Confirm my account', confirmation_url(@resource, :confirmation_token => @token) %></p><br>
+
+<p style="margin-left:10px">If you didn't sign up for an <a href="<%= root_url -%>"><%= t(:site_title) -%></a> account, please ignore this message.</p>

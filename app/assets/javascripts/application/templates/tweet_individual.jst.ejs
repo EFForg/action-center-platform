@@ -1,0 +1,6 @@
+<div class='tweet-individual'>
+  <% if(image_url){ %>
+    <img src="<%= image_url %>" class='individual'>
+  <% } %>
+  <a class="btn btn-tweet btn-default individual" data-twitter-id="@<%= twitter_id %>" target="_blank" href="https://twitter.com/intent/tweet?status=.@<%= twitter_id + ' ' + message %>&related=<%= related %>"><i class='icon-twitter-1'></i> Tweet <%= twitter_id %></a>
+</div>

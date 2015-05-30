@@ -1,0 +1,64 @@
+# Add configuration values here, as shown below.
+
+db_port: "5432"
+secret_key_base: 'xxx'
+sunlight_api_key: 
+smtp_username: 
+smtp_password: 
+smtp_address:
+smtp_port: "587"
+smtp_domain:
+smtp_authentication: plain
+smtp_enable_starttls_auto: "true"
+mailings_from: 'Example Action <actioncenter@example.com>'
+twitter_handle: 'example' # your organization's twitter account, no @ sign
+twitter_related: 'example1 example2' # related twitter accounts
+facebook_handle: 'example'
+call_tool_url: 'https://call-tool.example.com/create'
+congress_forms_url: 'https://congressforms.example.com'
+devise_secret_key: 'xxx'
+amazon_access_key_id: 
+amazon_secret_access_key: 
+smarty_streets_id: 
+smarty_streets_token: 
+congress_forms_debug_key: 
+cors_allowed_domains: http://www.example.com https://www.example.com
+time_zone: 'Eastern Time (US & Canada)'
+
+development:
+  supporters_api_key: 
+  supporters_host: https://supporters.eff.org
+  supporters_path: /civicrm/eff-action-api
+  db_database: action_center_dev
+  db_username: action_center_dev
+  db_password: 
+  db_host: 
+  db_sslmode: verify-full # or one of [disable|allow|prefer|require]
+  db_sslrootcert: /path/to/ssl_root.crt
+  # the following twitter vars are needed only if you want to auto-fetch user avatars when they're added as an individual tweet target
+  twitter_oath_token:
+  twitter_oath_token_secret:
+  twitter_api_key:
+  twitter_api_secret:
+  enable_basic_auth: 'false'
+  basic_auth_username: 
+  basic_auth_password: 
+
+production:
+  supporters_api_key: 
+  supporters_host: https://supporters.eff.org
+  supporters_path: /civicrm/eff-action-api
+  db_database: action_center_dev
+  db_username: action_center_dev
+  db_password: 
+  db_host: 
+  twitter_oath_token:
+  twitter_oath_token_secret:
+  twitter_api_key:
+  twitter_api_secret:
+
+test:
+  db_database: actioncenter
+  db_username: actioncenter
+  db_password: 
+  db_host: 

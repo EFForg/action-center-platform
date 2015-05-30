@@ -1,0 +1,173 @@
+<script>
+  var petition_id = "<%= @petition.id %>";
+</script>
+<script type='text/x-underscore-template' id='individual_signature'>
+  <tr>
+    <td>
+      <div>{{ name }}</div>
+      <div>{{ location }}</div>
+    </td>
+    <td class="timeago">
+      {{ time_ago }}
+    </td>
+  </tr>
+</script>
+<div id='petition-tool' class="tool <%= 'un' unless current_user.try(:signed?, @actionPage.petition) || params[:thankyou] -%>signed">
+  <div class="tool-container">
+    <div class="tool-heading">
+      <h2 class="tool-title signed">
+        <span class='glyphicon glyphicon-ok'></span>Signed
+      </h2>
+      <h2 class="tool-title unsigned">
+        <%= t :sign_the_petition -%>
+      </h2>
+    </div>
+    <div class="tool-body">
+      <%- if @actionPage.petition.goal -%>
+        <div id="progress-bar">
+          <div class='count'><b><%= @signature_count -%></b> /
+            <span class='goal'><%= @actionPage.petition.goal -%> <%= t :signatures -%></span>
+          </div>
+          <div class="progress">
+            <div class="progress-bar progress-bar-danger signatures-bar" role="progressbar" aria-valuenow="<%= @signature_count -%>>" aria-valuemin="0" aria-valuemax="<%= @actionPage.petition.goal-%>" style="width: <%= @actionPage.petition.percent_complete -%>%">
+            </div>
+          </div>
+        </div>
+      <% else %>
+        <div id="progress-bar">
+          <div class='count'><b><%= @signature_count -%></b><span class='goal'> <%= t :signatures -%></span>
+          </div>
+        </div>
+
+      <% end -%>
+        <div class='signed'>
+          <div class='vertical-share'>
+            <b class='small'>Now help spread the word:</b>
+            <a href='<%= twitter_share_url(@actionPage) -%>' class='twitter twitter-button'>
+              <div class="sicon" id="stwit"></div>
+              <div class="share-label">Share on Twitter</div>
+            </a>
+            <a href='<%= facebook_share_url(@actionPage) -%>' class='facebook facebook-button'>
+              <div class="sicon" id="sfb"></div>
+              <div class="share-label">Share on Facebook</div>
+            </a>
+            <a href='<%= google_share_url(@actionPage) -%>' class='google google-button'>
+              <div class="sicon" id="sgplus"></div>
+              <div class="share-label">Share on Google+</div>
+            </a>
+          </div>
+          <b class='small'>
+            Have you
+            <a href='https://supporters.eff.org/donate'>donated to EFF</a>
+            lately?
+            <% if !current_user %>
+            <br />
+            <strong><a href="/register">Sign up</a> for an EFF Action account and save your information for next time.</strong>
+            <% end %>
+          </b>
+        </div>
+        <div class='unsigned'>
+          <%= form_for @signature, url: '/tools/petition',
+            html: {class: 'petition-tool'} do |f| -%>
+            <%= f.hidden_field :petition_id -%>
+            <input type="hidden" name="action_id" value="<%= @actionPage.id %>" />
+
+            <fieldset>
+              <%= f.email_field :email, placeholder: 'Email', required: true,
+                class: 'form-control', pattern: '.*\S+.*', title: t('petition_errors.required.email')
+              -%>
+            </fieldset>
+            <fieldset>
+              <%= f.text_field :first_name, placeholder: t(:first_name), required: true,
+                class: 'form-control', pattern: '.*\S+.*', title: t('petition_errors.required.first_name')
+              -%>
+            </fieldset>
+            <fieldset>
+              <%= f.text_field :last_name, placeholder: t(:last_name), required: true,
+                class: 'form-control', pattern: '.*\S+.*', title: t('petition_errors.required.last_name')
+              -%>
+            </fieldset>
+            <fieldset>
+              <span class='intl-toggle'>
+                <div class="row">
+                  <div class="col-xs-6">
+                    <%= f.text_field :zipcode, class: 'form-control', placeholder: t(:zip_code),
+                      title: t('petition_errors.required.zip_code') -%>
+                    </div>
+                    <div class="col-xs-6">
+                      <a class='intl-toggler pull-right hidden-if-no-js'><%= t :outside_the_us -%></a>
+                    </div>
+                  </div>
+              </span>
+            </fieldset>
+            <div class='intl-toggle intl collapse'>
+              <fieldset>
+                <%= f.text_field :city, placeholder: t(:city),
+                  class: 'form-control', pattern: '.*\S+.*', title: t('petition_errors.required.city')
+                -%>
+              </fieldset>
+              <fieldset>
+                <a class='intl-toggler pull-right hidden-if-no-js'><%= t :in_the_us -%></a>
+                <%= f.select :country_code, country_codes, { prompt: t(:country) },
+                  class: 'form-control' -%>
+              </fieldset>
+            </div>
+            <fieldset>
+              <%= render 'tools/save_my_info_option', info: t(%w[email name location]) -%>
+              <div class='checkbox small'>
+                <%= f.label :anonymous, class: :small do -%>
+                  <%= check_box_tag 'signature[anonymous]' -%>
+                  <%= t :dont_show_my_name -%>
+                <% end -%>
+              </div>
+              <%- unless user_signed_in? -%>
+                <div class="email-signup">
+                  <%= t :i -%>
+                  <input type="radio" name="subscribe" value="1" <%= 'checked' unless params[:subscribe] == '0' -%> id="do-subscribe" >
+                  <label class="radio-inline" for="do-subscribe"><%= t :want -%></label>
+
+                  <input type="radio" name="subscribe" value="0" <%= 'checked' if params[:subscribe] == '0' -%> id="do-not-subscribe">
+                  <label class="radio-inline" for="do-not-subscribe"><%= t :do_not_want -%></label>
+                  <%= t :to_sign_up_for_mailings_from -%> <b><%= t :organization_abbreviation -%></b>
+                </div>
+              <% end -%>
+              <% if @actionPage.partner -%>
+                <div class="email-signup">
+                  <%= t :i -%>
+                  <input type="radio" name="partner_newsletter" value="<%= @actionPage.partner.code -%>" id="partner_subscribe">
+                  <label class="radio-inline" for="partner_subscribe"><%= t :want -%></label>
+                  <input type="radio" name="partner_newsletter" value="" id="partner_do_not_subscribe" checked>
+                  <label class="radio-inline" for="partner_do_not_subscribe"><%= t :do_not_want -%></label>
+                  <%= t :to_sign_up_for_mailings_from -%> <b><%= @actionPage.partner.name -%></b>
+                  (<%= link_to 'privacy policy', @actionPage.partner.privacy_url -%>).
+                </div>
+              <% end -%>
+            </fieldset>
+
+            <%= f.submit t(:speak_out), class: 'btn'-%>
+            <%= render 'tools/loading' -%>
+          <% end %>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div id='signatures' class="hidden-xs">
+  <h4 class='header'><em><%= t :recent_signatories -%></em></h4>
+  <table class="table">
+    <tbody>
+    <% @signatures.each do |signature| %>
+      <tr>
+        <td>
+          <div><%= signature.anonymous ? 'Anonymous' : signature.name -%></div>
+          <div><%= signature.anonymous ? signature.country_code : signature.location %></div>
+        </td>
+
+        <td class="timeago" title="<%= signature.created_at.to_time.iso8601 %>">
+          <span style="display:none;" class="plain-date"><%= signature.created_at.strftime("%B %d, %Y") %></span>
+        </td>
+      </tr>
+    <% end %>
+    </tbody>
+  </table>
+</div>

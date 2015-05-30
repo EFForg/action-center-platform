@@ -1,0 +1,42 @@
+/*
+ * This is a manifest file that'll be compiled into application.css, which will include all the files
+ * listed below.
+ *
+ * Any CSS and SCSS file within this directory, lib/assets/stylesheets, vendor/assets/stylesheets,
+ * or vendor/assets/stylesheets of plugins, if any, can be referenced here using a relative path.
+ *
+ * You're free to add application-wide styles to this file and they'll appear at the top of the
+ * compiled file, but it's generally better to create a new file per style scope.
+ *
+ */
+/* Also, remember to change bootstrap-custom.scss if you want to add or remove bootstrap modules*/
+
+
+// Mixins and variables
+@import "bourbon";
+@import "bootstrap-sass/bootstrap/variables";
+@import "application/variables";
+
+// Fonts
+@import "ionicons";
+@import "admin/fonts";
+
+// Base theme from https://github.com/IronSummitMedia/startbootstrap-sb-admin-2/
+@import "admin/sb-admin";
+
+// Base CSS
+@import "admin/base";
+
+// Page specific files
+@import "admin/index";
+@import "admin/edit";
+@import "admin/action_pages";
+@import "admin/email_campaigns";
+@import "admin/image_upload";
+@import "admin/partners";
+
+@import "bootstrap-daterangepicker/daterangepicker-bs3";
+
+#epiceditor {
+  border: 1px solid #ccc;
+}

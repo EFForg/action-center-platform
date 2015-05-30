@@ -1,0 +1,13 @@
+<p><strong>Success.</strong> Thanks for signing this petition!</p>
+<% unless user_signed_in? -%>
+  <% unless @user.new_record? -%>
+    <p> You look familiar. If you sign in, we can help you fill out these forms
+    faster. </p>
+    <p> <%= link_to 'Sign in', new_user_session_path,
+      class: 'login btn btn-success' -%> </p>
+  <% else -%>
+    <p> Want us to save your info for the next one? </p>
+    <p> <%= link_to 'Register', new_user_registration_path,
+      class: 'register btn btn-success' -%> </p>
+  <% end -%>
+<% end -%>

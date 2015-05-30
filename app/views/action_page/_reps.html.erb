@@ -1,0 +1,6 @@
+<% @reps.each do |rep| -%>
+  <div class='rep <%= rep.chamber -%>'>
+    <img src="<%= rep_photo_src(rep.bioguide_id) -%>" class='rep'>
+    <%= rep_tweet_link(rep) -%>
+  </div>
+<% end -%>

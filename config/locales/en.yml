@@ -1,0 +1,66 @@
+# Files in the config/locales directory are used for internationalization
+# and are automatically loaded by Rails. If you want to use locales other
+# than English, add the necessary files in this directory.
+#
+# To use the locales, use `I18n.t`:
+#
+#     I18n.t 'hello'
+#
+# In views, this is aliased to just `t`:
+#
+#     <%= t('hello') %>
+#
+# To use a different locale, set it with `I18n.locale`:
+#
+#     I18n.locale = :es
+#
+# This would use the information in config/locales/es.yml.
+#
+# To learn more, please read the Rails Internationalization guide
+# available at http://guides.rubyonrails.org/i18n.html.
+
+en:
+  organization_name: Electronic Frontier Foundation
+  organization_abbreviation: EFF
+  site_title: EFF Action Center
+  front_page_header_html: HELP US <strong>FIGHT</strong> FOR YOUR <strong>DIGITAL RIGHTS</strong>
+  summary: Defend free speech. Fight surveillance. Support innovation.
+  take_action: Take action
+  your_account: Your EFF Action Account
+  see_all_campaigns: See all our campaigns
+  admin_header_html: <h1>EFF <strong>ACTION CENTER</strong> ADMIN</h1>
+  email_layout:
+    footer_html: This is a one-time confirmation email.<br>You will not receive further correspondence from EFF unless you have also subscribed to one of our newsletters or take action using one of the tools on our site. EFF appreciates your support and respects your <a href="https://www.eff.org/policy">privacy</a>.
+  email_friends:
+    subject: "Join me in taking action"
+    message: "I just took part in an Electronic Frontier Foundation campaign titled \"%{title}\".
+             \r\n\r\nWill you join me? Take action here: %{url}"
+  location: location
+  name: name
+  email: email
+  save_my_info: Save my %{info} for next time.
+  dont_show_my_name: Don't show my name or city on this page (we'll only list your country).
+  i: I
+  want: want
+  do_not_want: do not want
+  to_sign_up_for_mailings_from: to sign up for mailings from
+  outside_the_us: Outside the US?
+  in_the_us: In the US?
+  speak_out: Speak Out
+  recent_signatories: Recent Signatories
+  signed: Signed
+  your_name: Your Name
+  sign_the_petition: Sign the petition
+  signatures: signatures
+  first_name: First Name
+  last_name: Last Name
+  zip_code: Zip Code
+  city: City
+  country: Country
+  petition_errors:
+    required:
+      email: Enter a valid email
+      first_name: Enter your first name
+      last_name: Enter your last name
+      zip_code: Enter your 5 or 9 digit zip code
+      city: Enter your city

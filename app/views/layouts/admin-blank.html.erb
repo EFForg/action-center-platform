@@ -1,0 +1,11 @@
+<% content_for :head do %>
+ <%= stylesheet_link_tag 'admin/admin', media: "all" %>
+ <%= javascript_include_tag 'admin-head' %>
+<% end %>
+
+<% content_for :body do %>
+  <%= javascript_include_tag "admin"  %>
+  <%= yield :charts_js %>
+<% end %>
+
+<%= render template: 'layouts/application-blank' -%>

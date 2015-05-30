@@ -1,0 +1,77 @@
+/*!
+  * domready (c) Dustin Diaz 2014 - License MIT
+  */
+!function (name, definition) {
+
+  if (typeof module != 'undefined') module.exports = definition()
+  else if (typeof define == 'function' && typeof define.amd == 'object') define(definition)
+  else this[name] = definition()
+
+}('domready', function () {
+
+  var fns = [], listener
+    , doc = document
+    , hack = doc.documentElement.doScroll
+    , domContentLoaded = 'DOMContentLoaded'
+    , loaded = (hack ? /^loaded|^c/ : /^loaded|^i|^c/).test(doc.readyState)
+
+
+  if (!loaded)
+  doc.addEventListener(domContentLoaded, listener = function () {
+    doc.removeEventListener(domContentLoaded, listener)
+    loaded = 1
+    while (listener = fns.shift()) listener()
+  })
+
+  return function (fn) {
+    loaded ? fn() : fns.push(fn)
+  }
+
+});
+
+/*!
+  * EFF Action Center include iframe
+  * AGPLv3
+  */
+(function() {
+  var iframe_tag = document.createElement('iframe');
+
+  function receiveMessage(event){
+    if(event.origin == "<%= (request.env['HTTPS'] == 'on' ? "https://" : "http://") + request.env['HTTP_HOST'] %>"){
+      var window_height = event.data;
+      iframe_tag.height = window_height + "px";
+    }
+  }
+  window.addEventListener("message", receiveMessage, false);
+
+  domready(function(){
+    var widget = document.getElementById("action-center-widget");
+    var width = 500;
+
+
+    var embed_url = widget.getAttribute("href") + "/embed_iframe?";
+    if(typeof ac_embed !== "undefined"){
+      if("width" in ac_embed){
+        width = ac_embed.width;
+      }
+      if("css" in ac_embed){
+        embed_url += "&css=" + encodeURIComponent(ac_embed.css);
+      }
+      if("no_css" in ac_embed && ac_embed.no_css == true){
+        embed_url += "&no_css=true";
+      }
+      if("css_content" in ac_embed){
+        var css_content = document.querySelector(ac_embed.css_content).innerHTML;
+        embed_url += "&css_content=" + escape(css_content);
+      }
+    }
+
+    iframe_tag.setAttribute("src",embed_url);
+    iframe_tag.setAttribute("frameborder",0);
+    iframe_tag.setAttribute("width",width);
+
+    widget.parentNode.insertBefore(iframe_tag, widget);
+
+    widget.remove();
+  });
+})();

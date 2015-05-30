@@ -1,0 +1,721 @@
+<%= form_for @actionPage,
+  url: { controller: :action_pages,
+         action: (@actionPage.new_record? ? :create : :update)},
+  :html => { id: 'action-page-form', multipart: true }  do |f| -%>
+
+  <div class="simple-header update-action-bar" data-spy="affix" data-offset-top="70" >
+    <div class="container-fluid">
+      <div class="row" >
+        <div class="col-sm-3 col-md-4 hidden-xs">
+            <%- unless @actionPage.new_record? -%>
+              <h1 class="page-title">Edit Action</h1>
+            <% else %>
+              <h1 class="page-title">Create Action</h1>
+            <% end -%>
+        </div>
+        <div class="col-sm-9 col-md-8 text-right pull-right">
+          <div class="form-inline published-container <%= "is-published" if @actionPage.published? %>">
+            <div class="form-group published-checkbox">
+              <%= f.label :published do -%>
+              <%= f.check_box :published -%>Published
+            </div>
+            <% end -%>
+          </div>
+          <%= button_tag :type => 'submit', :class => 'btn btn-success save' do %>
+            <i class="icon ion-ios-cloud-upload-outline"></i> Save
+          <% end %>
+          <%- unless @actionPage.new_record? -%>
+            <%= link_to action_page_path(@actionPage),
+              class: 'btn btn-info preview', target: "_blank" do -%>
+              <i class="icon ion-ios-photos-outline"></i> View
+            <% end -%>
+            <%= link_to  admin_action_page_preview_path(@actionPage),
+              class: 'btn btn-info preview', target: "_blank", id: 'action-page-preview' do -%>
+              <i class="icon ion-ios-eye-outline"></i> Preview
+            <% end -%>
+          <% end -%>
+          <%- unless @actionPage.published == true -%>
+            <span class='small help-block'>Only admins can view this page until it is published</span>
+          <% end -%>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class='container-fluid edit-action'>
+    <div class="tabs-left">
+      <ul class="nav nav-tabs responsive" id="tabs">
+        <li>
+          <%= link_to admin_action_pages_path do %>
+            <i class="icon ion-ios-arrow-back"></i> Back
+          <% end %>
+        </li>
+        <li class="active">
+          <a data-tab='contents' href="#contents" data-toggle="tab">
+            <i class="icon ion-document-text"></i> Content
+          </a>
+        </li>
+        <li>
+          <a data-tab='action' href="#action" data-toggle="tab">
+            <i class="icon ion-flash"></i> Action Settings
+          </a>
+        </li>
+        <li>
+          <a data-tab='photo' href="#photo-settings" data-toggle="tab">
+            <i class="icon ion-camera"></i> Photos
+          </a>
+        </li>
+        <li>
+          <a data-tab='social' href="#social-settings" data-toggle="tab">
+            <i class="icon ion-social-twitter"></i> Social
+          </a>
+        </li>
+        <li>
+          <a data-tab='email' href="#email-settings" data-toggle="tab">
+            <i class="icon ion-email"></i> Email
+          </a>
+        </li>
+        <li>
+          <a data-tab='victory' href="#victory" data-toggle="tab">
+            <i class="icon ion-flag"></i> Victory/Archive
+          </a>
+        </li>
+        <% if @actionPage.id %>
+        <li>
+          <a data-tab='analytics' href="#analytics" data-toggle="tab">
+            <i class="icon ion-arrow-graph-up-right"></i> Analytics
+          </a>
+        </li>
+        <% end %>
+        <li class="pull-right open-gallery">
+          <a href="#" data-toggle="modal" data-target="#myModal">
+            <i class="icon ion-images"></i> Open Gallery
+          </a>
+        </li>
+      </ul>
+
+      <!-- Tab panes -->
+      <div class="tab-content responsive">
+
+        <!-- BEGIN CONTENT TAB -->
+        <div class="tab-pane active" id="contents">
+
+          <div class='row'>
+            <div class='col-md-10'>
+              <div class="form-group">
+                <%= f.label :title -%>
+                <%= f.text_field :title -%>
+              </div>
+              <div class="form-group">
+                <%= f.label :summary -%>
+                <div class="epiceditor" id="epic-action-summary"></div>
+                <%= f.text_area :summary, :id => 'action-summary', :style => 'display: none;' -%>
+                <p>Need help writing Markdown? Check out this <a href="https://gist.github.com/jonschlinkert/5854601"target="_blank">Cheatsheet</a> or <a class="photo-specs-popover" href="#"
+                        data-container="body"
+                        data-toggle="popover"
+                        data-html="true"
+                        data-trigger="hover"
+                        data-placement="auto bottom"
+                        data-content="<pre>**bold**  _italics_ <br>#h1, ##h2<br>> blockquote<br>* bullet point<br>[link](http://link)<br>![Image title](http://image.png)</pre>">hover here</a>.</p>
+              </div>
+              <div class="form-group">
+                <%= f.label :description -%>
+                <div class="epiceditor" id="action-page-description" style="min-height: 200px;"></div>
+                <%= f.text_area :description, :id => 'description', :style => 'display: none;' -%>
+              </div>
+
+              <div class="panel panel-default">
+                <div class="panel-heading">Protips for your description!</div>
+                <div class="panel-body">
+                  <ul class="small">
+                    <li>
+                      <strong>Want awesome section headers?</strong> 
+                      Use this Markdown snippet to make some awesome section headers: <code>### **Amaze**</code>
+                    </li>
+                    <li>
+                      <strong>Using images in your description?</strong> 
+                      Make them extra-wide using <a href="#" id="protip2" data-toggle="popover"  data-trigger="click" data-html="false" data-content='<img class="full-width" src="http://image-url" />'>this syntax</a>.
+                    </li>
+                    <li>
+                      <strong>Want a pretty letter?</strong> 
+                      Use <a href="#" id="protip3" data-toggle="popover"  data-trigger="click" data-html="true" data-content='<pre class="small">``` letter<br>Type your letter text here!<br>```</pre>'>this syntax</a> and your text will appear formatted nicely! Note: when you use this the petition letter will magically disappear.
+                    </li>
+                  </ul>
+                  <p class="small">
+                  </p>
+                </div>
+              </div>
+
+            </div>
+
+          </div><!-- END .row -->
+        </div><!-- END .tab-pane -->
+        <!-- END CONTENT TAB -->
+        
+
+        <!-- BEGIN ACTION TAB -->
+        <div class="tab-pane" id="action">
+          <div class="row">
+            <div class='col-md-10 tools-container'>
+              <div class='panel panel-warning'>
+                <div class='panel-heading'>
+                  <%= f.check_box :enable_call,
+                    data: {toggle: 'collapse', target: '#call-fields'} -%>
+                    <%= f.label :enable_call -%>
+                </div>
+
+                <div id='call-fields' class='panel-body collapse <%= 'in' if @actionPage.enable_call? -%>'>
+
+                  <%= f.fields_for :call_campaign do |t| -%>
+                    <div class="form-group">
+                      <%= t.label :title %>
+                      <%= t.text_field :title %>
+                    </div>
+                    <div class="form-group">
+                      <%= t.label :call_campaign_id, "Campaign Id" %>
+                      <%= t.text_field :call_campaign_id %>
+                    </div>
+                    <div class="form-group">
+                      <%= t.label :call_campaign_id, "What to say" %>
+                      <div class="epiceditor" id="action-page-what-to-say"></div>
+                      <%= t.text_area :message, :id => 'what-to-say', :style => 'display: none;' %>
+                    </div>
+                  <% end -%>
+                </div>
+              </div><!-- END div.panel.panel-warning -->
+
+              <div class='panel panel-success'>
+                <div class='panel-heading'>
+                  <%= f.check_box :enable_petition,
+                    data: {toggle: 'collapse', target: '#petition-fields'} %>
+                    <%= f.label :enable_petition %>
+                </div>
+                <div id='petition-fields' class='panel-body collapse <%= 'in' if @actionPage.enable_petition? -%>'>
+                  <%= f.fields_for :petition do |p| %>
+                    <%= p.hidden_field :id %>
+                    <div class="form-group">
+                      <%= p.label :title %>
+                      <%= p.text_field :title %>
+                    </div>
+                    <div class="form-group">
+                      <%= p.label :description %>
+                      <div class="epiceditor" id="epic-petition-description"></div>
+                      <%= p.text_area :description, :id => 'petition-description', :style => 'display: none;' %>
+                    </div>
+                    <div class="form-group">
+                      <%= p.label :goal %>
+                      <%= p.text_field :goal %>
+                    </div>
+                  <% end -%>
+                  <div class="form-group">
+                    <%= f.label :partner_id, 'Partner newsletter' -%>
+                    <%= f.collection_select :partner_id, Partner.all, :id, :name,
+                      {include_blank: 'None'}, {class: 'form-control'} -%>
+                    <p class='hint-text small'><%= link_to 'Add or edit partners', admin_partners_path, target: :blank -%></p>
+                  </div>
+                </div>
+              </div><!-- END div.panel.panel-success -->
+
+              <div class='panel panel-info'>
+                <div class='panel-heading'>
+                  <%= f.check_box :enable_tweet,
+                    data: {toggle: 'collapse', target: '#tweet-fields'} %>
+                  <%= f.label :enable_tweet %>
+                </div>
+                <div id='tweet-fields' class='panel-body collapse <%= 'in' if @actionPage.enable_tweet? -%>'>
+                  <%= f.fields_for :tweet do |t| %>
+                    <div class="form-group">
+                      <%= t.label :cta, "Call to Action" %>
+                      <%= t.text_field :cta %>
+                    </div>
+                    <div class="form-group">
+                      <%= t.label :message %>
+                      <%= t.text_area :message %>
+                    </div>
+                    <div class="form-group">
+                      <label>Targets</label>
+                      <fieldset class='target-fields congress'>
+                        <%= t.label :target_house do %>
+                          <%= t.check_box :target_house %> House
+                        <% end -%>
+                        <%= t.label :target_senate do %>
+                            <%= t.check_box :target_senate %> Senate
+                        <% end -%>
+                      </fieldset>
+                    </div>
+                    <div class="form-group">
+                      <fieldset class='target-fields individuals'>
+                        <label>Individuals:</label>
+                        <table class='table table-striped'>
+                          <thead>
+                            <tr>
+                              <th>
+                                Handle
+                              </th>
+                              <th>
+                                Photo
+                                (<a class="photo-specs-popover" href="#"
+                                  data-container="body"
+                                  data-toggle="popover"
+                                  data-title="photo specs"
+                                  data-html="true"
+                                  data-trigger="hover"
+                                  data-placement="auto bottom"
+                                  data-content="<ul><li>Recommended size: w=200px, h=200px</li><li>Max file size: 100kB</li><ul>">specs</a>)
+                              </th>
+                              <th>
+                                Delete
+                              </th>
+                            </tr>
+                          </thead>
+                          <tbody>
+                            <%= t.fields_for :tweet_targets do |tt| -%>
+                              <tr class='tweet-target'>
+                                <td>
+                                  <%= link_to '@' + tt.object.twitter_id, tt.object.url, target: "_blank" %>
+                                </td>
+                                <td>
+                                  <%= tt.hidden_field :image, class: 'image-input', value: '' -%>
+                                  <%= render 'tweet_target_image', image: tt.object.image -%>
+                                </td>
+                                <td>
+                                  <%= tt.check_box :_destroy, class: 'destroy' %>
+                                </td>
+                              </tr>
+                            <% end -%>
+                          </tbody>
+                        </table>
+                        <%= label_tag :add_targets do -%>
+                          Add targets (one per line, without the '@'):
+                        <% end -%>
+                        <%= text_area_tag :add_targets %>
+                      </fieldset>
+                    </div>
+                  <% end -%>
+                </div>
+              </div><!-- END div.panel.panel-info -->
+
+              <div class='panel panel-danger'>
+                <div class='panel-heading'>
+                  <%= f.check_box :enable_email,
+                    data: {toggle: 'collapse', target: '#email-fields'} %>
+                  <%= f.label :enable_email %>
+                </div>
+                <div id='email-fields' class='panel-body collapse <%= 'in' if @actionPage.enable_email? -%>'>
+
+                  <%= f.fields_for :email_campaign do |t| %>
+
+                    <div class="form-group">
+                      <%= t.label :subject %>
+                      <%= t.text_field :subject %>
+                    </div>
+                    <div class="form-group">
+                      <%= t.label :message %>
+                      <%= t.text_area :message %>
+                    </div>
+                    <div class="form-group">
+                      <label>Targets</label>
+                      <fieldset class='target-fields congress'>
+                        <%= t.label :target_house do -%>
+                          <%= t.check_box :target_house %> House
+                        <% end -%>
+                        <%= t.label :target_senate do -%>
+                          <%= t.check_box :target_senate %> Senate
+                        <% end -%>
+                        <%= t.label :target_email do -%>
+                          <%= t.check_box :target_email -%> Specific email address(es)
+                        <% end -%>
+                        <%= t.text_field :email_addresses, placeholder: "Addresses (comma separated)" %>
+                        <%= t.label :target_bioguide_id do -%>
+                          <%= t.check_box :target_bioguide_id -%> Specific bioguide id(s)
+                        <% end -%>
+                        <%= t.text_field :bioguide_id, placeholder: "Bioguide ids (comma separated)" %>
+                        <div id='text_replacement_form_group' class="form-group">
+                          <hr>
+                          <%= t.label :alt_text_email_your_rep do -%>
+                            Replace "Email Your Representatives" text with:
+                          <% end -%>
+                          <%= t.text_field :alt_text_email_your_rep -%>
+                          <%= t.label :alt_text_look_up_your_rep do -%>
+                            Replace "Look Up Your Representatives" text with:
+                          <% end -%>
+                          <%= t.text_field :alt_text_look_up_your_rep -%>
+                          <%= t.label :alt_text_extra_fields_explain do -%>
+                            Replace extra fields explanation text with:
+                          <% end -%>
+                          <%= t.text_field :alt_text_extra_fields_explain -%>
+                          <%= t.label :alt_text_look_up_helper do -%>
+                            Replace 'look up' helper text with:
+                          <% end -%>
+                          <%= t.text_field :alt_text_look_up_helper -%>
+                          <%= t.label :alt_text_customize_message_helper do -%>
+                            Replace 'customize message' helper text with:
+                          <% end -%>
+                          <%= t.text_field :alt_text_customize_message_helper -%>
+                        </div>
+                      </fieldset>
+                    </div>
+                    <div id='topic_category_form_group' class="form-group">
+                      <%= t.label :topic_category %>
+                      <%= t.collection_select :topic_category_id, @topic_categories, :id, :name, prompt: true %>
+                    </div>
+                    <div id='campaign_tag_form_group' class="form-group">
+                      <%= t.label :campaign_tag %>
+                      <%= t.text_field :campaign_tag %>
+                    </div>
+
+                  <% end -%><!-- END f.fields_for :email_campaign -->
+                </div>
+              </div><!-- END div.panel.panel-danger -->
+
+              <div class='panel panel-default'>
+                <div class='panel-heading'>
+                  <%= f.check_box :enable_redirect,
+                    data: {toggle: 'collapse', target: '#redirect-fields'} %>
+                  <%= f.label :enable_redirect %>
+                </div>
+                <div id='redirect-fields' class='panel-body collapse <%= 'in' if @actionPage.enable_redirect? -%>'>
+                  <div class="form-group">
+                    <%= f.label :redirect_url %>
+                    <%= f.text_field :redirect_url %>
+                  </div>
+
+                </div>
+              </div><!-- END div.panel.panel-default -->
+
+            </div><!-- END .tools-container -->
+          </div>
+        </div><!-- END .tab-pane -->
+        <!-- END ACTION TAB -->
+
+        <!-- BEGIN PHOTO SETTINGS TAB -->
+        <div class="tab-pane" id="photo-settings">
+          <div class="row">
+
+            <div class="col-md-6 ">
+              <div class="form-group">
+                <h2>Featured photo</h2>
+                <%= f.hidden_field :featured_image, value: '' -%>
+                <%= render 'attached_image', image: @actionPage.featured_image -%>
+                <h4>Specifications:</h4>
+                <ul>
+                  <li>Recommended size: w=600px, h=315px</li>
+                  <li>Run JPEGs through <a href="http://imageoptim.com/mozjpeg">MozJPEG</a> to compress</li>
+                  <li>File size should be <strong>no greater than 40kB</strong></li>
+                </ul>
+              </div>
+            </div>
+
+            <div class="col-md-6">
+              <div class="form-group">
+                <h2>Background photo</h2>
+                <%= f.hidden_field :background_image, value: '' -%>
+                <%= render 'attached_image', image: @actionPage.background_image -%>
+                <h4>Specifications:</h4>
+                <ul>
+                  <li>Recommended size: w=1440px, h=400px</li>
+                  <li><strong>Must be dark</strong> (so white text shows)</li>
+                  <li>Run JPEGs through <a href="http://imageoptim.com/mozjpeg">MozJPEG</a> to compress</li>
+                  <li>File size should be <strong>no greater than 120kB</strong></li>
+                <ul>
+              </div>
+            </div>
+
+          </div>
+        </div><!-- .tab-pane -->
+        <!-- TABEND -->
+
+
+        <!-- BEGIN SOCIAL SETTINGS TAB -->
+        <div class="tab-pane" id="social-settings">
+          <div class="row">
+            <div class="col-md-9 col-md-offset-1">
+              <div class="form-group">
+                <%= f.label :share_message do -%>
+                  Tweet text
+                  <span>(URL is automatically added to the end)</span>
+                <% end %>
+                <%= f.text_field :share_message, :data => {:maxlength => '116'}, :class  => "charactercount" -%>
+              </div>
+              <div class="form-group">
+                <%= f.label :og_title do -%>
+                  Open Graph Title <span>(FB = 100chars, TWTR = 70chars)</span>
+                <% end %>
+                <%= f.text_field :og_title, placeholder: 'Defaults to action title', :data => {:maxlength => '70'}, :class  => "charactercount"  -%>
+              </div>
+              <div class="form-group">
+                <%= f.hidden_field :og_image, value: ''-%>
+                <%= f.label :og_image do -%>
+                  Open Graph Image <span>(Should be 1200px x 630px)</span>
+                <% end -%>
+                <%= render 'attached_image', image: @actionPage.og_image -%>
+              </div>
+            </div>
+          </div>
+        </div><!-- .tab-pane -->
+        <!-- TABEND -->
+
+
+        <!-- BEGIN EMAIL SETTINGS TAB -->
+        <div class="tab-pane" id="email-settings">
+          <div class="col-sm-8">
+            <div class="form-group">
+              <%= f.label :email_text, 'Email text' -%>
+              <div class="epiceditor" id="epic-email-text"></div>
+              <%= f.text_area :email_text, :id => 'email-text', :style => 'display: none;' -%>
+            </div>
+          </div>
+          <div class="col-sm-4">
+            <h3>How it works</h3>
+            <p>This email is only sent when a user takes an Email or Petition action, or if we have the user's email saved in their account.</p>
+            <p>Special strings shown below are automatically replaced with generated content.</p>
+            <br>
+            <h3>Auto-inserted text</h3>
+            <p><strong>$SHAREBUTTONS</strong> is replaced with Facebook/Twitter/Google Plus/Email share buttons</p>
+            <p><strong>$TITLE</strong> is replaced with title of the action.</p>
+            <p><strong>$URL</strong> is replaced with the URL of the page they took action on.</p>
+            <br>
+            <h3>Preview the email</h3>
+            <p>Make sure to save your changes by clicking "Update Action Page" before previewing.</p>
+            <% if @actionPage.id %>
+              <p><%= link_to "Preview this email", { controller: 'mailer', action: 'preview_thanks', id: @actionPage} , target: "_blank", class: "btn btn-sm btn-success" %></p>
+            <% else %>
+              <p><em>Waiting for you to save</em></p>
+            <% end %>
+          </div>
+        </div><!-- .tab-pane -->
+        <!-- TABEND -->
+
+
+        <!-- BEGIN VICTORY TAB -->
+        <div class="tab-pane" id="victory">
+          <div class="row">
+            
+            <div class="col-md-6">
+
+              <h2>Archive</h2>
+
+              <p>Archived actions are hidden on the website and their tools are disabled. You should generally archive actions once they reach their end of life rather than deleting them.</p>
+              <p>Archived actions are hidden from everywhere on the site except the dashboards of users who have already taken that action.</p>
+              <p>You can optionally set up to redirect visitors to a different action page.</p> 
+              <h4>When a redirect is set:</h4>
+              <ul>
+                <li>Logged-in users who have already taken this action can still view the action (as a historical record). As a result, links from the list of completed actions in their dashboard will still work.</li>
+                <li>Logged-in users who haven't taken this action and all logged-out users will be immediately redirected to the new page.</li>
+              </ul>
+              <h4>When the redirect is disabled:</h4>
+              <ul>
+                <li>All users will be shown the same message, indiciating that the action is archived.</li>
+              </ul>
+
+              <div class='panel panel-warning'>
+
+                <div class='panel-heading'>
+                  <%= f.check_box :archived, 
+                    data: {toggle: 'collapse', target: '#archived-fields'} -%>
+                  <%= f.label :archived do -%>Archive this action<% end -%>
+                </div>
+
+                <div id='archived-fields' class='panel-body collapse <%= 'in' if @actionPage.archived? -%>'>
+                  <div class="form-group">
+                    <%= f.label :archived_redirect_action_page_id do -%>Redirect:<% end %>
+                    <%= collection_select :action_page, :archived_redirect_action_page_id, ActionPage.all.where.not(id: @actionPage.id), :id, :title, {:include_blank => "  Disabled", :object => @actionPage}, {:class => 'form-control'} %>
+                  </div>
+                </div><!-- #archived-fields -->
+                
+              </div><!-- .panel-warning -->
+            </div><!-- .col-md-6 -->
+
+            <div class="col-md-6">
+              <h2>Victory</h2>
+
+              <p>Ah, sweet, elusive victory ...</p> 
+              <p>Enabling this setting replaces the action with a victory message. In the future, we plan to add a "victorious campaigns" section of the website to showcase how awesome you and your organization are.</p>
+
+              <div class='panel panel-success'>
+                <div class='panel-heading'>
+                  <%= f.check_box :victory,
+                    data: {toggle: 'collapse', target: '#victory-fields'} -%>
+                  <%= f.label :victory do -%>Declare victory!<% end -%>
+                </div>
+
+                <div id='victory-fields' class='panel-body collapse <%= 'in' if @actionPage.victory? -%>'>
+                  <%= f.label :victory_message do -%>Set a victory message (supports markdown):<% end -%>
+                  <div class="epiceditor" id="epic-victory-message"></div>
+                  <%= f.text_area :victory_message, :id => 'victory-message', :style => 'display: none;' -%>
+                </div>
+              </div><!-- .panel-success -->
+
+            </div><!-- .col-md-6 -->
+
+          </div><!-- .row -->
+        </div><!-- .tab-pane -->
+        <!-- TABEND -->
+
+        <!-- BEGIN ANALYTICS TAB -->
+        <% if @actionPage.id -%>
+          <div class="tab-pane" id="analytics">
+            <div class="row">
+              <div class="col-sm-6">
+                <span class='alert alert-warning times-notification'><i class="icon-attention"></i> All dates and times are given in <%= Time.zone.name %></span>
+              </div>
+              <div class="col-sm-6 text-right">
+                <%= render 'admin/action_pages/date_range_form' -%>
+              </div>
+            </div>
+            <hr />
+            <div class="row">
+              <div class="col-sm-12">
+                <h3>Action Page Views</h3>
+                <%= if @date_start == @date_end
+                  @data = @actionPage.events.views.where('time BETWEEN ? AND ?', @date_start, @date_end + 1.day).group_by_hour(:time, format: '%Y-%m-%d %H:%M:00 UTC').count
+                else
+                  @data = @actionPage.events.views.where('time BETWEEN ? AND ?', @date_start, @date_end).group_by_day(:time, format: '%Y-%m-%d 00:00:00 UTC').count
+                end
+                line_chart(
+                  [{
+                    name: "Total Page Views",
+                    data: @data
+                  }],
+                  library: {canvasDimensions: {width: 800, height: 300}}
+                ) %>
+
+                <% if @actionPage.enable_email? && @actionPage.email_campaign %>
+                  <h3>Email Tool</h3>
+                  <%= if @date_start == @date_end
+                    @data = @actionPage.events.emails.where('time BETWEEN ? AND ?', @date_start, @date_end + 1.day).group_by_hour(:time, format: '%Y-%m-%d %H:%M:00 UTC').count
+                  else
+                    @data = @actionPage.events.emails.where('time BETWEEN ? AND ?', @date_start, @date_end).group_by_day(:time, format: '%Y-%m-%d 00:00:00 UTC').count
+                  end
+                  line_chart(
+                    [{
+                      name: "Total Emails",
+                      data: @data
+                    }],
+                    library: {canvasDimensions: {width: 800, height: 300}}
+                  ) %>
+
+                  <h3>Emails Sent</h3>
+                  <%= link_to date_tabulation_admin_email_campaign_path(@actionPage.email_campaign),
+                    target: "_blank" do -%>
+                    <button type='button' class='btn btn-default'>Table View</button>
+                  <% end -%>
+                  <%= link_to congress_tabulation_admin_email_campaign_path(@actionPage.email_campaign),
+                    target: "_blank" do -%>
+                    <button type='button' class='btn btn-default'>Congressional Breakdown</button>
+                  <% end -%>
+                  <%= if @date_start == @date_end
+                    line_chart(
+                      congress_forms_hour_fills_url(@actionPage.email_campaign.campaign_tag, @date_start),
+                      library: {canvasDimensions: {width: 800, height: 300}}
+                    )
+                  else
+                    line_chart(
+                      congress_forms_date_fills_url(@actionPage.email_campaign.campaign_tag, @date_start, @date_end),
+                      library: {canvasDimensions: {width: 800, height: 300}}
+                    )
+                  end %>
+                <% end %>
+
+                <% if @actionPage.enable_call? && @actionPage.call_campaign %>
+                  <h3>Call Tool</h3>
+                  <%= if @date_start == @date_end
+                    @data = @actionPage.events.calls.where('time BETWEEN ? AND ?', @date_start, @date_end + 1.day).group_by_hour(:time, format: '%Y-%m-%d %H:%M:00 UTC').count
+                  else
+                    @data = @actionPage.events.calls.where('time BETWEEN ? AND ?', @date_start, @date_end).group_by_day(:time, format: '%Y-%m-%d 00:00:00 UTC').count
+                  end
+                  line_chart(
+                    [{
+                      name: "Total Calls",
+                      data: @data
+                    }],
+                    library: {canvasDimensions: {width: 800, height: 300}}
+                  ) %>
+                <% end %>
+
+                <% if @actionPage.enable_tweet? && @actionPage.tweet %>
+                  <h3>Tweet Tool</h3>
+                  <%= if @date_start == @date_end
+                    @data = @actionPage.events.tweets.where('time BETWEEN ? AND ?', @date_start, @date_end + 1.day).group_by_hour(:time, format: '%Y-%m-%d %H:%M:00 UTC').count
+                  else
+                    @data = @actionPage.events.tweets.where('time BETWEEN ? AND ?', @date_start, @date_end).group_by_day(:time, format: '%Y-%m-%d 00:00:00 UTC').count
+                  end
+                  line_chart(
+                    [{
+                      name: "Total Tweets",
+                      data: @data
+                    }],
+                    library: {canvasDimensions: {width: 800, height: 300}}
+                  ) %>
+                <% end %>
+
+                <% if @actionPage.enable_petition? && @actionPage.petition %>
+                  <h3 class=clearfix>
+                    Petition Tool
+                    <%= link_to 'Download CSV',
+                      csv_admin_petition_path(@actionPage.petition),
+                      class: 'btn btn-default btn-sm pull-right'-%>
+                  </h3>
+                  <%= link_to 'View Signatures',
+                    admin_petition_path(@actionPage.petition),
+                    class: 'pull-right'-%>
+                  <%= if @date_start == @date_end
+                    @data = @actionPage.events.signatures.where('time BETWEEN ? AND ?', @date_start, @date_end + 1.day).group_by_hour(:time, format: '%Y-%m-%d %H:%M:00 UTC').count
+                  else
+                    @data = @actionPage.events.signatures.where('time BETWEEN ? AND ?', @date_start, @date_end).group_by_day(:time, format: '%Y-%m-%d 00:00:00 UTC').count
+                  end
+                  line_chart(
+                    [{
+                      name: "Total Signatures",
+                      data: @data
+                    }],
+                    library: {canvasDimensions: {width: 800, height: 300}}
+                  ) %>
+                <% end %>
+
+                <div class="clearfix"> </div>
+              </div><!-- .col-sm-12 -->
+            </div><!-- .row -->
+          </div><!-- .tab-pane -->
+        <% end -%>
+        <!-- TABEND-->
+
+      </div><!-- .tab-content -->
+
+    </div><!-- .tabs-left -->
+  </div><!-- .container.edit-action -->
+  
+  <input id='anchor' type=hidden name=anchor>
+  <% unless @actionPage.new_record? -%>
+  <%= f.hidden_field :updated_at, data: {url: admin_action_page_updated_at_path(@actionPage) }-%>
+  <% end -%>
+<% end -%>
+
+<!-- Button trigger modal -->
+
+
+<!-- Modal -->
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog  modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <!--<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>-->
+        <h4 class="modal-title" id="myModalLabel">Gallery</h4>
+      </div>
+      <div class="modal-body">
+          <%= s3_cors_fileupload_form_tag :id => 'fileupload' %>
+
+          <div class="javascript-templates">
+            <%= render 'template_upload' %>
+            <%= render 'template_download' %>
+            <%= render 'template_uploaded' %>
+          </div>
+
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        <!--<button type="button" class="btn btn-primary">Save changes</button>-->
+      </div>
+    </div>
+  </div>
+</div>

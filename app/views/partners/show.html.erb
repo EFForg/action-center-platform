@@ -1,0 +1,87 @@
+
+
+<div class="container-fluid" id="partners">
+    
+  <h1>Howdy, partner!</h1>
+
+  <h4>Thank you for working with us!</h4>
+
+  <p>This partner dashboard allows you to view and download the email addresses of users who've subscribed to your email lists. You can also manage which members of your organization have access to this information.</p>
+
+  <div class='row'>
+    <div class='col-lg-6'>
+      <h4>Partner details:</h4>
+      <table class='table'>
+        <tr>
+          <td> Name </td>
+          <td>
+            <%= @partner.name -%>
+            <%= link_to 'Edit', edit_partner_path(@partner),
+          class: 'btn btn-xs btn-primary' %>
+          </td>
+        </tr>
+        <tr>
+          <td> Privacy Policy </td>
+          <td>
+            <%= link_to @partner.privacy_url, @partner.privacy_url -%>
+            <%= link_to 'Edit', edit_partner_path(@partner),
+          class: 'btn btn-xs btn-primary' %>
+          </td>
+        </tr>
+        <tr>
+          <td> Code </td>
+          <td>
+            <%= @partner.code -%>
+            <%= link_to 'Edit', edit_partner_path(@partner),
+          class: 'btn btn-xs btn-primary' %>
+          </td>
+        </tr>
+      </table>
+    </div>
+    <div class='col-lg-6'>
+      <h4>Administrators</h4>
+      <p>Admins all have access to this page, and can download your list of users. They must sign up for an Action Center account before you can add them.</p>
+      <table class='table'>
+        <% @partner.users.each do |user| -%>
+          <tr>
+            <td> <%= user.email -%> </td>
+            <td>
+              <%= link_to 'Unlink', remove_user_partner_path(@partner, user),
+            class: 'btn btn-xs btn-danger', method: :delete,
+            data: { confirm: 'Are you sure?' } %>
+            </td>
+          </tr>
+        <% end -%>
+        <tr>
+          <td>Add new user:</td>
+          <td>
+            <%= form_tag [:add_user, @partner], class: 'form-inline' do -%>
+              <%= text_field_tag :email, nil, class: 'form-control input-sm' -%>
+              <%= submit_tag 'Add', class: 'btn btn-sm btn-success',
+                data: {confirm: "Allow this user to access private content for #{@partner.name}?"} -%>
+            <% end -%>
+          </td>
+        </tr>
+      </table>
+    </div>
+  </div>
+
+  <h4 class='clearfix'>
+    <%= pluralize @partner.subscriptions.count, 'Subscriber'-%>
+    <%= link_to csv_partner_path(@partner), class: 'btn btn-success btn-xs pull-right' do -%>
+      <i class="icon-link"></i> Download CSV
+    <% end %>
+  </h4>
+  <table class='table-striped table'>
+    <% @subscriptions.each do |sub| -%>
+      <tr>
+        <td> <%= [sub.first_name, sub.last_name].join(' ') -%> </td>
+        <td> <%= sub.email -%> </td>
+        <td> <%= time_ago_in_words(sub.created_at) -%> ago </td>
+      </tr>
+    <% end -%>
+  </table>
+  <%= will_paginate @subscriptions %>
+
+</div>
+
