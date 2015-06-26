@@ -24,6 +24,7 @@ smarty_streets_token:
 congress_forms_debug_key: 
 cors_allowed_domains: http://www.example.com https://www.example.com
 time_zone: 'Eastern Time (US & Canada)'
+amazon_authorize_key:
 
 development:
   supporters_api_key: 

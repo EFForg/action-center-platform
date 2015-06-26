@@ -23,6 +23,7 @@ Actioncenter::Application.routes.draw do
   
   get "smarty_streets/:action", controller: :smarty_streets
   get "petition/:id/recent_signatures", :to => "petition#recent_signatures", :format => 'json'
+  post "bounce/:amazon_authorize_key", :to => "bounce#index", :format => 'json'
 
   # EFF Resources
 
