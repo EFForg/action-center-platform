@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150429232445) do
+ActiveRecord::Schema.define(version: 20150625230944) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -81,8 +81,7 @@ ActiveRecord::Schema.define(version: 20150429232445) do
   add_index "action_pages", ["slug"], name: "index_action_pages_on_slug", using: :btree
   add_index "action_pages", ["tweet_id"], name: "index_action_pages_on_tweet_id", using: :btree
 
-  create_table "ahoy_events", id: false, force: true do |t|
-    t.uuid     "id",             null: false
+  create_table "ahoy_events", id: :uuid, force: true do |t|
     t.uuid     "visit_id"
     t.integer  "user_id"
     t.string   "name"
@@ -95,6 +94,10 @@ ActiveRecord::Schema.define(version: 20150429232445) do
   add_index "ahoy_events", ["time"], name: "index_ahoy_events_on_time", using: :btree
   add_index "ahoy_events", ["user_id"], name: "index_ahoy_events_on_user_id", using: :btree
   add_index "ahoy_events", ["visit_id"], name: "index_ahoy_events_on_visit_id", using: :btree
+
+  create_table "bounces", force: true do |t|
+    t.string "email"
+  end
 
   create_table "call_campaigns", force: true do |t|
     t.datetime "created_at"
@@ -173,8 +176,7 @@ ActiveRecord::Schema.define(version: 20150429232445) do
   add_index "friendly_id_slugs", ["sluggable_id"], name: "index_friendly_id_slugs_on_sluggable_id", using: :btree
   add_index "friendly_id_slugs", ["sluggable_type"], name: "index_friendly_id_slugs_on_sluggable_type", using: :btree
 
-  create_table "locales", id: false, force: true do |t|
-    t.string "locale",   limit: 5,  null: false
+  create_table "locales", primary_key: "locale", force: true do |t|
     t.string "name",     limit: 60, null: false
     t.string "fullname", limit: 60, null: false
   end
@@ -317,8 +319,7 @@ ActiveRecord::Schema.define(version: 20150429232445) do
   add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree
   add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
 
-  create_table "visits", id: false, force: true do |t|
-    t.uuid     "id",               null: false
+  create_table "visits", id: :uuid, force: true do |t|
     t.uuid     "visitor_id"
     t.string   "ip"
     t.text     "user_agent"
