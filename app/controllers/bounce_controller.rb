@@ -1,3 +1,4 @@
+# This is an endpoint for the Amazon SES service to notify us when there are bounced emails.  The JSON expected in `index` is particular to Amazon's SNS notification service, and thus will not work for other services.
 class BounceController < ApplicationController
   skip_before_filter :verify_authenticity_token
 
