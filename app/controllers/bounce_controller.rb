@@ -6,7 +6,8 @@ class BounceController < ApplicationController
     begin
       success = true
       raise ActiveRecord::RecordNotFound unless params['amazon_authorize_key'] == Rails.application.secrets.amazon_authorize_key
-      bounce_arr = JSON.parse(request.body.read)["bounce"]["bouncedRecipients"]
+      message = JSON.parse(request.body.read)['Message']
+      bounce_arr = JSON.parse(message)["bounce"]["bouncedRecipients"]
       bounce_arr.each do |recipient|
         Bounce.create(email: recipient['emailAddress'].downcase)
       end
