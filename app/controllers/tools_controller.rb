@@ -59,12 +59,17 @@ class ToolsController < ApplicationController
 
     if @signature.save
 
+      # You will only get here if you are not logged in.  Subscribe does not show for logged in users,
+      # since they are presented that option at signup.
       if params[:subscribe] == "1"
         @user.attributes = signature_params.slice(
           :email, :first_name, :last_name, :city, :state, :street_address,
           :zipcode, :country_code, :phone
         )
-        @user.subscribe!(opt_in=true)
+
+        @source = "action center petition :: " + @action_page.title
+        @user.subscribe!(opt_in=false, source=@source)
+
       end
       
       if params[:partner_newsletter].present?
@@ -111,6 +116,8 @@ class ToolsController < ApplicationController
   end
 
   def email
+    @user ||= User.find_or_initialize_by(email: params[:email])
+
     if params[:update_user_data] == "true"
       update_user_data(email_params.with_indifferent_access)
     end
@@ -118,6 +125,18 @@ class ToolsController < ApplicationController
     ahoy.track "Action",
       { type: "action", actionType: "email", actionPageId: params[:action_id] },
       action_page: @action_page
+
+    # You will only get here if you are not logged in.  Subscribe does not show for logged in users,
+    # since they are presented that option at signup.
+    if params[:subscribe] == "1"
+      @user.attributes = email_params.slice(
+        :first_name, :last_name, :city, :state, :street_address, :zipcode
+      )
+
+      @source = "action center email :: " + @action_page.title
+      @user.subscribe!(opt_in=false, source=@source)
+
+    end
 
     update_congress_scorecards(email_params[:zipcode])
 

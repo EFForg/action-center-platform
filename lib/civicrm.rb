@@ -8,8 +8,8 @@ module CiviCRM
       )
     end
 
-    def subscribe!(opt_in=false)
-      res = CiviCRM::subscribe contact_attributes.merge(opt_in: opt_in)
+    def subscribe!(opt_in=false, source='action center')
+      res = CiviCRM::subscribe contact_attributes.merge(opt_in: opt_in, source: source)
       update_attributes(contact_id: res['contact_id']) if (res && res['contact_id'])
     end
 
@@ -38,7 +38,7 @@ module CiviCRM
       method: 'import_contact',
       data: {
         contact_params: params.slice(:email, :first_name, :last_name).merge(
-          source: "action center",
+          source: params[:source] || "action center",
           subscribe: params[:subscribe],
           opt_in: params[:opt_in]
         ),
