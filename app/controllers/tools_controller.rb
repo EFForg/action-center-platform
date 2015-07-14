@@ -128,7 +128,7 @@ class ToolsController < ApplicationController
 
     # You will only get here if you are not logged in.  Subscribe does not show for logged in users,
     # since they are presented that option at signup.
-    if params[:subscribe] == "1"
+    if params[:subscribe] == "true"
       @user.attributes = email_params.slice(
         :first_name, :last_name, :city, :state, :street_address, :zipcode
       )

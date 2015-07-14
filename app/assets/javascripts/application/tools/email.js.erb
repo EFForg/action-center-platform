@@ -9,15 +9,6 @@ $(document).on('ready', function() {
     $('.step2-intro').delay(500).slideUp(null, height_changed);
     $('.legislator-label.common-fields').delay(500).slideUp(null, height_changed);
     var action_id = $('[data-action-id]').attr('data-action-id');
-    if($('#do-subscribe').prop('checked')) {
-      $.ajax('/subscriptions', {
-        data: {subscription:{email: $('[id="$EMAIL"]').val(), opt_in: true}},
-        method: 'POST',
-        success: function () {
-          console.log(arguments);
-        }
-      });
-    };
     var url = '/tools/email?action_id=' + action_id;
     $.ajax({
       url: url,
@@ -29,7 +20,8 @@ $(document).on('ready', function() {
         street_address: $('[id="$ADDRESS_STREET"]').val(),
         zipcode: $('[id="$ADDRESS_ZIP5"]').val(),
         city: $('[id="$ADDRESS_CITY"]').val(),
-        update_user_data: $('#update_user_data').prop('checked')
+        update_user_data: $('#update_user_data').prop('checked'),
+        subscribe: $('[name="subscribe"]').prop('checked')
       },
       type: 'POST',
       success: function(res) {},
@@ -68,7 +60,7 @@ $(document).on('ready', function() {
 
           $('[id="$CAPTCHA_SOLUTION"]').val('test').hide();
           if($('body.logged-in').length == 0) {
-            $("input[type=email]").parent().after(emailSignupForm);
+            $("input[name='$EMAIL']").parent().after(emailSignupForm);
           }
           $('#congressForms-common-fields').after($('.update-user-data-container').show());
 
