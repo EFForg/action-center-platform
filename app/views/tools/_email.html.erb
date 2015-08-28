@@ -10,8 +10,6 @@
     </div>
 
     <% if @email_campaign.target_email -%>
-      <%= javascript_include_tag 'zeroclipboard' %>
-      <script>var load_zero_clipboard = 1; </script>
       <div class="tool-body" id="target-email">
         <p>Send this email:</p>
         <fieldset disabled>

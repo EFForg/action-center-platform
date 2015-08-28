@@ -264,34 +264,6 @@ $(document).on('ready', function() {
     $('.email-tool-success-share').delay(5000).slideDown(600, height_changed);
   });
 
-  // Check to see if load_zero_clipboard is set to 1 somewhere. If so, load zero_clipboard
-  
-  if (typeof load_zero_clipboard !== 'undefined' && load_zero_clipboard == 1 ) {
-    var clip = new ZeroClipboard($("#copy-email-action")), action_uri;
-
-    clip.on("ready", function(event){
-      action_uri = $("#copy-email-action").attr('href');
-
-      $("#copy-email-action").attr('href','#');
-      $("#copy-email-action").removeAttr('target');
-      $('#copy-email-action').tooltip();
-    });
-
-    $('#global-zeroclipboard-html-bridge').mouseenter(function(){
-      $('#copy-email-action').addClass("hover");
-    });
-    $('#global-zeroclipboard-html-bridge').mouseleave(function(){
-      $('#copy-email-action').removeClass("hover");
-    });
-
-    clip.on("aftercopy", function(e){
-      $.ajax({ url: action_uri, type: 'GET'});
-      setTimeout(function(){
-        $('#copy-email-action').tooltip('hide');
-      }, 500);
-    });
-  }
-
   $('form.email-rep-lookup').on('submit', function(ev) {
     var form = $(ev.currentTarget);
 
