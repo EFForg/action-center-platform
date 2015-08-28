@@ -77,7 +77,6 @@ gem 'http_accept_language'        # Detect HTTP language header
 gem 'jbuilder', '~> 1.2'          # JSON APIs 
 gem 'whenever', require: false    # Cron jobs
 gem 'sanitize'                    # Sanitize user input
-gem 'zeroclipboard-rails'         # copy to clipboard
 gem 'rest_client'
 gem 'sunlight-congress', git: 'https://github.com/steveklabnik/sunlight-congress'
 gem 'will_paginate', '~> 3.0' 
