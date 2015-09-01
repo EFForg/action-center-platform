@@ -295,8 +295,6 @@ GEM
       chronic (>= 0.6.3)
     will_paginate (3.0.7)
     xml-simple (1.1.5)
-    zeroclipboard-rails (0.1.0)
-      railties (>= 3.1)
 
 PLATFORMS
   ruby
@@ -368,4 +366,3 @@ DEPENDENCIES
   webshims-rails
   whenever
   will_paginate (~> 3.0)
-  zeroclipboard-rails
