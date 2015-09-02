@@ -23,6 +23,7 @@
 //= require bootstrap-sass/bootstrap/modal
 //= require bootstrap-sass/bootstrap/tooltip
 //= require bootstrap-sass/bootstrap/popover
+//= require bootstrap-sass/bootstrap/alert
 //= require application/sticky_tools
 //= require action_page
 //= require_tree ./application

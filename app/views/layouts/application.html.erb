@@ -18,8 +18,7 @@
   </head>
 
   <body class="<%= current_user ? 'logged-in' : '' %> <%= controller.controller_name  + "-" +action_name %>">
-
-  
+ 
     <!--[if lt IE 7]>
         <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
     <![endif]-->
@@ -94,11 +93,11 @@
         <div class="horiz-rule"></div>
         <div class="alert-container">
           <%- if !devise_error_messages? -%>
-            <%- if notice -%>
-              <div class="alert alert-info"><%= notice %><a id="close">[close]</a></div>
+            <%- if flash.notice -%>
+              <div class="alert alert-info"><%= flash.notice %><a class="close" data-dismiss="alert">[close]</a></div>
             <% end -%>
-            <%- if alert -%>
-              <div class="alert alert-error"><%= alert %><a id="close">[close]</a></div>
+            <%- if flash.alert -%>
+              <div class="alert alert-error"><%= flash.alert %><a class="close" data-dismiss="alert">[close]</a></div>
             <% end -%>
           <% end -%>
         </div>
