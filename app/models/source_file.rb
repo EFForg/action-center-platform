@@ -43,7 +43,7 @@ class SourceFile < ActiveRecord::Base
     s3 = AWS::S3.new(:access_key_id     => S3CorsFileupload::Config.access_key_id,
     :secret_access_key => S3CorsFileupload::Config.secret_access_key
     )
-    bucket = s3.buckets['actioncenter']
+    bucket = s3.buckets[Rails.application.secrets.amazon_bucket]
     @s3_object = bucket.objects[key]
   rescue
     puts "failed"

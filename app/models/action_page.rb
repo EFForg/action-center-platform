@@ -1,5 +1,8 @@
+require 'amazon_credentials'
+
 class ActionPage < ActiveRecord::Base
-  extend FriendlyId
+  extend FriendlyId, AmazonCredentials
+
   friendly_id :title, use: [:slugged, :history]
   scope :published, -> { where(published: true) }
 
@@ -14,9 +17,9 @@ class ActionPage < ActiveRecord::Base
   accepts_nested_attributes_for :tweet, :petition, :email_campaign,
     :call_campaign, reject_if: :all_blank
 
-  has_attached_file :featured_image,  :default_url => 'missing.png'
-  has_attached_file :background_image,  :default_url => ""
-  has_attached_file :og_image,  :default_url => ""
+  has_attached_file :featured_image, amazon_credentials.merge( default_url: 'missing.png')
+  has_attached_file :background_image, amazon_credentials.merge( default_url: "" )
+  has_attached_file :og_image, amazon_credentials.merge( :default_url => "" )
   validates_attachment_content_type [:og_image, :background_image, :featured_image],
     :content_type => /\Aimage\/.*\Z/
 

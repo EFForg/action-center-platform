@@ -16,8 +16,11 @@ facebook_handle: 'example'
 call_tool_url: 'https://call-tool.example.com/create'
 congress_forms_url: 'https://congressforms.example.com'
 devise_secret_key: 'xxx'
+storage: 's3' # either 's3' or 'file'
 amazon_access_key_id: 
 amazon_secret_access_key: 
+amazon_region: us-west-1
+amazon_bucket: actioncenter
 smarty_streets_id: 
 smarty_streets_token: 
 congress_forms_debug_key: 
