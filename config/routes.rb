@@ -30,7 +30,7 @@ Actioncenter::Application.routes.draw do
   devise_for :users, path: '', path_names:  {sign_in:  'login',
                                              sign_out: 'logout',
                                              sign_up:  'register'},
-                               controllers: {sessions: 'sessions'}
+                               controllers: {sessions: 'sessions', registrations: 'registrations'}
   resource :user, path: 'account', only: [:show, :edit, :update] do
     member do
       delete :clear_activity
