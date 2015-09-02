@@ -157,6 +157,7 @@ GEM
     mini_portile (0.6.0)
     minitest (5.7.0)
     multi_json (1.11.0)
+    mysql2 (0.3.20)
     netrc (0.7.9)
     nokogiri (1.6.3.1)
       mini_portile (= 0.6.0)
@@ -325,6 +326,7 @@ DEPENDENCIES
   http_accept_language
   jbuilder (~> 1.2)
   jquery-fileupload-rails
+  mysql2
   nokogiri
   oauth
   paperclip (~> 4.1)

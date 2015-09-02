@@ -19,15 +19,8 @@ Action Center
 
 #### Database
 
-  By default, the test and development environments are configured to use
-  sqlite3 so that developers can get up and running quickly. For a production
-  environment, it is recommended that you edit the `host`, `port`, and
-  `database` configs in `config/database.yml` to point at a postgresql or mysql
-  database. See [this
-  guide](http://guides.rubyonrails.org/configuring.html#configuring-a-database)
-  for more information.
-
-  Configure the username and password for your database in secrets.yml.
+  The default database is postgresql, but the mysql2 adapter can be chosen if
+  desired. You can edit the database settings in `config/application.yml`
 
   If you're using heroku, you can skip this part. Heroku should take care of
   the database configuration when you deploy.

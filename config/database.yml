@@ -1,5 +1,5 @@
 common: &common
-  adapter: postgresql
+  adapter: <%= Rails.application.secrets.db_adapter %>
   encoding: unicode
   pool: 5
   database: <%= Rails.application.secrets.db_database %>
