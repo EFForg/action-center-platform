@@ -24,6 +24,7 @@ source 'https://rails-assets.org' do
   gem 'rails-assets-jquery'
   gem 'rails-assets-jquery-ujs'
   gem 'rails-assets-jquery-timeago'
+  gem 'rails-assets-jquery-cookie'
   gem 'rails-assets-moment'
   gem 'rails-assets-backbone'
   gem 'rails-assets-backbone-relational'

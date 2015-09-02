@@ -11,6 +11,7 @@
 // about supported directives.
 //
 //= require jquery
+//= require jquery-cookie
 //= require lodash
 //= require jquery-ujs
 //= require bootstrap-sass/bootstrap/transition

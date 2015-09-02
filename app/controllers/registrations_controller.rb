@@ -1,7 +1,8 @@
 class RegistrationsController < Devise::RegistrationsController
-  before_filter :set_create_notice, only: :create
+  after_filter :set_create_notice, only: :create
 
   def set_create_notice
-    flash[:notice] = "Your account has been created and is pending confirmation.  Please check your email to confirm registration."
+    cookies[:sweetAlert] = JSON.dump({title: "Thanks!", text: "A message with a confirmation link has been sent to your email address. Please open the link to activate your account."})
+    flash[:notice] = nil
   end
 end
