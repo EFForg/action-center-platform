@@ -21,6 +21,7 @@ amazon_access_key_id:
 amazon_secret_access_key: 
 amazon_region: us-west-1
 amazon_bucket: actioncenter
+amazon_bucket_url: # usually not needed, determined from region and bucket
 smarty_streets_id: 
 smarty_streets_token: 
 congress_forms_debug_key: 
