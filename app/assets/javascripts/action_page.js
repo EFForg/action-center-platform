@@ -9,11 +9,12 @@ function isValidPhoneNumber(value) {
   return count == 10 || count == 11;
 }
 function rumbleEl(el) {
+  var prevBorder = el.css('border');
   el.css('border', '1px solid #ff0000');
   el.jrumble({})
   el.trigger('startRumble');
   var demoTimeout = setTimeout(function(){el.trigger('stopRumble');
-      el.css('border', 'none');
+      el.css('border', prevBorder);
   }, 500)
 }
 
