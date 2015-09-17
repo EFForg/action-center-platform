@@ -96,7 +96,10 @@ group :development do
   gem 'better_errors'
   gem 'binding_of_caller'
   gem 'rails-dev-tweaks', '~> 1.1'
+  gem 'pry'
 end
+
+gem 'rspec-rails', '~> 3.0'
 
 group :production do
   gem 'unicorn'
