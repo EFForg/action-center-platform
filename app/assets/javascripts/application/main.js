@@ -28,7 +28,7 @@ document.documentElement.className = document.documentElement.className.replace(
 webshims.setOptions('basePath', '/assets/webshims/shims/')
 webshims.setOptions('forms', {
   //show custom styleable validation bubble
-  replaceValidationUI: true,
+  replaceValidationUI: false,
   lazyCustomMessages: true
 });
 //start polyfilling
