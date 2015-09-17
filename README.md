@@ -36,7 +36,7 @@ Action Center
 
 ```
 bundle install
-rake db:migrate
+rake db:schema:load
 rails s
 ```
 
