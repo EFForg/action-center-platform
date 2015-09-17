@@ -11,10 +11,11 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150625230944) do
+ActiveRecord::Schema.define(version: 20150917204929) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+  enable_extension "uuid-ossp"
 
   create_table "action_page_images", force: true do |t|
     t.integer  "action_page_id"
@@ -81,7 +82,7 @@ ActiveRecord::Schema.define(version: 20150625230944) do
   add_index "action_pages", ["slug"], name: "index_action_pages_on_slug", using: :btree
   add_index "action_pages", ["tweet_id"], name: "index_action_pages_on_tweet_id", using: :btree
 
-  create_table "ahoy_events", id: :uuid, force: true do |t|
+  create_table "ahoy_events", id: :uuid, default: "uuid_generate_v4()", force: true do |t|
     t.uuid     "visit_id"
     t.integer  "user_id"
     t.string   "name"
@@ -319,7 +320,7 @@ ActiveRecord::Schema.define(version: 20150625230944) do
   add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree
   add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
 
-  create_table "visits", id: :uuid, force: true do |t|
+  create_table "visits", id: :uuid, default: "uuid_generate_v4()", force: true do |t|
     t.uuid     "visitor_id"
     t.string   "ip"
     t.text     "user_agent"
