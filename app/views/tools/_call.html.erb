@@ -7,7 +7,7 @@
 
     <div class="tool-body with-js">
 
-      <!-- If we don't have phone ---->
+      <!-- If we don't have phone -->
       <div class="call-body-phone-not-saved <%= 'hidden' if current_user.try(:phone) -%>">
 
         <div class="call-script-box">
@@ -44,7 +44,7 @@
 
         </form>
       </div>
-      <!-- If we have phone # ---->
+      <!-- If we have phone # -->
       <div class="call-body-phone-saved <%= 'hidden' unless current_user.try(:phone) -%>">
         <form class="form call-tool" data-call-campaign-id="<%= @actionPage.call_campaign.call_campaign_id %>">
           <input type="hidden" name="call_campaign_id" value="<%= @actionPage.call_campaign.call_campaign_id %>" />
