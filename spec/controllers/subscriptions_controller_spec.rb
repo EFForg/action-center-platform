@@ -1,9 +1,9 @@
 #require 'spec_helper'
 require 'rails_helper'
 
-describe SubscriptionsController do
-  before :each do
-  end
+RSpec.describe SubscriptionsController, type: :controller do
+
+
 
   let(:valid_attributes) { {
       "email" => "johnsmith@eff.org",
@@ -13,7 +13,8 @@ describe SubscriptionsController do
   it "should test" do
 
     binding.pry
-    post "/subscrpitions", valid_attributes
+    #post "/subscrpitions", valid_attributes
+    post :create, valid_attributes
 
     #expect(true).to be true
 
