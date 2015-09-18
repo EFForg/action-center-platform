@@ -8,6 +8,13 @@ class ToolsController < ApplicationController
   after_filter :deliver_thanks_message, only: [:call, :petition, :email]
   skip_before_filter :verify_authenticity_token, only: :petition
 
+  def call_required_fields
+    response = RestClient.get Rails.application.config.call_tool_url +
+      '/api/campaign/' + params[:call_campaign_id] +
+      '?api_key=' + Rails.application.secrets.call_tool_api_key
+    render :json => JSON.parse(response.body)["required_fields"]
+  end
+
   def call
     ahoy.track "Action",
       { type: "action", actionType: "call", actionPageId: params[:action_id] },
