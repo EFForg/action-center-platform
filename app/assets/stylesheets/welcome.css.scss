@@ -119,6 +119,13 @@ section.featured-action {
   .btn {
     margin-top:13px;
   }
+
+  a, a:hover, a:focus{
+    h2, p{
+      color: black;
+      text-decoration: none;
+    }
+  }
 }
 
 
