@@ -36,7 +36,14 @@ describe Signature do
     expect {
       Signature.create!(arbitrarily_invalid_opinion)
     }.to raise_error ActiveRecord::RecordInvalid
+  end
 
+  it "should reject long zipcodes" do
+    long_zip = @attr.merge(zipcode: "9"*13)
+
+    expect {
+      Signature.create!(long_zip)
+    }.to raise_error ActiveRecord::RecordInvalid
   end
 
 end

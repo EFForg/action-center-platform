@@ -7,9 +7,9 @@ class Signature < ActiveRecord::Base
   before_save :sanitize_input
   validates_presence_of :first_name, :last_name, :country_code, :petition_id,
     message: "This can't be blank."
-  #validate :validate_zipcode
 
   validates :email, email: true
+  validates :zipcode, length: { maximum: 12 }
   validate :country_code, :arbitrary_opinion_of_country_string_validity
 
   include ActionView::Helpers::DateHelper
