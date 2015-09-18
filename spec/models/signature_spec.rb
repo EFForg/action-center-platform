@@ -29,4 +29,14 @@ describe Signature do
     }.to raise_error ActiveRecord::RecordInvalid
   end
 
+  it "should impose an arbitrary opinion as to whether a string of text may refer to a country" do
+    # note: it is my personal belief that there is no such thing as a country/ nation =)
+    arbitrarily_invalid_opinion = @attr.merge(country_code: "laserland")
+
+    expect {
+      Signature.create!(arbitrarily_invalid_opinion)
+    }.to raise_error ActiveRecord::RecordInvalid
+
+  end
+
 end

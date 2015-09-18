@@ -1,7 +1,7 @@
 include GoingPostal
 class Signature < ActiveRecord::Base
-	belongs_to :user
-	belongs_to :petition
+  belongs_to :user
+  belongs_to :petition
 
   before_validation :format_zipcode
   before_save :sanitize_input
@@ -9,10 +9,19 @@ class Signature < ActiveRecord::Base
     message: "This can't be blank."
   #validate :validate_zipcode
 
-	validates :email, email: true
-
+  validates :email, email: true
+  validate :country_code, :arbitrary_opinion_of_country_string_validity
 
   include ActionView::Helpers::DateHelper
+
+  def arbitrary_opinion_of_country_string_validity
+    begin
+      IsoCountryCodes.find(country_code)
+    rescue IsoCountryCodes::UnknownCodeError
+      errors.add(:country_code, "Country Code might come from a spam bot.")
+    end
+
+  end
 
   def name
     [first_name, last_name].join(' ')
