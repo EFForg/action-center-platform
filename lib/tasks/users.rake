@@ -4,7 +4,7 @@ namespace :users do
     admins = User.where(admin: true).map do |u|
       u.email
     end.sort
-    puts admins
+    puts admins.empty? ? "No Admin Users" : admins
   end
   desc "Remove admin status from an account, given an email"
   task :remove_admin, [:email] => :environment do |t, args|
