@@ -16,6 +16,7 @@ Actioncenter::Application.routes.draw do
   post "tools/petition"
   post "tools/tweet"
   post "tools/email"
+  get "tools/call_required_fields"
   get "tools/email_target"
   get "tools/reps"
   get "tools/reps_raw"
