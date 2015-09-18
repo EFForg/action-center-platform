@@ -20,13 +20,17 @@ class ToolsController < ApplicationController
       { type: "action", actionType: "call", actionPageId: params[:action_id] },
       action_page: @action_page
 
-    if params[:update_user_data] == "true"
+    @name = current_user.try :name
+
+    if params[:update_user_data] == "yes"
       update_user_data(call_params.with_indifferent_access)
     end
 
-    response = RestClient.get Rails.application.config.call_tool_url,
+    response = RestClient.get Rails.application.config.call_tool_url + '/call/create',
       params: { campaignId: params[:call_campaign_id],
                 userPhone:  params[:phone],
+                userCountry: 'US',
+                userLocation: params[:location],
                 # TODO - Settle on the schema of the private meta data
                 meta: {
                   user_id:     @user.try(:id),
@@ -246,7 +250,7 @@ class ToolsController < ApplicationController
   end
 
   def call_params
-    params.permit(:phone, :action_id, :call_campaign_id)
+    params.permit(:phone, :zipcode, :street_address, :action_id, :call_campaign_id)
   end
 
   def email_params
