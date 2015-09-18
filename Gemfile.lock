@@ -117,6 +117,8 @@ GEM
       warden (~> 1.2.3)
     diff-lcs (1.2.5)
     ejs (1.1.1)
+    email_validator (1.6.0)
+      activemodel
     erubis (2.7.0)
     execjs (2.2.1)
     ffi (1.9.5)
@@ -340,6 +342,7 @@ DEPENDENCIES
   descriptive_statistics
   devise
   ejs
+  email_validator
   figaro
   fontello_rails_converter
   friendly_id (~> 5.0)
