@@ -14,6 +14,7 @@ twitter_handle: 'example' # your organization's twitter account, no @ sign
 twitter_related: 'example1 example2' # related twitter accounts
 facebook_handle: 'example'
 call_tool_url: 'https://call-tool.example.com/create'
+call_tool_api_key:
 congress_forms_url: 'https://congressforms.example.com'
 devise_secret_key: 'xxx'
 storage: 's3' # either 's3' or 'file'
