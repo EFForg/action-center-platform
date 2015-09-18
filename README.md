@@ -4,50 +4,46 @@ Action Center
 ### Configuration
 
 #### Secrets
-  Much of the configuration for your app will happen in a file called
-  `config/application.yml`. Use this file to store sensitive login credentials,
-  API keys, and other information that should not be made public, including:
+Much of the configuration for your app will happen in a file called
+`config/application.yml`. Use this file to store sensitive login credentials,
+API keys, and other information that should not be made public, including:
 
-    * Rails secret key base - generate this with `rake secret`
-    * Devise secret key - generate this with `rake secret`
-    * Amazon S3 secret key and key id
-    * [SmartyStreets API](https://smartystreets.com/account/create) key and id
-    * [Sunlight API](https://sunlightfoundation.com/api/accounts/register/) key
+* Rails secret key base - generate this with `rake secret`
+* Devise secret key - generate this with `rake secret`
+* Amazon S3 secret key and key id
+* [SmartyStreets API](https://smartystreets.com/account/create) key and id
+* [Sunlight API](https://sunlightfoundation.com/api/accounts/register/) key
 
-  For convenience, a template config is provided in
-  `config/application.yml.example`
+For convenience, a template config is provided in
+`config/application.yml.example`
 
 #### Database
 
-  The default database is postgresql, but the mysql2 adapter can be chosen if
-  desired. You can edit the database settings in `config/application.yml`
+The default database is postgresql, but the mysql2 adapter can be chosen if
+desired. You can edit the database settings in `config/application.yml`
 
-  If you're using heroku, you can skip this part. Heroku should take care of
-  the database configuration when you deploy.
+If you're using heroku, you can skip this part. Heroku should take care of
+the database configuration when you deploy.
 
 #### SMTP
 
-  You will need to configure an smtp server in order to start creating user
-  accounts.  Configure the `address`, `port`, and `domain` in
-  `config/application.rb`. Configure the username and password in
-  `config/secrets.yml`.
+You will need to configure an smtp server in order to start creating user
+accounts.  Configure the `address`, `port`, and `domain` in
+`config/application.rb`. Configure the username and password in
+`config/secrets.yml`.
 
 ### Local Setup
 
-```
-bundle install
-rake db:migrate
-rails s
-```
+    bundle install
+    rake db:schema:load
+    rails s
 
 Once the server is running, navigate to `localhost:3000/register` and create
 yourself a user account. You will need to provide (and confirm) a valid email
 in order to log in. When that's done, promote yourself to be an admin using the
 following command:
 
-```
-rake setup:make_admin[youremail@example.org]
-```
+    rake users:add_admin[youremail@example.org]
 
 Now you should be able to go to `localhost:3000/admin/action_pages` to create
 your first action page.
@@ -56,20 +52,17 @@ your first action page.
 
 First create a new app and configure it with a Postgres add on. Then
 
-```
-git remote add heroku git@heroku.com:your-action-center-app.git
-git push heroku master
-heroku run rake db:migrate
-```
+    git remote add heroku git@heroku.com:your-action-center-app.git
+    git push heroku master
+    heroku run rake db:migrate
+
 As with above, you can now register a user account and confirm your email.
 
-```
-heroku run rake setup:make_admin[youremail@example.org]
-```
+    heroku run rake users:add_admin[youremail@example.org]
 
 ## Production Setup
 
-Follow these instructions 
+Follow these instructions
 `https://www.digitalocean.com/community/articles/how-to-install-rails-and-nginx-with-passenger-on-ubuntu`
 
 ### Generating the EFF icon font
@@ -104,7 +97,7 @@ If you want to get fancy, you can modify the embed code to include some of the f
         body{
             background-color: blue;
         }
-    </script> 
+    </script>
     <script type="text/javascript" src="https://act.eff.org/action/embed"></script>
     <a id="action-center-widget" href="https://act.eff.org/action/shut-the-nsa-s-backdoor-to-the-internet">Take part in the action!</a>
 

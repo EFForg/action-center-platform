@@ -7,7 +7,7 @@ class Petition < ActiveRecord::Base
     [signatures.count.to_f / goal.to_f, 1].min * 100
   end
 
-  def recent_signatures num 
+  def recent_signatures(num)
     recent = []
     signatures.last(num).reverse.each do |s|
       if s.anonymous

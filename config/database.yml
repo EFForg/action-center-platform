@@ -1,6 +1,6 @@
 common: &common
   adapter: <%= Rails.application.secrets.db_adapter %>
-  encoding: unicode
+  encoding: <%= Rails.application.secrets.db_encoding %>
   pool: 5
   database: <%= Rails.application.secrets.db_database %>
   username: <%= Rails.application.secrets.db_username %>

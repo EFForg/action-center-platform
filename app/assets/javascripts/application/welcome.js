@@ -50,10 +50,13 @@ subscription = {
     $(this).hide();
     return $('.progress-striped').show();
   },
-  success: function(xhr, data, status) {
+  complete: function(xhr, data, status) {
     $('.progress-striped').hide();
-    return $("<p>Thanks for subscribing, you're awesome!<p></p>Check your email for a confirmation link.</p>").insertAfter(this);
-  }
+    if(status === "success")
+        return $("<p>Thanks for subscribing, you're awesome!<p></p>Check your email for a confirmation link.</p>").insertAfter(this);
+    else
+        return $("<p>Ok... kinda bad news...<p></p>Something went wrong.  Maybe the email you gave us had a typo???  Please try again.</p>").insertAfter(this);
+    }
 };
 
 $(function() {
@@ -61,5 +64,5 @@ $(function() {
 });
 
 $(function() {
-  return $('#subscription-form').bind('ajax:success', subscription.success);
+  return $('#subscription-form').bind('ajax:complete', subscription.complete);
 });
