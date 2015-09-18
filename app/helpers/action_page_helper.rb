@@ -70,7 +70,7 @@ module ActionPageHelper
 
     url = action_page_url(@actionPage)
     title = @actionPage.title
-    name = options[:name] || current_user.try(:name) || "Friend of Digital Freedom"
+    name = options[:name] || "Friend of Digital Freedom"
 
     email_text.
       gsub(/\$TITLE/, title).
