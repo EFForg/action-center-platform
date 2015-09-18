@@ -9,6 +9,9 @@ class Signature < ActiveRecord::Base
     message: "This can't be blank."
   #validate :validate_zipcode
 
+	validates :email, email: true
+
+
   include ActionView::Helpers::DateHelper
 
   def name
