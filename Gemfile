@@ -98,6 +98,11 @@ group :development do
   gem 'rails-dev-tweaks', '~> 1.1'
 end
 
+group :development, :test do
+  gem 'rspec-rails', '~> 3.0'
+  gem 'pry'
+end
+
 group :production do
   gem 'unicorn'
 end
