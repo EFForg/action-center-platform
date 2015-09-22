@@ -1,0 +1,234 @@
+<!-- BEGIN ACTION TAB -->
+<div class="tab-pane" id="action">
+  <div class="row">
+    <div class='col-md-10 tools-container'>
+      <div class='panel panel-warning'>
+        <div class='panel-heading'>
+          <%= f.check_box :enable_call,
+            data: {toggle: 'collapse', target: '#call-fields'} -%>
+            <%= f.label :enable_call -%>
+        </div>
+
+        <div id='call-fields' class='panel-body collapse <%= 'in' if @actionPage.enable_call? -%>'>
+
+          <%= f.fields_for :call_campaign do |t| -%>
+            <div class="form-group">
+              <%= t.label :title %>
+              <%= t.text_field :title %>
+            </div>
+            <div class="form-group">
+              <%= t.label :call_campaign_id, "Campaign Id" %>
+              <%= t.text_field :call_campaign_id %>
+            </div>
+            <div class="form-group">
+              <%= t.label :call_campaign_id, "What to say" %>
+              <div class="epiceditor" id="action-page-what-to-say"></div>
+              <%= t.text_area :message, :id => 'what-to-say', :style => 'display: none;' %>
+            </div>
+          <% end -%>
+        </div>
+      </div><!-- END div.panel.panel-warning -->
+
+      <div class='panel panel-success'>
+        <div class='panel-heading'>
+          <%= f.check_box :enable_petition,
+            data: {toggle: 'collapse', target: '#petition-fields'} %>
+            <%= f.label :enable_petition %>
+        </div>
+        <div id='petition-fields' class='panel-body collapse <%= 'in' if @actionPage.enable_petition? -%>'>
+          <%= f.fields_for :petition do |p| %>
+            <%= p.hidden_field :id %>
+            <div class="form-group">
+              <%= p.label :title %>
+              <%= p.text_field :title %>
+            </div>
+            <div class="form-group">
+              <%= p.label :description %>
+              <div class="epiceditor" id="epic-petition-description"></div>
+              <%= p.text_area :description, :id => 'petition-description', :style => 'display: none;' %>
+            </div>
+            <div class="form-group">
+              <%= p.label :goal %>
+              <%= p.text_field :goal %>
+            </div>
+          <% end -%>
+          <div class="form-group">
+            <%= f.label :partner_id, 'Partner newsletter' -%>
+            <%= f.collection_select :partner_id, Partner.all, :id, :name,
+              {include_blank: 'None'}, {class: 'form-control'} -%>
+            <p class='hint-text small'><%= link_to 'Add or edit partners', admin_partners_path, target: :blank -%></p>
+          </div>
+        </div>
+      </div><!-- END div.panel.panel-success -->
+
+      <div class='panel panel-info'>
+        <div class='panel-heading'>
+          <%= f.check_box :enable_tweet,
+            data: {toggle: 'collapse', target: '#tweet-fields'} %>
+          <%= f.label :enable_tweet %>
+        </div>
+        <div id='tweet-fields' class='panel-body collapse <%= 'in' if @actionPage.enable_tweet? -%>'>
+          <%= f.fields_for :tweet do |t| %>
+            <div class="form-group">
+              <%= t.label :cta, "Call to Action" %>
+              <%= t.text_field :cta %>
+            </div>
+            <div class="form-group">
+              <%= t.label :message %>
+              <%= t.text_area :message %>
+            </div>
+            <div class="form-group">
+              <label>Targets</label>
+              <fieldset class='target-fields congress'>
+                <%= t.label :target_house do %>
+                  <%= t.check_box :target_house %> House
+                <% end -%>
+                <%= t.label :target_senate do %>
+                    <%= t.check_box :target_senate %> Senate
+                <% end -%>
+              </fieldset>
+            </div>
+            <div class="form-group">
+              <fieldset class='target-fields individuals'>
+                <label>Individuals:</label>
+                <table class='table table-striped'>
+                  <thead>
+                    <tr>
+                      <th>
+                        Handle
+                      </th>
+                      <th>
+                        Photo
+                        (<a class="photo-specs-popover" href="#"
+                          data-container="body"
+                          data-toggle="popover"
+                          data-title="photo specs"
+                          data-html="true"
+                          data-trigger="hover"
+                          data-placement="auto bottom"
+                          data-content="<ul><li>Recommended size: w=200px, h=200px</li><li>Max file size: 100kB</li><ul>">specs</a>)
+                      </th>
+                      <th>
+                        Delete
+                      </th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <%= t.fields_for :tweet_targets do |tt| -%>
+                      <tr class='tweet-target'>
+                        <td>
+                          <%= link_to '@' + tt.object.twitter_id, tt.object.url, target: "_blank" %>
+                        </td>
+                        <td>
+                          <%= tt.hidden_field :image, class: 'image-input', value: '' -%>
+                          <%= render 'tweet_target_image', image: tt.object.image -%>
+                        </td>
+                        <td>
+                          <%= tt.check_box :_destroy, class: 'destroy' %>
+                        </td>
+                      </tr>
+                    <% end -%>
+                  </tbody>
+                </table>
+                <%= label_tag :add_targets do -%>
+                  Add targets (one per line, without the '@'):
+                <% end -%>
+                <%= text_area_tag :add_targets %>
+              </fieldset>
+            </div>
+          <% end -%>
+        </div>
+      </div><!-- END div.panel.panel-info -->
+
+      <div class='panel panel-danger'>
+        <div class='panel-heading'>
+          <%= f.check_box :enable_email,
+            data: {toggle: 'collapse', target: '#email-fields'} %>
+          <%= f.label :enable_email %>
+        </div>
+        <div id='email-fields' class='panel-body collapse <%= 'in' if @actionPage.enable_email? -%>'>
+
+          <%= f.fields_for :email_campaign do |t| %>
+
+            <div class="form-group">
+              <%= t.label :subject %>
+              <%= t.text_field :subject %>
+            </div>
+            <div class="form-group">
+              <%= t.label :message %>
+              <%= t.text_area :message %>
+            </div>
+            <div class="form-group">
+              <label>Targets</label>
+              <fieldset class='target-fields congress'>
+                <%= t.label :target_house do -%>
+                  <%= t.check_box :target_house %> House
+                <% end -%>
+                <%= t.label :target_senate do -%>
+                  <%= t.check_box :target_senate %> Senate
+                <% end -%>
+                <%= t.label :target_email do -%>
+                  <%= t.check_box :target_email -%> Specific email address(es)
+                <% end -%>
+                <%= t.text_field :email_addresses, placeholder: "Addresses (comma separated)" %>
+                <%= t.label :target_bioguide_id do -%>
+                  <%= t.check_box :target_bioguide_id -%> Specific bioguide id(s)
+                <% end -%>
+                <%= t.text_field :bioguide_id, placeholder: "Bioguide ids (comma separated)" %>
+                <div id='text_replacement_form_group' class="form-group">
+                  <hr>
+                  <%= t.label :alt_text_email_your_rep do -%>
+                    Replace "Email Your Representatives" text with:
+                  <% end -%>
+                  <%= t.text_field :alt_text_email_your_rep -%>
+                  <%= t.label :alt_text_look_up_your_rep do -%>
+                    Replace "Look Up Your Representatives" text with:
+                  <% end -%>
+                  <%= t.text_field :alt_text_look_up_your_rep -%>
+                  <%= t.label :alt_text_extra_fields_explain do -%>
+                    Replace extra fields explanation text with:
+                  <% end -%>
+                  <%= t.text_field :alt_text_extra_fields_explain -%>
+                  <%= t.label :alt_text_look_up_helper do -%>
+                    Replace 'look up' helper text with:
+                  <% end -%>
+                  <%= t.text_field :alt_text_look_up_helper -%>
+                  <%= t.label :alt_text_customize_message_helper do -%>
+                    Replace 'customize message' helper text with:
+                  <% end -%>
+                  <%= t.text_field :alt_text_customize_message_helper -%>
+                </div>
+              </fieldset>
+            </div>
+            <div id='topic_category_form_group' class="form-group">
+              <%= t.label :topic_category %>
+              <%= t.collection_select :topic_category_id, @topic_categories, :id, :name, prompt: true %>
+            </div>
+            <div id='campaign_tag_form_group' class="form-group">
+              <%= t.label :campaign_tag %>
+              <%= t.text_field :campaign_tag %>
+            </div>
+
+          <% end -%><!-- END f.fields_for :email_campaign -->
+        </div>
+      </div><!-- END div.panel.panel-danger -->
+
+      <div class='panel panel-default'>
+        <div class='panel-heading'>
+          <%= f.check_box :enable_redirect,
+            data: {toggle: 'collapse', target: '#redirect-fields'} %>
+          <%= f.label :enable_redirect %>
+        </div>
+        <div id='redirect-fields' class='panel-body collapse <%= 'in' if @actionPage.enable_redirect? -%>'>
+          <div class="form-group">
+            <%= f.label :redirect_url %>
+            <%= f.text_field :redirect_url %>
+          </div>
+
+        </div>
+      </div><!-- END div.panel.panel-default -->
+
+    </div><!-- END .tools-container -->
+  </div>
+</div><!-- END .tab-pane -->
+<!-- END ACTION TAB -->

@@ -1,0 +1,29 @@
+<!-- BEGIN EMAIL SETTINGS TAB -->
+<div class="tab-pane" id="email-settings">
+  <div class="col-sm-8">
+    <div class="form-group">
+      <%= f.label :email_text, 'Email text' -%>
+      <div class="epiceditor" id="epic-email-text"></div>
+      <%= f.text_area :email_text, :id => 'email-text', :style => 'display: none;' -%>
+    </div>
+  </div>
+  <div class="col-sm-4">
+    <h3>How it works</h3>
+    <p>This email is only sent when a user takes an Email or Petition action, or if we have the user's email saved in their account.</p>
+    <p>Special strings shown below are automatically replaced with generated content.</p>
+    <br>
+    <h3>Auto-inserted text</h3>
+    <p><strong>$SHAREBUTTONS</strong> is replaced with Facebook/Twitter/Google Plus/Email share buttons</p>
+    <p><strong>$TITLE</strong> is replaced with title of the action.</p>
+    <p><strong>$URL</strong> is replaced with the URL of the page they took action on.</p>
+    <br>
+    <h3>Preview the email</h3>
+    <p>Make sure to save your changes by clicking "Update Action Page" before previewing.</p>
+    <% if @actionPage.id %>
+      <p><%= link_to "Preview this email", { controller: 'mailer', action: 'preview_thanks', id: @actionPage} , target: "_blank", class: "btn btn-sm btn-success" %></p>
+    <% else %>
+      <p><em>Waiting for you to save</em></p>
+    <% end %>
+  </div>
+</div><!-- .tab-pane -->
+<!-- TABEND -->
