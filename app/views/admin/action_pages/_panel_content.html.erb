@@ -1,0 +1,54 @@
+<!-- BEGIN CONTENT TAB -->
+<div class="tab-pane active" id="contents">
+
+  <div class='row'>
+    <div class='col-md-10'>
+      <div class="form-group">
+        <%= f.label :title -%>
+        <%= f.text_field :title -%>
+      </div>
+      <div class="form-group">
+        <%= f.label :summary -%>
+        <div class="epiceditor" id="epic-action-summary"></div>
+        <%= f.text_area :summary, :id => 'action-summary', :style => 'display: none;' -%>
+        <p>Need help writing Markdown? Check out this <a href="https://gist.github.com/jonschlinkert/5854601"target="_blank">Cheatsheet</a> or <a class="photo-specs-popover" href="#"
+                data-container="body"
+                data-toggle="popover"
+                data-html="true"
+                data-trigger="hover"
+                data-placement="auto bottom"
+                data-content="<pre>**bold**  _italics_ <br>#h1, ##h2<br>> blockquote<br>* bullet point<br>[link](http://link)<br>![Image title](http://image.png)</pre>">hover here</a>.</p>
+      </div>
+      <div class="form-group">
+        <%= f.label :description -%>
+        <div class="epiceditor" id="action-page-description" style="min-height: 200px;"></div>
+        <%= f.text_area :description, :id => 'description', :style => 'display: none;' -%>
+      </div>
+
+      <div class="panel panel-default">
+        <div class="panel-heading">Protips for your description!</div>
+        <div class="panel-body">
+          <ul class="small">
+            <li>
+              <strong>Want awesome section headers?</strong>
+                      Use this Markdown snippet to make some awesome section headers: <code>### **Amaze**</code>
+                    </li>
+                    <li>
+                      <strong>Using images in your description?</strong>
+                      Make them extra-wide using <a href="#" id="protip2" data-toggle="popover"  data-trigger="click" data-html="false" data-content='<img class="full-width" src="http://image-url" />'>this syntax</a>.
+                    </li>
+                    <li>
+                      <strong>Want a pretty letter?</strong>
+                      Use <a href="#" id="protip3" data-toggle="popover"  data-trigger="click" data-html="true" data-content='<pre class="small">``` letter<br>Type your letter text here!<br>```</pre>'>this syntax</a> and your text will appear formatted nicely! Note: when you use this the petition letter will magically disappear.
+                    </li>
+                  </ul>
+                  <p class="small">
+                  </p>
+                </div>
+              </div>
+
+            </div>
+
+          </div><!-- END .row -->
+        </div><!-- END .tab-pane -->
+        <!-- END CONTENT TAB -->
