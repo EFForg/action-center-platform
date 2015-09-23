@@ -74,8 +74,6 @@ class ActionPage < ActiveRecord::Base
   end
 
   def no_drafts_on_homepage
-    unless published?
-      FeaturedActionPage.where(action_page_id: id).destroy_all
-    end
+    FeaturedActionPage.where(action_page_id: id).destroy_all unless published?
   end
 end
