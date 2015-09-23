@@ -167,7 +167,7 @@ class Admin::ActionPagesController < Admin::ApplicationController
       @actionPage.tweet.tweet_targets.push(target)
     end
   end
-  
+
   def default_values
     self.email_text ||= "default value"
   end
