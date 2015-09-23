@@ -12,23 +12,20 @@ $(function() {
 
     function scroller() {
       var scrollTop = $window.scrollTop(),
-        documentHeight = $document.height(),
-        dwh = documentHeight - windowHeight,
-        extra = (scrollTop > dwh) ? dwh - scrollTop : 0;
+          documentHeight = $document.height(),
+          dwh = documentHeight - windowHeight,
+          extra = (scrollTop > dwh) ? dwh - scrollTop : 0;
 
       var etse = t.offset().top + topSpacing - extra;
 
-      s.parent().css('height',s.height());
+      s.parent().css('height', s.height());
       if (s.css('position') !== 'fixed') {
-          s.css('top', '');
-          s.parent().css('height', 'auto');
-      }
-      else if (scrollTop <= etse || windowHeight < s.find('.tool').first().outerHeight()) {
+        s.css('top', '');
+        s.parent().css('height', 'auto');
+      } else if (scrollTop <= etse || windowHeight < s.find('.tool').first().outerHeight()) {
         var newTop = etse - scrollTop;
-      }
-      else {
-        var newTop = documentHeight - s.outerHeight()
-          - topSpacing - bottomSpacing - scrollTop - extra;
+      } else {
+        var newTop = documentHeight - s.outerHeight() - topSpacing - bottomSpacing - scrollTop - extra;
         if (newTop < 0) {
           newTop = newTop + topSpacing;
         } else {
@@ -40,6 +37,7 @@ $(function() {
         currentTop = newTop;
       }
     }
+
     function resizer() {
       windowHeight = $window.height();
     }

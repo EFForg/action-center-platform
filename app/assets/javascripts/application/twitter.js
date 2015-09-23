@@ -27,7 +27,7 @@ Twitter = (function() {
         }
 
         window.open(target.href, 'intent', windowOptions + ',width=' + width +
-                                           ',height=' + height + ',left=' + left + ',top=' + top);
+          ',height=' + height + ',left=' + left + ',top=' + top);
         e.returnValue = false;
         e.preventDefault && e.preventDefault();
       }

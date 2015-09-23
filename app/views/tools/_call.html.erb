@@ -28,7 +28,7 @@
 
         <p class="small">Enter your phone number below and we'll connect you (US numbers only).</p>
         <form class="form call-tool" data-call-campaign-id="<%= @actionPage.call_campaign.call_campaign_id %>">
-        <input type="hidden" name="call_campaign_id" value="<%= @actionPage.call_campaign.call_campaign_id %>" />
+          <input type="hidden" name="call_campaign_id" value="<%= @actionPage.call_campaign.call_campaign_id %>" />
           <input type="hidden" name="action-id" value="<%= @actionPage.id %>" />
           <fieldset>
             <div class="form-group">
@@ -50,8 +50,8 @@
               data-placement="auto bottom"
               data-content="<p>Our &quot;Call Your Representatives&quot; tool uses Sunlight Foundation's Congress API to look up the names and contact forms of your legislators.</p><p>We also uses Twilio's phone API to call and connect you.</p>">why?</a>).<br>
               If you prefer not to use our call tool, <a href="https://www.eff.org/congress"  target="_blank">click here</a>.</p>
-
         </form>
+
       </div>
       <!-- If we have phone # -->
       <div class="call-body-phone-saved <%= 'hidden' unless current_user.try(:phone) -%>">
@@ -60,15 +60,15 @@
           <input type="hidden" name="action-id" value="<%= @actionPage.id %>" />
           <input type="hidden" name="phone" id="inputPhone" value="<%= current_user.try :phone -%>" />
           <div class="call-script-box">
-          <h3 class="header">What to say</h3>
-          <div class="call-script">
-            <%= @actionPage.message_rendered %>
+            <h3 class="header">What to say</h3>
+            <div class="call-script">
+              <%= @actionPage.message_rendered %>
+            </div>
           </div>
-        </div>
-        <p class="small">Press the button below and we'll call you at <strong><%= current_user.try :phone -%></strong> and connect you to your representatives. <p>
-        <p class="smalltext"><a class="call-tool-different-number" href="#">Need to use a different number?</a></p>
-        <button type="submit" class="btn btn-default call-tool-submit" disabled>Call now</button>
-      </form>
+          <p class="small">Press the button below and we'll call you at <strong><%= current_user.try :phone -%></strong> and connect you to your representatives. <p>
+          <p class="smalltext"><a class="call-tool-different-number" href="#">Need to use a different number?</a></p>
+          <button type="submit" class="btn btn-default call-tool-submit" disabled>Call now</button>
+        </form>
         <p class="privacy-notice">Uses <a href="http://sunlightfoundation.com/legal/privacy/" target="_blank">Sunlight Labs</a> and <a href="https://www.twilio.com/legal/privacy" target="_blank">Twilio</a>'s APIs (<a class="privacy-notice-popover" href="#"
           data-container="body"
           data-toggle="popover"
@@ -82,36 +82,36 @@
 
       <!-- After submit # ---->
       <div class="call-body-active hidden">
-          <p class="advisory"><strong>If your call doesn't come through within 15 seconds, <a class="call-tool-try-again" href="#">click here</a> to try again.</strong></p>
-          <div class="call-script-box">
-            <h3 class="header">What to say</h3>
-            <div class="call-script">
-              <%= @actionPage.message_rendered %>
-            </div>
+        <p class="advisory"><strong>If your call doesn't come through within 15 seconds, <a class="call-tool-try-again" href="#">click here</a> to try again.</strong></p>
+        <div class="call-script-box">
+          <h3 class="header">What to say</h3>
+          <div class="call-script">
+            <%= @actionPage.message_rendered %>
           </div>
+        </div>
 
-          <div class='vertical-share'>
-            <p>Once you're done, help spread the word:</p>
-            <a href='<%= twitter_share_url(@actionPage) -%>' class='twitter twitter-button'>
-              <div class="sicon" id="stwit"></div>
-              <div class="share-label">Share on Twitter</div>
-            </a>
-            <a href='<%= facebook_share_url(@actionPage) -%>' class='facebook facebook-button'>
-              <div class="sicon" id="sfb"></div>
-              <div class="share-label">Share on Facebook</div>
-            </a>
-            <a href='<%= google_share_url(@actionPage) -%>' class='google google-button'>
-              <div class="sicon" id="sgplus"></div>
-              <div class="share-label">Share on Google+</div>
-            </a>
-          </div>
+        <div class='vertical-share'>
+          <p>Once you're done, help spread the word:</p>
+          <a href='<%= twitter_share_url(@actionPage) -%>' class='twitter twitter-button'>
+            <div class="sicon" id="stwit"></div>
+            <div class="share-label">Share on Twitter</div>
+          </a>
+          <a href='<%= facebook_share_url(@actionPage) -%>' class='facebook facebook-button'>
+            <div class="sicon" id="sfb"></div>
+            <div class="share-label">Share on Facebook</div>
+          </a>
+          <a href='<%= google_share_url(@actionPage) -%>' class='google google-button'>
+            <div class="sicon" id="sgplus"></div>
+            <div class="share-label">Share on Google+</div>
+          </a>
+        </div>
 
-          <p style="text-align: center;">
-            <% if !current_user %>
-            <br />
-            <strong><a href="/register">Sign up</a> for an EFF Action account and save your information for next time.</strong>
-            <% end %>
-          </p>
+        <p style="text-align: center;">
+          <% if !current_user %>
+          <br />
+          <strong><a href="/register">Sign up</a> for an EFF Action account and save your information for next time.</strong>
+          <% end %>
+        </p>
       </div>
 
     </div>
@@ -119,7 +119,7 @@
     <div class="tool-body without-js">
       <h4><strong>Our call tool requires javascript.</strong></h4>
       <p>If your browser doesn't support javascript or you prefer not to enable javascript on this site, you can find your legislator's contact forms via the <a target="_blank" href="http://www.house.gov/representatives/find/">House</a> and <a target="_blank" href="https://www.senate.gov/general/contact_information/senators_cfm.cfm">Senate</a> websites.</p>
-
     </div>
+
   </div>
 </div>

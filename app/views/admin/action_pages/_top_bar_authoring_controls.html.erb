@@ -1,39 +1,39 @@
 <!-- top_bar_authoring_controls.html.erb -->
-  <div class="simple-header update-action-bar" data-spy="affix" data-offset-top="70" >
-    <div class="container-fluid">
-      <div class="row" >
-        <div class="col-sm-3 col-md-4 hidden-xs">
-            <%- unless @actionPage.new_record? -%>
-              <h1 class="page-title">Edit Action</h1>
-            <% else %>
-              <h1 class="page-title">Create Action</h1>
-            <% end -%>
-        </div>
-        <div class="col-sm-9 col-md-8 text-right pull-right">
-          <div class="form-inline published-container <%= "is-published" if @actionPage.published? %>">
-            <div class="form-group published-checkbox">
-              <%= f.label :published do -%>
-              <%= f.check_box :published -%>Published
-            </div>
-            <% end -%>
-          </div>
-          <%= button_tag :type => 'submit', :class => 'btn btn-success save' do %>
-            <i class="icon ion-ios-cloud-upload-outline"></i> Save
-          <% end %>
+<div class="simple-header update-action-bar" data-spy="affix" data-offset-top="70" >
+  <div class="container-fluid">
+    <div class="row" >
+      <div class="col-sm-3 col-md-4 hidden-xs">
           <%- unless @actionPage.new_record? -%>
-            <%= link_to action_page_path(@actionPage),
-              class: 'btn btn-info preview', target: "_blank" do -%>
-              <i class="icon ion-ios-photos-outline"></i> View
-            <% end -%>
-            <%= link_to  admin_action_page_preview_path(@actionPage),
-              class: 'btn btn-info preview', target: "_blank", id: 'action-page-preview' do -%>
-              <i class="icon ion-ios-eye-outline"></i> Preview
-            <% end -%>
+            <h1 class="page-title">Edit Action</h1>
+          <% else %>
+            <h1 class="page-title">Create Action</h1>
           <% end -%>
-          <%- unless @actionPage.published == true -%>
-            <span class='small help-block'>Only admins can view this page until it is published</span>
+      </div>
+      <div class="col-sm-9 col-md-8 text-right pull-right">
+        <div class="form-inline published-container <%= "is-published" if @actionPage.published? %>">
+          <div class="form-group published-checkbox">
+            <%= f.label :published do -%>
+            <%= f.check_box :published -%>Published
+          </div>
           <% end -%>
         </div>
+        <%= button_tag :type => 'submit', :class => 'btn btn-success save' do %>
+          <i class="icon ion-ios-cloud-upload-outline"></i> Save
+        <% end %>
+        <%- unless @actionPage.new_record? -%>
+          <%= link_to action_page_path(@actionPage),
+            class: 'btn btn-info preview', target: "_blank" do -%>
+            <i class="icon ion-ios-photos-outline"></i> View
+          <% end -%>
+          <%= link_to  admin_action_page_preview_path(@actionPage),
+            class: 'btn btn-info preview', target: "_blank", id: 'action-page-preview' do -%>
+            <i class="icon ion-ios-eye-outline"></i> Preview
+          <% end -%>
+        <% end -%>
+        <%- unless @actionPage.published == true -%>
+          <span class='small help-block'>Only admins can view this page until it is published</span>
+        <% end -%>
       </div>
     </div>
   </div>
+</div>
