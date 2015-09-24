@@ -3,18 +3,18 @@ $(function() {
   var t = $('.redtop .row');
   if (s.length > 0 && t.length > 0) {
     var originalTop = $('.redtop .row').offset().top,
-      currentTop = originalTop,
-      topSpacing = 10,
-      bottomSpacing = 200,
-      $window = $(window),
-      $document = $(document),
-      windowHeight = $window.height();
+        currentTop = originalTop,
+        topSpacing = 10,
+        bottomSpacing = 200,
+        $window = $(window),
+        $document = $(document),
+        windowHeight = $window.height();
 
     function scroller() {
       var scrollTop = $window.scrollTop(),
-        documentHeight = $document.height(),
-        dwh = documentHeight - windowHeight,
-        extra = (scrollTop > dwh) ? dwh - scrollTop : 0;
+          documentHeight = $document.height(),
+          dwh = documentHeight - windowHeight,
+          extra = (scrollTop > dwh) ? dwh - scrollTop : 0;
 
       var etse = t.offset().top + topSpacing - extra;
 
