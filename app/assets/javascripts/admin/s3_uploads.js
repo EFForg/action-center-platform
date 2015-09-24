@@ -22,9 +22,9 @@ $(function() {
         // Now that we have our data, we add it to the global s3_upload_hash so that it can be
         // accessed (in the fileuploadsubmit callback) prior to being submitted
         s3_upload_hash[file_name] = {
-                                      key: data.key,
-                                      content_type: content_type
-                                    };
+          key: data.key,
+          content_type: content_type
+        };
       });
   });
 
@@ -81,12 +81,12 @@ $(function() {
 // used for displaying approximate file size on the file listing index.
 // functionality mimics what the jQuery-File-Upload script does.
 function formatFileSize(bytes) {
-    if (typeof bytes !== 'number')
-      return '';
-    else if (bytes >= 1000000000)
-      return (bytes / 1000000000).toFixed(2) + ' GB';
-    else if (bytes >= 1000000)
-      return (bytes / 1000000).toFixed(2) + ' MB';
-    else
-      return (bytes / 1000).toFixed(2) + ' KB';
+  if (typeof bytes !== 'number')
+    return '';
+  else if (bytes >= 1000000000)
+    return (bytes / 1000000000).toFixed(2) + ' GB';
+  else if (bytes >= 1000000)
+    return (bytes / 1000000).toFixed(2) + ' MB';
+  else
+    return (bytes / 1000).toFixed(2) + ' KB';
 }

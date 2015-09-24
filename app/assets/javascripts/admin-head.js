@@ -33,11 +33,11 @@ $(function(){
 
 var act = {};
 act.edit_parent_selector = ".wrapper";
-act.collections = {}
+act.collections = {};
 act.collections.topics = new TopicCollection();
 act.collections.topic_sets = new TopicSetCollection();
 act.collections.topic_categories = new TopicCategoryCollection();
-act.views = {}
+act.views = {};
 
 /*var router = new Router()*/
 

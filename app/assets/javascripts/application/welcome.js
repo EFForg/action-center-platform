@@ -1,34 +1,33 @@
 // Make each of the "more actions" sections the same height.
 
-equalheight = function(container){
+equalheight = function(container) {
+  var currentTallest = 0,
+      currentRowStart = 0,
+      rowDivs = new Array(),
+      $el,
+      topPosition = 0;
 
-var currentTallest = 0,
-     currentRowStart = 0,
-     rowDivs = new Array(),
-     $el,
-     topPosition = 0;
- $(container).each(function() {
+  $(container).each(function() {
+    $el = $(this);
+    $($el).height('auto')
+    topPostion = $el.position().top;
 
-   $el = $(this);
-   $($el).height('auto')
-   topPostion = $el.position().top;
-
-   if (currentRowStart != topPostion) {
-     for (currentDiv = 0 ; currentDiv < rowDivs.length ; currentDiv++) {
-       rowDivs[currentDiv].height(currentTallest);
-     }
-     rowDivs.length = 0; // empty the array
-     currentRowStart = topPostion;
-     currentTallest = $el.height();
-     rowDivs.push($el);
-   } else {
-     rowDivs.push($el);
-     currentTallest = (currentTallest < $el.height()) ? ($el.height()) : (currentTallest);
-  }
-   for (currentDiv = 0 ; currentDiv < rowDivs.length ; currentDiv++) {
-     rowDivs[currentDiv].height(currentTallest);
-   }
- });
+    if (currentRowStart != topPostion) {
+      for (currentDiv = 0; currentDiv < rowDivs.length; currentDiv++) {
+        rowDivs[currentDiv].height(currentTallest);
+      }
+      rowDivs.length = 0; // empty the array
+      currentRowStart = topPostion;
+      currentTallest = $el.height();
+      rowDivs.push($el);
+    } else {
+      rowDivs.push($el);
+      currentTallest = (currentTallest < $el.height()) ? ($el.height()) : (currentTallest);
+    }
+    for (currentDiv = 0; currentDiv < rowDivs.length; currentDiv++) {
+      rowDivs[currentDiv].height(currentTallest);
+    }
+  });
 };
 
 $(window).load(function() {
@@ -36,7 +35,7 @@ $(window).load(function() {
 });
 
 
-$(window).resize(function(){
+$(window).resize(function() {
   equalheight('.more-actions .col-md-4');
 });
 
@@ -53,10 +52,10 @@ subscription = {
   complete: function(xhr, data, status) {
     $('.progress-striped').hide();
     if(status === "success")
-        return $("<p>Thanks for subscribing, you're awesome!<p></p>Check your email for a confirmation link.</p>").insertAfter(this);
+      return $("<p>Thanks for subscribing, you're awesome!<p></p>Check your email for a confirmation link.</p>").insertAfter(this);
     else
-        return $("<p>Ok... kinda bad news...<p></p>Something went wrong.  Maybe the email you gave us had a typo???  Please try again.</p>").insertAfter(this);
-    }
+      return $("<p>Ok... kinda bad news...<p></p>Something went wrong.  Maybe the email you gave us had a typo???  Please try again.</p>").insertAfter(this);
+  }
 };
 
 $(function() {
