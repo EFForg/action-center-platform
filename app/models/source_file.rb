@@ -23,12 +23,14 @@ class SourceFile < ActiveRecord::Base
   after_destroy { s3_object.try(:delete) }
 
   def to_jq_upload
-    { 'id' => id,
+    {
+      'id' => id,
       'name' => file_name,
       'size' => file_size,
       'url' => url,
       'image' => self.is_image?,
-      'delete_url' => Rails.application.routes.url_helpers.source_file_path(self, :format => :json) }
+      'delete_url' => Rails.application.routes.url_helpers.source_file_path(self, :format => :json)
+    }
   end
 
   def is_image?
@@ -38,8 +40,10 @@ class SourceFile < ActiveRecord::Base
   #---- start S3 related methods -----
   def s3_object
     puts "trying to get s3 obkect"
-    s3 = AWS::S3.new( :access_key_id => S3CorsFileupload::Config.access_key_id,
-                      :secret_access_key => S3CorsFileupload::Config.secret_access_key)
+    s3 = AWS::S3.new(
+      :access_key_id => S3CorsFileupload::Config.access_key_id,
+      :secret_access_key => S3CorsFileupload::Config.secret_access_key
+    )
     bucket = s3.buckets[Rails.application.secrets.amazon_bucket]
     @s3_object = bucket.objects[key]
   rescue
@@ -50,9 +54,9 @@ class SourceFile < ActiveRecord::Base
   def self.open_aws
     unless @aws_connected
       AWS::S3::Base.establish_connection!(
-          :access_key_id     => S3CorsFileupload::Config.access_key_id,
-          :secret_access_key => S3CorsFileupload::Config.secret_access_key
-        )
+        :access_key_id     => S3CorsFileupload::Config.access_key_id,
+        :secret_access_key => S3CorsFileupload::Config.secret_access_key
+      )
     end
     @aws_connected ||= AWS::S3::Base.connected?
   end
