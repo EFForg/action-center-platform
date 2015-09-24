@@ -1,6 +1,6 @@
 window.App = window.App || {};
 
 window.App.Strings = {
-  invalidEmailSubmission: "<p>Ok... kinda bad news...<p></p>Something went wrong.  Maybe the email you gave us had a typo???  Please try again.</p>",
+  invalidEmailSubmission: "<p>Bad news, something went wrong with your email address.  Please check it for typos and try again.</p>",
   successfulEmailSubmission: "<p>Thanks for subscribing, you're awesome!<p></p>Check your email for a confirmation link.</p>"
 };
