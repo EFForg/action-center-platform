@@ -121,6 +121,11 @@ GEM
       activemodel
     erubis (2.7.0)
     execjs (2.2.1)
+    factory_girl (4.5.0)
+      activesupport (>= 3.0.0)
+    factory_girl_rails (4.5.0)
+      factory_girl (~> 4.5.0)
+      railties (>= 3.0.0)
     ffi (1.9.5)
     figaro (1.0.0)
       thor (~> 0.14)
@@ -344,6 +349,7 @@ DEPENDENCIES
   devise
   ejs
   email_validator
+  factory_girl_rails
   figaro
   fontello_rails_converter
   friendly_id (~> 5.0)
