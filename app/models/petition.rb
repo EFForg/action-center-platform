@@ -30,6 +30,10 @@ class Petition < ActiveRecord::Base
     end
   end
 
+  def to_s
+    "#{title}-exported_on-#{DateTime.now.strftime("%Y-%m-%d")}"
+  end
+
   private
   def set_goal
     if new_record?

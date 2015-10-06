@@ -8,7 +8,8 @@ class Admin::PetitionsController < Admin::ApplicationController
   end
 
   def csv
-    send_data @petition.to_csv
+    filename = sanitize_filename("#{@petition}.csv")
+    send_data @petition.to_csv, filename: filename
   end
 
   def report
