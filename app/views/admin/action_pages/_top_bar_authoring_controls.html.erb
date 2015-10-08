@@ -32,7 +32,7 @@
           <% if @actionPage.enable_petition? && @actionPage.petition && @actionPage.petition.persisted? %>
             <%= link_to presentable_csv_admin_petition_path(@actionPage.petition),
               class: 'btn btn-primary preview', target: "_blank", id: 'action-page-presentable-export' do -%>
-              <i class="icon ion-android-print"></i> Download Presentable CSV
+              <i class="icon ion-android-print"></i> CSV
             <% end -%>
           <% end -%>
         <% end -%>
