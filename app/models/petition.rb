@@ -21,7 +21,18 @@ class Petition < ActiveRecord::Base
 
   def to_csv(options = {})
     column_names =
-      %w[full_name email city state country_code]
+      %w[first_name last_name email zipcode country_code created_at]
+    CSV.generate(options) do |csv|
+      csv << column_names
+      signatures.each do |sub|
+        csv << sub.attributes.values_at(*column_names)
+      end
+    end
+  end
+
+  def to_presentable_csv(options = {})
+    column_names =
+      %w[full_name email city state country]
     CSV.generate(options) do |csv|
       csv << column_names
       signatures.each do |signature|

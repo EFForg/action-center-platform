@@ -21,7 +21,7 @@ Actioncenter::Application.routes.draw do
   get "tools/reps"
   get "tools/reps_raw"
   get "tools/social_buttons_count"
-  
+
   get "smarty_streets/:action", controller: :smarty_streets
   get "petition/:id/recent_signatures", :to => "petition#recent_signatures", :format => 'json'
   post "bounce/:amazon_authorize_key", :to => "bounce#index", :format => 'json'
@@ -53,6 +53,7 @@ Actioncenter::Application.routes.draw do
   resources :partners, only: [:show, :edit, :update] do
     member do
       get :csv
+      get :presentable_csv
       post 'users' => 'partners#add_user', as: :add_user
       delete 'users/:user_id' => 'partners#remove_user', as: :remove_user
     end
@@ -62,6 +63,7 @@ Actioncenter::Application.routes.draw do
     resources :petitions, only: :show do
       member do
         get :csv
+        get :presentable_csv
         get '/:bioguide_id' => 'petitions#report'
       end
     end

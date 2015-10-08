@@ -7,9 +7,15 @@ class Admin::PetitionsController < Admin::ApplicationController
       order('id desc')
   end
 
+  # This file will wind up at CiviCRM
   def csv
+    send_data @petition.to_csv
+  end
+
+  # this csv file is just for activists, they tender them to legislators after vetting
+  def presentable_csv
     filename = sanitize_filename("#{@petition}.csv")
-    send_data @petition.to_csv, filename: filename
+    send_data @petition.to_presentable_csv, filename: filename
   end
 
   def report

@@ -18,12 +18,12 @@ describe Petition do
     p = FactoryGirl.create(:petition_complete_with_one_hundred_signatures)
     expected_first_record = "John Doe,#{p.signatures.last.email},San Francisco,CA,United States of America\n"
 
-    csv = p.to_csv
+    csv = p.to_presentable_csv
 
     columns = csv.lines.first
     first_record = csv.lines[1]
 
-    expect(columns).to eq("full_name,email,city,state,country_code\n")
+    expect(columns).to eq("full_name,email,city,state,country\n")
     expect(first_record).to eq(expected_first_record)
   end
 

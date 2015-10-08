@@ -25,9 +25,15 @@
             class: 'btn btn-info preview', target: "_blank" do -%>
             <i class="icon ion-ios-photos-outline"></i> View
           <% end -%>
-          <%= link_to  admin_action_page_preview_path(@actionPage),
+          <%= link_to admin_action_page_preview_path(@actionPage),
             class: 'btn btn-info preview', target: "_blank", id: 'action-page-preview' do -%>
             <i class="icon ion-ios-eye-outline"></i> Preview
+          <% end -%>
+          <% if @actionPage.enable_petition? && @actionPage.petition && @actionPage.petition.persisted? %>
+            <%= link_to presentable_csv_admin_petition_path(@actionPage.petition),
+              class: 'btn btn-primary preview', target: "_blank", id: 'action-page-presentable-export' do -%>
+              <i class="icon ion-android-print"></i> Download Presentable CSV
+            <% end -%>
           <% end -%>
         <% end -%>
         <%- unless @actionPage.published == true -%>
