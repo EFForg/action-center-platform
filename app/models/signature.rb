@@ -16,12 +16,9 @@ class Signature < ActiveRecord::Base
   include ActionView::Helpers::DateHelper
 
   def arbitrary_opinion_of_country_string_validity
-    begin
-      IsoCountryCodes.find(country_code)
-    rescue IsoCountryCodes::UnknownCodeError
+    if full_country_name.nil?
       errors.add(:country_code, "Country Code might come from a spam bot.")
     end
-
   end
 
   def name
@@ -49,7 +46,11 @@ class Signature < ActiveRecord::Base
   end
 
   def full_country_name
-    IsoCountryCodes.find(country_code).name
+    begin
+      IsoCountryCodes.find(country_code).name
+    rescue IsoCountryCodes::UnknownCodeError
+      nil
+    end
   end
 
   private
