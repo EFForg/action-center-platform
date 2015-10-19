@@ -52,9 +52,9 @@ subscription = {
   complete: function(xhr, data, status) {
     $('.progress-striped').hide();
     if(status === "success")
-      return $("<p>Thanks for subscribing, you're awesome!<p></p>Check your email for a confirmation link.</p>").insertAfter(this);
+      return $(App.Strings.successfulEmailSubmission).insertAfter(this);
     else
-      return $("<p>Ok... kinda bad news...<p></p>Something went wrong.  Maybe the email you gave us had a typo???  Please try again.</p>").insertAfter(this);
+      return $(App.Strings.invalidEmailSubmission).insertAfter(this);
   }
 };
 
