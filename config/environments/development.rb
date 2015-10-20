@@ -26,6 +26,11 @@ Actioncenter::Application.configure do
   # Raise an error on page load if there are pending migrations
   config.active_record.migration_error = :page_load
 
+  unless Rails.application.secrets.sentry_dsn.nil?
+    config.action_dispatch.show_exceptions = false
+    config.consider_all_requests_local = false
+  end
+
   # Debug mode disables concatenation and preprocessing of assets.
   # This option may cause significant delays in view rendering with a large
   # number of complex assets.

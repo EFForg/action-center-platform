@@ -47,6 +47,7 @@ development:
   twitter_oath_token_secret:
   twitter_api_key:
   twitter_api_secret:
+  sentry_dsn: # if you're using sentry
   enable_basic_auth: 'false'
   basic_auth_username: 
   basic_auth_password: 

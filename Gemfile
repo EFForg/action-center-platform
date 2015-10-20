@@ -66,6 +66,9 @@ gem 'chartkick', git: 'https://github.com/Hainish/chartkick.git', branch: 'chart
 gem 'delayed_job_active_record'
 gem 'daemons'
 
+# Exception monitoring
+gem 'sentry-raven'
+
 # Other
 gem 'acts_as_paranoid', git: 'https://github.com/ActsAsParanoid/acts_as_paranoid.git'
 gem 'descriptive_statistics'      # Used for calculating percentiles
