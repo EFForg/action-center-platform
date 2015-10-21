@@ -8,6 +8,11 @@ $(document).on('ready', function() {
     var $zip_field = $(document.getElementById('zip-input').text);
     var $street_address_field = $(document.getElementById('street-address-input').text);
 
+    $phone_number_field.each(function(){
+      $phone = $(this);
+      $phone.bfhphone($phone.data());
+    });
+
     $.ajax({
       url: url,
       success: function(res){
