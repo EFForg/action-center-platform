@@ -79,12 +79,12 @@ gem 'going_postal'                # Zip code validation
 gem 'gravatar-ultimate'
 gem 'has_heartbeat'               # Uptime monitoring
 gem 'http_accept_language'        # Detect HTTP language header
-gem 'jbuilder', '~> 1.2'          # JSON APIs 
+gem 'jbuilder', '~> 1.2'          # JSON APIs
 gem 'whenever', require: false    # Cron jobs
 gem 'sanitize'                    # Sanitize user input
 gem 'rest_client'
 gem 'sunlight-congress', git: 'https://github.com/steveklabnik/sunlight-congress'
-gem 'will_paginate', '~> 3.0' 
+gem 'will_paginate', '~> 3.0'
 gem 'oauth'
 gem 'email_validator'
 gem 'iso_country_codes'
@@ -112,4 +112,3 @@ end
 group :production do
   gem 'unicorn'
 end
-

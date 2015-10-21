@@ -25,3 +25,6 @@ pickle-email-*.html
 
 # Ignore custom quotes
 /config/custom_quotes.yml
+
+# compiled assets
+public/assets

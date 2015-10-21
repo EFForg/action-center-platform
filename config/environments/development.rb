@@ -23,6 +23,10 @@ Actioncenter::Application.configure do
   # Print deprecation notices to the Rails logger.
   config.active_support.deprecation = :log
 
+  # Force all access to the app over SSL, use Strict-Transport-Security, and use secure cookies.
+  config.force_ssl = Rails.application.secrets.force_ssl.nil? ? false : Rails.application.secrets.force_ssl
+
+
   # Raise an error on page load if there are pending migrations
   config.active_record.migration_error = :page_load
 
