@@ -5,7 +5,7 @@
   <input type="text" required class="form-control" id="inputStreetAddress" name="inputStreetAddress" value="<%= current_user.try :street_address -%>" placeholder="Street Address" title='Must be a valid US street address (no city or state necessary)'>
 </script>
 <script type='text/x-underscore-template' id='phone-input'>
-  <input type="text" required class="form-control bfh-phone" id="inputPhone" name="inputPhone" data-format="ddd-ddd-dddd" pattern="^((5\d[123467890])|(5[123467890]\d)|([2346789]\d\d))\-\d\d\d-\d\d\d\d$" placeholder="Phone Number" title="Must be a valid US phone number entered in 555-555-5555 format">
+  <input type="text" required class="form-control bfh-phone" id="inputPhone" name="inputPhone" value="<%= current_user.try :phone -%>" data-format="ddd-ddd-dddd" pattern="^((5\d[123467890])|(5[123467890]\d)|([2346789]\d\d))\-\d\d\d-\d\d\d\d$" placeholder="Phone Number" title="Must be a valid US phone number entered in 555-555-5555 format">
 </script>
 <div id='call-tool' class="tool">
   <div class="tool-container">
