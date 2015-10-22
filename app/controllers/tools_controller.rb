@@ -26,18 +26,28 @@ class ToolsController < ApplicationController
       update_user_data(call_params.with_indifferent_access)
     end
 
-    response = RestClient.get Rails.application.config.call_tool_url + '/call/create',
-      params: { campaignId: params[:call_campaign_id],
-                userPhone:  params[:phone],
-                userCountry: 'US',
-                userLocation: params[:location],
-                # TODO - Settle on the schema of the private meta data
-                meta: {
-                  user_id:     @user.try(:id),
-                  action_id:   params[:action_id],
-                  action_type: 'call'
-                }.to_json,
-                callback_url: root_url }
+    begin
+      response = RestClient.get Rails.application.config.call_tool_url + '/call/create',
+        params: { campaignId: params[:call_campaign_id],
+                  userPhone:  params[:phone],
+                  userCountry: 'US',
+                  userLocation: params[:location],
+                  # TODO - Settle on the schema of the private meta data
+                  meta: {
+                    user_id:     @user.try(:id),
+                    action_id:   params[:action_id],
+                    action_type: 'call'
+                  }.to_json,
+                  callback_url: root_url }
+    rescue RestClient::BadRequest => e
+      begin
+        error = JSON.parse(e.http_body)["error"]
+      rescue
+        raise e
+      end
+      # Don't raise for twilio error 13224: number invalid
+      raise error unless error.match(/^13224:/)
+    end
 
     render :json => {}, :status => 200
   end
