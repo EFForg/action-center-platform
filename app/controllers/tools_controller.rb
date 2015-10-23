@@ -6,6 +6,7 @@ class ToolsController < ApplicationController
   before_filter :set_user
   before_filter :set_action_page
   after_filter :deliver_thanks_message, only: [:call, :petition, :email]
+  skip_after_filter :deliver_thanks_message, if: :signature_has_errors
   skip_before_filter :verify_authenticity_token, only: :petition
 
   def call_required_fields
@@ -251,6 +252,10 @@ class ToolsController < ApplicationController
         action_page_id: @action_page.id
       ).increment!
     end
+  end
+
+  def signature_has_errors
+    !@signature.nil? and @signature.errors.count > 0
   end
 
   def signature_params
