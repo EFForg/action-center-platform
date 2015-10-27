@@ -172,20 +172,33 @@ $(document).on('ready', function() {
 
         $target_checkbox.prop('checked', true);
         $target_checkbox.prop('disabled', false);
+
+        if(toggle_cf_fields){
+          $topic_category.hide();
+          $campaign_tag.hide();
+        }
+
+        if(toggle_alt_text_fields){
+          $text_replacement.show();
+        }
+
+        $text_field.show();
       } else {
         $target_house.prop('disabled', false);
         $target_senate.prop('disabled', false);
         $target_bioguide_id.prop('disabled', false);
         $target_email.prop('disabled', false);
-      }
-      $text_field.toggle();
-      
-      if(toggle_cf_fields){
-        $topic_category.toggle();
-        $campaign_tag.toggle();
-      }
-      if(toggle_alt_text_fields){
-        $text_replacement.toggle();
+
+        if(toggle_cf_fields){
+          $topic_category.show();
+          $campaign_tag.show();
+        }
+
+        if(toggle_alt_text_fields){
+          $text_replacement.hide();
+        }
+
+        $text_field.hide();
       }
     });
   }
