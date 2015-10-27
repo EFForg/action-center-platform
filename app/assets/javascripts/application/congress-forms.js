@@ -486,6 +486,12 @@
       '$NAME_LAST': {
         'maxlength': '20',
         'valid_types': ['text']
+      },
+      '$CAPTCHA_SOLUTION': {
+        'valid_types': ['text']
+      },
+      '$MESSAGE': {
+        'valid_types': ['text']
       }
     },
     fieldsOrder: [
