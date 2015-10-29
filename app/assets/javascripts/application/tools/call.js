@@ -1,5 +1,7 @@
 $(document).on('ready', function() {
   if($('#call-tool').length > 0){
+    height_changed();
+
     var call_campaign_id = $('[data-call-campaign-id]').attr('data-call-campaign-id');
     var url = '/tools/call_required_fields?call_campaign_id=' + call_campaign_id;
     var required_location;
@@ -31,6 +33,7 @@ $(document).on('ready', function() {
           $container.append($street_address_field);
           $container.append($zip_field);
         }
+        height_changed();
       }
     });
 
