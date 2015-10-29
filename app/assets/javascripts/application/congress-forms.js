@@ -61,6 +61,7 @@
     legislatorCount: 0,
 
     init: function() {
+      _.bindAll(this, 'toggleChecked', 'onCaptchaNeeded');
       var that = this;
 
       var form = $('<form/>').addClass(this.settings.formClasses);
@@ -71,6 +72,10 @@
       // Detect click of captcha form
       $('body').on('click', '.' + pluginName + '-captcha-button', function (ev) {
         var answerEl = $(ev.currentTarget).parents('.' + pluginName + '-captcha-container').find('.' + pluginName + '-captcha');
+        that.submitCaptchaForm(answerEl);
+      });
+      $('body').on('click', '.recaptcha-submit', function(ev){
+        var answerEl = $(ev.currentTarget).parents('.recaptcha-wrapper').find('#answer_serialized');
         that.submitCaptchaForm(answerEl);
       });
       // Detect enter key on input
@@ -154,9 +159,7 @@
                   that.settings.onLegislatorSuccess(legislatorId, $(legislatorFieldset));
                   //SUCCESS GOES HERE
                 } else if (data.status === 'captcha_needed'){
-                  var captchaForm = that.generateCaptchaForm(data.url, legislatorId, data.uid);
-                  $(legislatorFieldset).append(captchaForm);
-                  that.settings.onLegislatorCaptcha(legislator, $(legislatorFieldset));
+                  that.onCaptchaNeeded(legislatorId, legislatorFieldset, data.url, data.uid);
                 } else {
                   that.settings.onLegislatorError(legislatorId, $(legislatorFieldset));
                 }
@@ -205,10 +208,7 @@
                 that.settings.onLegislatorSuccess(legislator, $(commonFieldset));
                 //SUCCESS GOES HERE
               } else if (data.status === 'captcha_needed'){
-                alert(data.uid);
-                var captchaForm = that.generateCaptchaForm(data.url, legislator, data.uid);
-                $(commonFieldset).append(captchaForm);
-                that.settings.onLegislatorCaptcha(legislator, $(commonFieldset));
+                that.onCaptchaNeeded(legislator, commonFieldset, data.url, data.uid);
               } else {
                 that.settings.onLegislatorError(legislator, $(commonFieldset));
               }
@@ -220,6 +220,21 @@
       // Disable inputs after we serialize their values otherwise they won't be picked up
       $('input, textarea, select, button' , form).attr('disabled', 'disabled');
       return false;
+    },
+    onCaptchaNeeded: function(legislator, fieldset, url, uid, replace){
+      var captchaForm;
+      if($('[data-google-recaptcha=true]', fieldset).length > 0){
+        captchaForm = this.generateRecaptchaForm(url, legislator, uid);
+        $('.recaptcha-option', captchaForm).click(this.toggleChecked);
+      } else {
+        captchaForm = this.generateCaptchaForm(url, legislator, uid);
+      }
+      if(replace){
+        $(fieldset).find('.recaptcha-div').replaceWith(captchaForm);
+      } else {
+        $(fieldset).append(captchaForm);
+      }
+      this.settings.onLegislatorCaptcha(legislator, $(fieldset));
     },
     generateForm: function(groupedData, form) {
       var that = this;
@@ -295,6 +310,8 @@
           success: function( data ) {
             if(data.status === 'success') {
               that.settings.onLegislatorCaptchaSuccess(legislatorId, $(legislatorFieldset));
+            } else if (data.status === 'captcha_needed') {
+              that.onCaptchaNeeded(legislatorId, legislatorFieldset, data.url, captchaUID, true);
             } else {
               that.settings.onLegislatorCaptchaError(legislatorId, $(legislatorFieldset));
             }
@@ -328,6 +345,38 @@
       var submitButton = $('<button>').attr('type', 'button').addClass('btn btn-primary ' + pluginName +'-captcha-button').text('Submit Captcha');
       formGroup.append(submitButton);
       return formGroup;
+    },
+    generateRecaptchaForm: function (captchaUrl, legislatorId, captchaUID) {
+      return $(JST['application/templates/recaptcha']({
+        captcha_url: captchaUrl,
+        captcha_uid: captchaUID,
+        legislator_id: legislatorId
+      }));
+    },
+    toggleChecked: function(ev){
+      var options_selected = this.deserialize_options($('#answer_serialized', $(ev.target).parents('.recaptcha-wrapper')).val());
+      var new_value = !options_selected[$(ev.target).data('recaptcha-option')];
+      options_selected[$(ev.target).data('recaptcha-option')] = new_value;
+      if(new_value){
+        $(ev.target).html('&#10003;');
+      } else {
+        $(ev.target).html('');
+      }
+      $('#answer_serialized', $(ev.target).parents('.recaptcha-wrapper')).val(this.serialize_options(options_selected));
+    },
+    deserialize_options: function(serialized){
+      var deserialized = {};
+      _.each(serialized.split(","), function(val){
+        deserialized[Number(val)] = true;
+      });
+      return deserialized;
+    },
+    serialize_options: function(deserialized){
+      return _.filter(
+        _.map(deserialized, function(val, i){
+          if(val && i != 0) return i;
+        })
+      ).join(',');
     },
     generateFormGroup: function(field) {
       var that = this;
@@ -457,6 +506,8 @@
         var $input = $('<input type="text" />')
           .attr('placeholder', label_name);
         $input.addClass(that.settings.textInputClasses);
+        if(field.options_hash && "google_recaptcha" in field.options_hash)
+          $input.attr('data-google-recaptcha', 'true');
       }
       if(that.settings.values && typeof that.settings.values[field_name] !== 'undefined') {
         $input.val(that.settings.values[field_name]);

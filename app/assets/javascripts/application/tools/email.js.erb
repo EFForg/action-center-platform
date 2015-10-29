@@ -205,11 +205,13 @@ $(document).on('ready', function() {
               });
               console.log(attrs);
           // Replace the original input
-          legislatorFieldSet.find('input.congressForms-captcha').replaceWith('<div class="input-group captcha-form"><input type="text" class="form-control congressForms-captcha"><span class="input-group-btn"><button type="button" class="btn btn-primary congressForms-captcha-button">Submit</button></span></div>');
-          // Re-add the attributes
-          legislatorFieldSet.find('input.congressForms-captcha').attr(attrs);
-          // Remove the buttons
-          $(legislatorFieldSet).find('button.congressForms-captcha-button:eq(1)').remove();
+          if($('[data-google-recaptcha=true]', legislatorFieldSet).length == 0){
+            legislatorFieldSet.find('input.congressForms-captcha').replaceWith('<div class="input-group captcha-form"><input type="text" class="form-control congressForms-captcha"><span class="input-group-btn"><button type="button" class="btn btn-primary congressForms-captcha-button">Submit</button></span></div>');
+            // Re-add the attributes
+            legislatorFieldSet.find('input.congressForms-captcha').attr(attrs);
+            // Remove the buttons
+            $(legislatorFieldSet).find('button.congressForms-captcha-button:eq(1)').remove();
+          }
         },
         onLegislatorCaptchaSubmit: function(legislatorId, legislatorFieldSet) {
           $('.congressForms-captcha-container', legislatorFieldSet).slideUp(400, height_changed);
@@ -220,7 +222,7 @@ $(document).on('ready', function() {
           if(emailsSent === rep_ids.length) {
             allEmailSent();
           }
-          $('.form-group', legislatorFieldSet).slideUp(400, height_changed);
+          $('.form-group, .recaptcha-div', legislatorFieldSet).slideUp(400, height_changed);
           legislatorFieldSet.find('span.info-circle').replaceWith('<span class="info-circle success">Sent <i class="icon-ok-circle"></i></span>');
         },
         onLegislatorCaptchaError: function(legislatorId, legislatorFieldSet) {
