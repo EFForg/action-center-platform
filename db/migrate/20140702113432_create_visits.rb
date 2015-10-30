@@ -1,7 +1,7 @@
 class CreateVisits < ActiveRecord::Migration
   def change
     create_table :visits, id: false do |t|
-      t.uuid :id, primary_key: true
+      t.uuid :id, primary_key: true, default: 'uuid_generate_v4()'
       t.uuid :visitor_id
 
       # the rest are recommended but optional
