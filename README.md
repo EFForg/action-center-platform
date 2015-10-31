@@ -4,37 +4,27 @@ Action Center
 ### Configuration
 
 #### Secrets
-Much of the configuration for your app will happen in a file called
-`config/application.yml`. Use this file to store sensitive login credentials,
-API keys, and other information that should not be made public, including:
+For convenience almost all of the configuration settings have been moved into
+the `config/application.yml` file.  The file isn't tracked into the repo so
+to get started, make a copy of `config/application.yml.example` and begin
+filling in and generating the appropriate values.
 
-* Rails secret key base - generate this with `rake secret`
-* Devise secret key - generate this with `rake secret`
+#### Notable Dependencies
 * Amazon S3 secret key and key id
 * [SmartyStreets API](https://smartystreets.com/account/create) key and id
 * [Sunlight API](https://sunlightfoundation.com/api/accounts/register/) key
-
-For convenience, a template config is provided in
-`config/application.yml.example`
-
-#### Database
-
-The default database is postgresql, but the mysql2 adapter can be chosen if
-desired. You can edit the database settings in `config/application.yml`
-
-If you're using heroku, you can skip this part. Heroku should take care of
-the database configuration when you deploy.
-
-#### SMTP
-
-You will need to configure an smtp server in order to start creating user
-accounts.  Configure the `address`, `port`, and `domain` in
-`config/application.rb`. Configure the username and password in
-`config/secrets.yml`.
+* Congress Forms
 
 ### Local Setup
 
+Install system package dependencies (the below example works on Ubuntu).
+
+    sudo apt-get install postgresql postgresql-contrib-9.3
+
+Take a moment to configure a postgresql user with full privileges, and then run the below commands to bring the app online.  
+
     bundle install
+    rake db:create
     rake db:schema:load
     rails s
 
@@ -70,10 +60,6 @@ Follow these instructions
 The EFF icon font is generated using [fontello.com](fontello.com) and via the [fontello-rails-converter](https://github.com/railslove/fontello_rails_converter).
 
 To add a new icon to the fontset, read the **Update your existing fontello font** section of the [fontello_rails_converter readme](https://github.com/railslove/fontello_rails_converter#updating-your-existing-fontello-font).
-
-### Front-end Asset Management
-
-We use [rails-assets.org](https://rails-assets.org) for front-end asset management.  Please refer to the `Gemfile` to modify these assets.
 
 ## Embedding Actions
 
