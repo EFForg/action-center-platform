@@ -47,7 +47,13 @@ class ToolsController < ApplicationController
         raise e
       end
       # Don't raise for twilio error 13224: number invalid
-      raise error unless error.match(/^13224:/)
+      unless error.match(/^13224:/)
+        if Rails.application.secrets.sentry_dsn.nil?
+          raise error
+        else
+          Raven.capture_message(error, { :level => 'info' })
+        end
+      end
     end
 
     render :json => {}, :status => 200
