@@ -1,5 +1,7 @@
 Actioncenter::Application.routes.draw do
   get "robots.txt", controller: :robots, action: :show, format: 'text'
+  get "/heartbeat", to: "robots#heartbeat"
+  
 
   resources :source_files, :only => [:index, :create, :destroy], :controller => 's3_uploads' do
     get :generate_key, :on => :collection
