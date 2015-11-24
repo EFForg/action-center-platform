@@ -77,7 +77,6 @@ gem 'ejs'                         # Embedded javascript
 gem 'friendly_id', '~> 5.0'       # Slugging/permalink plugins for Active Record
 gem 'going_postal'                # Zip code validation
 gem 'gravatar-ultimate'
-gem 'has_heartbeat'               # Uptime monitoring
 gem 'http_accept_language'        # Detect HTTP language header
 gem 'jbuilder', '~> 1.2'          # JSON APIs
 gem 'whenever', require: false    # Cron jobs

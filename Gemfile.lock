@@ -67,9 +67,6 @@ GEM
       request_store
       user_agent_parser
       uuidtools
-    airbrake (3.2.1)
-      builder
-      multi_json
     arel (5.0.1.20140414130214)
     aws-s3 (0.6.3)
       builder
@@ -144,9 +141,6 @@ GEM
       rack
     groupdate (2.3.0)
       activesupport (>= 3)
-    has_heartbeat (0.2.0)
-      airbrake (~> 3.1)
-      rails (>= 3.1.0)
     hike (1.2.3)
     htmlentities (4.3.2)
     http_accept_language (2.0.2)
@@ -361,7 +355,6 @@ DEPENDENCIES
   going_postal
   gravatar-ultimate
   groupdate
-  has_heartbeat
   http_accept_language
   iso_country_codes
   jbuilder (~> 1.2)
