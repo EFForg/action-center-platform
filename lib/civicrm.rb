@@ -61,8 +61,9 @@ module CiviCRM
 
   private
   def self.post(params)
+    supporters_api_url = "#{ENV['supporters_host']}/#{ENV['supporters_path']}"
     begin
-      res = JSON.parse RestClient.post(SUPPORTERS_API_URL, params)
+      res = JSON.parse RestClient.post(supporters_api_url, params)
       raise res['error_message'] if res['error']
       return res
     rescue => e

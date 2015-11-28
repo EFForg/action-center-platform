@@ -46,7 +46,4 @@ Actioncenter::Application.configure do
   # This option may cause significant delays in view rendering with a large
   # number of complex assets.
   config.assets.debug = false
-  SUPPORTERS_API_HOST = Rails.application.secrets.supporters['host']
-  SUPPORTERS_API_PATH = Rails.application.secrets.supporters['path']
-  SUPPORTERS_API_URL = "#{SUPPORTERS_API_HOST}/#{SUPPORTERS_API_PATH}"
 end
