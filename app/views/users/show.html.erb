@@ -21,7 +21,7 @@
           <div class="alert alert-warning">
             <%= form_for current_user, html: { method: :put , class: :enable_logging } do |f| %>
               <%= f.hidden_field(:record_activity, :value => 'true') %>
-              It looks like activity recording isn't enabled, so we don't store a record which actions you've taken. 
+              It looks like activity recording isn't enabled, so we don't store a record which actions you've taken.
               <%= submit_tag "Enable activity logging", class: 'link-button' %> to see your activity here.
             <% end -%>
           </div>
@@ -72,25 +72,25 @@
           <div class="quad-1">
             <span>
               <%= current_user.events.actions.calls.count %>
-            </span> 
+            </span>
             call<%= "s" if current_user.events.actions.calls.count != 1 %>
           </div>
           <div class="quad-2">
             <span>
               <%= current_user.events.actions.signatures.count %>
-            </span> 
+            </span>
             petition<%= "s" if current_user.events.actions.signatures.count != 1 -%>
           </div>
           <div class="quad-3">
             <span>
               <%= current_user.events.actions.emails.count %>
-            </span> 
+            </span>
             email<%= "s" if current_user.events.actions.emails.count != 1 -%>
           </div>
           <div class="quad-4">
             <span>
               <%= current_user.events.actions.count -%>
-            </span> 
+            </span>
             total
           </div>
         </div>
@@ -186,7 +186,7 @@
       <% if current_user.contact_id! -%>
         <p>Click below to change your EFF newsletter subscriptions.</p>
         <%= link_to "Edit subscriptions",
-          "#{SUPPORTERS_API_HOST}/update-preferences?id=#{current_user.contact_id}",
+          "#{Rails.application.secrets.supporters['host']}/update-preferences?id=#{current_user.contact_id}",
           :class => 'btn btn-sm btn-red-outline edit-settings' -%>
       <% else -%>
         <form action="https://supporters.eff.org/" method="post" id="eff-supporters-library-account-form" accept-charset="UTF-8" _lpchecked="1">
