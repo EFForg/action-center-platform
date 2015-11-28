@@ -88,6 +88,6 @@ module CiviCRM
   end
 
   def self.base_params
-    { site_key: SUPPORTERS_API_KEY }
+    { site_key: ENV['supporters_api_key'] }
   end
 end

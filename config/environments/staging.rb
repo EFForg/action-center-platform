@@ -96,7 +96,6 @@ Actioncenter::Application.configure do
 
   # Use default logging formatter so that PID and timestamp are not suppressed.
   config.log_formatter = ::Logger::Formatter.new
-  SUPPORTERS_API_KEY = Rails.application.secrets.supporters['api_key']
   SUPPORTERS_API_HOST = Rails.application.secrets.supporters['host']
   SUPPORTERS_API_PATH = Rails.application.secrets.supporters['path']
   SUPPORTERS_API_URL = "#{SUPPORTERS_API_HOST}/#{SUPPORTERS_API_PATH}"

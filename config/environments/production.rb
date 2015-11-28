@@ -96,11 +96,9 @@ Actioncenter::Application.configure do
 
   # Use default logging formatter so that PID and timestamp are not suppressed.
   config.log_formatter = ::Logger::Formatter.new
-  SUPPORTERS_API_KEY = Rails.application.secrets.supporters['api_key']
   SUPPORTERS_API_HOST = Rails.application.secrets.supporters['host']
   SUPPORTERS_API_PATH = Rails.application.secrets.supporters['path']
   SUPPORTERS_API_URL = "#{SUPPORTERS_API_HOST}/#{SUPPORTERS_API_PATH}"
-  #{
 
   # Enable basic auth if the secret is set to true.
   # At EFF we use this to prevent access to our Heroku staging access by setting the enable_basic_auth to 'true' and setting the basic_auth_username and basic_auth_password env variables.
