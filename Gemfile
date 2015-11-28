@@ -104,6 +104,8 @@ end
 
 group :development, :test do
   gem 'rspec-rails', '~> 3.0'
+  gem 'cucumber-rails', require: false
+  gem 'database_cleaner'
   gem 'pry'
   gem 'factory_girl_rails'
 end
