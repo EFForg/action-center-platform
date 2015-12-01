@@ -4,7 +4,7 @@ class SubscriptionsController < ApplicationController
     email = params[:subscription][:email]
     if EmailValidator.valid?(email)
       params[:subscription][:opt_in] = false
-      CiviCRM::subscribe params[:subscription] unless ENV['supporters_api_key'].nil?
+      CiviCRM::subscribe params[:subscription]
 
       update_user_data(email: email)
       render json: {}
