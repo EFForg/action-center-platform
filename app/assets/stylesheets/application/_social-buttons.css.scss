@@ -1,12 +1,13 @@
 #share-buttons {
+    margin-top: -20px;
     height: 100px;
 }
 #share-buttons a {
-    margin:4px;
+    // margin:4px;  // these are being disabled now that twitter doesn't have
+    // margin-top: 40px; // the money to keep track of tweet counts
     width:54px;
     height:54px;
     z-index: 0;
-    margin-top: 40px;
 }
 .sicon {
     float: left;
@@ -16,8 +17,8 @@
     background-image: image-url("social-icons.png");
 }
 #share-buttons .sicon {
-    margin-top: 2px;
-
+    // margin-top: 2px;  // changed when tweet count was disabled
+    margin-top: 20px;
 }
 #sfb {
     background-position:70% 0 ;
