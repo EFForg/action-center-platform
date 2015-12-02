@@ -19,7 +19,7 @@ filling in and generating the appropriate values.
 
 Install system package dependencies (the below example works on Ubuntu).
 
-    sudo apt-get install postgresql postgresql-contrib-9.3
+    sudo apt-get install postgresql postgresql-contrib-9.3 libpq-dev
 
 Take a moment to configure a postgresql user with full privileges, and then run the below commands to bring the app online.  
 
