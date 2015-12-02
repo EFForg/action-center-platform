@@ -10,5 +10,5 @@ Feature: Create Content
       Then I see a successful sign in message
       When I return to the site
       Then I should be signed in
-      When I visit admin
+      When I visit the admin page
       Then I am shown admin controls

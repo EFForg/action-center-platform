@@ -39,22 +39,23 @@ When(/^I sign in with valid credentials$/) do
 end
 
 Then(/^I see a successful sign in message$/) do
-  binding.pry
-  expect(page).to have_content "Hi! You&#39;re signed in!"
+  expect(page.html).to include("Hi! You&#39;re signed in!")
 end
 
 When(/^I return to the site$/) do
-  pending # express the regexp above with the code you wish you had
+  visit '/'
 end
 
 Then(/^I should be signed in$/) do
-  pending # express the regexp above with the code you wish you had
+  expect(page).to have_content "Logout"
+  expect(page).not_to have_content "Sign up"
+  expect(page).not_to have_content "Login"
 end
 
-When(/^I visit admin$/) do
-  pending # express the regexp above with the code you wish you had
+When(/^I visit the admin page$/) do
+  visit '/admin/action_pages'
 end
 
 Then(/^I am shown admin controls$/) do
-  pending # express the regexp above with the code you wish you had
+  expect(page).to have_content "Action Center Admin"
 end
