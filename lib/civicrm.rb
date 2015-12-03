@@ -9,17 +9,20 @@ module CiviCRM
     end
 
     def subscribe!(opt_in=false, source='action center')
+      return nil if Rails.env == 'test'
       res = CiviCRM::subscribe contact_attributes.merge(opt_in: opt_in, source: source)
       update_attributes(contact_id: res['contact_id']) if (res && res['contact_id'])
     end
 
     def contact_id!
+      return nil if Rails.env == 'test'
       res = CiviCRM::import_contact contact_attributes
       update_attributes(contact_id: res['contact_id']) if (res && res['contact_id'])
       contact_id
     end
 
     def add_civicrm_activity!(action_page_id)
+      return nil if Rails.env == 'test'
       if contact_id && action_page = ActionPage.find_by_id(action_page_id)
         CiviCRM::add_activity(
           contact_id: contact_id,
@@ -30,10 +33,12 @@ module CiviCRM
   end
 
   def self.subscribe(params)
+    return nil if Rails.env == 'test'
     self.import_contact params.merge(subscribe: true)
   end
 
   def self.import_contact(params)
+    return nil if Rails.env == 'test'
     post base_params.merge(
       method: 'import_contact',
       data: {
@@ -53,6 +58,7 @@ module CiviCRM
   end
 
   def self.add_activity(params)
+    return nil if Rails.env == 'test'
     post base_params.merge(
       method: 'add_activity',
       data: params.slice(:contact_id, :subject, :activity_type_id).to_json
@@ -61,8 +67,9 @@ module CiviCRM
 
   private
   def self.post(params)
+    supporters_api_url = "#{ENV['supporters_host']}/#{ENV['supporters_path']}"
     begin
-      res = JSON.parse RestClient.post(SUPPORTERS_API_URL, params)
+      res = JSON.parse RestClient.post(supporters_api_url, params)
       raise res['error_message'] if res['error']
       return res
     rescue => e
@@ -88,6 +95,6 @@ module CiviCRM
   end
 
   def self.base_params
-    { site_key: SUPPORTERS_API_KEY }
+    { site_key: ENV['supporters_api_key'] }
   end
 end

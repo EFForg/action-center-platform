@@ -59,13 +59,17 @@ class ToolsController < ApplicationController
     render :json => {}, :status => 200
   end
 
+  # get /tools/social_buttons_count
   def social_buttons_count
+    render(:json => {"googleplus":0,"facebook":0}, :status => 200) and return if Rails.env == 'test'
+
     sbResponse = RestClient.get 'https://socialbuttonsserver.herokuapp.com/',
       {:params => {:url => params[:url], :networks => 'facebook,twitter,googleplus'}}
 
     request.session_options[:skip] = true  # removes session data
     response.headers['Cache-Control'] = 'public, no-cache'
     response.headers['Surrogate-Control'] = "max-age=300"
+
     render :json => sbResponse, :status => 200
   end
 
@@ -99,7 +103,7 @@ class ToolsController < ApplicationController
         @user.subscribe!(opt_in=false, source=@source)
 
       end
-      
+
       if params[:partner_newsletter].present?
         Subscription.new(
           signature_params.slice(:email, :first_name, :last_name).merge(
