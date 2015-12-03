@@ -95,6 +95,8 @@ GEM
       rack (>= 1.0.0)
       rack-test (>= 0.5.4)
       xpath (~> 2.0)
+    childprocess (0.5.8)
+      ffi (~> 1.0, >= 1.0.11)
     chronic (0.10.2)
     climate_control (0.0.3)
       activesupport (>= 3.0)
@@ -314,6 +316,11 @@ GEM
     sdoc (0.4.1)
       json (~> 1.7, >= 1.7.7)
       rdoc (~> 4.0)
+    selenium-webdriver (2.48.1)
+      childprocess (~> 0.5)
+      multi_json (~> 1.0)
+      rubyzip (~> 1.0)
+      websocket (~> 1.0)
     sentry-raven (0.15.2)
       faraday (>= 0.7.6)
     slop (3.6.0)
@@ -346,6 +353,7 @@ GEM
       rack (>= 1.0)
     webshims-rails (1.15.3)
       rails (> 3.1.0)
+    websocket (1.2.2)
     whenever (0.9.2)
       activesupport (>= 2.3.4)
       chronic (>= 0.6.3)
@@ -425,6 +433,7 @@ DEPENDENCIES
   sanitize
   sass-rails (~> 4.0.0)
   sdoc
+  selenium-webdriver
   sentry-raven
   sprockets-image_compressor
   sunlight-congress!
