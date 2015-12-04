@@ -15,7 +15,7 @@ amazon_secret_access_key:
 amazon_region: us-west-1
 amazon_bucket: actioncenter
 amazon_bucket_url: # usually not needed, determined from region and bucket
-amazon_authorize_key:
+amazon_authorize_key: # has something to do with email bounces
 cors_allowed_domains: http://www.example.com https://www.example.com
 
 
