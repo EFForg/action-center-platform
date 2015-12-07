@@ -14,7 +14,7 @@
       </script>
       <% if !@reps.present? && (@tweet.target_house? || @tweet.target_senate?) %>
         <div id='tweet-message-wrapper' style='display: none;'>
-          <textarea class='form-control charactercount' data-maxlength="116" id="tweet-message"><%= @tweet.message.html_safe -%></textarea>
+          <textarea class='form-control' id="tweet-message"><%= @tweet.message.html_safe -%></textarea>
         </div>
         <% if @tweet.targets.count > 0 %>
           <h3 class='twitter-tool-label' style='display: none;'><em>Individuals</em></h3>
@@ -22,7 +22,7 @@
         <% end %>
         <h3 class='twitter-tool-label' style='display: none;'><em>Your Representatives</em></h3>
       <% else %>
-        <textarea class='form-control charactercount' data-maxlength="116" id="tweet-message"><%= @tweet.message.html_safe -%></textarea>
+        <textarea class='form-control' id="tweet-message"><%= @tweet.message.html_safe -%></textarea>
         <% if @tweet.targets.count > 0 %>
           <h3 class='twitter-tool-label'><em>Individuals</em></h3>
           <div id='tweet-tool-container'></div>
