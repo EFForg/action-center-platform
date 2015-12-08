@@ -32,6 +32,11 @@ class User < ActiveRecord::Base
     new params
   end
 
+  # This is here for collission avoidance when generating new user names in tests
+  def self.next_id
+    self.last.nil? ? 1 : self.last.id + 1
+  end
+
   protected
   def after_confirmation
     subscribe!(opt_in=true) if self.subscribe?

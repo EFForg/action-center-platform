@@ -178,7 +178,7 @@ class Admin::ActionPagesController < Admin::ApplicationController
                   :enable_call, :enable_petition, :enable_email, :enable_tweet,
                   :og_title, :og_image, :share_message, :published,
                   :call_campaign_id, :what_to_say, :redirect_url, :email_text, :enable_redirect,
-                  :victory, :victory_message, :partner_id, 
+                  :victory, :victory_message, :partner_id,
                   :archived_redirect_action_page_id, :archived,
                   {action_page_images_attributes: [:id, :action_page_image]},
                   {tweet_attributes: [:id, :target, :target_house,

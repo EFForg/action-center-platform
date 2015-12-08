@@ -13,7 +13,7 @@ common: &common
 development:
   <<: *common
 
-test:
+test: &test
   <<: *common
 
 production:
@@ -21,3 +21,6 @@ production:
 
 staging:
   <<: *common
+
+cucumber:
+  <<: *test
