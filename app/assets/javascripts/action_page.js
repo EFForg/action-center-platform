@@ -44,11 +44,15 @@ $('input:radio').screwDefaultButtons({
   height: 15
 });
 
+// Give an approximate character count guide to see how many character's are
+// left in a tweet or social media card.  Tweet length isn't so accurate due to
+// url shorteners and handle names (if they're inserted after the tweet is
+// crafted)
 function addCharacterCount(input) {
   var $input    = $(input),
       maxLength = $input.data('maxlength'),
       remaining = maxLength - $input.val().length;
-  $('<div class="character-counter-text"><span id="' + input.id + '-counter">' + remaining + '</span> characters remaining (max ' + maxLength + ')</div>').insertAfter(input);
+  $('<div class="character-counter-text"><span id="' + input.id + '-counter">&#126; ' + remaining + '</span> characters remaining (max ' + maxLength + ')</div>').insertAfter(input);
 }
 
 $('.charactercount').each(function () {
@@ -58,5 +62,5 @@ $('.charactercount').each(function () {
 $('.charactercount').keyup(function() {
   var $element = $(this),
       maxLength = $element.data('maxlength');
-      $("#" + this.id + "-counter").html(maxLength - $element.val().length);
+      $("#" + this.id + "-counter").html("&#126; " + (maxLength - $element.val().length));
 });
