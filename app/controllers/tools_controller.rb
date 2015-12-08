@@ -61,7 +61,7 @@ class ToolsController < ApplicationController
 
   # get /tools/social_buttons_count
   def social_buttons_count
-    render(:json => {"googleplus":0,"facebook":0}, :status => 200) and return if Rails.env == 'test'
+    render(:json => {"googleplus" => 0,"facebook" => 0}, :status => 200) and return if Rails.env == 'test'
 
     sbResponse = RestClient.get 'https://socialbuttonsserver.herokuapp.com/',
       {:params => {:url => params[:url], :networks => 'facebook,twitter,googleplus'}}
