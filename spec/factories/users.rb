@@ -2,7 +2,7 @@
 
 FactoryGirl.define do
   factory :user do
-    sequence(:email, User.next_id) {|n| "darth_#{n}@sunni.ru" }
+    sequence(:email, ActiveRecord::Base.connection.table_exists?('users') ? User.next_id : 0) {|n| "person_#{n}@example.com" }
     password "password"
   end
 
