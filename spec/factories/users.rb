@@ -12,7 +12,6 @@ FactoryGirl.define do
   factory :admin_user, :parent => :user do
     after(:build) do |user|
       user.admin = true
-      # user.skip_confirmation!
       user.save
       # user.add_role :admin
     end
@@ -21,7 +20,6 @@ FactoryGirl.define do
   factory :activist_user, :parent => :user do
     after(:build) do |user|
       user.admin = true
-      # user.skip_confirmation!
       user.save
       # user.add_role :activist
     end
