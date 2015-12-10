@@ -1,4 +1,3 @@
-@javascript
 Feature: Create Content
   In order to protect the internet (and such things)
   An activist

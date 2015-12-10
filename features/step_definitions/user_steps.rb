@@ -22,6 +22,12 @@ def create_activist_user
   @user = FactoryGirl.create(:activist_user, email: @visitor[:email], password: @visitor[:password])
 end
 
+def create_community_member_user
+  create_visitor
+  delete_user
+  @user = FactoryGirl.create(:user, email: @visitor[:email], password: @visitor[:password])
+end
+
 def sign_in
   visit '/login'
   fill_in "Email", :with => @visitor[:email]
@@ -39,7 +45,6 @@ Given(/^I am not logged in$/) do
 end
 
 When(/^I sign in with valid credentials$/) do
-  create_visitor
   sign_in
 end
 
@@ -116,4 +121,31 @@ Then(/^I get the unpublished petition page$/) do
   non_published_msg = "This page is not published."
   expect(page.html).to include(non_published_msg)
   expect(page).to have_content(c[:title])
+end
+
+
+
+
+Given(/^I exist as a user$/) do
+  create_community_member_user
+end
+
+Given(/^I am logged in$/) do
+  sign_in
+end
+
+When(/^I visit the dashboard$/) do
+  visit '/account'
+end
+
+When(/^I sign out$/) do
+  visit '/logout'
+end
+
+When(/^I click the back button$/) do
+  page.evaluate_script('window.history.back()')
+end
+
+Then(/^I don't see my information$/) do
+  expect(page).not_to have_content(@visitor[:email])
 end

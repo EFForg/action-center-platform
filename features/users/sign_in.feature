@@ -1,5 +1,5 @@
 Feature: Sign in
-  In order to protect the internet (and such things)
+  In order to protect the Internet (and such things)
   An activist
   Should be able to sign in
 

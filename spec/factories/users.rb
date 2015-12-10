@@ -4,12 +4,15 @@ FactoryGirl.define do
   factory :user do
     sequence(:email, ActiveRecord::Base.connection.table_exists?('users') ? User.next_id : 0) {|n| "person_#{n}@example.com" }
     password "password"
+    after(:build) do |user|
+      user.skip_confirmation!
+    end
   end
 
   factory :admin_user, :parent => :user do
     after(:build) do |user|
       user.admin = true
-      user.skip_confirmation!
+      # user.skip_confirmation!
       user.save
       # user.add_role :admin
     end
@@ -18,7 +21,7 @@ FactoryGirl.define do
   factory :activist_user, :parent => :user do
     after(:build) do |user|
       user.admin = true
-      user.skip_confirmation!
+      # user.skip_confirmation!
       user.save
       # user.add_role :activist
     end
