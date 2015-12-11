@@ -2,12 +2,13 @@ class UsersController < ApplicationController
   before_filter :authenticate_user!
 
   def show
+    send_cache_disablement_headers
+
     @actionPages = ActionPage.order('id desc')
     @user_action_counts = Rails.cache.fetch('user_action_counts', :expires_in => 24.hours) {
-      User.all.map { |u| u.events.actions.count } 
+      User.all.map { |u| u.events.actions.count }
     }
     @actions_taken = current_user.events.actions.map {|i| i['properties']['actionPageId'].to_i}
-
   end
 
   def update
