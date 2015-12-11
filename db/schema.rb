@@ -11,30 +11,17 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151026192811) do
+ActiveRecord::Schema.define(version: 20151211200545) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
   enable_extension "uuid-ossp"
-
-  create_table "action_page_images", force: true do |t|
-    t.integer  "action_page_id"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-    t.string   "image_file_name"
-    t.string   "image_content_type"
-    t.integer  "image_file_size"
-    t.string   "action_image"
-  end
-
-  add_index "action_page_images", ["action_page_id"], name: "index_action_page_images_on_action_page_id", using: :btree
 
   create_table "action_pages", force: true do |t|
     t.string   "title"
     t.text     "description"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.boolean  "call_tool"
     t.integer  "petition_id"
     t.string   "photo_url"
     t.boolean  "enable_call",                      default: false
@@ -49,7 +36,6 @@ ActiveRecord::Schema.define(version: 20151026192811) do
     t.string   "featured_image_content_type"
     t.integer  "featured_image_file_size"
     t.datetime "featured_image_updated_at"
-    t.string   "action_page_image"
     t.text     "what_to_say"
     t.integer  "email_campaign_id"
     t.integer  "call_campaign_id"
@@ -106,11 +92,6 @@ ActiveRecord::Schema.define(version: 20151026192811) do
     t.string   "title"
     t.text     "message"
     t.string   "call_campaign_id"
-  end
-
-  create_table "call_tool_configs", force: true do |t|
-    t.datetime "created_at"
-    t.datetime "updated_at"
   end
 
   create_table "congress_scorecards", force: true do |t|
@@ -176,11 +157,6 @@ ActiveRecord::Schema.define(version: 20151026192811) do
   add_index "friendly_id_slugs", ["slug", "sluggable_type"], name: "index_friendly_id_slugs_on_slug_and_sluggable_type", using: :btree
   add_index "friendly_id_slugs", ["sluggable_id"], name: "index_friendly_id_slugs_on_sluggable_id", using: :btree
   add_index "friendly_id_slugs", ["sluggable_type"], name: "index_friendly_id_slugs_on_sluggable_type", using: :btree
-
-  create_table "locales", primary_key: "locale", force: true do |t|
-    t.string "name",     limit: 60, null: false
-    t.string "fullname", limit: 60, null: false
-  end
 
   create_table "partners", force: true do |t|
     t.string   "code"
