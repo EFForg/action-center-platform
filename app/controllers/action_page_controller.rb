@@ -1,4 +1,3 @@
-
 class ActionPageController < ApplicationController
   before_filter :set_action_display_variables, only: [:show, :embed_iframe]
   skip_before_filter :verify_authenticity_token, only: :embed

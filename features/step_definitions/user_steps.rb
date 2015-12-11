@@ -149,3 +149,39 @@ end
 Then(/^I don't see my information$/) do
   expect(page).not_to have_content(@visitor[:email])
 end
+
+
+
+
+
+When(/^I initiate a password reset request$/) do
+  visit '/password/new'
+
+  fill_in "Email", :with => @visitor[:email]
+  click_button "Send me reset password instructions"
+  @reset_token = User.find_by_email(@visitor[:email]).reset_password_token
+end
+
+When(/^I change my email address$/) do
+  @changed_email = "2" + @visitor[:email]
+  visit '/edit'
+  fill_in "Email", with: @changed_email
+  fill_in "Current password", with: @visitor[:password]
+  click_button "Change"
+
+  u = User.find_by_email(@visitor[:email])
+  u.confirm!
+end
+
+Then(/^I should no longer have a hashed reset token in my user record$/) do
+  u = User.find_by_email(@changed_email)
+  expect(u.reset_password_token).to be_nil
+end
+
+When(/^I log in$/) do
+  sign_in
+end
+
+When(/^I log out$/) do
+  visit '/logout'
+end

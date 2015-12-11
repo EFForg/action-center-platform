@@ -12,7 +12,13 @@ class User < ActiveRecord::Base
   belongs_to :partner
   validates :email, email: true
 
+  before_update :invalidate_password_reset_tokens, :if => proc { email_changed? }
+
   alias :preferences :user_preferences
+
+  def invalidate_password_reset_tokens
+    self.reset_password_token = nil
+  end
 
   def name
     [first_name, last_name].join(' ')
