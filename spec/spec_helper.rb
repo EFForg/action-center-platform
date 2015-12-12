@@ -90,3 +90,20 @@ RSpec.configure do |config|
   Kernel.srand config.seed
 =end
 end
+
+
+def set_weak_password(user)
+  weak_password = "12345678"
+  user.password = weak_password
+  user.password_confirmation = weak_password
+  result = user.save
+end
+
+
+
+def set_strong_password(user)
+  weak_password = "pAssword1"
+  user.password = weak_password
+  user.password_confirmation = weak_password
+  result = user.save
+end

@@ -7,8 +7,8 @@ end
 def create_visitor
   @visitor ||= { name: "Test User",
     email: "me@example.com",
-    password: "password",
-    password_confirmation: "password" }
+    password: "pAssword1",
+    password_confirmation: "pAssword1" }
 end
 
 def delete_user

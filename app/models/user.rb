@@ -11,6 +11,7 @@ class User < ActiveRecord::Base
   has_many :events, class_name: Ahoy::Event
   belongs_to :partner
   validates :email, email: true
+  validate :password_complexity
 
   before_update :invalidate_password_reset_tokens, :if => proc { email_changed? }
 
@@ -18,6 +19,13 @@ class User < ActiveRecord::Base
 
   def invalidate_password_reset_tokens
     self.reset_password_token = nil
+  end
+
+
+  def password_complexity
+    if admin? && password.present? and !password.match(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)./)
+      errors.add :password, "must include at least one lowercase letter, one uppercase letter, and one digit"
+    end
   end
 
   def name

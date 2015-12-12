@@ -21,12 +21,29 @@ describe User do
       @user = User.create!(@attr)
     end
 
-    it "User's reset tokens should be cleared upon email change" do
+    it "should reset password reset tokens upon email change" do
       @user.update_attributes(reset_password_token: "stub_token")
       @user.update_attributes(email: "2" + @user.email)
       @user.confirm!
       expect(@user.reset_password_token).to be_nil
     end
+
+    it "should make sure admins are using strong passwords" do
+      @user.admin = true
+      @user.save
+
+      result = set_weak_password(@user)
+      expect(result).to be_falsey
+
+      result = set_strong_password(@user)
+      expect(result).to be_truthy
+    end
+
+    it "should allow new users to use weak passwords" do
+      result = set_weak_password(@user)
+      expect(result).to be_truthy
+    end
+
 
   end
 
