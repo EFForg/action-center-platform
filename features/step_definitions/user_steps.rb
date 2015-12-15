@@ -185,3 +185,30 @@ end
 When(/^I log out$/) do
   visit '/logout'
 end
+
+When(/^I am made into an activist$/) do
+  @user.reload
+  @user.admin = true
+  @user.save
+end
+
+
+
+Then(/^I am prompted to input a strong password page$/) do
+  expect(page).to have_content("Current Password")
+end
+
+When(/^I visit action pages$/) do
+  visit '/admin/action_pages'
+end
+
+When(/^I submit a strong password$/) do
+  fill_in "Current Password", with: @visitor[:password]
+  fill_in "New Password", with: "P1" + @visitor[:password]
+  fill_in "Confirm New Password", with: "P1" + @visitor[:password]
+  click_button "Submit"
+end
+
+Then(/^I am shown the site as it normally would be displayed$/) do
+  expect(page).to have_content("Action Center Admin")
+end

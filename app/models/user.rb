@@ -14,11 +14,22 @@ class User < ActiveRecord::Base
   validate :password_complexity
 
   before_update :invalidate_password_reset_tokens, :if => proc { email_changed? }
+  before_update :invalidate_new_activists_password, :if => proc { admin_changed?  }
+  after_update :reset_password_expiration_flag, :if => proc { encrypted_password_changed? && !password_expired_changed? }
 
   alias :preferences :user_preferences
 
   def invalidate_password_reset_tokens
     self.reset_password_token = nil
+  end
+
+  def invalidate_new_activists_password
+    self.password_expired = true
+  end
+
+  def reset_password_expiration_flag
+    self.password_expired = false
+    self.save
   end
 
 

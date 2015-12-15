@@ -13,7 +13,7 @@ class Admin::ApplicationController < ApplicationController
       raise ActiveRecord::RecordNotFound
     end
   end
-  def images
 
+  def images
   end
 end
