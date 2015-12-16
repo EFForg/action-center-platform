@@ -36,6 +36,16 @@ def sign_in
   click_button "Sign in"
 end
 
+def create_an_action_page_petition_needing_one_more_signature
+  @action_page = FactoryGirl.create(:action_page)
+  @petition = FactoryGirl.create(:petition_with_99_signatures_needing_1_more)
+  @action_page.petition_id = @petition.id
+  @action_page.enable_petition = true
+  @action_page.save
+end
+
+
+
 Given(/^I exist as an activist$/) do
   create_activist_user
 end
@@ -211,4 +221,36 @@ end
 
 Then(/^I am shown the site as it normally would be displayed$/) do
   expect(page).to have_content("Action Center Admin")
+end
+
+
+
+
+Given(/^A petition exists that's one signature away from its goal$/) do
+  create_an_action_page_petition_needing_one_more_signature
+end
+
+When(/^I browse to the action page$/) do
+  visit "/action/#{@action_page.title.downcase.gsub(" ", "-")}"
+end
+
+Then(/^I see the petition hasn't met its goal$/) do
+  expect(page).to have_content("99 / 100 signatures")
+end
+
+When(/^I sign the petition$/) do
+  fill_in "First Name", with: @visitor[:name].split(" ").first
+  fill_in "Last Name", with: @visitor[:name].split(" ").last
+  fill_in "Zip Code", with: "94109"
+  click_button "Speak Out"
+end
+
+Then(/^I am thanked for my participation$/) do
+  # I need to allow SmartyStreets to be skipped if it's not hooked up
+  binding.pry
+  pending # express the regexp above with the code you wish you had
+end
+
+Then(/^I see the petition has met its goal$/) do
+  pending # express the regexp above with the code you wish you had
 end

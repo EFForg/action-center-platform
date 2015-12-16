@@ -73,6 +73,8 @@ class ToolsController < ApplicationController
     render :json => sbResponse, :status => 200
   end
 
+  # An HTML view ajax posts a form when a user signs a petition
+  # POST /tools/petition
   def petition
     @user ||= User.find_or_initialize_by(email: params[:signature][:email])
     @email = params[:signature][:email]
@@ -81,6 +83,7 @@ class ToolsController < ApplicationController
     @signature = Signature.new(signature_params.merge(user_id: @user.id))
 
     @signature.country_code = 'US' unless @signature.country_code.present?
+    binding.pry
 
     if @signature.country_code == 'US' && @signature.zipcode.present? && @signature.city.blank? && @signature.state.blank?
       if city_state = SmartyStreets.get_city_state(@signature.zipcode)

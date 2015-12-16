@@ -12,4 +12,10 @@ FactoryGirl.define do
     end
   end
 
+  factory :petition_with_99_signatures_needing_1_more, :parent => :petition do
+    after(:create) do |petition|
+      99.times { petition.signatures << FactoryGirl.build(:signature, petition_id: petition.id) }
+    end
+  end
+
 end
