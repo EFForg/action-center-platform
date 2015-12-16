@@ -26,6 +26,10 @@ RSpec.describe ToolsController, type: :controller do
     expect(@petition.signatures.count).to eq 100
   end
 
+  # this is a tricky one... there's some coupling in the javascript layer as
+  # well as in the controllers
+  it "should still work if SmartyStreets credentials aren't hooked up"
+
 end
 
 def stub_smarty_streets

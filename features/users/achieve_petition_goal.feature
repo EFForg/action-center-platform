@@ -11,5 +11,7 @@ Feature: Achieve Petition Goal
     Then I see the petition hasn't met its goal
     When I sign the petition
     Then I am thanked for my participation
-    When I browse to the action page
-    Then I see the petition has met its goal
+      And I see the petition has met its goal
+    When The action is marked a victory
+      And I browse to the action page
+    Then I see a victory message

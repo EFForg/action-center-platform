@@ -37,11 +37,8 @@ def sign_in
 end
 
 def create_an_action_page_petition_needing_one_more_signature
-  @action_page = FactoryGirl.create(:action_page)
   @petition = FactoryGirl.create(:petition_with_99_signatures_needing_1_more)
-  @action_page.petition_id = @petition.id
-  @action_page.enable_petition = true
-  @action_page.save
+  @action_page = @petition.action_page
 end
 
 
@@ -223,9 +220,6 @@ Then(/^I am shown the site as it normally would be displayed$/) do
   expect(page).to have_content("Action Center Admin")
 end
 
-
-
-
 Given(/^A petition exists that's one signature away from its goal$/) do
   create_an_action_page_petition_needing_one_more_signature
 end
@@ -242,15 +236,30 @@ When(/^I sign the petition$/) do
   fill_in "First Name", with: @visitor[:name].split(" ").first
   fill_in "Last Name", with: @visitor[:name].split(" ").last
   fill_in "Zip Code", with: "94109"
-  click_button "Speak Out"
+
+  # this is how stubbing SmartyStreets looks
+  RSpec::Mocks.with_temporary_scope do
+    stub_smarty_streets
+    SmartyStreets.get_city_state("94109")
+    click_button "Speak Out"
+    # It's important to wait need to wait for the request to complete before
+    # leaving the `with_temporary_scope` block or the stub will disappear
+    sleep 0.5 while !page.has_content? "Now help spread the word:"
+  end
 end
 
 Then(/^I am thanked for my participation$/) do
-  # I need to allow SmartyStreets to be skipped if it's not hooked up
-  binding.pry
-  pending # express the regexp above with the code you wish you had
+  expect(page).to have_content("Now help spread the word:")
 end
 
 Then(/^I see the petition has met its goal$/) do
-  pending # express the regexp above with the code you wish you had
+  expect(page).to have_content("100 / 100 signatures")
+end
+
+When(/^The action is marked a victory$/) do
+  @action_page.update_attributes(victory: true)
+end
+
+Then(/^I see a victory message$/) do
+  expect(page).to have_content("We won")
 end
