@@ -83,7 +83,6 @@ class ToolsController < ApplicationController
     @signature = Signature.new(signature_params.merge(user_id: @user.id))
 
     @signature.country_code = 'US' unless @signature.country_code.present?
-    binding.pry
 
     if @signature.country_code == 'US' && @signature.zipcode.present? && @signature.city.blank? && @signature.state.blank?
       if city_state = SmartyStreets.get_city_state(@signature.zipcode)
