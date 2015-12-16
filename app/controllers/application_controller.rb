@@ -7,6 +7,9 @@ class ApplicationController < ActionController::Base
   before_filter :configure_permitted_parameters, if: :devise_controller?
   before_filter :set_locale
 
+  # This method seems to check if the request is coming from a domain listed in
+  # `cors_allowed_domains` in application.yml, and if it is, the response gets
+  # a header allowing the requesting domain to use this app's CRUD
   def cors
     if Actioncenter::Application.config.cors_allowed_domains.include? request.env['HTTP_ORIGIN'] or Actioncenter::Application.config.cors_allowed_domains.include? "*"
       response.headers['Access-Control-Allow-Origin'] = request.env['HTTP_ORIGIN']
