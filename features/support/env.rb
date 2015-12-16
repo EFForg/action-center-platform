@@ -59,5 +59,5 @@ Cucumber::Rails::Database.javascript_strategy = :truncation
 
 def stub_smarty_streets
   stub_resp = {"city"=>"San Francisco", "state_abbreviation"=>"CA", "state"=>"California", "mailable_city"=>true}
-  SmartyStreets.stub(:get_city_state).with("94109").and_return(stub_resp)
+  allow(SmartyStreets).to receive(:get_city_state).with("94109").and_return(stub_resp)
 end
