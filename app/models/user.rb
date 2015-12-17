@@ -11,13 +11,32 @@ class User < ActiveRecord::Base
   has_many :events, class_name: Ahoy::Event
   belongs_to :partner
   validates :email, email: true
+  validate :password_complexity
 
   before_update :invalidate_password_reset_tokens, :if => proc { email_changed? }
+  before_update :invalidate_new_activists_password, :if => proc { admin_changed?  }
+  after_update :reset_password_expiration_flag, :if => proc { encrypted_password_changed? && !password_expired_changed? }
 
   alias :preferences :user_preferences
 
   def invalidate_password_reset_tokens
     self.reset_password_token = nil
+  end
+
+  def invalidate_new_activists_password
+    self.password_expired = true
+  end
+
+  def reset_password_expiration_flag
+    self.password_expired = false
+    self.save
+  end
+
+
+  def password_complexity
+    if admin? && password.present? and !password.match(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)./)
+      errors.add :password, "must include at least one lowercase letter, one uppercase letter, and one digit"
+    end
   end
 
   def name

@@ -7,8 +7,8 @@ end
 def create_visitor
   @visitor ||= { name: "Test User",
     email: "me@example.com",
-    password: "password",
-    password_confirmation: "password" }
+    password: "pAssword1",
+    password_confirmation: "pAssword1" }
 end
 
 def delete_user
@@ -35,6 +35,13 @@ def sign_in
 
   click_button "Sign in"
 end
+
+def create_an_action_page_petition_needing_one_more_signature
+  @petition = FactoryGirl.create(:petition_with_99_signatures_needing_1_more)
+  @action_page = @petition.action_page
+end
+
+
 
 Given(/^I exist as an activist$/) do
   create_activist_user
@@ -184,4 +191,75 @@ end
 
 When(/^I log out$/) do
   visit '/logout'
+end
+
+When(/^I am made into an activist$/) do
+  @user.reload
+  @user.admin = true
+  @user.save
+end
+
+
+
+Then(/^I am prompted to input a strong password page$/) do
+  expect(page).to have_content("Current Password")
+end
+
+When(/^I visit action pages$/) do
+  visit '/admin/action_pages'
+end
+
+When(/^I submit a strong password$/) do
+  fill_in "Current Password", with: @visitor[:password]
+  fill_in "New Password", with: "P1" + @visitor[:password]
+  fill_in "Confirm New Password", with: "P1" + @visitor[:password]
+  click_button "Submit"
+end
+
+Then(/^I am shown the site as it normally would be displayed$/) do
+  expect(page).to have_content("Action Center Admin")
+end
+
+Given(/^A petition exists that's one signature away from its goal$/) do
+  create_an_action_page_petition_needing_one_more_signature
+end
+
+When(/^I browse to the action page$/) do
+  visit "/action/#{@action_page.title.downcase.gsub(" ", "-")}"
+end
+
+Then(/^I see the petition hasn't met its goal$/) do
+  expect(page).to have_content("99 / 100 signatures")
+end
+
+When(/^I sign the petition$/) do
+  fill_in "First Name", with: @visitor[:name].split(" ").first
+  fill_in "Last Name", with: @visitor[:name].split(" ").last
+  fill_in "Zip Code", with: "94109"
+
+  # this is how stubbing SmartyStreets looks
+  RSpec::Mocks.with_temporary_scope do
+    stub_smarty_streets
+    SmartyStreets.get_city_state("94109")
+    click_button "Speak Out"
+    # It's important to wait need to wait for the request to complete before
+    # leaving the `with_temporary_scope` block or the stub will disappear
+    sleep 0.5 while !page.has_content? "Now help spread the word:"
+  end
+end
+
+Then(/^I am thanked for my participation$/) do
+  expect(page).to have_content("Now help spread the word:")
+end
+
+Then(/^I see the petition has met its goal$/) do
+  expect(page).to have_content("100 / 100 signatures")
+end
+
+When(/^The action is marked a victory$/) do
+  @action_page.update_attributes(victory: true)
+end
+
+Then(/^I see a victory message$/) do
+  expect(page).to have_content("We won")
 end

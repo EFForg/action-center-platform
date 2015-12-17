@@ -1,7 +1,7 @@
 Actioncenter::Application.routes.draw do
   get "robots.txt", controller: :robots, action: :show, format: 'text'
   get "/heartbeat", to: "robots#heartbeat"
-  
+
 
   resources :source_files, :only => [:index, :create, :destroy], :controller => 's3_uploads' do
     get :generate_key, :on => :collection
@@ -10,7 +10,6 @@ Actioncenter::Application.routes.draw do
   # Root - Redundant - TODO - refactor
   get "welcome/index"
   root 'welcome#index'
-
 
   # EFF TOOLS (Call, Share, Petition) - External Reusable Services
 
@@ -34,6 +33,11 @@ Actioncenter::Application.routes.draw do
                                              sign_out: 'logout',
                                              sign_up:  'register'},
                                controllers: {sessions: 'sessions', registrations: 'registrations'}
+
+  devise_scope :user do
+    get "/sessions/password_reset" => "sessions#password_reset"
+  end
+
   resource :user, path: 'account', only: [:show, :edit, :update] do
     member do
       delete :clear_activity

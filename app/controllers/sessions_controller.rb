@@ -17,4 +17,28 @@ class SessionsController < Devise::SessionsController
     super
     flash.delete(:notice)
   end
+
+  def create
+    u = User.find_by_email(params[:user][:email])
+    if u.valid_password?(params[:user][:password]) && u.password_expired?
+      # thrust the user to a change password page....
+      # Create a reset token
+      # redirect to the reset page token... which can't be done because that
+      # only goes through the mail...
+      redirect_to '/sessions/password_reset'
+    else
+      super
+    end
+  end
+
+  def password_reset
+    if (user_signed_in?)
+      @user = current_user
+    else
+      redirect_to '/', :flash => { :notice => "You need to be logged in to reset your password!" }
+    end
+  end
+
+
+
 end
