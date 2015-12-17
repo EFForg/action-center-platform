@@ -17,6 +17,7 @@ class ActionPageController < ApplicationController
     #request.session_options[:skip] = true  # removes session data
     response.headers['Cache-Control'] = 'public, no-cache'
     response.headers['Surrogate-Control'] = "max-age=120"
+    response.headers['Access-Control-Allow-Origin'] = "*"
     respond_to do |format|
       format.html
       format.atom
