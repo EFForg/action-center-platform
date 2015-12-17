@@ -34,8 +34,8 @@ class User < ActiveRecord::Base
 
 
   def password_complexity
-    if admin? && password.present? and !password.match(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)./)
-      errors.add :password, "must include at least one lowercase letter, one uppercase letter, and one digit"
+    if admin? && password.present? and password.length < 30
+      errors.add :password, "must be at least 30 (try choosing 6 memorable words)"
     end
   end
 

@@ -102,7 +102,7 @@ end
 
 
 def set_strong_password(user)
-  weak_password = "pAssword1"
+  weak_password = "strong passwords defeat lobsters covering wealth"
   user.password = weak_password
   user.password_confirmation = weak_password
   result = user.save
