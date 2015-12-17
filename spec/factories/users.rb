@@ -3,7 +3,7 @@
 FactoryGirl.define do
   factory :user do
     sequence(:email, ActiveRecord::Base.connection.table_exists?('users') ? User.next_id : 0) {|n| "person_#{n}@example.com" }
-    password "pAssword1"
+    password "strong passwords defeat lobsters covering wealth"
     after(:build) do |user|
       user.skip_confirmation!
     end

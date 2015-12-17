@@ -30,6 +30,9 @@ ActiveRecord::Migration.maintain_test_schema!
 
 RSpec.configure do |config|
   config.include Devise::TestHelpers, type: :controller
+  config.include Warden::Test::Helpers, type: :request
+
+
   # Remove this line if you're not using ActiveRecord or ActiveRecord fixtures
   config.fixture_path = "#{::Rails.root}/spec/fixtures"
 
@@ -53,3 +56,14 @@ RSpec.configure do |config|
   # https://relishapp.com/rspec/rspec-rails/docs
   config.infer_spec_type_from_file_location!
 end
+
+# for request tests
+def login(user)
+  login_path = '/login'
+  post login_path, {
+    user: {
+      :email => user.email,
+      :password => "strong passwords defeat lobsters covering wealth" }
+  }
+end
+
