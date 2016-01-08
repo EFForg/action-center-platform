@@ -5,17 +5,17 @@
     <td style="width: 80px;">
       <span class="preview">
         {% if (o.image == true) { %}
-          <a href="{%=o.url%}" title="{%=o.name%}" download="{%=o.name%}" data-gallery>
-            <img src="{%=o.url%}"></image>
+          <a href="{%=o.full_url%}" title="{%=o.name%}" download="{%=o.name%}" data-gallery>
+            <img src="{%=o.full_url%}"></image>
           </a>
         {% } %}
       </span>
     </td>
     <td>
-      <span style="font-size: 12px;"><a href="{%=o.url%}" title="{%=o.name%}" download="{%=o.name%}" {%=o.image ? 'data-gallery' : ''%}>{%=o.name%}</a> - {%=formatFileSize(o.size)%} - {%=o.sourceWidth%}<br /><textarea value ="" disabled >![{%=o.name%}]({%=o.url%})</textarea></span>
+      <span style="font-size: 12px;"><a href="{%=o.full_url%}" title="{%=o.name%}" download="{%=o.name%}" {%=o.image ? 'data-gallery' : ''%}>{%=o.name%}</a> - {%=formatFileSize(o.size)%} - {%=o.sourceWidth%}<br /><textarea value ="" disabled >![{%=o.name%}]({%=o.full_url%})</textarea></span>
     </td>
     <td>
-      <button type="button" class="btn btn-info btn-sm select-gallery-image" data-dismiss='modal' data-url="{%=o.url%}">
+      <button type="button" class="btn btn-info btn-sm select-gallery-image" data-dismiss='modal' data-url="{%=o.full_url%}">
         Select
       </button>
       {% if (o.delete_url) { %}

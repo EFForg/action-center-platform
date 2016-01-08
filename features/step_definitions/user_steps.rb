@@ -87,16 +87,19 @@ end
 
 When(/^I fill in inputs to create a petition action$/) do
   setup_call_action
+  first(:link, "Content").click # make sure we're in the content section of an action being edited
+
   # fill in title
   c = @call_action
   find("#action_page_title").set(c[:title])
-  # page.execute_script('$(tinymce.editors[0].setContent("my content here"))')
 
   find("#epic-action-summary").set(c[:summary])
   find("#epic-action-summary").set(c[:summary])
-  find("#action-page-description").set(c[:description])
+  # find("#action-page-description").set(c[:description])
+  page.execute_script("editor.importFile('new', '#{c[:description]}')")
+
+
   # editor4.importFile('new', 'heres text')
-
 
   first(:link, "Action Settings").click
   find("#action_page_enable_petition").click
@@ -262,4 +265,43 @@ end
 
 Then(/^I see a victory message$/) do
   expect(page).to have_content("We won")
+end
+
+
+
+
+When(/^I click to add an image to the gallery$/) do
+  Capybara.ignore_hidden_elements = false
+  first(:link, "Open Gallery").click
+  path = "#{Rails.root}/features/upload_files/img.png"
+  attach_file("file", path)
+
+  Capybara.ignore_hidden_elements = true
+
+  click_button "Start"
+  sleep 1  # TODO:  Make it so this polls the page instead of waits blindly
+
+  @upload_url = first(:img, ".preview > a:nth-child(1) > img:nth-child(1)")[:src]
+  bb_code = "![img.png](#{@upload_url})"
+
+  # TODO: might need a wait loop here till i#{c[:description]}t's done uploading...
+  click_button "Close"
+
+  page.execute_script("editor.importFile('new', 'here is the image #{bb_code}')")
+  sleep 0.3
+
+  first(:button, "Save").click
+end
+
+
+When(/^the image shows up as uploaded over ajax$/) do
+  uploaded_img_src = first(:img, "#description > p:nth-child(1) > img:nth-child(1)")[:src]
+
+  expect(/^https:\/\/.*amazonaws.com\/uploads\/.*\/img.png$/).to match uploaded_img_src
+end
+
+When(/^I publish the action$/) do
+  # click the publish checkbox
+  first(:input, "#action_page_published").click
+  first(:button, "Save").click
 end

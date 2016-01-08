@@ -1,6 +1,7 @@
-class S3UploadsController < ApplicationController
-  # GET /source_files
-  # GET /source_files.json
+class Admin::S3UploadsController < Admin::ApplicationController
+
+  # GET /admin/source_files
+  # GET /admin/source_files.json
   def index
     @source_files = SourceFile.all.order('created_at DESC')
 
@@ -10,8 +11,8 @@ class S3UploadsController < ApplicationController
     end
   end
 
-  # POST /source_files
-  # POST /source_files.json
+  # POST /admin/source_files
+  # POST /admin/source_files.json
   def create
     # this line allows for compatibility with `ProtectedAttributes` or `StrongParameters`
     parameters = S3CorsFileupload.active_record_protected_attributes? ? params[:source_file] : params.require(:source_file).permit(:url, :bucket, :key)
@@ -31,8 +32,8 @@ class S3UploadsController < ApplicationController
     end
   end
 
-  # DELETE /source_files/1
-  # DELETE /source_files/1.json
+  # DELETE /admin/source_files/1
+  # DELETE /admin/source_files/1.json
   def destroy
     @source_file = SourceFile.find(params[:id])
     @source_file.destroy
@@ -44,7 +45,9 @@ class S3UploadsController < ApplicationController
     end
   end
 
-  # used for s3_uploader
+  # used for s3_uploader on the javascript of the upload to gallery section
+  # for /admin/action_page/new
+  # GET /admin/source_files/generate_key
   def generate_key
     uid = SecureRandom.uuid.gsub(/-/,'')
 

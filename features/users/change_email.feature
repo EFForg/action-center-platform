@@ -1,4 +1,3 @@
-@javascript
 Feature: Change Email
   A user
   Should be able to change their email

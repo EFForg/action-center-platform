@@ -6,12 +6,12 @@ defaults: &defaults
 
 development:
   <<: *defaults
-  bucket: actioncenter
+  bucket: <%= Rails.application.secrets.amazon_bucket %>
 
 test:
   <<: *defaults
-  bucket: actioncenter
+  bucket: <%= Rails.application.secrets.amazon_bucket %>
 
 production:
   <<: *defaults
-  bucket: actioncenter
+  bucket: <%= Rails.application.secrets.amazon_bucket %>

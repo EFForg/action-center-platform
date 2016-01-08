@@ -256,6 +256,8 @@ class ToolsController < ApplicationController
     UserMailer.thanks_message(@email, @action_page, user: @user, name: @name).deliver if @email
   end
 
+  # This makes a 3rd party lookup to Sunlight API to get all the representatives
+  # relevant to a zipcode and add a tally to their CongressScorecard (creating it if needed)
   def update_congress_scorecards(zipcode)
     return unless GoingPostal.valid_zipcode?(zipcode, 'US')
     Sunlight::Congress::Legislator.by_zipcode(zipcode).each do |rep|

@@ -3,9 +3,7 @@ Actioncenter::Application.routes.draw do
   get "/heartbeat", to: "robots#heartbeat"
 
 
-  resources :source_files, :only => [:index, :create, :destroy], :controller => 's3_uploads' do
-    get :generate_key, :on => :collection
-  end
+
 
   # Root - Redundant - TODO - refactor
   get "welcome/index"
@@ -65,6 +63,11 @@ Actioncenter::Application.routes.draw do
     end
   end
   namespace :admin do
+
+    resources :source_files, :only => [:index, :create, :destroy], :controller => 's3_uploads' do
+      get :generate_key, :on => :collection
+    end
+
     get 'mailer/:action/:id' => 'mailer#:action'
     resources :petitions, only: :show do
       member do
