@@ -11,9 +11,12 @@
 //= require bootstrap-sass/bootstrap/tab
 //= require bootstrap-responsive-tabs
 
+var editor;
+
+
 $(document).on('ready', function() {
 
-  var editor = initEpicEditor('action-page-description', 'description');
+  editor = initEpicEditor('action-page-description', 'description');
   var editor2 = initEpicEditor('action-page-what-to-say', 'what-to-say');
   var editor3 = initEpicEditor('epic-petition-description', 'petition-description');
   var editor4 = initEpicEditor('epic-action-summary', 'action-summary');
@@ -155,7 +158,7 @@ $(document).on('ready', function() {
 
       $text_field.show();
       $target_checkbox.prop('disabled', false);
-    } 
+    }
   }
 
   function create_target_listener($target_checkbox, $text_field, toggle_cf_fields, toggle_alt_text_fields){
@@ -237,4 +240,3 @@ Chart.defaults.global.responsive = true;
 
 // Bootstrap responsive tabs: https://github.com/openam/bootstrap-responsive-tabs
 fakewaffle.responsiveTabs(['xs']);
-

@@ -12,9 +12,9 @@ congress_forms_debug_key:
 storage: 's3' # either 's3' or 'file'
 amazon_access_key_id:
 amazon_secret_access_key:
-amazon_region: us-west-1
+amazon_region: us-west-1 # this is part of the subdomain url to your bucket
 amazon_bucket: actioncenter
-amazon_bucket_url: # usually not needed, determined from region and bucket
+amazon_bucket_url: # You can specify a domain covered by fastly for speed bonus + anonymity. or this will be determined from region and bucket.
 amazon_authorize_key: # has something to do with email bounces
 cors_allowed_domains: http://www.example.com https://www.example.com
 
