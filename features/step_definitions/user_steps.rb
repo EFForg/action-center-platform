@@ -341,3 +341,22 @@ When(/^I click the button to lookup my reps$/) do
 
   expect(first(:link, "Tweet @NancyPelosi")).to be_truthy
 end
+
+
+Given(/^my test env has Internet access and I have an S(\d+) key$/) do |arg1|
+  pending if this_machine_offline? or ENV['amazon_access_key_id'].nil?
+end
+
+
+def this_machine_offline?
+  return $OfflineMode unless $OfflineMode.nil?
+
+  require 'net/http'
+  begin
+    response = Net::HTTP.get(URI.parse('http://www.example.com/'))
+    $OfflineMode = false
+  rescue
+    $OfflineMode = true
+  end
+
+end

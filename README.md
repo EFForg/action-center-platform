@@ -87,6 +87,16 @@ If you want to get fancy, you can modify the embed code to include some of the f
     <script type="text/javascript" src="https://act.eff.org/action/embed"></script>
     <a id="action-center-widget" href="https://act.eff.org/action/shut-the-nsa-s-backdoor-to-the-internet">Take part in the action!</a>
 
+## Testing
+
+To run the full test suite, simply run `rake` with no arguments.  The Rspec
+tests will run first, followed by the more spotty cucumber tests.  You may need
+to do some tweaking and install firefox to get those tests to pass.  
+
+Rspec tests are used for unit testing the app, and some integration testing.  
+Cucumber tests are used for testing API keys, javascript tests and possibly
+for taking on new features described to us by Activism.  
+
 ## Acknowledgements
 
 This project was created by Lilia Kai, Thomas Davis, and Sina Khanifar. Large portions of the codebase are directly attributable to them, while under the employ or contractorship of the Electronic Frontier Foundation in 2014. Thank you Lilia, Thomas, and Sina! The Action Center is maintained currently by William Budington and Sina Khanifar.
