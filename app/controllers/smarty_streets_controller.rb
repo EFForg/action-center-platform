@@ -1,16 +1,42 @@
 require 'rest_client'
 class SmartyStreetsController < ApplicationController
+
+  # POST /smarty_streets/street_address
+  #
+  # Pass in street and zipcode params and this function
+  # checks if an address+zip exists, exposes zip+4
   def street_address
-    url = "https://api.smartystreets.com/street-address/?#{smarty_params.to_query}"
-    render json: proxy_request(url), status: 200
+    render json: get_data_on_address_zip(params), status: 200
   end
 
+  # This endpoint appears unused
   def suggest
-    url = "https://autocomplete-api.smartystreets.com/suggest?#{smarty_params.to_query}"
-    render json: proxy_request(url), status: 200
+    render json: get_suggestions_for_address(params), status: 200
   end
 
   private
+
+  def get_data_on_address_zip(params)
+    query = authorize_query(params)
+
+    url = "https://api.smartystreets.com/street-address/?#{query}"
+    proxy_request(url).as_json
+  end
+
+  def get_suggestions_for_address(params)
+    query = authorize_query(params)
+
+    url = "https://autocomplete-api.smartystreets.com/suggest?#{query}"
+    proxy_request(url).as_json
+  end
+
+  def authorize_query(params)
+    params.merge(
+      'auth-id' => Rails.application.secrets.smarty_streets_id,
+      'auth-token' => Rails.application.secrets.smarty_streets_token
+    ).to_query
+  end
+
   def proxy_request(url)
     begin
       return RestClient.get url, accept: :json, :'X-Include-Invalid' => 'true'
@@ -19,10 +45,4 @@ class SmartyStreetsController < ApplicationController
     end
   end
 
-  def smarty_params
-    params.merge(
-      'auth-id' => Rails.application.secrets.smarty_streets_id,
-      'auth-token' => Rails.application.secrets.smarty_streets_token
-    )
-  end
 end

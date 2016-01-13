@@ -1,6 +1,27 @@
+// tweet.js
+// Code here is relevant to tweet actions
+
 $(document).on('ready', function() {
+
+  // Button "Look up your reps"
   $('form.tweet-tool').on('submit', function(ev) {
     var form = $(ev.currentTarget);
+
+    replaceSubmitButtonWithProgressBar();
+
+    // lookup latitude and longitude
+    SmartyStreets.street_address({ street: form.find("#street_address").val(),
+                                   zipcode: form.find("#zipcode").val() })
+      .done(lookupTweetTargets)
+      .error(show_address_error);
+
+    return false;
+
+    function replaceSubmitButtonWithProgressBar() {
+      form.find(".progress-striped").show();
+      form.find("input[type=submit]").hide();
+      height_changed();
+    }
 
     function show_address_error(error) {
       form.find(".progress-striped").hide();
@@ -10,43 +31,44 @@ $(document).on('ready', function() {
       height_changed();
     }
 
-    function handle_smarty(smart_data){
-      if(smart_data.length > 0) {
-        var url = '/tools/reps?lat=' + smart_data[0].metadata.latitude + '&lon=' + smart_data[0].metadata.longitude;
-        $.ajax({ url: url, type: 'GET'}).
-          done(function(data) {
-            if (data.content) {
-              $('#tweet-tool-container').show();
-              form.replaceWith($(data.content));
-              $('#tweet-message-wrapper').show();
-              $('.twitter-tool-label').show();
-              $('.privacy-notice').hide();
-              $('.call-to-sign-up').fadeIn(500);
-              height_changed();
-            } else if (data.error) {
+    // hits /tools/reps to look up representatives exposed via Sunlight API
+    function lookupTweetTargets(smartyStreetsData){
+      if(smartyStreetsData.length > 0) { // if we had a valid address
+        var lat = smartyStreetsData[0].metadata.latitude,
+            lon = smartyStreetsData[0].metadata.longitude,
+            url = '/tools/reps?lat=' + lat + '&lon=' + lon;
+
+        $.ajax({ url: url, type: 'GET'})
+          .done(function(data) {
+            if (data.content)
+              populateTweetTargets(data);
+            else if (data.error)
               show_address_error(data.error);
-            } else {
+            else
               show_address_error("An unknown error occured.");
-            }
-          }).fail(function(er) { show_address_error(er.statusText); });
+          })
+          .fail(function(er) {
+            show_address_error(er.statusText);
+          });
       } else {
-        show_address_error("We were unable to find a zip+4 for the address you entered.  Make sure you *only* entered your street address (without your city and state).  Please check and try again.");
+        show_address_error(App.Strings.addressLookupFailed);
       }
     }
-    form.find(".progress-striped").show();
-    form.find("input[type=submit]").hide();
-    height_changed();
-    SmartyStreets.street_address({
-      street: form.find("#street_address").val(),
-      street2: '',
-      city: '',
-      state: '',
-      zipcode: form.find("#zipcode").val(),
-      candidates: ''
-    }).done(handle_smarty).
-      error(show_address_error);
-    return false;
+
+    // Sets the view up to show tweet targets based on data retrieved from
+    // sunlight API
+    function populateTweetTargets(data) {
+      $('#tweet-tool-container').show();
+      form.replaceWith($(data.content));
+      $('#tweet-message-wrapper').show();
+      $('.twitter-tool-label').show();
+      $('.privacy-notice').hide();
+      $('.call-to-sign-up').fadeIn(500);
+      height_changed();
+    }
+
   });
+
 
   $(document).on('click', '.btn-tweet', function(e) {
     var action_id = $('[data-action-id]').attr('data-action-id');
@@ -73,7 +95,7 @@ $(document).on('ready', function() {
     if(targets.length > display_num){
       var refresh_button = JST['application/templates/tweet_refresh_button']({display_num: display_num});
     }
-    
+
     $('#tweet-tool-container').html(_.map(random_targets, function(target){
       return JST['application/templates/tweet_individual'](_.extend({
         message: encodeURIComponent(message),

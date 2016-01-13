@@ -7,6 +7,7 @@ capybara-*.html
 /.bundle
 /vendor/bundle
 /log/*
+/doc
 /tmp/*
 /db/*.sqlite3
 /public/system/*

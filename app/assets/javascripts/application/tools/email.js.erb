@@ -30,7 +30,6 @@ $(document).on('ready', function() {
 
   var generateCongressForm = function (options) {
     var reps = options.reps;
-    console.log(reps);
     var rep_ids = _.map(reps, function(rep){
       return rep.bioguide_id;
     });
@@ -180,7 +179,6 @@ $(document).on('ready', function() {
         },
         onLegislatorSuccess: function(legislatorId, legislatorFieldSet) {
           console.log('EMAIL SUCCESSFULLY SENT');
-
         },
         onLegislatorError: function(legislatorId, legislatorFieldSet) {
           console.log('EMAIL ACTUALLY FAILED');
@@ -199,11 +197,12 @@ $(document).on('ready', function() {
           legislatorFieldSet.find('span.info-circle').replaceWith('<span class="info-circle warn">Captcha <i class="icon-attention"></i></span>');
 
           // Collect the attributes in an array
-              var attrs = { };
-              $.each($(legislatorFieldSet).find(".congressForms-captcha")[0].attributes, function(idx, attr) {
-                  attrs[attr.nodeName] = attr.nodeValue;
-              });
-              console.log(attrs);
+          var attrs = { };
+          $.each($(legislatorFieldSet).find(".congressForms-captcha")[0].attributes, function(idx, attr) {
+            attrs[attr.nodeName] = attr.nodeValue;
+          });
+          console.log(attrs);
+
           // Replace the original input
           if($('[data-google-recaptcha=true]', legislatorFieldSet).length == 0){
             legislatorFieldSet.find('input.congressForms-captcha').replaceWith('<div class="input-group captcha-form"><input type="text" class="form-control congressForms-captcha"><span class="input-group-btn"><button type="button" class="btn btn-primary congressForms-captcha-button">Submit</button></span></div>');
@@ -289,7 +288,8 @@ $(document).on('ready', function() {
       function show_address_error(error) {
         form.find(".progress-striped").hide();
         form.find("input[type=submit]").show();
-        form.find('.alert-danger').remove();      $('.lookup-address h3').after($('<div class="small alert alert-danger help-block">').text(error));
+        form.find('.alert-danger').remove();
+        $('.lookup-address h3').after($('<div class="small alert alert-danger help-block">').text(error));
         height_changed();
       }
 
@@ -300,60 +300,53 @@ $(document).on('ready', function() {
       var zip = form.find("#zipcode").val();
       var message = form.find(".campaign-message").val();
       $('input,textarea,button,select', form).attr('disabled', 'disabled');
-      // got rid of multi street addresses must fix todo
-      //data
-      SmartyStreets.street_address({
-        street: address,
-        street2: '',
-        city: '',
-        state: '',
-        zipcode: zip,
-        candidates: ''
-      }).done(function(smart_data){
-        if(smart_data.length > 0) {
-          var zip4 = smart_data[0].components.plus4_code;
-          if(!zip4) {
+
+      SmartyStreets.street_address({ street: address,
+                                     zipcode: zip })
+        .done(function(smart_data) {
+          if(smart_data.length > 0) {
+            var zip4 = smart_data[0].components.plus4_code;
+            if(!zip4) {
               $('input,textarea,button,select', form).removeAttr('disabled');
-              show_address_error("We were unable to find a zip+4 for the address you entered.  Make sure you *only* entered your street address (without your city and state).  Please check and try again.");
+              show_address_error(App.Strings.addressLookupFailed);
               return;
+            }
+            var state = smart_data[0].components.state_abbreviation;
+            var city = smart_data[0].metadata.county_name;
+
+            emailValues['$ADDRESS_STREET'] = address;
+            emailValues['$ADDRESS_CITY'] = city;
+            emailValues['$ADDRESS_ZIP4'] = zip4;
+            emailValues['$ADDRESS_ZIP5'] = zip;
+            emailValues['$STATE'] = state;
+            emailValues['$MESSAGE'] = message;
+
+            var url = '/tools/reps_raw?lat=' + smart_data[0].metadata.latitude + '&lon=' + smart_data[0].metadata.longitude;
+            $.ajax({ url: url, type: 'GET'})
+              .done(function(data) {
+                if (data.error) {
+                  show_address_error(data.error);
+                } else {
+                  var data = _.filter(data, function (rep) {
+                    if(rep.chamber === 'senate' && target_senate) {
+                      return true;
+                    }
+                    if(rep.chamber === 'house' && target_house) {
+                      return true;
+                    }
+                    return false;
+                  });
+                  form.html('');
+                  generateCongressForm({reps: data});
+                }
+              })
+              .fail(function(er) {
+                show_address_error(er.statusText);
+              });
+          } else {
+            $('input,textarea,button,select', form).removeAttr('disabled');
+            show_address_error(App.Strings.addressLookupFailed);
           }
-          var state = smart_data[0].components.state_abbreviation;
-          var city = smart_data[0].metadata.county_name;
-
-          emailValues['$ADDRESS_STREET'] = address;
-          emailValues['$ADDRESS_CITY'] = city;
-          emailValues['$ADDRESS_ZIP4'] = zip4;
-          emailValues['$ADDRESS_ZIP5'] = zip;
-          emailValues['$STATE'] = state;
-          emailValues['$MESSAGE'] = message;
-
-          var url = '/tools/reps_raw?lat=' + smart_data[0].metadata.latitude + '&lon=' + smart_data[0].metadata.longitude;
-          $.ajax({ url: url, type: 'GET'}).
-            done(function(data) {
-              if (data.error) {
-                show_address_error(data.error);
-              } else {
-                var data = _.filter(data, function (rep) {
-                  if(rep.chamber === 'senate' && target_senate) {
-                    return true;
-                  }
-                  if(rep.chamber === 'house' && target_house) {
-                    return true;
-                  }
-                  return false;
-                });
-                form.html('');
-                generateCongressForm({reps: data});
-              }
-            }).
-            fail(function(er) {
-              show_address_error(er.statusText);
-            });
-        } else {
-          console.log('SMART FAILED');
-          $('input,textarea,button,select', form).removeAttr('disabled');
-          show_address_error("We were unable to find a zip+4 for the address you entered.  Make sure you *only* entered your street address (without your city and state).  Please check and try again.");
-        }
       });
     };
     return false;
