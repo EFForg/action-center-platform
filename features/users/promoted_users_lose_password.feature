@@ -8,10 +8,10 @@ Feature: Promoted users must use strong passwords
 
   Scenario: A user is promoted to activist thus needs to supply a strong password
     When I am made into an activist
-    And I log in
+      And I log in
     Then I am prompted to input a strong password page
-    And I visit action pages
+      And I visit action pages
     Then I am prompted to input a strong password page
     When I submit a strong password
-    And I visit action pages
+      And I visit action pages
     Then I am shown the site as it normally would be displayed

@@ -7,8 +7,6 @@ Feature: Image Gallery
     Given my test env has Internet access and I have an S3 key
       And I exist as an activist
       And I am logged in
-    When I visit the admin page
-      And I click to create an action
-    Then I see inputs for a new action_page
-    When I click to add an image to the gallery
+
+    When I click to add an image to the gallery of a new ActionPage
     Then the image shows up as uploaded over ajax

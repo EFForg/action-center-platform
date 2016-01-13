@@ -78,15 +78,11 @@ Then(/^I am shown admin controls$/) do
   expect(page).to have_content "Action Center Admin"
 end
 
-When(/^I click to create an action$/) do
-  first(:link, "Create new action").click
-end
-
-Then(/^I see inputs for a new action_page$/) do
+def confirm_action_page_new_view_works
   expect(page).to have_content "Protips for your description!"
 end
 
-When(/^I fill in inputs to create a petition action$/) do
+def fill_in_petition_action_inputs
   setup_action
   first(:link, "Content").click # make sure we're in the content section of an action being edited
 
@@ -99,9 +95,6 @@ When(/^I fill in inputs to create a petition action$/) do
   # find("#action-page-description").set(c[:description])
   page.execute_script("editor.importFile('new', '#{c[:description]}')")
 
-
-  # editor4.importFile('new', 'heres text')
-
   first(:link, "Action Settings").click
   find("#action_page_enable_petition").click
 
@@ -110,19 +103,6 @@ When(/^I fill in inputs to create a petition action$/) do
   find("#action_page_petition_attributes_title").set(c[:title])
   find("#epic-petition-description").set(c[:description])
   find("#action_page_petition_attributes_goal").set('100')
-
-
-  # Photos
-  # first(:link, "Photos").click
-  # first(:button, "Select from gallery").click
-
-  # I need to attach the effing file...
-  # I can only do this by 'name', and I only have the #file reference
-  # so I must edit the dom at this point.
-  # or I'll just write it in the markup
-
-  # attach_file(:file, File.join(Rails.root.to_s, 'features', 'upload_files', 'img.png'))
-  # first(:button, "Add files...").click
 
   first(:button, "Save").click
 end
@@ -135,6 +115,13 @@ Then(/^I get the unpublished petition page$/) do
 end
 
 
+When(/^I create a vanilla action$/) do
+  sign_in
+  visit '/admin/action_pages'
+  first(:link, "Create new action").click
+  confirm_action_page_new_view_works
+  fill_in_petition_action_inputs
+end
 
 
 Given(/^I exist as a user$/) do
@@ -232,11 +219,7 @@ When(/^I browse to the action page$/) do
   visit "/action/#{@action_page.title.downcase.gsub(" ", "-")}"
 end
 
-Then(/^I see the petition hasn't met its goal$/) do
-  expect(page).to have_content("99 / 100 signatures")
-end
-
-When(/^I sign the petition$/) do
+def sign_the_petition
   fill_in "First Name", with: @visitor[:name].split(" ").first
   fill_in "Last Name", with: @visitor[:name].split(" ").last
   fill_in "Zip Code", with: "94109"
@@ -252,26 +235,36 @@ When(/^I sign the petition$/) do
   end
 end
 
-Then(/^I am thanked for my participation$/) do
-  expect(page).to have_content("Now help spread the word:")
-end
-
-Then(/^I see the petition has met its goal$/) do
-  expect(page).to have_content("100 / 100 signatures")
-end
-
-When(/^The action is marked a victory$/) do
+When(/^the action is marked a victory$/) do
   @action_page.update_attributes(victory: true)
 end
 
 Then(/^I see a victory message$/) do
+  visit "/action/#{@action_page.title.downcase.gsub(" ", "-")}"
   expect(page).to have_content("We won")
 end
 
 
+When(/^I sign a petition that's one signature away from victory$/) do
+  visit "/action/#{@action_page.title.downcase.gsub(" ", "-")}"
+
+  # check action progress is shown
+  expect(page).to have_content("99 / 100 signatures")
+
+  sign_the_petition
+end
+
+Then(/^my signature is acknowledged$/) do
+  expect(page).to have_content("Now help spread the word:")
+  expect(page).to have_content("100 / 100 signatures")
+end
 
 
-When(/^I click to add an image to the gallery$/) do
+When(/^I click to add an image to the gallery of a new ActionPage$/) do
+  # get to a new action_page's view
+  visit '/admin/action_pages'
+  first(:link, "Create new action").click
+
   Capybara.ignore_hidden_elements = false
   first(:link, "Open Gallery").click
   path = "#{Rails.root}/features/upload_files/img.png"
