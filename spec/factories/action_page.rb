@@ -13,4 +13,8 @@ FactoryGirl.define do
     enable_petition true
   end
 
+  factory :action_page_with_tweet, :parent => :action_page do
+    enable_tweet true
+  end
+
 end

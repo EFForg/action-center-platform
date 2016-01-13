@@ -1,5 +1,5 @@
-def setup_call_action
-  @call_action = { title: "this is an important call",
+def setup_action
+  @action_info = { title: "this is an important call",
     summary: "blablabla",
     description: "such bla, such bla" }
 end
@@ -40,6 +40,7 @@ def create_an_action_page_petition_needing_one_more_signature
   @petition = FactoryGirl.create(:petition_with_99_signatures_needing_1_more)
   @action_page = @petition.action_page
 end
+
 
 
 
@@ -86,11 +87,11 @@ Then(/^I see inputs for a new action_page$/) do
 end
 
 When(/^I fill in inputs to create a petition action$/) do
-  setup_call_action
+  setup_action
   first(:link, "Content").click # make sure we're in the content section of an action being edited
 
   # fill in title
-  c = @call_action
+  c = @action_info
   find("#action_page_title").set(c[:title])
 
   find("#epic-action-summary").set(c[:summary])
@@ -127,7 +128,7 @@ When(/^I fill in inputs to create a petition action$/) do
 end
 
 Then(/^I get the unpublished petition page$/) do
-  c = @call_action
+  c = @action_info
   non_published_msg = "This page is not published."
   expect(page.html).to include(non_published_msg)
   expect(page).to have_content(c[:title])
@@ -304,4 +305,39 @@ When(/^I publish the action$/) do
   # click the publish checkbox
   first(:input, "#action_page_published").click
   first(:button, "Save").click
+end
+
+
+
+
+Given(/^A tweet petition targeting senate exists$/) do
+  setup_action
+  @tweet = FactoryGirl.create(:tweet_targeting_senate)
+  @action_page = @tweet.action_page
+  @action_page.update_attributes(title: @action_info[:title],
+    summary: @action_info[:summary],
+    description: @action_info[:description])
+end
+
+Then(/^I see a button to lookup my reps$/) do
+  @lookup_button = first(:button, "Look up your reps")
+  expect(@lookup_button).to be_truthy
+end
+
+When(/^I fill in my tweet petition location info$/) do
+  fill_in "street_address", with: "815 Eddy St"
+  fill_in "zipcode", with: "94109"
+end
+
+
+When(/^I click the button to lookup my reps$/) do
+  RSpec::Mocks.with_temporary_scope do
+    stub_smarty_streets_street_address
+    stub_legislator_by_zip
+
+    first(:button, "Look up your reps").click
+    sleep 0.5 while !page.has_content? "Your Representatives"
+  end
+
+  expect(first(:link, "Tweet @NancyPelosi")).to be_truthy
 end

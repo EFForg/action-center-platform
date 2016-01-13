@@ -48,8 +48,7 @@ $(document).on('ready', function() {
       $.ajax({
         url: url,
         type: 'POST',
-        success: function(res) {
-        },
+        success: function(res) {},
         error: function() {}
       });
     }
@@ -119,6 +118,7 @@ $(document).on('ready', function() {
       height_changed();
       return false;
     });
+
     $('.call-tool-different-number').on('click', function(ev){
       show_form();
       $('#inputPhone').val('').focus();
