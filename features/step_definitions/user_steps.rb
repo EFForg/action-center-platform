@@ -168,7 +168,7 @@ When(/^I change my email address$/) do
   click_button "Change"
 
   u = User.find_by_email(@visitor[:email])
-  u.confirm!
+  u.confirm
 end
 
 Then(/^I should no longer have a hashed reset token in my user record$/) do

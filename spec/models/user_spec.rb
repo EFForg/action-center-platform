@@ -24,7 +24,7 @@ describe User do
     it "should reset password reset tokens upon email change" do
       @user.update_attributes(reset_password_token: "stub_token")
       @user.update_attributes(email: "2" + @user.email)
-      @user.confirm!
+      @user.confirm
       expect(@user.reset_password_token).to be_nil
     end
 

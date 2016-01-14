@@ -1,7 +1,7 @@
 ruby '2.1.2'
 source 'https://rubygems.org'
 
-gem 'rails', '~>4.1.10'
+gem 'rails', '~>4.1.14'
 
 #Database
 gem 'pg', '0.15.1'
@@ -10,7 +10,7 @@ gem 'mysql2'
 # Hosting-related
 gem 'rails_12factor', group: :production # Loads 'rails_serve_static_assets' and 'rails_stdout_logging'
 gem 'figaro'
-gem 'aws-sdk'
+gem 'aws-sdk', '< 2.0'
 
 # Frontend/assets
 gem 'bourbon'
@@ -21,25 +21,25 @@ gem 'sass-rails', '~> 4.0.0'
 gem 'uglifier', '>= 1.3.0'    # compressor for JavaScript assets
 gem 'bundler', '>= 1.8.4' # needed for rails-assets
 source 'https://rails-assets.org' do
-  gem 'rails-assets-lodash'
-  gem 'rails-assets-jquery'
-  gem 'rails-assets-jquery-ujs'
+  gem 'rails-assets-lodash', '3.7.0'
+  gem 'rails-assets-jquery', '2.1.3'
+  gem 'rails-assets-jquery-ujs', '1.0.3'
   gem 'rails-assets-jquery-timeago'
   gem 'rails-assets-jquery-cookie'
-  gem 'rails-assets-moment'
-  gem 'rails-assets-backbone'
-  gem 'rails-assets-backbone-relational'
+  gem 'rails-assets-moment', '2.9.0'
+  gem 'rails-assets-backbone', '1.1.2'
+  gem 'rails-assets-backbone-relational', '0.9.0'
   gem 'rails-assets-chartjs'
   gem 'rails-assets-respond'
   gem 'rails-assets-EpicEditor'
-  gem 'rails-assets-bootstrap-daterangepicker'
-  gem 'rails-assets-html5shiv'
-  gem 'rails-assets-bootstrap-sass'
+  gem 'rails-assets-bootstrap-daterangepicker', '1.3.21'
+  gem 'rails-assets-html5shiv', '3.7.2'
+  gem 'rails-assets-bootstrap-sass', '3.3.4'
   gem 'rails-assets-ionicons'
-  gem 'rails-assets-sweetalert'
+  gem 'rails-assets-sweetalert', '1.0.1'
   gem 'rails-assets-roboto-webfont'
   gem 'rails-assets-congress-images-102x125'
-  gem 'rails-assets-jquery-sortable' # note: no bower.json for 0.9.12
+  gem 'rails-assets-jquery-sortable', '0.9.12' # note: no bower.json for 0.9.12
 end
 
 
@@ -81,7 +81,7 @@ gem 'http_accept_language'        # Detect HTTP language header
 gem 'jbuilder', '~> 1.2'          # JSON APIs
 gem 'whenever', require: false    # Cron jobs
 gem 'sanitize'                    # Sanitize user input
-gem 'rest_client'
+gem 'rest-client'
 gem 'sunlight-congress', git: 'https://github.com/steveklabnik/sunlight-congress'
 gem 'will_paginate', '~> 3.0'
 gem 'oauth'

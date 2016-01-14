@@ -26,14 +26,13 @@ class ActionPage < ActiveRecord::Base
   #validates_length_of :og_title, maximum: 65
   after_save :no_drafts_on_homepage
 
-  def should_generate_new_friendly_id?
-    true
-  end
+  def should_generate_new_friendly_id?; true; end # related to friendly_id
+
   def call_tool_title
     call_campaign && call_campaign.title.length > 0 && call_campaign.title || 'Call Your Legislators'
   end
   def message_rendered
-    # TODO - wrap this in a .to_md
+    # TODO - just write a test for this and rename this to .to_md
     call_campaign && markdown(call_campaign.message) || ''
   end
 
