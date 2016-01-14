@@ -194,14 +194,20 @@ When(/^I am made into an activist$/) do
   make_user_activist
 end
 
+Then(/^I am prevented from using the app until I supply a strong password$/) do
+  sign_in
 
-
-Then(/^I am prompted to input a strong password page$/) do
+  # check app is locked down for this user
   expect(page).to have_content("Current Password")
-end
-
-When(/^I visit action pages$/) do
   visit '/admin/action_pages'
+  expect(page).to have_content("Current Password")
+
+  # submit strong password
+  submit_a_strong_password
+
+  # check lockdown is resolved
+  visit '/admin/action_pages'
+  expect(page).to have_content("Action Center Admin")
 end
 
 def submit_a_strong_password
@@ -209,14 +215,6 @@ def submit_a_strong_password
   fill_in "New Password", with: "P1" + @visitor[:password]
   fill_in "Confirm New Password", with: "P1" + @visitor[:password]
   click_button "Submit"
-end
-
-When(/^I submit a strong password$/) do
-  submit_a_strong_password
-end
-
-Then(/^I am shown the site as it normally would be displayed$/) do
-  expect(page).to have_content("Action Center Admin")
 end
 
 Given(/^A petition exists that's one signature away from its goal$/) do
@@ -281,22 +279,23 @@ When(/^I click to add an image to the gallery of a new ActionPage$/) do
   Capybara.ignore_hidden_elements = true
 
   click_button "Start"
-  sleep 1  # TODO:  Make it so this polls the page instead of waits blindly
+  loop while first(:img, ".preview > a:nth-child(1) > img:nth-child(1)").nil?
 
   @upload_url = first(:img, ".preview > a:nth-child(1) > img:nth-child(1)")[:src]
   bb_code = "![img.png](#{@upload_url})"
 
-  # TODO: might need a wait loop here till i#{c[:description]}t's done uploading...
   click_button "Close"
 
   page.execute_script("editor.importFile('new', 'here is the image #{bb_code}')")
-  sleep 0.3
+  loop while page.has_content?("img.png - 7.93 KB -")
 
   first(:button, "Save").click
 end
 
 
 When(/^the image shows up as uploaded over ajax$/) do
+  loop until img_node = first(:img, "#description > p:nth-child(1) > img:nth-child(1)")
+
   uploaded_img_src = first(:img, "#description > p:nth-child(1) > img:nth-child(1)")[:src]
 
   expect(/^https:\/\/.*amazonaws.com\/uploads\/.*\/img.png$/).to match uploaded_img_src
