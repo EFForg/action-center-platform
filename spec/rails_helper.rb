@@ -66,4 +66,3 @@ def login(user)
       :password => "strong passwords defeat lobsters covering wealth" }
   }
 end
-

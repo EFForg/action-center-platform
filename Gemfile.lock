@@ -373,6 +373,7 @@ DEPENDENCIES
   binding_of_caller
   bourbon
   bundler (>= 1.8.4)
+  capybara
   chartkick!
   cucumber-rails
   daemons

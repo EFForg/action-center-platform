@@ -7,6 +7,8 @@ Feature: Promoted users must use strong passwords
       And I am not logged in
 
   Scenario: A user is promoted to activist thus needs to supply a strong password
+
+
     When I am made into an activist
       And I log in
     Then I am prompted to input a strong password page
