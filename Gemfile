@@ -1,7 +1,7 @@
 ruby '2.1.2'
 source 'https://rubygems.org'
 
-gem 'rails', '~>4.1.14'
+gem 'rails', '~>4.2.5'
 
 #Database
 gem 'pg', '0.15.1'
@@ -53,7 +53,6 @@ gem 'nokogiri'                    # Required for premailer-rails
 gem 'premailer-rails'             # Inline styles for emails
 
 # Optimization
-gem 'rack-zippy'                  # gzip assets
 gem 'sprockets-image_compressor'  # Optimizes png/jpg
 
 

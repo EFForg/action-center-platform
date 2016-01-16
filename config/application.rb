@@ -48,5 +48,6 @@ module Actioncenter
     config.congress_forms_url = Rails.application.secrets.congress_forms_url
     config.legislators_json_url = Rails.application.secrets.legislators_json_file || "https://rawgit.com/EFForg/congress-zip-plus-four/master/legislators.json"
     config.time_zone = Rails.application.secrets.time_zone || 'Eastern Time (US & Canada)'
+    config.active_record.raise_in_transactional_callbacks = true
   end
 end

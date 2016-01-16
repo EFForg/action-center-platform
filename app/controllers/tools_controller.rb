@@ -261,7 +261,7 @@ class ToolsController < ApplicationController
   def deliver_thanks_message
     @action_page ||= ActionPage.find(params[:action_id])
     @email ||= current_user.try(:email) || params[:email]
-    UserMailer.thanks_message(@email, @action_page, user: @user, name: @name).deliver if @email
+    UserMailer.thanks_message(@email, @action_page, user: @user, name: @name).deliver_now if @email
   end
 
   # This makes a 3rd party lookup to Sunlight API to get all the representatives
