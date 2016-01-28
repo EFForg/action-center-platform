@@ -16,9 +16,14 @@ filling in and generating the appropriate values.
 
 #### Notable Dependencies
 * Amazon S3 secret key and key id
+  * Allows admins to upload images for the ActionPages
 * [SmartyStreets API](https://smartystreets.com/account/create) key and id
+  * Allows Congress members to be looked up for users
 * [Sunlight API](https://sunlightfoundation.com/api/accounts/register/) key
-* Congress Forms
+  * Allows Congress members to be looked up for users
+* [Phantom of the Capitol](https://github.com/efforg/phantom-of-the-capitol) whitelisting on server side?
+  * Allows users to submit e-messages to congress
+* call
 
 ### Local Setup
 
