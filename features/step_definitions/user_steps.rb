@@ -118,6 +118,7 @@ end
 When(/^I create a vanilla action$/) do
   sign_in
   visit '/admin/action_pages'
+  loop while first(:link, "Create new action").nil?
   first(:link, "Create new action").click
   confirm_action_page_new_view_works
   fill_in_petition_action_inputs
@@ -269,9 +270,13 @@ end
 When(/^I click to add an image to the gallery of a new ActionPage$/) do
   # get to a new action_page's view
   visit '/admin/action_pages'
+  loop while first(:link, "Create new action").nil?
+
   first(:link, "Create new action").click
 
   Capybara.ignore_hidden_elements = false
+  loop while first(:link, "Open Gallery").nil?
+
   first(:link, "Open Gallery").click
   path = "#{Rails.root}/features/upload_files/img.png"
   attach_file("file", path)

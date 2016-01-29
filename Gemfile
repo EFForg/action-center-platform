@@ -19,7 +19,7 @@ gem 'webshims-rails'
 gem 'redcarpet'               # Markdown
 gem 'sass-rails', '~> 4.0.0'
 gem 'uglifier', '>= 1.3.0'    # compressor for JavaScript assets
-gem 'bundler', '>= 1.8.4' # needed for rails-assets
+####gem 'bundler', '>= 1.8.4' # needed for rails-assets
 source 'https://rails-assets.org' do
   gem 'rails-assets-lodash', '3.7.0'
   gem 'rails-assets-jquery', '2.1.3'
@@ -66,12 +66,13 @@ gem 'delayed_job_active_record'
 gem 'daemons'
 
 # Exception monitoring
-gem 'sentry-raven'
+gem 'sentry-raven', '~> 0.15'
 
 # Other
 gem 'acts_as_paranoid', git: 'https://github.com/ActsAsParanoid/acts_as_paranoid.git', :ref => 'ddcd1'
 gem 'descriptive_statistics'      # Used for calculating percentiles
-gem 'devise'
+gem 'warden', '1.2.4'             # This dep of devise has a bug in 1.2.5 so am avaoiding
+gem 'devise', '~> 3.5'
 gem 'ejs'                         # Embedded javascript
 gem 'friendly_id', '~> 5.0'       # Slugging/permalink plugins for Active Record
 gem 'going_postal'                # Zip code validation
@@ -102,10 +103,12 @@ group :development do
 end
 
 group :development, :test do
-  gem 'rspec-rails', '~> 3.0'
-  gem 'cucumber-rails', require: false
-  gem 'capybara'
-  gem 'selenium-webdriver'
+  gem 'rspec-core', '3.4.1'
+  gem 'rspec-rails', '3.4.0'
+  gem 'cucumber-rails', '1.4.2', require: false
+  gem 'capybara', '~> 2.5.0'
+  gem 'selenium-webdriver', '~> 2.49', require: false
+  gem "capybara-webkit"
   gem 'database_cleaner'
   gem 'pry'
   gem 'factory_girl_rails'

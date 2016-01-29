@@ -39,10 +39,10 @@ module Actioncenter
       from: Rails.application.secrets.mailings_from
     }
 
-    config.cors_allowed_domains = Rails.application.secrets.cors_allowed_domains.split(" ")
+    config.cors_allowed_domains = Rails.application.secrets.cors_allowed_domains ? Rails.application.secrets.cors_allowed_domains.split(" ") : []
 
     config.twitter_handle = Rails.application.secrets.twitter_handle
-    config.twitter_related = Rails.application.secrets.twitter_related.split(" ")
+    config.twitter_related = Rails.application.secrets.twitter_related ? Rails.application.secrets.twitter_related.split(" ") : []
     config.facebook_handle = Rails.application.secrets.facebook_handle
     config.call_tool_url = Rails.application.secrets.call_tool_url
     config.congress_forms_url = Rails.application.secrets.congress_forms_url

@@ -27,7 +27,7 @@ filling in and generating the appropriate values.
 
 ### Local Setup
 
-Install system package dependencies (the below example works on Ubuntu).
+Install system package dependencies (the below example works on Ubuntu).  You need postresql 9.3 at least.
 
     sudo apt-get install postgresql postgresql-contrib-9.3 libpq-dev
 
