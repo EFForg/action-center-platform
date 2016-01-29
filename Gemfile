@@ -44,7 +44,7 @@ end
 
 
 # File upload
-gem 's3_cors_fileupload', git: 'https://github.com/sinak/s3_cors_fileupload'
+gem 's3_cors_fileupload', git: 'https://github.com/sinak/s3_cors_fileupload', ref: 'd5e14'
 gem "paperclip", "~> 4.1"
 gem "jquery-fileupload-rails"
 
@@ -59,7 +59,7 @@ gem 'sprockets-image_compressor'  # Optimizes png/jpg
 # Analytics
 gem 'ahoy_matey'                  # Analytics
 gem 'groupdate'
-gem 'chartkick', git: 'https://github.com/Hainish/chartkick.git', branch: 'chart.js'
+gem 'chartkick', git: 'https://github.com/Hainish/chartkick.git', branch: 'chart.js', ref: 'c2f78'
 
 # Job queue
 gem 'delayed_job_active_record'
@@ -69,7 +69,7 @@ gem 'daemons'
 gem 'sentry-raven'
 
 # Other
-gem 'acts_as_paranoid', git: 'https://github.com/ActsAsParanoid/acts_as_paranoid.git'
+gem 'acts_as_paranoid', git: 'https://github.com/ActsAsParanoid/acts_as_paranoid.git', :ref => 'ddcd1'
 gem 'descriptive_statistics'      # Used for calculating percentiles
 gem 'devise'
 gem 'ejs'                         # Embedded javascript
@@ -81,7 +81,7 @@ gem 'jbuilder', '~> 1.2'          # JSON APIs
 gem 'whenever', require: false    # Cron jobs
 gem 'sanitize'                    # Sanitize user input
 gem 'rest-client'
-gem 'sunlight-congress', git: 'https://github.com/steveklabnik/sunlight-congress'
+gem 'sunlight-congress', git: 'https://github.com/steveklabnik/sunlight-congress', ref: 'a3c55'
 gem 'will_paginate', '~> 3.0'
 gem 'oauth'
 gem 'email_validator'
