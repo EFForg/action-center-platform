@@ -27,9 +27,9 @@ filling in and generating the appropriate values.
 
 ### Local Setup
 
-Install system package dependencies (the below example works on Ubuntu).  You need postresql 9.3 at least.
+Install system package dependencies (the below example works on Ubuntu/precise).  You need postresql 9.3 at least.
 
-    sudo apt-get install postgresql postgresql-contrib-9.3 libpq-dev
+    sudo apt-get install postgresql postgresql-contrib-9.3 libpq-dev libqt4-dev libqtwebkit-dev 
 
 Take a moment to configure a postgresql user with full privileges, and then run the below commands to bring the app online.  
 
