@@ -9,10 +9,7 @@ Action Center
 ### Configuration
 
 #### Secrets
-For convenience almost all of the configuration settings have been moved into
-the `config/application.yml` file.  The file isn't tracked into the repo so
-to get started, make a copy of `config/application.yml.example` and begin
-filling in and generating the appropriate values.
+For convenience almost all of the configuration settings have been moved into the `config/application.yml` file.  The file isn't tracked into the repo so to get started, make a copy of `config/application.yml.example` and begin filling in and generating the appropriate values.
 
 #### Notable Dependencies
 * Amazon S3 secret key and key id
@@ -29,24 +26,27 @@ filling in and generating the appropriate values.
 
 Install system package dependencies (the below example works on Ubuntu/precise).  You need postresql 9.3 at least.
 
-    sudo apt-get install postgresql postgresql-contrib-9.3 libpq-dev libqt4-dev libqtwebkit-dev 
+```
+$  sudo apt-get install postgresql postgresql-contrib-9.3 libpq-dev libqt4-dev libqtwebkit-dev
+```
 
-Take a moment to configure a postgresql user with full privileges, and then run the below commands to bring the app online.  
+For convenience, you may configure a postgresql superuser, and then run the below commands to bring the app online.
 
-    bundle install
-    rake db:create
-    rake db:schema:load
-    rails s
 
-Once the server is running, navigate to `localhost:3000/register` and create
-yourself a user account. You will need to provide (and confirm) a valid email
-in order to log in. When that's done, promote yourself to be an admin using the
-following command:
+```
+$  sudo -u postgres bash -c "psql -c \"CREATE ROLE actioncenter PASSWORD 'CHANGEMEinproduction6f799ae4eb3d59e' SUPERUSER CREATEDB CREATEROLE INHERIT LOGIN; \""
+
+$  bundle install
+   rake db:create
+   rake db:schema:load
+   rails server
+```
+
+Once the server is running, navigate to `localhost:3000/register` and create yourself a user account. You will need to provide (and confirm) a valid email in order to log in. When that's done, promote yourself to be an admin using the following command:
 
     rake users:add_admin[youremail@example.org]
 
-Now you should be able to go to `localhost:3000/admin/action_pages` to create
-your first action page.
+Now you should be able to go to `localhost:3000/admin/action_pages` to create your first action page.
 
 ## Heroku Setup
 
@@ -99,13 +99,9 @@ If you want to get fancy, you can modify the embed code to include some of the f
 
 ## Testing
 
-To run the full test suite, simply run `rake` with no arguments.  The Rspec
-tests will run first, followed by the more spotty cucumber tests.  You may need
-to do some tweaking and install firefox to get those tests to pass.  
+To run the full test suite, simply run `rake` with no arguments.  The Rspec tests will run first, followed by the more spotty cucumber tests.  You may need to do some tweaking and install firefox to get those tests to pass.  
 
-Rspec tests are used for unit testing the app, and some integration testing.  
-Cucumber tests are used for testing API keys, javascript tests and possibly
-for taking on new features described to us by Activism.  
+Rspec tests are used for unit testing the app, and some integration testing.   Cucumber tests are used for testing API keys, javascript tests and possibly for taking on new features described to us by Activism.  
 
 ## Acknowledgements
 
