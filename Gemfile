@@ -5,7 +5,6 @@ gem 'rails', '~>4.2.5.1'
 
 #Database
 gem 'pg', '0.15.1'
-gem 'mysql2'
 
 # Hosting-related
 gem 'rails_12factor', group: :production # Loads 'rails_serve_static_assets' and 'rails_stdout_logging'
