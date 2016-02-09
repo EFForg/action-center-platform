@@ -222,7 +222,6 @@ GEM
     multi_json (1.11.2)
     multi_test (0.1.2)
     multipart-post (2.0.0)
-    mysql2 (0.4.2)
     netrc (0.11.0)
     nokogiri (1.6.7.2)
       mini_portile2 (~> 2.0.0.rc2)
@@ -280,7 +279,7 @@ GEM
     rails-assets-jquery-cookie (1.4.1)
       rails-assets-jquery (>= 1.2)
     rails-assets-jquery-sortable (0.9.12)
-    rails-assets-jquery-timeago (1.5.0)
+    rails-assets-jquery-timeago (1.5.1)
       rails-assets-jquery (>= 1.4)
     rails-assets-jquery-ujs (1.0.3)
       rails-assets-jquery (> 1.8)
@@ -423,6 +422,7 @@ DEPENDENCIES
   better_errors
   binding_of_caller
   bourbon
+  bundler (>= 1.8.4)
   capybara (~> 2.5.0)
   capybara-webkit
   chartkick!
@@ -446,7 +446,6 @@ DEPENDENCIES
   iso_country_codes
   jbuilder (~> 1.2)
   jquery-fileupload-rails
-  mysql2
   nokogiri
   oauth
   paperclip (~> 4.1)
@@ -498,4 +497,4 @@ DEPENDENCIES
   will_paginate (~> 3.0)
 
 BUNDLED WITH
-   1.10.6
+   1.11.2
