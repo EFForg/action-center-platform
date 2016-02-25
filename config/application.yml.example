@@ -12,8 +12,8 @@ congress_forms_debug_key:
 storage: 's3' # either 's3' or 'file'
 amazon_access_key_id:
 amazon_secret_access_key:
-amazon_region: us-west-1 # this is part of the subdomain url to your bucket
-amazon_bucket: actioncenter
+amazon_region: 'us-west-1' # this is part of the subdomain url to your bucket
+amazon_bucket: 'actioncenter'
 amazon_bucket_url: # You can specify a domain covered by fastly for speed bonus + anonymity. or this will be determined from region and bucket.
 amazon_authorize_key: # has something to do with email bounces
 cors_allowed_domains: http://www.example.com https://www.example.com
@@ -44,7 +44,7 @@ smtp_password:
 smtp_address:
 smtp_port: "587"
 smtp_domain:
-smtp_authentication: plain
+smtp_authentication: 'plain'
 smtp_enable_starttls_auto: "true"
 mailings_from: 'Example Action <actioncenter@example.com>'
 
@@ -64,15 +64,15 @@ time_zone: 'Eastern Time (US & Canada)'
 
 production_base: &production_base
   supporters_api_key:
-  supporters_host: https://supporters.eff.org
-  supporters_path: /civicrm/eff-action-api
+  supporters_host: 'https://supporters.eff.org'
+  supporters_path: '/civicrm/eff-action-api'
   supporters_civi_api_key:
   supporters_civi_key:
-  db_adapter: postgresql
-  db_database: actioncenter
-  db_username: actioncenter
-  db_password: ""
-  db_host:
+  db_adapter: 'postgresql'
+  db_database: 'actioncenter'
+  db_username: 'actioncenter'
+  db_password: 'CHANGEMEinproduction6f799ae4eb3d59e'
+  db_host: '127.0.0.1'
   db_port: "5432"
   force_ssl: "true"
   # db_sslmode: verify-full # or one of [disable|allow|prefer|require]
@@ -92,16 +92,16 @@ staging:
 
 development:
   supporters_api_key:
-  supporters_host: https://supporters.eff.org
-  supporters_path: /civicrm/eff-action-api
-  db_adapter: postgresql
-  db_database: action_center_dev
-  db_username: action_center_dev
-  db_password:
-  db_host:
+  supporters_host: 'https://supporters.eff.org'
+  supporters_path: '/civicrm/eff-action-api'
+  db_adapter: 'postgresql'
+  db_database: 'actioncenter_dev'
+  db_username: 'actioncenter'
+  db_password: 'CHANGEMEinproduction6f799ae4eb3d59e'
+  db_host: '127.0.0.1'
   db_port: "5432"
-  db_sslmode: verify-full # or one of [disable|allow|prefer|require]
-  db_sslrootcert: /path/to/ssl_root.crt
+  db_sslmode: 'disable' # or one of [disable|allow|prefer|require]
+  # db_sslrootcert: '/path/to/ssl_root.crt'
   sentry_dsn: # if you're using sentry
   enable_basic_auth: "false"
   basic_auth_username:
@@ -109,8 +109,8 @@ development:
 
 
 test:
-  db_adapter: postgresql
-  db_database: actioncenter
-  db_username: actioncenter
-  db_password:
-  db_host:
+  db_adapter: 'postgresql'
+  db_database: 'actioncenter_test'
+  db_username: 'actioncenter'
+  db_password: 'CHANGEMEinproduction6f799ae4eb3d59e'
+  db_host: '127.0.0.1'

@@ -5,7 +5,6 @@ gem 'rails', '~>4.2.5.1'
 
 #Database
 gem 'pg', '0.15.1'
-gem 'mysql2'
 
 # Hosting-related
 gem 'rails_12factor', group: :production # Loads 'rails_serve_static_assets' and 'rails_stdout_logging'
@@ -19,7 +18,7 @@ gem 'webshims-rails'
 gem 'redcarpet'               # Markdown
 gem 'sass-rails', '~> 4.0.0'
 gem 'uglifier', '>= 1.3.0'    # compressor for JavaScript assets
-####gem 'bundler', '>= 1.8.4' # needed for rails-assets
+gem 'bundler', '>= 1.8.4' # needed for rails-assets
 source 'https://rails-assets.org' do
   gem 'rails-assets-lodash', '3.7.0'
   gem 'rails-assets-jquery', '2.1.3'
