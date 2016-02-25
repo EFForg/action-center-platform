@@ -1,5 +1,5 @@
 class ActionPageController < ApplicationController
-  before_filter :set_action_display_variables, only: [:show, :embed_iframe]
+  before_filter :set_action_display_variables, only: [:show, :embed_iframe, :signature_count]
   skip_before_filter :verify_authenticity_token, only: :embed
   after_action :allow_iframe, only: :embed_iframe
 
@@ -34,6 +34,18 @@ class ActionPageController < ApplicationController
     end
 
     render layout: 'application-blank'
+  end
+
+  def signature_count
+    send_cache_disablement_headers
+    response.headers['Access-Control-Allow-Origin'] = "*"
+    @actionPage = ActionPage.friendly.find(params[:id])
+
+    if petition = @actionPage.petition
+      render text: petition.signatures.count.to_s
+    else
+      render text: '0'
+    end
   end
 
 private

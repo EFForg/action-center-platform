@@ -2,9 +2,6 @@ Actioncenter::Application.routes.draw do
   get "robots.txt", controller: :robots, action: :show, format: 'text'
   get "/heartbeat", to: "robots#heartbeat"
 
-
-
-
   # Root - Redundant - TODO - refactor
   get "welcome/index"
   root 'welcome#index'
@@ -48,12 +45,15 @@ Actioncenter::Application.routes.draw do
   resources :action_page, path: :action do
     member do
       get :embed_iframe
+      get :signature_count
     end
     collection do
       get :embed
     end
   end
+
   resources :subscriptions, only: :create
+
   resources :partners, only: [:show, :edit, :update] do
     member do
       get :csv
@@ -62,6 +62,7 @@ Actioncenter::Application.routes.draw do
       delete 'users/:user_id' => 'partners#remove_user', as: :remove_user
     end
   end
+
   namespace :admin do
 
     resources :source_files, :only => [:index, :create, :destroy], :controller => 's3_uploads' do
@@ -69,6 +70,7 @@ Actioncenter::Application.routes.draw do
     end
 
     get 'mailer/:action/:id' => 'mailer#:action'
+
     resources :petitions, only: :show do
       member do
         get :csv
@@ -76,6 +78,7 @@ Actioncenter::Application.routes.draw do
         get '/:bioguide_id' => 'petitions#report'
       end
     end
+
     resources :email_campaigns, only: :none do
       member do
         get :date_tabulation
@@ -83,9 +86,11 @@ Actioncenter::Application.routes.draw do
         get 'staffer_report/:bioguide_id', to: 'email_campaigns#staffer_report', as: :staffer_report
       end
     end
+
     resources :em
     resources :partners, except: [:show, :edit, :update]
     resources :topic_categories, :topic_sets, :topics
+
     resources :action_pages do
       get :updated_at
       get :publish
