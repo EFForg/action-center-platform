@@ -15,6 +15,10 @@ class Signature < ActiveRecord::Base
 
   include ActionView::Helpers::DateHelper
 
+  def self.pretty_count
+    ActiveSupport::NumberHelper::number_to_delimited(self.count, :delimiter => ',')
+  end
+
   def arbitrary_opinion_of_country_string_validity
     if full_country_name.nil?
       errors.add(:country_code, "Country Code might come from a spam bot.")

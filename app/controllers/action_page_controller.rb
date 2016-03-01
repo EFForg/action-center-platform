@@ -42,7 +42,7 @@ class ActionPageController < ApplicationController
     @actionPage = ActionPage.friendly.find(params[:id])
 
     if petition = @actionPage.petition
-      render text: petition.signatures.count.to_s
+      render text: petition.signatures.count
     else
       render text: '0'
     end
@@ -99,7 +99,7 @@ private
 
     if @petition
       @signatures = @petition.signatures.order(created_at: :desc).limit(5)
-      @signature_count = @petition.signatures.count
+      @signature_count = @petition.signatures.pretty_count
     end
 
     @topic_category = nil

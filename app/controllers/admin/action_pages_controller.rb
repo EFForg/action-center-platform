@@ -118,7 +118,7 @@ class Admin::ActionPagesController < Admin::ApplicationController
 
     if @petition
       @signatures = @petition.signatures.order(created_at: :desc).limit(5)
-      @signature_count = @petition.signatures.count
+      @signature_count = @petition.signatures.pretty_count
     end
 
     # Initialize a temporary signature object for form auto-population
