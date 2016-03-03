@@ -1,6 +1,6 @@
 $(document).on('ready', function() {
   _.templateSettings.interpolate = /{{([\s\S]+?)}}/g;
-  
+
   $('form.petition-tool').on('submit', function(ev) {
     var form = $(ev.currentTarget);
     function show_error(error) {
@@ -9,6 +9,32 @@ $(document).on('ready', function() {
       form.find('.alert-danger').remove();
       form.prepend($('<div class="small alert alert-danger help-block">').text(error));
     }
+
+    function incrementPetitionCount() {
+      var n = getPetitionCount() + 1;
+      setPetitionCountValue(n);
+    }
+
+    // give it an integer and it prints it all pretty on the screen
+    function setPetitionCountValue(n) {
+      var countEle = petitionCountElement();
+      countEle.text(applyPrettyFormatting(n));
+
+      function applyPrettyFormatting() {
+        return n.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+      }
+    }
+
+    function getPetitionCount() {
+      var countEle = petitionCountElement();
+      return parseInt(countEle.text().replace(",",""));
+    }
+
+    function petitionCountElement() {
+      return $('#petition-tool .count b');
+    }
+
+
     // There are two types of errors: inline (.has-error) and not (.alert-danger)
     form.find('.has-error').removeClass('has-error');
     form.find('.alert-danger').remove();
@@ -26,8 +52,7 @@ $(document).on('ready', function() {
         if (data.success) {
           $('#petition-tool').removeClass('unsigned').addClass('signed');
           height_changed();
-          var count = $('#petition-tool .count b');
-          count.text(parseInt(count.text()) + 1);
+          incrementPetitionCount();
         }
         else if (data.errors) {
           var errors = JSON.parse(data.errors);
@@ -61,7 +86,8 @@ $(document).on('ready', function() {
       url: '/petition/' + petition_id + '/recent_signatures',
       success: function(data){
         var signatures_total = data.signatures_total;
-        $("#progress-bar .count b").html(signatures_total);
+        setPetitionCountValue(signatures_total);
+
         var progress_total = $('.signatures-bar').attr('aria-valuemax');
         $(".signatures-bar").attr('aria-valuenow', signatures_total).css({width: signatures_total/progress_total*100 + '%'});
         var signatures = data.signatories;
