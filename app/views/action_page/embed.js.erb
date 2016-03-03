@@ -64,6 +64,9 @@
         var css_content = document.querySelector(ac_embed.css_content).innerHTML;
         embed_url += "&css_content=" + escape(css_content);
       }
+      if("button_text" in ac_embed){
+        embed_url += "&button_text=" + encodeURIComponent(ac_embed.button_text);
+      }
     }
 
     iframe_tag.setAttribute("src",embed_url);
