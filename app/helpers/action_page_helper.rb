@@ -27,7 +27,7 @@ module ActionPageHelper
   end
 
   def facebook_share_url(action_page)
-    "https://www.facebook.com/sharer/sharer.php?app_id=97703891945&u=#{action_page_url(action_page)}&display=popup"
+    "https://www.facebook.com/sharer/sharer.php?app_id=147715685336936&u=#{action_page_url(action_page)}&display=popup"
   end
 
   def email_friends_url(action_page)
