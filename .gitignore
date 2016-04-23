@@ -20,6 +20,7 @@ pickle-email-*.html
 *.swp
 *.swo
 .elasticbeanstalk/
+docker-compose.yml
 
 # Ignore application configuration
 /config/application.yml

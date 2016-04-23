@@ -16,3 +16,21 @@ RUN apt-get update && \
 ADD Gemfile .
 
 RUN bundle install
+
+ADD bin/ ./bin
+ADD config/ ./config
+ADD config.ru .
+ADD Rakefile .
+ADD Procfile .
+ADD db/ ./db
+ADD lib/ ./lib
+ADD public/ ./public
+ADD app/ ./app
+ADD features/ ./features
+ADD script/ ./script
+ADD spec/ ./spec
+ADD vendor/ ./vendor
+ADD docker/ ./docker
+
+CMD ["rails", "s", "-b", "0.0.0.0"]
+ENTRYPOINT ["/opt/actioncenter/docker/entrypoint.sh"]
