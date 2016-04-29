@@ -1,4 +1,4 @@
-//= require chartjs
+//= require Chart
 //= require moment
 //= require chartkick
 //= require EpicEditor
