@@ -1,4 +1,4 @@
-FROM rails:4.2
+FROM rails:4.2.6
 
 RUN mkdir /opt/actioncenter
 WORKDIR /opt/actioncenter
