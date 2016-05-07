@@ -2,6 +2,7 @@ db:
   image: postgres
   environment:
     POSTGRES_PASSWORD: mysecretpassword
+    AUTO_MIGRATE: "yes" | or "no", depending on if you want to run migrations every time the container starts
 
 app:
   links:
