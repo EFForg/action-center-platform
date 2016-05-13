@@ -103,7 +103,7 @@ GEM
     bourbon (3.2.4)
       sass (~> 3.2)
       thor
-    browser (2.0.3)
+    browser (2.1.0)
     builder (3.2.2)
     capybara (2.5.0)
       mime-types (>= 1.16)
@@ -274,7 +274,7 @@ GEM
       rails-assets-moment (~> 2.9.0)
     rails-assets-bootstrap-sass (3.3.4)
       rails-assets-jquery (>= 1.9.0)
-    rails-assets-chartjs (2.1.0)
+    rails-assets-chartjs (2.1.2)
     rails-assets-congress-images-102x125 (0.1.2)
     rails-assets-html5shiv (3.7.2)
     rails-assets-ionicons (2.0.1)
