@@ -13,15 +13,15 @@ RUN apt-get update && \
     /tmp/* \
     /var/tmp/*
 
-ADD Gemfile .
+ADD Gemfile ./
 
 RUN bundle install
 
 ADD bin/ ./bin
 ADD config/ ./config
-ADD config.ru .
-ADD Rakefile .
-ADD Procfile .
+ADD config.ru ./
+ADD Rakefile ./
+ADD Procfile ./
 ADD db/ ./db
 ADD lib/ ./lib
 ADD public/ ./public
