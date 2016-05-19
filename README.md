@@ -1,6 +1,6 @@
-[![Code Climate](https://codeclimate.com/github/EFForg/action-center-platform/badges/gpa.svg)](https://codeclimate.com/github/efforg/action-center-platform)
-[![Test Coverage](https://codeclimate.com/github/EFForg/action-center-platform/badges/coverage.svg)](https://codeclimate.com/github/efforg/action-center-platform/coverage)
-[![Build Status](https://travis-ci.org/EFForg/action-center-platform.svg?branch=master)](https://travis-ci.org/efforg/action-center-platform)
+[![Code Climate](https://codeclimate.com/github/EFForg/action-center-platform/badges/gpa.svg)](https://codeclimate.com/github/EFForg/action-center-platform)
+[![Test Coverage](https://codeclimate.com/github/EFForg/action-center-platform/badges/coverage.svg)](https://codeclimate.com/github/EFForg/action-center-platform/coverage)
+[![Build Status](https://travis-ci.org/EFForg/action-center-platform.svg?branch=master)](https://travis-ci.org/EFForg/action-center-platform)
 
 
 Action Center
