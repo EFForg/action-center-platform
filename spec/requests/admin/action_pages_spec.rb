@@ -30,13 +30,14 @@ RSpec.describe "Admin Action Pages", type: :request do
     end
 
     it "should allow them creating action pages with valid attributes" do
-      post "/admin/action_pages", valid_attributes
+      expect {
+        post "/admin/action_pages", valid_attributes
+      }.to change { ActionPage.count }.by(1)
 
       expect(response).to redirect_to(assigns(:actionPage))
       follow_redirect!
 
       expect(response.code).to eq "200"
-      expect(ActionPage.count).to eq 1
     end
 
   end
