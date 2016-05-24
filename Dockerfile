@@ -13,7 +13,7 @@ RUN apt-get update && \
     /tmp/* \
     /var/tmp/*
 
-ADD Gemfile ./
+ADD Gemfile* ./
 
 RUN bundle install
 
