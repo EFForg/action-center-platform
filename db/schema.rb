@@ -11,13 +11,13 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160107220954) do
+ActiveRecord::Schema.define(version: 20160520212818) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
   enable_extension "uuid-ossp"
 
-  create_table "action_pages", force: true do |t|
+  create_table "action_pages", force: :cascade do |t|
     t.string   "title"
     t.text     "description"
     t.datetime "created_at"
@@ -68,7 +68,7 @@ ActiveRecord::Schema.define(version: 20160107220954) do
   add_index "action_pages", ["slug"], name: "index_action_pages_on_slug", using: :btree
   add_index "action_pages", ["tweet_id"], name: "index_action_pages_on_tweet_id", using: :btree
 
-  create_table "ahoy_events", id: :uuid, default: "uuid_generate_v4()", force: true do |t|
+  create_table "ahoy_events", id: :uuid, default: "uuid_generate_v4()", force: :cascade do |t|
     t.uuid     "visit_id"
     t.integer  "user_id"
     t.string   "name"
@@ -82,11 +82,11 @@ ActiveRecord::Schema.define(version: 20160107220954) do
   add_index "ahoy_events", ["user_id"], name: "index_ahoy_events_on_user_id", using: :btree
   add_index "ahoy_events", ["visit_id"], name: "index_ahoy_events_on_visit_id", using: :btree
 
-  create_table "bounces", force: true do |t|
+  create_table "bounces", force: :cascade do |t|
     t.string "email"
   end
 
-  create_table "call_campaigns", force: true do |t|
+  create_table "call_campaigns", force: :cascade do |t|
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string   "title"
@@ -94,7 +94,7 @@ ActiveRecord::Schema.define(version: 20160107220954) do
     t.string   "call_campaign_id"
   end
 
-  create_table "congress_scorecards", force: true do |t|
+  create_table "congress_scorecards", force: :cascade do |t|
     t.string  "bioguide_id"
     t.integer "action_page_id"
     t.integer "counter",        default: 0
@@ -102,7 +102,7 @@ ActiveRecord::Schema.define(version: 20160107220954) do
 
   add_index "congress_scorecards", ["action_page_id", "bioguide_id"], name: "index_congress_scorecards_on_action_page_id_and_bioguide_id", using: :btree
 
-  create_table "delayed_jobs", force: true do |t|
+  create_table "delayed_jobs", force: :cascade do |t|
     t.integer  "priority",   default: 0, null: false
     t.integer  "attempts",   default: 0, null: false
     t.text     "handler",                null: false
@@ -118,7 +118,7 @@ ActiveRecord::Schema.define(version: 20160107220954) do
 
   add_index "delayed_jobs", ["priority", "run_at"], name: "delayed_jobs_priority", using: :btree
 
-  create_table "email_campaigns", force: true do |t|
+  create_table "email_campaigns", force: :cascade do |t|
     t.text     "message"
     t.datetime "created_at"
     t.datetime "updated_at"
@@ -138,14 +138,14 @@ ActiveRecord::Schema.define(version: 20160107220954) do
     t.string   "alt_text_customize_message_helper"
   end
 
-  create_table "featured_action_pages", force: true do |t|
+  create_table "featured_action_pages", force: :cascade do |t|
     t.integer "action_page_id"
     t.integer "weight"
   end
 
   add_index "featured_action_pages", ["action_page_id"], name: "index_featured_action_pages_on_action_page_id", using: :btree
 
-  create_table "friendly_id_slugs", force: true do |t|
+  create_table "friendly_id_slugs", force: :cascade do |t|
     t.string   "slug",                      null: false
     t.integer  "sluggable_id",              null: false
     t.string   "sluggable_type", limit: 50
@@ -158,7 +158,7 @@ ActiveRecord::Schema.define(version: 20160107220954) do
   add_index "friendly_id_slugs", ["sluggable_id"], name: "index_friendly_id_slugs_on_sluggable_id", using: :btree
   add_index "friendly_id_slugs", ["sluggable_type"], name: "index_friendly_id_slugs_on_sluggable_type", using: :btree
 
-  create_table "partners", force: true do |t|
+  create_table "partners", force: :cascade do |t|
     t.string   "code"
     t.string   "name"
     t.string   "privacy_url"
@@ -167,15 +167,16 @@ ActiveRecord::Schema.define(version: 20160107220954) do
     t.time     "deleted_at"
   end
 
-  create_table "petitions", force: true do |t|
+  create_table "petitions", force: :cascade do |t|
     t.string   "title"
     t.text     "description"
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "goal"
+    t.boolean  "show_all_signatures", default: false
   end
 
-  create_table "signatures", force: true do |t|
+  create_table "signatures", force: :cascade do |t|
     t.integer  "petition_id"
     t.integer  "user_id"
     t.datetime "created_at"
@@ -194,7 +195,7 @@ ActiveRecord::Schema.define(version: 20160107220954) do
   add_index "signatures", ["petition_id"], name: "index_signatures_on_petition_id", using: :btree
   add_index "signatures", ["user_id"], name: "index_signatures_on_user_id", using: :btree
 
-  create_table "source_files", force: true do |t|
+  create_table "source_files", force: :cascade do |t|
     t.string   "file_name"
     t.string   "file_content_type"
     t.integer  "file_size"
@@ -204,7 +205,7 @@ ActiveRecord::Schema.define(version: 20160107220954) do
     t.datetime "updated_at"
   end
 
-  create_table "subscriptions", force: true do |t|
+  create_table "subscriptions", force: :cascade do |t|
     t.string   "first_name"
     t.string   "last_name"
     t.string   "email"
@@ -213,21 +214,21 @@ ActiveRecord::Schema.define(version: 20160107220954) do
     t.datetime "updated_at"
   end
 
-  create_table "topic_categories", force: true do |t|
+  create_table "topic_categories", force: :cascade do |t|
     t.string "name"
   end
 
-  create_table "topic_sets", force: true do |t|
+  create_table "topic_sets", force: :cascade do |t|
     t.integer "tier"
     t.integer "topic_category_id"
   end
 
-  create_table "topics", force: true do |t|
+  create_table "topics", force: :cascade do |t|
     t.string  "name"
     t.integer "topic_set_id"
   end
 
-  create_table "tweet_targets", force: true do |t|
+  create_table "tweet_targets", force: :cascade do |t|
     t.integer  "tweet_id",           null: false
     t.string   "twitter_id",         null: false
     t.string   "bioguide_id"
@@ -239,7 +240,7 @@ ActiveRecord::Schema.define(version: 20160107220954) do
 
   add_index "tweet_targets", ["tweet_id"], name: "index_tweet_targets_on_tweet_id", using: :btree
 
-  create_table "tweets", force: true do |t|
+  create_table "tweets", force: :cascade do |t|
     t.string  "target"
     t.string  "message"
     t.string  "cta"
@@ -248,7 +249,7 @@ ActiveRecord::Schema.define(version: 20160107220954) do
     t.boolean "target_senate", default: true
   end
 
-  create_table "user_preferences", force: true do |t|
+  create_table "user_preferences", force: :cascade do |t|
     t.integer  "user_id",    null: false
     t.string   "name",       null: false
     t.string   "value"
@@ -258,7 +259,7 @@ ActiveRecord::Schema.define(version: 20160107220954) do
 
   add_index "user_preferences", ["user_id"], name: "index_user_preferences_on_user_id", using: :btree
 
-  create_table "users", force: true do |t|
+  create_table "users", force: :cascade do |t|
     t.string   "email",                  default: "",    null: false
     t.string   "encrypted_password",     default: "",    null: false
     t.string   "reset_password_token"
@@ -300,7 +301,7 @@ ActiveRecord::Schema.define(version: 20160107220954) do
   add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
   add_index "users", ["unlock_token"], name: "index_users_on_unlock_token", unique: true, using: :btree
 
-  create_table "visits", id: :uuid, default: "uuid_generate_v4()", force: true do |t|
+  create_table "visits", id: :uuid, default: "uuid_generate_v4()", force: :cascade do |t|
     t.uuid     "visitor_id"
     t.string   "ip"
     t.text     "user_agent"

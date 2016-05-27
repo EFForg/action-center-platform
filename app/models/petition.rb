@@ -1,3 +1,5 @@
+require 'csv'
+
 class Petition < ActiveRecord::Base
   has_one :action_page
   has_many :signatures
