@@ -303,7 +303,7 @@ When(/^the image shows up as uploaded over ajax$/) do
 
   uploaded_img_src = first(:img, "#description > p:nth-child(1) > img:nth-child(1)")[:src]
 
-  expect(/^https:\/\/.*amazonaws.com\/uploads\/.*\/img.png$/).to match uploaded_img_src
+  expect(/^https:\/\/.*act.s.eff.org\/uploads\/.*\/img.png$/).to match uploaded_img_src
 end
 
 When(/^I publish the action$/) do

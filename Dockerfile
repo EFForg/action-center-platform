@@ -7,13 +7,15 @@ RUN apt-get update && \
   apt-get install -y --no-install-recommends \
     libpq-dev \
     libqt4-dev \
-    libqtwebkit-dev && \
+    libqtwebkit-dev \
+    xvfb \
+    xauth && \
   apt-get clean && \
   rm -rf /var/lib/apt/lists/* \
     /tmp/* \
     /var/tmp/*
 
-ADD Gemfile ./
+ADD Gemfile* ./
 
 RUN bundle install
 
