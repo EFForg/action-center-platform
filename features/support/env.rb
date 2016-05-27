@@ -16,6 +16,19 @@ Capybara::Webkit.configure do |config|
   config.allow_url "actioncenter-staging.s3-us-west-1.amazonaws.com"
 end
 
+# Run javascript tests headlessly
+Before do
+  if Capybara.current_driver == :webkit
+    require 'headless'
+
+    headless = Headless.new
+    headless.start
+
+    at_exit do
+      headless.destroy
+    end
+  end
+end
 
 # Capybara defaults to CSS3 selectors rather than XPath.
 # If you'd prefer to use XPath, just uncomment this line and adjust any
