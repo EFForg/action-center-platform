@@ -193,6 +193,7 @@ GEM
       rack
     groupdate (2.5.3)
       activesupport (>= 3)
+    headless (2.2.3)
     hike (1.2.3)
     htmlentities (4.3.4)
     http-cookie (1.0.2)
@@ -444,6 +445,7 @@ DEPENDENCIES
   going_postal
   gravatar-ultimate
   groupdate
+  headless
   http_accept_language
   iso_country_codes
   jbuilder (~> 1.2)
