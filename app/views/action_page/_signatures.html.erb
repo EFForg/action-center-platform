@@ -1,0 +1,16 @@
+<table class="table">
+  <tbody>
+  <% @signatures.each do |signature| %>
+    <tr>
+      <td>
+        <div><%= signature.anonymous ? 'Anonymous' : signature.name -%></div>
+        <div><%= signature.anonymous ? signature.country_code : signature.location %></div>
+      </td>
+
+      <td class="timeago" title="<%= signature.created_at.to_time.iso8601 %>">
+        <span style="display:none;" class="plain-date"><%= signature.created_at.strftime("%B %d, %Y") %></span>
+      </td>
+    </tr>
+  <% end %>
+  </tbody>
+</table>

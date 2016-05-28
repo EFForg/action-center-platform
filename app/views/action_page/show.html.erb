@@ -28,6 +28,14 @@
       <% if @actionPage.enable_petition? && @actionPage.petition && !@actionPage.description.include?('``` letter') -%>
         <%= render(partial: "action_page/letter", layout: false) %>
       <% end -%>
+      
+      <% if @actionPage.enable_petition? && @actionPage.petition.show_all_signatures? && @actionPage.petition -%>
+        <div id='signatures' class="hidden-xs">
+          <h4 class='header'><em><%= t :all_signatures -%></em></h4>
+          <%= render(partial: "action_page/signatures", layout: false) %>
+        </div>
+      <% end -%>
+      
     </div>
 
   </div>
