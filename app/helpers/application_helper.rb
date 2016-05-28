@@ -382,7 +382,7 @@ module ApplicationHelper
     url = url + 'campaign_tag=' + Rack::Utils.escape(CGI::escapeHTML(campaign_tag)) unless campaign_tag.nil?
     url = url + '&time_zone=' + Rack::Utils.escape(Time.zone.name)
     url = url + '&give_as_utc=true'
-    url = url + '&debug_key=' + Rails.application.secrets.congress_forms_debug_key
+    url = url + '&debug_key=' + Rails.application.secrets.congress_forms_debug_key.to_s
     url = url + '&date_start=' + date_start.to_s unless date_start.nil?
     url = url + '&date_end=' + date_end.to_s unless date_end.nil?
     url
@@ -395,7 +395,7 @@ module ApplicationHelper
     url = url + 'campaign_tag=' + Rack::Utils.escape(CGI::escapeHTML(campaign_tag)) unless campaign_tag.nil?
     url = url + '&time_zone=' + Rack::Utils.escape(Time.zone.name)
     url = url + '&give_as_utc=true'
-    url = url + '&debug_key=' + Rails.application.secrets.congress_forms_debug_key
+    url = url + '&debug_key=' + Rails.application.secrets.congress_forms_debug_key.to_s
     url = url + '&date=' + date.strftime('%Y-%m-%d').to_s unless date.nil?
     url
   end
@@ -403,7 +403,7 @@ module ApplicationHelper
   def congress_forms_member_fills_url campaign_tag = nil
     url = Rails.application.config.congress_forms_url + '/successful-fills-by-member/?'
     url = url + 'campaign_tag=' + Rack::Utils.escape(CGI::escapeHTML(campaign_tag)) unless campaign_tag.nil?
-    url = url + '&debug_key=' + Rails.application.secrets.congress_forms_debug_key
+    url = url + '&debug_key=' + Rails.application.secrets.congress_forms_debug_key.to_s
     url
   end
 
