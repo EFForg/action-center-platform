@@ -52,6 +52,12 @@ Actioncenter::Application.routes.draw do
     end
   end
 
+  resources :petition, only: :show do
+    member do
+      get :signatures, :to => "petition#signatures"
+    end
+  end
+
   resources :subscriptions, only: :create
 
   resources :partners, only: [:show, :edit, :update] do
