@@ -154,6 +154,6 @@
 <% if !@petition.show_all_signatures -%>
 <div id='signatures' class="hidden-xs">
   <h4 class='header'><em><%= t :recent_signatories -%></em></h4>
-  <%= render(partial: "action_page/signatures", layout: false) %>
+  <%= render(partial: "tools/signatures", layout: false) %>
 </div>
 <% end -%>
