@@ -1,0 +1,55 @@
+db:
+  image: postgres
+  environment:
+    POSTGRES_PASSWORD: mysecretpassword
+    AUTO_MIGRATE: "yes" | or "no", depending on if you want to run migrations every time the container starts
+
+app:
+  links:
+    - db
+  build: .
+  ports:
+    - '3000:3000'
+  environment:
+    secret_key_base: ''
+    sunlight_api_key: ''
+    smtp_username: ''
+    smtp_password: ''
+    smtp_address: 'smtp.example.com'
+    smtp_port: "587"
+    smtp_domain: 'act.example.com'
+    smtp_authentication: plain
+    smtp_enable_starttls_auto: "true"
+    mailings_from: 'Example Action <actioncenter@example.com>'
+    twitter_handle: 'example'
+    twitter_related: 'example examplelive'
+    facebook_handle: 'example'
+    call_tool_url: 'https://call.example.com/'
+    call_tool_api_key: ''
+    congress_forms_url: 'http://phantomdc.example.com'
+    devise_secret_key: ''
+    storage: 's3'
+    amazon_access_key_id: ''
+    amazon_secret_access_key: ''
+    amazon_region: us-west-1
+    amazon_bucket: actioncenter
+    amazon_bucket_url: 'act.s.example.com'
+    smarty_streets_id: ''
+    smarty_streets_token: ''
+    congress_forms_debug_key: ''
+    cors_allowed_domains: https://example.org https://some.example.com
+    time_zone: 'Pacific Time (US & Canada)'
+    amazon_authorize_key: ''
+    supporters_api_key: ''
+    supporters_host: https://actioncenter:somekey@supporters.example.com
+    supporters_path: /civicrm/example-action-api
+    db_adapter: postgresql
+    db_database: postgres
+    db_username: postgres
+    db_password: mysecretpassword
+    db_port: "5432"
+    twitter_oauth_token: ''
+    twitter_oauth_token_secret: ''
+    twitter_api_key: ''
+    twitter_api_secret: ''
+    sentry_dsn: ''

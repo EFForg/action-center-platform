@@ -1,7 +1,7 @@
-ruby '2.1.2'
+ruby '2.3.1'
 source 'https://rubygems.org'
 
-gem 'rails', '~>4.2.5.2'
+gem 'rails', '~>4.2.6'
 
 #Database
 gem 'pg', '0.15.1'
@@ -108,6 +108,7 @@ group :development, :test do
   gem 'capybara', '~> 2.5.0'
   gem 'selenium-webdriver', '~> 2.49', require: false
   gem "capybara-webkit"
+  gem "headless"
   gem 'database_cleaner'
   gem 'pry'
   gem 'factory_girl_rails'

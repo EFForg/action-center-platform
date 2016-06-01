@@ -98,7 +98,11 @@ private
     end
 
     if @petition
-      @signatures = @petition.signatures.order(created_at: :desc).limit(5)
+      if @petition.show_all_signatures
+        @signatures = @petition.signatures.paginate(:page => params[:page], :per_page => 9).order(created_at: :desc)
+      else
+        @signatures = @petition.signatures.order(created_at: :desc).limit(5)      
+      end
       @signature_count = @petition.signatures.pretty_count
     end
 
