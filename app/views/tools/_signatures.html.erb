@@ -15,4 +15,6 @@
   </tbody>
 </table>
 
-<%= will_paginate @signatures %>
+<% if @actionPage.petition.show_all_signatures? -%>
+  <%= will_paginate @signatures %>
+<% end -%>
