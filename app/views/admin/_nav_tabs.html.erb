@@ -14,7 +14,7 @@
       <i class="icon ion-plus-circled"></i> Create new action
     <% end %>
   </li>
-  <li class="active">
+  <li class="<%= @action_tab_active or 'hidden-xs' %>">
     <%= link_to admin_action_pages_path(anchor: 'action-pages'), data: {tab: 'action-pages', toggle: toggle} do %>
       <i class="icon ion-flash"></i> Actions
     <% end %>
@@ -37,6 +37,11 @@
   <li class="topics hidden-xs">
     <%= link_to admin_action_pages_path(anchor: 'topics'), data: {tab: 'topics', toggle: toggle} do %>
       <i class="icon ion-ios-list"></i> Topics
+    <% end %>
+  </li>
+  <li class="<%= @institution_tab_active or 'hidden-xs' %>">
+    <%= link_to admin_institution_sets_path do %>
+      <i class="icon ion-ios-people"></i> Local Institutions
     <% end %>
   </li>
 </ul>
