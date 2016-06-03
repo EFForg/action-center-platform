@@ -1,5 +1,6 @@
 class Admin::InstitutionSetsController < Admin::ApplicationController
   before_action :set_institution_set, only: [:show, :edit, :update, :destroy]
+  before_action :set_active_tab
 
   # GET /admin/institution_sets
   def index
@@ -55,6 +56,10 @@ class Admin::InstitutionSetsController < Admin::ApplicationController
     # Use callbacks to share common setup or constraints between actions.
     def set_institution_set
       @institution_set = InstitutionSet.find(params[:id])
+    end
+
+    def set_active_tab
+      @institution_tab_active = 'active'
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.
