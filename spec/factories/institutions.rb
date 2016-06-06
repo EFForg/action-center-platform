@@ -1,6 +1,5 @@
 FactoryGirl.define do
   factory :institution do
-    name "MyString"
-    institution_set nil
+    name "University of California, Berkeley"
   end
 end
