@@ -1,0 +1,21 @@
+<%= render 'admin/header' -%>
+<div class='container-fluid'>
+  <div class="tabs-left">
+    <%= render 'admin/nav_tabs' -%>
+    <!-- Tab panes -->
+    <div class="tab-content responsive">
+      <div class="tab-pane active" id="institutions">
+        <p id="notice"><%= notice %></p>
+
+        <h3>
+          <%= @institution_set.name -%>
+          <%= link_to 'Edit', edit_admin_institution_set_path(@institution_set),
+          class: 'btn btn-xs btn-primary' %>
+        </h3>
+
+        <%= link_to 'Back', admin_institution_sets_path %>
+
+      </div>
+    </div>
+  </div>
+</div>
