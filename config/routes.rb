@@ -96,7 +96,9 @@ Actioncenter::Application.routes.draw do
     resources :em
     resources :partners, except: [:show, :edit, :update]
     resources :topic_categories, :topic_sets, :topics
-    resources :institution_sets
+    resources :institution_sets do
+      resources :institutions, except: [:index, :show]
+    end
 
     resources :action_pages do
       get :updated_at
