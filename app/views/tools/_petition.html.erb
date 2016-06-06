@@ -1,5 +1,6 @@
 <script>
   var petition_id = "<%= @petition.id %>";
+  var international_only = <%= params.include?('international_only') and params['international_only'] == "true" ? "true" : "false" %>;
 </script>
 <script type='text/x-underscore-template' id='individual_signature'>
   <tr>

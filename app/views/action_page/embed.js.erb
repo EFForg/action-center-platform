@@ -67,6 +67,9 @@
       if("button_text" in ac_embed){
         embed_url += "&button_text=" + encodeURIComponent(ac_embed.button_text);
       }
+      if("international_only" in ac_embed && ac_embed.international_only == true){
+        embed_url += "&international_only=true";
+      }
     }
 
     iframe_tag.setAttribute("src",embed_url);
