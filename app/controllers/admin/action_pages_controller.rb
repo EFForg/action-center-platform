@@ -9,7 +9,6 @@ class Admin::ActionPagesController < Admin::ApplicationController
     @featuredActionPages = FeaturedActionPage.order('weight').
                                               includes(:action_page).
                                               map(&:action_page)
-    @action_tab_active = 'active'
   end
 
   def update_featured_pages
