@@ -109,8 +109,8 @@ development:
 
 
 test:
-  db_adapter: 'postgresql'
-  db_database: 'actioncenter_test'
-  db_username: 'actioncenter'
-  db_password: 'CHANGEMEinproduction6f799ae4eb3d59e'
-  db_host: '127.0.0.1'
+  test_db_adapter: 'postgresql'
+  test_db_database: 'actioncenter_test'
+  test_db_username: 'actioncenter'
+  test_db_password: 'CHANGEMEinproduction6f799ae4eb3d59e'
+  test_db_host: '127.0.0.1'
