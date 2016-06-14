@@ -1,5 +1,5 @@
-//= require moment
 //= require chartjs
+//= require moment
 //= require chartkick
 //= require EpicEditor
 //= require jquery-sortable/jquery-sortable
