@@ -96,9 +96,6 @@ Actioncenter::Application.routes.draw do
     resources :em
     resources :partners, except: [:show, :edit, :update]
     resources :topic_categories, :topic_sets, :topics
-    resources :institution_sets do
-      resources :institutions, except: [:index, :show]
-    end
 
     resources :action_pages do
       get :updated_at
@@ -107,6 +104,8 @@ Actioncenter::Application.routes.draw do
       get :destroy
       post 'update_featured_pages', :on => :collection
       patch :preview
+      resources :institutions, except: [:show, :edit, :update] do
+      end
     end
 
     get "images", to: "images#index"
