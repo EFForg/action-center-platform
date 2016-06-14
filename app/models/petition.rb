@@ -2,10 +2,8 @@ require 'csv'
 
 class Petition < ActiveRecord::Base
   has_one :action_page
-  belongs_to :institution_set
   has_many :signatures
   after_initialize :set_goal
-  validates :institution_set, presence: true, :if => :enable_affiliations?
 
   def percent_complete
     [signatures.count.to_f / goal.to_f, 1].min * 100
