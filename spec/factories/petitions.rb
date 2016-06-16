@@ -40,8 +40,14 @@ FactoryGirl.define do
     enable_affiliations true
 
     after(:create) do |petition|
-      99.times { petition.signatures << FactoryGirl.build(:signature, petition_id: petition.id) }
       10.times { petition.action_page.institutions << FactoryGirl.build(:institution) }
+      5.times { petition.action_page.affiliations << FactoryGirl.build(:affiliation) }
+
+      99.times { petition.signatures << FactoryGirl.build(:signature,
+        petition: petition,
+        institution: petition.action_page.institutions.order("RANDOM()").first,
+        affiliation: petition.action_page.affiliations.order("RANDOM()").first,
+      ) }
     end
   end
 end
