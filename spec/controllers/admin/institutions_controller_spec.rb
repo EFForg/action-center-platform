@@ -50,6 +50,15 @@ RSpec.describe Admin::InstitutionsController, type: :controller do
         }.to change(@actionPage.institutions, :count).by(1)
       end
 
+      it "does not create duplicate institutions" do
+        institution = Institution.create! valid_attributes
+        @actionPage.institutions << institution
+        expect {
+          post :create, {:action_page_id => @actionPage.id,
+            :institution => valid_attributes}
+        }.to_not change(Institution, :count)
+      end
+
       it "redirects to the action's institutions overview" do
         post :create, {:action_page_id => @actionPage.id,
           :institution => valid_attributes}
