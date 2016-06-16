@@ -6,6 +6,9 @@
       <% else %>
         <h2 class="tool-title"><%= @email_campaign.email_your_rep_text "Email your representatives" %></h2>
       <% end %>
+      <% if params.include?('non_us_option') and params['non_us_option'] == "petition" %>
+        <h3 id="non-us-option">Not in the U.S.?</h3>
+      <% end %>
     </div>
 
     <% if @email_campaign.target_email -%>

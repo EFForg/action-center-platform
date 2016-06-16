@@ -70,6 +70,9 @@
       if("international_only" in ac_embed && ac_embed.international_only == true){
         embed_url += "&international_only=true";
       }
+      if ("non_us_option" in ac_embed && ac_embed.non_us_option == 'petition') {
+        embed_url += "&non_us_option=petition";
+      }
     }
 
     iframe_tag.setAttribute("src",embed_url);
