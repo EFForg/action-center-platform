@@ -3,6 +3,8 @@ class Signature < ActiveRecord::Base
   include ApplicationHelper
   belongs_to :user
   belongs_to :petition
+  belongs_to :institution
+  belongs_to :affiliation
 
   before_validation :format_zipcode
   before_save :sanitize_input
