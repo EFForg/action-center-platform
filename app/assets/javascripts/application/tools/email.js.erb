@@ -28,6 +28,12 @@ $(document).on('ready', function() {
     });
   };
 
+  $('#non-us-option').click(function () {
+    $('#petition-tool').show();
+    $('#email-tool').hide();
+    $('#signatures').show();
+  });
+
   var generateCongressForm = function (options) {
     var reps = options.reps;
     var rep_ids = _.map(reps, function(rep){
