@@ -27,4 +27,13 @@ FactoryGirl.define do
     end
   end
 
+  factory :petition_show_all_signatures, :parent => :petition do
+
+    after(:create) do |petition|
+      petition.show_all_signatures = true
+      petition.save
+      20.times { petition.signatures << FactoryGirl.build(:signature, petition_id: petition.id) }
+    end
+  end
+
 end
