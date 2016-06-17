@@ -1,14 +1,14 @@
 @javascript
-Feature: Enable affiliations on a petition
+Feature: Add institutions to an action
   As an EFF staff activist
-  I want to enable affiliations on a petition
-  So I can facilitate local organizing
+  I want to add institutions to an action
+  So I can run local organizing cmapaigns
 
   Background:
     Given I exist as an activist
     And I am logged in
 
-  Scenario: Activists should be to enable and configure local affiliations
+  Scenario: Activists should be able to upload a csv of institutions
     When I go to "/admin/action_pages/new"
     And I click "Action Settings"
     And I check "Enable petition"

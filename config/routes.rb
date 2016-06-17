@@ -105,6 +105,7 @@ Actioncenter::Application.routes.draw do
       post 'update_featured_pages', :on => :collection
       patch :preview
       resources :institutions, except: [:show, :edit, :update] do
+        match :import, via: :post, on: :collection
       end
     end
 

@@ -5,7 +5,10 @@ end
 
 When(/^I visit an action page$/) do
   visit "/action/#{@action_page.title.downcase.gsub(" ", "-")}"
-  expect(page).to have_content "All Signatures"
+end
+
+When(/^I edit an action page$/) do
+  visit "/action/#{@action_page.title.downcase.gsub(" ", "-")}/edit"
 end
 
 Then(/^I should receive a CSV file$/) do

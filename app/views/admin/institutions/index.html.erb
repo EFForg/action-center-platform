@@ -11,6 +11,13 @@
           Editing institutions for <%= @actionPage.title -%>
         </h3>
 
+        <%= form_tag [:import, :admin, @actionPage, Institution], multipart: true do %>
+          <span class="btn btn-sm btn-success file-input">
+            <span>Import from CSV</span>
+            <%= file_field_tag :file, onchange: 'javascript:this.form.submit();' %>
+          </span>
+        <% end %>
+
         <table class='table-striped table table-simple'>
           <thead>
             <tr>
