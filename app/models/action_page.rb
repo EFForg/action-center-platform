@@ -7,6 +7,8 @@ class ActionPage < ActiveRecord::Base
   scope :published, -> { where(published: true) }
 
   has_many :events, class_name: Ahoy::Event
+  has_many :action_institutions
+  has_many :institutions, through: :action_institutions
 
   belongs_to :petition
   belongs_to :tweet

@@ -59,8 +59,19 @@
               <p class='hint-text small'><%= link_to 'Add or edit partners', admin_partners_path, target: :blank -%></p>
             </div>
             <div class="form-group">
-              <%= p.check_box :show_all_signatures %> <%= p.label :show_all_signatures, 'Show all signatures on the action page' -%>
+              <%= p.check_box :show_all_signatures %>
+              <%= p.label :show_all_signatures, 'Show all signatures on the action page' -%>
             </div>
+            <div class="form-group">
+              <%= p.check_box :enable_affiliations,
+                data: {toggle: 'collapse', target: '#affiliation-settings'} %>
+              <%= p.label :enable_affiliations, 'Allow local affiliations <span class=help-text>(ex. Colleges and Universities)</span>'.html_safe -%>
+            </div>
+            <% if @actionPage.persisted? %>
+              <fieldset id="affiliation-settings" class="target-fields collapse <%= 'in' if @actionPage.enable_petition and @actionPage.petition.enable_affiliations? -%>">
+                <%= link_to 'Add or edit local institutions', [:admin, @actionPage, Institution], target: :blank -%>
+              </fieldset>
+            <% end %>
           <% end -%>
          </div>
       </div><!-- END div.panel.panel-success -->

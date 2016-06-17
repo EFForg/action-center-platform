@@ -104,6 +104,8 @@ Actioncenter::Application.routes.draw do
       get :destroy
       post 'update_featured_pages', :on => :collection
       patch :preview
+      resources :institutions, except: [:show, :edit, :update] do
+      end
     end
 
     get "images", to: "images#index"
