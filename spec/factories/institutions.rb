@@ -1,5 +1,5 @@
 FactoryGirl.define do
   factory :institution do
-    name "University of California, Berkeley"
+    sequence(:name) { |n| "University of Wherever #{n}" }
   end
 end

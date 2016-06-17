@@ -43,11 +43,14 @@ FactoryGirl.define do
       10.times { petition.action_page.institutions << FactoryGirl.build(:institution) }
       5.times { petition.action_page.affiliations << FactoryGirl.build(:affiliation) }
 
-      99.times { petition.signatures << FactoryGirl.build(:signature,
-        petition: petition,
-        institution: petition.action_page.institutions.order("RANDOM()").first,
-        affiliation: petition.action_page.affiliations.order("RANDOM()").first,
-      ) }
+      # Assign a variety of institution/affiliation combos to 99 signatures.
+      for i in 0..98
+        petition.signatures << FactoryGirl.build(:signature,
+          petition: petition,
+          institution: petition.action_page.institutions[i%10],
+          affiliation: petition.action_page.affiliations[i%5]
+        )
+      end
     end
   end
 end
