@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160610205339) do
+ActiveRecord::Schema.define(version: 20160616000020) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -77,6 +77,15 @@ ActiveRecord::Schema.define(version: 20160610205339) do
   add_index "action_pages", ["petition_id"], name: "index_action_pages_on_petition_id", using: :btree
   add_index "action_pages", ["slug"], name: "index_action_pages_on_slug", using: :btree
   add_index "action_pages", ["tweet_id"], name: "index_action_pages_on_tweet_id", using: :btree
+
+  create_table "affiliations", force: :cascade do |t|
+    t.string   "name"
+    t.integer  "action_page_id"
+    t.datetime "created_at",     null: false
+    t.datetime "updated_at",     null: false
+  end
+
+  add_index "affiliations", ["action_page_id"], name: "index_affiliations_on_action_page_id", using: :btree
 
   create_table "ahoy_events", id: :uuid, default: "uuid_generate_v4()", force: :cascade do |t|
     t.uuid     "visit_id"
@@ -207,8 +216,12 @@ ActiveRecord::Schema.define(version: 20160610205339) do
     t.string   "city"
     t.string   "state"
     t.boolean  "anonymous",      default: false
+    t.integer  "institution_id"
+    t.integer  "affiliation_id"
   end
 
+  add_index "signatures", ["affiliation_id"], name: "index_signatures_on_affiliation_id", using: :btree
+  add_index "signatures", ["institution_id"], name: "index_signatures_on_institution_id", using: :btree
   add_index "signatures", ["petition_id"], name: "index_signatures_on_petition_id", using: :btree
   add_index "signatures", ["user_id"], name: "index_signatures_on_user_id", using: :btree
 
@@ -343,4 +356,5 @@ ActiveRecord::Schema.define(version: 20160610205339) do
 
   add_index "visits", ["user_id"], name: "index_visits_on_user_id", using: :btree
 
+  add_foreign_key "affiliations", "action_pages"
 end

@@ -14,7 +14,7 @@ class Admin::InstitutionsController < Admin::ApplicationController
 
   # POST /admin/action_pages/:action_page_id/institutions
   def create
-    @institution = Institution.new(institution_params)
+    @institution = Institution.find_or_initialize_by(name: institution_params[:name])
     @actionPage.institutions << @institution
 
     respond_to do |format|
