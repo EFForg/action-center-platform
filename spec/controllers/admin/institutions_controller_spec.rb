@@ -68,11 +68,34 @@ RSpec.describe Admin::InstitutionsController, type: :controller do
   end
 
   describe "POST #import" do
+    let(:file) {
+      fixture_file_upload('files/schools.csv')
+    }
+
+    it "removes existing institutions from the action" do
+      expect {
+        institution = Institution.create! valid_attributes
+        @actionPage.institutions << institution
+
+        post :import, {:action_page_id => @actionPage.id,
+          :file => file}
+      }.to change(@actionPage.institutions, :count).by(3)
+    end
+
+    it "does not destroy the existing institutions" do
+      expect {
+        institution = Institution.create! valid_attributes
+        @actionPage.institutions << institution
+
+        post :import, {:action_page_id => @actionPage.id,
+          :file => file}
+      }.to change(Institution, :count).by(4)
+    end
+
     it "uploads institutions from a csv" do
-      @file = fixture_file_upload('files/schools.csv', 'text/csv')
       expect {
         post :import, {:action_page_id => @actionPage.id,
-          :file => @file}
+          :file => file}
       }.to change(Institution, :count).by(3)
     end
   end

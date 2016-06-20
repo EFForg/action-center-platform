@@ -28,6 +28,7 @@ class Admin::InstitutionsController < Admin::ApplicationController
 
   # POST /admin/action_pages/:action_page_id/institutions/import
   def import
+    @actionPage.institutions.delete_all
     Institution.import(params[:file], @actionPage)
     redirect_to [:admin, @actionPage, Institution], notice: 'Institutions successfully imported'
   end
