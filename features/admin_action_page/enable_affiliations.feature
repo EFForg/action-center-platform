@@ -9,10 +9,10 @@ Feature: Enable affiliations on a petition
     And I am logged in
 
   Scenario: Activists should be able to enable local affiliations
-    When I edit an action page
-    And I click "Add or edit local institutions"
-    And I press "Upload a CSV"
-    And I upload the file "schools.csv"
-    Then I should see "University of California, Berkeley"
-    And I should see "University of California, Davis"
-    And I should see "University of California, Santa Cruz"
+    When I go to "/admin/action_pages/new"
+    And I click "Action Settings"
+    And I check "Enable petition"
+    And I check "Allow local affiliations"
+    And I press "Save"
+    And I click "Edit this page"
+    Then the "Allow local affiliations" checkbox should be checked

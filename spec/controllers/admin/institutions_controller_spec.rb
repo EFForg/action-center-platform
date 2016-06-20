@@ -67,6 +67,16 @@ RSpec.describe Admin::InstitutionsController, type: :controller do
     end
   end
 
+  describe "POST #import" do
+    it "uploads institutions from a csv" do
+      @file = fixture_file_upload('files/schools.csv', 'text/csv')
+      expect {
+        post :import, {:action_page_id => @actionPage.id,
+          :file => @file}
+      }.to change(Institution, :count).by(3)
+    end
+  end
+
   describe "DELETE #destroy" do
     it "unlinks the institution from the action" do
       institution = Institution.create! valid_attributes
