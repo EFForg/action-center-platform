@@ -142,6 +142,7 @@ $(document).on('ready', function() {
   if(typeof international_only != 'undefined' && international_only){
     toggle_intl();
     $('.intl-toggler').hide();
+    $('#signature_zipcode').removeAttr('required');
   }
 
   $('.intl-toggler').click(function(e) {
