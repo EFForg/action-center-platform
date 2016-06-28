@@ -29,8 +29,13 @@ class Admin::InstitutionsController < Admin::ApplicationController
   # POST /admin/action_pages/:action_page_id/institutions/import
   def import
     @actionPage.institutions.delete_all
-    Institution.import(params[:file], @actionPage)
-    redirect_to [:admin, @actionPage, Institution], notice: 'Institutions successfully imported'
+    if Institution.import(params[:file], @actionPage)
+      flash[:notice] = 'Institutions successfully imported'
+    else
+      flash[:notice] = 'Import failed. Please check CSV formatting'
+    end
+
+    redirect_to [:admin, @actionPage, Institution]
   end
 
   # DELETE /admin/action_pages/:action_page_id/institutions/1/

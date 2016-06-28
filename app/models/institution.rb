@@ -11,7 +11,11 @@ class Institution < ActiveRecord::Base
   def self.import(file, action_page)
     CSV.foreach(file.path, headers: true) do |row|
       params = row.to_hash
-      action_page.institutions.find_or_create_by!(name: params['name'])
+      return false unless params['name']
+      institution = self.find_or_create_by!(name: params['name'])
+      action_page.institutions << institution
     end
+
+    return true
   end
 end
