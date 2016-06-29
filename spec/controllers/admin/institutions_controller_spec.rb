@@ -134,4 +134,24 @@ RSpec.describe Admin::InstitutionsController, type: :controller do
     end
   end
 
+  describe "DELETE #destroy_all" do
+    it "unlinks the institution from the action" do
+      institution = Institution.create! valid_attributes
+      @actionPage.institutions << institution
+      expect {
+        delete :destroy_all, {:action_page_id => @actionPage.id,
+          :id => institution.to_param}
+      }.to change(@actionPage.institutions, :count).by(-1)
+    end
+
+    it "doesn't delete the institutions" do
+      institution = Institution.create! valid_attributes
+      @actionPage.institutions << institution
+      expect {
+        delete :destroy_all, {:action_page_id => @actionPage.id,
+          :id => institution.to_param}
+      }.to_not change(Institution, :count)
+    end
+  end
+
 end

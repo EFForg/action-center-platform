@@ -106,6 +106,7 @@ Actioncenter::Application.routes.draw do
       patch :preview
       resources :institutions, except: [:show, :edit, :update] do
         match :import, via: :post, on: :collection
+        match :index, via: :delete, on: :collection, action: :destroy_all
       end
     end
 

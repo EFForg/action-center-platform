@@ -28,7 +28,6 @@ class Admin::InstitutionsController < Admin::ApplicationController
 
   # POST /admin/action_pages/:action_page_id/institutions/import
   def import
-    @actionPage.institutions.delete_all
     if Institution.import(params[:file], @actionPage)
       flash[:notice] = 'Institutions successfully imported'
     else
@@ -41,6 +40,14 @@ class Admin::InstitutionsController < Admin::ApplicationController
   # DELETE /admin/action_pages/:action_page_id/institutions/1/
   def destroy
     @actionPage.institutions.delete(@institution)
+    respond_to do |format|
+      format.html { redirect_to [:admin, @actionPage, Institution] }
+    end
+  end
+
+  # DELETE /admin/action_pages/:action_page_id/institutions/
+  def destroy_all
+    @actionPage.institutions.delete_all
     respond_to do |format|
       format.html { redirect_to [:admin, @actionPage, Institution] }
     end
