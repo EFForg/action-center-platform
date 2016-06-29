@@ -3,8 +3,7 @@ class Signature < ActiveRecord::Base
   include ApplicationHelper
   belongs_to :user
   belongs_to :petition
-  belongs_to :institution
-  belongs_to :affiliation
+  has_many :affiliations
 
   before_validation :format_zipcode
   before_save :sanitize_input
@@ -14,6 +13,8 @@ class Signature < ActiveRecord::Base
   validates :email, email: true
   validates :zipcode, length: { maximum: 12 }
   validate :country_code, :arbitrary_opinion_of_country_string_validity
+
+  accepts_nested_attributes_for :affiliations, reject_if: :all_blank
 
   include ActionView::Helpers::DateHelper
 

@@ -1,4 +1,6 @@
 class Affiliation < ActiveRecord::Base
   belongs_to :action_page
-  has_many :signatures
+  belongs_to :signature
+  belongs_to :affiliation_type
+  belongs_to :institution
 end

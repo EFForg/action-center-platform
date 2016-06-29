@@ -40,17 +40,8 @@ FactoryGirl.define do
     enable_affiliations true
 
     after(:create) do |petition|
-      10.times { petition.action_page.institutions << FactoryGirl.build(:institution) }
-      5.times { petition.action_page.affiliations << FactoryGirl.build(:affiliation) }
-
-      # Assign a variety of institution/affiliation combos to 99 signatures.
-      for i in 0..98
-        petition.signatures << FactoryGirl.build(:signature,
-          petition: petition,
-          institution: petition.action_page.institutions[i%10],
-          affiliation: petition.action_page.affiliations[i%5]
-        )
-      end
+      petition.action_page.institutions << FactoryGirl.build(:institution)
+      petition.action_page.affiliation_types << FactoryGirl.build(:affiliation_type)
     end
   end
 end

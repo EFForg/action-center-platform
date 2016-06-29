@@ -1,5 +1,6 @@
 FactoryGirl.define do
   factory :affiliation do
-    name "Student"
+    institution
+    affiliation_type
   end
 end
