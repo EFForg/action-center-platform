@@ -87,6 +87,14 @@
                 class: 'form-control', pattern: '.*\S+.*', title: t('petition_errors.required.last_name')
               -%>
             </fieldset>
+            <div id='affiliations'>
+              <%= f.fields_for :affiliations, Affiliation.new do |affiliation| %>
+                <%= render 'affiliations/affiliation_fields', :f => affiliation %>
+              <% end %>
+              <div class='links'>
+                <%= link_to_add_association 'Add another', f, :affiliations, partial: 'affiliations/affiliation_fields' %>
+              </div>
+            </div>
             <fieldset>
               <span class='intl-toggle'>
                 <div class="row">

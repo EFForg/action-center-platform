@@ -55,6 +55,8 @@ es:
   signatures: firmas
   first_name: Nombre
   last_name: Apellido
+  institution: Institución
+  i_am_a: Soy un...
   zip_code: Codigo Postal
   city: Ciudad
   country: Pais

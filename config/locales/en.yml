@@ -55,6 +55,8 @@ en:
   signatures: signatures
   first_name: First Name
   last_name: Last Name
+  institution: Institution
+  i_am_a: I am a...
   zip_code: Zip Code
   city: City
   country: Country

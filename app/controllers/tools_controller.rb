@@ -287,7 +287,10 @@ class ToolsController < ApplicationController
   def signature_params
     params.require(:signature).
       permit(:first_name, :last_name, :email, :petition_id, :user_id,
-             :street_address, :city, :state, :country_code, :zipcode, :anonymous)
+             :street_address, :city, :state, :country_code, :zipcode, :anonymous,
+             affiliations_attributes: [:id,
+                                      :institution_id,
+                                      :affiliation_type_id])
   end
 
   def call_params
