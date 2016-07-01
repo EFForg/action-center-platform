@@ -133,6 +133,13 @@ input[type=checkbox] {
   float: left;
 }
 
+// Rquired to use a bootstrap button for file uploads
+// and hide the real file upload field.
+form .btn.file-input {
+  position: relative;
+}
+
+
 /**********************
 Left-aligned tabs
 *************+*********/

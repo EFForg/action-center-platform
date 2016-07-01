@@ -67,6 +67,45 @@ RSpec.describe Admin::InstitutionsController, type: :controller do
     end
   end
 
+  describe "POST #import" do
+    context "with valid csv" do
+      let(:file) {
+        fixture_file_upload('files/schools.csv')
+      }
+
+      it "does not remove existing institutions from the action" do
+        expect {
+          institution = Institution.create! valid_attributes
+          @actionPage.institutions << institution
+
+          post :import, {:action_page_id => @actionPage.id,
+            :file => file}
+        }.to change(@actionPage.institutions, :count).by(4)
+      end
+
+      it "uploads institutions from a csv" do
+        expect {
+          post :import, {:action_page_id => @actionPage.id,
+            :file => file}
+        }.to change(Institution, :count).by(3)
+      end
+    end
+
+    context "with an invalid csv" do
+      let(:file) {
+        fixture_file_upload('files/bad_schools.csv')
+      }
+
+      it "handles formatting errors" do
+        expect {
+          post :import, {:action_page_id => @actionPage.id,
+            :file => file}
+        }.to change(Institution, :count).by(0)
+        expect(flash[:notice]).to include("Import failed")
+      end
+    end
+  end
+
   describe "DELETE #destroy" do
     it "unlinks the institution from the action" do
       institution = Institution.create! valid_attributes
@@ -92,6 +131,26 @@ RSpec.describe Admin::InstitutionsController, type: :controller do
       delete :destroy, {:action_page_id => @actionPage.id,
         :id => institution.to_param}
       expect(response).to redirect_to([:admin, @actionPage, Institution])
+    end
+  end
+
+  describe "DELETE #destroy_all" do
+    it "unlinks the institution from the action" do
+      institution = Institution.create! valid_attributes
+      @actionPage.institutions << institution
+      expect {
+        delete :destroy_all, {:action_page_id => @actionPage.id,
+          :id => institution.to_param}
+      }.to change(@actionPage.institutions, :count).by(-1)
+    end
+
+    it "doesn't delete the institutions" do
+      institution = Institution.create! valid_attributes
+      @actionPage.institutions << institution
+      expect {
+        delete :destroy_all, {:action_page_id => @actionPage.id,
+          :id => institution.to_param}
+      }.to_not change(Institution, :count)
     end
   end
 

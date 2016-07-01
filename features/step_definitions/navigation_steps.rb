@@ -14,6 +14,10 @@ When /^I click "([^\"]*)"$/ do |link|
   click_link(link)
 end
 
+When /^I click the element "([^\"]*)"$/ do |selector|
+  find(selector).click
+end
+
 When /^I fill in "([^\"]*)" with "([^\"]*)"$/ do |field, value|
   fill_in(field.gsub(' ', '_'), :with => value)
 end
@@ -92,4 +96,12 @@ end
 
 Then /^page should have (.+) message "([^\"]*)"$/ do |type, text|
   page.has_css?("p.#{type}", :text => text, :visible => true)
+end
+
+When(/^I switch to the new window$/) do
+  page.driver.browser.window_focus page.windows.last.handle
+end
+
+When(/^I attach the file "(.*?)" to "(.*?)"$/) do |path, element|
+  attach_file(element, path)
 end

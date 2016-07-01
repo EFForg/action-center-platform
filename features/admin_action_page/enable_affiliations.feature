@@ -8,7 +8,7 @@ Feature: Enable affiliations on a petition
     Given I exist as an activist
     And I am logged in
 
-  Scenario: Activists should be to enable and configure local affiliations
+  Scenario: Activists should be able to enable local affiliations
     When I go to "/admin/action_pages/new"
     And I click "Action Settings"
     And I check "Enable petition"
