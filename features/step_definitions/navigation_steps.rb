@@ -36,6 +36,12 @@ When /^I select "([^\"]*)" from "([^\"]*)"$/ do |value, field|
   select(value, :from => field)
 end
 
+When /^I select "([^\"]*)" from "([^\"]*)" within "([^\"]*)"$/ do |value, field, container|
+  within(container) {
+    select(value, :from => field)
+  }
+end
+
 When /^I check "([^\"]*)"$/ do |field|
   check(field)
 end
@@ -102,6 +108,19 @@ When(/^I switch to the new window$/) do
   page.driver.browser.window_focus page.windows.last.handle
 end
 
+When(/^I reload the page$/) do
+  visit current_path
+end
+
 When(/^I attach the file "(.*?)" to "(.*?)"$/) do |path, element|
   attach_file(element, path)
+end
+
+Then(/^I should see "(.*?)" within "(.*?)"$/) do |text, container|
+  find(container).should have_content(text)
+end
+
+When(/^I save the page$/) do
+  # Saves HTML to tmp/capybara. Useful for debugging.
+  save_page
 end
