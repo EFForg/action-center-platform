@@ -123,6 +123,17 @@ $(document).on('ready', function() {
 
     $('#signature_zipcode').attr('required', 'required')
     $('#signature_zipcode').attr('pattern', zip_pattern);
+
+    // Users must input complete institution/relationship pairs.
+    $('#affiliations .nested-fields').each(function(key, el) {
+      var inputs = $(el).find('select');
+      inputs.on('input', function() {
+        at_least_one_selected = _.reduce(inputs, function(m, n) {
+          return m + $(n).val().length;
+        }, 0);
+        inputs.prop('required', at_least_one_selected);
+      });
+    });
   }
 
   $('.intl-toggler').click(function(e) {

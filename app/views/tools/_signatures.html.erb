@@ -8,7 +8,7 @@
         <% if @actionPage.petition.enable_affiliations %>
           <% signature.affiliations.each do |affiliation| %>
             <div>
-              <%= affiliation.institution.name %>, <%= affiliation.affiliation_type.name %>
+              <%= affiliation.institution.name -%>, <%= affiliation.affiliation_type.name -%>
             </div>
           <% end %>
         <% end %>
