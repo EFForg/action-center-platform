@@ -58,8 +58,9 @@ $(document).on('ready', function() {
           var errors = JSON.parse(data.errors);
           for (var field_name in errors) {
             var field = form.find("#signature_" + field_name);
-            var error = $('<div class="error help-block small">').text(errors[field_name]);
+            var error = errors[field_name];
             if (field.length) {
+              error = $('<div class="error help-block small">').text(error);
               error.prepend(field.attr('placeholder') + ': ');
               field.closest('fieldset').addClass('has-error');
               error.insertAfter(field);
