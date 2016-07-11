@@ -17,7 +17,7 @@ Given(/^a local organizing campaign/) do
 end
 
 Given(/^the local organizing campaign has multiple institutions$/) do
-  @action_page.institutions << Institution.create(name: "University of Wherever 2")
+  @action_page.institutions.find_or_create_by(name: "University of Wherever 2")
   @action_page.affiliation_types << AffiliationType.create(name: "Parent")
   @action_page.save
 end
