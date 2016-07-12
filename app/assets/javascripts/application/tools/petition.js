@@ -3,37 +3,6 @@ $(document).on('ready', function() {
 
   $('form.petition-tool').on('submit', function(ev) {
     var form = $(ev.currentTarget);
-    function show_error(error) {
-      form.find(".progress-striped").hide();
-      form.find("input[type=submit]").show();
-      form.find('.alert-danger').remove();
-      form.prepend($('<div class="small alert alert-danger help-block">').text(error));
-    }
-
-    function incrementPetitionCount() {
-      var n = getPetitionCount() + 1;
-      setPetitionCountValue(n);
-    }
-
-    // give it an integer and it prints it all pretty on the screen
-    function setPetitionCountValue(n) {
-      var countEle = petitionCountElement();
-      countEle.text(applyPrettyFormatting(n));
-
-      function applyPrettyFormatting() {
-        return n.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
-      }
-    }
-
-    function getPetitionCount() {
-      var countEle = petitionCountElement();
-      return parseInt(countEle.text().replace(",",""));
-    }
-
-    function petitionCountElement() {
-      return $('#petition-tool .count b');
-    }
-
 
     // There are two types of errors: inline (.has-error) and not (.alert-danger)
     form.find('.has-error').removeClass('has-error');
@@ -67,17 +36,48 @@ $(document).on('ready', function() {
               form.find("input[type=submit]").show();
             }
             else {
-              show_error(error);
+              show_error(error, form);
             }
           }
         }
       },
       error: function() {
-        show_error("Something seems to have gone wrong. Please try again.");
+        show_error("Something seems to have gone wrong. Please try again.", form);
       }
     });
     return false;
   });
+
+  function show_error(error, form) {
+    form.find(".progress-striped").hide();
+    form.find("input[type=submit]").show();
+    form.find('.alert-danger').remove();
+    form.prepend($('<div class="small alert alert-danger help-block">').text(error));
+  }
+
+  function incrementPetitionCount() {
+    var n = getPetitionCount() + 1;
+    setPetitionCountValue(n);
+  }
+
+  // give it an integer and it prints it all pretty on the screen
+  function setPetitionCountValue(n) {
+    var countEle = petitionCountElement();
+    countEle.text(applyPrettyFormatting(n));
+
+    function applyPrettyFormatting() {
+      return n.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+    }
+  }
+
+  function getPetitionCount() {
+    var countEle = petitionCountElement();
+    return parseInt(countEle.text().replace(",",""));
+  }
+
+  function petitionCountElement() {
+    return $('#petition-tool .count b');
+  }
 
   var getSignaturesInterval = 2000;
   var previousSignatures = {};
@@ -118,14 +118,7 @@ $(document).on('ready', function() {
 
   var zip_pattern = '\\d{5}(-?\\d{4})?';
 
-  if($('#petition-tool').length != 0) {
-    window.setTimeout(getSignatures, getSignaturesInterval);
-
-    $('#signature_zipcode').attr('required', 'required')
-    $('#signature_zipcode').attr('pattern', zip_pattern);
-  }
-
-  $('.intl-toggler').click(function(e) {
+  var toggle_intl = function(){
     $('.intl-toggle').toggle();
     height_changed();
     if ($('.intl:visible').length) {
@@ -137,5 +130,23 @@ $(document).on('ready', function() {
       $('#signature_zipcode').attr('pattern', zip_pattern);
       $('#signature_city, #signature_country_code').removeAttr('required');
     }
+  }
+
+  if($('#petition-tool').length != 0) {
+    window.setTimeout(getSignatures, getSignaturesInterval);
+
+    $('#signature_zipcode').attr('required', 'required')
+    $('#signature_zipcode').attr('pattern', zip_pattern);
+  }
+
+  if(typeof international_only != 'undefined' && international_only){
+    toggle_intl();
+    $('.intl-toggler').hide();
+    $('#signature_zipcode').removeAttr('required');
+  }
+
+  $('.intl-toggler').click(function(e) {
+    toggle_intl();
   });
+
 });

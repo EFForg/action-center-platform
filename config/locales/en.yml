@@ -39,7 +39,7 @@ en:
   name: name
   email: email
   save_my_info: Save my %{info} for next time.
-  dont_show_my_name: Don't show my name or city on this page (we'll only list your country).
+  dont_show_my_name: Don't add my name or city to this petition (we'll only list your country).
   i: I
   want: want
   do_not_want: do not want

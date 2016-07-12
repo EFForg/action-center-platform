@@ -1,5 +1,6 @@
 <script>
   var petition_id = "<%= @petition.id %>";
+  var international_only = <%= params.include?('international_only') and params['international_only'] == "true" ? "true" : "false" %>;
 </script>
 <script type='text/x-underscore-template' id='individual_signature'>
   <tr>
@@ -58,7 +59,7 @@
           </div>
           <b class='small'>
             Have you
-            <a href='https://supporters.eff.org/donate'>donated to EFF</a>
+            <a href='https://supporters.eff.org/donate' target='blank'>donated to EFF</a>
             lately?
             <% if !current_user %>
             <br />
@@ -143,6 +144,10 @@
                 </div>
               <% end -%>
             </fieldset>
+            <h3 class="privacy-notice-header">
+              <em>How will EFF use this information?</em>
+              <span class="privacy-notice-popover" data-container="body" data-toggle="popover" data-trigger="hover" data-placement="auto bottom" data-content="We use this information to help you contact decision makers (e.g. Members of Congress) and their staff. We may work with other groups to assist in this action, such as sharing and jointly delivering petition signatures with a coalition partner. We may use Action Center information to assess the success of action campaigns and to improve the functionality and effectiveness of our site, and to allow you to see records of your activities. We, and our coalition partners, may publicize and share aggregate information about action campaigns, such as the number of people who participated in a particular location or region or through a type of action, as well as sharing or publicizing activity trends.">?</span>
+            </h3>
             <% button_text = params.include?("button_text") ? params["button_text"].to_sym : t(:speak_out) %>
             <%= f.submit button_text, class: 'btn'-%>
             <%= render 'tools/loading' -%>
