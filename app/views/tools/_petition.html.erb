@@ -87,39 +87,44 @@
                 class: 'form-control', pattern: '.*\S+.*', title: t('petition_errors.required.last_name')
               -%>
             </fieldset>
-            <div id='affiliations'>
-              <%= f.fields_for :affiliations, Affiliation.new do |affiliation| %>
-                <%= render 'affiliations/affiliation_fields', :f => affiliation %>
-              <% end %>
-              <div class='links'>
-                <%= link_to_add_association 'Add another', f, :affiliations, partial: 'affiliations/affiliation_fields' %>
+
+            <% if @actionPage.petition.enable_affiliations %>
+              <div id='affiliations'>
+                <%= f.fields_for :affiliations, Affiliation.new do |affiliation| %>
+                  <%= render 'affiliations/affiliation_fields', :f => affiliation %>
+                <% end %>
+                <div class='links'>
+                  <%= link_to_add_association 'Add another', f, :affiliations, partial: 'affiliations/affiliation_fields' %>
+                </div>
               </div>
-            </div>
-            <fieldset>
-              <span class='intl-toggle'>
-                <div class="row">
-                  <div class="col-xs-6">
-                    <%= f.text_field :zipcode, class: 'form-control', placeholder: t(:zip_code),
-                      title: t('petition_errors.required.zip_code') -%>
-                    </div>
+            <% else %>
+              <fieldset>
+                <span class='intl-toggle'>
+                  <div class="row">
                     <div class="col-xs-6">
-                      <a class='intl-toggler pull-right hidden-if-no-js'><%= t :outside_the_us -%></a>
+                      <%= f.text_field :zipcode, class: 'form-control', placeholder: t(:zip_code),
+                        title: t('petition_errors.required.zip_code') -%>
+                      </div>
+                      <div class="col-xs-6">
+                        <a class='intl-toggler pull-right hidden-if-no-js'><%= t :outside_the_us -%></a>
+                      </div>
                     </div>
-                  </div>
-              </span>
-            </fieldset>
-            <div class='intl-toggle intl collapse'>
-              <fieldset>
-                <%= f.text_field :city, placeholder: t(:city),
-                  class: 'form-control', pattern: '.*\S+.*', title: t('petition_errors.required.city')
-                -%>
+                </span>
               </fieldset>
-              <fieldset>
-                <a class='intl-toggler pull-right hidden-if-no-js'><%= t :in_the_us -%></a>
-                <%= f.select :country_code, country_codes, { prompt: t(:country) },
-                  class: 'form-control' -%>
-              </fieldset>
-            </div>
+              <div class='intl-toggle intl collapse'>
+                <fieldset>
+                  <%= f.text_field :city, placeholder: t(:city),
+                    class: 'form-control', pattern: '.*\S+.*', title: t('petition_errors.required.city')
+                  -%>
+                </fieldset>
+                <fieldset>
+                  <a class='intl-toggler pull-right hidden-if-no-js'><%= t :in_the_us -%></a>
+                  <%= f.select :country_code, country_codes, { prompt: t(:country) },
+                    class: 'form-control' -%>
+                </fieldset>
+              </div>
+            <% end %>
+
             <fieldset>
               <%= render 'tools/save_my_info_option', info: t(%w[email name location]) -%>
               <div class='checkbox small'>

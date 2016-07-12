@@ -120,6 +120,10 @@ Then(/^I should see "(.*?)" within "(.*?)"$/) do |text, container|
   find(container).should have_content(text)
 end
 
+Then(/^I should not see "(.*?)" within "(.*?)"$/) do |text, container|
+  find(container).should_not have_content(text)
+end
+
 When(/^I save the page$/) do
   # Saves HTML to tmp/capybara. Useful for debugging.
   save_page

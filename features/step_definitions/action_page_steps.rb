@@ -45,19 +45,18 @@ Then(/^I should receive a CSV file$/) do
   page.response_headers['Content-Disposition'].should == "attachment"
 end
 
-When(/^I complete the petition$/) do
+When(/^I fill in my name$/) do
   create_visitor
   fill_in "First Name", with: @visitor[:name].split(" ").first
   fill_in "Last Name", with: @visitor[:name].split(" ").last
-  fill_in "Email", :with => @visitor[:email]
-  fill_in "Zip Code", with: "94109"
+end
 
-  RSpec::Mocks.with_temporary_scope do
-    stub_smarty_streets
-    SmartyStreets.get_city_state("94109")
-    click_button "Speak Out"
-    # It's important to wait the request to complete before
-    # leaving the `with_temporary_scope` block or the stub will disappear
-    sleep 0.5 while !page.has_content? "Now help spread the word:"
-  end
+When(/^I fill in my email$/) do
+  create_visitor
+  fill_in "Email", :with => @visitor[:email]
+end
+
+When(/^I submit the petition$/) do
+  click_button "Speak Out"
+  sleep 0.5 while !page.has_content? "Now help spread the word:"
 end
