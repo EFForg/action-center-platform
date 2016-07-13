@@ -14,6 +14,7 @@
 </script>
 <div id='petition-tool' class="tool <%= 'un' unless current_user.try(:signed?, @actionPage.petition) || params[:thankyou] -%>signed">
   <div class="tool-container">
+
     <div class="tool-heading">
       <h2 class="tool-title signed">
         <span class='glyphicon glyphicon-ok'></span>Signed
@@ -22,7 +23,14 @@
         <%= t :sign_the_petition -%>
       </h2>
     </div>
+
     <div class="tool-body">
+      <%- if @petition.enable_affiliations -%>
+        <div class='small tool-notice'>
+          Your name and affiliations will be published on our site.
+        </div>
+      <% end %>
+
       <%- if @actionPage.petition.goal -%>
         <div id="progress-bar">
           <div class='count'><b><%= @signature_count -%></b> /
@@ -38,8 +46,8 @@
           <div class='count'><b><%= @signature_count -%></b><span class='goal'> <%= t :signatures -%></span>
           </div>
         </div>
-
       <% end -%>
+
         <div class='signed'>
           <div class='vertical-share'>
             <b class='small'>Now help spread the word:</b>
@@ -93,46 +101,26 @@
                 <%= f.fields_for :affiliations, Affiliation.new do |affiliation| %>
                   <%= render 'affiliations/affiliation_fields', :f => affiliation %>
                 <% end %>
-                <div class='links'>
-                  <%= link_to_add_association 'Add another', f, :affiliations, partial: 'affiliations/affiliation_fields' %>
+                <div class='links text-right'>
+                  <%= link_to_add_association '+ Add another institution', f, :affiliations, partial: 'affiliations/affiliation_fields' %>
                 </div>
-              </div>
-            <% else %>
-              <fieldset>
-                <span class='intl-toggle'>
-                  <div class="row">
-                    <div class="col-xs-6">
-                      <%= f.text_field :zipcode, class: 'form-control', placeholder: t(:zip_code),
-                        title: t('petition_errors.required.zip_code') -%>
-                      </div>
-                      <div class="col-xs-6">
-                        <a class='intl-toggler pull-right hidden-if-no-js'><%= t :outside_the_us -%></a>
-                      </div>
-                    </div>
-                </span>
-              </fieldset>
-              <div class='intl-toggle intl collapse'>
-                <fieldset>
-                  <%= f.text_field :city, placeholder: t(:city),
-                    class: 'form-control', pattern: '.*\S+.*', title: t('petition_errors.required.city')
-                  -%>
-                </fieldset>
-                <fieldset>
-                  <a class='intl-toggler pull-right hidden-if-no-js'><%= t :in_the_us -%></a>
-                  <%= f.select :country_code, country_codes, { prompt: t(:country) },
-                    class: 'form-control' -%>
-                </fieldset>
               </div>
             <% end %>
 
+            <% if @require_location %>
+              <%= render 'tools/petition_location', f: f %>
+            <% end %>
+
             <fieldset>
-              <%= render 'tools/save_my_info_option', info: t(%w[email name location]) -%>
-              <div class='checkbox small'>
-                <%= f.label :anonymous, class: :small do -%>
-                  <%= check_box_tag 'signature[anonymous]' -%>
-                  <%= t :dont_show_my_name -%>
-                <% end -%>
-              </div>
+              <% unless @petition.enable_affiliations %>
+                <div class='checkbox small'>
+                  <%= f.label :anonymous, class: :small do -%>
+                    <%= check_box_tag 'signature[anonymous]' -%>
+                    <%= t :dont_show_my_name -%>
+                  <% end -%>
+                </div>
+              <% end %>
+
               <%- unless user_signed_in? -%>
                 <div class="email-signup">
                   <%= t :i -%>
@@ -144,6 +132,11 @@
                   <%= t :to_sign_up_for_mailings_from -%> <b><%= t :organization_abbreviation -%></b>
                 </div>
               <% end -%>
+
+              <% unless @require_location %>
+                <%= render 'tools/petition_location', f: f %>
+              <% end %>
+
               <% if @actionPage.partner -%>
                 <div class="email-signup">
                   <%= t :i -%>
@@ -155,6 +148,9 @@
                   (<%= link_to 'privacy policy', @actionPage.partner.privacy_url -%>).
                 </div>
               <% end -%>
+
+              <%= render 'tools/save_my_info_option', info: t(%w[email name location]) -%>
+
             </fieldset>
             <% button_text = params.include?("button_text") ? params["button_text"].to_sym : t(:speak_out) %>
             <%= f.submit button_text, class: 'btn'-%>
@@ -164,6 +160,7 @@
     </div>
   </div>
 </div>
+
 <% if !@petition.show_all_signatures -%>
 <div id='signatures' class="hidden-xs">
   <h4 class='header'><em><%= t :recent_signatories -%></em></h4>

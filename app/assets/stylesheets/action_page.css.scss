@@ -117,14 +117,26 @@
     .tool-body {
       padding: 10px;
     }
+    .tool-notice {
+      padding-bottom: 5px;
+    }
     .btn-default[disabled="disabled"] {
       opacity: 0.7;
+    }
+    .add_fields {
+      font-size: 0.8em;
+    }
+    .location-help-text {
+      margin-bottom: 0.2em;
     }
     form {
       text-align: left;
     }
     select {
       max-width: 60%;
+      margin-bottom: 0.5em;
+    }
+    .input-pair {
       margin-bottom: 0.5em;
     }
     .form-group > input[type=text], .form-group > input[type=email], .form-group > input[type=tel]  {
@@ -255,8 +267,8 @@
 
 .intl-toggler {
   cursor: pointer;
-  font-size:14px;
-  margin-top:0.6em;
+  font-size: 0.8em;
+  margin-top: 0.6em;
 }
 
 #tools #tweet-tool {
@@ -412,7 +424,7 @@ h3.header, #tools #email-tool h3 {
 #description .letter, #letter {
   -webkit-box-shadow: 0 0 25px 5px rgba(0,0,0,.1); // iOS <4.3 & Android <4.1
   box-shadow: 0 0 25px 5px rgba(0,0,0,.1);
-  
+
   margin: 2em 0 3em;
   padding: 3em 3em 5em;
   position: relative;

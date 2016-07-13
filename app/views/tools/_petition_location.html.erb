@@ -1,0 +1,26 @@
+<fieldset>
+  <% unless @require_location %>
+    <div class='small location-help-text'>Get involved with EFF in your area</div>
+  <% end %>
+
+  <span class='intl-toggle'>
+    <div class="row">
+      <div class="col-xs-6">
+        <%= f.text_field :zipcode, class: 'form-control', placeholder: t(:zip_code),
+          title: t('petition_errors.required.zip_code') -%>
+      </div>
+      <div class="col-xs-6">
+          <a class='intl-toggler pull-right hidden-if-no-js'><%= t :outside_the_us -%></a>
+      </div>
+    </div>
+  </span>
+
+  <div class='intl-toggle intl collapse'>
+      <%= f.text_field :city, placeholder: t(:city),
+        class: 'form-control input-pair', pattern: '.*\S+.*', title: t('petition_errors.required.city')
+      -%>
+      <a class='intl-toggler pull-right hidden-if-no-js'><%= t :in_the_us -%></a>
+      <%= f.select :country_code, country_codes, { prompt: t(:country) },
+        class: 'form-control' -%>
+  </div>
+</fieldset>
