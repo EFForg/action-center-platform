@@ -48,7 +48,7 @@ es:
   in_the_us: ¿Está en los EE.UU.?
   speak_out: Pronúnciate
   recent_signatories: Últimos Firmantes
-  recent_signatories: Todos Firmantes
+  all_signatures: Todos Firmantes
   signed: Firmado
   your_name: Su Nombre
   sign_the_petition: Firme la petición
@@ -56,6 +56,9 @@ es:
   first_name: Nombre
   last_name: Apellido
   institution: Institución
+  add_another_institution: + Add another institution
+  name_and_affiliations_published: Your name and affiliations will be published on our site.
+  get_involved_local: Get involved with EFF in your area
   i_am_a: Soy un...
   zip_code: Codigo Postal
   city: Ciudad
@@ -68,6 +71,8 @@ es:
       last_name: Introduzca su apellido
       zip_code: Introduzca su código postal de 5 o 9 dígitos
       city: Introduzca su ciudad
+      institution: Select an institution
+      affiliation_type: How are you affilliated with this institution?
   date:
     abbr_day_names:
     - dom

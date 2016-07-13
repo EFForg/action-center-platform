@@ -27,7 +27,7 @@
     <div class="tool-body">
       <%- if @petition.enable_affiliations -%>
         <div class='small tool-notice'>
-          Your name and affiliations will be published on our site.
+          <%= t :name_and_affiliations_published -%>
         </div>
       <% end %>
 
@@ -102,7 +102,7 @@
                   <%= render 'affiliations/affiliation_fields', :f => affiliation %>
                 <% end %>
                 <div class='links text-right'>
-                  <%= link_to_add_association '+ Add another institution', f, :affiliations, partial: 'affiliations/affiliation_fields' %>
+                  <%= link_to_add_association t(:add_another_institution), f, :affiliations, partial: 'affiliations/affiliation_fields' %>
                 </div>
               </div>
             <% end %>

@@ -60,6 +60,9 @@ en:
   zip_code: Zip Code
   city: City
   country: Country
+  add_another_institution: + Add another institution
+  name_and_affiliations_published: Your name and affiliations will be published on our site.
+  get_involved_local: Get involved with EFF in your area
   petition_errors:
     required:
       email: Enter a valid email
@@ -67,3 +70,5 @@ en:
       last_name: Enter your last name
       zip_code: Enter your 5 or 9 digit zip code
       city: Enter your city
+      institution: Select an institution
+      affiliation_type: How are you affilliated with this institution?
