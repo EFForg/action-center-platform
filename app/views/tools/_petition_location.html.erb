@@ -1,4 +1,4 @@
-<fieldset>
+<fieldset id='location' <%= 'class=require' if @require_location -%>>
   <% unless @require_location %>
     <div class='small location-help-text'>
       <%= t :get_involved_local %>

@@ -7,8 +7,10 @@ class Signature < ActiveRecord::Base
 
   before_validation :format_zipcode
   before_save :sanitize_input
-  validates_presence_of :first_name, :last_name, :country_code, :petition_id,
+  validates_presence_of :first_name, :last_name, :petition_id,
     message: "This can't be blank."
+
+  validates_presence_of :country_code, :if => :location_required?
 
   validates :email, email: true
   validates :zipcode, length: { maximum: 12 }
@@ -23,7 +25,7 @@ class Signature < ActiveRecord::Base
   end
 
   def arbitrary_opinion_of_country_string_validity
-    if full_country_name.nil?
+    if country_code.present? and full_country_name.nil?
       errors.add(:country_code, "Country Code might come from a spam bot.")
     end
   end
@@ -50,6 +52,10 @@ class Signature < ActiveRecord::Base
 
   def state_symbol
     us_states_hash[state]
+  end
+
+  def location_required?
+    petition.present? && !petition.enable_affiliations
   end
 
   def full_country_name

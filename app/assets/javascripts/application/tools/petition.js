@@ -122,8 +122,10 @@ $(document).on('ready', function() {
   if($('#petition-tool').length != 0) {
     window.setTimeout(getSignatures, getSignaturesInterval);
 
-    $('#signature_zipcode').attr('required', 'required')
-    $('#signature_zipcode').attr('pattern', zip_pattern);
+    if ($('#location.require').length) {
+      $('#signature_zipcode').attr('required', 'required')
+      $('#signature_zipcode').attr('pattern', zip_pattern);
+    }
 
     // Users must input complete institution/relationship pairs.
     $('#affiliations').on('change', 'select', function() {
@@ -138,14 +140,16 @@ $(document).on('ready', function() {
   $('.intl-toggler').click(function(e) {
     $('.intl-toggle').toggle();
     height_changed();
-    if ($('.intl:visible').length) {
-      $('#signature_zipcode').removeAttr('required');
-      $('#signature_zipcode').removeAttr('pattern');
-      $('#signature_city, #signature_country_code').attr('required', 'required');
-    } else {
-      $('#signature_zipcode').attr('required', 'required')
-      $('#signature_zipcode').attr('pattern', zip_pattern);
-      $('#signature_city, #signature_country_code').removeAttr('required');
+    if ($('#location.require').length) {
+      if ($('.intl:visible').length) {
+        $('#signature_zipcode').removeAttr('required');
+        $('#signature_zipcode').removeAttr('pattern');
+        $('#signature_city, #signature_country_code').attr('required', 'required');
+      } else {
+        $('#signature_zipcode').attr('required', 'required')
+        $('#signature_zipcode').attr('pattern', zip_pattern);
+        $('#signature_city, #signature_country_code').removeAttr('required');
+      }
     }
   });
 });
