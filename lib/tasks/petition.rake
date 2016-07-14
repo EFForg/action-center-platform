@@ -25,10 +25,10 @@ namespace :petition do
     for i in 0..98
       petition.signatures << FactoryGirl.build(:signature,
         petition: petition,
-        affiliation: FactoryGirl.build(:affiliation,
-          institution: petition.action_page.institutions[i%10],
-          affiliation_type: petition.action_page.affiliation_types[i%5]
-        )
+      )
+      petition.signatures.last.affiliations << FactoryGirl.build(:affiliation,
+        institution: petition.action_page.institutions[i%10],
+        affiliation_type: petition.action_page.affiliation_types[i%5]
       )
     end
   end
