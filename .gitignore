@@ -30,3 +30,4 @@ docker-compose.yml
 
 # compiled assets
 public/assets
+public/webshims
