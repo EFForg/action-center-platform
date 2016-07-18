@@ -1,5 +1,8 @@
 class Institution < ActiveRecord::Base
   require 'csv'
+  extend FriendlyId
+
+  friendly_id :name, use: [:slugged, :history]
 
   has_many :action_institutions
   has_many :action_pages, through: :action_institutions

@@ -10,7 +10,7 @@ class ActionPageController < ApplicationController
   end
 
   def show_by_institution
-    @institution = Institution.find(params[:institution_id])
+    @institution = Institution.friendly.find(params[:institution_id])
     @signatures = @signatures
       .includes(:affiliations => :institution)
       .where(:institutions => {:id => @institution})

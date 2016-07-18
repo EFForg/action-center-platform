@@ -60,7 +60,7 @@ class Admin::InstitutionsController < Admin::ApplicationController
     end
 
     def set_institution
-      @institution = Institution.find(params[:id])
+      @institution = Institution.friendly.find(params[:id])
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.
