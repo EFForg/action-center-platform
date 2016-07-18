@@ -46,6 +46,7 @@ Actioncenter::Application.routes.draw do
     member do
       get :embed_iframe
       get :signature_count
+      get ':institution_id' => :show_by_institution
     end
     collection do
       get :embed
