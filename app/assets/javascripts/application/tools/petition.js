@@ -58,8 +58,9 @@ $(document).on('ready', function() {
           var errors = JSON.parse(data.errors);
           for (var field_name in errors) {
             var field = form.find("#signature_" + field_name);
-            var error = $('<div class="error help-block small">').text(errors[field_name]);
+            var error = errors[field_name];
             if (field.length) {
+              error = $('<div class="error help-block small">').text(error);
               error.prepend(field.attr('placeholder') + ': ');
               field.closest('fieldset').addClass('has-error');
               error.insertAfter(field);
@@ -121,21 +122,34 @@ $(document).on('ready', function() {
   if($('#petition-tool').length != 0) {
     window.setTimeout(getSignatures, getSignaturesInterval);
 
-    $('#signature_zipcode').attr('required', 'required')
-    $('#signature_zipcode').attr('pattern', zip_pattern);
+    if ($('#location.require').length) {
+      $('#signature_zipcode').attr('required', 'required')
+      $('#signature_zipcode').attr('pattern', zip_pattern);
+    }
+
+    // Users must input complete institution/relationship pairs.
+    $('#affiliations').on('change', 'select', function() {
+      var select_pair = $(this).closest('.nested-fields').find('select');
+      var at_least_one_selected = _.reduce(select_pair, function(m, n) {
+        return m + $(n).val().length;
+      }, 0);
+      select_pair.prop('required', at_least_one_selected);
+    });
   }
 
   $('.intl-toggler').click(function(e) {
     $('.intl-toggle').toggle();
     height_changed();
-    if ($('.intl:visible').length) {
-      $('#signature_zipcode').removeAttr('required');
-      $('#signature_zipcode').removeAttr('pattern');
-      $('#signature_city, #signature_country_code').attr('required', 'required');
-    } else {
-      $('#signature_zipcode').attr('required', 'required')
-      $('#signature_zipcode').attr('pattern', zip_pattern);
-      $('#signature_city, #signature_country_code').removeAttr('required');
+    if ($('#location.require').length) {
+      if ($('.intl:visible').length) {
+        $('#signature_zipcode').removeAttr('required');
+        $('#signature_zipcode').removeAttr('pattern');
+        $('#signature_city, #signature_country_code').attr('required', 'required');
+      } else {
+        $('#signature_zipcode').attr('required', 'required')
+        $('#signature_zipcode').attr('pattern', zip_pattern);
+        $('#signature_city, #signature_country_code').removeAttr('required');
+      }
     }
   });
 });

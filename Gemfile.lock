@@ -121,6 +121,7 @@ GEM
       activesupport (>= 3.0)
     cocaine (0.5.8)
       climate_control (>= 0.0.3, < 1.0)
+    cocoon (1.2.9)
     codeclimate-test-reporter (0.5.0)
       simplecov (>= 0.7.1, < 1.0.0)
     coderay (1.1.1)
@@ -429,6 +430,7 @@ DEPENDENCIES
   capybara (~> 2.5.0)
   capybara-webkit
   chartkick!
+  cocoon
   codeclimate-test-reporter
   cucumber-rails (= 1.4.2)
   daemons
@@ -500,5 +502,8 @@ DEPENDENCIES
   whenever
   will_paginate (~> 3.0)
 
+RUBY VERSION
+   ruby 2.3.1p112
+
 BUNDLED WITH
-   1.11.2
+   1.12.5

@@ -18,10 +18,19 @@ def next_goal(goal)
 end
 
 namespace :petition do
-
-  desc "Create a local organizing petition"
+  desc "Create a local organizing petition with 99 signatures"
   task :create_local => :environment do
-    @petition = FactoryGirl.create(:local_organizing_petition)
+    petition = FactoryGirl.create(:local_organizing_petition)
+
+    for i in 0..98
+      petition.signatures << FactoryGirl.build(:signature,
+        petition: petition,
+      )
+      petition.signatures.last.affiliations << FactoryGirl.build(:affiliation,
+        institution: petition.action_page.institutions[i%10],
+        affiliation_type: petition.action_page.affiliation_types[i%5]
+      )
+    end
   end
 
   desc "Update moving target petition goals"

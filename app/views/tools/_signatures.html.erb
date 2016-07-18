@@ -4,7 +4,15 @@
     <tr>
       <td>
         <div><%= signature.anonymous ? 'Anonymous' : signature.name -%></div>
-        <div><%= signature.anonymous ? signature.country_code : signature.location %></div>
+        <% if @actionPage.petition.enable_affiliations %>
+          <% signature.affiliations.each do |affiliation| %>
+            <div>
+              <%= affiliation.institution.name -%>, <%= affiliation.affiliation_type.name -%>
+            </div>
+          <% end %>
+        <% else %>
+          <div><%= signature.anonymous ? signature.country_code : signature.location %></div>
+        <% end %>
       </td>
 
       <td class="timeago" title="<%= signature.created_at.to_time.iso8601 %>">

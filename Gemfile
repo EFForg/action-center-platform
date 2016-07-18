@@ -86,6 +86,7 @@ gem 'will_paginate', '~> 3.0'
 gem 'oauth'
 gem 'email_validator'
 gem 'iso_country_codes'
+gem 'cocoon'                      # Dynamically add and remove nested associations from forms
 
 group :doc do
   # bundle exec rake doc:rails generates the API under doc/api
