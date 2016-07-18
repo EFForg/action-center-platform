@@ -15,10 +15,11 @@ gem 'aws-sdk', '< 2.0'
 gem 'bourbon'
 gem 'fontello_rails_converter'
 gem 'webshims-rails'
-gem 'redcarpet'               # Markdown
+gem 'redcarpet'                   # Markdown
 gem 'sass-rails', '~> 4.0.0'
-gem 'uglifier', '>= 1.3.0'    # compressor for JavaScript assets
-gem 'bundler', '>= 1.8.4' # needed for rails-assets
+gem 'uglifier', '>= 1.3.0'        # compressor for JavaScript assets
+gem 'bundler', '>= 1.8.4'         # needed for rails-assets
+gem 'select2-rails'               # Autocomplete select menus
 source 'https://rails-assets.org' do
   gem 'rails-assets-lodash', '3.7.0'
   gem 'rails-assets-jquery', '2.1.3'

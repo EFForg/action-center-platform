@@ -36,3 +36,4 @@
 //= require bootstrap-formhelpers-phone
 //= require application/social-buttons
 //= require cocoon
+//= require select2

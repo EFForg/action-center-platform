@@ -137,6 +137,25 @@ $(document).on('ready', function() {
     });
   }
 
+  function initAffiliation() {
+    // Autocomplete select using select2
+    $('#affiliations select.institution').select2({
+      theme: 'bootstrap',
+      placeholder: 'Institution'
+    });
+
+    // Greyed-out placeholder text
+    $('#affiliations select').on('change', function() {
+      $(this).toggleClass("empty", $.inArray($(this).val(), ['', null]) >= 0);
+    }).trigger('change');
+  }
+
+  initAffiliation();
+  $('#affiliations').on('cocoon:after-insert', function(e, insertedItem) {
+    initAffiliation();
+  });
+
+
   $('.intl-toggler').click(function(e) {
     $('.intl-toggle').toggle();
     height_changed();
