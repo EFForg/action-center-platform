@@ -161,7 +161,7 @@
   </div>
 </div>
 
-<% if !@petition.show_all_signatures -%>
+<% if !@petition.enable_affiliations? -%>
 <div id='signatures' class="hidden-xs">
   <h4 class='header'><em><%= t :recent_signatories -%></em></h4>
   <%= render(partial: "tools/signatures", layout: false) %>

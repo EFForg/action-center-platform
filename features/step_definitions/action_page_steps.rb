@@ -1,8 +1,3 @@
-Given(/^a petition exists and show all signatures is enabled$/) do
-  @action_page = FactoryGirl.create(:petition_show_all_signatures).action_page
-  expect(@action_page.petition.show_all_signatures).to be_truthy
-end
-
 Given(/^a petition action exists$/) do
   @action_page = FactoryGirl.create(:petition).action_page
 end
