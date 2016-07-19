@@ -19,7 +19,6 @@ end
 
 
 When(/^I visit an action page$/) do
-  # visit action_page_path(@action_page)
   visit "/action/#{@action_page.title.downcase.gsub(" ", "-")}"
 end
 
@@ -35,7 +34,6 @@ When(/^I input a second affiliation$/) do
 end
 
 Then(/^I should receive a CSV file$/) do
-  current_path.should == "/petition/#{@action_page.petition.id}/signatures.csv"
   page.response_headers['Content-Type'].should == "application/octet-stream"
   page.response_headers['Content-Disposition'].should == "attachment"
 end
@@ -54,4 +52,9 @@ end
 When(/^I submit the petition$/) do
   click_button "Speak Out"
   sleep 0.5 while !page.has_content? "Now help spread the word:"
+end
+
+When(/^I filter the action page by institution$/) do
+  @institution = @action_page.institutions.first
+  visit "/action/#{@action_page.title.downcase.gsub(" ", "-")}/#{@institution.name.downcase.gsub(" ", "-")}"
 end
