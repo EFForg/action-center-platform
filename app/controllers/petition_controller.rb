@@ -7,11 +7,11 @@ class PetitionController < ApplicationController
     signatures_total = @petition.signatures.count
     render json: {signatories: signatories, signatures_total: signatures_total}
   end
-  
+
   def signatures
     respond_to do |format|
       format.csv do
-        send_data @petition.to_csv
+        send_data @petition.to_csv()
       end
     end
   end

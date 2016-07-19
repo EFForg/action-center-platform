@@ -1,4 +1,5 @@
 class ActionPageController < ApplicationController
+  before_filter :set_institution, only: :show_by_institution
   before_filter :set_action_display_variables, only: [:show, :show_by_institution, :embed_iframe, :signature_count]
   skip_before_filter :verify_authenticity_token, only: :embed
   after_action :allow_iframe, only: :embed_iframe
@@ -10,11 +11,10 @@ class ActionPageController < ApplicationController
   end
 
   def show_by_institution
-    @institution = Institution.friendly.find(params[:institution_id])
-    @signatures = @signatures
-      .includes(:affiliations => :institution)
-      .where(:institutions => {:id => @institution})
-    render @actionPage.template, layout: @actionPage.layout
+    respond_to do |format|
+      format.csv { send_data @petition.to_affiliation_csv(@institution) }
+      format.html { render @actionPage.template, layout: @actionPage.layout }
+    end
   end
 
   def index
@@ -105,15 +105,7 @@ private
       @actionPage.send "enable_#{tool}".to_sym
     end
 
-    if @petition
-      if @petition.show_all_signatures
-        @signatures = @petition.signatures.paginate(:page => params[:page], :per_page => 9).order(created_at: :desc)
-      else
-        @signatures = @petition.signatures.order(created_at: :desc).limit(5)
-      end
-      @signature_count = @petition.signatures.pretty_count
-      @require_location = !@petition.enable_affiliations
-    end
+    set_signatures
 
     @topic_category = nil
     if @email_campaign and not @email_campaign.topic_category.nil?
@@ -149,6 +141,25 @@ private
     #response.headers.delete 'Set-Cookie'
     response.headers['Cache-Control'] = 'public, no-cache'
     response.headers['Surrogate-Control'] = "max-age=120"
+  end
+
+  def set_signatures
+    if @petition
+      if @institution
+        @signatures = @petition.signatures_by_institution(@institution)
+          .paginate(:page => params[:page], :per_page => 9).order(created_at: :desc)
+      elsif @petition.enable_affiliations
+        @signatures = @petition.signatures.paginate(:page => params[:page], :per_page => 9).order(created_at: :desc)
+      else
+        @signatures = @petition.signatures.order(created_at: :desc).limit(5)
+      end
+      @signature_count = @petition.signatures.pretty_count
+      @require_location = !@petition.enable_affiliations
+    end
+  end
+
+  def set_institution
+    @institution = Institution.friendly.find(params[:institution_id])
   end
 
   def allow_iframe
