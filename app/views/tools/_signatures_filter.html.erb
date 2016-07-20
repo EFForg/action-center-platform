@@ -1,5 +1,5 @@
-<%= form_tag "/" do %>
-  <%= collection_select :action_page, :institution_id, @actionPage.institutions.order('name'), :id, :name,
+<%= form_tag filter_action_page_path(@actionPage), method: 'get' do %>
+  <%= collection_select nil, :institution_id, @actionPage.institutions.order('name'), :id, :name,
   { prompt: t(:institution),
     selected: @institution ? @institution.id : "" },
   { class: 'form-control institution',
