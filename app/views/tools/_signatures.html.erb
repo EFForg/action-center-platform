@@ -7,7 +7,8 @@
         <% if @actionPage.petition.enable_affiliations %>
           <% signature.affiliations.each do |affiliation| %>
             <div>
-              <%= affiliation.institution.name -%>, <%= affiliation.affiliation_type.name -%>
+              <% unless @institution %><%= affiliation.institution.name -%>, <% end -%>
+              <%= affiliation.affiliation_type.name -%>
             </div>
           <% end %>
         <% else %>
@@ -25,5 +26,5 @@
 
 <% if @actionPage.petition.enable_affiliations? and @institution -%>
   <%= link_to 'Download CSV', institution_action_page_path(@actionPage, @institution, :format => 'csv') -%>
-  <%= will_paginate @signatures %>
 <% end -%>
+<%= will_paginate @signatures %>

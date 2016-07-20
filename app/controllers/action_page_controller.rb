@@ -148,6 +148,7 @@ private
       if @institution
         @signatures = @petition.signatures_by_institution(@institution)
           .paginate(:page => params[:page], :per_page => 9).order(created_at: :desc)
+        @institution_signature_count = @signatures.pretty_count
       elsif @petition.enable_affiliations
         @signatures = @petition.signatures.paginate(:page => params[:page], :per_page => 9).order(created_at: :desc)
       else

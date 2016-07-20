@@ -1,0 +1,15 @@
+<%= form_tag "/" do %>
+  <%= collection_select :action_page, :institution_id, @actionPage.institutions.order('name'), :id, :name,
+  { prompt: t(:institution),
+    selected: @institution ? @institution.id : "" },
+  { class: 'form-control institution',
+    title: t('petition_errors.required.institution'),
+    style: 'width: 100%' }
+  -%>
+  <%= submit_tag 'Filter by Institution' %>
+<% end %>
+
+<% if @institution %>
+  <h4><%= @institution.name %></h4>
+  <h4><%= @institution_signature_count %> signatures</h4>
+<% end %>
