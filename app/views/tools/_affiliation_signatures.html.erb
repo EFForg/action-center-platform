@@ -1,0 +1,36 @@
+<div id='signatures' class="affiliation-signatures hidden-xs">
+  <h2 class='header'><%= t :signatures -%></h2>
+
+  <div class='content clearfix'>
+    <div id='signatures-filter' class='clearfix'>
+      <%= form_tag filter_action_page_path(@actionPage), method: 'get' do %>
+        <div id='institution-select-container'>
+          <%= collection_select nil, :institution_id, @actionPage.institutions.order('name'), :id, :name,
+          { prompt: t(:filter_by_institution),
+            selected: @institution ? @institution.id : "" },
+          { class: 'form-control institution',
+            style: 'width: 100%' }
+          -%>
+          <% if @institution %>
+            <%= link_to 'remove filter', action_page_path, class: 'pull-right small' -%>
+          <% end %>
+        </div>
+        <%= submit_tag 'Filter', class: 'btn' %>
+      <% end %>
+    </div>
+
+    <% if @institution %>
+      <div id="institution-header">
+        <h3><%= @institution.name %></h3>
+        <h4><%= @institution_signature_count %> signatures</h4>
+      </div>
+    <% end %>
+
+    <%= render(partial: "tools/signatures", layout: false) %>
+
+    <% if @institution and @institution_signature_count != '0' -%>
+      <%= link_to 'Download CSV', institution_action_page_path(@actionPage, @institution, :format => 'csv') -%>
+    <% end -%>
+    <%= will_paginate @signatures %>
+  </div>
+</div>

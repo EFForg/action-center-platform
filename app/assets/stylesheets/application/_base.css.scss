@@ -43,7 +43,7 @@ ul li {
   margin-bottom: 10px;
 }
 
-.link-button { 
+.link-button {
      background: none;
      border: none;
      color: $red;
@@ -52,7 +52,7 @@ ul li {
      cursor: pointer;
      &:hover {
       @extend a:hover;
-     } 
+     }
 }
 
 .push {height: 100px;}
@@ -280,7 +280,7 @@ Styles for the alert box
       font-size: 15px;
       height: auto;
       max-width: 500px;
-      
+
       @media (max-width: $screen-xs-max) {
         left:20px;
         right: 20px;
@@ -389,4 +389,11 @@ div#email_target_text{
   color: #FFF;
   border-color: #C00;
   background-color: #C00;
+}
+
+/* ======================
+Base font overrides
+========================*/
+h4 {
+  line-height: 25px;
 }

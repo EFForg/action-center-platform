@@ -11,6 +11,13 @@ Given(/^a local organizing campaign/) do
   @action_page = FactoryGirl.create(:local_organizing_petition).action_page
 end
 
+Given(/^the petition has 100 signatures with affiliations/) do
+  100.times {
+    signature = FactoryGirl.create(:signature, petition: @action_page.petition)
+    signature.affiliations << FactoryGirl.create(:affiliation, institution: @action_page.institutions.first)
+  }
+end
+
 Given(/^the local organizing campaign has multiple institutions$/) do
   @action_page.institutions.find_or_create_by(name: "University of Wherever 2")
   @action_page.affiliation_types << AffiliationType.create(name: "Parent")

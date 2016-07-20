@@ -1,0 +1,15 @@
+@mixin speak-out-button {
+  width: 100%;
+  border: none;
+  font-size: 0.9em;
+  padding: 10px 0;
+  background-color: $red;
+  color: #fff;
+  text-transform: uppercase;
+  margin-top: 1em;
+  letter-spacing: 0.06em;
+    @include transition (background-color 0.2s ease-in-out);
+  &:hover {
+    background-color: darken($red, 15%);
+  }
+}

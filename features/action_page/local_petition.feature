@@ -34,13 +34,15 @@ Feature: Users petition an institution
     And "Affiliation type" should not be required within ".nested-fields:nth-child(3)"
 
   Scenario: Local organizing petitions should show all signatures
+    Given the petition has 100 signatures with affiliations
     When I browse to the action page
-    Then I should see "All Signatures"
+    Then I should see "Next" within "#signatures"
     And I should not see "Download CSV"
 
   Scenario: Local organizing petitions filtered by institution should allow csv download
+    Given the petition has 100 signatures with affiliations
     When I filter the action page by institution
-    Then I should see "All Signatures"
+    Then I should see "Next" within "#signatures"
     And I should see "Download CSV"
     When I click "Download CSV"
     Then I should receive a CSV file

@@ -147,19 +147,7 @@
       height: 40px;
     }
     input[type=submit], button[type=submit] {
-      width: 100%;
-      border: none;
-      font-size: 0.9em;
-      padding: 10px 0;
-      background-color: $red;
-      color: #fff;
-      text-transform: uppercase;
-      margin-top: 1em;
-      letter-spacing: 0.06em;
-        @include transition (background-color 0.2s ease-in-out);
-      &:hover {
-        background-color: darken($red, 15%);
-      }
+      @include speak-out-button
     }
     label.checkbox.small {
       font-size: 70%;
@@ -1110,12 +1098,15 @@ html.js {
 /**
  * Select menu autocomplete
  */
+#affiliations,
+#signatures {
+  .select2-selection,
+  .select2-dropdown {
+    border-radius: 0;
+    padding-left: 0.5em;
+    font-size: 0.8em;
+  }
 
-#affiliations .select2-selection,
-#affiliations .select2-dropdown {
-  border-radius: 0;
-  padding-left: 0.5em;
-  font-size: 0.8em;
 }
 
 #affiliations .select2-container {
@@ -1144,5 +1135,53 @@ html.js {
   }
   select.empty {
     color: #aaa;
+  }
+}
+
+/**
+ * Signatures by institution
+ */
+#signatures-filter {
+  font-size: 17px;
+  text-transform: none;
+
+  #institution-select-container {
+    width: 70%;
+    float: left;
+    padding-top: 2px;
+  }
+
+  input[type=submit] {
+    @include speak-out-button;
+    float: right;
+    width: 26%;
+    font-size: 0.7em;
+    margin: 0;
+  }
+}
+
+#signatures {
+  .affiliation-line {
+    margin-left: 10px;
+  }
+}
+
+#signatures.affiliation-signatures {
+
+  .header {
+    color: $red;
+  }
+
+  .content {
+    border: 1px solid $lightgrey;
+    padding: 15px;
+
+    table {
+      margin-top: 25px;
+    }
+
+    .name {
+      margin-bottom: 2px;
+    }
   }
 }

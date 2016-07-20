@@ -55,6 +55,7 @@ en:
   first_name: First Name
   last_name: Last Name
   institution: Institution
+  filter_by_institution: Filter by institution
   i_am_a: I am a...
   zip_code: Zip Code
   city: City

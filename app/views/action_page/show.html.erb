@@ -30,11 +30,7 @@
       <% end -%>
 
       <% if @actionPage.petition && @actionPage.enable_petition? && @actionPage.petition.enable_affiliations? -%>
-        <div id='signatures' class="hidden-xs">
-          <h2 class='header'><%= t :signatures -%></h2>
-          <%= render(partial: "tools/signatures_filter", layout: false) %>
-          <%= render(partial: "tools/signatures", layout: false) %>
-        </div>
+        <%= render(partial: "tools/affiliation_signatures", layout: false) %>
       <% end -%>
 
     </div>

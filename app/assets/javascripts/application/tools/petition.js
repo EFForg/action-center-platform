@@ -155,6 +155,12 @@ $(document).on('ready', function() {
     initAffiliation();
   });
 
+  // Autocomplete filter by institution
+  $('#signatures select.institution').select2({
+    theme: 'bootstrap',
+    placeholder: 'Filter by institution'
+  });
+
 
   $('.intl-toggler').click(function(e) {
     $('.intl-toggle').toggle();
