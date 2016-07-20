@@ -136,6 +136,9 @@
       max-width: 60%;
       margin-bottom: 0.5em;
     }
+    #affiliations select {
+      max-width: 100%;
+    }
     .input-pair {
       margin-bottom: 0.5em;
     }
@@ -1102,4 +1105,44 @@ html.js {
 .petitions-report .description {
   max-width: 750px;
   margin: auto;
+}
+
+/**
+ * Select menu autocomplete
+ */
+
+#affiliations .select2-selection,
+#affiliations .select2-dropdown {
+  border-radius: 0;
+  padding-left: 0.5em;
+  font-size: 0.8em;
+}
+
+#affiliations .select2-container {
+  margin-bottom: 0.5em;
+}
+
+.select2-results__option {
+  font-size: 0.8em;
+  margin-bottom: 0;
+}
+
+.select2-container--bootstrap .select2-selection--single .select2-selection__arrow b {
+  border-color: rgba(0, 0, 0, 0.34) transparent transparent transparent;
+  border-width: 6px 3px 0 3px;
+  margin-left: 3px;
+}
+
+// Greyed-out placeholder text
+#affiliations {
+  select option {
+    color: rgb(85, 85, 85);
+  }
+
+  select option:first-child {
+    color: #aaa;
+  }
+  select.empty {
+    color: #aaa;
+  }
 }

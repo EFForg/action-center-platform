@@ -23,7 +23,7 @@
   </tbody>
 </table>
 
-<% if @actionPage.petition.show_all_signatures? -%>
-  <%= link_to 'Download CSV', signatures_petition_path(@actionPage.petition, :format => 'csv') -%>
+<% if @actionPage.petition.enable_affiliations? and @institution -%>
+  <%= link_to 'Download CSV', institution_action_page_path(@actionPage, @institution, :format => 'csv') -%>
   <%= will_paginate @signatures %>
 <% end -%>

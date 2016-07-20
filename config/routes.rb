@@ -46,15 +46,10 @@ Actioncenter::Application.routes.draw do
     member do
       get :embed_iframe
       get :signature_count
+      get ':institution_id' => :show_by_institution, as: :institution
     end
     collection do
       get :embed
-    end
-  end
-
-  resources :petition, only: :show do
-    member do
-      get :signatures, :to => "petition#signatures"
     end
   end
 

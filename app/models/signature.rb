@@ -46,7 +46,7 @@ class Signature < ActiveRecord::Base
     time_ago_in_words(created_at)
   end
 
-  def to_petition_csv_line
+  def to_csv_line()
     [name, email, city, state_symbol, full_country_name]
   end
 
