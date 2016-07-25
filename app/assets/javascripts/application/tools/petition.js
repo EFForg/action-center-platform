@@ -1,4 +1,5 @@
 $(document).on('ready', function() {
+  height_changed();
   _.templateSettings.interpolate = /{{([\s\S]+?)}}/g;
 
   $('form.petition-tool').on('submit', function(ev) {
@@ -153,6 +154,7 @@ $(document).on('ready', function() {
   initAffiliation();
   $('#affiliations').on('cocoon:after-insert', function(e, insertedItem) {
     initAffiliation();
+    height_changed();
   });
 
   // Autocomplete filter by institution
