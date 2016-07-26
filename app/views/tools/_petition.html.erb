@@ -1,5 +1,6 @@
 <script>
   var petition_id = "<%= @petition.id %>";
+  var institutions = <%= raw @actionPage.institutions.to_json( :only => [:id, :name] ) %>
 </script>
 <script type='text/x-underscore-template' id='individual_signature'>
   <tr>
