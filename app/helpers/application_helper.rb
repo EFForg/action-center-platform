@@ -12,10 +12,19 @@ module ApplicationHelper
   end
 
   def markdown(blogtext)
+    blogtext = substitute_keywords(blogtext)
     renderOptions = {hard_wrap: true, filter_html: false}
     markdownOptions = {autolink: true, no_intra_emphasis: true, fenced_code_blocks: true}
     markdown = Redcarpet::Markdown.new(MarkdownRenderer.new(renderOptions), markdownOptions)
     markdown.render(blogtext).html_safe
+  end
+
+  def substitute_keywords(blogtext)
+    if @actionPage and @actionPage.description and @petition
+      blogtext.gsub('$SIGNATURECOUNT', @petition.signatures.pretty_count)
+    else
+      blogtext
+    end
   end
 
   def stripdown(str)

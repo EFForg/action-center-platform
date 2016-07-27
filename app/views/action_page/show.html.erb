@@ -25,15 +25,12 @@
       <div class="description" id="description">
         <%= markdown @actionPage.description -%>
       </div>
-      <% if @actionPage.enable_petition? && @actionPage.petition && !@actionPage.description.include?('``` letter') -%>
+      <% if @actionPage.enable_petition? && @petition && @petition.description.present? && !@actionPage.description.include?('``` letter') -%>
         <%= render(partial: "action_page/letter", layout: false) %>
       <% end -%>
 
       <% if @actionPage.petition && @actionPage.enable_petition? && @actionPage.petition.enable_affiliations? -%>
-        <div id='signatures' class="hidden-xs">
-          <h4 class='header'><em><%= t :all_signatures -%></em></h4>
-          <%= render(partial: "tools/signatures", layout: false) %>
-        </div>
+        <%= render(partial: "tools/affiliation_signatures", layout: false) %>
       <% end -%>
 
     </div>

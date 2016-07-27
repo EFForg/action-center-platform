@@ -1,5 +1,5 @@
 class ActionPageController < ApplicationController
-  before_filter :set_institution, only: :show_by_institution
+  before_filter :set_institution, only: [:show_by_institution, :filter]
   before_filter :set_action_display_variables, only: [:show, :show_by_institution, :embed_iframe, :signature_count]
   skip_before_filter :verify_authenticity_token, only: :embed
   after_action :allow_iframe, only: :embed_iframe
@@ -8,13 +8,6 @@ class ActionPageController < ApplicationController
 
   def show
     render @actionPage.template, layout: @actionPage.layout
-  end
-
-  def show_by_institution
-    respond_to do |format|
-      format.csv { send_data @petition.to_affiliation_csv(@institution) }
-      format.html { render @actionPage.template, layout: @actionPage.layout }
-    end
   end
 
   def index
@@ -54,6 +47,17 @@ class ActionPageController < ApplicationController
     else
       render text: '0'
     end
+  end
+
+  def show_by_institution
+    respond_to do |format|
+      format.csv { send_data @petition.to_affiliation_csv(@institution) }
+      format.html { render @actionPage.template, layout: @actionPage.layout }
+    end
+  end
+
+  def filter
+    redirect_to institution_action_page_url(params[:id], @institution)
   end
 
 private
@@ -148,6 +152,7 @@ private
       if @institution
         @signatures = @petition.signatures_by_institution(@institution)
           .paginate(:page => params[:page], :per_page => 9).order(created_at: :desc)
+        @institution_signature_count = @signatures.pretty_count
       elsif @petition.enable_affiliations
         @signatures = @petition.signatures.paginate(:page => params[:page], :per_page => 9).order(created_at: :desc)
       else

@@ -6,5 +6,5 @@ Feature: Users can sign petitions
 
   Scenario: Petitions should not show all signatures
     When I browse to the action page
-    Then I should not see "All Signatures"
+    Then I should not see "Next" within "#signatures"
     And I should not see "Download CSV"
