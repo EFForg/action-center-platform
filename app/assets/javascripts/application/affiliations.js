@@ -16,13 +16,20 @@ $(document).on('ready', function() {
     $(this).toggleClass("empty", $.inArray($(this).val(), ['', null]) >= 0);
   })
 
-  select2_options = {
+  var select2_options = {
     theme: 'bootstrap',
     placeholder: 'Institution',
-    dataAdapter: $.fn.select2.amd.require('select2/data/pagedAdapter'),
-    jsonData: institutions,
-    jsonMap: {id: "id", text: "name"},
-    ajax: {}
+  }
+
+  // If institutions are passed as json, load them as paginated data
+  // in select2 menus.
+  if (typeof institutions !== 'undefined') {
+    $.extend(select2_options, {
+      dataAdapter: $.fn.select2.amd.require('select2/data/pagedAdapter'),
+      jsonData: institutions,
+      jsonMap: {id: "id", text: "name"},
+      ajax: {}
+    })
   }
 
   $affiliations.on('cocoon:after-insert', function(e, insertedItem) {
@@ -42,7 +49,7 @@ $(document).on('ready', function() {
   // Autocomplete institution when filtering signatures.
   $('#signatures select.institution').select2(
     $.extend(select2_options, {
-      placeholder: 'Filter by institution'
+      placeholder: 'Filter by institution',
     })
-  );
+  )
 });

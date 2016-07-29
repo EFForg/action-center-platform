@@ -111,6 +111,8 @@ private
 
     set_signatures
 
+    @institutions = @actionPage.institutions.order(:name)
+
     @topic_category = nil
     if @email_campaign and not @email_campaign.topic_category.nil?
       @topic_category = @email_campaign.topic_category.as_2d_array
