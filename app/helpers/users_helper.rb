@@ -9,14 +9,4 @@ module UsersHelper
     icons << "link" if action_page.enable_redirect
     icons
   end
-
-  def get_percentile()
-    user_count = current_user.events.actions.count
-    @user_action_counts.percentile_rank(user_count-1).round(0)
-  end
-
-  def get_percentile_ordinalized()
-    user_count = current_user.events.actions.count
-    @user_action_counts.percentile_rank(user_count-1).round(0).ordinalize
-  end
 end
