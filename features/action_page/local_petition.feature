@@ -46,3 +46,8 @@ Feature: Users petition an institution
     And I should see "Download CSV"
     When I click "Download CSV"
     Then I should receive a CSV file
+
+  Scenario: Filtered local petitions should have the chosen institution preselected
+    Given the petition has 100 signatures with affiliations
+    When I filter the action page by institution
+    Then the institution should be selected in the filter

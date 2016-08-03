@@ -65,3 +65,7 @@ When(/^I filter the action page by institution$/) do
   @institution = @action_page.institutions.first
   visit "/action/#{@action_page.title.downcase.gsub(" ", "-")}/#{@institution.name.downcase.gsub(" ", "-")}"
 end
+
+Then(/^the institution should be selected in the filter$/) do
+  find("#select2-_institution_id-container").should have_content(@institution.name)
+end
