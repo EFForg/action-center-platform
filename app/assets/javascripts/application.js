@@ -16,6 +16,7 @@
 //= require jquery-ujs
 //= require bootstrap-sass/bootstrap/transition
 
+//= require application/select2-utils
 //= require application/congress-forms
 //= require webshims/polyfiller
 //= require respond

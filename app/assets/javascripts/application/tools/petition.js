@@ -1,4 +1,5 @@
 $(document).on('ready', function() {
+  height_changed();
   _.templateSettings.interpolate = /{{([\s\S]+?)}}/g;
 
   $('form.petition-tool').on('submit', function(ev) {
@@ -126,41 +127,7 @@ $(document).on('ready', function() {
       $('#signature_zipcode').attr('required', 'required')
       $('#signature_zipcode').attr('pattern', zip_pattern);
     }
-
-    // Users must input complete institution/relationship pairs.
-    $('#affiliations').on('change', 'select', function() {
-      var select_pair = $(this).closest('.nested-fields').find('select');
-      var at_least_one_selected = _.reduce(select_pair, function(m, n) {
-        return m + $(n).val().length;
-      }, 0);
-      select_pair.prop('required', at_least_one_selected);
-    });
   }
-
-  function initAffiliation() {
-    // Autocomplete select using select2
-    $('#affiliations select.institution').select2({
-      theme: 'bootstrap',
-      placeholder: 'Institution'
-    });
-
-    // Greyed-out placeholder text
-    $('#affiliations select').on('change', function() {
-      $(this).toggleClass("empty", $.inArray($(this).val(), ['', null]) >= 0);
-    }).trigger('change');
-  }
-
-  initAffiliation();
-  $('#affiliations').on('cocoon:after-insert', function(e, insertedItem) {
-    initAffiliation();
-  });
-
-  // Autocomplete filter by institution
-  $('#signatures select.institution').select2({
-    theme: 'bootstrap',
-    placeholder: 'Filter by institution'
-  });
-
 
   $('.intl-toggler').click(function(e) {
     $('.intl-toggle').toggle();
