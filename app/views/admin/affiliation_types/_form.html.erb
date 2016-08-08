@@ -1,0 +1,22 @@
+<%= form_for([:admin, @actionPage, @affiliation_type]) do |f| %>
+  <% if @affiliation_type.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@affiliation_type.errors.count, "error") %> prohibited this relationship from being saved:</h2>
+
+      <ul>
+      <% @affiliation_type.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="form-group">
+    <%= f.label :name, "Name" -%>
+    <%= f.text_field :name, class: "form-control"  -%>
+  </div>
+
+  <div class="actions">
+    <%= f.submit class: "btn btn-success" -%>
+  </div>
+<% end %>
