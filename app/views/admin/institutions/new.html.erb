@@ -1,5 +1,9 @@
-<h1>New Institution</h1>
+<%= render 'admin/header' -%>
+<div class='container-fluid'>
 
-<%= render 'form' %>
+  <h3>New Institution</h3>
 
-<%= link_to 'Back', [:admin, @actionPage, Institution] %>
+  <%= render 'form' %>
+
+  <%= link_to 'Back', [:admin, @actionPage, Institution] %>
+</div>
