@@ -100,6 +100,7 @@ Actioncenter::Application.routes.draw do
       get :destroy
       post 'update_featured_pages', :on => :collection
       patch :preview
+      resources :affiliation_types, only: [:index, :new, :create, :destroy]
       resources :institutions, except: [:show, :edit, :update] do
         match :import, via: :post, on: :collection
         match :index, via: :delete, on: :collection, action: :destroy_all

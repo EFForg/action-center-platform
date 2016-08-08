@@ -1,0 +1,44 @@
+<%= render 'admin/header' -%>
+<div class='container-fluid'>
+  <div class="tabs-left">
+    <%= render 'admin/nav_tabs' -%>
+    <!-- Tab panes -->
+    <div class="tab-content responsive">
+      <div class="tab-pane active" id="institutions">
+        <p id="notice"><%= notice %></p>
+
+        <h3>
+          Editing relationships for <%= @actionPage.title -%>
+        </h3>
+
+
+        <table class='table-striped table table-simple'>
+          <thead>
+            <tr>
+              <th>Relationship Name</th>
+              <th></th>
+            </tr>
+          </thead>
+
+          <tbody>
+            <% @actionPage.affiliation_types.each do |type| -%>
+              <tr>
+                <td> <%= type.name -%> </td>
+                <td>
+                  <div class='btn-group'>
+                    <%= link_to 'Remove', [:admin, @actionPage, type], class: 'btn-sm btn btn-danger', method: :delete, data: { confirm: 'Are you sure?' } %>
+                  </div>
+                </td>
+              </tr>
+            <% end -%>
+          </tbody>
+        </table>
+
+        <%= link_to [:new, :admin, @actionPage, :affiliation_type], class: 'btn btn-sm btn-primary' do %>
+          <i class="icon-doc-new"></i> Add a relationship
+        <% end %>
+
+      </div>
+    </div>
+  </div>
+</div>
