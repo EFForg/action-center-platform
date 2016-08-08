@@ -4,6 +4,21 @@
     Editing institutions for <%= @actionPage.title -%>
   </h3>
 
+  <div class='top-buffer bottom-buffer'>
+    <%= link_to [:new, :admin, @actionPage, :institution], class: 'btn btn-sm btn-primary' do %>
+      <i class="icon-doc-new"></i> Add an institution
+    <% end %>
+
+    <%= form_tag [:import, :admin, @actionPage, Institution], multipart: true, id: 'import-institutions-form' do %>
+      <span class="btn btn-sm btn-success file-input">
+        <span>Import from CSV</span>
+        <%= file_field_tag :file, onchange: 'javascript:this.form.submit();' %>
+      </span>
+    <% end %>
+
+    <%= link_to 'Remove all', [:admin, @actionPage, Institution], method: :delete, class: 'btn btn-sm btn-danger pull-right', data: { confirm: 'Are you sure you want to remove all institutions from this action?' } %>
+  </div>
+
   <table class='table-striped table table-simple'>
     <thead>
       <tr>
@@ -13,7 +28,7 @@
     </thead>
 
     <tbody>
-      <% @actionPage.institutions.each do |institution| -%>
+      <% @institutions.each do |institution| -%>
         <tr>
           <td> <%= institution.name -%> </td>
           <td>
@@ -26,16 +41,7 @@
     </tbody>
   </table>
 
-  <%= link_to [:new, :admin, @actionPage, :institution], class: 'btn btn-sm btn-primary' do %>
-    <i class="icon-doc-new"></i> Add an institution
-  <% end %>
-
-  <%= form_tag [:import, :admin, @actionPage, Institution], multipart: true, id: 'import-institutions-form' do %>
-    <span class="btn btn-sm btn-success file-input">
-      <span>Import from CSV</span>
-      <%= file_field_tag :file, onchange: 'javascript:this.form.submit();' %>
-    </span>
-  <% end %>
-
-  <%= link_to 'Remove all', [:admin, @actionPage, Institution], method: :delete, class: 'btn btn-sm btn-danger pull-right', data: { confirm: 'Are you sure you want to remove all institutions from this action?' } %>
+  <div>
+    <%= will_paginate @institutions %>
+  </div>
 </div>
