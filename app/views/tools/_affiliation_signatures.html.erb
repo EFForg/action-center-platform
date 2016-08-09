@@ -5,7 +5,7 @@
     <div id='signatures-filter' class='clearfix'>
       <%= form_tag filter_action_page_path(@actionPage), method: 'get' do %>
         <div id='institution-select-container'>
-          <%= collection_select nil, :institution_id, @institutions.limit(100), :id, :name,
+          <%= collection_select nil, :institution_id, @top_institutions, :id, :name,
           { prompt: t(:filter_by_institution),
             selected: @institution ? @institution.id : "" },
           { class: 'form-control institution',
