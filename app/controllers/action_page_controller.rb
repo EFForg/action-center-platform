@@ -137,9 +137,6 @@ private
                               zipcode: current_zipcode,
                               country_code: current_country_code,
                               email: current_email }
-    if @actionPage.petition and @actionPage.petition.enable_affiliations
-      @signature.affiliations.build
-    end
 
     # Tracking
     if params[:action] == "show"
