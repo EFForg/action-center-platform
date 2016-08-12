@@ -192,7 +192,7 @@ class Admin::ActionPagesController < Admin::ApplicationController
                                          :title,
                                          :description,
                                          :goal,
-                                         :show_all_signatures]},
+                                         :enable_affiliations]},
                   {email_campaign_attributes: [:id, :message, :subject,
                                                 :target_house,
                                                 :target_senate,

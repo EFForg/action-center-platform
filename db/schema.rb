@@ -11,11 +11,21 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160520212818) do
+ActiveRecord::Schema.define(version: 20160719204420) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
   enable_extension "uuid-ossp"
+
+  create_table "action_institutions", force: :cascade do |t|
+    t.integer  "action_page_id"
+    t.integer  "institution_id"
+    t.datetime "created_at",     null: false
+    t.datetime "updated_at",     null: false
+  end
+
+  add_index "action_institutions", ["action_page_id"], name: "index_action_institutions_on_action_page_id", using: :btree
+  add_index "action_institutions", ["institution_id"], name: "index_action_institutions_on_institution_id", using: :btree
 
   create_table "action_pages", force: :cascade do |t|
     t.string   "title"
@@ -67,6 +77,27 @@ ActiveRecord::Schema.define(version: 20160520212818) do
   add_index "action_pages", ["petition_id"], name: "index_action_pages_on_petition_id", using: :btree
   add_index "action_pages", ["slug"], name: "index_action_pages_on_slug", using: :btree
   add_index "action_pages", ["tweet_id"], name: "index_action_pages_on_tweet_id", using: :btree
+
+  create_table "affiliation_types", force: :cascade do |t|
+    t.string   "name"
+    t.integer  "action_page_id"
+    t.datetime "created_at",     null: false
+    t.datetime "updated_at",     null: false
+  end
+
+  add_index "affiliation_types", ["action_page_id"], name: "index_affiliation_types_on_action_page_id", using: :btree
+
+  create_table "affiliations", force: :cascade do |t|
+    t.datetime "created_at",          null: false
+    t.datetime "updated_at",          null: false
+    t.integer  "signature_id"
+    t.integer  "institution_id"
+    t.integer  "affiliation_type_id"
+  end
+
+  add_index "affiliations", ["affiliation_type_id"], name: "index_affiliations_on_affiliation_type_id", using: :btree
+  add_index "affiliations", ["institution_id"], name: "index_affiliations_on_institution_id", using: :btree
+  add_index "affiliations", ["signature_id"], name: "index_affiliations_on_signature_id", using: :btree
 
   create_table "ahoy_events", id: :uuid, default: "uuid_generate_v4()", force: :cascade do |t|
     t.uuid     "visit_id"
@@ -158,6 +189,15 @@ ActiveRecord::Schema.define(version: 20160520212818) do
   add_index "friendly_id_slugs", ["sluggable_id"], name: "index_friendly_id_slugs_on_sluggable_id", using: :btree
   add_index "friendly_id_slugs", ["sluggable_type"], name: "index_friendly_id_slugs_on_sluggable_type", using: :btree
 
+  create_table "institutions", force: :cascade do |t|
+    t.string   "name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.string   "slug"
+  end
+
+  add_index "institutions", ["slug"], name: "index_institutions_on_slug", unique: true, using: :btree
+
   create_table "partners", force: :cascade do |t|
     t.string   "code"
     t.string   "name"
@@ -173,7 +213,7 @@ ActiveRecord::Schema.define(version: 20160520212818) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "goal"
-    t.boolean  "show_all_signatures", default: false
+    t.boolean  "enable_affiliations", default: false
   end
 
   create_table "signatures", force: :cascade do |t|

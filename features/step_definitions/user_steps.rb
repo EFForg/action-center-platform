@@ -218,7 +218,7 @@ def submit_a_strong_password
   click_button "Submit"
 end
 
-Given(/^A petition exists that's one signature away from its goal$/) do
+Given(/^A petition exists thats one signature away from its goal$/) do
   create_an_action_page_petition_needing_one_more_signature
 end
 
@@ -252,7 +252,7 @@ Then(/^I see a victory message$/) do
 end
 
 
-When(/^I sign a petition that's one signature away from victory$/) do
+When(/^I sign a petition thats one signature away from victory$/) do
   visit "/action/#{@action_page.title.downcase.gsub(" ", "-")}"
 
   # check action progress is shown
