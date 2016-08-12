@@ -59,7 +59,7 @@ gem 'sprockets-image_compressor'  # Optimizes png/jpg
 # Analytics
 gem 'ahoy_matey'                  # Analytics
 gem 'groupdate'
-gem 'chartkick', git: 'https://github.com/Hainish/chartkick.git', branch: 'chart.js', ref: 'c2f78'
+gem 'chartkick'
 
 # Job queue
 gem 'delayed_job_active_record'

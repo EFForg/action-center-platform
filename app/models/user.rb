@@ -43,6 +43,19 @@ class User < ActiveRecord::Base
     [first_name, last_name].join(' ')
   end
 
+  def percentile_rank
+    user_action_counts = Rails.cache.fetch('user_action_counts', :expires_in => 24.hours) {
+      User.select( "users.id, count(ahoy_events.id) AS events_count" )
+        .joins( "LEFT OUTER JOIN ahoy_events ON ahoy_events.user_id = users.id" )
+        .where( "ahoy_events.name IS null OR ahoy_events.name = ?", "Action" )
+        .group( "users.id" )
+        .map { |u| u.events_count }
+    }
+
+    user_count = events.actions.count
+    percentile = user_action_counts.percentile_rank(user_count-1).round(0)
+  end
+
   def signed?(petition)
     Signature.where(user: self, petition: petition).exists?
   end
