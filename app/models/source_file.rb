@@ -25,7 +25,7 @@ class SourceFile < ActiveRecord::Base
   after_destroy { s3_object.try(:delete) }
 
   def pull_down_s3_object_attributes
-    puts "trying to validate for some reason"
+    Rails.logger.debug "Trying to validate S3 object."
     self.file_name = key.split('/').last if key
     self.file_size ||= s3_object.content_length rescue nil
     self.file_content_type ||= s3_object.content_type rescue nil
@@ -58,7 +58,7 @@ class SourceFile < ActiveRecord::Base
 
   #---- start S3 related methods -----
   def s3_object
-    puts "trying to get s3 obkect"
+    Rails.logger.debug "Trying to get S3 object."
     s3 = AWS::S3.new(
       :access_key_id => S3CorsFileupload::Config.access_key_id,
       :secret_access_key => S3CorsFileupload::Config.secret_access_key
@@ -66,7 +66,7 @@ class SourceFile < ActiveRecord::Base
     bucket = s3.buckets[Rails.application.secrets.amazon_bucket]
     @s3_object = bucket.objects[key]
   rescue
-    puts "failed"
+    Rails.logger.debug "Attempt to get S3 object failed."
     nil
   end
 

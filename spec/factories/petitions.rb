@@ -27,4 +27,12 @@ FactoryGirl.define do
     end
   end
 
+  factory :local_organizing_petition, :parent => :petition do
+    enable_affiliations true
+
+    after(:create) do |petition|
+      petition.action_page.institutions << FactoryGirl.build(:institution)
+      petition.action_page.affiliation_types << FactoryGirl.build(:affiliation_type)
+    end
+  end
 end

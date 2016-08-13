@@ -1,7 +1,7 @@
-ruby '2.1.2'
+ruby '2.3.1'
 source 'https://rubygems.org'
 
-gem 'rails', '~>4.2.5.2'
+gem 'rails', '~>4.2.6'
 
 #Database
 gem 'pg', '0.15.1'
@@ -15,10 +15,11 @@ gem 'aws-sdk', '< 2.0'
 gem 'bourbon'
 gem 'fontello_rails_converter'
 gem 'webshims-rails'
-gem 'redcarpet'               # Markdown
+gem 'redcarpet'                   # Markdown
 gem 'sass-rails', '~> 4.0.0'
-gem 'uglifier', '>= 1.3.0'    # compressor for JavaScript assets
-gem 'bundler', '>= 1.8.4' # needed for rails-assets
+gem 'uglifier', '>= 1.3.0'        # compressor for JavaScript assets
+gem 'bundler', '>= 1.8.4'         # needed for rails-assets
+gem 'select2-rails'               # Autocomplete select menus
 source 'https://rails-assets.org' do
   gem 'rails-assets-lodash', '3.7.0'
   gem 'rails-assets-jquery', '2.1.3'
@@ -58,7 +59,7 @@ gem 'sprockets-image_compressor'  # Optimizes png/jpg
 # Analytics
 gem 'ahoy_matey'                  # Analytics
 gem 'groupdate'
-gem 'chartkick', git: 'https://github.com/Hainish/chartkick.git', branch: 'chart.js', ref: 'c2f78'
+gem 'chartkick'
 
 # Job queue
 gem 'delayed_job_active_record'
@@ -86,6 +87,7 @@ gem 'will_paginate', '~> 3.0'
 gem 'oauth'
 gem 'email_validator'
 gem 'iso_country_codes'
+gem 'cocoon'                      # Dynamically add and remove nested associations from forms
 
 group :doc do
   # bundle exec rake doc:rails generates the API under doc/api
@@ -108,6 +110,7 @@ group :development, :test do
   gem 'capybara', '~> 2.5.0'
   gem 'selenium-webdriver', '~> 2.49', require: false
   gem "capybara-webkit"
+  gem "headless"
   gem 'database_cleaner'
   gem 'pry'
   gem 'factory_girl_rails'

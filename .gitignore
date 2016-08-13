@@ -20,6 +20,7 @@ pickle-email-*.html
 *.swp
 *.swo
 .elasticbeanstalk/
+docker-compose.override.yml
 
 # Ignore application configuration
 /config/application.yml
@@ -29,3 +30,4 @@ pickle-email-*.html
 
 # compiled assets
 public/assets
+public/webshims

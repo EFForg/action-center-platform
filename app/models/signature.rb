@@ -3,15 +3,20 @@ class Signature < ActiveRecord::Base
   include ApplicationHelper
   belongs_to :user
   belongs_to :petition
+  has_many :affiliations
 
   before_validation :format_zipcode
   before_save :sanitize_input
-  validates_presence_of :first_name, :last_name, :country_code, :petition_id,
+  validates_presence_of :first_name, :last_name, :petition_id,
     message: "This can't be blank."
+
+  validates_presence_of :country_code, :if => :location_required?
 
   validates :email, email: true
   validates :zipcode, length: { maximum: 12 }
   validate :country_code, :arbitrary_opinion_of_country_string_validity
+
+  accepts_nested_attributes_for :affiliations, reject_if: :all_blank
 
   include ActionView::Helpers::DateHelper
 
@@ -20,7 +25,7 @@ class Signature < ActiveRecord::Base
   end
 
   def arbitrary_opinion_of_country_string_validity
-    if full_country_name.nil?
+    if country_code.present? and full_country_name.nil?
       errors.add(:country_code, "Country Code might come from a spam bot.")
     end
   end
@@ -41,12 +46,16 @@ class Signature < ActiveRecord::Base
     time_ago_in_words(created_at)
   end
 
-  def to_petition_csv_line
+  def to_csv_line()
     [name, email, city, state_symbol, full_country_name]
   end
 
   def state_symbol
     us_states_hash[state]
+  end
+
+  def location_required?
+    petition.present? && !petition.enable_affiliations
   end
 
   def full_country_name

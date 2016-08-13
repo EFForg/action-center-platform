@@ -1,4 +1,5 @@
 $(document).on('ready', function() {
+  height_changed();
   _.templateSettings.interpolate = /{{([\s\S]+?)}}/g;
 
   $('form.petition-tool').on('submit', function(ev) {
@@ -27,8 +28,9 @@ $(document).on('ready', function() {
           var errors = JSON.parse(data.errors);
           for (var field_name in errors) {
             var field = form.find("#signature_" + field_name);
-            var error = $('<div class="error help-block small">').text(errors[field_name]);
+            var error = errors[field_name];
             if (field.length) {
+              error = $('<div class="error help-block small">').text(error);
               error.prepend(field.attr('placeholder') + ': ');
               field.closest('fieldset').addClass('has-error');
               error.insertAfter(field);
@@ -99,7 +101,7 @@ $(document).on('ready', function() {
             time_ago: signature.time_ago + " ago"
           });
         }).join("");
-        $("div#signatures tbody").html(signatures_html);
+        $("signatures.ajax-update tbody").html(signatures_html);
 
         // did anything change? if no, wait longer til next check.
         if (_.isEqual(data, previousSignatures)) {
@@ -118,25 +120,29 @@ $(document).on('ready', function() {
 
   var zip_pattern = '\\d{5}(-?\\d{4})?';
 
-  var toggle_intl = function(){
-    $('.intl-toggle').toggle();
-    height_changed();
-    if ($('.intl:visible').length) {
-      $('#signature_zipcode').removeAttr('required');
-      $('#signature_zipcode').removeAttr('pattern');
-      $('#signature_city, #signature_country_code').attr('required', 'required');
-    } else {
-      $('#signature_zipcode').attr('required', 'required')
-      $('#signature_zipcode').attr('pattern', zip_pattern);
-      $('#signature_city, #signature_country_code').removeAttr('required');
-    }
-  }
-
   if($('#petition-tool').length != 0) {
     window.setTimeout(getSignatures, getSignaturesInterval);
 
-    $('#signature_zipcode').attr('required', 'required')
-    $('#signature_zipcode').attr('pattern', zip_pattern);
+    if ($('#location.require').length) {
+      $('#signature_zipcode').attr('required', 'required')
+      $('#signature_zipcode').attr('pattern', zip_pattern);
+    }
+  }
+
+  var toggle_intl = function(){
+    $('.intl-toggle').toggle();
+    height_changed();
+    if ($('#location.require').length) {
+      if ($('.intl:visible').length) {
+        $('#signature_zipcode').removeAttr('required');
+        $('#signature_zipcode').removeAttr('pattern');
+        $('#signature_city, #signature_country_code').attr('required', 'required');
+      } else {
+        $('#signature_zipcode').attr('required', 'required')
+        $('#signature_zipcode').attr('pattern', zip_pattern);
+        $('#signature_city, #signature_country_code').removeAttr('required');
+      }
+    }
   }
 
   if(typeof international_only != 'undefined' && international_only){
