@@ -14,8 +14,22 @@ Capybara::Webkit.configure do |config|
   config.block_url "anon-stats.eff.org"
   config.allow_url "congressforms.eff.org"
   config.allow_url "actioncenter-staging.s3-us-west-1.amazonaws.com"
+  config.allow_url "act.s.eff.org"
 end
 
+# Run javascript tests headlessly
+Before do
+  if Capybara.current_driver == :webkit
+    require 'headless'
+
+    headless = Headless.new
+    headless.start
+
+    at_exit do
+      headless.destroy
+    end
+  end
+end
 
 # Capybara defaults to CSS3 selectors rather than XPath.
 # If you'd prefer to use XPath, just uncomment this line and adjust any

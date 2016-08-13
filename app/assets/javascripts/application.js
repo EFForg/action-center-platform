@@ -16,6 +16,7 @@
 //= require jquery-ujs
 //= require bootstrap-sass/bootstrap/transition
 
+//= require application/select2-utils
 //= require application/congress-forms
 //= require webshims/polyfiller
 //= require respond
@@ -35,3 +36,5 @@
 //= require fuzzyset_util
 //= require bootstrap-formhelpers-phone
 //= require application/social-buttons
+//= require cocoon
+//= require select2

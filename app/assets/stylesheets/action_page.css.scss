@@ -117,8 +117,17 @@
     .tool-body {
       padding: 10px;
     }
+    .tool-notice {
+      padding-bottom: 5px;
+    }
     .btn-default[disabled="disabled"] {
       opacity: 0.7;
+    }
+    .add_fields {
+      font-size: 0.8em;
+    }
+    .location-help-text {
+      margin-bottom: 0.2em;
     }
     form {
       text-align: left;
@@ -127,24 +136,18 @@
       max-width: 60%;
       margin-bottom: 0.5em;
     }
+    #affiliations select {
+      max-width: 100%;
+    }
+    .input-pair {
+      margin-bottom: 0.5em;
+    }
     .form-group > input[type=text], .form-group > input[type=email], .form-group > input[type=tel]  {
       font-size: 1em;
       height: 40px;
     }
     input[type=submit], button[type=submit] {
-      width: 100%;
-      border: none;
-      font-size: 0.9em;
-      padding: 10px 0;
-      background-color: $red;
-      color: #fff;
-      text-transform: uppercase;
-      margin-top: 1em;
-      letter-spacing: 0.06em;
-        @include transition (background-color 0.2s ease-in-out);
-      &:hover {
-        background-color: darken($red, 15%);
-      }
+      @include speak-out-button
     }
     label.checkbox.small {
       font-size: 70%;
@@ -255,8 +258,8 @@
 
 .intl-toggler {
   cursor: pointer;
-  font-size:14px;
-  margin-top:0.6em;
+  font-size: 0.8em;
+  margin-top: 0.6em;
 }
 
 #tools #tweet-tool {
@@ -437,11 +440,14 @@ h3.privacy-notice-header {
     text-align: right;
     text-transform: uppercase;
   }
+  .pagination {
+    float: right;
+  }
 }
 #description .letter, #letter {
   -webkit-box-shadow: 0 0 25px 5px rgba(0,0,0,.1); // iOS <4.3 & Android <4.1
   box-shadow: 0 0 25px 5px rgba(0,0,0,.1);
-  
+
   margin: 2em 0 3em;
   padding: 3em 3em 5em;
   position: relative;
@@ -1119,4 +1125,95 @@ html.js {
 .petitions-report .description {
   max-width: 750px;
   margin: auto;
+}
+
+/**
+ * Select menu autocomplete
+ */
+#affiliations,
+#signatures {
+  .select2-selection,
+  .select2-dropdown {
+    border-radius: 0;
+    padding-left: 0.5em;
+    font-size: 0.8em;
+  }
+
+}
+
+#affiliations .select2-container {
+  margin-bottom: 0.5em;
+}
+
+.select2-results__option {
+  font-size: 0.8em;
+  margin-bottom: 0;
+}
+
+.select2-container--bootstrap .select2-selection--single .select2-selection__arrow b {
+  border-color: rgba(0, 0, 0, 0.34) transparent transparent transparent;
+  border-width: 6px 3px 0 3px;
+  margin-left: 3px;
+}
+
+// Greyed-out placeholder text
+#affiliations {
+  select option {
+    color: rgb(85, 85, 85);
+  }
+
+  select option:first-child {
+    color: #aaa;
+  }
+  select.empty {
+    color: #aaa;
+  }
+}
+
+/**
+ * Signatures by institution
+ */
+#signatures-filter {
+  font-size: 17px;
+  text-transform: none;
+
+  #institution-select-container {
+    width: 70%;
+    float: left;
+    padding-top: 2px;
+  }
+
+  input[type=submit] {
+    @include speak-out-button;
+    float: right;
+    width: 26%;
+    font-size: 0.7em;
+    margin: 0;
+  }
+}
+
+#signatures {
+  .affiliation-line {
+    margin-left: 10px;
+  }
+}
+
+#signatures.affiliation-signatures {
+
+  .header {
+    color: $red;
+  }
+
+  .content {
+    border: 1px solid $lightgrey;
+    padding: 15px;
+
+    table {
+      margin-top: 25px;
+    }
+
+    .name {
+      margin-bottom: 2px;
+    }
+  }
 }

@@ -1,3 +1,5 @@
+require 'csv'
+
 class Petition < ActiveRecord::Base
   has_one :action_page
   has_many :signatures
@@ -19,6 +21,15 @@ class Petition < ActiveRecord::Base
     recent
   end
 
+  def signatures_by_institution(institution)
+    signatures.includes(:affiliations => :institution)
+      .where(:institutions => {:id => institution})
+  end
+
+  def location_required?
+    !enable_affiliations
+  end
+
   def to_csv(options = {})
     column_names =
       %w[first_name last_name email zipcode country_code created_at]
@@ -36,7 +47,20 @@ class Petition < ActiveRecord::Base
     CSV.generate(options) do |csv|
       csv << column_names
       signatures.each do |signature|
-        csv << signature.to_petition_csv_line
+        csv << signature.to_csv_line
+      end
+    end
+  end
+
+  def to_affiliation_csv(institution, options = {})
+    column_names = %w[full_name, institution, affiliation_type]
+
+    CSV.generate(options) do |csv|
+      signatures_by_institution(institution).each do |s|
+        affiliation = s.affiliations.first
+        csv << [s.name,
+                affiliation.institution.name,
+                affiliation.affiliation_type.name]
       end
     end
   end

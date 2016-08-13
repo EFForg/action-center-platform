@@ -1,0 +1,25 @@
+<table class="table">
+  <tbody>
+  <% @signatures.each do |signature| %>
+    <tr>
+      <td>
+        <div class='name'><%= signature.anonymous ? 'Anonymous' : signature.name -%></div>
+        <% if @actionPage.petition.enable_affiliations %>
+          <% signature.affiliations.each do |affiliation| %>
+            <div class='affiliation-line'>
+              <% unless @institution %><%= affiliation.institution.name -%>, <% end -%>
+              <%= affiliation.affiliation_type.name -%>
+            </div>
+          <% end %>
+        <% else %>
+          <div><%= signature.anonymous ? signature.country_code : signature.location %></div>
+        <% end %>
+      </td>
+
+      <td class="timeago" title="<%= signature.created_at.to_time.iso8601 %>">
+        <span style="display:none;" class="plain-date"><%= signature.created_at.strftime("%B %d, %Y") %></span>
+      </td>
+    </tr>
+  <% end %>
+  </tbody>
+</table>

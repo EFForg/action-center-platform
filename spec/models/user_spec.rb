@@ -43,7 +43,51 @@ describe User do
       result = set_weak_password(@user)
       expect(result).to be_truthy
     end
-
   end
 
+  describe "GET #show" do
+    let(:ahoy) {
+      ahoy = Ahoy::Tracker.new
+    }
+
+    before(:each) do
+      @user = User.create!(@attr)
+    end
+
+    it "ranks users" do
+      # Users take several actions
+      track_views_and_actions
+
+      result = @user.percentile_rank
+      expect(result).to be(50)
+    end
+  end
+end
+
+
+def track_views_and_actions
+  FactoryGirl.create(:user)
+  ahoy.authenticate(FactoryGirl.create(:user))
+  3.times { track_signature }
+
+  ahoy.authenticate(FactoryGirl.create(:user))
+  1.times { track_signature }
+
+  ahoy.authenticate(@user)
+  2.times { track_signature }
+  track_view
+end
+
+def track_signature
+  @actionPage = FactoryGirl.create(:action_page_with_petition)
+  ahoy.track "Action",
+    { type: "action", actionType: "signature", actionPageId: @actionPage.id },
+    action_page: @actionPage
+end
+
+def track_view
+  @actionPage = FactoryGirl.create(:action_page_with_petition)
+  ahoy.track "View",
+    { type: "action", actionType: "view", actionPageId: @actionPage.id },
+    action_page: @actionPage
 end

@@ -1,6 +1,6 @@
-//= require chartjs
-//= require moment
+//= require Chart.bundle
 //= require chartkick
+//= require moment
 //= require EpicEditor
 //= require jquery-sortable/jquery-sortable
 //= require bootstrap-daterangepicker

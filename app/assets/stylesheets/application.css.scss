@@ -8,6 +8,9 @@
  * You're free to add application-wide styles to this file and they'll appear at the top of the
  * compiled file, but it's generally better to create a new file per style scope.
  *
+ *= require select2
+ *= require select2-bootstrap
+ *
  */
 /* Also, remember to change bootstrap-custom.scss if you want to add or remove bootstrap modules*/
 
@@ -30,6 +33,7 @@
 @import "application/base";
 @import "application/social-buttons";
 @import "application/partner_pages";
+@import "application/mixins";
 //@import "footer";
 
 

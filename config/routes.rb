@@ -46,6 +46,8 @@ Actioncenter::Application.routes.draw do
     member do
       get :embed_iframe
       get :signature_count
+      get :filter
+      get ':institution_id' => :show_by_institution, as: :institution
     end
     collection do
       get :embed
@@ -98,6 +100,10 @@ Actioncenter::Application.routes.draw do
       get :destroy
       post 'update_featured_pages', :on => :collection
       patch :preview
+      resources :institutions, except: [:show, :edit, :update] do
+        match :import, via: :post, on: :collection
+        match :index, via: :delete, on: :collection, action: :destroy_all
+      end
     end
 
     get "images", to: "images#index"

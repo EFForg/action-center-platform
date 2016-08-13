@@ -7,6 +7,9 @@ class ActionPage < ActiveRecord::Base
   scope :published, -> { where(published: true) }
 
   has_many :events, class_name: Ahoy::Event
+  has_many :action_institutions
+  has_many :institutions, through: :action_institutions
+  has_many :affiliation_types
 
   belongs_to :petition
   belongs_to :tweet
@@ -31,16 +34,10 @@ class ActionPage < ActiveRecord::Base
   def call_tool_title
     call_campaign && call_campaign.title.length > 0 && call_campaign.title || 'Call Your Legislators'
   end
+
   def message_rendered
     # TODO - just write a test for this and rename this to .to_md
     call_campaign && markdown(call_campaign.message) || ''
-  end
-
-  def markdown(blogtext)
-    renderOptions = {hard_wrap: true, filter_html: true}
-    markdownOptions = {autolink: true, no_intra_emphasis: true}
-    markdown = Redcarpet::Markdown.new(Redcarpet::Render::HTML.new(renderOptions), markdownOptions)
-    markdown.render(blogtext).html_safe
   end
 
   def verb

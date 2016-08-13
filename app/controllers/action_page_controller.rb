@@ -1,5 +1,6 @@
 class ActionPageController < ApplicationController
-  before_filter :set_action_display_variables, only: [:show, :embed_iframe, :signature_count]
+  before_filter :set_institution, only: [:show_by_institution, :filter]
+  before_filter :set_action_display_variables, only: [:show, :show_by_institution, :embed_iframe, :signature_count]
   skip_before_filter :verify_authenticity_token, only: :embed
   after_action :allow_iframe, only: :embed_iframe
 
@@ -46,6 +47,17 @@ class ActionPageController < ApplicationController
     else
       render text: '0'
     end
+  end
+
+  def show_by_institution
+    respond_to do |format|
+      format.csv { send_data @petition.to_affiliation_csv(@institution) }
+      format.html { render @actionPage.template, layout: @actionPage.layout }
+    end
+  end
+
+  def filter
+    redirect_to institution_action_page_url(params[:id], @institution)
   end
 
 private
@@ -97,9 +109,17 @@ private
       @actionPage.send "enable_#{tool}".to_sym
     end
 
-    if @petition
-      @signatures = @petition.signatures.order(created_at: :desc).limit(5)
-      @signature_count = @petition.signatures.pretty_count
+    set_signatures
+
+    if @actionPage.petition and @actionPage.petition.enable_affiliations
+      # Sort institutions by most popular.
+      # Put the selected institution at the top of the list if it exists.
+      institution_id = @institution ? @institution.id : 0
+      @institutions = @actionPage.institutions.select("institutions.*, COUNT(signatures.id) AS s_count") \
+              .joins("LEFT OUTER JOIN affiliations ON institutions.id = affiliations.institution_id") \
+              .joins("LEFT OUTER JOIN signatures ON affiliations.signature_id = signatures.id") \
+              .group("institutions.id") \
+              .order("institutions.id = #{institution_id} desc", "s_count DESC", "institutions.name")
     end
 
     @topic_category = nil
@@ -117,6 +137,9 @@ private
                               zipcode: current_zipcode,
                               country_code: current_country_code,
                               email: current_email }
+    if @actionPage.petition and @actionPage.petition.enable_affiliations
+      @signature.affiliations.build
+    end
 
     # Tracking
     if params[:action] == "show"
@@ -133,6 +156,26 @@ private
     #response.headers.delete 'Set-Cookie'
     response.headers['Cache-Control'] = 'public, no-cache'
     response.headers['Surrogate-Control'] = "max-age=120"
+  end
+
+  def set_signatures
+    if @petition
+      if @institution
+        @signatures = @petition.signatures_by_institution(@institution)
+          .paginate(:page => params[:page], :per_page => 9).order(created_at: :desc)
+        @institution_signature_count = @signatures.pretty_count
+      elsif @petition.enable_affiliations
+        @signatures = @petition.signatures.paginate(:page => params[:page], :per_page => 9).order(created_at: :desc)
+      else
+        @signatures = @petition.signatures.order(created_at: :desc).limit(5)
+      end
+      @signature_count = @petition.signatures.pretty_count
+      @require_location = !@petition.enable_affiliations
+    end
+  end
+
+  def set_institution
+    @institution = Institution.friendly.find(params[:institution_id])
   end
 
   def allow_iframe

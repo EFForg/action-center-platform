@@ -25,7 +25,7 @@
 document.documentElement.className = document.documentElement.className.replace("no-js", "js");
 
 
-webshims.setOptions('basePath', '/assets/webshims/shims/')
+webshims.setOptions('basePath', '/webshims/shims/')
 webshims.setOptions('forms', {
   //show custom styleable validation bubble
   replaceValidationUI: false,
