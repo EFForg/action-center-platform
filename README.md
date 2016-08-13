@@ -71,6 +71,16 @@ The EFF icon font is generated using [fontello.com](fontello.com) and via the [f
 
 To add a new icon to the fontset, read the **Update your existing fontello font** section of the [fontello_rails_converter readme](https://github.com/railslove/fontello_rails_converter#updating-your-existing-fontello-font).
 
+## Administering Users
+A staff member may be an admin on the action center. To check the list of admins, run `rake users:list_admins`.
+
+To add an admin: First, create a user through the web interface on act.eff.org. Then:
+`rake users:add_admin[youremail@example.org]`
+New users will need to complete an e-mail confirmation in order to log in.
+
+To remove an admin:
+`rake users:remove_admin[youremail@example.org]`
+
 ## Embedding Actions
 
 Embedding actions is simple.  Just include the following HTML on the page you want the action to be embedded:
