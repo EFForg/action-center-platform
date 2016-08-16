@@ -1,7 +1,7 @@
 <div class='nested-fields'>
   <fieldset class='form-group'>
     <%= f.label :institution_id, class: 'sr-only'-%>
-    <%= f.collection_select :institution_id, @institutions.limit(100), :id, :name,
+    <%= f.collection_select :institution_id, @top_institutions, :id, :name,
       { prompt: t(:institution) },
       { class: 'form-control institution empty', title: t('petition_errors.required.institution'), style: 'width: 100%' }
     -%>

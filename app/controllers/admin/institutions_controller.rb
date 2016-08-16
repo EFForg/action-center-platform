@@ -4,7 +4,7 @@ class Admin::InstitutionsController < Admin::ApplicationController
 
   # GET /admin/action_pages/:action_page_id/institutions
   def index
-    @institutions = @actionPage.institutions
+    @institutions = @actionPage.institutions.order(:name).page(params[:page])
   end
 
   # GET /admin/action_pages/:action_page_id/institutions/new
