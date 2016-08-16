@@ -29,7 +29,9 @@ class ActionPage < ActiveRecord::Base
   #validates_length_of :og_title, maximum: 65
   after_save :no_drafts_on_homepage
 
-  def should_generate_new_friendly_id?; true; end # related to friendly_id
+  def should_generate_new_friendly_id?
+    title_changed?
+  end
 
   def call_tool_title
     call_campaign && call_campaign.title.length > 0 && call_campaign.title || 'Call Your Legislators'
