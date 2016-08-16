@@ -63,11 +63,18 @@
                 data: {toggle: 'collapse', target: '#affiliation-settings'} %>
               <%= p.label :enable_affiliations, 'Allow local affiliations <span class=help-text>(ex. Colleges and Universities)</span>'.html_safe -%>
             </div>
-            <% if @actionPage.persisted? %>
-              <fieldset id="affiliation-settings" class="target-fields collapse <%= 'in' if @actionPage.enable_petition and @actionPage.petition.enable_affiliations? -%>">
-                <%= link_to 'Add or edit local institutions', [:admin, @actionPage, Institution], target: :blank -%>
-              </fieldset>
-            <% end %>
+            <fieldset id="affiliation-settings" class="target-fields collapse <%= 'in' if @actionPage.enable_petition and @actionPage.petition.enable_affiliations? -%>">
+              <% if @actionPage.persisted? %>
+                <div>
+                  <%= link_to 'Add or edit local institutions', [:admin, @actionPage, Institution], target: :blank -%>
+                </div>
+                <div>
+                  <%= link_to 'Add or edit relationships', [:admin, @actionPage, AffiliationType], target: :blank -%>
+                </div>
+              <% else %>
+                Save the action to add institutions and relationships.
+              <% end %>
+            </fieldset>
           <% end -%>
          </div>
       </div><!-- END div.panel.panel-success -->
