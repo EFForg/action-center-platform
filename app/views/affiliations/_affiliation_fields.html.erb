@@ -1,15 +1,19 @@
 <div class='nested-fields'>
   <fieldset class='form-group'>
-    <%= f.label :institution_id, class: 'sr-only'-%>
-    <%= f.collection_select :institution_id, @top_institutions, :id, :name,
-      { prompt: t(:institution) },
-      { class: 'form-control institution empty', title: t('petition_errors.required.institution'), style: 'width: 100%' }
-    -%>
+    <div id="institution-select-wrapper">
+      <%= f.label :institution_id, class: 'sr-only'-%>
+      <%= f.collection_select :institution_id, @top_institutions, :id, :name,
+        { prompt: t(:institution) },
+        { class: 'form-control institution empty', title: t('petition_errors.required.institution'), style: 'width: 100%' }
+      -%>
+    </div>
 
-    <%= f.label :affiliation_type_id, class: 'sr-only'-%>
-    <%= f.collection_select :affiliation_type_id, @actionPage.affiliation_types, :id, :name,
-      { prompt: t(:i_am_a) },
-      { class: 'form-control affiliation-type empty', title: t('petition_errors.required.affiliation_type') }
-    -%>
+    <div id="affiliation-type-select-wrapper">
+      <%= f.label :affiliation_type_id, class: 'sr-only'-%>
+      <%= f.collection_select :affiliation_type_id, @actionPage.affiliation_types, :id, :name,
+        { prompt: t(:i_am_a) },
+        { class: 'form-control affiliation-type empty', title: t('petition_errors.required.affiliation_type') }
+      -%>
+    </div>
   </fieldset>
 </div>
