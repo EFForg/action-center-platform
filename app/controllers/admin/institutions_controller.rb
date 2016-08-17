@@ -28,11 +28,19 @@ class Admin::InstitutionsController < Admin::ApplicationController
 
   # POST /admin/action_pages/:action_page_id/institutions/import
   def import
-    if Institution.import(params[:file], @actionPage)
-      flash[:notice] = 'Institutions successfully imported'
-    else
-      flash[:notice] = 'Import failed. Please check CSV formatting'
+    names = []
+    CSV.foreach(params[:file].path, headers: true) do |row|
+      params = row.to_hash
+      unless params['name']
+        flash[:notice] = 'Import failed. Please check CSV formatting'
+        break
+      end
+      names << params['name']
     end
+
+    # if Institution.delay.import(names, @actionPage)
+    #   flash[:notice] = 'Institutions successfully imported'
+    # end
 
     redirect_to [:admin, @actionPage, Institution]
   end

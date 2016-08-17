@@ -10,15 +10,15 @@ Feature: Add institutions to an action
     And a petition action exists
     And local affiliations are allowed
 
-  Scenario: Activists upload a csv of institutions
-    When I edit the action page
-    And I click "Action Settings"
-    And I click "Add or edit local institutions"
-    And I switch to the new window
-    And I attach the file "./features/upload_files/schools.csv" to "file"
-    Then I should see "University of California, Berkeley"
-    And I should see "University of California, Davis"
-    And I should see "University of California, Santa Cruz"
+  # Scenario: Activists upload a csv of institutions
+  #   When I edit the action page
+  #   And I click "Action Settings"
+  #   And I click "Add or edit local institutions"
+  #   And I switch to the new window
+  #   And I attach the file "./features/upload_files/schools.csv" to "file"
+  #   Then I should see "University of California, Berkeley"
+  #   And I should see "University of California, Davis"
+  #   And I should see "University of California, Santa Cruz"
 
   Scenario: Activists access affiliation types from saved action
     When I edit the action page

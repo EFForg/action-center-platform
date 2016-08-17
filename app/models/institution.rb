@@ -11,11 +11,9 @@ class Institution < ActiveRecord::Base
   validates_presence_of :name
   validates_uniqueness_of :name
 
-  def self.import(file, action_page)
-    CSV.foreach(file.path, headers: true) do |row|
-      params = row.to_hash
-      return false unless params['name']
-      institution = self.find_or_create_by!(name: params['name'])
+  def self.import(names, action_page)
+    names.each do |name|
+      institution = self.find_or_create_by!(name: name)
       action_page.institutions << institution
     end
 
