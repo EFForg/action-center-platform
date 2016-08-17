@@ -48,7 +48,7 @@ $(document).on('ready', function() {
 
   // Autocomplete institution when filtering signatures.
   $('#signatures select.institution').select2(
-    $.extend(select2_options, {
+    $.extend({}, select2_options, {
       placeholder: 'Filter by institution',
     })
   )
