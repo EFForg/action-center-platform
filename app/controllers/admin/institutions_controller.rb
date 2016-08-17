@@ -2,6 +2,8 @@ class Admin::InstitutionsController < Admin::ApplicationController
   before_filter :set_action_page
   before_action :set_institution, only: [:destroy]
 
+  require 'csv'
+
   # GET /admin/action_pages/:action_page_id/institutions
   def index
     @institutions = @actionPage.institutions.order(:name).page(params[:page])
@@ -38,9 +40,7 @@ class Admin::InstitutionsController < Admin::ApplicationController
       names << params['name']
     end
 
-    # if Institution.delay.import(names, @actionPage)
-    #   flash[:notice] = 'Institutions successfully imported'
-    # end
+    Institution.delay.import(names, @actionPage)
 
     redirect_to [:admin, @actionPage, Institution]
   end
