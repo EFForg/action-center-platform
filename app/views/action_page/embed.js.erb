@@ -37,7 +37,7 @@
   var iframe_tag = document.createElement('iframe');
 
   function receiveMessage(event){
-    if(event.origin == "<%= (request.env['HTTPS'] == 'on' ? "https://" : "http://") + request.env['HTTP_HOST'] %>"){
+    if(event.origin == "<%= (request.ssl? ? "https://" : "http://") + request.env['HTTP_HOST'] %>"){
       var window_height = event.data;
       iframe_tag.height = window_height + "px";
     }
