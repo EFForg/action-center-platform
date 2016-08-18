@@ -384,35 +384,37 @@ h3.header, #tools #email-tool h3 {
     background-color: #ffffff;
     padding-right: 0.3em;
     font-style: normal;
+    position: relative;
     @media (max-width: $screen-xs-max) {
       font-size: 15px;
     }
-    &:before {
-      content: '';
-      margin-bottom: -0.7em;
-      height: 1px;
-      display: block;
-      border-bottom: solid 1px #eee;
-    }
+  }
+  &:before {
+    content: '';
+    height: 1px;
+    display: block;
+    border-bottom: solid 1px #eee;
+    width: 100%;
+    position: absolute;
+    top: 8px
   }
 }
 
 h3.privacy-notice-header {
-  font-size: 17px;
+  font-size: 15px;
   color:$blue;
-  margin-bottom: 10px;
-  margin-top: 0;
+  margin-top: 1em;
   span.privacy-notice-popover {
     display: inline-block;
     float:right;
     border: 1px solid #cc0000;
-    height: 20px;
-    width: 20px;
+    height: 18px;
+    width: 18px;
     text-align: center;
     border-radius: 10px;
     font-style: normal;
     font-weight: normal;
-    line-height: 18px;
+    line-height: 17px;
     padding-top: 0px;
     cursor:pointer;
     cursor:hand;
