@@ -400,6 +400,10 @@ h3.header, #tools #email-tool h3 {
   }
 }
 
+.call-script-box h3:before {
+  display: none;
+}
+
 h3.privacy-notice-header {
   font-size: 15px;
   color:$blue;

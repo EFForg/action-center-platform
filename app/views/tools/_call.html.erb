@@ -22,7 +22,7 @@
         <div class="call-script-box">
           <h3 class="header">What to say</h3>
           <div class="call-script">
-            <%= @actionPage.message_rendered %>
+            <%= markdown @actionPage.message_rendered %>
           </div>
         </div>
 
@@ -63,7 +63,7 @@
           <div class="call-script-box">
             <h3 class="header">What to say</h3>
             <div class="call-script">
-              <%= @actionPage.message_rendered %>
+              <%= markdown @actionPage.message_rendered %>
             </div>
           </div>
           <p class="small">Press the button below and we'll call you at <strong><%= current_user.try :phone -%></strong> and connect you to your representatives. <p>
@@ -88,7 +88,7 @@
         <div class="call-script-box">
           <h3 class="header">What to say</h3>
           <div class="call-script">
-            <%= @actionPage.message_rendered %>
+            <%= markdown @actionPage.message_rendered %>
           </div>
         </div>
 
