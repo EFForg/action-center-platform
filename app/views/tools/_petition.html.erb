@@ -103,7 +103,7 @@
                 <%= f.fields_for :affiliations, Affiliation.new do |affiliation| %>
                   <%= render 'affiliations/affiliation_fields', :f => affiliation %>
                 <% end %>
-                <div class='links text-right'>
+                <div class='links text-right with-js'>
                   <%= link_to_add_association t(:add_another_institution), f, :affiliations, partial: 'affiliations/affiliation_fields' %>
                 </div>
               </div>

@@ -120,7 +120,7 @@ private
           .joins("LEFT OUTER JOIN signatures ON affiliations.signature_id = signatures.id")
           .group("institutions.id")
           .order("institutions.id = #{institution_id} desc", "s_count DESC", "institutions.name")
-          .limit(100)
+          .limit(300)
       @institutions = @actionPage.institutions.order(:name)
     end
 

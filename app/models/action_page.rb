@@ -37,7 +37,7 @@ class ActionPage < ActiveRecord::Base
 
   def message_rendered
     # TODO - just write a test for this and rename this to .to_md
-    call_campaign && markdown(call_campaign.message) || ''
+    call_campaign && call_campaign.message || ''
   end
 
   def verb
