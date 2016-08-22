@@ -1,6 +1,0 @@
-version: '2'
-services:
-  app:
-    restart: always
-    build: .
-    command: bash -c 'rake assets:precompile && unicorn'
