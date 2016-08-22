@@ -20,7 +20,7 @@ pickle-email-*.html
 *.swp
 *.swo
 .elasticbeanstalk/
-docker-compose.override.yml
+docker-compose.yml
 
 # Ignore application configuration
 /config/application.yml
