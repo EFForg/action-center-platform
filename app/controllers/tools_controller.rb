@@ -103,7 +103,7 @@ class ToolsController < ApplicationController
         )
 
         @source = "action center petition :: " + @action_page.title
-        @user.subscribe!(opt_in=false, source=@source)
+        @user.subscribe!(opt_in=true, source=@source)
 
       end
 
@@ -167,7 +167,7 @@ class ToolsController < ApplicationController
       )
 
       @source = "action center email :: " + @action_page.title
-      @user.subscribe!(opt_in=false, source=@source)
+      @user.subscribe!(opt_in=true, source=@source)
 
     end
 
