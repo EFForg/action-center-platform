@@ -3,15 +3,26 @@
 [![Build Status](https://travis-ci.org/EFForg/action-center-platform.svg?branch=master)](https://travis-ci.org/EFForg/action-center-platform)
 
 
-Action Center
-=============
+Action Center Platform
+======================
 
-### Configuration
+The Action Center Platform is an online organizing tool maintained by [EFF](https://www.eff.org/). Administrators can create targeted campaigns where users sign petitions, contact legislators, and engage on social media.
 
-#### Secrets
-For convenience almost all of the configuration settings have been moved into the `config/application.yml` file.  The file isn't tracked into the repo so to get started, make a copy of `config/application.yml.example` and begin filling in and generating the appropriate values.
 
-#### Notable Dependencies
+## Setup
+
+Follow these instructions to run the Action Center using Docker (recommended). To run the Action Center without Docker, see [setup without Docker](https://github.com/EFForg/action-center-platform/wiki/Setup-without-Docker).
+
+1. Install Docker ([instructions](https://docs.docker.com/engine/installation/)) and Docker Compose ([instructions](https://docs.docker.com/compose/install/)).
+2. `git clone https://github.com/EFForg/action-center-platform.git`
+3. Copy `docker-compose.example.yml` to `docker-compose.yml`. Fill it in according to the instructions in that file. See [notable dependencies](#notable-dependencies) for hints.
+4. From within the project directory, run `sudo docker-compose up --build`.
+5. In a new tab, get a bash shell with access to your app: `sudo docker-compose exec app bash`.
+    1. If you aren't running migrations automatically, run `rake db:migrate` to migrate the database.
+
+
+### Notable Dependencies
+
 * Amazon S3 secret key and key id
   * Allows admins to upload images for the ActionPages
 * [SmartyStreets API](https://smartystreets.com/account/create) key and id
@@ -20,70 +31,50 @@ For convenience almost all of the configuration settings have been moved into th
   * Allows Congress members to be looked up for users
 * [Phantom of the Capitol](https://github.com/efforg/phantom-of-the-capitol) whitelisting on server side?
   * Allows users to submit e-messages to congress
-* call
-
-### Local Setup
-
-Install system package dependencies (the below example works on Ubuntu/precise).  You need postresql 9.3 at least.
-
-```
-$  sudo apt-get install postgresql postgresql-contrib-9.3 libpq-dev libqt4-dev libqtwebkit-dev
-```
-
-For convenience, you may configure a postgresql superuser, and then run the below commands to bring the app online.
+* [Call Congress](https://github.com/EFForg/call-congress) url and API key
+  * Connects calls between citizens and their congress person using the Twilio API
 
 
-```
-$  sudo -u postgres bash -c "psql -c \"CREATE ROLE actioncenter PASSWORD 'CHANGEMEinproduction6f799ae4eb3d59e' SUPERUSER CREATEDB CREATEROLE INHERIT LOGIN; \""
-
-$  bundle install
-   rake db:create
-   rake db:schema:load
-   rails server
-```
-
-Once the server is running, navigate to `localhost:3000/register` and create yourself a user account. You will need to provide (and confirm) a valid email in order to log in. When that's done, promote yourself to be an admin using the following command:
-
-    rake users:add_admin[youremail@example.org]
-
-Now you should be able to go to `localhost:3000/admin/action_pages` to create your first action page.
-
-## Heroku Setup
-
-First create a new app and configure it with a Postgres add on. Then
-
-    git remote add heroku git@heroku.com:your-action-center-app.git
-    git push heroku master
-    heroku run rake db:migrate
-
-As with above, you can now register a user account and confirm your email.
-
-    heroku run rake users:add_admin[youremail@example.org]
-
-## Production Setup
-
-Follow these instructions
-`https://www.digitalocean.com/community/articles/how-to-install-rails-and-nginx-with-passenger-on-ubuntu`
-
-### Generating the EFF icon font
+### Generating the icon font
 
 The EFF icon font is generated using [fontello.com](fontello.com) and via the [fontello-rails-converter](https://github.com/railslove/fontello_rails_converter).
 
 To add a new icon to the fontset, read the **Update your existing fontello font** section of the [fontello_rails_converter readme](https://github.com/railslove/fontello_rails_converter#updating-your-existing-fontello-font).
 
-## Administering Users
-A staff member may be an admin on the action center. To check the list of admins, run `rake users:list_admins`.
 
-To add an admin: First, create a user through the web interface on act.eff.org. Then:
+## Using the Action Center
+
+Action Center administrators can create four types of actions:
+* **Call Action**
+  * A user is connected to a political leader by phone, leaving a message or sometimes speaking to an aid.
+* **Petition Action**
+  * A user signs a petition, leaving an email address and sometimes location data.
+  * Optionally, users can petition local institutions (like universities) and see signatures by institution.
+* **Tweet Action**
+  * A user is invited to join a tweet action using their twitter account.
+* **Email Action**
+  * A user e-mails a target *or*
+  * A user submits comments to a congressperson via [Phantom of the Capitol](https://github.com/efforg/phantom-of-the-capitol).
+
+
+### Administering Users
+
+To get started using the Action Center, create a user and grant them admin privileges. Administrators can create, track, and manage campaigns.
+
+To create an admin user: First, create a user through the web interface by following the `register` link in the top nav. Then:
 `rake users:add_admin[youremail@example.org]`
-New users will need to complete an e-mail confirmation in order to log in.
+New users will need to complete an e-mail confirmation in order to log in. Administrators can access admin features by clicking `admin` in the nav.
 
 To remove an admin:
 `rake users:remove_admin[youremail@example.org]`
 
-## Embedding Actions
+To list all admin users:
+`rake users:list_admins `
 
-Embedding actions is simple.  Just include the following HTML on the page you want the action to be embedded:
+
+### Embedding Actions
+
+Embedding actions is simple. Just include the following HTML on the page you want the action to be embedded:
 
     <script type="text/javascript" src="https://act.eff.org/action/embed"></script>
     <a id="action-center-widget" href="https://act.eff.org/action/shut-the-nsa-s-backdoor-to-the-internet">Take part in the action!</a>
@@ -107,15 +98,18 @@ If you want to get fancy, you can modify the embed code to include some of the f
     <script type="text/javascript" src="https://act.eff.org/action/embed"></script>
     <a id="action-center-widget" href="https://act.eff.org/action/shut-the-nsa-s-backdoor-to-the-internet">Take part in the action!</a>
 
+
 ## Testing
 
-To run the full test suite, simply run `rake` with no arguments.  The Rspec tests will run first, followed by the more spotty cucumber tests.  You may need to do some tweaking and install firefox to get those tests to pass.  
+To run the full test suite, simply run `rake` with no arguments.
 
-Rspec tests are used for unit testing the app, and some integration testing.   Cucumber tests are used for testing API keys, javascript tests and possibly for taking on new features described to us by Activism.  
+Rspec tests are used for unit testing the app, and some integration testing. Cucumber tests are used for testing API keys, javascript tests, and feature tests.
+
 
 ## Acknowledgements
 
-This project was created by Lilia Kai, Thomas Davis, and Sina Khanifar. Large portions of the codebase are directly attributable to them, while under the employ or contractorship of the Electronic Frontier Foundation in 2014. Thank you Lilia, Thomas, and Sina! The Action Center is maintained currently by William Budington and Sina Khanifar.
+This project was created by Lilia Kai, Thomas Davis, and Sina Khanifar. Large portions of the codebase are directly attributable to them, while under the employ or contractorship of the Electronic Frontier Foundation in 2014. Thank you Lilia, Thomas, and Sina! The Action Center is currently maintained by the EFF Engineering and Design team.
+
 
 ## Licensing
 
