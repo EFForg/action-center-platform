@@ -1,6 +1,23 @@
 require 'rails_helper'
 
 RSpec.describe ActionPageController, type: :controller do
+  let(:action_page) { FactoryGirl.create :action_page, title: "Sample Action Page" }
+
+  describe "GET #show" do
+    it "redirects to a cannonical url" do
+      original_slug = action_page.slug
+      action_page.title = "Renamed Sample Action Page"
+      action_page.save
+
+      get :show, { :id => original_slug }
+      expect(response).to redirect_to action_page
+    end
+
+    it "doesn't redirect if the url is already cannonical" do
+      get :show, { :id => action_page.slug }
+      expect(response.status).to eq(200)
+    end
+  end
 
   describe "GET #show_by_institution" do
     before(:each) do

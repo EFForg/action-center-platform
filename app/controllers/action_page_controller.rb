@@ -1,4 +1,6 @@
 class ActionPageController < ApplicationController
+  before_filter :set_action_page, only: [:show, :show_by_institution, :embed_iframe, :signature_count]
+  before_filter :redirect_to_cannonical_url, only: [:show]
   before_filter :set_institution, only: [:show_by_institution, :filter]
   before_filter :set_action_display_variables, only: [:show, :show_by_institution, :embed_iframe, :signature_count]
   skip_before_filter :verify_authenticity_token, only: :embed
@@ -61,8 +63,15 @@ class ActionPageController < ApplicationController
   end
 
 private
-  def set_action_display_variables
+  def set_action_page
     @actionPage = ActionPage.friendly.find(params[:id])
+  end
+
+  def redirect_to_cannonical_url
+    redirect_to(@actionPage) unless request.path == action_page_path(@actionPage)
+  end
+
+  def set_action_display_variables
     if @actionPage.enable_redirect
         redirect_to @actionPage.redirect_url, :status => 301
       return
@@ -83,11 +92,6 @@ private
       else
         raise ActiveRecord::RecordNotFound
       end
-    end
-
-    if params[:action] == "show"
-      # Redirect to canonical url if necessary
-      return redirect_to(@actionPage) unless request.path == action_page_path(@actionPage)
     end
 
     @title = @actionPage.title
