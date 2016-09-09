@@ -62,15 +62,24 @@ Action Center administrators can create four types of actions:
 
 To get started using the Action Center, create a user and grant them admin privileges. Administrators can create, track, and manage campaigns.
 
-To create an admin user: First, create a user through the web interface by following the `register` link in the top nav. Then:
-`rake users:add_admin[youremail@example.org]`
+**To create an admin user**:
+
+1. If the user doesn't exist yet, create them through the web interface by following the `register` link in the top nav.
+2. Run the rake task to grant them admin access (including square brackets):
+```
+rake users:add_admin[youremail@example.org]
+```
 New users will need to complete an e-mail confirmation in order to log in. Administrators can access admin features by clicking `admin` in the nav.
 
-To remove an admin:
-`rake users:remove_admin[youremail@example.org]`
+**To remove an admin user**:
+```
+rake users:remove_admin[youremail@example.org]
+```
 
-To list all admin users:
-`rake users:list_admins `
+**To list all admin users**:
+```
+rake users:list_admins
+```
 
 
 ### Embedding Actions
