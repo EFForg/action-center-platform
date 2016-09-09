@@ -16,8 +16,9 @@ Follow these instructions to run the Action Center using Docker (recommended). T
 1. Install Docker ([instructions](https://docs.docker.com/engine/installation/)) and Docker Compose ([instructions](https://docs.docker.com/compose/install/)).
 2. `git clone https://github.com/EFForg/action-center-platform.git`
 3. Copy `docker-compose.example.yml` to `docker-compose.yml`. Fill it in according to the instructions in that file. See [notable dependencies](#notable-dependencies) for hints.
-4. From within the project directory, run `sudo docker-compose up --build`.
-5. In a new tab, get a bash shell with access to your app: `sudo docker-compose exec app bash`.
+4. Build the docker image: `sudo docker-compose build`
+5. Run the application: `sudo docker-compose up`
+6. In a new tab, get a bash shell with access to your app: `sudo docker-compose exec app bash`.
     1. If you aren't running migrations automatically, run `rake db:migrate` to migrate the database.
 
 
