@@ -1,5 +1,7 @@
 class ActionPageController < ApplicationController
-  before_filter :set_action_page, only: [:show, :show_by_institution, :embed_iframe, :signature_count]
+  before_filter :set_action_page,
+                :protect_unpublished,
+                only: [:show, :show_by_institution, :embed_iframe, :signature_count]
   before_filter :redirect_to_cannonical_url, only: [:show]
   before_filter :set_institution, only: [:show_by_institution, :filter]
   before_filter :set_action_display_variables, only: [:show, :show_by_institution, :embed_iframe, :signature_count]
@@ -71,6 +73,16 @@ private
     redirect_to(@actionPage) unless request.path == action_page_path(@actionPage)
   end
 
+  def protect_unpublished
+    unless @actionPage.published?
+      if current_user.try(:admin?)
+        flash.now[:notice] = "This page is not published. Only Admins can view it."
+      else
+        raise ActiveRecord::RecordNotFound
+      end
+    end
+  end
+
   def set_action_display_variables
     if @actionPage.enable_redirect
         redirect_to @actionPage.redirect_url, :status => 301
@@ -86,13 +98,6 @@ private
       return redirect_to(action_page_path(@actionPage.archived_redirect_action_page_id)) unless taken_action || current_user.try(:admin?)
     end
 
-    unless @actionPage.published?
-      if current_user.try(:admin?)
-        flash.now[:notice] = "This page is not published. Only Admins can view it."
-      else
-        raise ActiveRecord::RecordNotFound
-      end
-    end
 
     @title = @actionPage.title
     @petition = @actionPage.petition
