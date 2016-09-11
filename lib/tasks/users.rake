@@ -14,8 +14,13 @@ namespace :users do
   end
   desc "Add admin status from an account, given an email"
   task :add_admin, [:email] => :environment do |t, args|
-    u = User.find_by_email(args[:email])
+    email = args[:email]
+    u = User.find_by_email(email)
     u.admin = true
-    u.save
+    if u.save
+      puts "Successfully granted admin status to #{email}."
+    else
+      puts "Granting admin status to #{email} failed."
+    end
   end
 end

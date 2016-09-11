@@ -19,7 +19,6 @@ services:
 
   app:
     build: .
-    restart: always
 
     # # Expose ports for development.
     # ports:
@@ -30,6 +29,8 @@ services:
 
     # # Serve Rails using unicorn in production.
     # command: bash -c unicorn
+    # # Automatically restart the app on exit in production.
+    # restart: always
 
     environment:
       secret_key_base: ''
