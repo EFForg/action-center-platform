@@ -1,6 +1,7 @@
 class ActionPageController < ApplicationController
   before_filter :set_action_page,
                 :protect_unpublished,
+                :redirect_to_specified_url,
                 only: [:show, :show_by_institution, :embed_iframe, :signature_count]
   before_filter :redirect_to_cannonical_url, only: [:show]
   before_filter :set_institution, only: [:show_by_institution, :filter]
@@ -69,10 +70,6 @@ private
     @actionPage = ActionPage.friendly.find(params[:id])
   end
 
-  def redirect_to_cannonical_url
-    redirect_to(@actionPage) unless request.path == action_page_path(@actionPage)
-  end
-
   def protect_unpublished
     unless @actionPage.published?
       if current_user.try(:admin?)
@@ -83,11 +80,17 @@ private
     end
   end
 
-  def set_action_display_variables
+  def redirect_to_cannonical_url
+    redirect_to(@actionPage) unless request.path == action_page_path(@actionPage)
+  end
+
+  def redirect_to_specified_url
     if @actionPage.enable_redirect
-        redirect_to @actionPage.redirect_url, :status => 301
-      return
+      redirect_to @actionPage.redirect_url, :status => 301
     end
+  end
+
+  def set_action_display_variables
 
     # Redirect visitors to archived actions unless they have taken that action.
     if @actionPage.archived? and @actionPage.archived_redirect_action_page_id and !@actionPage.victory?

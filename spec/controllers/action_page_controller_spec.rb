@@ -24,6 +24,14 @@ RSpec.describe ActionPageController, type: :controller do
       expect(response.status).to eq(200)
     end
 
+    it "redirects to an admin specified url if redirect is enabled" do
+      action_page = FactoryGirl.create :action_page,
+                      enable_redirect: true,
+                      redirect_url: "https://example.com"
+      get :show, { :id => action_page.slug }
+      expect(response).to redirect_to "https://example.com"
+    end
+
     context "unpublished" do
       let(:unpublished_action_page) { FactoryGirl.create :action_page, published: false }
 
