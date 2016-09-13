@@ -34,13 +34,5 @@ ADD spec/ ./spec
 ADD vendor/ ./vendor
 ADD docker/ ./docker
 
-RUN bundle exec rake assets:precompile --silent \
-  RAILS_ENV=production \
-  SECRET_KEY_BASE=noop \
-  devise_secret_key=noop \
-  DATABASE_URL=postgres://noop \
-  2>&1 | grep -v INFO
-RUN bundle exec rake webshims:update_public
-
 CMD ["rails", "s", "-b", "0.0.0.0"]
 ENTRYPOINT ["/opt/actioncenter/docker/entrypoint.sh"]
