@@ -96,7 +96,7 @@ private
     if @actionPage.redirect_from_archived_to_active_action?
       taken_action = false
       unless current_user.nil?
-        taken_action = true if current_user.events.actions.where(action_page_id: @actionPage).first
+        taken_action = true if current_user.taken_action?(@actionPage)
       end
       return redirect_to(action_page_path(@actionPage.archived_redirect_action_page_id)) unless taken_action || current_user.try(:admin?)
     end

@@ -37,6 +37,13 @@ describe User do
     let(:ahoy) { Ahoy::Tracker.new }
     let(:action_page) { FactoryGirl.create :action_page_with_petition }
 
+    it "knows if the user has taken a given action" do
+      ahoy.authenticate(user)
+      track_signature(action_page)
+
+      expect(user.taken_action?(action_page)).to be_truthy
+    end
+
     it "ranks users" do
       record_several_actions
       expect(user.percentile_rank).to eq(50)
