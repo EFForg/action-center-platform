@@ -1,6 +1,45 @@
 require 'rails_helper'
 
 RSpec.describe ActionPageController, type: :controller do
+  include Devise::TestHelpers
+
+  let(:action_page) { FactoryGirl.create :action_page }
+  let(:admin) {
+    @request.env["devise.mapping"] = Devise.mappings[:admin]
+    sign_in FactoryGirl.create(:admin_user)
+  }
+
+  describe "GET #show" do
+    it "redirects to a cannonical url" do
+      original_slug = action_page.slug
+      action_page.title = "Renamed Sample Action Page"
+      action_page.save
+
+      get :show, { :id => original_slug }
+      expect(response).to redirect_to action_page
+    end
+
+    it "doesn't redirect if the url is already cannonical" do
+      get :show, { :id => action_page.slug }
+      expect(response.status).to eq(200)
+    end
+
+    context "unpublished" do
+      let(:unpublished_action_page) { FactoryGirl.create :action_page, published: false }
+
+      it "hides unpublished pages from non-admin users" do
+        expect {
+          get :show, { :id => unpublished_action_page.slug }
+        }.to raise_error ActiveRecord::RecordNotFound
+      end
+
+      it "notifies admin users that a page is unpublished" do
+        admin
+        get :show, { :id => unpublished_action_page.slug }
+        expect(flash[:notice]).to include("not published")
+      end
+    end
+  end
 
   describe "GET #show_by_institution" do
     before(:each) do
