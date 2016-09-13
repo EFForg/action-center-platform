@@ -1,4 +1,5 @@
 require 'rails_helper'
+require 'call_tool'
 
 RSpec.describe ToolsController, type: :controller do
 
@@ -44,6 +45,19 @@ RSpec.describe ToolsController, type: :controller do
     expect(@petition.signatures.count).to eq 100
   end
 
+  describe "#call" do
+    it "should CallTool#campaign_call, passing parameters in" do
+      call_campaign = FactoryGirl.create(:call_campaign)
+
+      expect(CallTool).to receive(:campaign_call)
+      post :call, {
+             phone: "000-000-0000",
+             location: "00000",
+             call_campaign_id: call_campaign.id,
+             action_id: call_campaign.action_page.id
+           }
+    end
+  end
 end
 
 def create_signature_and_have_user_sign
