@@ -53,6 +53,10 @@ class ActionPage < ActiveRecord::Base
     tweet && !(tweet.target.present?)
   end
 
+  def redirect_from_archived_to_active_action?
+    archived? and archived_redirect_action_page_id and !victory?
+  end
+
   def template
     self[:template]  || :show
   end

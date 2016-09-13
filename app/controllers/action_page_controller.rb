@@ -93,7 +93,7 @@ private
   def set_action_display_variables
 
     # Redirect visitors to archived actions unless they have taken that action.
-    if @actionPage.archived? and @actionPage.archived_redirect_action_page_id and !@actionPage.victory?
+    if @actionPage.redirect_from_archived_to_active_action?
       taken_action = false
       unless current_user.nil?
         taken_action = true if current_user.events.actions.where(action_page_id: @actionPage).first
