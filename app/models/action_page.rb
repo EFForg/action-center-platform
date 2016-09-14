@@ -57,6 +57,10 @@ class ActionPage < ActiveRecord::Base
     archived? and archived_redirect_action_page_id and !victory?
   end
 
+  def redirect_target_if_archived
+    ActionPage.find archived_redirect_action_page_id
+  end
+
   def template
     self[:template]  || :show
   end

@@ -4,10 +4,7 @@ RSpec.describe ActionPageController, type: :controller do
   include Devise::TestHelpers
 
   let(:action_page) { FactoryGirl.create :action_page }
-  let(:admin) {
-    @request.env["devise.mapping"] = Devise.mappings[:admin]
-    sign_in FactoryGirl.create(:admin_user)
-  }
+  let(:admin) { login_as_admin }
 
   describe "GET #show" do
     it "redirects to a cannonical url" do
@@ -28,8 +25,28 @@ RSpec.describe ActionPageController, type: :controller do
       action_page = FactoryGirl.create :action_page,
                       enable_redirect: true,
                       redirect_url: "https://example.com"
-      get :show, { :id => action_page.slug }
+      get :show, { :id => action_page }
       expect(response).to redirect_to "https://example.com"
+    end
+
+    context "archived" do
+      let(:active_action_page) { FactoryGirl.create :action_page }
+      let(:archived_action_page) {
+        FactoryGirl.create :action_page,
+        archived: true,
+        archived_redirect_action_page_id: active_action_page.id
+      }
+
+      it "redirects archived actions to active actions" do
+        get :show, { :id => archived_action_page }
+        expect(response).to redirect_to active_action_page
+      end
+
+      it "doesn't redirect away from victories" do
+        archived_action_page.update_attributes(victory: true)
+        get :show, { :id => archived_action_page }
+        expect(response.status).to eq(200)
+      end
     end
 
     context "unpublished" do
@@ -37,13 +54,13 @@ RSpec.describe ActionPageController, type: :controller do
 
       it "hides unpublished pages from non-admin users" do
         expect {
-          get :show, { :id => unpublished_action_page.slug }
+          get :show, { :id => unpublished_action_page }
         }.to raise_error ActiveRecord::RecordNotFound
       end
 
       it "notifies admin users that a page is unpublished" do
         admin
-        get :show, { :id => unpublished_action_page.slug }
+        get :show, { :id => unpublished_action_page }
         expect(flash[:notice]).to include("not published")
       end
     end

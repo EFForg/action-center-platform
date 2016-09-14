@@ -2,8 +2,9 @@ class ActionPageController < ApplicationController
   before_filter :set_action_page,
                 :protect_unpublished,
                 :redirect_to_specified_url,
+                :redirect_from_archived_to_active_action,
                 only: [:show, :show_by_institution, :embed_iframe, :signature_count]
-  before_filter :redirect_to_cannonical_url, only: [:show]
+  before_filter :redirect_to_cannonical_slug, only: [:show]
   before_filter :set_institution, only: [:show_by_institution, :filter]
   before_filter :set_action_display_variables, only: [:show, :show_by_institution, :embed_iframe, :signature_count]
   skip_before_filter :verify_authenticity_token, only: :embed
@@ -80,27 +81,26 @@ private
     end
   end
 
-  def redirect_to_cannonical_url
-    redirect_to(@actionPage) unless request.path == action_page_path(@actionPage)
-  end
-
   def redirect_to_specified_url
     if @actionPage.enable_redirect
       redirect_to @actionPage.redirect_url, :status => 301
     end
   end
 
-  def set_action_display_variables
-
-    # Redirect visitors to archived actions unless they have taken that action.
+  def redirect_from_archived_to_active_action
     if @actionPage.redirect_from_archived_to_active_action?
-      taken_action = false
-      unless current_user.nil?
-        taken_action = true if current_user.taken_action?(@actionPage)
+      # Users can access actions they've taken in the past as a historical record
+      unless current_user and (current_user.taken_action? @actionPage or current_user.admin?)
+        redirect_to @actionPage.redirect_target_if_archived
       end
-      return redirect_to(action_page_path(@actionPage.archived_redirect_action_page_id)) unless taken_action || current_user.try(:admin?)
     end
+  end
 
+  def redirect_to_cannonical_slug
+    redirect_to(@actionPage) unless request.path == action_page_path(@actionPage)
+  end
+
+  def set_action_display_variables
 
     @title = @actionPage.title
     @petition = @actionPage.petition
