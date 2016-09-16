@@ -123,33 +123,12 @@
                 </div>
               <% end %>
 
-              <%- unless user_signed_in? -%>
-                <div class="email-signup">
-                  <%= t :i -%>
-                  <input type="radio" name="subscribe" value="1" <%= 'checked' if params[:subscribe] == '1' -%> id="do-subscribe" >
-                  <label class="radio-inline" for="do-subscribe"><%= t :want -%></label>
-
-                  <input type="radio" name="subscribe" value="0" <%= 'checked' unless params[:subscribe] == '1' -%> id="do-not-subscribe">
-                  <label class="radio-inline" for="do-not-subscribe"><%= t :do_not_want -%></label>
-                  <%= t :to_sign_up_for_mailings_from -%> <b><%= t :organization_abbreviation -%></b>
-                </div>
-              <% end -%>
-
               <% unless @require_location %>
                 <%= render 'tools/petition_location', f: f %>
               <% end %>
 
-              <% if @actionPage.partner -%>
-                <div class="email-signup">
-                  <%= t :i -%>
-                  <input type="radio" name="partner_newsletter" value="<%= @actionPage.partner.code -%>" id="partner_subscribe">
-                  <label class="radio-inline" for="partner_subscribe"><%= t :want -%></label>
-                  <input type="radio" name="partner_newsletter" value="" id="partner_do_not_subscribe" checked>
-                  <label class="radio-inline" for="partner_do_not_subscribe"><%= t :do_not_want -%></label>
-                  <%= t :to_sign_up_for_mailings_from -%> <b><%= @actionPage.partner.name -%></b>
-                  (<%= link_to 'privacy policy', @actionPage.partner.privacy_url -%>).
-                </div>
-              <% end -%>
+              <%= render "tools/email_signup_radios" unless user_signed_in? %>
+              <%= render "tools/email_signup_radios", partner: @actionPage.partner if @actionPage.partner %>
 
               <%= render 'tools/save_my_info_option', info: t(%w[email name location]) -%>
 
