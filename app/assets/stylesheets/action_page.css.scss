@@ -146,7 +146,7 @@
       font-size: 1em;
       height: 40px;
     }
-    input[type=submit], button[type=submit] {
+    input[type=submit].action, button[type=submit].action {
       @include speak-out-button
     }
     label.checkbox.small {

@@ -138,7 +138,7 @@
               <span class="privacy-notice-popover" data-container="body" data-toggle="popover" data-trigger="hover" data-placement="auto bottom" data-content="EFF uses the information you provide to defend digital rights, including improving our campaigns and sharing information about them, and to contact decisionmakers on your behalf. For details, see our privacy policy at eff.org/policy.">?</span>
             </h3>
             <% button_text = params.include?("button_text") ? params["button_text"].to_sym : t(:speak_out) %>
-            <%= f.submit button_text, class: 'btn'-%>
+            <%= f.submit button_text, class: 'btn action'-%>
             <%= render 'tools/loading' -%>
           <% end %>
       </div>
