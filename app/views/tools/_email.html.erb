@@ -14,9 +14,12 @@
     <% if @email_campaign.target_email -%>
       <div class="tool-body" id="target-email">
         <p>Send this email:</p>
+
         <fieldset disabled>
           <textarea class="form-control" rows="14"><%= @email_campaign.message %></textarea>
         </fieldset>
+
+        <%= render "tools/newsletter_signup" if current_user.nil? %>
 
         <%= link_to tools_email_target_path(
             action_id: @actionPage.id,

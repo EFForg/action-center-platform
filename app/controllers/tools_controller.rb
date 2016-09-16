@@ -264,6 +264,15 @@ class ToolsController < ApplicationController
     UserMailer.thanks_message(@email, @action_page, user: @user, name: @name).deliver_now if @email
   end
 
+  def create_newsletter_subscription
+    if params[:subscription] && EmailValidator.valid?(params[:subscription][:email])
+      source = "action center #{@action_page.class.name.downcase} :: " + @action_page.title
+      params[:subscription][:opt_in] = true
+      params[:subscription][:source] = source
+      CiviCRM::subscribe params[:subscription]
+    end
+  end
+
   # This makes a 3rd party lookup to Sunlight API to get all the representatives
   # relevant to a zipcode and add a tally to their CongressScorecard (creating it if needed)
   def update_congress_scorecards(zipcode)

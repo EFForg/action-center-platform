@@ -27,7 +27,7 @@
         </div>
 
         <p class="small">Enter your phone number below and we'll connect you (US numbers only).</p>
-        <form class="form call-tool" data-call-campaign-id="<%= @actionPage.call_campaign.call_campaign_id %>">
+        <%= form_for(:call_campaign, html: { class: "form call-tool", "data-call-campaign-id": @actionPage.call_campaign.call_campaign_id }) do |f| %>
           <input type="hidden" name="call_campaign_id" value="<%= @actionPage.call_campaign.call_campaign_id %>" />
           <input type="hidden" name="action-id" value="<%= @actionPage.id %>" />
           <fieldset>
@@ -36,7 +36,11 @@
                 Loading...
               </div>
             </div>
+
             <%= render 'tools/save_my_info_option', info: ['phone number', 'location'] -%>
+
+            <%= render "tools/newsletter_signup", f: f, zip: false if current_user.nil? %>
+
             <div class="form-group">
                 <button type="submit" class="btn btn-default call-tool-submit" disabled>Call Now</button>
             </div>
@@ -51,7 +55,7 @@
               data-content="<p>Our &quot;Call Your Representatives&quot; tool uses Sunlight Foundation's Congress API to look up the names and contact forms of your legislators.</p><p>We also uses Twilio's phone API to call and connect you.</p>">why?</a>).<br>
               <a href='https://www.eff.org/pages/call-power-privacy-information'>Click here</a> for more information about Twilio's data collection.<br>
               If you prefer not to use our call tool, <a href="https://www.eff.org/congress"  target="_blank">click here</a>.</p>
-        </form>
+        <% end %>
 
       </div>
       <!-- If we have phone # -->
@@ -90,6 +94,14 @@
           <div class="call-script">
             <%= markdown @actionPage.message_rendered %>
           </div>
+        </div>
+
+        <div class="subscription-info">
+          <h3 class="privacy-notice-header header">
+            <em>Thank you for subscribing!</em>
+            <span class="privacy-notice-popover" data-container="body" data-toggle="popover" data-trigger="hover" data-placement="auto bottom" data-content="EFF uses the information you provide to defend digital rights, including improving our campaigns and sharing information about them, and to contact decisionmakers on your behalf. For details, see our privacy policy at eff.org/policy.">?</span>
+          </h3>
+          <p>Please check your email for a confirmation link.</p>
         </div>
 
         <div class='vertical-share'>

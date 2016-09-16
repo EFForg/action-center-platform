@@ -377,8 +377,10 @@
 .description h3, h3.privacy-notice-header,
 h3.header, #tools #email-tool h3 {
   position: relative;
-  margin-bottom: 1em;
+  margin-bottom: 1em !important;
   font-weight: normal;
+  text-align: left;
+  font-size: 15px;
 
   em {
     background-color: #ffffff;
@@ -432,6 +434,10 @@ h3.privacy-notice-header {
       color: #fff;
     }
   }
+}
+
+.email-signup {
+  text-align: left;
 }
 
 #signatures {
@@ -601,6 +607,9 @@ h3.privacy-notice-header {
     .call-body-active .advisory {
       margin-bottom: 0.8em;
       line-height: 1.2;
+    }
+    .call-body-active .subscription-info {
+      display: none;
     }
     .vertical-share p {
       line-height: 1.5;
