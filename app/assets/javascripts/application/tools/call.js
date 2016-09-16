@@ -25,13 +25,13 @@ $(document).on('ready', function() {
         $('.call-tool-submit').removeAttr('disabled');
         $container.html("");
         if(required_location == "postal"){
-          $container.append($phone_number_field);
-          $container.append($zip_field);
+          $container.append($("<fieldset>").html($phone_number_field));
+          $container.append($("<fieldset>").html($zip_field));
         }
         if(required_location == "latlon"){
-          $container.append($phone_number_field);
-          $container.append($street_address_field);
-          $container.append($zip_field);
+          $container.append($("<fieldset>").html($phone_number_field));
+          $container.append($("<fieldset>").html($street_address_field));
+          $container.append($("<fieldset>").html($zip_field));
         }
         height_changed();
       }
