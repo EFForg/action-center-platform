@@ -8,7 +8,7 @@
   <span class='intl-toggle'>
     <div class="row">
       <div class="col-xs-6">
-        <%= f.text_field :zipcode, class: 'form-control', placeholder: t(:zip_code),
+        <%= f.text_field :zipcode, class: 'form-control', placeholder: "#{t(:zip_code)} #{@require_location || t(:optional)}",
           title: t('petition_errors.required.zip_code') -%>
       </div>
       <div class="col-xs-6">

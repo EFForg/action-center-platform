@@ -63,6 +63,7 @@ es:
   zip_code: Codigo Postal
   city: Ciudad
   country: Pais
+  optional: (opcional)
   ago: atrás
   petition_errors:
     required:
