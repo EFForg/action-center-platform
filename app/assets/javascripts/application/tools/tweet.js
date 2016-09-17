@@ -83,6 +83,9 @@ $(document).on('ready', function() {
     Twitter.handleIntent(e);
   });
 
+  var related = $("#tweet-tool").data("tweet-related");
+  var message = $("#tweet-tool").data("tweet-message");
+  var targets = $("#tweet-tool").data("tweet-targets");
   if(typeof targets != "undefined"){
     var display_num = 3;
     display_random_targets(display_num);
