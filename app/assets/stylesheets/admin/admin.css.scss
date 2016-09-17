@@ -37,6 +37,10 @@
 
 @import "bootstrap-daterangepicker/daterangepicker-bs3";
 
+.daterangepicker.dropdown-menu {
+  display: none;
+}
+
 #epiceditor {
   border: 1px solid #ccc;
 }
