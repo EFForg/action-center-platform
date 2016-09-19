@@ -183,6 +183,15 @@ $(document).on('ready', function() {
     );
   });
 
+  $(".staffer-report").each(function() {
+    var report = this;
+    var bioid = this.dataset.bioid;
+    ajax_get(this.dataset.legislators_url, function(e, data) {
+      if(e) return console.log(e);
+      $(".member_name", report).text(data[bioid]['type'] + ". " + data[bioid]['name']);
+    });
+  });
+
   var preview_button = $('#action-page-preview').click(function() {
     $('#action-page-form').clone().attr('action', preview_button.attr('href')).
                                    attr('target', '_blank').
