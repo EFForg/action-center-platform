@@ -1,30 +1,7 @@
-<script type='text/javascript'>
-  $(function(){
-    $.ajax({
-      url: "<%= congress_forms_date_fills_url(@email_campaign.campaign_tag).html_safe %>",
-      success: function(data) {
-        var tbody_html;
-        var total_count = 0;
-        _.each(data, function(v, k){
-          tbody_html += JST['admin/backbone/templates/email_campaign/date_tabulation_row']({
-            date: moment(k, "YYYY-MM-DD").format("YYYY-MM-DD"),
-            count: v
-          });
-          total_count += v;
-        });
-        tbody_html += JST['admin/backbone/templates/email_campaign/date_tabulation_row']({
-          date: "Total",
-          count: total_count
-        });
-        console.log(tbody_html);
-        $("table#email_tabulation tbody").html(tbody_html);
-      }
-    });
-  });
-</script>
 <div class="container">
   <h3>Emails sent for campaign: <i><%= @email_campaign.campaign_tag %></i></h3>
-  <table class='table table-striped' id='email_tabulation'>
+  <table class="table table-striped" id="email_tabulation_by_date"
+         data-fills_url="<%= congress_forms_date_fills_url(@email_campaign.campaign_tag) %>">
     <thead>
       <tr>
         <th>Date</th>
