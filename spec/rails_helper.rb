@@ -56,6 +56,7 @@ RSpec.configure do |config|
   # https://relishapp.com/rspec/rspec-rails/docs
   config.infer_spec_type_from_file_location!
 
+  FileUtils.mkdir_p("#{Rails.root}/tmp/cache")
   config.before(:each) do
     Rails.cache.clear
   end
