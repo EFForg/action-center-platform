@@ -10,7 +10,7 @@ class ToolsController < ApplicationController
   skip_before_filter :verify_authenticity_token, only: :petition
 
   def call_required_fields
-    render :json => CallCampaign.find(params[:call_campaign_id]).required_fields
+    render :json => CallTool.required_fields_for_campaign(params[:call_campaign_id])
   end
 
   def call
@@ -24,12 +24,12 @@ class ToolsController < ApplicationController
       update_user_data(call_params.with_indifferent_access)
     end
 
-    CallCampaign.find(params[:call_campaign_id]).
-      connect(phone: params[:phone],
-              location: params[:location],
-              user_id: @user.try(:id),
-              action_id: @action_page.to_param,
-              callback_url: root_url)
+    CallTool.campaign_call(params[:call_campaign_id],
+                           phone: params[:phone],
+                           location: params[:location],
+                           user_id: @user.try(:id),
+                           action_id: @action_page.to_param,
+                           callback_url: root_url)
 
     render :json => {}, :status => 200
   end
