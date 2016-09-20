@@ -33,7 +33,7 @@
                 </td>
                 <td> <%= partner.code -%> </td>
                 <td> <%= link_to 'Link', partner.privacy_url -%> </td>
-                <td> <%= partner.subscriptions.count -%> </td>
+                <td> <%= partner.subscriptions.size -%> </td>
                 <td>
                   <div class='btn-group'>
                     <%= link_to 'View and edit →', partner, class: 'btn btn-sm btn-success'%>
@@ -52,6 +52,7 @@
           </tbody>
         </table>
 
+	<%= will_paginate @partners %>
         
       </div>
     </div>
