@@ -33,53 +33,85 @@ services:
     # restart: always
 
     environment:
+      #
+      # Start of application environment variables
+      #
+
+      # Standard Rails stuff (required)
       secret_key_base: ''
-      sunlight_api_key: ''
-      smtp_username: ''
-      smtp_password: ''
-      smtp_address: 'smtp.example.com'
-      smtp_port: "587"
-      smtp_domain: 'act.example.com'
-      smtp_authentication: plain
-      smtp_enable_starttls_auto: "true"
-      mailings_from: 'Example Action <actioncenter@example.com>'
-      twitter_handle: 'example'
-      twitter_related: 'example examplelive'
-      facebook_handle: 'example'
-      call_tool_url: 'https://call.example.com/'
-      call_tool_api_key: ''
-      congress_forms_url: 'http://phantomdc.example.com'
       devise_secret_key: ''
-      storage: 's3'
-      amazon_access_key_id: ''
-      amazon_secret_access_key: ''
-      amazon_region: us-west-1
-      amazon_bucket: actioncenter
-      amazon_bucket_url: 'act.s.example.com'
-      smarty_streets_id: ''
-      smarty_streets_token: ''
-      congress_forms_debug_key: ''
-      cors_allowed_domains: https://example.org https://some.example.com
+      force_ssl: "false"
       time_zone: 'Pacific Time (US & Canada)'
-      amazon_authorize_key: ''
-      supporters_api_key: ''
-      supporters_host: https://actioncenter:somekey@supporters.example.com
-      supporters_path: /civicrm/example-action-api
+
+      # Database configuration (required)
       db_adapter: postgresql
       db_database: postgres
       db_username: postgres
       db_password: mysecretpassword
       db_port: "5432"
       db_host: db
+
+      # Test database configuration
       test_db_password: mysecrettestpassword
       test_db_username: postgres
       test_db_database: postgres
       test_db_adapter: postgresql
       test_db_port: "5432"
       test_db_host: testdb
+
+      # Social media (required)
+      twitter_handle: 'example'
+      twitter_related: 'example examplelive'
+      facebook_handle: 'example'
+
+      # the following twitter vars are needed only if you want to auto-fetch
+      # user avatars when they're added as an individual tweet target
       twitter_oauth_token: ''
       twitter_oauth_token_secret: ''
       twitter_api_key: ''
       twitter_api_secret: ''
+
+      # Mail settings (required)
+      smtp_username: ''
+      smtp_password: ''
+      smtp_address: 'smtp.example.com'
+      mailings_from: 'Example Action <actioncenter@example.com>'
+
+      # Mail settings (not required)
+      smtp_port: "587"
+      smtp_domain: 'act.example.com'
+      smtp_authentication: plain
+      smtp_enable_starttls_auto: "true"
+
+      # AWS (required)
+      storage: 's3'
+      amazon_access_key_id: ''
+      amazon_secret_access_key: ''
+      amazon_region: us-west-1
+      amazon_bucket: actioncenter
+
+      # AWS (not required)
+      amazon_bucket_url: 'act.s.example.com'
+      amazon_authorize_key: ''
+
+      # Third party integration (required)
+      congress_forms_url: 'http://phantomdc.example.com'
+      smarty_streets_id: ''
+      smarty_streets_token: ''
+
+      # Third party integration (not required)
+      call_tool_url: 'https://call.example.com/'
+      sunlight_api_key: ''
+      call_tool_api_key: ''
+      congress_forms_debug_key: ''
+      supporters_api_key: ''
+      supporters_host: https://actioncenter:somekey@supporters.example.com
+      supporters_path: /civicrm/example-action-api
+      cors_allowed_domains: https://example.org https://some.example.com
+
+      # Error reporting (not required)
       sentry_dsn: ''
-      force_ssl: "false"
+
+      #
+      # End of application environment variables
+      #
