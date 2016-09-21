@@ -104,8 +104,8 @@ group :development do
 end
 
 group :development, :test do
-  gem 'rspec-core', '3.4.1'
-  gem 'rspec-rails', '3.4.0'
+  gem 'rspec-core'
+  gem 'rspec-rails'
   gem 'cucumber-rails', '1.4.2', require: false
   gem 'capybara', '~> 2.5.0'
   gem 'selenium-webdriver', '~> 2.49', require: false
