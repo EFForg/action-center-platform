@@ -20,4 +20,10 @@ FactoryGirl.define do
   factory :action_page_with_call, :parent => :action_page do
     enable_call true
   end
+
+  factory :archived_action_page, :parent => :action_page do
+    archived true
+    association :redirect_target_action_if_archived, :factory => :action_page
+    victory false
+  end
 end

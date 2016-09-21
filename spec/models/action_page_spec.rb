@@ -11,10 +11,7 @@ describe ActionPage do
   end
 
   it "knows when to redirect from an archived action" do
-    action_page = FactoryGirl.build_stubbed :action_page,
-                    archived: true,
-                    archived_redirect_action_page_id: 2,
-                    victory: false
+    action_page = FactoryGirl.build_stubbed :archived_action_page
     expect(action_page.redirect_from_archived_to_active_action?).to be_truthy
   end
 

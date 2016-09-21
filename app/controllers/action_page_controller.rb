@@ -91,7 +91,7 @@ private
     if @actionPage.redirect_from_archived_to_active_action?
       # Users can access actions they've taken in the past as a historical record
       unless current_user and (current_user.taken_action? @actionPage or current_user.admin?)
-        redirect_to @actionPage.redirect_target_if_archived
+        redirect_to @actionPage.redirect_target_action_if_archived
       end
     end
   end

@@ -32,9 +32,8 @@ RSpec.describe ActionPageController, type: :controller do
     context "archived" do
       let(:active_action_page) { FactoryGirl.create :action_page }
       let(:archived_action_page) {
-        FactoryGirl.create :action_page,
-        archived: true,
-        archived_redirect_action_page_id: active_action_page.id
+        FactoryGirl.create :archived_action_page,
+        redirect_target_action_if_archived: active_action_page
       }
 
       it "redirects archived actions to active actions" do
