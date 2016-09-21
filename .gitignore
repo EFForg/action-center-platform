@@ -22,9 +22,6 @@ pickle-email-*.html
 .elasticbeanstalk/
 docker-compose.yml
 
-# Ignore application configuration
-/config/application.yml
-
 # Ignore custom quotes
 /config/custom_quotes.yml
 
