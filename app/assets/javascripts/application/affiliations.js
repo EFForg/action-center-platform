@@ -23,6 +23,7 @@ $(document).on('ready', function() {
 
   // If institutions are passed as json, load them as paginated data
   // in select2 menus.
+  var institutions = $("select[data-institutions]").data("institutions");
   if (typeof institutions !== 'undefined') {
     $.extend(select2_options, {
       dataAdapter: $.fn.select2.amd.require('select2/data/pagedAdapter'),

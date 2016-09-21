@@ -110,7 +110,15 @@
             <%= render 'tools/loading' -%>
           </form>
 
-        <div class="email-tool-container"></div>
+        <div class="email-tool-container"
+             data-campaign-tag="<%= @email_campaign.campaign_tag %>"
+             data-email-values="<%= congress_forms_email_values(@email_campaign).to_json %>"
+             data-target-house="<%= @email_campaign.target_house %>"
+             data-target-senate="<%= @email_campaign.target_senate %>"
+             data-target-bioguide-id="<%= @email_campaign.target_bioguide_id %>"
+             data-extra-fields-explain="<%= @email_campaign.extra_fields_explain_text "We send your comments to your representatives by automatically filling out their online contact forms. Because each representative's form is a little different, we need your help filling out a few extra fields before we can send your message:" %>"
+             data-bioguide-id="<%= @email_campaign.bioguide_id %>"
+             data-topic-category="<%= @topic_category.to_json %>"></div>
         <%= render 'tools/share' -%>
       </div>
       <div class="tool-body without-js">
@@ -132,22 +140,3 @@
   </div>
   <% end %>
 </div>
-
-<script>
-  var emailValues = {
-    '$NAME_FIRST': '<%= current_first_name -%>',
-    '$NAME_LAST': '<%= current_last_name -%>',
-    '$ADDRESS_STREET': '<%= current_street_address -%>',
-    '$ADDRESS_CITY': '<%= current_city-%>',
-    '$EMAIL': '<%= current_email -%>',
-    '$PHONE': '<%= current_user && current_user.phone %>',
-    '$SUBJECT': '<%= @email_campaign.subject -%>'
-  };
-  var target_house = <%= @email_campaign.target_house -%>;
-  var target_senate = <%= @email_campaign.target_senate -%>;
-  var target_bioguide_id = <%= @email_campaign.target_bioguide_id -%>;
-  var extra_fields_explain = "<%= @email_campaign.extra_fields_explain_text "We send your comments to your representatives by automatically filling out their online contact forms. Because each representative's form is a little different, we need your help filling out a few extra fields before we can send your message:" %>";
-  var bioguide_id = "<%= @email_campaign.bioguide_id -%>";
-  var topic_category = <%= @topic_category.to_json.html_safe %>;
-  var campaign_tag = "<%= @email_campaign.campaign_tag -%>";
-</script>

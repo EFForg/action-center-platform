@@ -1,8 +1,3 @@
-<script>
-  var petition_id = "<%= @petition.id %>";
-  var institutions = <%= raw @institutions.to_json( :only => [:id, :name] ) %>
-  var international_only = <%= params.include?('international_only') and params['international_only'] == "true" ? "true" : "false" %>;
-</script>
 <script type='text/x-underscore-template' id='individual_signature'>
   <tr>
     <td>
@@ -14,7 +9,7 @@
     </td>
   </tr>
 </script>
-<div id='petition-tool' class="tool <%= 'un' unless current_user.try(:signed?, @actionPage.petition) || params[:thankyou] -%>signed">
+<div id="petition-tool" class="tool <%= 'un' unless current_user.try(:signed?, @actionPage.petition) || params[:thankyou] -%>signed" data-petition-id="<%= @actionPage.petition.id %>">
   <div class="tool-container">
 
     <div class="tool-heading">

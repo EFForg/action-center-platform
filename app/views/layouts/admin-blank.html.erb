@@ -4,6 +4,7 @@
 <% end %>
 
 <% content_for :body do %>
+  <%= render "admin/init_epic_editor" %>
   <%= javascript_include_tag "admin"  %>
   <%= yield :charts_js %>
 <% end %>

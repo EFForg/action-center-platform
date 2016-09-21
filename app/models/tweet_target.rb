@@ -12,6 +12,10 @@ class TweetTarget < ActiveRecord::Base
     "https://twitter.com/" + twitter_id
   end
 
+  def image_url
+    image.url
+  end
+
   def attach_twitter_image
     self.delay.attach_twitter_image_without_delay if image_file_name.nil? and Twitter.has_api_keys?
   end
