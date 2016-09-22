@@ -1,4 +1,4 @@
-FROM rails:4.2.6
+FROM ruby:2.3.1
 
 RUN mkdir /opt/actioncenter
 WORKDIR /opt/actioncenter
@@ -6,6 +6,8 @@ WORKDIR /opt/actioncenter
 RUN apt-get update && \
   apt-get install -y --no-install-recommends \
     libpq-dev \
+    nodejs \
+    postgresql-client \
     xvfb \
     xauth && \
   apt-get clean && \
