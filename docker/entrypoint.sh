@@ -3,11 +3,11 @@ set -e
 
 rm -rf tmp/
 
-if [ "$DB_ENV_AUTO_MIGRATE" == "yes" ]; then
-  bin/rake db:migrate RAILS_ENV=development
+if [ "$DB_AUTO_MIGRATE" == "true" ]; then
+  bin/rake db:migrate
 fi
 
-if [ "$TESTDB_ENV_AUTO_MIGRATE" == "yes" ]; then
+if [ "$TESTDB_AUTO_MIGRATE" == "true" ]; then
   bin/rake db:migrate RAILS_ENV=test
 fi
 

@@ -50,6 +50,7 @@ services:
       db_password: mysecretpassword
       db_port: "5432"
       db_host: db
+      DB_AUTOMIGRATE: false
 
       # Test database configuration
       test_db_password: mysecrettestpassword
@@ -58,6 +59,7 @@ services:
       test_db_adapter: postgresql
       test_db_port: "5432"
       test_db_host: testdb
+      TEST_DB_AUTOMIGRATE: false
 
       # Social media (required)
       twitter_handle: 'example'
