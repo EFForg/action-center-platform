@@ -15,10 +15,6 @@ describe ActionPage do
     expect(action_page.redirect_from_archived_to_active_action?).to be_truthy
   end
 
-
-
-
-
   # The test was a no-go because of the ajaxy html requiring nils... and Then
   # changing them from nils to ""???  Needs effeciency review before crashyness review
   # it "should not allow the creation of a model with so few attrs that it would crash the views" do
