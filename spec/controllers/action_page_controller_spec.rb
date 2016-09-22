@@ -33,7 +33,7 @@ RSpec.describe ActionPageController, type: :controller do
       let(:active_action_page) { FactoryGirl.create :action_page }
       let(:archived_action_page) {
         FactoryGirl.create :archived_action_page,
-        redirect_target_action_if_archived: active_action_page
+        active_action_page_for_redirect: active_action_page
       }
 
       it "redirects archived actions to active actions" do

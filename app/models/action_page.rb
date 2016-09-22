@@ -16,7 +16,7 @@ class ActionPage < ActiveRecord::Base
   belongs_to :email_campaign
   belongs_to :call_campaign
   belongs_to :partner
-  belongs_to :redirect_target_action_if_archived, :class_name => "ActionPage",
+  belongs_to :active_action_page_for_redirect, :class_name => "ActionPage",
              :foreign_key => "archived_redirect_action_page_id"
 
   accepts_nested_attributes_for :tweet, :petition, :email_campaign,
@@ -56,7 +56,7 @@ class ActionPage < ActiveRecord::Base
   end
 
   def redirect_from_archived_to_active_action?
-    archived? and redirect_target_action_if_archived and !victory?
+    archived? and active_action_page_for_redirect and !victory?
   end
 
   def template

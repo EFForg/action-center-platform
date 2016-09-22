@@ -23,7 +23,7 @@ FactoryGirl.define do
 
   factory :archived_action_page, :parent => :action_page do
     archived true
-    association :redirect_target_action_if_archived, :factory => :action_page
+    association :active_action_page_for_redirect, :factory => :action_page
     victory false
   end
 end
