@@ -15,4 +15,5 @@ Feature: Enable affiliations on a petition
     And I check "Allow local affiliations"
     And I press "Save"
     And I click "Edit this page"
+    And I click "Action Settings"
     Then the "Allow local affiliations" checkbox should be checked
