@@ -22,7 +22,7 @@
       <%= submit_tag "Search" %>
     <% end %>
 
-    <%= form_tag signatures_admin_petition_path(@petition, query: params[:query], page: params[:page] || '1'), method: :delete do %>
+    <%= form_tag signatures_admin_petition_path(@petition, params.slice(:query, :page)), method: :delete do %>
       <table class="table table-striped table-hover ">
         <tbody>
 
