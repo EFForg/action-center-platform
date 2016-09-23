@@ -8,6 +8,7 @@
 //= require admin/file_uploads
 //= require admin/s3_uploads.js
 //= require admin/email_tabulation
+//= require admin/petitions
 //= require s3_cors_fileupload
 //= require bootstrap-sass/bootstrap/tab
 //= require bootstrap-responsive-tabs
@@ -105,10 +106,6 @@ $(document).on('ready', function() {
     var anchor = $(e.target).data('tab');
     $('#anchor').val(anchor);
     history.pushState(null,null,'#' + anchor);
-  });
-
-  $(".container input[type=checkbox].select-all").click(function(e) {
-    $(this).parents("form").find("input[type=checkbox]").prop("checked", this.checked);
   });
 
   var updated_at = $('#action_page_updated_at');
