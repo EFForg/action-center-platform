@@ -107,6 +107,10 @@ $(document).on('ready', function() {
     history.pushState(null,null,'#' + anchor);
   });
 
+  $(".container input[type=checkbox].select-all").click(function(e) {
+    $(this).parents("form").find("input[type=checkbox]").prop("checked", this.checked);
+  });
+
   var updated_at = $('#action_page_updated_at');
   if (updated_at.length > 0) {
     var t = window.setInterval(function() {

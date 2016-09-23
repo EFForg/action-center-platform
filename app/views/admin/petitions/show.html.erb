@@ -9,22 +9,51 @@
     <strong>Text:</strong>
     <%= markdown @petition.description %>
   </p>
-  <h3 class='clearfix'>
-      <%= @petition.signatures.count -%> Signatures
-      <%= link_to 'Download CSV', csv_admin_petition_path(@petition), class: 'btn btn-default btn-sm pull-right'-%>
-  </h3>
-  <table class="table table-striped table-hover ">
-    <tbody>
-   <% @signatures.each do |signature| %>
 
-      <tr>
-        <td><em><%= "#{signature.first_name} #{signature.last_name}" %></em></td>
-        <td><em><%= signature.email %></em></td>
-        <td class="timeago" title="<%= signature.created_at.to_time.iso8601 %>"><%= signature.created_at.to_time.iso8601 %></td>
-      </tr>
+  <% signatures_count = @petition.signatures.count %>
+  <h3 class="clearfix">
+    <%= signatures_count -%> Signatures
+    <%= link_to "Download CSV", csv_admin_petition_path(@petition), class: "btn btn-default btn-sm pull-right"-%>
+  </h3>
+
+  <% unless signatures_count.zero? %>
+    <%= form_tag admin_petition_path(@petition), id: "filter_petitions", method: "get" do %>
+      <%= text_field_tag :query, params[:query], placeholder: "Filter by name, email, institution..." %>
+      <%= submit_tag "Search" %>
     <% end %>
 
-    </tbody>
-  </table>
-  <%= will_paginate @signatures -%>
+    <%= form_tag signatures_admin_petition_path(@petition, query: params[:query], page: params[:page] || '1'), method: :delete do %>
+      <table class="table table-striped table-hover ">
+        <tbody>
+
+          <% if @signatures.exists? %>
+            <% @signatures.each do |signature| %>
+              <tr>
+                <td><em><%= "#{signature.first_name} #{signature.last_name}" %></em></td>
+                <td><em><%= signature.email %></em></td>
+                <td class="timeago" title="<%= signature.created_at.to_time.iso8601 %>"><%= signature.created_at.to_time.iso8601 %></td>
+                <td><input type="checkbox" name="signature_ids[]" value="<%= signature.id %>" /></td>
+              </tr>
+            <% end %>
+
+            <tr>
+              <td colspan="3"></td>
+              <td><input type="checkbox" class="select-all" title="Select all" /></td>
+            </tr>
+
+            <tr>
+              <td colspan="3"></td>
+              <td align="center">
+                <%= submit_tag "Destroy", class: "btn btn-default btn-cancel btn-sm" %>
+              </td>
+            </tr>
+          <% else %>
+            <tr>No signatures match this query</tr>
+          <% end %>
+        </tbody>
+      </table>
+    <% end %>
+
+    <%= will_paginate @signatures -%>
+  <% end %>
 </div>
