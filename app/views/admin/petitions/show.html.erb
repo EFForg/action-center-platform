@@ -18,7 +18,7 @@
 
   <% unless signatures_count.zero? %>
     <%= form_tag admin_petition_path(@petition), id: "filter_petitions", method: "get" do %>
-      <%= text_field_tag :query, params[:query], placeholder: "Filter by name, email, institution..." %>
+      <%= text_field_tag :query, params[:query], placeholder: "Filter by name or email..." %>
       <%= submit_tag "Search" %>
     <% end %>
 
