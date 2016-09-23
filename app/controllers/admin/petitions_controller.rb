@@ -34,7 +34,7 @@ class Admin::PetitionsController < Admin::ApplicationController
       params[:page] = filtered_signatures.total_pages
     end
 
-    redirect_to admin_petition_path(@petition, params.slice(:query, :page))
+    redirect_to admin_petition_path(@petition, params.slice(:query, :page, :per_page))
   end
 
   private
@@ -47,6 +47,6 @@ class Admin::PetitionsController < Admin::ApplicationController
     @petition.signatures.
       filter(params[:query]).
       order(created_at: :desc).
-      paginate(page: params[:page], per_page: 10)
+      paginate(page: params[:page], per_page: params[:per_page] || 10)
   end
 end
