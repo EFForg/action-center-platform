@@ -128,9 +128,12 @@ $(document).on('ready', function() {
 
 
   var preview_button = $('#action-page-preview').click(function() {
-    $('#action-page-form').clone().attr('action', preview_button.attr('href')).
-                                   attr('target', '_blank').
-                                   submit();
+    var form = $('#action-page-form').clone()
+                 .attr("id", null).css("display", "none")
+                 .attr('action', preview_button.attr('href'))
+                 .attr('target', '_blank');
+    $("body").append(form);
+    form.submit();
     return false;
   });
 
