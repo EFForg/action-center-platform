@@ -26,4 +26,8 @@ FactoryGirl.define do
     association :active_action_page_for_redirect, :factory => :action_page
     victory false
   end
+
+  factory :action_page_with_email, :parent => :action_page do
+    enable_email true
+  end
 end
