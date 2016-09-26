@@ -1,5 +1,7 @@
 FactoryGirl.define do
   factory :call_campaign do
+    title "a call campaign"
+
     after(:create) do |campaign|
       FactoryGirl.create(:action_page_with_call, call_campaign_id: campaign.id)
     end
