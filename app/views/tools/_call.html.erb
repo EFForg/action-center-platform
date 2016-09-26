@@ -1,12 +1,3 @@
-<script type='text/x-underscore-template' id='zip-input'>
-  <input type="text" required class="form-control" id="inputZip" name="inputZip" value="<%= current_user.try :zipcode -%>" placeholder="Zip Code" pattern='^[\d]{5}$' title='Must be a valid 5-digit zip code'>
-</script>
-<script type='text/x-underscore-template' id='street-address-input'>
-  <input type="text" required class="form-control" id="inputStreetAddress" name="inputStreetAddress" value="<%= current_user.try :street_address -%>" placeholder="Street Address" title='Must be a valid US street address (no city or state necessary)'>
-</script>
-<script type='text/x-underscore-template' id='phone-input'>
-  <input type="text" required class="form-control bfh-phone" id="inputPhone" name="inputPhone" value="<%= current_user.try :phone -%>" data-format="ddd-ddd-dddd" pattern="^((5\d[123467890])|(5[123467890]\d)|([2346789]\d\d))-\d\d\d-\d\d\d\d$" placeholder="Phone Number" title="Must be a valid US phone number entered in 555-555-5555 format">
-</script>
 <div id='call-tool' class="tool">
   <div class="tool-container">
     <div class="tool-heading">
@@ -32,13 +23,23 @@
           <input type="hidden" name="action-id" value="<%= @actionPage.id %>" />
           <fieldset>
             <div class="form-group">
-              <div id='call-tool-form-container'>
-                Loading...
+              <div id="call-tool-form-container">
+                <% case CallTool.required_fields_for_campaign(@actionPage.call_campaign.call_campaign_id)["userLocation"] %>
+                <% when "postal" %>
+                  <input type="text" required class="form-control bfh-phone" id="inputPhone" name="inputPhone" value="<%= current_user.try :phone -%>" data-format="ddd-ddd-dddd" pattern="^((5\d[123467890])|(5[123467890]\d)|([2346789]\d\d))-\d\d\d-\d\d\d\d$" placeholder="Phone Number" title="Must be a valid US phone number entered in 555-555-5555 format">
+                  <input type="text" required class="form-control" id="inputZip" name="inputZip" value="<%= current_user.try :zipcode -%>" placeholder="Zip Code" pattern='^[\d]{5}$' title='Must be a valid 5-digit zip code'>
+                <% when "latlon" %>
+                  <input type="text" required class="form-control bfh-phone" id="inputPhone" name="inputPhone" value="<%= current_user.try :phone -%>" data-format="ddd-ddd-dddd" pattern="^((5\d[123467890])|(5[123467890]\d)|([2346789]\d\d))-\d\d\d-\d\d\d\d$" placeholder="Phone Number" title="Must be a valid US phone number entered in 555-555-5555 format">
+                  <input type="text" required class="form-control" id="inputStreetAddress" name="inputStreetAddress" value="<%= current_user.try :street_address -%>" placeholder="Street Address" title='Must be a valid US street address (no city or state necessary)'>
+                  <input type="text" required class="form-control" id="inputZip" name="inputZip" value="<%= current_user.try :zipcode -%>" placeholder="Zip Code" pattern='^[\d]{5}$' title='Must be a valid 5-digit zip code'>
+                <% else %>
+                  <input type="text" required class="form-control bfh-phone" id="inputPhone" name="inputPhone" value="<%= current_user.try :phone -%>" data-format="ddd-ddd-dddd" pattern="^((5\d[123467890])|(5[123467890]\d)|([2346789]\d\d))-\d\d\d-\d\d\d\d$" placeholder="Phone Number" title="Must be a valid US phone number entered in 555-555-5555 format">
+                <% end %>
               </div>
             </div>
             <%= render 'tools/save_my_info_option', info: ['phone number', 'location'] -%>
             <div class="form-group">
-                <button type="submit" class="btn btn-default call-tool-submit" disabled>Call Now</button>
+                <button type="submit" class="btn btn-default call-tool-submit">Call Now</button>
             </div>
           </fieldset>
             <p class="privacy-notice">Uses <a href="http://sunlightfoundation.com/legal/privacy/" target="_blank">Sunlight Labs</a> and <a href="https://www.twilio.com/legal/privacy" target="_blank">Twilio</a>'s APIs (<a class="privacy-notice-popover" href="#"
