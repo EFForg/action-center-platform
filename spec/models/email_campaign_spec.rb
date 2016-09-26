@@ -10,19 +10,19 @@ describe EmailCampaign do
 
     context "service = :default" do
       it "should redirect to a mailto uri" do
-        expect(campaign.service_uri(:default)).to eq("mailto:a@example.com,b@example.com?body=hello+world&subject=hey+hey+hey")
+        expect(campaign.service_uri(:default)).to eq("mailto:a@example.com,b@example.com?body=hello%20world&subject=hey%20hey%20hey")
       end
     end
 
     context "service = :gmail" do
       it "should redirect to gmail's mail url" do
-        expect(campaign.service_uri(:gmail)).to eq("https://mail.google.com/mail/?view=cm&fs=1&to=a@example.com,b@example.com&body=hello+world&su=hey+hey+hey")
+        expect(campaign.service_uri(:gmail)).to eq("https://mail.google.com/mail/?view=cm&fs=1&to=a@example.com,b@example.com&body=hello%20world&su=hey%20hey%20hey")
       end
     end
 
     context "service = :hotmail" do
       it "should redirect to outlook's mail url" do
-        expect(campaign.service_uri(:hotmail)).to eq("https://outlook.live.com/default.aspx?rru=compose&to=a@example.com,b@example.com&body=hello+world&subject=hey+hey+hey#page=Compose")
+        expect(campaign.service_uri(:hotmail)).to eq("https://outlook.live.com/default.aspx?rru=compose&to=a@example.com,b@example.com&body=hello%20world&subject=hey%20hey%20hey#page=Compose")
       end
     end
   end

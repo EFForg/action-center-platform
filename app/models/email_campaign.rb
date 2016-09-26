@@ -32,18 +32,25 @@ class EmailCampaign < ActiveRecord::Base
     message_brs = message.gsub("\r\n", "<br>")
 
     {
-      default: "mailto:#{to_cgi}?" + { subject: subject, body: message }.to_query,
+      default: "mailto:#{to_cgi}?#{query(subject: subject, body: message)}",
 
-      gmail: "https://mail.google.com/mail/?view=cm&fs=1&to=#{to_cgi}&" + { su: subject, body: message }.to_query,
+      gmail: "https://mail.google.com/mail/?view=cm&fs=1&to=#{to_cgi}&#{query(su: subject, body: message)}",
 
       # couldn't get newlines to work here, see: https://stackoverflow.com/questions/1632335/uri-encoding-in-yahoo-mail-compose-link
-      yahoo: "http://compose.mail.yahoo.com/?to=#{to_cgi}&" + { subj: subject, body: message }.to_query,
+      yahoo: "http://compose.mail.yahoo.com/?to=#{to_cgi}&#{query(subj: subject, body: message)}",
 
-      hotmail: "https://outlook.live.com/default.aspx?rru=compose&to=#{to_cgi}&" + { subject: subject, body: message_brs }.to_query + "#page=Compose"
+      hotmail: "https://outlook.live.com/default.aspx?rru=compose&to=#{to_cgi}&#{query(subject: subject, body: message_brs)}#page=Compose"
     }.with_indifferent_access.fetch(service)
   end
 
   private
+
+  # like Hash#to_query except we percent encode spaces
+  def query(hash)
+    hash.collect do |key, value|
+      "#{u(key)}=#{u(value)}"
+    end.compact.sort! * '&'
+  end
 
   def target_bioguide_text_or_default custom_text, default
     if not target_bioguide_id or custom_text.blank?
