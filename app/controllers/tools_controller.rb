@@ -1,7 +1,7 @@
-require 'smarty_streets'
 require 'rest_client'
 require 'uri'
 require 'json'
+
 class ToolsController < ApplicationController
   before_filter :set_user
   before_filter :set_action_page

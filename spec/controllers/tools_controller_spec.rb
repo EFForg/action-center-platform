@@ -1,5 +1,4 @@
 require 'rails_helper'
-require 'call_tool'
 
 RSpec.describe ToolsController, type: :controller do
 

@@ -1,4 +1,3 @@
-require 'quotes'
 class Admin::ApplicationController < ApplicationController
   layout 'admin'
   before_filter :must_be_admin
