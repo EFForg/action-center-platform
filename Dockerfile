@@ -7,9 +7,7 @@ RUN apt-get update && \
   apt-get install -y --no-install-recommends \
     libpq-dev \
     nodejs \
-    postgresql-client \
-    xvfb \
-    xauth && \
+    postgresql-client && \
   apt-get clean && \
   rm -rf /var/lib/apt/lists/* \
     /tmp/* \
