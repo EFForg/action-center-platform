@@ -7,6 +7,8 @@
 require 'cucumber/rails'
 require 'cucumber/rspec/doubles'
 
+require_relative './call_tool_mock'
+
 Capybara.javascript_driver = :webkit
 
 Capybara::Webkit.configure do |config|

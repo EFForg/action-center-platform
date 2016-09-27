@@ -355,27 +355,20 @@ end
 
 Given(/^a call petition targeting senate exists$/) do
   setup_action
-  @call_campaign = FactoryGirl.create(:call_campaign, call_campaign_id: 1, message: "hey hey")
+  @call_campaign = FactoryGirl.create(:call_campaign, call_campaign_id: senate_call_campaign_id, message: "hey hey")
   @action_page = @call_campaign.action_page
   @action_page.update_attributes(title: @action_info[:title],
     summary: @action_info[:summary],
     description: @action_info[:description])
-
-  allow(CallTool).to receive(:required_fields_for_campaign){ { "userLocation" => "postal" } }
-  allow(CallTool).to receive(:campaign_call)
 end
 
 Given(/^a call petition targeting a custom number exists$/) do
   setup_action
-  @call_campaign = FactoryGirl.create(:call_campaign, call_campaign_id: 1, message: "hey hey")
+  @call_campaign = FactoryGirl.create(:call_campaign, call_campaign_id: custom_call_campaign_id, message: "hey hey")
   @action_page = @call_campaign.action_page
   @action_page.update_attributes(title: @action_info[:title],
     summary: @action_info[:summary],
     description: @action_info[:description])
-
-  # custom campaigns are distinguished by having no "userLocation" in the call tool response
-  allow(CallTool).to receive(:required_fields_for_campaign){ { } }
-  allow(CallTool).to receive(:campaign_call)
 end
 
 Then(/^I see form fields for phone number and zip code$/) do
