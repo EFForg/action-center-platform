@@ -1,3 +1,6 @@
+
+require "call_tool"
+
 def senate_call_campaign_id; 1; end
 def custom_call_campaign_id; 2; end
 
