@@ -1,5 +1,4 @@
 require 'aws/s3'
-require './lib/amazon_credentials.rb'
 
 class SourceFile < ActiveRecord::Base
   include Rails.application.routes.url_helpers

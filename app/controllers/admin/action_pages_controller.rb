@@ -1,4 +1,3 @@
-require 'quotes'
 class Admin::ActionPagesController < Admin::ApplicationController
   before_filter :set_action_page, except: [ :new, :index, :create, :update_featured_pages ]
   before_filter :set_date_from_params, only: [:index, :edit, :new]

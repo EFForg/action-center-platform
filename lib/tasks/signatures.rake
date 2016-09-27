@@ -1,4 +1,3 @@
-require 'smarty_streets'
 namespace :signatures do
   desc "Fill in US States from zipcodes"
   task :fill_us_states => :environment do

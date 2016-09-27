@@ -1,8 +1,6 @@
-require 'smarty_streets'
 require 'rest_client'
 require 'uri'
 require 'json'
-require 'call_tool'
 
 class ToolsController < ApplicationController
   before_filter :set_user
