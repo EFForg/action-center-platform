@@ -25,21 +25,21 @@ class EmailCampaign < ActiveRecord::Base
   include ERB::Util
 
   def service_uri(service)
-    to_cgi = email_addresses.split(/\s*,\s*/).map do |email|
+    mailto_addresses = email_addresses.split(/\s*,\s*/).map do |email|
       u(email.gsub(" ", "")).gsub("%40", "@")
     end.join(",")
 
     message_brs = message.gsub("\r\n", "<br>")
 
     {
-      default: "mailto:#{to_cgi}?#{query(subject: subject, body: message)}",
+      default: "mailto:#{mailto_addresses}?#{query(body: message, subject: subject)}",
 
-      gmail: "https://mail.google.com/mail/?view=cm&fs=1&to=#{to_cgi}&#{query(su: subject, body: message)}",
+      gmail: "https://mail.google.com/mail/?view=cm&fs=1&#{query(to: email_addresses, body: message, su: subject)}",
 
       # couldn't get newlines to work here, see: https://stackoverflow.com/questions/1632335/uri-encoding-in-yahoo-mail-compose-link
-      yahoo: "http://compose.mail.yahoo.com/?to=#{to_cgi}&#{query(subj: subject, body: message)}",
+      yahoo: "http://compose.mail.yahoo.com/?#{query(to: email_addresses, subj: subject, body: message)}",
 
-      hotmail: "https://outlook.live.com/default.aspx?rru=compose&to=#{to_cgi}&#{query(subject: subject, body: message_brs)}#page=Compose"
+      hotmail: "https://outlook.live.com/default.aspx?rru=compose&#{query(to: email_addresses, body: message_brs, subject: subject)}#page=Compose"
     }.with_indifferent_access.fetch(service)
   end
 
