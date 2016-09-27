@@ -49,7 +49,7 @@ class EmailCampaign < ActiveRecord::Base
   def query(hash)
     hash.collect do |key, value|
       "#{u(key)}=#{u(value)}"
-    end.compact.sort! * '&'
+    end.compact * '&'
   end
 
   def target_bioguide_text_or_default custom_text, default
