@@ -124,15 +124,7 @@ private
     set_signatures
 
     if @actionPage.petition and @actionPage.petition.enable_affiliations
-      # Sort institutions by most popular.
-      # Put the selected institution at the top of the list if it exists.
-      institution_id = @institution ? @institution.id : 0
-      @top_institutions = @actionPage.institutions.select("institutions.*, COUNT(signatures.id) AS s_count")
-          .joins("LEFT OUTER JOIN affiliations ON institutions.id = affiliations.institution_id")
-          .joins("LEFT OUTER JOIN signatures ON affiliations.signature_id = signatures.id")
-          .group("institutions.id")
-          .order("institutions.id = #{institution_id} desc", "s_count DESC", "institutions.name")
-          .limit(300)
+      @top_institutions = @actionPage.institutions.top(300, first: @institution.try(:id))
       @institutions = @actionPage.institutions.order(:name)
     end
 

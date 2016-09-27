@@ -19,4 +19,15 @@ class Institution < ActiveRecord::Base
 
     return true
   end
+
+  # Sort institutions by most popular.
+  # Put `first` at the top of the list if it exists.
+  def self.top(n, first: 0)
+    select("institutions.*, COUNT(signatures.id) AS s_count")
+      .joins("LEFT OUTER JOIN affiliations ON institutions.id = affiliations.institution_id")
+      .joins("LEFT OUTER JOIN signatures ON affiliations.signature_id = signatures.id")
+      .group("institutions.id")
+      .order("institutions.id = #{first.to_i} desc", "s_count DESC", "institutions.name")
+      .limit(n)
+  end
 end
