@@ -9,8 +9,7 @@ require 'cucumber/rspec/doubles'
 require 'capybara/poltergeist'
 
 Capybara.register_driver :poltergeist do |app|
-  Capybara::Poltergeist::Driver.new(app, url_blacklist: ["anon-stats.eff.org"],
-                                    phantomjs_logger: File.open("/dev/null", "w"))
+  Capybara::Poltergeist::Driver.new(app, url_blacklist: ["anon-stats.eff.org"])
 end
 
 Capybara.javascript_driver = :poltergeist
