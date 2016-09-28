@@ -117,18 +117,6 @@ $(document).on('ready', function() {
       return false;
     });
 
-    $(".call-tool").on("change", "input[name=subscribe]", function() {
-      if ($(".call-tool input[name=subscribe]:checked").val() == "1")
-        $(".call-body-active .subscription-info").show();
-      else
-        $(".call-body-active .subscription-info").hide();
-    });
-
-    if ($(".call-tool input[name=subscribe]:checked").val() == "1")
-      $(".call-body-active .subscription-info").show();
-    else
-      $(".call-body-active .subscription-info").hide();
-
     $('.call-tool-try-again').on('click', function(ev){
       show_form();
       height_changed();

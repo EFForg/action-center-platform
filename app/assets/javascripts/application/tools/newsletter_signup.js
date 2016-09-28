@@ -7,8 +7,7 @@ $(document).on("ready", function() {
       $(this).find(".radio-inline, input").attr("disabled", true);
       $(this).find("input, .radio-inline").css("opacity", 0.5);
       $(this).find("input[type=submit]").css("background-color", "#337ab7").val("Subscribed!");
-      $(this).find(".privacy-notice-header em").text("Thanks for subscribing!");
-      $(this).append("<p>Please check your email for a confirmation link.</p>");
+      $(this).find(".privacy-notice-header em").text("Thanks for signing up!");
     }
   });
 

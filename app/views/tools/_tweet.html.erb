@@ -68,7 +68,7 @@
       <% unless current_user %>
         <%= form_for :subscription, url: subscriptions_path, remote: true, html: { class: "newsletter-subscription" } do |f| %>
           <hr />
-          <label for="subscription[email]">Sign up for <%= t :organization_abbreviation %>'s newsletter</label>
+          <label for="subscription[email]"><%= t :sign_up_for_mailings_from %> <b><%= t :organization_abbreviation %></b>?</label>
 
           <fieldset>
             <%= f.email_field :email, class: "form-control", placeholder: "Email" %>
@@ -76,8 +76,9 @@
 
           <%= render "tools/petition_location", f: f %>
 
-          <%= f.submit "Subscribe!", class: "btn btn-primary action" %>
           <%= render "tools/privacy_notice" %>
+
+          <%= f.submit "Sign up!", class: "btn btn-primary action" %>
         <% end %>
       <% end %>
     </div>
