@@ -22,19 +22,18 @@
       <%= submit_tag "Search", class: "btn btn-sm btn-default" %>
     <% end %>
 
-    <%= form_tag signatures_admin_petition_path(@petition, params.slice(:query, :page, :per_page)), method: :delete do %>
-      <table class="table table-striped table-hover ">
-        <thead>
-          <tr>
-            <th>Name</th>
-            <th>Email</th>
-            <th>Signed</th>
-            <th><input type="checkbox" class="select-all" title="Select all" /></th>
-          </tr>
-        </thead>
-        <tbody>
-
-          <% if @signatures.exists? %>
+    <% if @signatures.exists? %>
+      <%= form_tag signatures_admin_petition_path(@petition, params.slice(:query, :page, :per_page)), method: :delete do %>
+        <table class="table table-striped table-hover ">
+          <thead>
+            <tr>
+              <th>Name</th>
+              <th>Email</th>
+              <th>Signed</th>
+              <th><input type="checkbox" class="select-all" title="Select all" /></th>
+            </tr>
+          </thead>
+          <tbody>
             <% @signatures.each do |signature| %>
               <tr>
                 <td><em><%= "#{signature.first_name} #{signature.last_name}" %></em></td>
@@ -50,11 +49,11 @@
                 <%= submit_tag "Delete Selected", class: "btn btn-danger btn-sm" %>
               </td>
             </tr>
-          <% else %>
-            <tr>No signatures match this query</tr>
-          <% end %>
-        </tbody>
-      </table>
+          </tbody>
+        </table>
+      <% end %>
+    <% else %>
+      <strong>No signatures match this query</strong>
     <% end %>
 
     <%= will_paginate @signatures -%>
