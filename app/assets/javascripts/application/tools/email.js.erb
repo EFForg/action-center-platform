@@ -40,6 +40,7 @@ $(document).on('ready', function() {
       return rep.bioguide_id;
     });
 
+    var emailValues = options.emailValues;
     // Stop character encoding on the subject
     emailValues['$SUBJECT'] =$('<div/>').html(emailValues['$SUBJECT']).text();
 
@@ -48,8 +49,8 @@ $(document).on('ready', function() {
         labels: false,
         contactCongressServer: '<%= Rails.application.config.congress_forms_url %>',
         values: emailValues || {},
-        topic_category: topic_category,
-        campaign_tag: campaign_tag,
+        topic_category: options.topicCategory,
+        campaign_tag: options.campaignTag,
         legislatorLabelClasses: 'legislator-label',
         onRender: function () {
           // Render email signup radios
@@ -74,7 +75,7 @@ $(document).on('ready', function() {
             common_fields_label = "";
           }
 
-          $('#congressForms-common-fields').before("<p class='step2-intro'>" + extra_fields_explain + "</p>" + common_fields_label);
+          $('#congressForms-common-fields').before("<p class='step2-intro'>" + options.extraFieldsExplain + "</p>" + common_fields_label);
           //update-user-data-container
           $('input:radio').screwDefaultButtons({
               image: 'url("/checkbox.png")',
@@ -276,23 +277,28 @@ $(document).on('ready', function() {
 
   $('form.email-rep-lookup').on('submit', function(ev) {
     var form = $(ev.currentTarget);
+    var tool = $(this).parents(".tool-body").find(".email-tool-container");
+    var emailValues = tool.data("email-values");
 
-    if(target_bioguide_id){
+    if (tool.data("target-bioguide-id")) {
       emailValues['$MESSAGE'] = form.find(".campaign-message").val();
 
-      var bioguide_ids = bioguide_id.split(',');
-      var reps = {
-        reps: _.map(bioguide_ids, function(bioguide_id){
+      $('form.email-rep-lookup').html("");
+
+      var bioguide_ids = tool.data("bioguide_id").split(',');
+      generateCongressForm({
+        reps: _.map(bioguide_ids, function(bioguide_id) {
           return {
             bioguide_id: bioguide_id,
             first_name: "Form",
             last_name: "Fields"
           }
-        })
-      };
-      $('form.email-rep-lookup').html('');
-      generateCongressForm(reps);
-
+        }),
+        topicCategory: tool.data("topic-category"),
+        campaignTag: tool.data("campaign-tag"),
+        emailValues: emailValues,
+        extraFieldsExplain: tool.data("extra-fields-explain")
+      });
     } else {
 
       function show_address_error(error) {
@@ -338,16 +344,23 @@ $(document).on('ready', function() {
                   show_address_error(data.error);
                 } else {
                   var data = _.filter(data, function (rep) {
-                    if(rep.chamber === 'senate' && target_senate) {
+                    if (rep.chamber === 'senate' && tool.data("target-senate"))
                       return true;
-                    }
-                    if(rep.chamber === 'house' && target_house) {
+
+                    if (rep.chamber === 'house' && tool.data("target-house"))
                       return true;
-                    }
+
                     return false;
                   });
                   form.html('');
-                  generateCongressForm({reps: data});
+
+                  generateCongressForm({
+                    reps: data,
+                    topicCategory: tool.data("topic-category"),
+                    campaignTag: tool.data("campaign-tag"),
+                    emailValues: emailValues,
+                    extraFieldsExplain: tool.data("extra-fields-explain")
+                  });
                 }
               })
               .fail(function(er) {

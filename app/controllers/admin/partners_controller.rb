@@ -4,7 +4,7 @@ class Admin::PartnersController < Admin::ApplicationController
   # GET /partners
   # GET /partners.json
   def index
-    @partners = Partner.all
+    @partners = Partner.order(:name).paginate(page: params[:page])
   end
 
   # GET /partners/new

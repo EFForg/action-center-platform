@@ -12,6 +12,7 @@ class User < ActiveRecord::Base
   belongs_to :partner
   validates :email, email: true
   validate :password_complexity
+  delegate :actions, :views, to: :events
 
   before_update :invalidate_password_reset_tokens, :if => proc { email_changed? }
   before_update :invalidate_new_activists_password, :if => proc { admin_changed?  }
@@ -58,6 +59,10 @@ class User < ActiveRecord::Base
 
   def signed?(petition)
     Signature.where(user: self, petition: petition).exists?
+  end
+
+  def taken_action?(action_page)
+    actions.on_page(action_page).exists?
   end
 
   def partner?

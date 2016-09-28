@@ -303,7 +303,8 @@ When(/^the image shows up as uploaded over ajax$/) do
 
   uploaded_img_src = first(:img, "#description > p:nth-child(1) > img:nth-child(1)")[:src]
 
-  expect(/^https:\/\/.*act.s.eff.org\/uploads\/.*\/img.png$/).to match uploaded_img_src
+  bucket = Rails.application.secrets.amazon_bucket_url
+  expect(/^https:\/\/.*#{bucket}\/uploads\/.*\/img.png$/).to match uploaded_img_src
 end
 
 When(/^I publish the action$/) do

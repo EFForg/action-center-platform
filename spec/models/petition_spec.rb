@@ -1,4 +1,4 @@
-require 'spec_helper'
+require "rails_helper"
 
 describe Petition do
 
@@ -16,7 +16,7 @@ describe Petition do
 
   it "should output useful CSV files" do
     p = FactoryGirl.create(:petition_complete_with_one_hundred_signatures)
-    expected_first_record = "John Doe,#{p.signatures.last.email},San Francisco,CA,United States of America\n"
+    expected_first_record = "John Doe,#{p.signatures.to_a.first.email},San Francisco,CA,United States of America\n"
 
     csv = p.to_presentable_csv
 

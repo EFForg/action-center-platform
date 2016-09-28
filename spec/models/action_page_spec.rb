@@ -1,20 +1,18 @@
-require 'spec_helper'
+require "rails_helper"
 
 describe ActionPage do
 
-  before(:each) do
-    @attr = {
-      title: "Save Kittens",
-      summary: "Save kittens in great detail",
-      description: "Some description",
-      email_text: ""
-    }
+  let(:attr) { FactoryGirl.attributes_for :action_page }
+
+  it "creates a new instance given a valid attribute" do
+    expect {
+      ActionPage.create!(attr)
+    }.to change{ActionPage.count}.by(1)
   end
 
-  it "should create a new instance given a valid attribute" do
-    expect {
-      ActionPage.create!(@attr)
-    }.to change{ActionPage.count}.by(1)
+  it "knows when to redirect from an archived action" do
+    action_page = FactoryGirl.build_stubbed :archived_action_page
+    expect(action_page.redirect_from_archived_to_active_action?).to be_truthy
   end
 
   # The test was a no-go because of the ajaxy html requiring nils... and Then

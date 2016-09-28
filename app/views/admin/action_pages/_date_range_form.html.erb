@@ -1,5 +1,7 @@
-<div id='date_control_container'>
+<div id="date_control_container"
+     data-date-start="<%= @date_start.strftime(@date_format) %>"
+     data-date-end="<%= @date_end.strftime(@date_format) %>">
   Analytics for
-  <input type='text' class='form-control text-inline' value='<%= @date_start.strftime(@date_format) %> - <%= @date_end.strftime(@date_format) %>' id='date_range' name='date_range' />
-  <button class='btn btn-info submit-inline' id='date_submit'>Submit</button>
+  <input type="text" class="form-control text-inline" value="<%= @date_start.strftime(@date_format) %> - <%= @date_end.strftime(@date_format) %>" id="date_range" name="date_range" />
+  <a class="btn btn-info date_submit">Submit</a>
 </div>

@@ -1,17 +1,10 @@
-<div class="tool <%= tweet_tool_classes -%>" id='tweet-tool'>
+<div class="tool <%= tweet_tool_classes -%>" id="tweet-tool"
+     data-tweet-targets="<%= @tweet.targets.to_json(only: :twitter_id, methods: :image_url) %>"
+     data-tweet-message="<%= @tweet.message %>"
+     data-tweet-related="<%= Rails.application.config.twitter_related.to_a.join(',') %>">
   <div class="tool-container">
     <div class="tool-heading"><h3 class="tool-title"><%= @tweet.cta -%></h3></div>
     <div class="tool-body">
-      <script type='text/javascript'>
-        var targets = <%= @tweet.targets.map{ |t|
-          {
-            twitter_id: t.twitter_id,
-            image_url: t.image.url
-          }
-        }.to_json.html_safe -%>;
-        var message = <%= @tweet.message.to_json.html_safe %>;
-        var related = <%= Rails.application.config.twitter_related.to_a.join(',').to_json.html_safe %>;
-      </script>
       <% if !@reps.present? && (@tweet.target_house? || @tweet.target_senate?) %>
         <div id='tweet-message-wrapper' style='display: none;'>
           <textarea class='form-control' id="tweet-message"><%= @tweet.message.html_safe -%></textarea>

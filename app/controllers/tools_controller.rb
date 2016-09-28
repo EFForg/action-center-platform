@@ -11,10 +11,7 @@ class ToolsController < ApplicationController
   skip_before_filter :verify_authenticity_token, only: :petition
 
   def call_required_fields
-    response = RestClient.get Rails.application.config.call_tool_url +
-      '/api/campaign/' + params[:call_campaign_id] +
-      '?api_key=' + Rails.application.secrets.call_tool_api_key
-    render :json => JSON.parse(response.body)["required_fields"]
+    render :json => CallTool.required_fields_for_campaign(params[:call_campaign_id])
   end
 
   def call
@@ -28,34 +25,12 @@ class ToolsController < ApplicationController
       update_user_data(call_params.with_indifferent_access)
     end
 
-    begin
-      response = RestClient.get Rails.application.config.call_tool_url + '/call/create',
-        params: { campaignId: params[:call_campaign_id],
-                  userPhone:  params[:phone],
-                  userCountry: 'US',
-                  userLocation: params[:location],
-                  # TODO - Settle on the schema of the private meta data
-                  meta: {
-                    user_id:     @user.try(:id),
-                    action_id:   params[:action_id],
-                    action_type: 'call'
-                  }.to_json,
-                  callback_url: root_url }
-    rescue RestClient::BadRequest => e
-      begin
-        error = JSON.parse(e.http_body)["error"]
-      rescue
-        raise e
-      end
-      # Don't raise for twilio error 13224: number invalid
-      unless error.match(/^13224:/)
-        if Rails.application.secrets.sentry_dsn.nil?
-          raise error
-        else
-          Raven.capture_message(error, { :level => 'info' })
-        end
-      end
-    end
+    CallTool.campaign_call(params[:call_campaign_id],
+                           phone: params[:phone],
+                           location: params[:location],
+                           user_id: @user.try(:id),
+                           action_id: @action_page.to_param,
+                           callback_url: root_url)
 
     render :json => {}, :status => 200
   end

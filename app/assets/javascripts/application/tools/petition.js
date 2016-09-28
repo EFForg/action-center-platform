@@ -84,6 +84,7 @@ $(document).on('ready', function() {
   var getSignaturesInterval = 2000;
   var previousSignatures = {};
   var getSignatures = function(){
+    var petition_id = $("#petition-tool").data("petition-id");
     $.ajax({
       url: '/petition/' + petition_id + '/recent_signatures',
       success: function(data){
@@ -145,11 +146,11 @@ $(document).on('ready', function() {
     }
   }
 
-  if(typeof international_only != 'undefined' && international_only){
+  $("#location[data-international-only=true]").each(function() {
     toggle_intl();
     $('.intl-toggler').hide();
     $('#signature_zipcode').removeAttr('required');
-  }
+  });
 
   $('.intl-toggler').click(function(e) {
     toggle_intl();
