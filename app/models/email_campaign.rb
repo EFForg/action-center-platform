@@ -29,8 +29,6 @@ class EmailCampaign < ActiveRecord::Base
       u(email.gsub(" ", "")).gsub("%40", "@")
     end.join(",")
 
-    message_brs = message.gsub("\r\n", "<br>")
-
     {
       default: "mailto:#{mailto_addresses}?#{query(body: message, subject: subject)}",
 
@@ -39,7 +37,7 @@ class EmailCampaign < ActiveRecord::Base
       # couldn't get newlines to work here, see: https://stackoverflow.com/questions/1632335/uri-encoding-in-yahoo-mail-compose-link
       yahoo: "http://compose.mail.yahoo.com/?#{query(to: email_addresses, subj: subject, body: message)}",
 
-      hotmail: "https://outlook.live.com/default.aspx?rru=compose&#{query(to: email_addresses, body: message_brs, subject: subject)}#page=Compose"
+      hotmail: "https://outlook.live.com/default.aspx?rru=compose&#{query(to: email_addresses, body: message, subject: subject)}#page=Compose"
     }.with_indifferent_access.fetch(service)
   end
 
