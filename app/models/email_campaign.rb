@@ -32,12 +32,12 @@ class EmailCampaign < ActiveRecord::Base
     {
       default: "mailto:#{mailto_addresses}?#{query(body: message, subject: subject)}",
 
-      gmail: "https://mail.google.com/mail/?view=cm&fs=1&#{query(to: email_addresses, body: message, su: subject)}",
+      gmail: "https://mail.google.com/mail/?view=cm&fs=1&#{{ to: email_addresses, body: message, su: subject }.to_query}",
 
       # couldn't get newlines to work here, see: https://stackoverflow.com/questions/1632335/uri-encoding-in-yahoo-mail-compose-link
-      yahoo: "http://compose.mail.yahoo.com/?#{query(to: email_addresses, subj: subject, body: message)}",
+      yahoo: "https://compose.mail.yahoo.com/?#{{ to: email_addresses, subj: subject, body: message }.to_query}",
 
-      hotmail: "https://outlook.live.com/default.aspx?rru=compose&#{query(to: email_addresses, body: message, subject: subject)}#page=Compose"
+      hotmail: "https://outlook.live.com/default.aspx?rru=compose&#{{ to: email_addresses, body: message, subject: subject }.to_query}#page=Compose"
     }.with_indifferent_access.fetch(service)
   end
 

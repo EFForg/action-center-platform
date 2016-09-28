@@ -16,13 +16,13 @@ describe EmailCampaign do
 
     context "service = :gmail" do
       it "should redirect to gmail's mail url" do
-        expect(campaign.service_uri(:gmail)).to eq("https://mail.google.com/mail/?view=cm&fs=1&to=a%40example.com%2C%20b%40example.com&body=hello%20world&su=hey%20hey%20hey")
+        expect(campaign.service_uri(:gmail)).to eq("https://mail.google.com/mail/?view=cm&fs=1&body=hello+world&su=hey+hey+hey&to=a%40example.com%2C+b%40example.com")
       end
     end
 
     context "service = :hotmail" do
       it "should redirect to outlook's mail url" do
-        expect(campaign.service_uri(:hotmail)).to eq("https://outlook.live.com/default.aspx?rru=compose&to=a%40example.com%2C%20b%40example.com&body=hello%20world&subject=hey%20hey%20hey#page=Compose")
+        expect(campaign.service_uri(:hotmail)).to eq("https://outlook.live.com/default.aspx?rru=compose&body=hello+world&subject=hey+hey+hey&to=a%40example.com%2C+b%40example.com#page=Compose")
       end
     end
   end
