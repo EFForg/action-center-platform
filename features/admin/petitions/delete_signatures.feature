@@ -9,11 +9,11 @@ Feature: Delete petition signatures
 
   Scenario:
     When I visit the signatures list
-    When I select some signatures
-    When I click destroy
+    And I select some signatures
+    And I click to delete the selected signatures
     Then the selected signatures are destroyed
 
   Scenario:
     When I visit the signatures list
-    When I click the select all checkbox
+    And I click the select all checkbox
     Then all signatures are selected

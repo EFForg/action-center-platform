@@ -36,8 +36,8 @@ When(/^I select some signatures$/) do
   end.map(&:to_i)
 end
 
-When(/^I click destroy$/) do
-  find("input[type=submit][value=Destroy]").click
+When(/^I click to delete the selected signatures$/) do
+  find("input[type=submit][value=Delete\\ Selected]").click
 end
 
 Then(/^the selected signatures are destroyed$/) do
