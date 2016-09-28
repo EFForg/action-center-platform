@@ -85,7 +85,6 @@ $(document).on('ready', function() {
     var $campaign_tag = $(campaign_tag_selector);
     if(!campaign_tag_changed){
       $campaign_tag.val($title.val());
-      console.log($campaign_tag.val());
     }
   });
   $campaign_tag.on("change keyup",function(){
