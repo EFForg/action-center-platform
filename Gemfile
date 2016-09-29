@@ -103,6 +103,10 @@ group :development do
   gem 'rails-dev-tweaks', '~> 1.1'
 end
 
+group :test do
+  gem "webmock"
+end
+
 group :development, :test do
   gem 'rspec-core'
   gem 'rspec-rails'
