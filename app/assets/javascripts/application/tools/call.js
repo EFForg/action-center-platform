@@ -103,6 +103,7 @@ $(document).on('ready', function() {
           if (form.find("input[name=subscribe]:checked").val() == "1") {
             fd.append("subscription[email]", form.find("input[type=email]").val());
             fd.append("subscription[zipcode]", zip_code);
+            form.attr("data-signed-up-for-mailings", "true");
           }
 
           $.ajax({

@@ -41,6 +41,15 @@ def create_an_action_page_petition_needing_one_more_signature
   @action_page = @petition.action_page
 end
 
+def create_a_call_campaign
+  @call_campaign = FactoryGirl.create(:call_campaign, call_campaign_id: senate_call_campaign_id)
+  @action_page = @call_campaign.action_page
+end
+
+def create_an_email_campaign
+  @email_campaign = FactoryGirl.create(:email_campaign_with_custom_target)
+  @action_page = @email_campaign.action_page
+end
 
 
 
@@ -365,4 +374,54 @@ def this_machine_offline?
     $OfflineMode = true
   end
 
+end
+
+Given(/^a call campaign exists$/) do
+  create_a_call_campaign
+end
+
+Given(/^an email campaign exists$/) do
+  create_an_email_campaign
+end
+
+When(/^I enter in my phone number and zip code$/) do
+  find("input[name=inputPhone]").set("415-555-0100")
+  find("input[name=inputZip]").set("94109")
+end
+
+When(/^I enter my email address and opt for mailings$/) do
+  find("input[name=subscription\\[email\\]]").set("abcdef@example.com")
+  find("label[for=do-subscribe]").click
+end
+
+When(/^I click Call Now$/) do
+  click_on "Call Now"
+end
+
+Then(/^I should see an option to sign up for mailings$/) do
+  expect(page).to have_css(".email-signup input[type=radio][name=subscribe][value='0']:checked", visible: false)
+  expect(page).to have_css(".email-signup input[type=radio][name=subscribe][value='1']", visible: false)
+end
+
+Then(/^I should have signed up for mailings$/) do
+  page.save_screenshot("#{Rails.root}/public/screenshot.png")
+  expect(page).to have_css("form[data-signed-up-for-mailings=true]", visible: false)
+end
+
+Then(/^I should not have signed up for mailings$/) do
+  page.save_screenshot("#{Rails.root}/public/screenshot.png")
+  expect(page).not_to have_css("form[data-signed-up-for-mailings=true]", visible: false)
+end
+
+When(/^I click open using gmail$/) do
+  click_on "Gmail"
+end
+
+Then(/^I should see a sign up form for mailings$/) do
+  expect(page).to have_css("form.newsletter-subscription")
+end
+
+When(/^I enter my email address for mailings and click Sign Up$/) do
+  find("input[name=subscription\\[email\\]]").set("abcdef@example.com")
+  click_on "Sign up"
 end
