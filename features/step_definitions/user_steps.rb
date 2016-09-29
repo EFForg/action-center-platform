@@ -238,7 +238,7 @@ end
 def sign_the_petition
   fill_in "First Name", with: @visitor[:name].split(" ").first
   fill_in "Last Name", with: @visitor[:name].split(" ").last
-  fill_in "#signature_zipcode", with: "94109"
+  find("#signature_zipcode").set("94109")
 
   # this is how stubbing SmartyStreets looks
   RSpec::Mocks.with_temporary_scope do
