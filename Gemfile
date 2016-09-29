@@ -109,8 +109,7 @@ group :development, :test do
   gem 'cucumber-rails', '1.4.2', require: false
   gem 'capybara', '~> 2.5.0'
   gem 'selenium-webdriver', '~> 2.49', require: false
-  gem "capybara-webkit"
-  gem "headless"
+  gem 'poltergeist'
   gem 'database_cleaner'
   gem 'pry'
   gem 'factory_girl_rails'

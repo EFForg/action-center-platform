@@ -104,10 +104,6 @@ Then /^page should have (.+) message "([^\"]*)"$/ do |type, text|
   page.has_css?("p.#{type}", :text => text, :visible => true)
 end
 
-When(/^I switch to the new window$/) do
-  page.driver.browser.window_focus page.windows.last.handle
-end
-
 When(/^I reload the page$/) do
   visit current_path
 end
@@ -124,6 +120,12 @@ Then(/^I should not see "(.*?)" within "(.*?)"$/) do |text, container|
   find(container).should_not have_content(text)
 end
 
+Then(/I should see "(.*?)" within the new window$/) do |text|
+  page.within_window(page.windows.last.handle) do
+    page.should have_content(text)
+  end
+end
+
 When(/^I save the page$/) do
   # Saves HTML to tmp/capybara. Useful for debugging.
   save_page
@@ -131,12 +133,12 @@ end
 
 Then(/^"(.*?)" should be required within "(.*?)"$/) do |name, container|
   within(container) {
-    find_field(name)['required'].should == ""
+    expect(find_field(name)['required']).to be_truthy
   }
 end
 
 Then(/^"(.*?)" should not be required within "(.*?)"$/) do |name, container|
   within(container) {
-    find_field(name)['required'].should == nil
+    expect(find_field(name)['required']).to be_falsey
   }
 end

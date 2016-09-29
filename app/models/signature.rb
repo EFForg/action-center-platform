@@ -18,6 +18,16 @@ class Signature < ActiveRecord::Base
 
   accepts_nested_attributes_for :affiliations, reject_if: :all_blank
 
+  scope :filter, ->(f) do
+    if f.present?
+      where("LOWER(email) LIKE ? " +
+            "OR LOWER(first_name || ' ' || last_name) LIKE ?",
+            "%#{f}%".downcase, "%#{f}%".downcase)
+    else
+      all
+    end
+  end
+
   include ActionView::Helpers::DateHelper
 
   def self.pretty_count

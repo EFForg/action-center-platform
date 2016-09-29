@@ -8,6 +8,7 @@
 //= require admin/file_uploads
 //= require admin/s3_uploads.js
 //= require admin/email_tabulation
+//= require admin/petitions
 //= require s3_cors_fileupload
 //= require bootstrap-sass/bootstrap/tab
 //= require bootstrap-responsive-tabs
@@ -85,7 +86,6 @@ $(document).on('ready', function() {
     var $campaign_tag = $(campaign_tag_selector);
     if(!campaign_tag_changed){
       $campaign_tag.val($title.val());
-      console.log($campaign_tag.val());
     }
   });
   $campaign_tag.on("change keyup",function(){
@@ -128,9 +128,12 @@ $(document).on('ready', function() {
 
 
   var preview_button = $('#action-page-preview').click(function() {
-    $('#action-page-form').clone().attr('action', preview_button.attr('href')).
-                                   attr('target', '_blank').
-                                   submit();
+    var form = $('#action-page-form').clone()
+                 .attr("id", null).css("display", "none")
+                 .attr('action', preview_button.attr('href'))
+                 .attr('target', '_blank');
+    $("body").append(form);
+    form.submit();
     return false;
   });
 

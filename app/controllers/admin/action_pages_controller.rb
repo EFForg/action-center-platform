@@ -116,8 +116,11 @@ class Admin::ActionPagesController < Admin::ApplicationController
     end
 
     if @petition
-      @signatures = @petition.signatures.order(created_at: :desc).limit(5)
+      @signatures = @petition.signatures.order(created_at: :desc).paginate(page: 1, per_page: 5)
       @signature_count = @petition.signatures.pretty_count
+
+      @top_institutions = @actionPage.institutions.top(300)
+      @institutions = @actionPage.institutions.order(:name)
     end
 
     # Initialize a temporary signature object for form auto-population

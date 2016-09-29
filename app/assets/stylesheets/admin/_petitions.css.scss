@@ -1,0 +1,24 @@
+
+body.petitions-show {
+  form#filter_petitions {
+    display: flex;
+    flex-direction: row;
+    margin-bottom: 8px;
+
+    input[type=text] {
+      flex: 1 0;
+    }
+
+    input[type=submit] {
+      margin-left: 8px;
+    }
+  }
+
+  table td:last-child, table th:last-child {
+    text-align: center;
+  }
+
+  table input[type=checkbox] {
+    float: none;
+  }
+}
