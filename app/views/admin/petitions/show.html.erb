@@ -18,7 +18,8 @@
 
   <% unless signatures_count.zero? %>
     <%= form_tag admin_petition_path(@petition), id: "filter_petitions", method: "get" do %>
-      <%= text_field_tag :query, params[:query], placeholder: "Filter by name or email...", class: "form-control input-sm" %>
+      <%= label_tag :query, "Filter by name or e-mail", class: "sr-only" %>
+      <%= text_field_tag :query, params[:query], placeholder: "Filter by name or email", class: "form-control input-sm" %>
       <%= submit_tag "Search", class: "btn btn-sm btn-default" %>
     <% end %>
 
@@ -39,7 +40,10 @@
                 <td><em><%= "#{signature.first_name} #{signature.last_name}" %></em></td>
                 <td><em><%= signature.email %></em></td>
                 <td class="timeago" title="<%= signature.created_at.to_time.iso8601 %>"><%= signature.created_at.to_time.iso8601 %></td>
-                <td><input type="checkbox" name="signature_ids[]" value="<%= signature.id %>" title="Select for deletion" /></td>
+                <td>
+                  <input type="checkbox" name="signature_ids[]" value="<%= signature.id %>"
+                         title="<%= "Select #{signature.first_name} #{signature.last_name} for deletion" %>">
+                </td>
               </tr>
             <% end %>
 
