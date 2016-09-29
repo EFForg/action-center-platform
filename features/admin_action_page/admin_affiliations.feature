@@ -24,5 +24,4 @@ Feature: Add institutions to an action
     When I edit the action page
     And I click "Action Settings"
     And I click "Add or edit relationships"
-    And I switch to the new window
-    Then I should see "Editing relationships for Sample Action Page"
+    Then I should see "Editing relationships for Sample Action Page" within the new window

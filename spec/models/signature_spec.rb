@@ -46,4 +46,32 @@ describe Signature do
     }.to raise_error ActiveRecord::RecordInvalid
   end
 
+  describe ".filter" do
+    let(:jon){ Signature.create!(@attr.merge(email: "xx@example.com", first_name: "Jon", last_name: "A")) }
+    let(:jan){ Signature.create!(@attr.merge(email: "xy@example.com", first_name: "Jan", last_name: "B")) }
+    let(:jeb){ Signature.create!(@attr.merge(email: "wz@example.com", first_name: "Jeb", last_name: "C")) }
+    let(:jen){ Signature.create!(@attr.merge(email: "wv@example.com", first_name: "Jen", last_name: "D")) }
+
+    let(:all_signatures){ [jon, jan, jeb, jen] }
+
+    it "should return .all when query is blank" do
+      expect(Signature.filter(nil)).to contain_exactly(*all_signatures)
+      expect(Signature.filter("")).to contain_exactly(*all_signatures)
+      expect(Signature.filter("    \t")).to contain_exactly(*all_signatures)
+    end
+
+    it "should return signatures with matching email (case insensitive)" do
+      expect(Signature.filter("example.com")).to contain_exactly(*all_signatures)
+      expect(Signature.filter("EXAMPLE")).to contain_exactly(*all_signatures)
+      expect(Signature.filter("w")).to contain_exactly(jeb, jen)
+      expect(Signature.filter("xx")).to contain_exactly(jon)
+    end
+
+    it "should return signatures with matching names (case insensitive)" do
+      expect(Signature.filter("J")).to contain_exactly(*all_signatures)
+      expect(Signature.filter("Jon")).to contain_exactly(jon)
+      expect(Signature.filter("Jan B")).to contain_exactly(jan)
+      expect(Signature.filter("Jeb c")).to contain_exactly(jeb)
+    end
+  end
 end

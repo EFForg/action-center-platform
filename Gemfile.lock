@@ -103,15 +103,13 @@ GEM
       rack (>= 1.0.0)
       rack-test (>= 0.5.4)
       xpath (~> 2.0)
-    capybara-webkit (1.11.1)
-      capybara (>= 2.3.0, < 2.8.0)
-      json
     chartkick (2.0.0)
     childprocess (0.5.9)
       ffi (~> 1.0, >= 1.0.11)
     chronic (0.10.2)
     climate_control (0.0.3)
       activesupport (>= 3.0)
+    cliver (0.3.2)
     cocaine (0.5.8)
       climate_control (>= 0.0.3, < 1.0)
     cocoon (1.2.9)
@@ -189,7 +187,6 @@ GEM
       rack
     groupdate (2.5.3)
       activesupport (>= 3)
-    headless (2.2.3)
     hike (1.2.3)
     htmlentities (4.3.4)
     http-cookie (1.0.2)
@@ -213,11 +210,11 @@ GEM
     mail (2.6.4)
       mime-types (>= 1.16, < 4)
     method_source (0.8.2)
-    mime-types (2.99.1)
+    mime-types (2.99.3)
     mimemagic (0.3.0)
     mini_portile2 (2.1.0)
     minitest (5.9.0)
-    multi_json (1.12.0)
+    multi_json (1.12.1)
     multi_test (0.1.2)
     multipart-post (2.0.0)
     netrc (0.11.0)
@@ -236,6 +233,10 @@ GEM
       mimemagic (= 0.3.0)
     pg (0.15.1)
     pkg-config (1.1.7)
+    poltergeist (1.10.0)
+      capybara (~> 2.1)
+      cliver (~> 0.3.1)
+      websocket-driver (>= 0.2.0)
     premailer (1.8.6)
       css_parser (>= 1.3.6)
       htmlentities (>= 4.0.0)
@@ -408,6 +409,9 @@ GEM
     webshims-rails (1.15.10)
       rails (> 3.1.0)
     websocket (1.2.3)
+    websocket-driver (0.6.4)
+      websocket-extensions (>= 0.1.0)
+    websocket-extensions (0.1.2)
     whenever (0.9.4)
       chronic (>= 0.6.3)
     will_paginate (3.1.0)
@@ -427,7 +431,6 @@ DEPENDENCIES
   bourbon
   bundler (>= 1.8.4)
   capybara (~> 2.5.0)
-  capybara-webkit
   chartkick
   cocoon
   codeclimate-test-reporter
@@ -446,7 +449,6 @@ DEPENDENCIES
   going_postal
   gravatar-ultimate
   groupdate
-  headless
   http_accept_language
   iso_country_codes
   jbuilder (~> 1.2)
@@ -455,6 +457,7 @@ DEPENDENCIES
   oauth
   paperclip (~> 4.1)
   pg (= 0.15.1)
+  poltergeist
   premailer-rails
   pry
   rails (~> 4.2.6)
