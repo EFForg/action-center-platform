@@ -110,4 +110,6 @@ Actioncenter::Application.routes.draw do
 
     get "images", to: "images#index"
   end
+
+  resources :congress, only: [:index]
 end
