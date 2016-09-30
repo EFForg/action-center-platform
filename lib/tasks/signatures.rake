@@ -1,4 +1,3 @@
-require 'smarty_streets'
 namespace :signatures do
   desc "Fill in US States from zipcodes"
   task :fill_us_states => :environment do
@@ -15,6 +14,15 @@ namespace :signatures do
           puts "Lookup failed for signature #{sig.id}"
         end
       end
+    end
+  end
+
+  desc "Deduplicate signatures (identified by email) from petitions"
+  task deduplicate: :environment do
+    dups = Signature.group(:petition_id, :email).having("count(*) > 1")
+    dups.pluck(:petition_id, :email).each do |petition_id, email|
+      ids = Signature.where(petition_id: petition_id, email: email).order(:created_at).ids
+      Signature.where(id: ids[1..-1]).delete_all
     end
   end
 end

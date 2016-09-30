@@ -1,5 +1,4 @@
 require "rails_helper"
-require "call_tool"
 
 describe CallTool do
   describe ".campaign_call" do

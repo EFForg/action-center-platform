@@ -362,6 +362,48 @@ Given(/^my test env has Internet access and I have an S(\d+) key$/) do |arg1|
   pending if this_machine_offline? or ENV['amazon_access_key_id'].nil?
 end
 
+Given(/^a call petition targeting senate exists$/) do
+  setup_action
+  @call_campaign = FactoryGirl.create(:call_campaign, call_campaign_id: senate_call_campaign_id, message: "hey hey")
+  @action_page = @call_campaign.action_page
+  @action_page.update_attributes(title: @action_info[:title],
+    summary: @action_info[:summary],
+    description: @action_info[:description])
+end
+
+Given(/^a call petition targeting a custom number exists$/) do
+  setup_action
+  @call_campaign = FactoryGirl.create(:call_campaign, call_campaign_id: custom_call_campaign_id, message: "hey hey")
+  @action_page = @call_campaign.action_page
+  @action_page.update_attributes(title: @action_info[:title],
+    summary: @action_info[:summary],
+    description: @action_info[:description])
+end
+
+Then(/^I see form fields for phone number and zip code$/) do
+  expect(page).to have_selector("input[name=inputPhone]")
+  expect(page).to have_selector("input[name=inputZip]")
+end
+
+Then(/^I see form fields for phone number but not zip code$/) do
+  expect(page).to have_selector("input[name=inputPhone]")
+  expect(page).not_to have_selector("input[name=inputZip]")
+end
+
+When(/^I fill in my phone number and zip code and click call$/) do
+  find("input[name=inputPhone]").set("415-555-0100")
+  find("input[name=inputZip]").set("94109")
+  find("button.call-tool-submit").click
+end
+
+When(/^I fill in my phone number and click call$/) do
+  find("input[name=inputPhone]").set("415-555-0100")
+  find("button.call-tool-submit").click
+end
+
+Then(/^I see instructions for what to say$/) do
+  expect(page).to have_selector(".call-body-active", visible: true)
+end
 
 def this_machine_offline?
   return $OfflineMode unless $OfflineMode.nil?

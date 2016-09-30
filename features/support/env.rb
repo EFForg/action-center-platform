@@ -8,6 +8,8 @@ require 'cucumber/rails'
 require 'cucumber/rspec/doubles'
 require 'capybara/poltergeist'
 
+require_relative './call_tool_mock'
+
 Capybara.register_driver :poltergeist do |app|
   Capybara::Poltergeist::Driver.new(app, url_blacklist: ["anon-stats.eff.org"])
 end

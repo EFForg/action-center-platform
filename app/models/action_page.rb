@@ -1,5 +1,3 @@
-require 'amazon_credentials'
-
 class ActionPage < ActiveRecord::Base
   extend FriendlyId, AmazonCredentials
 
