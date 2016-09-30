@@ -1,17 +1,13 @@
-require 'smarty_streets'
 require 'rest_client'
 require 'uri'
 require 'json'
+
 class ToolsController < ApplicationController
   before_filter :set_user
   before_filter :set_action_page
   after_filter :deliver_thanks_message, only: [:call, :petition, :email]
   skip_after_filter :deliver_thanks_message, if: :signature_has_errors
   skip_before_filter :verify_authenticity_token, only: :petition
-
-  def call_required_fields
-    render :json => CallTool.required_fields_for_campaign(params[:call_campaign_id])
-  end
 
   def call
     ahoy.track "Action",

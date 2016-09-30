@@ -3,38 +3,13 @@ $(document).on('ready', function() {
     height_changed();
 
     var call_campaign_id = $('[data-call-campaign-id]').attr('data-call-campaign-id');
-    var url = '/tools/call_required_fields?call_campaign_id=' + call_campaign_id;
-    var required_location;
-
-    var $phone_number_field = $(document.getElementById('phone-input').text);
-    var $zip_field = $(document.getElementById('zip-input').text);
-    var $street_address_field = $(document.getElementById('street-address-input').text);
+    var $phone_number_field = $("#inputPhone");
+    var $zip_field = $("#inputZip");
+    var $street_address_field = $("#inputStreesAddress");
+    var required_location = !!$street_address_field.length;
 
     $phone_number_field.each(function(){
-      $phone = $(this);
-      $phone.bfhphone($phone.data());
-    });
-
-    $.ajax({
-      url: url,
-      success: function(res){
-        var $container = $('#call-tool-form-container');
-
-        required_location = res.userLocation;
-
-        $('.call-tool-submit').removeAttr('disabled');
-        $container.html("");
-        if(required_location == "postal"){
-          $container.append($phone_number_field);
-          $container.append($zip_field);
-        }
-        if(required_location == "latlon"){
-          $container.append($phone_number_field);
-          $container.append($street_address_field);
-          $container.append($zip_field);
-        }
-        height_changed();
-      }
+      $(this).bfhphone($(this).data());
     });
 
     function submit_call_request(phone, location, zip_code, street_address, action_id, call_campaign_id, update_user_data){
@@ -54,7 +29,7 @@ $(document).on('ready', function() {
     }
 
     function determine_location(cb, zip_code, street_address){
-      if(required_location == "latlon"){
+      if(required_location) {
         $.ajax({
           url: '/smarty_streets/street_address/?street=' + encodeURIComponent(street_address) + '&zipcode=' + encodeURIComponent(zip_code),
           success: function(res){
@@ -68,8 +43,8 @@ $(document).on('ready', function() {
             cb(err);
           }
         });
-      } else if (required_location == "postal") {
-        cb(null, zip_code)
+      } else {
+        cb(null, null);
       }
     }
 
@@ -94,13 +69,13 @@ $(document).on('ready', function() {
       var update_user_data = $('#update_user_data', form).val();
       var phone_number = $phone_number_field.val().replace(/[^\d.]/g, '');
       var street_address = $street_address_field.val();
-      var zip_code = $zip_field.val().replace(/[^\d.]/g, '').slice(0,5);
+      var zip_code = ($zip_field.val() || "").replace(/[^\d.]/g, '').slice(0,5);
       var action_id = $('[name="action-id"]', form).val();
 
-      if(!isValidPhoneNumber(phone_number)){
+      if (!isValidPhoneNumber(phone_number)){
         rumbleEl($phone_number_field);
-      } else if(zip_code.length != 5) {
-        rumbleEl($zip_code_field);
+      } else if ($zip_field.length && zip_code.length != 5) {
+        rumbleEl($zip_field);
       } else {
         determine_location(function(err, location){
           hide_form();
