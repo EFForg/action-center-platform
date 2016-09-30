@@ -216,4 +216,3 @@ those domains pertain to specific topics or activities, but records of visited
 DNS names are not reading habits if those domain names serve content of a very
 diverse and general nature, thereby revealing minimal information about the
 opinions, interests or activities of the user.
-
