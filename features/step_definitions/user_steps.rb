@@ -446,12 +446,10 @@ Then(/^I should see an option to sign up for mailings$/) do
 end
 
 Then(/^I should have signed up for mailings$/) do
-  page.save_screenshot("#{Rails.root}/public/screenshot.png")
   expect(page).to have_css("form[data-signed-up-for-mailings=true]", visible: false)
 end
 
 Then(/^I should not have signed up for mailings$/) do
-  page.save_screenshot("#{Rails.root}/public/screenshot.png")
   expect(page).not_to have_css("form[data-signed-up-for-mailings=true]", visible: false)
 end
 
