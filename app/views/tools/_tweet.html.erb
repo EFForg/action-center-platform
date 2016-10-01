@@ -71,7 +71,7 @@
           <label for="subscription[email]"><%= t :sign_up_for_mailings_from %> <b><%= t :organization_abbreviation %></b>?</label>
 
           <fieldset>
-            <%= f.email_field :email, class: "form-control", placeholder: "Email" %>
+            <%= f.email_field :email, class: "form-control", placeholder: "Email", required: "email" %>
           </fieldset>
 
           <%= render "tools/petition_location", f: f %>
