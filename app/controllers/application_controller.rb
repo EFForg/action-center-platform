@@ -66,6 +66,6 @@ class ApplicationController < ActionController::Base
   end
 
   def set_cache_headers
-    response.headers["Vary"] = "Accept-Encoding, Accept-Language, Cookie"
+    response.headers["Vary"] = "Accept-Encoding, Accept-Language"
   end
 end
