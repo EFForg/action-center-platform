@@ -7,7 +7,7 @@ if [ "$DB_AUTO_MIGRATE" == "true" ]; then
   bin/rake db:migrate
 fi
 
-if [ "$TESTDB_AUTO_MIGRATE" == "true" ]; then
+if [ "$TEST_DB_AUTO_MIGRATE" == "true" ]; then
   bin/rake db:migrate RAILS_ENV=test
 fi
 

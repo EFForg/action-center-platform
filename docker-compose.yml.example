@@ -9,13 +9,11 @@ services:
     image: postgres
     environment:
       POSTGRES_PASSWORD: mysecretpassword
-      AUTO_MIGRATE: "yes" or "no", depending on if you want to run migrations every time the container starts
 
   testdb:
     image: postgres
     environment:
       POSTGRES_PASSWORD: mysecrettestpassword
-      AUTO_MIGRATE: "yes"
 
   app:
     build: .
@@ -40,26 +38,26 @@ services:
       # Standard Rails stuff (required)
       secret_key_base: ''
       devise_secret_key: ''
-      force_ssl: "false"
-      time_zone: 'Pacific Time (US & Canada)'
+      force_ssl: 'false'
+      time_zone: 'Pacific Time (US & Canada)''
 
       # Database configuration (required)
       db_adapter: postgresql
       db_database: postgres
       db_username: postgres
       db_password: mysecretpassword
-      db_port: "5432"
+      db_port: '5432'
       db_host: db
-      DB_AUTOMIGRATE: false
+      DB_AUTO_MIGRATE: 'false' # or 'true', depending on if you want to run migrations every time the container starts
 
       # Test database configuration
       test_db_password: mysecrettestpassword
       test_db_username: postgres
       test_db_database: postgres
       test_db_adapter: postgresql
-      test_db_port: "5432"
+      test_db_port: '5432'
       test_db_host: testdb
-      TEST_DB_AUTOMIGRATE: false
+      TEST_DB_AUTO_MIGRATE: 'false'
 
       # Social media (required)
       twitter_handle: 'example'
