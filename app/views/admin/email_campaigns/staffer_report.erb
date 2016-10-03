@@ -1,7 +1,7 @@
 <i class="icon-eff-logo"></i>
 <div class="staffer-report"
      data-bioid="<%= @bioguide_id %>"
-     data-legislators_url="<%= Rails.application.config.legislators_json_url %>">
+     data-legislators_url="<%= congress_index_path(format: :json) %>">
   <h1>Report for <span class="member_name"></span></h1>
   <h2>Campaign: <%= @email_campaign.campaign_tag %></h2>
 

@@ -3,7 +3,7 @@
   <table class="table table-striped" id="email_tabulation_by_congress"
          data-staffer_report_url="<%= staffer_report_admin_email_campaign_path(@email_campaign, "placeholder") %>"
          data-fills_url="<%= congress_forms_member_fills_url(@email_campaign.campaign_tag) %>"
-         data-legislators_url="<%= Rails.application.config.legislators_json_url %>">
+         data-legislators_url="<%= congress_index_path(format: :json) %>">
     <thead>
       <tr>
         <th>Bioguide ID</th>
