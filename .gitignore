@@ -25,6 +25,9 @@ docker-compose.yml
 # Ignore custom quotes
 /config/custom_quotes.yml
 
+# Ignore issues
+/config/issues.yml
+
 # compiled assets
 public/assets
 public/webshims
