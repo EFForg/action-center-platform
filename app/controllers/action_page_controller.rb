@@ -30,7 +30,7 @@ class ActionPageController < ApplicationController
     respond_to do |format|
       format.html
       format.atom
-      format.json { render json: @actionPages }
+      format.json
     end
   end
 
