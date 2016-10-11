@@ -26,7 +26,9 @@
 
   <input id='anchor' type=hidden name=anchor>
   <% unless @actionPage.new_record? -%>
-  <%= f.hidden_field :updated_at, data: {url: admin_action_page_updated_at_path(@actionPage) }-%>
+  <%= f.hidden_field :updated_at,
+      value: f.object.updated_at.strftime("%Y/%m/%d %H:%M:%S.%9N %Z %z"),
+      data: { url: admin_action_page_updated_at_path(@actionPage) } -%>
   <% end -%>
 <% end -%>
 
