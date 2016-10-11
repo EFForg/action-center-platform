@@ -6,6 +6,20 @@ RSpec.describe ActionPageController, type: :controller do
   let(:action_page) { FactoryGirl.create :action_page }
   let(:admin) { login_as_admin }
 
+  describe "GET #index" do
+    it "filters by issue" do
+      privacy_action_page = FactoryGirl.create(:action_page, issue: 'Privacy')
+      get :index, { :issue => 'Privacy' }
+      expect(assigns(:actionPages)).to contain_exactly(privacy_action_page)
+    end
+
+    it "returns json" do
+      action_page
+      get :index, { :format => 'json' }
+      expect(response.body).to eq([action_page].to_json)
+    end
+  end
+
   describe "GET #show" do
     it "redirects to a cannonical url" do
       original_slug = action_page.slug

@@ -21,6 +21,8 @@ class ActionPageController < ApplicationController
       paginate(:page => params[:page], :per_page => 9).
       order('id desc')
 
+    @actionPages = @actionPages.where(:issue => params['issue']) if params['issue']
+
     #request.session_options[:skip] = true  # removes session data
     response.headers['Cache-Control'] = 'public, no-cache'
     response.headers['Surrogate-Control'] = "max-age=120"
@@ -28,6 +30,7 @@ class ActionPageController < ApplicationController
     respond_to do |format|
       format.html
       format.atom
+      format.json { render json: @actionPages }
     end
   end
 
