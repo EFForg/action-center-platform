@@ -46,6 +46,11 @@
         </div>
       </div>
 
+      <div class="form-group">
+        <%= f.label :issue %>
+        <%= f.select :issue, Issue.all.map(&:title), include_blank: true %>
+      </div>
+
     </div>
 
   </div><!-- END .row -->

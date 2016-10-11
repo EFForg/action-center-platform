@@ -27,6 +27,7 @@ class ActionPage < ActiveRecord::Base
     :content_type => /\Aimage\/.*\Z/
 
   #validates_length_of :og_title, maximum: 65
+  before_validation :normalize_blank_issue
   after_save :no_drafts_on_homepage
 
   def should_generate_new_friendly_id?; true; end # related to friendly_id
@@ -75,5 +76,11 @@ class ActionPage < ActiveRecord::Base
 
   def no_drafts_on_homepage
     FeaturedActionPage.where(action_page_id: id).destroy_all unless published?
+  end
+
+  protected
+
+  def normalize_blank_issue
+    self.issue = nil if issue.blank?
   end
 end
