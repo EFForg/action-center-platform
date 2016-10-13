@@ -841,6 +841,9 @@ h3.privacy-notice-header {
   }
 }
 
+.newsletter-subscription input[type=submit] {
+  margin-bottom: 5px;
+}
 
 // These styles only apply if you are targeting specific email addresses rather than MoC.
 #target-email {
