@@ -5,7 +5,7 @@ $(document).on('ready', function() {
     var call_campaign_id = $('[data-call-campaign-id]').attr('data-call-campaign-id');
     var $phone_number_field = $("#inputPhone");
     var $zip_field = $("#inputZip");
-    var $street_address_field = $("#inputStreesAddress");
+    var $street_address_field = $("#inputStreetAddress");
     var required_location = !!$street_address_field.length;
 
     $phone_number_field.each(function(){
