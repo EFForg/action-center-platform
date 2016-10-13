@@ -17,16 +17,6 @@ class Admin::PetitionsController < Admin::ApplicationController
     send_data @petition.to_presentable_csv, filename: filename
   end
 
-  def report
-    @actionPage = Petition.find(params[:id]).action_page
-    @legislator = Sunlight::Congress::Legislator.by_bioguide_id(params[:bioguide_id]).first
-    @scorecard = CongressScorecard.find_by(action_page_id: @actionPage.id,
-                                           bioguide_id: params[:bioguide_id])
-    @petition = @actionPage.petition
-    @signatures = @petition.signatures.where(state: @legislator.state_name).order(:city, :zipcode)
-    render layout: 'report'
-  end
-
   def destroy_signatures
     @petition.signatures.where(id: params[:signature_ids]).delete_all
 

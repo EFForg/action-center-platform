@@ -94,8 +94,6 @@ class ToolsController < ApplicationController
         { type: "action", actionType: "signature", actionPageId: @action_page.id },
         action_page: @action_page
 
-      update_congress_scorecards(signature_params[:zipcode])
-
       respond_to do |format|
         format.json {   render :json => {success: true}, :status => 200 }
         format.html do
@@ -141,8 +139,6 @@ class ToolsController < ApplicationController
       @user.subscribe!(opt_in=true, source=@source)
 
     end
-
-    update_congress_scorecards(email_params[:zipcode])
 
     @name = email_params[:first_name] # for deliver_thanks_message
 
@@ -207,18 +203,6 @@ class ToolsController < ApplicationController
     @action_page ||= ActionPage.find(params[:action_id])
     @email ||= current_user.try(:email) || params[:email]
     UserMailer.thanks_message(@email, @action_page, user: @user, name: @name).deliver_now if @email
-  end
-
-  # This makes a 3rd party lookup to Sunlight API to get all the representatives
-  # relevant to a zipcode and add a tally to their CongressScorecard (creating it if needed)
-  def update_congress_scorecards(zipcode)
-    return if !GoingPostal.valid_zipcode?(zipcode, 'US') or cant_do_sunlight?
-    Sunlight::Congress::Legislator.by_zipcode(zipcode).each do |rep|
-      CongressScorecard.find_or_create_by(
-        bioguide_id: rep.bioguide_id,
-        action_page_id: @action_page.id
-      ).increment!
-    end
   end
 
   def cant_do_sunlight?
