@@ -841,8 +841,20 @@ h3.privacy-notice-header {
   }
 }
 
-.newsletter-subscription input[type=submit] {
-  margin-bottom: 5px;
+.newsletter-subscription {
+  input[type=submit] {
+    margin-bottom: 5px;
+  }
+
+  &.submitted {
+    .radio-inline, input {
+      opacity: 0.5;
+    }
+
+    input[type=submit] {
+      background-color: #337ab7;
+    }
+  }
 }
 
 // These styles only apply if you are targeting specific email addresses rather than MoC.
