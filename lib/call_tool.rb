@@ -49,7 +49,9 @@ module CallTool
   end
 
   def self.endpoint(action)
-    "#{Rails.application.config.call_tool_url}#{action}"
+    base = Rails.application.config.call_tool_url.sub(/\/$/, '')
+    action = action.sub(/^\//, '')
+    "#{base}/#{action}"
   end
 
   def self.api_key
