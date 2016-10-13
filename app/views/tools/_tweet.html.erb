@@ -44,44 +44,40 @@
           </form>
         <% end -%>
       <% end -%>
-
-
-      <% if (@tweet.target_house? || @tweet.target_senate?) && !@reps.present?-%>
-        <p class="privacy-notice">
-          This tool uses <a href="http://sunlightfoundation.com/legal/privacy/" target="_blank">Sunlight Labs</a>' and <a href="http://smartystreets.com/legal/privacy-policy" target="_blank">Smarty Streets</a>' APIs
-        (<a class="privacy-notice-popover" href="#"
-          data-container="body"
-          data-toggle="popover"
-          data-title="Tweet Tool APIs"
-          data-html="true"
-          data-trigger="hover"
-          data-placement="auto"
-          data-content="<p>We need your full address to locate your exact congressional district, but this information isn't stored unless you're logged in.</p><p>Our &quot;Tweet Your Representatives&quot; tool uses uses the Smarty Streets' API to convert your street address and zip code to a latitude and logitude, and also uses Sunlight Foundation's Congress API to look up the names and contact forms of the legislators for that lat/lng location.</p>"
-          >why?</a>).<br>
-          If you prefer not to use our tweet tool, <a href="https://www.eff.org/congress"  target="_blank">click here</a>.</p>
-
-          <!--<p style="text-align: center; display:none; font-size: 12px;" class="call-to-sign-up">
-            After tweeting, <a href="/register">sign up</a> for an EFF Action account and save your information for next time.
-          </p>-->
-      <% end -%>
-
-      <% unless current_user %>
-        <%= form_for :subscription, url: subscriptions_path, remote: true, html: { class: "newsletter-subscription" } do |f| %>
-          <hr />
-          <label for="subscription[email]"><%= t :sign_up_for_mailings_from %> <b><%= t :organization_abbreviation %></b>?</label>
-
-          <fieldset>
-            <%= f.email_field :email, class: "form-control", placeholder: "Email", required: "email" %>
-          </fieldset>
-
-          <%= render "tools/petition_location", f: f %>
-
-          <%= render "tools/privacy_notice" %>
-
-          <%= f.submit "Sign up", class: "btn btn-primary action" %>
-        <% end %>
-      <% end %>
     </div>
+
     <input type='hidden' name='action-id' value='<%= @actionPage.id -%>'>
   </div>
+
+  <% if (@tweet.target_house? || @tweet.target_senate?) && !@reps.present?-%>
+    <p class="privacy-notice">
+      This tool uses <a href="http://sunlightfoundation.com/legal/privacy/" target="_blank">Sunlight Labs</a>' and <a href="http://smartystreets.com/legal/privacy-policy" target="_blank">Smarty Streets</a>' APIs
+    (<a class="privacy-notice-popover" href="#"
+      data-container="body"
+      data-toggle="popover"
+      data-title="Tweet Tool APIs"
+      data-html="true"
+      data-trigger="hover"
+      data-placement="auto"
+      data-content="<p>We need your full address to locate your exact congressional district, but this information isn't stored unless you're logged in.</p><p>Our &quot;Tweet Your Representatives&quot; tool uses uses the Smarty Streets' API to convert your street address and zip code to a latitude and logitude, and also uses Sunlight Foundation's Congress API to look up the names and contact forms of the legislators for that lat/lng location.</p>"
+      >why?</a>).<br>
+      If you prefer not to use our tweet tool, <a href="https://www.eff.org/congress"  target="_blank">click here</a>.</p>
+  <% end -%>
+
+  <% unless current_user %>
+    <%= form_for :subscription, url: subscriptions_path, remote: true, html: { class: "newsletter-subscription" } do |f| %>
+      <hr />
+      <label for="subscription[email]"><%= t :sign_up_for_mailings_from %> <b><%= t :organization_abbreviation %></b>?</label>
+
+      <fieldset>
+        <%= f.email_field :email, class: "form-control", placeholder: "Email", required: "email" %>
+      </fieldset>
+
+      <%= render "tools/petition_location", f: f %>
+
+      <%= render "tools/privacy_notice" %>
+
+      <%= f.submit "Sign up", class: "btn btn-primary action" %>
+    <% end %>
+  <% end %>
 </div>

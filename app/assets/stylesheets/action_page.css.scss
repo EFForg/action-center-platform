@@ -262,9 +262,16 @@
 #tools #tweet-tool {
   text-align: center;
 
+  .tool-body {
+    padding-bottom: 0px;
+  }
+
   .privacy-notice {
-    margin: 10px -10px 0 -10px;
     font-size: 12px;
+  }
+
+  .newsletter-subscription {
+    margin: 0 15px 10px 15px;
   }
 
   input[type=submit] {
