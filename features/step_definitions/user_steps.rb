@@ -339,7 +339,7 @@ end
 When(/^I click the button to lookup my reps$/) do
   RSpec::Mocks.with_temporary_scope do
     stub_smarty_streets_street_address
-    stub_legislator_by_zip
+    stub_legislators
 
     first(:button, "Look up your reps").click
     sleep 0.5 while !page.has_content? "Your Representatives"
@@ -371,8 +371,9 @@ Given(/^a call petition targeting a custom number exists$/) do
     description: @action_info[:description])
 end
 
-Then(/^I see form fields for phone number and zip code$/) do
+Then(/^I see form fields for phone number, address, and zip code$/) do
   expect(page).to have_selector("input[name=inputPhone]")
+  expect(page).to have_selector("input[name=inputStreetAddress]")
   expect(page).to have_selector("input[name=inputZip]")
 end
 
@@ -381,8 +382,9 @@ Then(/^I see form fields for phone number but not zip code$/) do
   expect(page).not_to have_selector("input[name=inputZip]")
 end
 
-When(/^I fill in my phone number and zip code and click call$/) do
+When(/^I fill in my phone number, address, and zip code and click call$/) do
   find("input[name=inputPhone]").set("415-555-0100")
+  find("input[name=inputStreetAddress]").set("100 Abc St.")
   find("input[name=inputZip]").set("94109")
   find("button.call-tool-submit").click
 end
