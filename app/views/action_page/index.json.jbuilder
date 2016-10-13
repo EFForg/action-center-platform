@@ -1,4 +1,5 @@
 json.array! @actionPages do |actionPage|
+  json.url action_page_url actionPage
   json.title actionPage.title
   json.description markdown actionPage.description
   if actionPage.featured_image_file_name
