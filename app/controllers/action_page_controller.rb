@@ -106,15 +106,6 @@ private
     @petition = @actionPage.petition
     @tweet = @actionPage.tweet
     @email_campaign = @actionPage.email_campaign
-    if params[:zipcode]
-      current_zipcode = params[:zipcode]
-    end
-    if current_user && current_user.zipcode
-      current_zipcode = current_user.zipcode
-    end
-    if (@tweet.try(:target_house) || @tweet.try(:target_senate)) && current_zipcode
-      @reps = Sunlight::Congress::Legislator.by_zipcode(current_zipcode)
-    end
 
     # Shows a mailing list if no tools enabled
     @no_tools = [:tweet, :petition, :call, :email].none? do |tool|
@@ -134,6 +125,7 @@ private
     end
 
     # Initialize a temporary signature object for form auto-population
+    current_zipcode = params[:zipcode] || current_user.try(:zipcode)
     @signature = Signature.new(petition_id: @actionPage.petition_id)
     @signature.attributes = { first_name: current_first_name,
                               last_name: current_last_name,

@@ -17,13 +17,6 @@ GIT
       multi_json (~> 1.0)
       rails (>= 3.1, < 5.0)
 
-GIT
-  remote: https://github.com/steveklabnik/sunlight-congress
-  revision: a3c55e89c3f18adaaaf56606f19fbd1872d62bc2
-  ref: a3c55
-  specs:
-    sunlight-congress (1.1.0)
-
 GEM
   remote: https://rubygems.org/
   remote: https://rails-assets.org/
@@ -505,7 +498,6 @@ DEPENDENCIES
   selenium-webdriver (~> 2.49)
   sentry-raven (~> 0.15)
   sprockets-image_compressor
-  sunlight-congress!
   uglifier (>= 1.3.0)
   unicorn
   warden (= 1.2.4)

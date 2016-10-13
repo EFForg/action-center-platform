@@ -166,24 +166,12 @@ class ToolsController < ApplicationController
     end
   end
 
-  # This method uses the Sunlight 3rd party API to find legislators relevant to
-  # either a zipcode or a lat, long position depending on which is available in
-  # params
-  def get_the_reps(params)
-    if params[:zipcode]
-      @reps = Sunlight::Congress::Legislator.by_zipcode(params[:zipcode])
-    elsif params[:lat] && params[:lon]
-      @reps = Sunlight::Congress::Legislator.by_latlong(params[:lat], params[:lon])
-    end
-  end
-
   # GET /tools/reps
   #
   # This endpoint is hit by the js for tweet actions.
   # It renders json containing html markup for presentation on the view
   def reps
-    @reps = get_the_reps(params)
-
+    @reps = Congress::Member.find_by(street: params[:street], zipcode: params[:zipcode])
     if @reps.present?
       update_user_data(params.slice(:street_address, :zipcode)) if params[:update_user_data] == "true"
 
@@ -198,7 +186,7 @@ class ToolsController < ApplicationController
   # This endpoint is hit by the js for email actions to lookup what legislators
   # should be emailed based on the input long/lat or zipcode
   def reps_raw
-    @reps = get_the_reps(params)
+    @reps = Congress::Member.find_by(street: params[:street], zipcode: params[:zipcode])
     if @reps.present?
       render :json => @reps, :status => 200
     else
