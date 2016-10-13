@@ -381,7 +381,7 @@
 .description h3, h3.privacy-notice-header,
 h3.header, #tools #email-tool h3 {
   position: relative;
-  margin-bottom: 1em !important;
+  margin-bottom: 1em;
   font-weight: normal;
   text-align: left;
   font-size: 15px;
@@ -641,9 +641,6 @@ h3.privacy-notice-header {
     font-size: 13px;
     padding: 6px;
   }
-  h3 {
-    margin-bottom: 14px;
-  }
   .form-group {
     margin-bottom: 7px;
   }
@@ -785,11 +782,11 @@ h3.privacy-notice-header {
   h3 {
     font-size: 17px;
     color:$blue;
-    margin-bottom: 10px;
     margin-top: 0;
 
     &.legislator-label {
       margin-top:0px;
+      margin-bottom: 10px;
       &.common-fields {
         margin-top: 17px;
         margin-bottom: 0;
