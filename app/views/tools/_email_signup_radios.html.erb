@@ -1,5 +1,5 @@
 <% if defined?(partner) %>
-  <div class="email-signup">
+  <div class="email-signup text-left">
     <%= t :i -%>
     <input type="radio" name="partner_newsletter" value="<%= partner.code -%>" id="partner_subscribe">
     <label class="radio-inline" for="partner_subscribe"><%= t :want -%></label>
@@ -9,7 +9,7 @@
     (<%= link_to 'privacy policy', partner.privacy_url -%>).
   </div>
 <% else %>
-  <div class="email-signup">
+  <div class="email-signup text-left">
     <%= t :i -%>
     <input type="radio" name="subscribe" value="1" <%= "checked" if params[:subscribe] == "1" -%> id="do-subscribe" >
     <label class="radio-inline" for="do-subscribe"><%= t :want -%></label>
