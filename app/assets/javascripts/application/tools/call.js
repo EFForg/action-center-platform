@@ -34,9 +34,9 @@ $(document).on('ready', function() {
           url: '/smarty_streets/street_address/?street=' + encodeURIComponent(street_address) + '&zipcode=' + encodeURIComponent(zip_code),
           success: function(res){
             if(res.length == 1){
-              var lat = res[0].metadata.latitude;
-              var lng = res[0].metadata.longitude;
-              cb(null, lat + ',' + lng);
+              var state = res[0].components.state_abbreviation;
+              var district = res[0].metadata.congressional_district;
+              cb(null, state + "-" + district);
             }
           },
           error: function(err){
