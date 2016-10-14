@@ -57,9 +57,9 @@
 }
 
 .form-control {
-    border-radius: 0;
-    padding: 0 0.5em;
-    font-size: 0.8em;
+  border-radius: 0;
+  padding: 0 0.5em;
+  font-size: 0.8em;
 }
 
 #share-buttons-wrapper {
@@ -138,10 +138,6 @@
     }
     .input-pair {
       margin-bottom: 0.5em;
-    }
-    .form-group > input[type=text], .form-group > input[type=email], .form-group > input[type=tel]  {
-      font-size: 1em;
-      height: 40px;
     }
     input[type=submit].action, button[type=submit].action {
       @include speak-out-button

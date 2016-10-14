@@ -12,7 +12,7 @@ module ActionPageHelper
 
     related = Rails.application.config.twitter_related.to_a.join(',')
 
-    "https://twitter.com/intent/tweet?status=#{CGI::escape message}&related=#{related}"
+    "https://twitter.com/intent/tweet?status=#{u message}&related=#{related}"
   end
 
   def google_share_url(action_page)
@@ -23,7 +23,7 @@ module ActionPageHelper
     target = "@#{target}" unless target.starts_with? '@'
     message = [target, message].compact.join(' ')
     related = Rails.application.config.twitter_related.to_a.join(',')
-    "https://twitter.com/intent/tweet?status=.#{CGI::escape message}&related=#{related}"
+    "https://twitter.com/intent/tweet?status=.#{u message}&related=#{related}"
   end
 
   def facebook_share_url(action_page)
@@ -34,7 +34,7 @@ module ActionPageHelper
     subject = t('email_friends.subject')
     message = t('email_friends.message', title: action_page.title, url: action_page_url(action_page))
 
-    "mailto:?subject=#{CGI::escape subject}&body=#{CGI::escape message}"
+    "mailto:?subject=#{u subject}&body=#{u message}"
   end
 
   def rep_photo_src(bioguide_id)

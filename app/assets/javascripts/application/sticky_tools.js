@@ -43,7 +43,7 @@ $(function() {
     }
 
     window.scroller = scroller;
-    window.scroller = resizer;
+    window.resizer = resizer;
 
     if (window.addEventListener) {
       window.addEventListener('scroll', scroller, false);

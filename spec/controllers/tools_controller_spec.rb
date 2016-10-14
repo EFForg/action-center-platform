@@ -57,6 +57,18 @@ RSpec.describe ToolsController, type: :controller do
            }
     end
   end
+
+  describe "#email_target" do
+    let(:email_campaign){ FactoryGirl.create(:email_campaign) }
+
+    it "should redirect to ActionPage#service_uri(service)" do
+      service, uri = "gmail", "https://composeurl.example.com"
+      expect(ActionPage).to receive(:find_by_id){ email_campaign.action_page }
+      expect(email_campaign).to receive(:service_uri).with(service){ uri }
+      get :email_target, { action_id: email_campaign.action_page.id, service: service }
+      expect(response).to redirect_to(uri)
+    end
+  end
 end
 
 def create_signature_and_have_user_sign

@@ -22,7 +22,33 @@ class EmailCampaign < ActiveRecord::Base
     target_bioguide_text_or_default alt_text_extra_fields_explain, default
   end
 
+  include ERB::Util
+
+  def service_uri(service)
+    mailto_addresses = email_addresses.split(/\s*,\s*/).map do |email|
+      u(email.gsub(" ", "")).gsub("%40", "@")
+    end.join(",")
+
+    {
+      default: "mailto:#{mailto_addresses}?#{query(body: message, subject: subject)}",
+
+      gmail: "https://mail.google.com/mail/?view=cm&fs=1&#{{ to: email_addresses, body: message, su: subject }.to_query}",
+
+      # couldn't get newlines to work here, see: https://stackoverflow.com/questions/1632335/uri-encoding-in-yahoo-mail-compose-link
+      yahoo: "https://compose.mail.yahoo.com/?#{{ to: email_addresses, subj: subject, body: message }.to_query}",
+
+      hotmail: "https://outlook.live.com/default.aspx?rru=compose&#{{ to: email_addresses, body: message, subject: subject }.to_query}#page=Compose"
+    }.with_indifferent_access.fetch(service)
+  end
+
   private
+
+  # like Hash#to_query except we percent encode spaces
+  def query(hash)
+    hash.collect do |key, value|
+      "#{u(key)}=#{u(value)}"
+    end.compact * '&'
+  end
 
   def target_bioguide_text_or_default custom_text, default
     if not target_bioguide_id or custom_text.blank?

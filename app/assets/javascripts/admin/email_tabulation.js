@@ -40,7 +40,7 @@ $(document).ready(function() {
           tbody_html += JST['admin/backbone/templates/email_campaign/congress_tabulation_row']({
             bioguide_id: bioid,
             staffer_report_url: table.dataset.staffer_report_url.replace('placeholder', bioid),
-            name: names[bioid].name,
+            name: (names[bioid] || { name: "Unknown" }).name,
             count: breakdown[bioid]
           });
           total_count += breakdown[bioid];

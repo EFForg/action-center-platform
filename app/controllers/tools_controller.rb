@@ -159,25 +159,11 @@ class ToolsController < ApplicationController
         { type: "action", actionType: "email", actionPageId: params[:action_id] },
         action_page: @action_page
     end
-    subject_uri = URI::escape @action_page.email_campaign.subject
-    subject_cgi = CGI::escape @action_page.email_campaign.subject
-    body_uri = URI::escape @action_page.email_campaign.message
-    body_cgi = CGI::escape @action_page.email_campaign.message
-    body_hotmail = CGI::escape @action_page.email_campaign.message.gsub("\r\n","<br>")
-    to_cgi = CGI::escape @action_page.email_campaign.email_addresses.gsub(" ","")
-    case params[:service]
-    when "default"
-      redirect_to "mailto:" + to_cgi + "?subject=" + subject_uri + "&body=" + body_uri
-    when "gmail"
-      redirect_to "https://mail.google.com/mail/?view=cm&fs=1&to=" + to_cgi + "&su=" + subject_cgi + "&body=" + body_cgi
-    when "yahoo"
-      # couldn't get newlines to work here, see: https://stackoverflow.com/questions/1632335/uri-encoding-in-yahoo-mail-compose-link
-      redirect_to "http://compose.mail.yahoo.com/?to=" + to_cgi + "&subj=" + subject_cgi + "&body=" + body_cgi
-    when "hotmail"
-      redirect_to "https://mail.live.com/default.aspx?rru=compose&to=" + to_cgi + "&subject=" + subject_cgi + "&body=" + body_hotmail
-    when "copy"
+
+    if params[:service] == "copy"
       @actionPage = @action_page
-      render
+    else
+      redirect_to @action_page.email_campaign.service_uri(params[:service])
     end
   end
 
