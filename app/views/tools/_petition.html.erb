@@ -111,7 +111,7 @@
             <fieldset>
               <% unless @petition.enable_affiliations %>
                 <div class='checkbox small'>
-                  <%= f.label :anonymous, class: :small do -%>
+                  <%= f.label :anonymous do -%>
                     <%= check_box_tag 'signature[anonymous]' -%>
                     <%= t :dont_show_my_name -%>
                   <% end -%>
