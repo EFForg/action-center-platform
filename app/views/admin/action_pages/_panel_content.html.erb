@@ -46,6 +46,13 @@
         </div>
       </div>
 
+      <% if Category.enabled? %>
+        <div class="form-group">
+          <%= f.label :category %>
+          <%= f.select :category, Category.all.map(&:title), include_blank: true %>
+        </div>
+      <% end %>
+
     </div>
 
   </div><!-- END .row -->

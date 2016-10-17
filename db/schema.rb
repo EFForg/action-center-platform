@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160908225616) do
+ActiveRecord::Schema.define(version: 20161017180108) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -69,6 +69,7 @@ ActiveRecord::Schema.define(version: 20160908225616) do
     t.integer  "partner_id"
     t.boolean  "archived",                         default: false
     t.integer  "archived_redirect_action_page_id"
+    t.string   "category"
   end
 
   add_index "action_pages", ["archived"], name: "index_action_pages_on_archived", using: :btree

@@ -176,7 +176,7 @@ class Admin::ActionPagesController < Admin::ApplicationController
 
   def action_page_params
     params.require(:action_page).
-           permit(:title, :summary, :description, :featured_image, :background_image,
+           permit(:title, :summary, :description, :category, :featured_image, :background_image,
                   :enable_call, :enable_petition, :enable_email, :enable_tweet,
                   :og_title, :og_image, :share_message, :published,
                   :call_campaign_id, :what_to_say, :redirect_url, :email_text, :enable_redirect,
