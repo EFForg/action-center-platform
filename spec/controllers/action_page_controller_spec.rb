@@ -9,10 +9,10 @@ RSpec.describe ActionPageController, type: :controller do
   describe "GET #index" do
     render_views
 
-    it "filters by issue" do
+    it "filters by category" do
       action_page
-      privacy_action_page = FactoryGirl.create(:action_page, issue: "Privacy")
-      get :index, { :issue => "Privacy" }
+      privacy_action_page = FactoryGirl.create(:action_page, category: "Privacy")
+      get :index, { :category => "Privacy" }
       expect(assigns(:actionPages)).to contain_exactly(privacy_action_page)
     end
 
