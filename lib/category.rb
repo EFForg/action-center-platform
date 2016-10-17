@@ -1,7 +1,7 @@
-class Issue < Struct.new(:title)
+class Category < Struct.new(:title)
   def self.all
     if enabled?
-      YAML.load_file(config_file_path).sort.map{ |issue| new(issue) }
+      YAML.load_file(config_file_path).sort.map{ |category| new(category) }
     else
       []
     end
@@ -14,6 +14,6 @@ class Issue < Struct.new(:title)
   private
 
   def self.config_file_path
-    Rails.root.join("config/issues.yml")
+    Rails.root.join("config/categories.yml")
   end
 end

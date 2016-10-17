@@ -46,10 +46,10 @@
         </div>
       </div>
 
-      <% if Issue.enabled? %>
+      <% if Category.enabled? %>
         <div class="form-group">
-          <%= f.label :issue %>
-          <%= f.select :issue, Issue.all.map(&:title), include_blank: true %>
+          <%= f.label :category %>
+          <%= f.select :category, Category.all.map(&:title), include_blank: true %>
         </div>
       <% end %>
 

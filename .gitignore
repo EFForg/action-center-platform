@@ -25,8 +25,8 @@ docker-compose.yml
 # Ignore custom quotes
 /config/custom_quotes.yml
 
-# Ignore issues
-/config/issues.yml
+# Ignore categories
+/config/categories.yml
 
 # compiled assets
 public/assets
