@@ -31,7 +31,7 @@ $(document).on('ready', function() {
     function lookupTweetTargets(street, zipcode) {
       $.ajax({
         url: "/tools/reps",
-        data: { street: street, zipcode: zipcode },
+        data: { street_address: street, zipcode: zipcode },
         success: function(data) {
           if (data.content)
             populateTweetTargets(data);

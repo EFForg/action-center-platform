@@ -335,7 +335,7 @@ $(document).on('ready', function() {
 
             $.ajax({
               url: "/tools/reps_raw",
-              data: { street: address, zipcode: zip },
+              data: { street_address: address, zipcode: zip },
               success: function(data) {
                 if (data.error) {
                   show_address_error(data.error);
