@@ -14,6 +14,7 @@ class ActionPage < ActiveRecord::Base
   belongs_to :email_campaign
   belongs_to :call_campaign
   belongs_to :partner
+  belongs_to :category
   belongs_to :active_action_page_for_redirect, :class_name => "ActionPage",
              :foreign_key => "archived_redirect_action_page_id"
 
@@ -27,8 +28,9 @@ class ActionPage < ActiveRecord::Base
     :content_type => /\Aimage\/.*\Z/
 
   #validates_length_of :og_title, maximum: 65
-  before_validation :normalize_blank_category
   after_save :no_drafts_on_homepage
+
+  scope :categorized, ->(category){ joins(:category).where(categories: { title: category }) }
 
   def should_generate_new_friendly_id?; true; end # related to friendly_id
 
@@ -76,11 +78,5 @@ class ActionPage < ActiveRecord::Base
 
   def no_drafts_on_homepage
     FeaturedActionPage.where(action_page_id: id).destroy_all unless published?
-  end
-
-  protected
-
-  def normalize_blank_category
-    self.category = nil if category.blank?
   end
 end
