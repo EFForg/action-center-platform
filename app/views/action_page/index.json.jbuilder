@@ -1,7 +1,7 @@
 json.array! @actionPages do |actionPage|
   json.url action_page_url actionPage
   json.title actionPage.title
-  json.description markdown actionPage.description
+  json.summary markdown actionPage.summary
   if actionPage.featured_image_file_name
     json.featured_image do
       json.alt image_alt actionPage.featured_image_file_name
