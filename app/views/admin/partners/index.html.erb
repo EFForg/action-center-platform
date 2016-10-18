@@ -28,8 +28,8 @@
           <tbody>
             <% @partners.each do |partner| %>
               <tr>
-                <td> 
-                  <%= link_to partner.name , [:admin, partner] -%>
+                <td>
+                  <%= link_to partner.name, partner -%>
                 </td>
                 <td> <%= partner.code -%> </td>
                 <td> <%= link_to 'Link', partner.privacy_url -%> </td>
@@ -53,7 +53,7 @@
         </table>
 
 	<%= will_paginate @partners %>
-        
+
       </div>
     </div>
   </div>
