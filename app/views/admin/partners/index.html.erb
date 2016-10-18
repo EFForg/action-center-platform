@@ -32,7 +32,7 @@
                   <%= link_to partner.name, partner -%>
                 </td>
                 <td> <%= partner.code -%> </td>
-                <td> <%= link_to 'Link', partner.privacy_url -%> </td>
+                <td> <%= link_to 'Link', partner.privacy_url if partner.privacy_url-%> </td>
                 <td> <%= partner.subscriptions.size -%> </td>
                 <td>
                   <div class='btn-group'>
