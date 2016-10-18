@@ -46,12 +46,10 @@
         </div>
       </div>
 
-      <% if Category.enabled? %>
-        <div class="form-group">
-          <%= f.label :category %>
-          <%= f.select :category, Category.all.map(&:title), include_blank: true %>
-        </div>
-      <% end %>
+      <div class="form-group">
+        <%= f.label :category %>
+        <%= f.select :category_id, @categories.pluck(:title, :id), include_blank: true %>
+      </div>
 
     </div>
 

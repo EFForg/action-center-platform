@@ -11,7 +11,8 @@ RSpec.describe ActionPageController, type: :controller do
 
     it "filters by category" do
       action_page
-      privacy_action_page = FactoryGirl.create(:action_page, category: "Privacy")
+      category =  FactoryGirl.create(:category, title: "Privacy")
+      privacy_action_page = FactoryGirl.create(:action_page, category: category)
       get :index, { :category => "Privacy" }
       expect(assigns(:actionPages)).to contain_exactly(privacy_action_page)
     end

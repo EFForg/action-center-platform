@@ -21,7 +21,7 @@ class ActionPageController < ApplicationController
       paginate(:page => params[:page], :per_page => 9).
       order('id desc')
 
-    @actionPages = @actionPages.where(:category => params['category']) if params['category']
+    @actionPages = @actionPages.categorized(params[:category]) if params[:category].present?
 
     #request.session_options[:skip] = true  # removes session data
     response.headers['Cache-Control'] = 'public, no-cache'
