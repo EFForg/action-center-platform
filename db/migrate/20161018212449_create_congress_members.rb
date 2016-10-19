@@ -11,6 +11,8 @@ class CreateCongressMembers < ActiveRecord::Migration
       t.string :chamber,     null: false
       t.string :state,       null: false
       t.integer :district
+
+      t.timestamps
     end
   end
 end
