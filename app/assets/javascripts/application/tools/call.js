@@ -30,6 +30,7 @@ $(document).on('ready', function() {
 
     function determine_location(cb, zip_code, street_address){
       if(required_location) {
+        // When address field is present, lookup congressional district
         $.ajax({
           url: '/smarty_streets/street_address/?street=' + encodeURIComponent(street_address) + '&zipcode=' + encodeURIComponent(zip_code),
           success: function(res){
@@ -44,7 +45,8 @@ $(document).on('ready', function() {
           }
         });
       } else {
-        cb(null, null);
+        // When address field is not present, use zip code for location
+        cb(null, zip_code);
       }
     }
 
