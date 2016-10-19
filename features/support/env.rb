@@ -79,19 +79,17 @@ def stub_smarty_streets_street_address
 end
 
 def stub_legislators
-  legislators = [
-    Congress::Member.new(
-      name: "Nancy Pelosi",
-      first_name: "Nancy",
-      last_name: "Pelosi",
-      bioguide_id: "P000197",
-      phone: "202-225-4965",
-      current: true,
-      chamber: "senate",
-      state: "ca",
-      district: nil,
-      twitter_id: "NancyPelosi"
-    )
-  ]
-  allow_any_instance_of(ToolsController).to receive(:get_the_reps).and_return(legislators)
+  nancy = CongressMember.create!(
+    full_name: "Nancy Pelosi",
+    first_name: "Nancy",
+    last_name: "Pelosi",
+    bioguide_id: "P000197",
+    phone: "202-225-4965",
+    term_end: (Time.now + 1.year).strftime("%Y-%m-%d"),
+    chamber: "senate",
+    state: "ca",
+    twitter_id: "NancyPelosi"
+  )
+
+  allow(CongressMember).to receive(:lookup).and_return([nancy])
 end
