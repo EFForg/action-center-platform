@@ -1,0 +1,18 @@
+Feature: Register
+
+  Scenario: A User creates an account
+    When I go to "/register"
+    And I fill in "Email" with "user@example.com"
+    And I fill in "Password" with "a strong enough password"
+    And I fill in "user_password_confirmation" with "a strong enough password"
+    And I press "Sign up"
+    Then I should not see "Error"
+
+  Scenario: Users are not notified when email uniqueness validation fails
+    Given a user with the email "user@example.com"
+    When I go to "/register"
+    And I fill in "Email" with "user@example.com"
+    And I fill in "Password" with "a strong enough password"
+    And I fill in "user_password_confirmation" with "a strong enough password"
+    And I press "Sign up"
+    Then I should not see "Error"

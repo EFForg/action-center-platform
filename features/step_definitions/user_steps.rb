@@ -41,8 +41,9 @@ def create_an_action_page_petition_needing_one_more_signature
   @action_page = @petition.action_page
 end
 
-
-
+Given(/^a user with the email "(.*?)"$/) do |email|
+  FactoryGirl.create(:user, email: email)
+end
 
 Given(/^I exist as an activist$/) do
   create_activist_user
