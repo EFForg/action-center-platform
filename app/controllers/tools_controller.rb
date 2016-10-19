@@ -81,7 +81,7 @@ class ToolsController < ApplicationController
       if params[:partner_newsletter].present?
         Subscription.new(
           signature_params.slice(:email, :first_name, :last_name).merge(
-            partner: Partner.find_or_create_by(code: params[:partner_newsletter])
+            partner: Partner.find_by!(code: params[:partner_newsletter])
           )
         ).save
       end

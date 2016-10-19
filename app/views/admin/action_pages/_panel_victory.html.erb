@@ -30,7 +30,7 @@
         <div id='archived-fields' class='panel-body collapse <%= 'in' if @actionPage.archived? -%>'>
           <div class="form-group">
             <%= f.label :archived_redirect_action_page_id do -%>Redirect:<% end %>
-            <%= collection_select :action_page, :archived_redirect_action_page_id, ActionPage.all.where.not(id: @actionPage.id), :id, :title, {:include_blank => "  Disabled", :object => @actionPage}, {:class => 'form-control'} %>
+            <%= collection_select :action_page, :archived_redirect_action_page_id, ActionPage.all.where.not(id: @actionPage.id), :id, :title, {:include_blank => "  Disabled", :object => @actionPage} %>
           </div>
         </div><!-- #archived-fields -->
 

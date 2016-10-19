@@ -69,6 +69,7 @@ ActiveRecord::Schema.define(version: 20161018212449) do
     t.integer  "partner_id"
     t.boolean  "archived",                         default: false
     t.integer  "archived_redirect_action_page_id"
+    t.integer  "category_id"
   end
 
   add_index "action_pages", ["archived"], name: "index_action_pages_on_archived", using: :btree
@@ -136,6 +137,12 @@ ActiveRecord::Schema.define(version: 20161018212449) do
     t.string  "chamber",     null: false
     t.string  "state",       null: false
     t.integer "district"
+  end
+
+  create_table "categories", force: :cascade do |t|
+    t.string   "title",      null: false
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   create_table "congress_scorecards", force: :cascade do |t|

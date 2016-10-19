@@ -56,12 +56,14 @@ Main Form
     resize: vertical;
   }
 
-  input[type=text], textarea {
+  input[type=text], textarea, select {
     display: block;
     width: 100%;
     padding: 0.25em 0.5em;
     border: 1px solid #cce;
     border-radius: 4px;
+    font-size: 1em;
+    background-color: #fff;
   }
 
   input[type=submit] {
@@ -71,6 +73,7 @@ Main Form
   fieldset {
     padding: 0 1em 0.5em;
   }
+
 }
 
 
@@ -258,7 +261,7 @@ File upload/gallery
 }
 
 .fileupload-buttonbar {
-  margin-bottom: 20px; 
+  margin-bottom: 20px;
 }
 
 // Fix Gallery button position on non-mobile devices
