@@ -82,7 +82,6 @@ gem 'jbuilder', '~> 1.2'          # JSON APIs
 gem 'whenever', require: false    # Cron jobs
 gem 'sanitize'                    # Sanitize user input
 gem 'rest-client'
-gem 'sunlight-congress', git: 'https://github.com/steveklabnik/sunlight-congress', ref: 'a3c55'
 gem 'will_paginate', '~> 3.0'
 gem 'oauth'
 gem 'email_validator'

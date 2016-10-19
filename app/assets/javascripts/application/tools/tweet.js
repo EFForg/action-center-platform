@@ -9,12 +9,8 @@ $(document).on('ready', function() {
 
     replaceSubmitButtonWithProgressBar();
 
-    // lookup latitude and longitude
-    SmartyStreets.street_address({ street: form.find("#street_address").val(),
-                                   zipcode: form.find("#zipcode").val() })
-      .done(lookupTweetTargets)
-      .error(show_address_error);
-
+    lookupTweetTargets(form.find("#street_address").val(),
+                       form.find("#zipcode").val());
     return false;
 
     function replaceSubmitButtonWithProgressBar() {
@@ -32,27 +28,22 @@ $(document).on('ready', function() {
     }
 
     // hits /tools/reps to look up representatives exposed via Sunlight API
-    function lookupTweetTargets(smartyStreetsData){
-      if(smartyStreetsData.length > 0) { // if we had a valid address
-        var lat = smartyStreetsData[0].metadata.latitude,
-            lon = smartyStreetsData[0].metadata.longitude,
-            url = '/tools/reps?lat=' + lat + '&lon=' + lon;
-
-        $.ajax({ url: url, type: 'GET'})
-          .done(function(data) {
-            if (data.content)
-              populateTweetTargets(data);
-            else if (data.error)
-              show_address_error(data.error);
-            else
-              show_address_error("An unknown error occured.");
-          })
-          .fail(function(er) {
-            show_address_error(er.statusText);
-          });
-      } else {
-        show_address_error(App.Strings.addressLookupFailed);
-      }
+    function lookupTweetTargets(street, zipcode) {
+      $.ajax({
+        url: "/tools/reps",
+        data: { street_address: street, zipcode: zipcode },
+        success: function(data) {
+          if (data.content)
+            populateTweetTargets(data);
+          else if (data.error)
+            show_address_error(data.error);
+          else
+            show_address_error("An unknown error occured.");
+        },
+        error: function(er) {
+          show_address_error(er.statusText);
+        }
+      });
     }
 
     // Sets the view up to show tweet targets based on data retrieved from

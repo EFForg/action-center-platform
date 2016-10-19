@@ -25,7 +25,7 @@ module Actioncenter
     config.to_prepare do
           Devise::Mailer.layout "email" # email.haml or email.erb
     end
-    Sunlight::Congress.api_key = Rails.application.secrets.sunlight_api_key
+
     config.exceptions_app = ->(env) { ExceptionsController.action(:show).call(env) }
 
     config.action_mailer.smtp_settings = {
