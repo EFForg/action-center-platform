@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160908225616) do
+ActiveRecord::Schema.define(version: 20161018212449) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -123,6 +123,19 @@ ActiveRecord::Schema.define(version: 20160908225616) do
     t.string   "title"
     t.text     "message"
     t.string   "call_campaign_id"
+  end
+
+  create_table "congress_members", force: :cascade do |t|
+    t.string  "full_name",   null: false
+    t.string  "first_name",  null: false
+    t.string  "last_name",   null: false
+    t.string  "bioguide_id", null: false
+    t.string  "twitter_id"
+    t.string  "phone"
+    t.date    "term_end",    null: false
+    t.string  "chamber",     null: false
+    t.string  "state",       null: false
+    t.integer "district"
   end
 
   create_table "congress_scorecards", force: :cascade do |t|

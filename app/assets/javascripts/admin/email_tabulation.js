@@ -40,7 +40,7 @@ $(document).ready(function() {
           tbody_html += JST['admin/backbone/templates/email_campaign/congress_tabulation_row']({
             bioguide_id: bioid,
             staffer_report_url: table.dataset.staffer_report_url.replace('placeholder', bioid),
-            name: (names[bioid] || { name: "Unknown" }).name,
+            name: (names[bioid] || { full_name: "Unknown" }).full_name,
             count: breakdown[bioid]
           });
           total_count += breakdown[bioid];
@@ -61,7 +61,7 @@ $(document).ready(function() {
     var bioid = this.dataset.bioid;
     ajax_get(this.dataset.legislators_url, function(e, data) {
       if(e) return console.log(e);
-      $(".member_name", report).text(data[bioid]['type'] + ". " + data[bioid]['name']);
+      $(".member_name", report).text(data[bioid]['type'] + ". " + data[bioid]['full_name']);
     });
   });
 });
