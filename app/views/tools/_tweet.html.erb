@@ -66,7 +66,6 @@
 
   <% unless current_user %>
     <%= form_for :subscription, url: subscriptions_path, remote: true, html: { class: "newsletter-subscription" } do |f| %>
-      <%= f.hidden_field :opt_in, value: "true" %>
       <hr />
       <label for="subscription[email]"><%= t :sign_up_for_mailings_from %> <b><%= t :organization_abbreviation %></b>?</label>
 
