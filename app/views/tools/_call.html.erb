@@ -28,9 +28,9 @@
                 <% case CallTool.required_fields_for_campaign(@actionPage.call_campaign.call_campaign_id)["userLocation"] %>
                 <% when "district" %>
                   <input type="text" required class="form-control" id="inputStreetAddress" name="inputStreetAddress" value="<%= current_user.try :street_address -%>" placeholder="Street Address" title='Must be a valid US street address (no city or state necessary)'>
-                  <input type="text" required class="form-control" id="inputZip" name="inputZip" value="<%= current_user.try :zipcode -%>" placeholder="Zip Code" pattern='^[\d]{5}$' title='Must be a valid 5-digit zip code'>
+                  <input type="text" required class="form-control" id="inputZip" name="inputZip" value="<%= current_user.try :zipcode -%>" placeholder="Zip Code" pattern="^[\d]{5}$" title='Must be a valid 5-digit zip code'>
                 <% when "postal" %>
-                  <input type="text" required class="form-control" id="inputZip" name="inputZip" value="<%= current_user.try :zipcode -%>" placeholder="Zip Code" pattern='^
+                  <input type="text" required class="form-control" id="inputZip" name="inputZip" value="<%= current_user.try :zipcode -%>" placeholder="Zip Code" pattern="^[\d]{5}$">
                 <% end %>
               </div>
             </div>
