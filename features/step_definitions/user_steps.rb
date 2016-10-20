@@ -409,3 +409,9 @@ def this_machine_offline?
   end
 
 end
+
+Then(/^the email "(.*?)" should go to "(.*?)"$/) do |subject, address|
+  email = ActionMailer::Base.deliveries.first
+  email.to.should include address
+  email.subject.should include subject
+end
