@@ -14,12 +14,9 @@ module DeviseHelper
       error_key = 'devise.failure.invalid'
     end
 
-    # For privacy, hide email uniqueness validation errors from the user
-    resource.errors[:email].delete(t 'errors.messages.taken') if resource.errors['email']
-
-    return "" if resource.errors.empty? && flash_alerts.empty?
+    return "" if resource.user_facing_errors.empty? && flash_alerts.empty?
     @hasErrorMessages = true
-    errors = resource.errors.empty? ? flash_alerts : resource.errors.full_messages
+    errors = resource.user_facing_errors.empty? ? flash_alerts : resource.user_facing_errors
 
     messages = errors.map { |msg| content_tag(:p, msg) }.join
     sentence = I18n.t(error_key, :count    => errors.count,

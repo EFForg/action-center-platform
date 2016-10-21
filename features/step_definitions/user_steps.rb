@@ -45,6 +45,10 @@ Given(/^a user with the email "(.*?)"$/) do |email|
   FactoryGirl.create(:user, email: email)
 end
 
+Given(/^an unconfirmed user with the email "(.*?)"$/) do |email|
+  FactoryGirl.create(:unconfirmed_user, email: email)
+end
+
 Given(/^I exist as an activist$/) do
   create_activist_user
 end
