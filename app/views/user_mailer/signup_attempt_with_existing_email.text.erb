@@ -2,7 +2,7 @@ Hello <%= @user.email %>!
 
 Someone tried to sign up for a new Action Center account with this e-mail address, but an account already exists. If you forgot your password, you can change it with the link below.
 
-<%= link_to 'Change my password', edit_password_url(@user, :reset_password_token => @token) %>
+<%= edit_password_url(@user, :reset_password_token => @token) %>
 
 Your password won't change until you access the link above and create a new one.
 This link will expire in 6 hours.
