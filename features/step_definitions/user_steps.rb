@@ -166,13 +166,15 @@ When(/^I initiate a password reset request$/) do
   @reset_token = User.find_by_email(@visitor[:email]).reset_password_token
 end
 
-When(/^I change my email address$/) do
-  @changed_email = "2" + @visitor[:email]
+When(/^I change my email address to "(.*?)"$/) do |email|
+  @changed_email = email
   visit '/edit'
   fill_in "Email", with: @changed_email
   fill_in "Current password", with: @visitor[:password]
   click_button "Change"
+end
 
+When(/^I confirm that I changed my email address$/) do
   u = User.find_by_email(@visitor[:email])
   u.confirm
 end

@@ -96,8 +96,8 @@ Then(/^"(.*?)" should be selected from "(.*?)"$/) do |value, field|
   find_field(field).find('option[selected]').text == value
 end
 
-Then /^I should be on (.+)$/ do |page_name|
-  current_path.should == path_to(page_name)
+Then(/^I should be on "(.*?)"$/) do |path|
+  current_path.should == path
 end
 
 Then /^page should have (.+) message "([^\"]*)"$/ do |type, text|
