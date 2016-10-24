@@ -22,4 +22,5 @@ Feature: Change Email
     Then I should not see "Error"
     And I should see "You updated your account successfully, but we need to verify your new email address. Please check your email and click on the confirm link to finalize confirming your new email address."
     And I should be on "/"
+    And I should see "Currently awaiting confirmation for: existing@example.com"
 
