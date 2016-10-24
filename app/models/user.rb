@@ -41,6 +41,14 @@ class User < ActiveRecord::Base
     errors.added? :email, :taken
   end
 
+  def send_email_taken_notice
+    if self.confirmed?
+      UserMailer.signup_attempt_with_existing_email(self).deliver_now
+    else
+      send_confirmation_instructions
+    end
+  end
+
   def password_complexity
     if admin? && password.present? and password.length < 30
       errors.add :password, "must be at least 30 (try choosing 6 memorable words)"
