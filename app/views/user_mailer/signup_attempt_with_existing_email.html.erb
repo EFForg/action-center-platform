@@ -1,6 +1,6 @@
 <p>Hello <%= @user.email %>!</p>
 
-<p>Someone tried to sign up for a new Action Center account with this e-mail address, but an account already exists. If you forgot your password, you can change it with the link below.</p>
+<p>Someone tried to create Action Center account with this e-mail address, but an account already exists. If you forgot your password, you can change it with the link below.</p>
 
 <p><%= link_to 'Change my password', edit_password_url(@user, :reset_password_token => @token) %></p>
 

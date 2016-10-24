@@ -1,5 +1,5 @@
 class RegistrationsController < Devise::RegistrationsController
-  after_filter :handle_nonunique_email, only: :create
+  after_filter :handle_nonunique_email, only: [:create, :update]
   after_filter :set_create_notice, only: :create
 
   def update_resource(resource, params)

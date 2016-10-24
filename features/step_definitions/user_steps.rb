@@ -421,3 +421,10 @@ Then(/^the email "(.*?)" should go to "(.*?)"$/) do |subject, address|
   email.to.should include address
   email.subject.should include subject
 end
+
+Then(/^the email "(.*?)" should not go to "(.*?)"$/) do |subject, address|
+  emails = ActionMailer::Base.deliveries
+  emails.each do |email|
+    email.subject.should not_include subject if email.to == address
+  end
+end

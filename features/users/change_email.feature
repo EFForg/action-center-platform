@@ -6,6 +6,15 @@ Feature: Change Email
   Background:
     Given I exist as a user
 
+  Scenario: User successfully changes email
+    When I log in
+    And I change my email address to "new@example.com"
+    And I confirm that I changed my email address
+    Then I should be on "/"
+    And I should see "You updated your account successfully, but we need to verify your new email address."
+    And the email "Confirmation instructions" should go to "new@example.com"
+
+
   Scenario: A user had an outstanding password reset token
     Given I am not logged in
     When I initiate a password reset request
@@ -20,7 +29,10 @@ Feature: Change Email
     When I log in
     And I change my email address to "existing@example.com"
     Then I should not see "Error"
-    And I should see "You updated your account successfully, but we need to verify your new email address. Please check your email and click on the confirm link to finalize confirming your new email address."
+    And I should see "You updated your account successfully, but we need to verify your new email address."
     And I should be on "/"
     And I should see "Currently awaiting confirmation for: existing@example.com"
+    And the email "Did you forget your password?" should go to "existing@example.com"
+    And the email "Confirmation instructions" should not go to "existing@example.com"
+
 
