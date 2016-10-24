@@ -33,10 +33,6 @@ class User < ActiveRecord::Base
     self.save
   end
 
-  def user_facing_errors
-    errors.full_messages - Array(["Email " + I18n.t("errors.messages.taken")])
-  end
-
   def email_taken?
     errors.added? :email, :taken
   end

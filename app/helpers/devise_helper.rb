@@ -14,9 +14,9 @@ module DeviseHelper
       error_key = 'devise.failure.invalid'
     end
 
-    return "" if resource.user_facing_errors.empty? && flash_alerts.empty?
+    return "" if resource.errors.empty? && flash_alerts.empty?
     @hasErrorMessages = true
-    errors = resource.user_facing_errors.empty? ? flash_alerts : resource.user_facing_errors
+    errors = resource.errors.empty? ? flash_alerts : resource.errors.full_messages
 
     messages = errors.map { |msg| content_tag(:p, msg) }.join
     sentence = I18n.t(error_key, :count    => errors.count,

@@ -142,3 +142,8 @@ Then(/^"(.*?)" should not be required within "(.*?)"$/) do |name, container|
     expect(find_field(name)['required']).to be_falsey
   }
 end
+
+Then(/^the element "(.*?)" should not exist$/) do |element|
+  expect(page).not_to have_selector(element)
+end
+
