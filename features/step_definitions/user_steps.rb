@@ -41,8 +41,13 @@ def create_an_action_page_petition_needing_one_more_signature
   @action_page = @petition.action_page
 end
 
+Given(/^a user with the email "(.*?)"$/) do |email|
+  FactoryGirl.create(:user, email: email)
+end
 
-
+Given(/^an unconfirmed user with the email "(.*?)"$/) do |email|
+  FactoryGirl.create(:unconfirmed_user, email: email)
+end
 
 Given(/^I exist as an activist$/) do
   create_activist_user
@@ -161,13 +166,15 @@ When(/^I initiate a password reset request$/) do
   @reset_token = User.find_by_email(@visitor[:email]).reset_password_token
 end
 
-When(/^I change my email address$/) do
-  @changed_email = "2" + @visitor[:email]
+When(/^I change my email address to "(.*?)"$/) do |email|
+  @changed_email = email
   visit '/edit'
   fill_in "Email", with: @changed_email
   fill_in "Current password", with: @visitor[:password]
   click_button "Change"
+end
 
+When(/^I confirm that I changed my email address$/) do
   u = User.find_by_email(@visitor[:email])
   u.confirm
 end
@@ -409,4 +416,17 @@ def this_machine_offline?
     $OfflineMode = true
   end
 
+end
+
+Then(/^the email "(.*?)" should go to "(.*?)"$/) do |subject, address|
+  email = ActionMailer::Base.deliveries.first
+  email.to.should include address
+  email.subject.should include subject
+end
+
+Then(/^the email "(.*?)" should not go to "(.*?)"$/) do |subject, address|
+  emails = ActionMailer::Base.deliveries
+  emails.each do |email|
+    email.subject.should not_include subject if email.to == address
+  end
 end
