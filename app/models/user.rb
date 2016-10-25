@@ -33,6 +33,17 @@ class User < ActiveRecord::Base
     self.save
   end
 
+  def email_taken?
+    errors.added? :email, :taken
+  end
+
+  def send_email_taken_notice
+    if self.confirmed?
+      UserMailer.signup_attempt_with_existing_email(self).deliver_now
+    else
+      send_confirmation_instructions
+    end
+  end
 
   def password_complexity
     if admin? && password.present? and password.length < 30

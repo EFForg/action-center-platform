@@ -215,10 +215,6 @@ class ToolsController < ApplicationController
     end
   end
 
-  def cant_do_sunlight?
-    Rails.application.secrets.sunlight_api_key.nil? or Rails.env == 'test'
-  end
-
   def signature_has_errors
     !@signature.nil? and @signature.errors.count > 0
   end

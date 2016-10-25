@@ -28,8 +28,6 @@ Follow these instructions to run the Action Center using Docker (recommended). T
   * Allows admins to upload images for the ActionPages
 * [SmartyStreets API](https://smartystreets.com/account/create) key and id
   * Allows Congress members to be looked up for users
-* [Sunlight API](https://sunlightfoundation.com/api/accounts/register/) key
-  * Allows Congress members to be looked up for users
 * [Phantom of the Capitol](https://github.com/efforg/phantom-of-the-capitol) whitelisting on server side?
   * Allows users to submit e-messages to congress
 * [Call Congress](https://github.com/EFForg/call-congress) url and API key

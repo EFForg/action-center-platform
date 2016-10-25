@@ -51,7 +51,13 @@ def create_an_email_campaign
   @action_page = @email_campaign.action_page
 end
 
+Given(/^a user with the email "(.*?)"$/) do |email|
+  FactoryGirl.create(:user, email: email)
+end
 
+Given(/^an unconfirmed user with the email "(.*?)"$/) do |email|
+  FactoryGirl.create(:unconfirmed_user, email: email)
+end
 
 Given(/^I exist as an activist$/) do
   create_activist_user
@@ -158,10 +164,6 @@ Then(/^I don't see my information$/) do
   expect(page).not_to have_content(@visitor[:email])
 end
 
-
-
-
-
 When(/^I initiate a password reset request$/) do
   visit '/password/new'
 
@@ -170,13 +172,15 @@ When(/^I initiate a password reset request$/) do
   @reset_token = User.find_by_email(@visitor[:email]).reset_password_token
 end
 
-When(/^I change my email address$/) do
-  @changed_email = "2" + @visitor[:email]
+When(/^I change my email address to "(.*?)"$/) do |email|
+  @changed_email = email
   visit '/edit'
   fill_in "Email", with: @changed_email
   fill_in "Current password", with: @visitor[:password]
   click_button "Change"
+end
 
+When(/^I confirm that I changed my email address$/) do
   u = User.find_by_email(@visitor[:email])
   u.confirm
 end
@@ -322,9 +326,6 @@ When(/^I publish the action$/) do
   first(:button, "Save").click
 end
 
-
-
-
 Given(/^A tweet petition targeting senate exists$/) do
   setup_action
   @tweet = FactoryGirl.create(:tweet_targeting_senate)
@@ -457,4 +458,17 @@ end
 When(/^I enter my email address for mailings and click Sign Up$/) do
   find("input[name=subscription\\[email\\]]").set("abcdef@example.com")
   click_on "Sign up"
+end
+
+Then(/^the email "(.*?)" should go to "(.*?)"$/) do |subject, address|
+  email = ActionMailer::Base.deliveries.first
+  email.to.should include address
+  email.subject.should include subject
+end
+
+Then(/^the email "(.*?)" should not go to "(.*?)"$/) do |subject, address|
+  emails = ActionMailer::Base.deliveries
+  emails.each do |email|
+    email.subject.should not_include subject if email.to == address
+  end
 end
