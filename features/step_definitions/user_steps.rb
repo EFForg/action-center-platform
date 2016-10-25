@@ -428,18 +428,9 @@ Given(/^an email campaign exists$/) do
   create_an_email_campaign
 end
 
-When(/^I enter in my phone number and zip code$/) do
-  find("input[name=inputPhone]").set("415-555-0100")
-  find("input[name=inputZip]").set("94109")
-end
-
 When(/^I enter my email address and opt for mailings$/) do
   find("input[name=subscription\\[email\\]]").set("abcdef@example.com")
   find("label[for=do-subscribe]").click
-end
-
-When(/^I click Call Now$/) do
-  click_on "Call Now"
 end
 
 Then(/^I should see an option to sign up for mailings$/) do
