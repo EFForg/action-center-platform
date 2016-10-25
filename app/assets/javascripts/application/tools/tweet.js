@@ -27,7 +27,6 @@ $(document).on('ready', function() {
       height_changed();
     }
 
-    // hits /tools/reps to look up representatives exposed via Sunlight API
     function lookupTweetTargets(street, zipcode) {
       $.ajax({
         url: "/tools/reps",
@@ -46,8 +45,7 @@ $(document).on('ready', function() {
       });
     }
 
-    // Sets the view up to show tweet targets based on data retrieved from
-    // sunlight API
+    // Sets the view up to show tweet targets based on data retrieved from /tools/reps
     function populateTweetTargets(data) {
       $('#tweet-tool-container').show();
       form.replaceWith($(data.content));

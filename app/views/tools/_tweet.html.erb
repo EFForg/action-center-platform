@@ -50,7 +50,7 @@
 
   <% if (@tweet.target_house? || @tweet.target_senate?) && !@reps.present?-%>
     <p class="privacy-notice">
-      This tool uses <a href="http://sunlightfoundation.com/legal/privacy/" target="_blank">Sunlight Labs</a>' and <a href="http://smartystreets.com/legal/privacy-policy" target="_blank">Smarty Streets</a>' APIs
+      This tool uses <a href="http://smartystreets.com/legal/privacy-policy" target="_blank">Smarty Streets</a>' API.
     (<a class="privacy-notice-popover" href="#"
       data-container="body"
       data-toggle="popover"
@@ -58,7 +58,7 @@
       data-html="true"
       data-trigger="hover"
       data-placement="auto"
-      data-content="<p>We need your full address to locate your exact congressional district, but this information isn't stored unless you're logged in.</p><p>Our &quot;Tweet Your Representatives&quot; tool uses uses the Smarty Streets' API to convert your street address and zip code to a latitude and logitude, and also uses Sunlight Foundation's Congress API to look up the names and contact forms of the legislators for that lat/lng location.</p>"
+      data-content="<p>Our &quot;Tweet Your Representatives&quot; tool uses Smarty Streets' API to convert your street address and zip code to a congressional district.</p><p>This information isn't stored unless you're logged in.</p>"
       >why?</a>).<br>
       If you prefer not to use our tweet tool, <a href="https://www.eff.org/congress"  target="_blank">click here</a>.</p>
 
