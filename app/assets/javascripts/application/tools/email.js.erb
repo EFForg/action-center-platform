@@ -53,10 +53,6 @@ $(document).on('ready', function() {
         campaign_tag: options.campaignTag,
         legislatorLabelClasses: 'legislator-label',
         onRender: function () {
-          // Render email signup radios
-          window.removeEventListener('scroll', window.scroller);
-          window.removeEventListener('scroll', window.resizer);
-          $('.tools-wrapper').addClass('fixed');
 
           $('html, body').animate({
             scrollTop: $('#email-tool').offset().top
