@@ -268,7 +268,11 @@ $(document).on('ready', function() {
       }
       dnt = true;
     }, 0);
+
     $('.email-tool-success-share').delay(5000).slideDown(600, height_changed);
+
+    if ($("form.newsletter-subscription input[name=subscribe]:checked").val() == "1")
+      $("form.newsletter-subscription").submit();
   });
 
   $('form.email-rep-lookup').on('submit', function(ev) {

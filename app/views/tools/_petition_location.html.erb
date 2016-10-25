@@ -1,14 +1,8 @@
 <fieldset id='location' data-international-only="<%= params[:international_only] %>" <%= 'class=require' if @require_location -%>>
-  <% unless @require_location %>
-    <div class='small location-help-text'>
-      <%= t :get_involved_local %>
-    </div>
-  <% end %>
-
   <span class='intl-toggle'>
     <div class="row">
       <div class="col-xs-6">
-        <%= f.text_field :zipcode, class: 'form-control', placeholder: t(:zip_code),
+        <%= f.text_field :zipcode, class: 'form-control', placeholder: "#{t(:zip_code)} #{@require_location ? '' : t(:optional)}",
           title: t('petition_errors.required.zip_code') -%>
       </div>
       <div class="col-xs-6">

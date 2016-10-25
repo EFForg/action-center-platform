@@ -12,22 +12,6 @@ $(document).on('ready', function() {
       $(this).bfhphone($(this).data());
     });
 
-    function submit_call_request(phone, location, zip_code, street_address, action_id, call_campaign_id, update_user_data){
-      var url = '/tools/call?action_id=' + encodeURIComponent(action_id) +
-                '&call_campaign_id=' + encodeURIComponent(call_campaign_id) +
-                '&phone=' + encodeURIComponent(phone) +
-                '&location=' + encodeURIComponent(location) +
-                (street_address == '' ? '' : '&street_address=' + encodeURIComponent(street_address)) +
-                '&zipcode=' + encodeURIComponent(zip_code) +
-                '&update_user_data=' + encodeURIComponent(update_user_data);
-      $.ajax({
-        url: url,
-        type: 'POST',
-        success: function(res) {},
-        error: function() {}
-      });
-    }
-
     function determine_location(cb, zip_code, street_address){
       if(required_location) {
         // When address field is present, lookup congressional district
@@ -83,11 +67,33 @@ $(document).on('ready', function() {
           hide_form();
           height_changed();
 
-          submit_call_request(phone_number, location, zip_code, street_address, action_id, call_campaign_id, update_user_data);
+          var fd = new FormData();
+          fd.append("action_id", action_id);
+          fd.append("call_campaign_id", call_campaign_id);
+          fd.append("phone", phone_number);
+          fd.append("location", location);
+          if (street_address != '')
+            fd.append("street_address", street_address);
+          fd.append("zipcode", zip_code);
+          fd.append("update_user_data", update_user_data);
 
+          if (form.find("input[name=subscribe]:checked").val() == "1") {
+            fd.append("subscription[email]", form.find("input[type=email]").val());
+            fd.append("subscription[zipcode]", zip_code);
+            form.attr("data-signed-up-for-mailings", "true");
+          }
+
+          $.ajax({
+            url: "/tools/call",
+            type: "POST",
+            data: fd,
+            processData: false,
+            contentType: false
+          });
         }, zip_code, street_address);
       }
-      return false;
+
+      ev.preventDefault();
     });
 
     $('.call-tool-try-again').on('click', function(ev){

@@ -41,6 +41,16 @@ def create_an_action_page_petition_needing_one_more_signature
   @action_page = @petition.action_page
 end
 
+def create_a_call_campaign
+  @call_campaign = FactoryGirl.create(:call_campaign, call_campaign_id: senate_call_campaign_id)
+  @action_page = @call_campaign.action_page
+end
+
+def create_an_email_campaign
+  @email_campaign = FactoryGirl.create(:email_campaign_with_custom_target)
+  @action_page = @email_campaign.action_page
+end
+
 Given(/^a user with the email "(.*?)"$/) do |email|
   FactoryGirl.create(:user, email: email)
 end
@@ -154,10 +164,6 @@ Then(/^I don't see my information$/) do
   expect(page).not_to have_content(@visitor[:email])
 end
 
-
-
-
-
 When(/^I initiate a password reset request$/) do
   visit '/password/new'
 
@@ -236,7 +242,7 @@ end
 def sign_the_petition
   fill_in "First Name", with: @visitor[:name].split(" ").first
   fill_in "Last Name", with: @visitor[:name].split(" ").last
-  fill_in "Zip Code", with: "94109"
+  find("#signature_zipcode").set("94109")
 
   # this is how stubbing SmartyStreets looks
   RSpec::Mocks.with_temporary_scope do
@@ -319,9 +325,6 @@ When(/^I publish the action$/) do
   first(:input, "#action_page_published").click
   first(:button, "Save").click
 end
-
-
-
 
 Given(/^A tweet petition targeting senate exists$/) do
   setup_action
@@ -416,6 +419,45 @@ def this_machine_offline?
     $OfflineMode = true
   end
 
+end
+
+Given(/^a call campaign exists$/) do
+  create_a_call_campaign
+end
+
+Given(/^an email campaign exists$/) do
+  create_an_email_campaign
+end
+
+When(/^I enter my email address and opt for mailings$/) do
+  find("input[name=subscription\\[email\\]]").set("abcdef@example.com")
+  find("label[for=do-subscribe]").click
+end
+
+Then(/^I should see an option to sign up for mailings$/) do
+  expect(page).to have_css(".email-signup input[type=radio][name=subscribe][value='0']:checked", visible: false)
+  expect(page).to have_css(".email-signup input[type=radio][name=subscribe][value='1']", visible: false)
+end
+
+Then(/^I should have signed up for mailings$/) do
+  expect(page).to have_css("form[data-signed-up-for-mailings=true]", visible: false)
+end
+
+Then(/^I should not have signed up for mailings$/) do
+  expect(page).not_to have_css("form[data-signed-up-for-mailings=true]", visible: false)
+end
+
+When(/^I click open using gmail$/) do
+  click_on "Gmail"
+end
+
+Then(/^I should see a sign up form for mailings$/) do
+  expect(page).to have_css("form.newsletter-subscription")
+end
+
+When(/^I enter my email address for mailings and click Sign Up$/) do
+  find("input[name=subscription\\[email\\]]").set("abcdef@example.com")
+  click_on "Sign up"
 end
 
 Then(/^the email "(.*?)" should go to "(.*?)"$/) do |subject, address|
