@@ -1,0 +1,51 @@
+<%= render "admin/header" -%>
+<div class="container-fluid">
+  <div class="tabs-left">
+    <%= render "admin/nav_tabs" -%>
+
+    <div class="tab-content responsive">
+      <div class="tab-pane active" id="users">
+        <%= form_tag admin_users_path(anchor: "users"), id: "filter_users", method: "get" do %>
+          <%= label_tag :query, "Filter by name or e-mail", class: "sr-only" %>
+          <%= text_field_tag :query, params[:query], placeholder: "Filter by name or email", class: "form-control input-sm" %>
+          <%= submit_tag "Search", class: "btn btn-sm btn-default" %>
+        <% end %>
+
+        <table class="table table-simple table-spaced">
+          <thead>
+            <tr>
+              <th>Email</th>
+              <th>First</th>
+              <th>Last</th>
+              <th></th>
+          </thead>
+
+          <% @users.each do |user| -%>
+            <tr>
+              <td><%= user.email %></td>
+              <td><%= user.first_name %></td>
+              <td><%= user.last_name %></td>
+              <td>
+                <div class="btn-group">
+                  <% if user.admin? %>
+                    <%= button_to "Admin", "#", { "class": "btn btn-sm btn-danger", "disabled": true } %>
+                  <% elsif user.collaborator? %>
+                    <%= button_to "Remove as collaborator", admin_user_path(user, params.slice(:query, :page)),
+                                  { method: :patch, params: { "user[collaborator]": "0" },
+                                    "class": "btn btn-sm btn-primary" } %>
+                  <% else %>
+                    <%= button_to "Add as collaborator", admin_user_path(user, params.slice(:query, :page)),
+                                  { method: :patch, params: { "user[collaborator]": "1" },
+                                    "class": "btn btn-sm btn-primary" } %>
+                  <% end %>
+                </div>
+              </td>
+            </tr>
+          <% end %>
+        </table>
+
+        <%= will_paginate @users %>
+      </div>
+    </div>
+  </div>
+</div>

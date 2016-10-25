@@ -39,4 +39,9 @@
       <i class="icon ion-ios-list"></i> Topics
     <% end %>
   </li>
+  <li class="hidden-xs">
+    <%= link_to admin_users_path(anchor: 'users'), data: {tab: 'users'} do %>
+      <i class="icon ion-person-stalker"></i> Users
+    <% end %>
+  </li>
 </ul>
