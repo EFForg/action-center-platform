@@ -337,9 +337,10 @@ $(document).on('ready', function() {
             emailValues['$STATE'] = state;
             emailValues['$MESSAGE'] = message;
 
-            var url = '/tools/reps_raw?lat=' + smart_data[0].metadata.latitude + '&lon=' + smart_data[0].metadata.longitude;
-            $.ajax({ url: url, type: 'GET'})
-              .done(function(data) {
+            $.ajax({
+              url: "/tools/reps_raw",
+              data: { street_address: address, zipcode: zip },
+              success: function(data) {
                 if (data.error) {
                   show_address_error(data.error);
                 } else {
@@ -362,10 +363,11 @@ $(document).on('ready', function() {
                     extraFieldsExplain: tool.data("extra-fields-explain")
                   });
                 }
-              })
-              .fail(function(er) {
+              },
+              error: function(er) {
                 show_address_error(er.statusText);
-              });
+              }
+            });
           } else {
             $('input,textarea,button,select', form).removeAttr('disabled');
             show_address_error(App.Strings.addressLookupFailed);

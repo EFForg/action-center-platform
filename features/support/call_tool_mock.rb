@@ -8,7 +8,7 @@ module CallTool
   def self.required_fields_for_campaign(campaign_id)
     case campaign_id.to_i
     when senate_call_campaign_id
-      { "userLocation" => "postal" }
+      { "userLocation" => "district" }
 
     when custom_call_campaign_id
       { }

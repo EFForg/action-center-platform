@@ -82,7 +82,7 @@ class ToolsController < ApplicationController
       if params[:partner_newsletter].present?
         Subscription.new(
           signature_params.slice(:email, :first_name, :last_name).merge(
-            partner: Partner.find_or_create_by(code: params[:partner_newsletter])
+            partner: Partner.find_by!(code: params[:partner_newsletter])
           )
         ).save
       end
@@ -94,8 +94,6 @@ class ToolsController < ApplicationController
       ahoy.track "Action",
         { type: "action", actionType: "signature", actionPageId: @action_page.id },
         action_page: @action_page
-
-      update_congress_scorecards(signature_params[:zipcode])
 
       respond_to do |format|
         format.json {   render :json => {success: true}, :status => 200 }
@@ -143,8 +141,6 @@ class ToolsController < ApplicationController
 
     end
 
-    update_congress_scorecards(email_params[:zipcode])
-
     @name = email_params[:first_name] # for deliver_thanks_message
 
     render :json => {success: true}, :status => 200
@@ -167,24 +163,12 @@ class ToolsController < ApplicationController
     end
   end
 
-  # This method uses the Sunlight 3rd party API to find legislators relevant to
-  # either a zipcode or a lat, long position depending on which is available in
-  # params
-  def get_the_reps(params)
-    if params[:zipcode]
-      @reps = Sunlight::Congress::Legislator.by_zipcode(params[:zipcode])
-    elsif params[:lat] && params[:lon]
-      @reps = Sunlight::Congress::Legislator.by_latlong(params[:lat], params[:lon])
-    end
-  end
-
   # GET /tools/reps
   #
   # This endpoint is hit by the js for tweet actions.
   # It renders json containing html markup for presentation on the view
   def reps
-    @reps = get_the_reps(params)
-
+    @reps = CongressMember.lookup(street: params[:street_address], zipcode: params[:zipcode])
     if @reps.present?
       update_user_data(params.slice(:street_address, :zipcode)) if params[:update_user_data] == "true"
 
@@ -199,7 +183,7 @@ class ToolsController < ApplicationController
   # This endpoint is hit by the js for email actions to lookup what legislators
   # should be emailed based on the input long/lat or zipcode
   def reps_raw
-    @reps = get_the_reps(params)
+    @reps = CongressMember.lookup(street: params[:street_address], zipcode: params[:zipcode])
     if @reps.present?
       render :json => @reps, :status => 200
     else
@@ -228,18 +212,6 @@ class ToolsController < ApplicationController
       params[:subscription][:opt_in] = true
       params[:subscription][:source] = source
       CiviCRM::subscribe params[:subscription]
-    end
-  end
-
-  # This makes a 3rd party lookup to Sunlight API to get all the representatives
-  # relevant to a zipcode and add a tally to their CongressScorecard (creating it if needed)
-  def update_congress_scorecards(zipcode)
-    return if !GoingPostal.valid_zipcode?(zipcode, 'US') or cant_do_sunlight?
-    Sunlight::Congress::Legislator.by_zipcode(zipcode).each do |rep|
-      CongressScorecard.find_or_create_by(
-        bioguide_id: rep.bioguide_id,
-        action_page_id: @action_page.id
-      ).increment!
     end
   end
 

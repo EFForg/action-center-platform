@@ -101,7 +101,6 @@ services:
 
       # Third party integration (not required)
       call_tool_url: 'https://call.example.com/'
-      sunlight_api_key: ''
       call_tool_api_key: ''
       congress_forms_debug_key: ''
       supporters_api_key: ''

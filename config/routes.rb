@@ -76,7 +76,6 @@ Actioncenter::Application.routes.draw do
       member do
         get :csv
         get :presentable_csv
-        get '/:bioguide_id' => 'petitions#report'
         delete "signatures" => "petitions#destroy_signatures", as: :signatures
       end
     end

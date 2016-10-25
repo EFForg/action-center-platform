@@ -5,7 +5,7 @@ $(document).on('ready', function() {
     var call_campaign_id = $('[data-call-campaign-id]').attr('data-call-campaign-id');
     var $phone_number_field = $("#inputPhone");
     var $zip_field = $("#inputZip");
-    var $street_address_field = $("#inputStreesAddress");
+    var $street_address_field = $("#inputStreetAddress");
     var required_location = !!$street_address_field.length;
 
     $phone_number_field.each(function(){
@@ -14,13 +14,14 @@ $(document).on('ready', function() {
 
     function determine_location(cb, zip_code, street_address){
       if(required_location) {
+        // When address field is present, lookup congressional district
         $.ajax({
           url: '/smarty_streets/street_address/?street=' + encodeURIComponent(street_address) + '&zipcode=' + encodeURIComponent(zip_code),
           success: function(res){
             if(res.length == 1){
-              var lat = res[0].metadata.latitude;
-              var lng = res[0].metadata.longitude;
-              cb(null, lat + ',' + lng);
+              var state = res[0].components.state_abbreviation;
+              var district = res[0].metadata.congressional_district;
+              cb(null, state + "-" + district);
             }
           },
           error: function(err){
@@ -28,7 +29,8 @@ $(document).on('ready', function() {
           }
         });
       } else {
-        cb(null, null);
+        // When address field is not present, use zip code for location
+        cb(null, zip_code);
       }
     }
 
