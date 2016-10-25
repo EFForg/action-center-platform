@@ -1,8 +1,6 @@
 #!/bin/bash
 set -e
 
-rm -rf tmp/
-
 if [ "$DB_AUTO_MIGRATE" == "true" ]; then
   bin/rake db:migrate
 fi

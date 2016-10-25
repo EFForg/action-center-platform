@@ -42,6 +42,9 @@ ADD script/ ./script
 ADD spec/ ./spec
 ADD vendor/ ./vendor
 ADD docker/ ./docker
-
+RUN mkdir /opt/actioncenter/tmp && \
+    chown -R www-data /opt/actioncenter/public \
+                      /opt/actioncenter/tmp
+USER www-data
 CMD ["rails", "s", "-b", "0.0.0.0"]
 ENTRYPOINT ["/opt/actioncenter/docker/entrypoint.sh"]
