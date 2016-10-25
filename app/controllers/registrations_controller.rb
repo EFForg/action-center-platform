@@ -4,34 +4,34 @@ class RegistrationsController < Devise::RegistrationsController
   # POST /resource
   def create
     super do |resource|
-      if resource.email_taken? and resource.errors.count == 1
-        handle_nonunique_email(sign_up_params[:email])
-        respond_with resource, location: after_inactive_sign_up_path_for(resource)
-        return
-      end
+      handle_nonunique_email if resource.email_taken?
+      return if performed?
     end
   end
 
   # PUT /resource
   def update
     super do |resource|
-      if resource.email_taken? and resource.errors.count == 1
-        handle_nonunique_email(account_update_params[:email])
-        respond_with resource, location: after_update_path_for(resource)
-        return
-      end
+      handle_nonunique_email if resource.email_taken?
+      return if performed?
     end
   end
 
   private
 
-  def handle_nonunique_email(email)
-    User.find_by_email(email).send_email_taken_notice
+  def handle_nonunique_email
     resource.errors.delete(:email)
 
-    if resource.persisted?
-      resource.update_attribute(:unconfirmed_email, account_update_params[:email])
-      flash[:notice] = I18n.t "devise.registrations.update_needs_confirmation"
+    if resource.errors.empty?
+      User.find_by_email(resource.email).send_email_taken_notice
+
+      if resource.persisted?
+        resource.update_attribute(:unconfirmed_email, account_update_params[:email])
+        flash[:notice] = I18n.t "devise.registrations.update_needs_confirmation"
+        respond_with resource, location: after_update_path_for(resource)
+      else
+        respond_with resource, location: after_inactive_sign_up_path_for(resource)
+      end
     end
   end
 
