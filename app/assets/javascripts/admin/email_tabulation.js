@@ -61,7 +61,9 @@ $(document).ready(function() {
     var bioid = this.dataset.bioid;
     ajax_get(this.dataset.legislators_url, function(e, data) {
       if(e) return console.log(e);
-      $(".member_name", report).text(data[bioid]['type'] + ". " + data[bioid]['full_name']);
+
+      var title = data[bioid]["type"] == "senate" ? "Sen." : "Rep.";
+      $(".member_name", report).text(title + " " + data[bioid]["full_name"]);
     });
   });
 });
