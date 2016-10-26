@@ -71,25 +71,25 @@
         <div class="action-grid">
           <div class="quad-1">
             <span>
-              <%= current_user.events.actions.calls.count %>
+              <%= current_user.actions.calls.count %>
             </span>
-            call<%= "s" if current_user.events.actions.calls.count != 1 %>
+            call<%= "s" if current_user.actions.calls.count != 1 %>
           </div>
           <div class="quad-2">
             <span>
-              <%= current_user.events.actions.signatures.count %>
+              <%= current_user.actions.signatures.count %>
             </span>
-            petition<%= "s" if current_user.events.actions.signatures.count != 1 -%>
+            petition<%= "s" if current_user.actions.signatures.count != 1 -%>
           </div>
           <div class="quad-3">
             <span>
-              <%= current_user.events.actions.emails.count %>
+              <%= current_user.actions.emails.count %>
             </span>
-            email<%= "s" if current_user.events.actions.emails.count != 1 -%>
+            email<%= "s" if current_user.actions.emails.count != 1 -%>
           </div>
           <div class="quad-4">
             <span>
-              <%= current_user.events.actions.count -%>
+              <%= current_user.actions.count -%>
             </span>
             total
           </div>
