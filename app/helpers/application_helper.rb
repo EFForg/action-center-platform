@@ -444,6 +444,10 @@ module ApplicationHelper
     return fn.join '.'
   end
 
+  def can?(ability)
+    current_user.try(:can?, ability)
+  end
+
   private
   def user_session_data_whitelist
     [:email, :last_name, :first_name, :street_address, :city, :state, :zipcode,

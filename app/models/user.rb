@@ -18,6 +18,8 @@ class User < ActiveRecord::Base
   before_update :invalidate_new_activists_password, :if => proc { admin_changed?  }
   after_update :reset_password_expiration_flag, :if => proc { encrypted_password_changed? && !password_expired_changed? }
 
+  alias_attribute :activist?, :admin?
+
   alias :preferences :user_preferences
 
   def invalidate_password_reset_tokens
@@ -78,6 +80,27 @@ class User < ActiveRecord::Base
 
   def partner?
     partner.present?
+  end
+
+  def can?(ability)
+    case ability
+    when :browse_actions
+      admin? || activist? || collaborator?
+    when :administer_actions
+      admin? || activist?
+    when :administer_homepage
+      admin? || activist?
+    when :view_analytics
+      admin? || activist? || collaborator?
+    when :administer_partners?
+      admin? || activist?
+    when :administer_topics?
+      admin? || activist?
+    when :administer_users?
+      admin?
+    else
+      admin?
+    end
   end
 
   def self.new_with_session(params, session)
