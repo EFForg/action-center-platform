@@ -2,6 +2,8 @@ include PetitionHelper
 class Admin::PetitionsController < Admin::ApplicationController
   before_action :set_petition
 
+  allow_collaborators_to :show, :destroy_signatures
+
   def show
     @signatures = filtered_signatures
   end

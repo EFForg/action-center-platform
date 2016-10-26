@@ -3,6 +3,9 @@ class Admin::ActionPagesController < Admin::ApplicationController
   before_filter :set_date_from_params, only: [:index, :edit, :new]
   skip_before_filter :verify_authenticity_token, :only => [:update_featured_pages]
   after_filter :purge_cache, only: [ :update, :publish ]
+
+  allow_collaborators_to :index, :edit
+
   def index
     @actionPages = ActionPage.order('id desc')
     @featuredActionPages = FeaturedActionPage.order('weight').
