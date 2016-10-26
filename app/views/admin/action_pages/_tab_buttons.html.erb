@@ -5,46 +5,53 @@
       <i class="icon ion-ios-arrow-back"></i> Back
     <% end %>
   </li>
-  <li class="active">
-    <a data-tab='contents' href="#contents" data-toggle="tab">
-      <i class="icon ion-document-text"></i> Content
-    </a>
-  </li>
-  <li>
-    <a data-tab='action' href="#action" data-toggle="tab">
-      <i class="icon ion-flash"></i> Action Settings
-    </a>
-  </li>
-  <li>
-    <a data-tab='photo' href="#photo-settings" data-toggle="tab">
-      <i class="icon ion-camera"></i> Photos
-    </a>
-  </li>
-  <li>
-    <a data-tab='social' href="#social-settings" data-toggle="tab">
-      <i class="icon ion-social-twitter"></i> Social
-    </a>
-  </li>
-  <li>
-    <a data-tab='email' href="#email-settings" data-toggle="tab">
-      <i class="icon ion-email"></i> Email
-    </a>
-  </li>
-  <li>
-    <a data-tab='victory' href="#victory" data-toggle="tab">
-      <i class="icon ion-flag"></i> Victory/Archive
-    </a>
-  </li>
-  <% if @actionPage.id %>
+
+  <% if can?(:administer_actions) %>
+    <li class="active">
+      <a data-tab='contents' href="#contents" data-toggle="tab">
+        <i class="icon ion-document-text"></i> Content
+      </a>
+    </li>
+    <li>
+      <a data-tab='action' href="#action" data-toggle="tab">
+        <i class="icon ion-flash"></i> Action Settings
+      </a>
+    </li>
+    <li>
+      <a data-tab='photo' href="#photo-settings" data-toggle="tab">
+        <i class="icon ion-camera"></i> Photos
+      </a>
+    </li>
+    <li>
+      <a data-tab='social' href="#social-settings" data-toggle="tab">
+        <i class="icon ion-social-twitter"></i> Social
+      </a>
+    </li>
+    <li>
+      <a data-tab='email' href="#email-settings" data-toggle="tab">
+        <i class="icon ion-email"></i> Email
+      </a>
+    </li>
+    <li>
+      <a data-tab='victory' href="#victory" data-toggle="tab">
+        <i class="icon ion-flag"></i> Victory/Archive
+      </a>
+    </li>
+  <% end %>
+
+  <% if @actionPage.id && can?(:view_analytics) %>
     <li>
       <a data-tab='analytics' href="#analytics" data-toggle="tab">
         <i class="icon ion-arrow-graph-up-right"></i> Analytics
       </a>
     </li>
   <% end %>
-  <li class="pull-right open-gallery">
-    <a href="#" data-toggle="modal" data-target="#myModal">
-      <i class="icon ion-images"></i> Open Gallery
-    </a>
-  </li>
+
+  <% if can?(:administer_actions) %>
+    <li class="pull-right open-gallery">
+      <a href="#" data-toggle="modal" data-target="#myModal">
+        <i class="icon ion-images"></i> Open Gallery
+      </a>
+    </li>
+  <% end %>
 </ul>

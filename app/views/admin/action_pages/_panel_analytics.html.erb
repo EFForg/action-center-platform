@@ -98,9 +98,11 @@
         <% if @actionPage.enable_petition? && @actionPage.petition && @actionPage.petition.persisted? %>
           <h3 class=clearfix>
             Petition Tool
-            <%= link_to 'Download CSV',
-              csv_admin_petition_path(@actionPage.petition),
-              class: 'btn btn-default btn-sm pull-right'-%>
+            <% if can?(:export_signatures) %>
+              <%= link_to 'Download CSV',
+                          csv_admin_petition_path(@actionPage.petition),
+                          class: 'btn btn-default btn-sm pull-right'-%>
+            <% end %>
           </h3>
           <%= link_to 'View Signatures',
             admin_petition_path(@actionPage.petition),
