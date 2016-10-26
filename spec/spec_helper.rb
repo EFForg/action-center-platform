@@ -115,6 +115,11 @@ def login_as_admin
   sign_in FactoryGirl.create(:admin_user)
 end
 
+def login_as_collaborator
+  @request.env["devise.mapping"] = Devise.mappings[:admin]
+  sign_in FactoryGirl.create(:collaborator_user)
+end
+
 
 def set_weak_password(user)
   weak_password = "12345678"
