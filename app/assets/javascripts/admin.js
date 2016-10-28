@@ -224,29 +224,30 @@ $(document).on('ready', function() {
 
   setup_target_ux($target_email, $addresses, true, false);
   setup_target_ux($target_bioguide_id, $bioguide_id, false, true);
+
+  // Bootstrap popovers and tooltips
+  $('.action_pages-index i.has-tooltip').tooltip();
+
+  var popovers = "#protip2, #protip3, .photo-specs-popover, .photo-popover";
+  $(popovers).popover();
+
+  $(popovers).on('shown.bs.popover', function(){
+    $(".popover").click(function(e){
+      e.stopPropagation();
+    });
+
+    $("body").click(function(){
+      $(popovers).popover('hide');
+      $("body").off('click');
+    });
+  });
+
+  // Prevent scrolling to the top of the page when clicking on protip popovers.
+  $( 'a[href="#"]' ).click( function(e) {
+    e.preventDefault();
+  } );
 });
 
-
-// Bootstrap popovers and tooltips
-$('.action_pages-index i.has-tooltip').tooltip();
-
-var popovers = "#protip2, #protip3, .photo-specs-popover, .photo-popover";
-$(popovers).popover();
-
-$(popovers).on('shown.bs.popover', function(){
-  $(".popover").click(function(e){
-    e.stopPropagation();
-  });
-  $("body").click(function(){
-    $(popovers).popover('hide');
-    $("body").off('click');
-  });
-});
-
-// Prevent scrolling to the top of the page when clicking on protip popovers.
-$( 'a[href="#"]' ).click( function(e) {
-      e.preventDefault();
-   } );
 
 // Make chart.js redraw charts when we resize the browser
 Chart.defaults.global.responsive = true;
