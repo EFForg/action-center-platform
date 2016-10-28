@@ -103,6 +103,10 @@ class User < ActiveRecord::Base
     end
   end
 
+  def privileged_role?
+    admin? || activist? || collaborator?
+  end
+
   def self.new_with_session(params, session)
     email = session[:user].with_indifferent_access[:email] if session[:user]
     params.reverse_merge!(email: email)

@@ -55,7 +55,7 @@
                   <a href="https://eff.org">EFF.org</a>
                 </li>
                 <% if user_signed_in? %>
-                <% if current_user.admin? %>
+                <% if current_user.privileged_role? %>
                   <% if ( controller.controller_name == "action_page" && action_name == "show") -%>
                     <li>
                       <%= link_to "Edit this page", edit_admin_action_page_path(@actionPage) -%>
