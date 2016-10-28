@@ -13,17 +13,21 @@
 //= require bootstrap-sass/bootstrap/tab
 //= require bootstrap-responsive-tabs
 
-var editor;
-
-
 $(document).on('ready', function() {
 
-  editor = initEpicEditor('action-page-description', 'description');
+  var editor = initEpicEditor('action-page-description', 'description');
   var editor2 = initEpicEditor('action-page-what-to-say', 'what-to-say');
   var editor3 = initEpicEditor('epic-petition-description', 'petition-description');
   var editor4 = initEpicEditor('epic-action-summary', 'action-summary');
   var editor5 = initEpicEditor('epic-email-text', 'email-text');
   var editor6 = initEpicEditor('epic-victory-message', 'victory-message');
+
+  $("#action-page-description").data("editor", editor);
+  $("#action-page-what-to-say").data("editor", editor2);
+  $("#epic-petition-description-").data("editor", editor3);
+  $("#epic-action-summary").data("editor", editor4);
+  $("#epic-email-text").data("editor", editor5);
+  $("#epic-victory-message").data("editor", editor);
 
   $("#date_control_container").each(function() {
     var date_start = $(this).data("date-start");
