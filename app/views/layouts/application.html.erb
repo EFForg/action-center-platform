@@ -55,37 +55,23 @@
                   <a href="https://eff.org">EFF.org</a>
                 </li>
                 <% if user_signed_in? %>
-                <% if current_user.privileged_role? %>
-                  <% if ( controller.controller_name == "action_page" && action_name == "show") -%>
-                    <li>
-                      <%= link_to "Edit this page", edit_admin_action_page_path(@actionPage) -%>
-                    </li>
+                  <% if can?(:administer_actions) && controller_name == "action_page" && @actionPage -%>
+                    <li><%= link_to "Edit this page", edit_admin_action_page_path(@actionPage) -%></li>
                   <% end %>
-                  <li>
-                    <%= link_to('Admin', '/admin/action_pages') %>
-                  </li>
-                <% end %>
 
-                <% if current_user.partner? %>
-                  <li><%= link_to 'Partner Dashboard', current_user.partner -%></li>
-                <% end %>
-                <li>
-                  <%= link_to('Account', '/account') %>
-                  <!--<%= link_to('Settings', edit_user_registration_path) %>-->
-                </li>
+                  <% if current_user.privileged_role? %>
+                    <li><%= link_to("Admin", "/admin/action_pages") %></li>
+                  <% end %>
+
+                  <% if current_user.partner? %>
+                    <li><%= link_to "Partner Dashboard", current_user.partner -%></li>
+                  <% end %>
+
+                  <li><%= link_to("Account", "/account") %></li>
+                  <li><%= link_to("Logout", destroy_user_session_path) %></li>
                 <% else %>
-                <li>
-                  <%= link_to('Register', new_user_registration_path)  %>
-                </li>
-                <% end %>
-                <% if user_signed_in? %>
-                <li>
-                  <%= link_to('Logout', destroy_user_session_path) %>
-                </li>
-                <% else %>
-                <li>
-                  <%= link_to('Login', new_user_session_path)  %>
-                </li>
+                  <li><%= link_to("Register", new_user_registration_path)  %></li>
+                  <li><%= link_to("Login", new_user_session_path)  %></li>
                 <% end %>
               </ul>
             </div><!--/.navbar-collapse -->
