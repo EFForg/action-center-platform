@@ -17,7 +17,7 @@
 //= require bootstrap-sass/bootstrap/transition
 
 //= require application/select2-utils
-//= require application/congress-forms
+//= require congress-forms
 //= require webshims/polyfiller
 //= require respond
 //= require html5shiv
