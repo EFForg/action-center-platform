@@ -107,8 +107,7 @@ def fill_in_petition_action_inputs
 
   find("#epic-action-summary").set(c[:summary])
   find("#epic-action-summary").set(c[:summary])
-  # find("#action-page-description").set(c[:description])
-  page.execute_script("editor.importFile('new', '#{c[:description]}')")
+  import_file_into_editor("new", c[:description])
 
   first(:link, "Action Settings").click
   find("#action_page_enable_petition").click
@@ -255,6 +254,12 @@ def sign_the_petition
   end
 end
 
+def import_file_into_editor(name, content)
+  page.execute_script(
+    %($("#action-page-description").data("editor").importFile("#{name}", "#{content}");)
+  )
+end
+
 When(/^the action is marked a victory$/) do
   @action_page.update_attributes(victory: true)
 end
@@ -304,7 +309,8 @@ When(/^I click to add an image to the gallery of a new ActionPage$/) do
 
   click_button "Close"
 
-  page.execute_script("editor.importFile('new', 'here is the image #{bb_code}')")
+  import_file_into_editor("new", "here is the image #{bb_code}")
+
   loop while page.has_content?("img.png - 7.93 KB -")
 
   first(:button, "Save").click

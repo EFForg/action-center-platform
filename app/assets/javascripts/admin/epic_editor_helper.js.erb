@@ -1,0 +1,16 @@
+function initEpicEditor(container, textarea) {
+  if ($('#' + container).length && $('#' + textarea).length) {
+    return new EpicEditor({
+      container: container,
+      textarea: textarea,
+      basePath: '',
+      clientSideStorage: false,
+      theme: {
+        base: "<%= asset_path "EpicEditor/epiceditor/themes/base/epiceditor.css" %>",
+        preview: "<%= asset_path "EpicEditor/epiceditor/themes/preview/github.css" %>",
+        editor: "<%= asset_path "EpicEditor/epiceditor/themes/editor/epic-light.css" %>"
+      },
+      autogrow: true,
+    }).load();
+  }
+};

@@ -9,10 +9,9 @@
  * http://www.opensource.org/licenses/MIT
  */
 
-// This global variable will hold s3 file credentials for files until it's time to submit them
-var s3_upload_hash = {};
-
 $(function() {
+  var s3_upload_hash = {};
+
   // This is triggered when the user chooses a file from the selector after they
   // clicked "Add files..." in the Gallery section
   // hit the controller for info when the file comes in
@@ -68,23 +67,22 @@ $(function() {
       $('#source_file_' + data.object_id).remove();
    });
 
+  // Asks rails to generate a unique location where we should upload the
+  // file to at S3.  This function populates s3_upload_hash
+  function askRailsWhereToUploadThisFileTo(e, data) {
+    var content_type = data.files[0].type;
+    var file_name = data.files[0].name;
+
+    $.getJSON('/admin/source_files/generate_key.json', {filename: file_name}, function(data) {
+      // Now that we have our data, we add it to the global s3_upload_hash so that it can be
+      // accessed (in the fileuploadsubmit callback) prior to being submitted
+      s3_upload_hash[file_name] = {
+        key: data.key,
+        content_type: content_type
+      };
+    });
+  }
 });
-
-// Asks rails to generate a unique location where we should upload the
-// file to at S3.  This function populates s3_upload_hash
-function askRailsWhereToUploadThisFileTo(e, data) {
-  var content_type = data.files[0].type;
-  var file_name = data.files[0].name;
-
-  $.getJSON('/admin/source_files/generate_key.json', {filename: file_name}, function(data) {
-    // Now that we have our data, we add it to the global s3_upload_hash so that it can be
-    // accessed (in the fileuploadsubmit callback) prior to being submitted
-    s3_upload_hash[file_name] = {
-      key: data.key,
-      content_type: content_type
-    };
-  });
-}
 
 // used for displaying approximate file size on the file listing index.
 // functionality mimics what the jQuery-File-Upload script does.
