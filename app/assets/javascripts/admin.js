@@ -9,6 +9,7 @@
 //= require admin/s3_uploads.js
 //= require admin/email_tabulation
 //= require admin/petitions
+//= require admin/epic_editor_helper
 //= require s3_cors_fileupload
 //= require bootstrap-sass/bootstrap/tab
 //= require bootstrap-responsive-tabs
