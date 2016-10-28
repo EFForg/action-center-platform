@@ -89,6 +89,12 @@
           </div>
           <div class="quad-4">
             <span>
+              <%= current_user.actions.tweets.count %>
+            </span>
+            tweet<%= "s" if current_user.actions.tweets.count != 1 -%>
+          </div>
+          <div class="total">
+            <span>
               <%= current_user.actions.count -%>
             </span>
             total
