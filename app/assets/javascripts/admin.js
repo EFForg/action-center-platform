@@ -246,11 +246,12 @@ $(document).on('ready', function() {
   $( 'a[href="#"]' ).click( function(e) {
     e.preventDefault();
   } );
+
+  // Bootstrap responsive tabs: https://github.com/openam/bootstrap-responsive-tabs
+  fakewaffle.responsiveTabs(['xs']);
 });
 
 
 // Make chart.js redraw charts when we resize the browser
 Chart.defaults.global.responsive = true;
 
-// Bootstrap responsive tabs: https://github.com/openam/bootstrap-responsive-tabs
-fakewaffle.responsiveTabs(['xs']);
