@@ -54,6 +54,10 @@ When /^I choose "([^\"]*)"$/ do |field|
   choose(field)
 end
 
+When /^I drag "([^\"]+)" onto "([^\"]+)"$/ do |source, target|
+  page.find(source).drag_to(page.find(target))
+end
+
 Then /^I should see "([^\"]*)"$/ do |text|
   page.should have_content(text)
 end
