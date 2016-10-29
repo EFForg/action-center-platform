@@ -130,11 +130,6 @@ Then(/I should see "(.*?)" within the new window$/) do |text|
   end
 end
 
-When(/^I save the page$/) do
-  # Saves HTML to tmp/capybara. Useful for debugging.
-  save_page
-end
-
 Then(/^"(.*?)" should be required within "(.*?)"$/) do |name, container|
   within(container) {
     expect(find_field(name)['required']).to be_truthy
