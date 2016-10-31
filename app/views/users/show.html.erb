@@ -70,28 +70,16 @@
         <p>Actions you've taken so far:</p>
         <div class="action-grid">
           <div class="quad-1">
-            <span>
-              <%= current_user.actions.calls.count %>
-            </span>
-            call<%= "s" if current_user.actions.calls.count != 1 %>
+            <%= pluralize_with_span(current_user.actions.calls.count, 'call') %>
           </div>
           <div class="quad-2">
-            <span>
-              <%= current_user.actions.signatures.count %>
-            </span>
-            petition<%= "s" if current_user.actions.signatures.count != 1 -%>
+            <%= pluralize_with_span(current_user.actions.signatures.count, 'petition') %>
           </div>
           <div class="quad-3">
-            <span>
-              <%= current_user.actions.emails.count %>
-            </span>
-            email<%= "s" if current_user.actions.emails.count != 1 -%>
+            <%= pluralize_with_span(current_user.actions.emails.count, 'email') %>
           </div>
           <div class="quad-4">
-            <span>
-              <%= current_user.actions.tweets.count %>
-            </span>
-            tweet<%= "s" if current_user.actions.tweets.count != 1 -%>
+            <%= pluralize_with_span(current_user.actions.tweets.count, 'tweet') %>
           </div>
           <div class="total">
             <span>
