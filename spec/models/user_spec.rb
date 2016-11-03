@@ -31,6 +31,17 @@ describe User do
       result = set_strong_password(user)
       expect(result).to be_truthy
     end
+
+    it "allows users to reset their password when password_expired = false" do
+      user = FactoryGirl.create(:user, password_expired: false)
+      expect(set_strong_password(user)).to be_truthy
+    end
+
+    it "resets the password_expired flag when password changes" do
+      user = FactoryGirl.create(:user, password_expired: true)
+      set_strong_password(user)
+      expect(user.password_expired).to be_falsey
+    end
   end
 
   describe "track user actions" do
