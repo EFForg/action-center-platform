@@ -15,7 +15,7 @@ services:
     environment:
       POSTGRES_PASSWORD: mysecrettestpassword
 
-  app:
+  app: &defaults
     build: .
 
     # # Expose ports for development.
@@ -114,3 +114,15 @@ services:
       #
       # End of application environment variables
       #
+
+  # Uncomment these services to run cron/delayed job daemons
+  #
+  # cron:
+  #   <<: *defaults
+  #   ports: []
+  #   command: cron -f -L 15
+  #
+  # delayed_job_worker:
+  #   <<: *defaults
+  #   ports: []
+  #   command: rake jobs:work
