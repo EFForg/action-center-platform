@@ -15,7 +15,7 @@ services:
     environment:
       POSTGRES_PASSWORD: mysecrettestpassword
 
-  app: &defaults
+  app:
     build: .
 
     # # Expose ports for development.
@@ -30,7 +30,7 @@ services:
     # # Automatically restart the app on exit in production.
     # restart: always
 
-    environment:
+    environment: &env
       #
       # Start of application environment variables
       #
@@ -111,6 +111,9 @@ services:
       # Error reporting (not required)
       sentry_dsn: ''
 
+      # Misc.
+      ROLE: web
+
       #
       # End of application environment variables
       #
@@ -118,11 +121,17 @@ services:
   # Uncomment these services to run cron/delayed job
   #
   # cron:
-  #   <<: *defaults
-  #   ports: []
+  #   build: .
+  #   restart: always
   #   command: cron -f -L 15
+  #   environment:
+  #     <<: *env
+  #     ROLE: worker
   #
-  # delayed_job_worker:
-  #   <<: *defaults
-  #   ports: []
-  #   command: rake jobs:work
+  # delayed_jobs:
+  #   build: .
+  #   restart: always
+  #   command: bundle exec rake jobs:work
+  #   environment:
+  #     <<: *env
+  #     ROLE: worker
