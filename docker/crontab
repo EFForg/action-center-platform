@@ -1,2 +1,2 @@
-30 * * * * root cd /opt/actioncenter && rake signatures:deduplicate >>/var/log/cron.log 2>&1
-0  0 * * * root cd /opt/actioncenter && rake congress:update        >>/var/log/cron.log 2>&1
+0 * * * * root /bin/sh -lc 'cd /opt/actioncenter && bundle exec rake signatures:deduplicate' >>/var/log/cron.log 2>&1
+0 0 * * * root /bin/sh -lc 'cd /opt/actioncenter && bundle exec rake congress:update'        >>/var/log/cron.log 2>&1
