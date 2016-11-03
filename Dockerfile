@@ -7,7 +7,8 @@ RUN apt-get update && \
   apt-get install -y --no-install-recommends \
     libpq-dev \
     nodejs \
-    postgresql-client && \
+    postgresql-client \
+    cron && \
   apt-get clean && \
   rm -rf /var/lib/apt/lists/* \
     /tmp/* \
@@ -42,6 +43,10 @@ ADD script/ ./script
 ADD spec/ ./spec
 ADD vendor/ ./vendor
 ADD docker/ ./docker
+
+COPY docker/crontab /etc/cron.d/crontab
+RUN chmod 0644 /etc/cron.d/crontab
+RUN touch /var/log/cron.log
 
 CMD ["rails", "s", "-b", "0.0.0.0"]
 ENTRYPOINT ["/opt/actioncenter/docker/entrypoint.sh"]
