@@ -22,4 +22,6 @@ fi
 # host ip needed by application for better_errors whitelisting to work
 export HOST_IP=`/sbin/ip route|awk '/default/ { print $3 }'`
 
+printenv | sed 's/^\([[:alnum:]_]*\)=\(.*\)$/export \1="\2"/' >/root/.profile
+
 exec "$@"
