@@ -115,7 +115,7 @@ services:
       # End of application environment variables
       #
 
-  # Uncomment these services to run cron/delayed job daemons
+  # Uncomment these services to run cron/delayed job
   #
   # cron:
   #   <<: *defaults
