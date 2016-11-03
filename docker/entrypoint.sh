@@ -12,7 +12,7 @@ if [ "$TEST_DB_AUTO_MIGRATE" == "true" ]; then
 fi
 
 # Download and precompile assets
-if [ "$ROLE" == "web" ]; then
+if [ "$ROLE" == "web" -o "$ROLE" == "test" ]; then
     bin/rake webshims:update_public
     if [ "$RAILS_ENV" == "production" ]; then
         bin/rake assets:precompile
