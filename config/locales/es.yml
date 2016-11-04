@@ -44,6 +44,7 @@ es:
   want: Quiero
   do_not_want: No quiero
   to_sign_up_for_mailings_from: firmar la lista de interés de
+  sign_up_for_mailings_from: ¿Quieres firmar la lista de interés de
   outside_the_us: ¿Fuera de los Estados Unidos?
   in_the_us: ¿Está en los EE.UU.?
   speak_out: Pronúnciate
@@ -58,11 +59,11 @@ es:
   filter_by_institution: Filter by institution
   add_another_institution: + Add another institution
   name_and_affiliations_published: Your name and affiliations will be published on our site.
-  get_involved_local: Get involved with EFF in your area
   i_am_a: Soy un...
   zip_code: Codigo Postal
   city: Ciudad
   country: Pais
+  optional: (opcional)
   ago: atrás
   petition_errors:
     required:

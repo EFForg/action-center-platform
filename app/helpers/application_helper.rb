@@ -448,6 +448,11 @@ module ApplicationHelper
     current_user.try(:can?, ability)
   end
 
+  def pluralize_with_span(count, noun)
+    noun = if count == 1 then noun else noun.pluralize end
+    content_tag(:span, count) + " #{noun}"
+  end
+
   private
   def user_session_data_whitelist
     [:email, :last_name, :first_name, :street_address, :city, :state, :zipcode,

@@ -5,6 +5,7 @@ require 'json'
 class ToolsController < ApplicationController
   before_filter :set_user
   before_filter :set_action_page
+  before_filter :create_newsletter_subscription, only: [:call]
   after_filter :deliver_thanks_message, only: [:call, :petition, :email]
   skip_after_filter :deliver_thanks_message, if: :signature_has_errors
   skip_before_filter :verify_authenticity_token, only: :petition
@@ -203,6 +204,15 @@ class ToolsController < ApplicationController
     @action_page ||= ActionPage.find(params[:action_id])
     @email ||= current_user.try(:email) || params[:email]
     UserMailer.thanks_message(@email, @action_page, user: @user, name: @name).deliver_now if @email
+  end
+
+  def create_newsletter_subscription
+    if params[:subscription] && EmailValidator.valid?(params[:subscription][:email])
+      source = "action center #{@action_page.class.name.downcase} :: " + @action_page.title
+      params[:subscription][:opt_in] = true
+      params[:subscription][:source] = source
+      CiviCRM::subscribe params[:subscription]
+    end
   end
 
   def signature_has_errors
