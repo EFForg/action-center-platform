@@ -31,7 +31,7 @@ When /^I pause a moment$/ do
 end
 
 Then /^there should( not)? be a persisted ([\w:]+) with:$/ do |negate, model, fields|
-  When "I pause a moment"
+  step("I pause a moment")
   if negate
     expect(Kernel.const_get(model).find_by(fields.rows_hash)).to be_nil
   else
@@ -40,6 +40,6 @@ Then /^there should( not)? be a persisted ([\w:]+) with:$/ do |negate, model, fi
 end
 
 Then /^there should not be a persisted ([\w:]+)$/ do |model|
-  When "I pause a moment"
+  step("I pause a moment")
   expect(Kernel.const_get(model).count).to eq(0)
 end

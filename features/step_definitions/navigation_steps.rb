@@ -18,6 +18,14 @@ When /^I click the element "([^\"]*)"$/ do |selector|
   find(selector).click
 end
 
+When /^I click the first "([^\"]*)"$/ do |selector|
+  first(selector).click
+end
+
+When /^I fill in the first "([^\"]*)" with "([^\"]*)"$/ do |field, value|
+  first(field).set(value)
+end
+
 When /^I fill in "([^\"]*)" with "([^\"]*)"$/ do |field, value|
   fill_in(field.gsub(' ', '_'), :with => value)
 end
@@ -28,7 +36,7 @@ end
 
 When /^I fill in the following:$/ do |fields|
   fields.rows_hash.each do |name, value|
-    When %{I fill in "#{name}" with "#{value}"}
+    step %("I fill in "#{name}" with "#{value}")
   end
 end
 
@@ -118,6 +126,10 @@ end
 
 Then(/^I should see "(.*?)" within "(.*?)"$/) do |text, container|
   find(container).should have_content(text)
+end
+
+Then(/^I should see "(.*?)" within the first "(.*?)"$/) do |text, container|
+  first(container).should have_content(text)
 end
 
 Then(/^I should not see "(.*?)" within "(.*?)"$/) do |text, container|

@@ -10,8 +10,8 @@ Feature: Create topic categories
     When I am on "/admin/action_pages#topics"
     And I click the element ".create-category-btn"
     And I fill in "topic_category[name]" with "newly made category"
-    And I press "Add"
-    Then I should see "newly made category" within ".panel.topic_category .panel-title"
+    And I click the first ".update_category"
+    Then I should see "newly made category" within ".topic_category[data-topic-category-id] .panel-title"
     And there should be a persisted TopicCategory with:
         |name|newly made category|
 
@@ -19,10 +19,10 @@ Feature: Create topic categories
     When there is a persisted TopicCategory with:
         |name|topical category|
     And I am on "/admin/action_pages#topics"
-    And I click the element ".edit-category-btn"
-    And I fill in "topic_category[name]" with "edited topical category"
-    And I press "Update"
-    Then I should see "edited topical category" within ".panel.topic_category .panel-title"
+    And I click the first "[class=icon-pencil]"
+    And I fill in the first "[name=topic_category\[name\]]" with "edited topical category"
+    And I click the first ".update_category"
+    Then I should see "edited topical category" within ".topic_category[data-topic-category-id] .panel-title"
     And there should be a persisted TopicCategory with:
         |name|edited topical category|
     And there should not be a persisted TopicCategory with:
@@ -34,12 +34,15 @@ Feature: Create topic categories
     And I click the element ".create-btn"
     And I click the element ".topic_category .panel-body .edit-btn"
     And I fill in "topic[name]" with "newly made topic 1"
-    And I press "Add"
-    And I fill in "topic[name]" with "newly made topic 2"
-    And I press "Add"
+    And I click the first ".add_topic"
+    And I pause a moment
 
-    Then I should see "newly made topic 1" within ".topic_category .panel-body .label-primary:nth-child(1)"
-    And I should see "newly made topic 2" within ".topic_category .panel-body .label-primary:nth-child(2)"
+    And I fill in "topic[name]" with "newly made topic 2"
+    And I click the first ".add_topic"
+    And I pause a moment
+
+    Then I should see "newly made topic 1" within the first ".topic_category .panel-body .topics"
+    And I should see "newly made topic 2" within the first ".topic_category .panel-body .topics"
     And there should be a persisted Topic with:
         |name|newly made topic 1|
     And there should be a persisted Topic with:
@@ -48,7 +51,8 @@ Feature: Create topic categories
   Scenario:
     When there is a persisted TopicCategory
     And it has a persisted item belonging to topic_sets
-    And that has a persisted item belonging to topics
+    And that has a persisted item belonging to topics with:
+       |name|a topic|
     And I am on "/admin/action_pages#topics"
     And I click the element ".topic_category .panel-body .edit-btn"
     And I click the element ".topic_set_edit .delete-btn"
@@ -59,7 +63,7 @@ Feature: Create topic categories
     And it has a persisted item belonging to topic_sets
     And that has a persisted item belonging to topics
     And I am on "/admin/action_pages#topics"
-    And I click the element ".delete-btn"
+    And I click the element "[data-set-id] td:last-child .delete-btn"
     Then there should not be a persisted Topic
     And there should not be a persisted TopicSet
 
