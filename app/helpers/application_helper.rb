@@ -444,6 +444,10 @@ module ApplicationHelper
     return fn.join '.'
   end
 
+  def can?(ability)
+    current_user.try(:can?, ability)
+  end
+
   def pluralize_with_span(count, noun)
     noun = if count == 1 then noun else noun.pluralize end
     content_tag(:span, count) + " #{noun}"

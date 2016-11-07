@@ -1,0 +1,28 @@
+<div class="tab-pane" id="homepage-settings">
+  <div class="row">
+    <div class="col-sm-12 col-md-10">
+      <div class='panel panel-default select-featured'>
+        <div class="panel-heading">
+          <div class="panel-title">Featured actions:</div>
+        </div>
+        <div class="panel-body">
+          <form class='clearfix form-horizontal' role='form' action='/admin/action_pages/update_featured_pages' method='post'>
+            <% 4.times do |i| -%>
+              <% label = "fp#{i+1}" -%>
+              <div class="form-group">
+                <%= label_tag label, (i.zero? ? 'Main Item' : "Featured #{i}"), class: 'col-sm-3 control-label' -%>
+                <div class="col-sm-9">
+                  <%= collection_select :action_page, :id, ActionPage.all.order(:title), :id, :title,
+                    {prompt: 'Select a campaign', object: @featuredActionPages[i]},
+                    {class: 'form-control', id: label, name: label} -%>
+                </div>
+              </div>
+            <% end %>
+          <input type="submit" class="btn btn-success pull-right" value="Update" />
+          </form>
+        </div>
+      </div>
+      <div class="clearfix"> </div>
+    </div>
+  </div>
+</div>

@@ -1,6 +1,8 @@
 class Admin::EmailCampaignsController < Admin::ApplicationController
   before_action :set_email_campaign
 
+  allow_collaborators_to :date_tabulation, :congress_tabulation, :staffer_report
+
   def date_tabulation
   end
 

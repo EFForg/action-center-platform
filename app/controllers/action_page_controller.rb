@@ -76,8 +76,8 @@ private
 
   def protect_unpublished
     unless @actionPage.published?
-      if current_user.try(:admin?)
-        flash.now[:notice] = "This page is not published. Only Admins can view it."
+      if current_user.try(:admin?) || current_user.try(:collaborator?)
+        flash.now[:notice] = "This page is not published. Only Admins and Collaborators can view it."
       else
         raise ActiveRecord::RecordNotFound
       end

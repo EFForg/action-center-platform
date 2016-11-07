@@ -20,6 +20,14 @@ FactoryGirl.define do
     end
   end
 
+  factory :collaborator_user, :parent => :user do
+    after(:build) do |user|
+      user.collaborator = true
+      user.save
+      # user.add_role :collaborator
+    end
+  end
+
   factory :activist_user, :parent => :user do
     after(:build) do |user|
       user.admin = true

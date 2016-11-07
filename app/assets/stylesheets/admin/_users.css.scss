@@ -1,0 +1,15 @@
+body.users-index {
+  form#filter_users {
+    display: flex;
+    flex-direction: row;
+    margin-bottom: 8px;
+
+    input[type=text] {
+      flex: 1 0;
+    }
+
+    input[type=submit] {
+      margin-left: 8px;
+    }
+  }
+}
