@@ -2,6 +2,7 @@
 set -e
 
 rm -rf tmp/
+mkdir tmp
 
 if [ "$DB_AUTO_MIGRATE" == "true" ]; then
   bin/rake db:migrate
@@ -23,5 +24,7 @@ fi
 export HOST_IP=`/sbin/ip route|awk '/default/ { print $3 }'`
 
 printenv | sed 's/^\([[:alnum:]_]*\)=\(.*\)$/export \1="\2"/' >/root/.profile
+
+chmod o+w /usr/local/bundle/config
 
 exec "$@"
