@@ -2,6 +2,7 @@
 set -e
 
 rm -rf tmp/
+mkdir tmp
 
 if [ "$DB_AUTO_MIGRATE" == "true" ]; then
   bin/rake db:migrate
