@@ -51,12 +51,12 @@ RUN chown www-data /etc/cron.d/crontab \
                    /var/log/cron.log
 
 RUN mkdir /opt/actioncenter/tmp \
-    /opt/actioncenter/log && \
-    chown -R www-data /opt/actioncenter/public \
+          /opt/actioncenter/log
+RUN chown -R www-data /opt/actioncenter/public \
+                      /opt/actioncenter/db \
                       /opt/actioncenter/tmp \
                       /opt/actioncenter/log
 
 USER www-data
-
 CMD ["rails", "s", "-b", "0.0.0.0"]
 ENTRYPOINT ["/opt/actioncenter/docker/entrypoint.sh"]
