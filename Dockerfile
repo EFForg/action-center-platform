@@ -50,11 +50,11 @@ RUN touch /var/log/cron.log
 RUN chown www-data /etc/cron.d/crontab \
                    /var/log/cron.log
 
-RUN mkdir /opt/actioncenter/tmp && \
+RUN mkdir /opt/actioncenter/tmp \
+    /opt/actioncenter/log && \
     chown -R www-data /opt/actioncenter/public \
-                      /opt/actioncenter/tmp
-
-RUN chmod o+w /usr/local/bundle/config
+                      /opt/actioncenter/tmp \
+                      /opt/actioncenter/log
 
 USER www-data
 
