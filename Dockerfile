@@ -53,6 +53,9 @@ RUN chown www-data /etc/cron.d/crontab \
 RUN mkdir /opt/actioncenter/tmp && \
     chown -R www-data /opt/actioncenter/public \
                       /opt/actioncenter/tmp
+
+RUN chmod o+w /usr/local/bundle/config
+
 USER www-data
 
 CMD ["rails", "s", "-b", "0.0.0.0"]

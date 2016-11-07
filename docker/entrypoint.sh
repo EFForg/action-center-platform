@@ -22,6 +22,4 @@ export HOST_IP=`/sbin/ip route|awk '/default/ { print $3 }'`
 
 printenv | sed 's/^\([[:alnum:]_]*\)=\(.*\)$/export \1="\2"/' >/root/.profile
 
-chmod o+w /usr/local/bundle/config
-
 exec "$@"
