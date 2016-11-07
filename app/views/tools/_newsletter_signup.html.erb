@@ -1,0 +1,11 @@
+<% form_helper = defined?(f) ? [:fields_for, :subscription] : [:form_for, :subscription, { url: subscriptions_path, method: :post, remote: true, html: { class: "newsletter-subscription" } }] %>
+<%= send(*form_helper) do |f| %>
+
+  <fieldset>
+    <%= f.email_field :email, class: "form-control", placeholder: "Email #{t(:optional)}" %>
+  </fieldset>
+
+  <%= render "tools/petition_location", f: f unless defined?(zip) && !zip %>
+  <%= render "tools/email_signup_radios" %>
+  <%= render "tools/privacy_notice" %>
+<% end %>

@@ -28,8 +28,6 @@ Follow these instructions to run the Action Center using Docker (recommended). T
   * Allows admins to upload images for the ActionPages
 * [SmartyStreets API](https://smartystreets.com/account/create) key and id
   * Allows Congress members to be looked up for users
-* [Sunlight API](https://sunlightfoundation.com/api/accounts/register/) key
-  * Allows Congress members to be looked up for users
 * [Phantom of the Capitol](https://github.com/efforg/phantom-of-the-capitol) whitelisting on server side?
   * Allows users to submit e-messages to congress
 * [Call Congress](https://github.com/EFForg/call-congress) url and API key
@@ -81,6 +79,11 @@ rake users:remove_admin[youremail@example.org]
 rake users:list_admins
 ```
 
+### Delayed Jobs and Cron
+
+Action Center uses [DelayedJob](https://github.com/collectiveidea/delayed_job) to perform certain tasks outside of a web request context. See that repository for information regarding how to run a delayed job worker. If you are deploying with Docker, our [docker-compose.yml.example](https://github.com/EFForg/action-center-platform/blob/master/docker-compose.yml.example) shows how to create a service which processes the job queue indefinitely.
+
+You may also want to automate certain other tasks (such as `rake signatures:deduplicate` and `rake congress:update`) to run occasionally. For those deploying with Docker, docker-compose.yml.example illustrates how to create a service which runs these commands periodically using cron.
 
 ### Embedding Actions
 

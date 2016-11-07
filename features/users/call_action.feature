@@ -10,7 +10,7 @@ Feature: Do a Call Action
     Given a call petition targeting senate exists
 
     When I browse to the action page
-    Then I see form fields for phone number and zip code
+    Then I see form fields for phone number, address, and zip code
 
-    When I fill in my phone number and zip code and click call
+    When I fill in my phone number, address, and zip code and click call
     Then I see instructions for what to say

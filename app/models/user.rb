@@ -14,9 +14,9 @@ class User < ActiveRecord::Base
   validate :password_complexity
   delegate :actions, :views, to: :events
 
-  before_update :invalidate_password_reset_tokens, :if => proc { email_changed? }
-  before_update :invalidate_new_activists_password, :if => proc { admin_changed?  }
-  after_update :reset_password_expiration_flag, :if => proc { encrypted_password_changed? && !password_expired_changed? }
+  before_update :invalidate_password_reset_tokens, :if => :email_changed?
+  before_update :invalidate_new_activists_password, :if => :admin_changed?
+  after_validation :reset_password_expiration_flag, :if => :encrypted_password_changed?
 
   alias :preferences :user_preferences
 
@@ -30,9 +30,19 @@ class User < ActiveRecord::Base
 
   def reset_password_expiration_flag
     self.password_expired = false
-    self.save
   end
 
+  def email_taken?
+    errors.added? :email, :taken
+  end
+
+  def send_email_taken_notice
+    if self.confirmed?
+      UserMailer.signup_attempt_with_existing_email(self).deliver_now
+    else
+      send_confirmation_instructions
+    end
+  end
 
   def password_complexity
     if admin? && password.present? and password.length < 30

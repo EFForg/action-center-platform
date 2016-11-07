@@ -5,38 +5,23 @@ $(document).on('ready', function() {
     var call_campaign_id = $('[data-call-campaign-id]').attr('data-call-campaign-id');
     var $phone_number_field = $("#inputPhone");
     var $zip_field = $("#inputZip");
-    var $street_address_field = $("#inputStreesAddress");
+    var $street_address_field = $("#inputStreetAddress");
     var required_location = !!$street_address_field.length;
 
     $phone_number_field.each(function(){
       $(this).bfhphone($(this).data());
     });
 
-    function submit_call_request(phone, location, zip_code, street_address, action_id, call_campaign_id, update_user_data){
-      var url = '/tools/call?action_id=' + encodeURIComponent(action_id) +
-                '&call_campaign_id=' + encodeURIComponent(call_campaign_id) +
-                '&phone=' + encodeURIComponent(phone) +
-                '&location=' + encodeURIComponent(location) +
-                (street_address == '' ? '' : '&street_address=' + encodeURIComponent(street_address)) +
-                '&zipcode=' + encodeURIComponent(zip_code) +
-                '&update_user_data=' + encodeURIComponent(update_user_data);
-      $.ajax({
-        url: url,
-        type: 'POST',
-        success: function(res) {},
-        error: function() {}
-      });
-    }
-
     function determine_location(cb, zip_code, street_address){
       if(required_location) {
+        // When address field is present, lookup congressional district
         $.ajax({
           url: '/smarty_streets/street_address/?street=' + encodeURIComponent(street_address) + '&zipcode=' + encodeURIComponent(zip_code),
           success: function(res){
             if(res.length == 1){
-              var lat = res[0].metadata.latitude;
-              var lng = res[0].metadata.longitude;
-              cb(null, lat + ',' + lng);
+              var state = res[0].components.state_abbreviation;
+              var district = res[0].metadata.congressional_district;
+              cb(null, state + "-" + district);
             }
           },
           error: function(err){
@@ -44,7 +29,8 @@ $(document).on('ready', function() {
           }
         });
       } else {
-        cb(null, null);
+        // When address field is not present, use zip code for location
+        cb(null, zip_code);
       }
     }
 
@@ -81,11 +67,33 @@ $(document).on('ready', function() {
           hide_form();
           height_changed();
 
-          submit_call_request(phone_number, location, zip_code, street_address, action_id, call_campaign_id, update_user_data);
+          var fd = new FormData();
+          fd.append("action_id", action_id);
+          fd.append("call_campaign_id", call_campaign_id);
+          fd.append("phone", phone_number);
+          fd.append("location", location);
+          if (street_address != '')
+            fd.append("street_address", street_address);
+          fd.append("zipcode", zip_code);
+          fd.append("update_user_data", update_user_data);
 
+          if (form.find("input[name=subscribe]:checked").val() == "1") {
+            fd.append("subscription[email]", form.find("input[type=email]").val());
+            fd.append("subscription[zipcode]", zip_code);
+            form.attr("data-signed-up-for-mailings", "true");
+          }
+
+          $.ajax({
+            url: "/tools/call",
+            type: "POST",
+            data: fd,
+            processData: false,
+            contentType: false
+          });
         }, zip_code, street_address);
       }
-      return false;
+
+      ev.preventDefault();
     });
 
     $('.call-tool-try-again').on('click', function(ev){

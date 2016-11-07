@@ -1,6 +1,6 @@
 
 class CongressController < ApplicationController
   def index
-    render json: Congress.bioguide_map
+    render json: CongressMember.bioguide_map
   end
 end

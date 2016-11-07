@@ -73,7 +73,6 @@ end
 
 def create_signature_and_have_user_sign
   @petition = FactoryGirl.create(:petition_with_99_signatures_needing_1_more)
-  allow_any_instance_of(ToolsController).to receive(:update_congress_scorecards).and_return(nil)
   post :petition, signature: valid_attributes[:signature].merge({ "petition_id" => @petition.id.to_s })
 end
 

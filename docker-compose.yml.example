@@ -30,7 +30,7 @@ services:
     # # Automatically restart the app on exit in production.
     # restart: always
 
-    environment:
+    environment: &env
       #
       # Start of application environment variables
       #
@@ -101,7 +101,6 @@ services:
 
       # Third party integration (not required)
       call_tool_url: 'https://call.example.com/'
-      sunlight_api_key: ''
       call_tool_api_key: ''
       congress_forms_debug_key: ''
       supporters_api_key: ''
@@ -112,6 +111,27 @@ services:
       # Error reporting (not required)
       sentry_dsn: ''
 
+      # Misc.
+      ROLE: web
+
       #
       # End of application environment variables
       #
+
+  # Uncomment these services to run cron/delayed job
+  #
+  # cron:
+  #   build: .
+  #   restart: always
+  #   command: cron -f -L 15
+  #   environment:
+  #     <<: *env
+  #     ROLE: worker
+  #
+  # delayed_jobs:
+  #   build: .
+  #   restart: always
+  #   command: bundle exec rake jobs:work
+  #   environment:
+  #     <<: *env
+  #     ROLE: worker

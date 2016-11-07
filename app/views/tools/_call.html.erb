@@ -18,7 +18,7 @@
         </div>
 
         <p class="small">Enter your phone number below and we'll connect you (US numbers only).</p>
-        <form class="form call-tool" data-call-campaign-id="<%= @actionPage.call_campaign.call_campaign_id %>">
+        <%= form_for(:call_campaign, html: { class: "form call-tool", "data-call-campaign-id": @actionPage.call_campaign.call_campaign_id }) do |f| %>
           <input type="hidden" name="call_campaign_id" value="<%= @actionPage.call_campaign.call_campaign_id %>" />
           <input type="hidden" name="action-id" value="<%= @actionPage.id %>" />
           <fieldset>
@@ -26,30 +26,40 @@
               <div id="call-tool-form-container">
                 <input type="text" required class="form-control bfh-phone" id="inputPhone" name="inputPhone" value="<%= current_user.try :phone -%>" data-format="ddd-ddd-dddd" pattern="^((5\d[123467890])|(5[123467890]\d)|([2346789]\d\d))-\d\d\d-\d\d\d\d$" placeholder="Phone Number" title="Must be a valid US phone number entered in 555-555-5555 format">
                 <% case CallTool.required_fields_for_campaign(@actionPage.call_campaign.call_campaign_id)["userLocation"] %>
+                <% when "district" %>
+                  <fieldset>
+                    <input type="text" required class="form-control" id="inputStreetAddress" name="inputStreetAddress" value="<%= current_user.try :street_address -%>" placeholder="Street Address" title='Must be a valid US street address (no city or state necessary)'>
+                  </fieldset>
+                  <fieldset>
+                    <input type="text" required class="form-control" id="inputZip" name="inputZip" value="<%= current_user.try :zipcode -%>" placeholder="Zip Code" pattern="^[\d]{5}$" title='Must be a valid 5-digit zip code'>
+                  </fieldset>
                 <% when "postal" %>
-                  <input type="text" required class="form-control" id="inputZip" name="inputZip" value="<%= current_user.try :zipcode -%>" placeholder="Zip Code" pattern='^[\d]{5}$' title='Must be a valid 5-digit zip code'>
-                <% when "latlon" %>
-                  <input type="text" required class="form-control" id="inputStreetAddress" name="inputStreetAddress" value="<%= current_user.try :street_address -%>" placeholder="Street Address" title='Must be a valid US street address (no city or state necessary)'>
-                  <input type="text" required class="form-control" id="inputZip" name="inputZip" value="<%= current_user.try :zipcode -%>" placeholder="Zip Code" pattern='^[\d]{5}$' title='Must be a valid 5-digit zip code'>
+                  <fieldset>
+                    <input type="text" required class="form-control" id="inputZip" name="inputZip" value="<%= current_user.try :zipcode -%>" placeholder="Zip Code" pattern="^[\d]{5}$">
+                  </fieldset>
                 <% end %>
               </div>
             </div>
+
             <%= render 'tools/save_my_info_option', info: ['phone number', 'location'] -%>
+
+            <%= render "tools/newsletter_signup", f: f, zip: false if current_user.nil? %>
+
             <div class="form-group">
-                <button type="submit" class="btn btn-default call-tool-submit">Call Now</button>
+              <button type="submit" class="btn btn-default call-tool-submit action">Call Now</button>
             </div>
           </fieldset>
-            <p class="privacy-notice">Uses <a href="http://sunlightfoundation.com/legal/privacy/" target="_blank">Sunlight Labs</a> and <a href="https://www.twilio.com/legal/privacy" target="_blank">Twilio</a>'s APIs (<a class="privacy-notice-popover" href="#"
+            <p class="privacy-notice">Uses <a href="http://smartystreets.com/legal/privacy-policy" target="_blank">Smarty Streets</a>' and <a href="https://www.twilio.com/legal/privacy" target="_blank">Twilio</a>'s APIs (<a class="privacy-notice-popover" href="#"
               data-container="body"
               data-toggle="popover"
               data-title="Email Tool APIs"
               data-html="true"
               data-trigger="hover"
               data-placement="auto bottom"
-              data-content="<p>Our &quot;Call Your Representatives&quot; tool uses Sunlight Foundation's Congress API to look up the names and contact forms of your legislators.</p><p>We also uses Twilio's phone API to call and connect you.</p>">why?</a>).<br>
+              data-content="<p>Our &quot;Call Your Representatives&quot; tool uses Smarty Streets' API to look up your congressional district in order to identify your representatives.</p><p>We also uses Twilio's phone API to call and connect you.</p>">why?</a>).<br>
               <a href='https://www.eff.org/pages/call-power-privacy-information'>Click here</a> for more information about Twilio's data collection.<br>
               If you prefer not to use our call tool, <a href="https://www.eff.org/congress"  target="_blank">click here</a>.</p>
-        </form>
+        <% end %>
 
       </div>
       <!-- If we have phone # -->
@@ -66,16 +76,16 @@
           </div>
           <p class="small">Press the button below and we'll call you at <strong><%= current_user.try :phone -%></strong> and connect you to your representatives. <p>
           <p class="smalltext"><a class="call-tool-different-number" href="#">Need to use a different number?</a></p>
-          <button type="submit" class="btn btn-default call-tool-submit" disabled>Call now</button>
+          <button type="submit" class="btn btn-default call-tool-submit action">Call now</button>
         </form>
-        <p class="privacy-notice">Uses <a href="http://sunlightfoundation.com/legal/privacy/" target="_blank">Sunlight Labs</a> and <a href="https://www.twilio.com/legal/privacy" target="_blank">Twilio</a>'s APIs (<a class="privacy-notice-popover" href="#"
+            <p class="privacy-notice">Uses <a href="http://smartystreets.com/legal/privacy-policy" target="_blank">Smarty Streets</a>' and <a href="https://www.twilio.com/legal/privacy" target="_blank">Twilio</a>'s APIs (<a class="privacy-notice-popover" href="#"
           data-container="body"
           data-toggle="popover"
           data-title="Call tool APIs"
           data-html="true"
           data-trigger="hover"
           data-placement="auto bottom"
-          data-content="<p>Our &quot;Call Your Representatives&quot; tool uses Sunlight Foundation's Congress API to look up the names and contact forms of your legislators.</p><p>We also uses Twilio's phone API to call and connect you.</p>">why?</a>).<br>
+          data-content="<p>Our &quot;Call Your Representatives&quot; tool uses Smarty Streets' API to look up your congressional district in order to identify your representatives.</p><p>We also uses Twilio's phone API to call and connect you.</p>">why?</a>).<br>
           <a href='https://www.eff.org/pages/call-power-privacy-information'>Click here</a> for more information about Twilio's data collection.<br>
           If you prefer not to use our call tool, <a href="https://www.eff.org/congress" target="_blank">click here</a>.</p>
       </div>

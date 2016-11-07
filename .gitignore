@@ -21,12 +21,10 @@ pickle-email-*.html
 *.swo
 .elasticbeanstalk/
 docker-compose.yml
+.DS_Store
 
 # Ignore custom quotes
 /config/custom_quotes.yml
-
-# Ignore categories
-/config/categories.yml
 
 # compiled assets
 public/assets

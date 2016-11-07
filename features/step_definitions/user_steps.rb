@@ -41,8 +41,23 @@ def create_an_action_page_petition_needing_one_more_signature
   @action_page = @petition.action_page
 end
 
+def create_a_call_campaign
+  @call_campaign = FactoryGirl.create(:call_campaign, call_campaign_id: senate_call_campaign_id)
+  @action_page = @call_campaign.action_page
+end
 
+def create_an_email_campaign
+  @email_campaign = FactoryGirl.create(:email_campaign_with_custom_target)
+  @action_page = @email_campaign.action_page
+end
 
+Given(/^a user with the email "(.*?)"$/) do |email|
+  FactoryGirl.create(:user, email: email)
+end
+
+Given(/^an unconfirmed user with the email "(.*?)"$/) do |email|
+  FactoryGirl.create(:unconfirmed_user, email: email)
+end
 
 Given(/^I exist as an activist$/) do
   create_activist_user
@@ -92,8 +107,7 @@ def fill_in_petition_action_inputs
 
   find("#epic-action-summary").set(c[:summary])
   find("#epic-action-summary").set(c[:summary])
-  # find("#action-page-description").set(c[:description])
-  page.execute_script("editor.importFile('new', '#{c[:description]}')")
+  import_file_into_editor("new", c[:description])
 
   first(:link, "Action Settings").click
   find("#action_page_enable_petition").click
@@ -149,10 +163,6 @@ Then(/^I don't see my information$/) do
   expect(page).not_to have_content(@visitor[:email])
 end
 
-
-
-
-
 When(/^I initiate a password reset request$/) do
   visit '/password/new'
 
@@ -161,13 +171,15 @@ When(/^I initiate a password reset request$/) do
   @reset_token = User.find_by_email(@visitor[:email]).reset_password_token
 end
 
-When(/^I change my email address$/) do
-  @changed_email = "2" + @visitor[:email]
+When(/^I change my email address to "(.*?)"$/) do |email|
+  @changed_email = email
   visit '/edit'
   fill_in "Email", with: @changed_email
   fill_in "Current password", with: @visitor[:password]
   click_button "Change"
+end
 
+When(/^I confirm that I changed my email address$/) do
   u = User.find_by_email(@visitor[:email])
   u.confirm
 end
@@ -229,7 +241,7 @@ end
 def sign_the_petition
   fill_in "First Name", with: @visitor[:name].split(" ").first
   fill_in "Last Name", with: @visitor[:name].split(" ").last
-  fill_in "Zip Code", with: "94109"
+  find("#signature_zipcode").set("94109")
 
   # this is how stubbing SmartyStreets looks
   RSpec::Mocks.with_temporary_scope do
@@ -240,6 +252,12 @@ def sign_the_petition
     # leaving the `with_temporary_scope` block or the stub will disappear
     sleep 0.5 while !page.has_content? "Now help spread the word:"
   end
+end
+
+def import_file_into_editor(name, content)
+  page.execute_script(
+    %($("#action-page-description").data("editor").importFile("#{name}", "#{content}");)
+  )
 end
 
 When(/^the action is marked a victory$/) do
@@ -291,7 +309,8 @@ When(/^I click to add an image to the gallery of a new ActionPage$/) do
 
   click_button "Close"
 
-  page.execute_script("editor.importFile('new', 'here is the image #{bb_code}')")
+  import_file_into_editor("new", "here is the image #{bb_code}")
+
   loop while page.has_content?("img.png - 7.93 KB -")
 
   first(:button, "Save").click
@@ -312,9 +331,6 @@ When(/^I publish the action$/) do
   first(:input, "#action_page_published").click
   first(:button, "Save").click
 end
-
-
-
 
 Given(/^A tweet petition targeting senate exists$/) do
   setup_action
@@ -339,7 +355,7 @@ end
 When(/^I click the button to lookup my reps$/) do
   RSpec::Mocks.with_temporary_scope do
     stub_smarty_streets_street_address
-    stub_legislator_by_zip
+    stub_legislators
 
     first(:button, "Look up your reps").click
     sleep 0.5 while !page.has_content? "Your Representatives"
@@ -371,8 +387,9 @@ Given(/^a call petition targeting a custom number exists$/) do
     description: @action_info[:description])
 end
 
-Then(/^I see form fields for phone number and zip code$/) do
+Then(/^I see form fields for phone number, address, and zip code$/) do
   expect(page).to have_selector("input[name=inputPhone]")
+  expect(page).to have_selector("input[name=inputStreetAddress]")
   expect(page).to have_selector("input[name=inputZip]")
 end
 
@@ -381,8 +398,9 @@ Then(/^I see form fields for phone number but not zip code$/) do
   expect(page).not_to have_selector("input[name=inputZip]")
 end
 
-When(/^I fill in my phone number and zip code and click call$/) do
+When(/^I fill in my phone number, address, and zip code and click call$/) do
   find("input[name=inputPhone]").set("415-555-0100")
+  find("input[name=inputStreetAddress]").set("100 Abc St.")
   find("input[name=inputZip]").set("94109")
   find("button.call-tool-submit").click
 end
@@ -407,4 +425,62 @@ def this_machine_offline?
     $OfflineMode = true
   end
 
+end
+
+Given(/^a call campaign exists$/) do
+  create_a_call_campaign
+end
+
+Given(/^an email campaign exists$/) do
+  create_an_email_campaign
+end
+
+When(/^I enter my email address and opt for mailings$/) do
+  find("input[name=subscription\\[email\\]]").set("abcdef@example.com")
+  find("label[for=do-subscribe]").click
+end
+
+Then(/^I should see an option to sign up for mailings$/) do
+  expect(page).to have_css(".email-signup input[type=radio][name=subscribe][value='0']:checked", visible: false)
+  expect(page).to have_css(".email-signup input[type=radio][name=subscribe][value='1']", visible: false)
+end
+
+Then(/^I should have signed up for mailings$/) do
+  expect(page).to have_css("form[data-signed-up-for-mailings=true]", visible: false)
+end
+
+Then(/^I should not have signed up for mailings$/) do
+  expect(page).not_to have_css("form[data-signed-up-for-mailings=true]", visible: false)
+end
+
+When(/^I click open using gmail$/) do
+  click_on "Gmail"
+end
+
+Then(/^I should see a sign up form for mailings$/) do
+  expect(page).to have_css("form.newsletter-subscription")
+end
+
+When(/^I enter my email address for mailings and click Sign Up$/) do
+  find("input[name=subscription\\[email\\]]").set("abcdef@example.com")
+  click_on "Sign up"
+end
+
+Then(/^the email "(.*?)" should go to "(.*?)"$/) do |subject, address|
+  email = ActionMailer::Base.deliveries.first
+  email.to.should include address
+  email.subject.should include subject
+end
+
+Then(/^the email "(.*?)" should not go to "(.*?)"$/) do |subject, address|
+  emails = ActionMailer::Base.deliveries
+  emails.each do |email|
+    email.subject.should not_include subject if email.to == address
+  end
+end
+
+And(/^I follow the password reset link$/) do
+  email = ActionMailer::Base.deliveries.first
+  reset_link = URI.extract(email.text_part.to_s)[2]
+  visit reset_link
 end
