@@ -27,6 +27,15 @@ module CallTool
     JSON.parse(response.body)["required_fields"]
   end
 
+  def self.campaigns
+    campaigns = JSON.parse(get "/api/campaign", { api_key: api_key })
+    campaigns["objects"].map{ |campaign| campaign.slice("id", "name", "allow_call_in", "phone_numbers", "status") }
+  end
+
+  def self.enabled?
+    Rails.application.secrets.fetch_values(:call_tool_url, :call_tool_api_key).all?
+  end
+
   private
 
   def self.get(action, params={})

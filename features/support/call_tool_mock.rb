@@ -18,4 +18,8 @@ module CallTool
   def self.campaign_call(*args)
     warn "mock: campaign_call"
   end
+
+  def self.campaigns
+    [{ "id" => 1, "name" => "Call Someone", "status" => "live" }]
+  end
 end

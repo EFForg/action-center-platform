@@ -83,4 +83,26 @@ describe CallTool do
       CallTool.required_fields_for_campaign(campaign)
     end
   end
+
+  describe ".campaigns" do
+    let(:calltool_campaign) {
+      { "id" => 1, "name" => "call someone", "status" => "live" }
+    }
+
+    before do
+      stub_request(:get, %r{/api/campaign\?api_key=}).
+        to_return(status: 200, body: { "objects" => [calltool_campaign] }.to_json)
+    end
+
+    it "should get call_tool_url/api/campaign and return values with id, name, status" do
+      list = CallTool.campaigns
+      expect(list).to be_an(Array)
+
+      campaign_info = list.first
+      expect(campaign_info).to be_a(Hash)
+      expect(campaign_info["id"]).to eq(calltool_campaign["id"])
+      expect(campaign_info["name"]).to eq(calltool_campaign["name"])
+      expect(campaign_info["status"]).to eq(calltool_campaign["status"])
+    end
+  end
 end
