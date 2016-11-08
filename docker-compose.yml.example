@@ -23,10 +23,20 @@ services:
     #   - '3000:3000'
     # # Use volumes to edit files from the host OS in development.
     # volumes:
-    #   - .:/opt/actioncenter
+    #   - ./app:/opt/actioncenter/app
+    #   - ./bin:/opt/actioncenter/bin
+    #   - ./config:/opt/actioncenter/config
+    #   - ./db:/opt/actioncenter/db
+    #   - ./features:/opt/actioncenter/features
+    #   - ./lib:/opt/actioncenter/lib
+    #   - ./script:/opt/actioncenter/script
+    #   - ./spec:/opt/actioncenter/spec
+    #   - ./vendor:/opt/actioncenter/vendor
+    #   - ./Gemfile:/opt/Gemfile
+    #   - ./Gemfile.lock:/opt/Gemfile.lock
 
     # # Serve Rails using unicorn in production.
-    # command: bash -c unicorn
+    # command: unicorn
     # # Automatically restart the app on exit in production.
     # restart: always
 
