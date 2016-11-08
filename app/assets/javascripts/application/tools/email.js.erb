@@ -44,10 +44,12 @@ $(document).on('ready', function() {
     // Stop character encoding on the subject
     emailValues['$SUBJECT'] =$('<div/>').html(emailValues['$SUBJECT']).text();
 
-    $(".email-tool-container").congressForms({
+    var congressFormsUrl = $('.email-tool-container').data('congress-forms-url')
+
+    $('.email-tool-container').congressForms({
         bioguide_ids: rep_ids,
         labels: false,
-        contactCongressServer: '<%= Rails.application.config.congress_forms_url %>',
+        contactCongressServer: congressFormsUrl,
         values: emailValues || {},
         topic_category: options.topicCategory,
         campaign_tag: options.campaignTag,
