@@ -48,8 +48,9 @@ services:
   #
   # cron:
   #   build: .
+  #   user: root
   #   restart: always
-  #   command: cron -f -L 15
+  #   command: cron -f
   #   env_file: .env
   #   environment:
   #     ROLE: worker
