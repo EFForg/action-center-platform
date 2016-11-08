@@ -48,16 +48,15 @@ RUN usermod -u 1000 www-data
 
 COPY docker/crontab /etc/cron.d/crontab
 RUN chmod 0644 /etc/cron.d/crontab
-RUN touch /var/log/cron.log
-RUN chown www-data /etc/cron.d/crontab \
-                   /var/log/cron.log
 
 RUN mkdir /opt/actioncenter/tmp \
-          /opt/actioncenter/log
+          /opt/actioncenter/log \
+          /var/www
 RUN chown -R www-data /opt/actioncenter/public \
                       /opt/actioncenter/db \
                       /opt/actioncenter/tmp \
-                      /opt/actioncenter/log
+                      /opt/actioncenter/log \
+                      /var/www
 
 USER www-data
 CMD ["rails", "s", "-b", "0.0.0.0"]
