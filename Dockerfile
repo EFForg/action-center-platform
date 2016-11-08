@@ -49,8 +49,14 @@ RUN usermod -u 1000 www-data
 COPY docker/crontab /etc/cron.d/crontab
 RUN chmod 0644 /etc/cron.d/crontab
 
-RUN mkdir /opt/actioncenter/tmp \
-          /opt/actioncenter/log \
+RUN bundle exec rake assets:precompile \
+  RAILS_ENV=production \
+  SECRET_KEY_BASE=noop \
+  devise_secret_key=noop \
+  DATABASE_URL=postgres://noop
+RUN bundle exec rake webshims:update_public
+
+RUN mkdir /opt/actioncenter/log \
           /var/www
 RUN chown -R www-data /opt/actioncenter/public \
                       /opt/actioncenter/db \
