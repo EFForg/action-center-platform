@@ -19,6 +19,10 @@ module CallTool
     warn "mock: campaign_call"
   end
 
+  def self.enabled?
+    true
+  end
+
   def self.campaigns
     [{ "id" => 1, "name" => "Call Someone", "status" => "live" }]
   end
