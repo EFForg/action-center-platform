@@ -28,7 +28,16 @@ class CreateCongressMessageCampaigns < ActiveRecord::Migration
       attrs = action_page.attributes.except("id", "slug", "enable_email", "email_campaign_id")
       attrs["enable_congress_message"] = true
       attrs["congress_message_campaign_id"] = congress_campaign.id
-      ActionPage.create!(attrs)
+      congress_action_page = ActionPage.create!(attrs)
+
+      Ahoy::Event.emails.on_page(action_page.id).find_each do |event|
+        attrs = event.attributes.except("id", "visit_id", "action_page_id")
+        attrs["id"] = SecureRandom.uuid
+        attrs["action_page_id"] = congress_action_page.id
+        attrs["properties"]["actionType"] = "congress_message"
+        attrs["properties"]["actionPageId"] = congress_action_page.id.to_s
+        Ahoy::Event.create!(attrs)
+      end
     end
   end
 
@@ -37,5 +46,6 @@ class CreateCongressMessageCampaigns < ActiveRecord::Migration
     drop_table :congress_message_campaigns
     remove_column :action_pages, :enable_congress_message
     remove_column :action_pages, :congress_message_campaign_id
+    Ahoy::Event.where("properties ->> 'actionType' = 'congress_message'").delete_all
   end
 end
