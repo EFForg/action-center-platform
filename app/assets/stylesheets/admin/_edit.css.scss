@@ -73,7 +73,25 @@ Main Form
   fieldset {
     padding: 0 1em 0.5em;
   }
+}
 
+.autocomplete-suggestions {
+  background-color: #fff;
+  overflow: auto;
+
+  /* Appear to extend the input field */
+  margin-top: -2px;
+  border: 1px solid #cce;
+  border-bottom-left-radius: 4px;
+  border-bottom-right-radius: 4px;
+
+  .autocomplete-suggestion {
+    padding: 5px 15px;
+  }
+
+  .autocomplete-selected {
+    background-color: #f0f0f0;
+  }
 }
 
 
