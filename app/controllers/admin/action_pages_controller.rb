@@ -8,7 +8,7 @@ class Admin::ActionPagesController < Admin::ApplicationController
   allow_collaborators_to :index, :edit
 
   def index
-    @actionPages = ActionPage.order('id desc')
+    @actionPages = ActionPage.order(created_at: :desc)
     @featuredActionPages = FeaturedActionPage.order('weight').
                                               includes(:action_page).
                                               map(&:action_page)

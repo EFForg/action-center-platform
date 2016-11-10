@@ -19,7 +19,7 @@ class ActionPageController < ApplicationController
   def index
     @actionPages = ActionPage.where(published: true, archived: false, victory: false).
       paginate(:page => params[:page], :per_page => 9).
-      order('id desc')
+      order(created_at: :desc)
 
     @actionPages = @actionPages.categorized(params[:category]) if params[:category].present?
 
