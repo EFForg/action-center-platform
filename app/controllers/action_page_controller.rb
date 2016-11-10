@@ -109,9 +109,10 @@ private
     @petition = @actionPage.petition
     @tweet = @actionPage.tweet
     @email_campaign = @actionPage.email_campaign
+    @congress_message_campaign = @actionPage.congress_message_campaign
 
     # Shows a mailing list if no tools enabled
-    @no_tools = [:tweet, :petition, :call, :email].none? do |tool|
+    @no_tools = [:tweet, :petition, :call, :email, :congress_message].none? do |tool|
       @actionPage.send "enable_#{tool}".to_sym
     end
 
@@ -125,6 +126,9 @@ private
     @topic_category = nil
     if @email_campaign and not @email_campaign.topic_category.nil?
       @topic_category = @email_campaign.topic_category.as_2d_array
+    end
+    if @congress_message_campaign.try(:topic_category).present?
+      @topic_category = @congress_message_campaign.topic_category.as_2d_array
     end
 
     # Initialize a temporary signature object for form auto-population

@@ -230,6 +230,49 @@
         </div>
       </div><!-- END div.panel.panel-danger -->
 
+      <div class="panel">
+        <div class="panel-heading">
+          <%= f.check_box :enable_congress_message,
+            data: {toggle: "collapse", target: "#congress-message-fields"} %>
+          <%= f.label :enable_congress_message, "Enable Congress message" %>
+        </div>
+        <div id="congress-message-fields" class="panel-body collapse <%= 'in' if @actionPage.enable_congress_message? -%>">
+
+          <%= f.fields_for :congress_message_campaign do |t| %>
+
+            <div class="form-group">
+              <%= t.label :subject %>
+              <%= t.text_field :subject %>
+            </div>
+            <div class="form-group">
+              <%= t.label :message %>
+              <%= t.text_area :message %>
+            </div>
+            <div class="form-group">
+              <label>Targets</label>
+              <fieldset class="target-fields congress">
+                <%= t.label :target_house do -%>
+                  <%= t.check_box :target_house %> House
+                <% end -%>
+                <%= t.label :target_senate do -%>
+                  <%= t.check_box :target_senate %> Senate
+                <% end -%>
+                <%= t.text_field :target_bioguide_ids, placeholder: "Specific bioguide ids (comma separated)" %>
+              </fieldset>
+            </div>
+            <div id="topic_category_form_group" class="form-group">
+              <%= t.label :topic_category %>
+              <%= t.collection_select :topic_category_id, @topic_categories, :id, :name, prompt: true %>
+            </div>
+            <div id="campaign_tag_form_group" class="form-group">
+              <%= t.label :campaign_tag %>
+              <%= t.text_field :campaign_tag %>
+            </div>
+
+          <% end -%><!-- END f.fields_for :congress_message_campaign -->
+        </div>
+      </div><!-- END div.panel -->
+
       <div class='panel panel-default'>
         <div class='panel-heading'>
           <%= f.check_box :enable_redirect,

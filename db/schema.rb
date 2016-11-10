@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161025215124) do
+ActiveRecord::Schema.define(version: 20161109191337) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -70,6 +70,8 @@ ActiveRecord::Schema.define(version: 20161025215124) do
     t.boolean  "archived",                         default: false
     t.integer  "archived_redirect_action_page_id"
     t.integer  "category_id"
+    t.boolean  "enable_congress_message",          default: false, null: false
+    t.integer  "congress_message_campaign_id"
   end
 
   add_index "action_pages", ["archived"], name: "index_action_pages_on_archived", using: :btree
@@ -145,6 +147,18 @@ ActiveRecord::Schema.define(version: 20161025215124) do
     t.integer  "district"
     t.datetime "created_at"
     t.datetime "updated_at"
+  end
+
+  create_table "congress_message_campaigns", force: :cascade do |t|
+    t.string   "subject",                            null: false
+    t.text     "message",                            null: false
+    t.string   "campaign_tag",                       null: false
+    t.boolean  "target_house",        default: true, null: false
+    t.boolean  "target_senate",       default: true, null: false
+    t.string   "target_bioguide_ids"
+    t.integer  "topic_category_id"
+    t.datetime "created_at",                         null: false
+    t.datetime "updated_at",                         null: false
   end
 
   create_table "congress_scorecards", force: :cascade do |t|

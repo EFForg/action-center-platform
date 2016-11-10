@@ -1,0 +1,75 @@
+<div id="congress-message-tool" class="tool">
+  <div class="tool-container">
+    <div class="tool-heading">
+      <h2 class="tool-title"><%= @congress_message_campaign.email_your_rep_text "Email your representatives" %></h2>
+      <% if params.include?("non_us_option") and params["non_us_option"] == "petition" %>
+        <h3 id="non-us-option">Not in the U.S.?</h3>
+      <% end %>
+    </div>
+
+    <div class="tool-body with-js">
+        <form class="form congress-message-rep-lookup">
+          <% unless @congress_message_campaign.target_bioguide_ids %>
+            <fieldset id="lookup-address">
+              <h3>
+                <em><%= @congress_message_campaign.look_up_your_rep_text "Look up your representatives" %></em>
+                <span class="customize-message-popover" data-container="body" data-toggle="popover" data-trigger="hover" data-placement="auto bottom" data-content="<%= @congress_message_campaign.look_up_helper_text "We'll use your address to look up your congressional district and find your representatives." %>">?</span>
+              </h3>
+
+              <div class="form-group">
+                <input value="<%= current_user && current_user.street_address %>" class="form-control" placeholder="Street Address" required="required" type="text" id="street_address">
+              </div>
+              <div class="form-group">
+                <input value="<%= current_user && current_user.zipcode %>" class="form-control" placeholder="Zip Code" required="required"  type="text" id="zipcode" title="Must be 5 numeric numbers" pattern="\d{5}" maxlength="5" required>
+              </div>
+              <p class="privacy-notice">This tool uses the <a href="http://smartystreets.com/legal/privacy-policy" target="_blank">Smarty Streets</a> API (<a class="privacy-notice-popover" href="#" data-container="body" data-toggle="popover" data-title="Email Tool APIs" data-html="true" data-trigger="hover" data-placement="auto" data-content="<p>We need your full address to locate your exact congressional district, but this information isn't stored unless you're logged in.</p><p>We also use the Smarty Streets' API to look up your full 9 digit zip code (Zip+4), since some Congressmember's forms require it.</p>">why?</a>).<br>
+              If you prefer not to use our email tool, <a href="https://www.eff.org/congress"  target="_blank">click here</a>.</p>
+            </fieldset>
+          <% end %>
+          <fieldset id="customize-message">
+            <h3>
+              <em>Customize your message</em>
+              <span class="customize-message-popover" data-container="body" data-toggle="popover" data-trigger="hover" data-placement="auto bottom" data-content="<%= @congress_message_campaign.customize_message_helper_text "Add a personal note about why this matters to you. Members of Congress value a customized message much higher than a form letter." %>">?</span>
+            </h3>
+            <div class="form-group">
+                <textarea class="campaign-message form-control" rows="11"><%= @congress_message_campaign.message -%></textarea>
+            </div>
+          </fieldset>
+          <%= render "tools/privacy_notice" %>
+
+          <input type="submit" class="btn btn-default action" value="Submit your message">
+          <%= render "tools/loading" -%>
+        </form>
+
+      <%= content_tag(:div, nil, :class => "congress-message-tool-container",
+            :data => {
+              "congress-forms-url": Rails.application.config.congress_forms_url,
+              "campaign-tag": @congress_message_campaign.campaign_tag,
+              "email-values": congress_forms_email_values(@congress_message_campaign).to_json,
+              "target-house": @congress_message_campaign.target_house,
+              "target-senate": @congress_message_campaign.target_senate,
+              "target-bioguide-id": @congress_message_campaign.target_bioguide_ids.present?,
+              "extra-fields-explain": @congress_message_campaign.extra_fields_explain_text("We send your comments to your representatives by automatically filling out their online contact forms. Because each representative's form is a little different, we need your help filling out a few extra fields before we can send your message:"),
+              "bioguide-id": @congress_message_campaign.target_bioguide_ids,
+              "topic-category": @topic_category.to_json
+            }) %>
+      <%= render "tools/share" -%>
+    </div>
+    <div class="tool-body without-js">
+      <h4><strong>Our email tool requires javascript.</strong></h4>
+      <p>If your browser doesn't support javascript or you prefer not to enable javascript on this site, you can find your legislator's contact forms via the <a target="_blank" href="http://www.house.gov/representatives/find/">House</a> and <a target="_blank" href="https://www.senate.gov/general/contact_information/senators_cfm.cfm">Senate</a> websites.</p>
+      <form>
+        <h3><em>Sample message:</em></h3>
+        <textarea class="samplemessage"><%= @congress_message_campaign.message -%></textarea>
+      </form>
+    </div>
+  </div>
+</div>
+
+<div class="update-user-data-container" style="display: none;">
+  <% if current_user %>
+  <div class="checkbox small">
+      <label for="update_user_data">    <input checked="checked" id="update_user_data" name="update_user_data" type="checkbox" value="yes">    Save my name and address for next time.</label>
+  </div>
+  <% end %>
+</div>

@@ -12,6 +12,7 @@ Actioncenter::Application.routes.draw do
   post "tools/petition"
   post "tools/tweet"
   post "tools/email"
+  post "tools/message-congress"
   get "tools/email_target"
   get "tools/reps"
   get "tools/reps_raw"
@@ -85,6 +86,14 @@ Actioncenter::Application.routes.draw do
         get :date_tabulation
         get :congress_tabulation
         get 'staffer_report/:bioguide_id', to: 'email_campaigns#staffer_report', as: :staffer_report
+      end
+    end
+
+    resources :congress_message_campaigns, only: :none do
+      member do
+        get :date_tabulation
+        get :congress_tabulation
+        get "staffer_report/:bioguide_id", to: "congress_message_campaigns#staffer_report", as: :staffer_report
       end
     end
 

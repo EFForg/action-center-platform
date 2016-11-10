@@ -375,7 +375,7 @@
 }
 
 .description h3, h3.privacy-notice-header,
-h3.header, #tools #email-tool h3 {
+h3.header, #tools #email-tool h3, #tools #congress-message-tool h3 {
   position: relative;
   margin-bottom: 1em;
   font-weight: normal;
@@ -610,7 +610,7 @@ h3.privacy-notice-header {
     }
 }
 
-.email-tool-container {
+.email-tool-container, .congress-message-tool-container {
   display: none;
   input[type=submit] {
     margin-top: 0px !important;
@@ -766,6 +766,223 @@ h3.privacy-notice-header {
     }
   }
   &.email-rep-lookup fieldset:last-of-type {
+    margin-bottom:0;
+  }
+  .rep-photo {
+    padding: 0;
+  }
+  h3 {
+    font-size: 17px;
+    color:$blue;
+    margin-top: 0;
+
+    &.legislator-label {
+      margin-top:0px;
+      margin-bottom: 10px;
+      &.common-fields {
+        margin-top: 17px;
+        margin-bottom: 0;
+      }
+    }
+    span.customize-message-popover {
+      display: inline-block;
+      float:right;
+      border: 1px solid #cc0000;
+      height: 20px;
+      width: 20px;
+      text-align: center;
+      border-radius: 10px;
+      font-style: normal;
+      font-weight: normal;
+      line-height: 18px;
+      padding-top: 0px;
+      cursor:pointer;
+      cursor:hand;
+      position:relative;
+      font-weight: bold;
+      @include transition (all 0.2s ease-in-out);
+      background-color: #fff;
+      color: #cc0000;
+
+      &:hover {
+        background-color: #cc0000;
+        color: #fff;
+      }
+    }
+    span.legislator-info-popover {
+      display: inline-block;
+      float:right;
+      border: 1px solid #cc0000;
+      height: 20px;
+      width: 20px;
+      text-align: center;
+      border-radius: 10px;
+      font-style: normal;
+      font-weight: normal;
+      line-height: 18px;
+      padding-top: 0px;
+      cursor:pointer;
+      cursor:hand;
+      position:relative;
+      font-weight: bold;
+      @include transition (all 0.2s ease-in-out);
+      background-color: #fff;
+      color: #cc0000;
+      font-size: 12px;
+      &:hover {
+        background-color: #cc0000;
+        color: #fff;
+      }
+    }
+  }
+}
+
+#tools #congress-message-tool {
+  .tool-body {
+    padding-top: 0;
+    padding-bottom: 10px;
+  }
+  .tool-title {
+    margin-bottom: 10px;
+  }
+  textarea {
+    line-height: 1.3;
+    font-size: 13px;
+    padding: 6px;
+  }
+  .form-group {
+    margin-bottom: 7px;
+  }
+  .privacy-notice {
+    margin-bottom: 5px;
+  }
+  #customize-message {
+    margin-top: 0;
+    margin-bottom: 0;
+  }
+  input[type=submit] {
+    margin-top: 0.1em;
+    margin-bottom:5px;
+  }
+  .progress {
+    margin-top: 15px;
+  }
+  .congress-message-tool-container {
+    margin-top: 20px;
+  }
+  #congressForms-common-fields div.email-signup:first-child {
+    display:block;
+  }
+  .captcha-form {
+    margin-top: 10px;
+    margin-bottom: 15px;
+  }
+  #congressForms-common-fields {
+    margin-bottom:0;
+    margin-top: 4px;
+  }
+  .update-user-data-container .checkbox{
+    line-height:1.3;
+    margin-top: 3px;
+    padding-bottom: 5px;
+  }
+  .congressForms-captcha-image {
+    max-width: 250px;
+  }
+  .congressForms-captcha-label {
+    font-weight: normal;
+    font-size: 14px;
+  }
+
+  .recaptcha-image{
+    position: absolute;
+  }
+
+  .recaptcha-overlay{
+    position: absolute;
+    width: 302px;
+    height: 422px;
+  }
+
+  .recaptcha-overlay.loading{
+    background: url(/images/loading.gif) 50% 50% no-repeat black;
+    opacity: .8;
+  }
+  .recaptcha-overlay.loading div{
+    display: none;
+  }
+
+  .recaptcha-wrapper{
+    position: relative;
+    width: 302px;
+    height: 422px;
+  }
+
+  .recaptcha-option{
+    width: 94px;
+    height: 94px;
+    color: #00B000;
+    font-size: 89pt;
+    line-height: 94px;
+    overflow: hidden;
+  }
+
+  .recaptcha-option, .recaptcha-submit{
+    position: absolute;
+    cursor: pointer;
+  }
+
+  .recaptcha-1{
+    left: 11px;
+    top: 71px;
+  }
+  .recaptcha-2{
+    left: 105px;
+    top: 71px;
+  }
+  .recaptcha-3{
+    left: 198px;
+    top: 71px;
+  }
+  .recaptcha-4{
+    left: 11px;
+    top: 165px;
+  }
+  .recaptcha-5{
+    left: 105px;
+    top: 165px;
+  }
+  .recaptcha-6{
+    left: 198px;
+    top: 165px;
+  }
+  .recaptcha-7{
+    left: 11px;
+    top: 258px;
+  }
+  .recaptcha-8{
+    left: 105px;
+    top: 258px;
+  }
+  .recaptcha-9{
+    left: 198px;
+    top: 258px;
+  }
+
+  .recaptcha-submit{
+    width: 90px;
+    height: 25px;
+    left: 200px;
+    top: 365px;
+  }
+  .congressForms-legislator-fields {
+    margin-bottom:15px;
+    margin-top: 15px;
+    &:last-of-type {
+      margin-bottom:15px;
+    }
+  }
+  &.congress-message-rep-lookup fieldset:last-of-type {
     margin-bottom:0;
   }
   .rep-photo {

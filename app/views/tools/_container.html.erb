@@ -8,6 +8,7 @@
       <%= render "tools/petition" if @actionPage.enable_petition? && @actionPage.petition %>
       <%= render "tools/call" if @actionPage.enable_call? && @actionPage.call_campaign %>
       <%= render "tools/email" if @actionPage.enable_email? && @actionPage.email_campaign %>
+      <%= render "tools/congress_message" if @actionPage.enable_congress_message? && @actionPage.congress_message_campaign %>
       <%= render "tools/tweet" if @actionPage.enable_tweet? && @actionPage.tweet %>
       <%= render "tools/mailing_list" if @no_tools == true %>
     <% end -%>

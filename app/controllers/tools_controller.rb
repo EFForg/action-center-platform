@@ -6,7 +6,7 @@ class ToolsController < ApplicationController
   before_filter :set_user
   before_filter :set_action_page
   before_filter :create_newsletter_subscription, only: [:call]
-  after_filter :deliver_thanks_message, only: [:call, :petition, :email]
+  after_filter :deliver_thanks_message, only: [:call, :petition, :email, :message_congress]
   skip_after_filter :deliver_thanks_message, if: :signature_has_errors
   skip_before_filter :verify_authenticity_token, only: :petition
 
@@ -146,6 +146,32 @@ class ToolsController < ApplicationController
     render :json => {success: true}, :status => 200
   end
 
+  def message_congress
+    @user ||= User.find_or_initialize_by(email: params[:email])
+
+    update_user_data(email_params.with_indifferent_access) if params[:update_user_data] == "true"
+
+    ahoy.track "Action",
+      { type: "action", actionType: "congress_message", actionPageId: params[:action_id] },
+      action_page: @action_page
+
+    # You will only get here if you are not logged in.  Subscribe does not show for logged in users,
+    # since they are presented that option at signup.
+    if params[:subscribe] == "true"
+      @user.attributes = email_params.slice(
+        :first_name, :last_name, :city, :state, :street_address, :zipcode
+      )
+
+      @source = "action center congress message :: " + @action_page.title
+      @user.subscribe!(opt_in=true, source=@source)
+
+    end
+
+    @name = email_params[:first_name] # for deliver_thanks_message
+
+    render :json => {success: true}, :status => 200
+  end
+
   # GET /tools/email_target
   #
   # This endpoint is hit by...
@@ -180,7 +206,7 @@ class ToolsController < ApplicationController
 
   # GET /tools/reps_raw
   #
-  # This endpoint is hit by the js for email actions to lookup what legislators
+  # This endpoint is hit by the js for email/congress message actions to lookup what legislators
   # should be emailed based on the input long/lat or zipcode
   def reps_raw
     @reps = CongressMember.lookup(street: params[:street_address], zipcode: params[:zipcode])

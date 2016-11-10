@@ -9,6 +9,7 @@ module Ahoy
     scope :actions,    -> { where(name: "Action") }
     scope :views,      -> { where(name: "View") }
     scope :emails,     -> { where("properties ->> 'actionType' = 'email'") }
+    scope :congress_messages, -> { where("properties ->> 'actionType' = 'congress_message'") }
     scope :calls,      -> { where("properties ->> 'actionType' = 'call'") }
     scope :signatures, -> { where("properties ->> 'actionType' = 'signature'") }
     scope :tweets,     -> { where("properties ->> 'actionType' = 'tweet'") }
