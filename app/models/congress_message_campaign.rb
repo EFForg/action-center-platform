@@ -23,4 +23,8 @@ class CongressMessageCampaign < ActiveRecord::Base
   def extra_fields_explain_text default
     default
   end
+
+  def target_specific_legislators
+    not (target_house || target_senate)
+  end
 end

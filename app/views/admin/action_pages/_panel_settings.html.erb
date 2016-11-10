@@ -257,6 +257,9 @@
                 <%= t.label :target_senate do -%>
                   <%= t.check_box :target_senate %> Senate
                 <% end -%>
+                <%= t.label :target_specific_legislators do -%>
+                  <%= t.check_box :target_specific_legislators %> Specific legislators
+                <% end -%>
                 <%= t.text_field :target_bioguide_ids, placeholder: "Specific bioguide ids (comma separated)" %>
               </fieldset>
             </div>

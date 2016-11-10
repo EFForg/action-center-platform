@@ -10,6 +10,7 @@
 //= require admin/email_tabulation
 //= require admin/petitions
 //= require admin/epic_editor_helper
+//= require_tree ./admin/action_pages
 //= require s3_cors_fileupload
 //= require bootstrap-sass/bootstrap/tab
 //= require bootstrap-responsive-tabs

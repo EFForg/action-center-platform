@@ -1,6 +1,7 @@
 class Admin::ActionPagesController < Admin::ApplicationController
   before_filter :set_action_page, except: [ :new, :index, :create, :update_featured_pages ]
   before_filter :set_date_from_params, only: [:index, :edit, :new]
+  before_filter :cleanup_congress_message_params, only: [:update]
   skip_before_filter :verify_authenticity_token, :only => [:update_featured_pages]
   after_filter :purge_cache, only: [ :update, :publish ]
 
@@ -241,5 +242,11 @@ class Admin::ActionPagesController < Admin::ApplicationController
     http.use_ssl = true
     request = Net::HTTP::Post.new(uri.path, {'Content-Type' =>'application/json'})
     response = http.request(request)
+  end
+
+  def cleanup_congress_message_params
+    if params[:action_page][:congress_message_campaign_attributes][:target_specific_legislators] != '1'
+      params[:action_page][:congress_message_campaign_attributes][:target_bioguide_ids] = nil
+    end
   end
 end
