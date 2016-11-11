@@ -81,14 +81,6 @@ Actioncenter::Application.routes.draw do
       end
     end
 
-    resources :email_campaigns, only: :none do
-      member do
-        get :date_tabulation
-        get :congress_tabulation
-        get 'staffer_report/:bioguide_id', to: 'email_campaigns#staffer_report', as: :staffer_report
-      end
-    end
-
     resources :congress_message_campaigns, only: :none do
       member do
         get :date_tabulation

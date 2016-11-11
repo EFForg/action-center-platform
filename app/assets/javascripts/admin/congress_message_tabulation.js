@@ -1,5 +1,5 @@
 $(document).ready(function() {
-  $("table#email_tabulation_by_date").each(function() {
+  $("table#congress_message_tabulation_by_date").each(function() {
     $.ajax({
       url: this.dataset.fills_url,
       success: function(data) {
@@ -16,12 +16,12 @@ $(document).ready(function() {
           date: "Total",
           count: total_count
         });
-        $("#email_tabulation_by_date tbody").html(tbody_html);
+        $("#congress_message_tabulation_by_date tbody").html(tbody_html);
       }
     });
   });
 
-  $("table#email_tabulation_by_congress").each(function(){
+  $("table#congress_message_tabulation_by_congress").each(function(){
     var table = this;
     Step(
       function fetchBreakdownAndNames(){
@@ -51,7 +51,7 @@ $(document).ready(function() {
           name: "Total",
           count: total_count
         });
-        $("#email_tabulation_by_congress tbody").html(tbody_html);
+        $("#congress_message_tabulation_by_congress tbody").html(tbody_html);
       }
     );
   });

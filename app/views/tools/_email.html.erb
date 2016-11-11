@@ -1,139 +1,76 @@
 <div id='email-tool' class="tool">
   <div class="tool-container">
     <div class="tool-heading">
-      <% if @email_campaign.target_email? %>
       <h2 class="tool-title">Take action</h2>
-      <% else %>
-        <h2 class="tool-title"><%= @email_campaign.email_your_rep_text "Email your representatives" %></h2>
-      <% end %>
       <% if params.include?('non_us_option') and params['non_us_option'] == "petition" %>
         <h3 id="non-us-option">Not in the U.S.?</h3>
       <% end %>
     </div>
 
-    <% if @email_campaign.target_email -%>
-      <div class="tool-body" id="target-email">
-        <p>Send this email:</p>
+    <div class="tool-body" id="target-email">
+      <p>Send this email:</p>
 
-        <fieldset disabled>
-          <textarea class="form-control" rows="14"><%= @email_campaign.message %></textarea>
-        </fieldset>
+      <fieldset disabled>
+        <textarea class="form-control" rows="14"><%= @email_campaign.message %></textarea>
+      </fieldset>
 
-        <%= render "tools/newsletter_signup" if current_user.nil? %>
+      <%= render "tools/newsletter_signup" if current_user.nil? %>
 
-        <%= link_to tools_email_target_path(
-            action_id: @actionPage.id,
-            service: 'default'),
-            target: '_blank',
-            class: 'btn btn-red email-action' do -%>
-               <i class="icon-mail"></i> Open using default mail client
-        <% end %>
+      <%= link_to tools_email_target_path(
+          action_id: @actionPage.id,
+          service: 'default'),
+          target: '_blank',
+          class: 'btn btn-red email-action' do -%>
+             <i class="icon-mail"></i> Open using default mail client
+      <% end %>
 
-        <p class="small">Or send using:</p>
+      <p class="small">Or send using:</p>
 
-        <!--
-        <%= link_to tools_email_target_path(
-            action_id: @actionPage.id,
-            service: 'yahoo'),
-            target: '_blank',
-            class: 'btn btn-sm btn-red-outline email-action' do -%>
-               <i class="icon-yahoo"></i> Yahoo Mail
-        <% end %>
-        -->
+      <!--
+      <%= link_to tools_email_target_path(
+          action_id: @actionPage.id,
+          service: 'yahoo'),
+          target: '_blank',
+          class: 'btn btn-sm btn-red-outline email-action' do -%>
+             <i class="icon-yahoo"></i> Yahoo Mail
+      <% end %>
+      -->
 
-        <%= link_to tools_email_target_path(
-            action_id: @actionPage.id,
-            service: 'gmail'),
-            target: '_blank',
-            class: 'btn btn-sm btn-red-outline email-action' do -%>
-               <i class="icon-google"></i> Gmail
-        <% end %>
+      <%= link_to tools_email_target_path(
+          action_id: @actionPage.id,
+          service: 'gmail'),
+          target: '_blank',
+          class: 'btn btn-sm btn-red-outline email-action' do -%>
+             <i class="icon-google"></i> Gmail
+      <% end %>
 
-        <%= link_to tools_email_target_path(
-            action_id: @actionPage.id,
-            service: 'hotmail'),
-            target: '_blank',
-            class: 'btn btn-sm btn-red-outline email-action' do -%>
-               <i class="icon-windows"></i> Outlook
-        <% end %>
-        <br>
-        <%= link_to tools_email_target_path(
-            action_id: @actionPage.id,
-            service: 'copy'),
-            target: '_blank',
-            id: 'copy-email-action',
-            data: {
-              :'clipboard-target' => 'email_target_text',
-              :placement => 'bottom',
-              :toggle => 'tooltip',
-              :title => 'Copied!',
-              :trigger => 'click',
-            },
-            class: 'btn btn-sm btn-red-outline email-action' do -%>
-               <i class="icon-copy"></i> Copy to Clipboard
-        <% end %>
-        <div id='email_target_text'><%= render 'tools/email_target_text' %></div>
+      <%= link_to tools_email_target_path(
+          action_id: @actionPage.id,
+          service: 'hotmail'),
+          target: '_blank',
+          class: 'btn btn-sm btn-red-outline email-action' do -%>
+             <i class="icon-windows"></i> Outlook
+      <% end %>
+      <br>
+      <%= link_to tools_email_target_path(
+          action_id: @actionPage.id,
+          service: 'copy'),
+          target: '_blank',
+          id: 'copy-email-action',
+          data: {
+            :'clipboard-target' => 'email_target_text',
+            :placement => 'bottom',
+            :toggle => 'tooltip',
+            :title => 'Copied!',
+            :trigger => 'click',
+          },
+          class: 'btn btn-sm btn-red-outline email-action' do -%>
+             <i class="icon-copy"></i> Copy to Clipboard
+      <% end %>
+      <div id='email_target_text'><%= render 'tools/email_target_text' %></div>
 
-        <%= render 'tools/share' -%>
-      </div>
-    <% else -%>
-      <div class="tool-body with-js">
-          <form class='form email-rep-lookup'>
-            <% if not @email_campaign.target_bioguide_id %>
-              <fieldset id="lookup-address">
-                <h3>
-                  <em><%= @email_campaign.look_up_your_rep_text "Look up your representatives" %></em>
-                  <span class="customize-message-popover" data-container="body" data-toggle="popover" data-trigger="hover" data-placement="auto bottom" data-content="<%= @email_campaign.look_up_helper_text "We'll use your address to look up your congressional district and find your representatives." %>">?</span>
-                </h3>
-
-                <div class="form-group">
-                  <input value="<%= current_user && current_user.street_address %>" class='form-control' placeholder="Street Address" required="required" type=text id="street_address">
-                </div>
-                <div class="form-group">
-                  <input value="<%= current_user && current_user.zipcode %>" class='form-control' placeholder="Zip Code" required="required"  type="text" id="zipcode" title="Must be 5 numeric numbers" pattern="\d{5}" maxlength="5" required>
-                </div>
-                <p class="privacy-notice">This tool uses the <a href="http://smartystreets.com/legal/privacy-policy" target="_blank">Smarty Streets</a> API (<a class="privacy-notice-popover" href="#" data-container="body" data-toggle="popover" data-title="Email Tool APIs" data-html="true" data-trigger="hover" data-placement="auto" data-content="<p>We need your full address to locate your exact congressional district, but this information isn't stored unless you're logged in.</p><p>We also use the Smarty Streets' API to look up your full 9 digit zip code (Zip+4), since some Congressmember's forms require it.</p>">why?</a>).<br>
-                If you prefer not to use our email tool, <a href="https://www.eff.org/congress"  target="_blank">click here</a>.</p>
-              </fieldset>
-            <% end %>
-            <fieldset id="customize-message">
-              <h3>
-                <em>Customize your message</em>
-                <span class="customize-message-popover" data-container="body" data-toggle="popover" data-trigger="hover" data-placement="auto bottom" data-content="<%= @email_campaign.customize_message_helper_text "Add a personal note about why this matters to you. Members of Congress value a customized message much higher than a form letter." %>">?</span>
-              </h3>
-              <div class="form-group">
-                  <textarea class="campaign-message form-control" rows="11"><%= @email_campaign.message -%></textarea>
-              </div>
-            </fieldset>
-            <%= render "tools/privacy_notice" %>
-
-            <input type="submit" class='btn btn-default action' value="Submit your message">
-            <%= render 'tools/loading' -%>
-          </form>
-
-        <%= content_tag(:div, nil, :class => "email-tool-container",
-              :data => {
-                "congress-forms-url": Rails.application.config.congress_forms_url,
-                "campaign-tag": @email_campaign.campaign_tag,
-                "email-values": congress_forms_email_values(@email_campaign).to_json,
-                "target-house": @email_campaign.target_house,
-                "target-senate": @email_campaign.target_senate,
-                "target-bioguide-id": @email_campaign.target_bioguide_id,
-                "extra-fields-explain": @email_campaign.extra_fields_explain_text("We send your comments to your representatives by automatically filling out their online contact forms. Because each representative's form is a little different, we need your help filling out a few extra fields before we can send your message:"),
-                "bioguide-id": @email_campaign.bioguide_id,
-                "topic-category": @topic_category.to_json
-              }) %>
-        <%= render 'tools/share' -%>
-      </div>
-      <div class="tool-body without-js">
-        <h4><strong>Our email tool requires javascript.</strong></h4>
-        <p>If your browser doesn't support javascript or you prefer not to enable javascript on this site, you can find your legislator's contact forms via the <a target="_blank" href="http://www.house.gov/representatives/find/">House</a> and <a target="_blank" href="https://www.senate.gov/general/contact_information/senators_cfm.cfm">Senate</a> websites.</p>
-        <form>
-          <h3><em>Sample message:</em></h3>
-          <textarea class="samplemessage"><%= @email_campaign.message -%></textarea>
-        </form>
-      </div>
-    <% end -%>
+      <%= render 'tools/share' -%>
+    </div>
   </div>
 </div>
 

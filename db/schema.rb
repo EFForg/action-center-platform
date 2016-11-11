@@ -195,19 +195,8 @@ ActiveRecord::Schema.define(version: 20161109191337) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string   "subject"
-    t.boolean  "target_house",                      default: true
-    t.boolean  "target_senate",                     default: true
-    t.integer  "topic_category_id"
     t.string   "campaign_tag"
     t.string   "email_addresses"
-    t.boolean  "target_email"
-    t.boolean  "target_bioguide_id",                default: false
-    t.string   "bioguide_id"
-    t.string   "alt_text_email_your_rep"
-    t.string   "alt_text_look_up_your_rep"
-    t.string   "alt_text_extra_fields_explain"
-    t.string   "alt_text_look_up_helper"
-    t.string   "alt_text_customize_message_helper"
   end
 
   create_table "featured_action_pages", force: :cascade do |t|

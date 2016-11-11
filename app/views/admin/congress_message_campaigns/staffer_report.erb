@@ -6,7 +6,7 @@
   <h2>Campaign: <%= @congress_message_campaign.campaign_tag %></h2>
 
   <div class='chart_wrapper'>
-    <label>Emails sent to your office:</label>
+    <label>Messages sent to your office:</label>
     <%= line_chart(
       congress_forms_date_fills_url(@congress_message_campaign.campaign_tag, nil, nil, @bioguide_id),
       height: "250px",
@@ -15,7 +15,7 @@
   </div>
 
   <div class='chart_wrapper'>
-    <label>Emails sent to Congress:</label>
+    <label>Messages sent to Congress:</label>
     <%= line_chart(
       congress_forms_date_fills_url(@congress_message_campaign.campaign_tag),
       height: "250px",

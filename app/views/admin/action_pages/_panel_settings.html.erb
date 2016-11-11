@@ -177,55 +177,8 @@
             </div>
             <div class="form-group">
               <label>Targets</label>
-              <fieldset class='target-fields congress'>
-                <%= t.label :target_house do -%>
-                  <%= t.check_box :target_house %> House
-                <% end -%>
-                <%= t.label :target_senate do -%>
-                  <%= t.check_box :target_senate %> Senate
-                <% end -%>
-                <%= t.label :target_email do -%>
-                  <%= t.check_box :target_email -%> Specific email address(es)
-                <% end -%>
-                <%= t.text_field :email_addresses, placeholder: "Addresses (comma separated)" %>
-                <%= t.label :target_bioguide_id do -%>
-                  <%= t.check_box :target_bioguide_id -%> Specific bioguide id(s)
-                <% end -%>
-                <%= t.text_field :bioguide_id, placeholder: "Bioguide ids (comma separated)" %>
-                <div id='text_replacement_form_group' class="form-group">
-                  <hr>
-                  <%= t.label :alt_text_email_your_rep do -%>
-                    Replace "Email Your Representatives" text with:
-                  <% end -%>
-                  <%= t.text_field :alt_text_email_your_rep -%>
-                  <%= t.label :alt_text_look_up_your_rep do -%>
-                    Replace "Look Up Your Representatives" text with:
-                  <% end -%>
-                  <%= t.text_field :alt_text_look_up_your_rep -%>
-                  <%= t.label :alt_text_extra_fields_explain do -%>
-                    Replace extra fields explanation text with:
-                  <% end -%>
-                  <%= t.text_field :alt_text_extra_fields_explain -%>
-                  <%= t.label :alt_text_look_up_helper do -%>
-                    Replace 'look up' helper text with:
-                  <% end -%>
-                  <%= t.text_field :alt_text_look_up_helper -%>
-                  <%= t.label :alt_text_customize_message_helper do -%>
-                    Replace 'customize message' helper text with:
-                  <% end -%>
-                  <%= t.text_field :alt_text_customize_message_helper -%>
-                </div>
-              </fieldset>
+              <%= t.text_field :email_addresses, placeholder: "Email addresses (comma separated)" %>
             </div>
-            <div id='topic_category_form_group' class="form-group">
-              <%= t.label :topic_category %>
-              <%= t.collection_select :topic_category_id, @topic_categories, :id, :name, prompt: true %>
-            </div>
-            <div id='campaign_tag_form_group' class="form-group">
-              <%= t.label :campaign_tag %>
-              <%= t.text_field :campaign_tag %>
-            </div>
-
           <% end -%><!-- END f.fields_for :email_campaign -->
         </div>
       </div><!-- END div.panel.panel-danger -->

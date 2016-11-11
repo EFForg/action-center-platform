@@ -1,6 +1,6 @@
 <div class="container">
-  <h3>Congressional breakdown of emails sent for campaign:<br><i><%= @congress_message_campaign.campaign_tag %></i></h3>
-  <table class="table table-striped" id="email_tabulation_by_congress"
+  <h3>Congressional breakdown of messages sent for campaign:<br><i><%= @congress_message_campaign.campaign_tag %></i></h3>
+  <table class="table table-striped" id="congress_message_tabulation_by_congress"
          data-staffer_report_url="<%= staffer_report_admin_congress_message_campaign_path(@congress_message_campaign, "placeholder") %>"
          data-fills_url="<%= congress_forms_member_fills_url(@congress_message_campaign.campaign_tag) %>"
          data-legislators_url="<%= congress_index_path(format: :json) %>">
@@ -8,7 +8,7 @@
       <tr>
         <th>Bioguide ID</th>
         <th>Member</th>
-        <th>Emails</th>
+        <th>Messages</th>
       </tr>
     </thead>
     <tbody>
