@@ -28,8 +28,6 @@ source 'https://rails-assets.org' do
   gem 'rails-assets-jquery-timeago'
   gem 'rails-assets-jquery-cookie'
   gem 'rails-assets-moment', '2.9.0'
-  gem 'rails-assets-backbone', '1.1.2'
-  gem 'rails-assets-backbone-relational', '0.9.0'
   gem 'rails-assets-chartjs'
   gem 'rails-assets-respond'
   gem 'rails-assets-EpicEditor'

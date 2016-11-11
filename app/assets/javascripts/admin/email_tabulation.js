@@ -3,20 +3,15 @@ $(document).ready(function() {
     $.ajax({
       url: this.dataset.fills_url,
       success: function(data) {
-        var tbody_html;
-        var total_count = 0;
-        _.each(data, function(v, k){
-          tbody_html += JST['admin/backbone/templates/email_campaign/date_tabulation_row']({
-            date: moment(k, "YYYY-MM-DD").format("YYYY-MM-DD"),
-            count: v
-          });
-          total_count += v;
+        var tbody = $("<tbody>");
+        var totalCount = 0;
+        _.each(data, function(count, date){
+          totalCount += count;
+          date = moment(date, "YYYY-MM-DD").format("YYYY-MM-DD")
+          tbody.append("<tr><td>"+date+"</td><td>"+count+"</td></tr>");
         });
-        tbody_html += JST['admin/backbone/templates/email_campaign/date_tabulation_row']({
-          date: "Total",
-          count: total_count
-        });
-        $("#email_tabulation_by_date tbody").html(tbody_html);
+        tbody.append("<tr><td>Total</td><td><b>" + totalCount + "</b></td></tr>");
+        $("#email_tabulation_by_date tbody").replaceWith(tbody);
       }
     });
   });
@@ -33,25 +28,19 @@ $(document).ready(function() {
 
         var members_sorted = _.keys(breakdown).sort();
 
-        var tbody_html;
-        var total_count = 0;
+        var totalCount = 0;
+        var tbody = $("<tbody>");
 
         _.each(members_sorted, function(bioid){
-          tbody_html += JST['admin/backbone/templates/email_campaign/congress_tabulation_row']({
-            bioguide_id: bioid,
-            staffer_report_url: table.dataset.staffer_report_url.replace('placeholder', bioid),
-            name: (names[bioid] || { full_name: "Unknown" }).full_name,
-            count: breakdown[bioid]
-          });
-          total_count += breakdown[bioid];
+          var name = (names[bioid] || { full_name: "Unknown" }).full_name;
+          var stafferUrl = table.dataset.staffer_report_url.replace('placeholder', bioid);
+          var stafferLink = $('<a class="btn btn-default btn-sm">').attr("href", stafferUrl)
+                              .html('<i class="icon-clipboard"></i> Staffer Report')[0].outerHTML;
+          tbody.append("<tr><td>"+bioid+"</td><td>"+name+"</td><td>"+breakdown[bioid]+"</td><td>"+stafferLink+"</td></tr>");
+          totalCount += breakdown[bioid];
         });
-        tbody_html += JST['admin/backbone/templates/email_campaign/congress_tabulation_row']({
-          bioguide_id: "",
-          staffer_report_url: "",
-          name: "Total",
-          count: total_count
-        });
-        $("#email_tabulation_by_congress tbody").html(tbody_html);
+        tbody.append("<tr><td></td><td><b>Total</b></td><td><b>" + totalCount + "</b></td><td></td></tr>");
+        $("#email_tabulation_by_congress tbody").replaceWith(tbody);
       }
     );
   });

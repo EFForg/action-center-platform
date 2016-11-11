@@ -1,11 +1,6 @@
 //= require jquery
 //= require lodash
-//= require backbone
-//= require backbone-relational
 //= require step
-//= require_tree ./admin/backbone/models
-//= require_tree ./admin/backbone/collections
-//= require_tree ./admin/backbone
 
 function ajax_get(url, cb){
   $.ajax({
