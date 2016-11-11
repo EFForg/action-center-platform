@@ -10,6 +10,11 @@ class CreateCongressMessageCampaigns < ActiveRecord::Migration
       t.boolean :target_senate,		null: false, default: true
       t.string  :target_bioguide_ids
       t.integer :topic_category_id
+      t.string  :alt_text_email_your_rep
+      t.string  :alt_text_look_up_your_rep
+      t.string  :alt_text_extra_fields_explain
+      t.string  :alt_text_look_up_helper
+      t.string  :alt_text_customize_message_helper
       t.timestamps			null: false
     end
 
@@ -20,7 +25,10 @@ class CreateCongressMessageCampaigns < ActiveRecord::Migration
     email_actions.where("target_senate OR target_house OR target_bioguide_id").find_each do |action_page|
       email_campaign = action_page.email_campaign
       attrs = email_campaign.attributes.slice("subject", "message", "campaign_tag", "topic_category_id",
-                                        "target_house", "target_senate", "created_at", "updated_at")
+                                              "target_house", "target_senate", "created_at", "updated_at",
+                                              "alt_text_email_your_rep", "alt_text_look_up_your_rep",
+                                              "alt_text_extra_fields_explain", "alt_text_look_up_helper",
+                                              "alt_text_customize_message_helper")
       attrs["target_bioguide_ids"] = email_campaign.bioguide_id.presence if email_campaign.target_bioguide_id?
       attrs["campaign_tag"] = attrs["subject"].underscore if attrs["campaign_tag"].nil?
       congress_campaign = CongressMessageCampaign.create!(attrs)

@@ -5,25 +5,35 @@ $(document).ready(function() {
   var targetSenate = $("#action_page_congress_message_campaign_attributes_target_senate");
   var targetSpecificLegislators = $("#action_page_congress_message_campaign_attributes_target_specific_legislators");
   var targetBioguideIds = $("#action_page_congress_message_campaign_attributes_target_bioguide_ids");
+  var textReplacement = $("#congress_message_text_replacement_form_group");
   var targetCongress = targetHouse.add(targetSenate);
 
-  targetBioguideIds.on("focus", function() {
+  if (!targetSpecificLegislators.is(":checked"))
+    textReplacement.hide();
+
+  targetBioguideIds.on("input", function() {
     targetCongress.prop("checked", false);
     targetSpecificLegislators.prop("checked", true);
+    textReplacement.show();
   });
 
   targetSpecificLegislators.on("change", function() {
     if (this.checked) {
       targetCongress.prop("checked", false);
+      textReplacement.show();
       targetBioguideIds.focus();
+    } else {
+      textReplacement.hide();
     }
   });
 
   targetCongress.on("change", function() {
     if (targetCongress.filter(":checked").length) {
       targetSpecificLegislators.prop("checked", false);
+      textReplacement.hide();
     } else {
       targetSpecificLegislators.prop("checked", true);
+      textReplacement.show();
       targetBioguideIds.focus();
     }
   });

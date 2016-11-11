@@ -262,9 +262,9 @@ $(document).on("ready", function() {
     if (tool.data("target-bioguide-id")) {
       emailValues["$MESSAGE"] = form.find(".campaign-message").val();
 
-      $("form.email-rep-lookup").html("");
+      $("form.congress-message-rep-lookup").html("");
 
-      var bioguide_ids = tool.data("bioguide_id").split(",");
+      var bioguide_ids = tool.data("bioguide-id").split(",");
       generateCongressForm({
         reps: _.map(bioguide_ids, function(bioguide_id) {
           return {

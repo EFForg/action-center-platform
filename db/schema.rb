@@ -150,15 +150,20 @@ ActiveRecord::Schema.define(version: 20161109191337) do
   end
 
   create_table "congress_message_campaigns", force: :cascade do |t|
-    t.string   "subject",                            null: false
-    t.text     "message",                            null: false
-    t.string   "campaign_tag",                       null: false
-    t.boolean  "target_house",        default: true, null: false
-    t.boolean  "target_senate",       default: true, null: false
+    t.string   "subject",                                          null: false
+    t.text     "message",                                          null: false
+    t.string   "campaign_tag",                                     null: false
+    t.boolean  "target_house",                      default: true, null: false
+    t.boolean  "target_senate",                     default: true, null: false
     t.string   "target_bioguide_ids"
     t.integer  "topic_category_id"
-    t.datetime "created_at",                         null: false
-    t.datetime "updated_at",                         null: false
+    t.string   "alt_text_email_your_rep"
+    t.string   "alt_text_look_up_your_rep"
+    t.string   "alt_text_extra_fields_explain"
+    t.string   "alt_text_look_up_helper"
+    t.string   "alt_text_customize_message_helper"
+    t.datetime "created_at",                                       null: false
+    t.datetime "updated_at",                                       null: false
   end
 
   create_table "congress_scorecards", force: :cascade do |t|

@@ -222,6 +222,11 @@ class Admin::ActionPagesController < Admin::ApplicationController
                                                           :target_senate,
                                                           :target_bioguide_ids,
                                                           :topic_category_id,
+                                                          :alt_text_email_your_rep,
+                                                          :alt_text_look_up_your_rep,
+                                                          :alt_text_extra_fields_explain,
+                                                          :alt_text_look_up_helper,
+                                                          :alt_text_customize_message_helper,
                                                           :campaign_tag]},
                   {call_campaign_attributes: [:id, :title, :message, :call_campaign_id]}
                 )

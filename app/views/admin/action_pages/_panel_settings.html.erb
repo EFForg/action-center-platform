@@ -261,6 +261,29 @@
                   <%= t.check_box :target_specific_legislators %> Specific legislators
                 <% end -%>
                 <%= t.text_field :target_bioguide_ids, placeholder: "Specific bioguide ids (comma separated)" %>
+                <div id="congress_message_text_replacement_form_group" class="form-group">
+                  <hr>
+                  <%= t.label :alt_text_email_your_rep do -%>
+                    Replace "Email Your Representatives" text with:
+                  <% end -%>
+                  <%= t.text_field :alt_text_email_your_rep -%>
+                  <%= t.label :alt_text_look_up_your_rep do -%>
+                    Replace "Look Up Your Representatives" text with:
+                  <% end -%>
+                  <%= t.text_field :alt_text_look_up_your_rep -%>
+                  <%= t.label :alt_text_extra_fields_explain do -%>
+                    Replace extra fields explanation text with:
+                  <% end -%>
+                  <%= t.text_field :alt_text_extra_fields_explain -%>
+                  <%= t.label :alt_text_look_up_helper do -%>
+                    Replace "look up" helper text with:
+                  <% end -%>
+                  <%= t.text_field :alt_text_look_up_helper -%>
+                  <%= t.label :alt_text_customize_message_helper do -%>
+                    Replace "customize message" helper text with:
+                  <% end -%>
+                  <%= t.text_field :alt_text_customize_message_helper -%>
+                </div>
               </fieldset>
             </div>
             <div id="topic_category_form_group" class="form-group">
