@@ -6,10 +6,10 @@
   </div>
   <form class='name-form form-inline'>
     <div class='form-group'>
-      <input class='name form-control' placeholder='Topic Category Name' value="<%= name %>">
+      <input class='name form-control' placeholder='Topic Category Name' value="<%= name %>" name="topic_category[name]">
     </div>
     <div class='form-group'>
-      <button class='btn btn-sm btn-success pull-right add_term'><%= id ? "Update" : "Add" %></button>
+      <button class='btn btn-sm btn-success pull-right update_category'><%= id ? "Update" : "Add" %></button>
     </div>
   </form>
 </div>
