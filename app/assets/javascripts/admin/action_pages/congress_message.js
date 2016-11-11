@@ -57,5 +57,23 @@ $(document).ready(function() {
       this.value = targets.join(',') + ', ';
       this.focus();
     }
-  })
+  });
+
+  // the campaign tag should mirror the title, unless changed
+  // this is for tracking analytics and will be delivered to congress-forms
+  var campaign_tag_changed = false;
+  var $title = $('#action_page_title');
+  var campaign_tag_selector = '#action_page_congress_message_campaign_attributes_campaign_tag';
+  var $campaign_tag = $(campaign_tag_selector);
+  if($title.val() != $campaign_tag.val())
+    campaign_tag_changed = true;
+  $title.keyup(function(e){
+    var $campaign_tag = $(campaign_tag_selector);
+    if(!campaign_tag_changed){
+      $campaign_tag.val($title.val());
+    }
+  });
+  $campaign_tag.on("change keyup",function(){
+    campaign_tag_changed = true;
+  });
 });

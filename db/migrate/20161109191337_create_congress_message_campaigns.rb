@@ -30,7 +30,7 @@ class CreateCongressMessageCampaigns < ActiveRecord::Migration
                                               "alt_text_extra_fields_explain", "alt_text_look_up_helper",
                                               "alt_text_customize_message_helper")
       attrs["target_bioguide_ids"] = email_campaign.bioguide_id.presence if email_campaign.target_bioguide_id?
-      attrs["campaign_tag"] = attrs["subject"].underscore if attrs["campaign_tag"].nil?
+      attrs["campaign_tag"] = action_page.title if attrs["campaign_tag"].nil?
       congress_campaign = CongressMessageCampaign.create!(attrs)
 
       attrs = action_page.attributes.except("id", "slug", "enable_email", "email_campaign_id")
