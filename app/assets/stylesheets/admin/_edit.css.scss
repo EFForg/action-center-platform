@@ -172,6 +172,60 @@ Forms
 /**********************
 Action Settings
 *************+*********/
+.panel.call {
+  border-color: #faebcc;
+  .panel-heading {
+    color: #8a6d3b;
+    background-color: #fcf8e3;
+    border-color: #faebcc;
+  }
+}
+
+.panel.petition {
+  border-color: #d6e9c6;
+  .panel-heading {
+    color: #3c763d;
+    background-color: #dff0d8;
+    border-color: #d6e9c6;
+  }
+}
+
+.panel.tweet {
+  border-color: #bce8f1;
+  .panel-heading {
+    color: #31708f;
+    background-color: #d9edf7;
+    border-color: #bce8f1;
+  }
+}
+
+.panel.email {
+  border-color: #ebccd1;
+  .panel-heading {
+    color: #a94442;
+    background-color: #f2dede;
+    border-color: ebccd1;
+  }
+}
+
+.panel.congress-message {
+  border-color: #d5c8e3;
+  .panel-heading {
+    color: #5e4675;
+    background-color: #e8def2;
+    border-color: #d5c8e3;
+  }
+}
+
+.panel.redirect {
+  border-color: #dddddd;
+  .panel-heading {
+    color: #333333;
+    background-color: whitesmoke;
+    border-color: #dddddd;
+  }
+}
+
 .tools-container .panel-body label {
   font-weight: normal;
 }

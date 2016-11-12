@@ -3,7 +3,7 @@
   <div class="row">
     <div class='col-md-10 tools-container'>
 
-      <div class='panel panel-warning'>
+      <div class="panel call">
         <div class='panel-heading'>
           <%= f.check_box :enable_call,
             data: {toggle: 'collapse', target: '#call-fields'} -%>
@@ -28,9 +28,9 @@
             </div>
           <% end -%>
         </div>
-      </div><!-- END div.panel.panel-warning -->
+      </div><!-- END div.panel.call -->
 
-      <div class='panel panel-success'>
+      <div class="panel petition">
         <div class='panel-heading'>
           <%= f.check_box :enable_petition,
             data: {toggle: 'collapse', target: '#petition-fields'} %>
@@ -76,9 +76,9 @@
             </fieldset>
           <% end -%>
          </div>
-      </div><!-- END div.panel.panel-success -->
+      </div><!-- END div.panel.petition -->
 
-      <div class='panel panel-info'>
+      <div class="panel tweet">
         <div class='panel-heading'>
           <%= f.check_box :enable_tweet,
             data: {toggle: 'collapse', target: '#tweet-fields'} %>
@@ -157,7 +157,7 @@
         </div>
       </div><!-- END div.panel.panel-info -->
 
-      <div class='panel panel-danger'>
+      <div class="panel email">
         <div class='panel-heading'>
           <%= f.check_box :enable_email,
             data: {toggle: 'collapse', target: '#email-fields'} %>
@@ -181,9 +181,9 @@
             </div>
           <% end -%><!-- END f.fields_for :email_campaign -->
         </div>
-      </div><!-- END div.panel.panel-danger -->
+      </div><!-- END div.panel.email -->
 
-      <div class="panel">
+      <div class="panel congress-message">
         <div class="panel-heading">
           <%= f.check_box :enable_congress_message,
             data: {toggle: "collapse", target: "#congress-message-fields"} %>
@@ -250,9 +250,9 @@
 
           <% end -%><!-- END f.fields_for :congress_message_campaign -->
         </div>
-      </div><!-- END div.panel -->
+      </div><!-- END div.panel.congress-message -->
 
-      <div class='panel panel-default'>
+      <div class="panel panel-redirect">
         <div class='panel-heading'>
           <%= f.check_box :enable_redirect,
             data: {toggle: 'collapse', target: '#redirect-fields'} %>
@@ -265,7 +265,7 @@
           </div>
 
         </div>
-      </div><!-- END div.panel.panel-default -->
+      </div><!-- END div.panel.redirect -->
 
     </div><!-- END .tools-container -->
   </div>
