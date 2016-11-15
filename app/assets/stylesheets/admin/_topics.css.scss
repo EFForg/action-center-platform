@@ -1,5 +1,13 @@
 
+.topics-index .intro {
+  padding: 15px 20px;
+}
+
 *[data-react-class=TopicCategoryTables] {
+  .create-category-btn {
+    margin: 10px;
+  }
+
   .topic_set {
     .btn-group, .input-group {
       margin-bottom: 4px;
