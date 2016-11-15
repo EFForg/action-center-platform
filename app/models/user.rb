@@ -14,9 +14,11 @@ class User < ActiveRecord::Base
   validate :password_complexity
   delegate :actions, :views, to: :events
 
-  before_update :invalidate_password_reset_tokens, :if => proc { email_changed? }
-  before_update :invalidate_new_activists_password, :if => proc { admin_changed?  }
-  after_update :reset_password_expiration_flag, :if => proc { encrypted_password_changed? && !password_expired_changed? }
+  before_update :invalidate_password_reset_tokens, :if => :email_changed?
+  before_update :invalidate_new_activists_password, :if => :admin_changed?
+  after_validation :reset_password_expiration_flag, :if => :encrypted_password_changed?
+
+  alias_attribute :activist?, :admin?
 
   alias :preferences :user_preferences
 
@@ -30,7 +32,6 @@ class User < ActiveRecord::Base
 
   def reset_password_expiration_flag
     self.password_expired = false
-    self.save
   end
 
   def email_taken?
@@ -78,6 +79,31 @@ class User < ActiveRecord::Base
 
   def partner?
     partner.present?
+  end
+
+  def can?(ability)
+    case ability
+    when :browse_actions
+      admin? || activist? || collaborator?
+    when :administer_actions
+      admin? || activist?
+    when :administer_homepage
+      admin? || activist?
+    when :view_analytics
+      admin? || activist? || collaborator?
+    when :administer_partners?
+      admin? || activist?
+    when :administer_topics?
+      admin? || activist?
+    when :administer_users?
+      admin?
+    else
+      admin?
+    end
+  end
+
+  def privileged_role?
+    admin? || activist? || collaborator?
   end
 
   def self.new_with_session(params, session)

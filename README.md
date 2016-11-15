@@ -15,7 +15,7 @@ Follow these instructions to run the Action Center using Docker (recommended). T
 
 1. Install Docker ([instructions](https://docs.docker.com/engine/installation/)) and Docker Compose ([instructions](https://docs.docker.com/compose/install/)).
 2. `git clone https://github.com/EFForg/action-center-platform.git`
-3. Copy `docker-compose.example.yml` to `docker-compose.yml`. Fill it in according to the instructions in that file. See [notable dependencies](#notable-dependencies) for hints.
+3. Copy `docker-compose.example.yml` to `docker-compose.yml`, and `.env.example` to `.env`. Fill in the variables in `.env` according to the instructions in that file. See [notable dependencies](#notable-dependencies) for hints.
 4. Build the docker image: `sudo docker-compose build`
 5. Run the application: `sudo docker-compose up`
 6. In a new tab, get a bash shell with access to your app: `sudo docker-compose exec app bash`.
@@ -79,6 +79,11 @@ rake users:remove_admin[youremail@example.org]
 rake users:list_admins
 ```
 
+### Delayed Jobs and Cron
+
+Action Center uses [DelayedJob](https://github.com/collectiveidea/delayed_job) to perform certain tasks outside of a web request context. See that repository for information regarding how to run a delayed job worker. If you are deploying with Docker, our [docker-compose.yml.example](https://github.com/EFForg/action-center-platform/blob/master/docker-compose.yml.example) shows how to create a service which processes the job queue indefinitely.
+
+You may also want to automate certain other tasks (such as `rake signatures:deduplicate` and `rake congress:update`) to run occasionally. For those deploying with Docker, docker-compose.yml.example illustrates how to create a service which runs these commands periodically using cron.
 
 ### Embedding Actions
 

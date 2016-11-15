@@ -5,6 +5,7 @@ RSpec.describe ActionPageController, type: :controller do
 
   let(:action_page) { FactoryGirl.create :action_page }
   let(:admin) { login_as_admin }
+  let(:collaborator) { login_as_collaborator }
 
   describe "GET #index" do
     render_views
@@ -70,7 +71,7 @@ RSpec.describe ActionPageController, type: :controller do
     context "unpublished" do
       let(:unpublished_action_page) { FactoryGirl.create :action_page, published: false }
 
-      it "hides unpublished pages from non-admin users" do
+      it "hides unpublished pages from unprivileged users" do
         expect {
           get :show, { :id => unpublished_action_page }
         }.to raise_error ActiveRecord::RecordNotFound
@@ -78,6 +79,12 @@ RSpec.describe ActionPageController, type: :controller do
 
       it "notifies admin users that a page is unpublished" do
         admin
+        get :show, { :id => unpublished_action_page }
+        expect(flash[:notice]).to include("not published")
+      end
+
+      it "notifies collaborator users that a page is unpublished" do
+        collaborator
         get :show, { :id => unpublished_action_page }
         expect(flash[:notice]).to include("not published")
       end

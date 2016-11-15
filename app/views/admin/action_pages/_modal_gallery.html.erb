@@ -8,14 +8,7 @@
         <h4 class="modal-title" id="myModalLabel">Gallery</h4>
       </div>
       <div class="modal-body">
-          <%= s3_cors_fileupload_form_tag :id => 'fileupload' %>
-
-          <div class="javascript-templates">
-            <%= render 'template_upload' %>
-            <%= render 'template_download' %>
-            <%= render 'template_uploaded' %>
-          </div>
-
+        <%= render "s3_uploads/upload" %>
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>

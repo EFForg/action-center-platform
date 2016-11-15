@@ -1,6 +1,6 @@
 $(function () {
-  var bucket = "<%= ENV['amazon_bucket'] %>";
-  var amazonRegion = "<%= ENV['amazon_region'] %>";
+  var bucket = $('#fileupload').data('amazon_bucket');
+  var amazonRegion = $('#fileupload').data('amazon_region');
   var bucketUrl = 'https://' + bucket + '.s3-' + amazonRegion + '.amazonaws.com/';
 
   // If we can find the #fileupload form in DOM

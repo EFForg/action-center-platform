@@ -3,7 +3,9 @@
          action: (@actionPage.new_record? ? :create : :update)},
   :html => { id: 'action-page-form', multipart: true }  do |f| -%>
 
-  <%= render partial: 'top_bar_authoring_controls', :locals => {:f => f} %>
+  <% if can?(:administer_actions) %>
+    <%= render partial: 'top_bar_authoring_controls', :locals => {:f => f} %>
+  <% end %>
 
   <!-- tab_panels.html.erb -->
   <div class='container-fluid edit-action'>
@@ -12,13 +14,18 @@
 
       <!-- Tab panes -->
       <div class="tab-content responsive">
-        <%= render partial: 'panel_content', :locals => {:f => f} %>
-        <%= render partial: 'panel_settings', :locals => {:f => f} %>
-        <%= render partial: 'panel_photos', :locals => {:f => f} %>
-        <%= render partial: 'panel_social', :locals => {:f => f} %>
-        <%= render partial: 'panel_email', :locals => {:f => f} %>
-        <%= render partial: 'panel_victory', :locals => {:f => f} %>
-        <%= render partial: 'panel_analytics', :locals => {:f => f} %>
+        <% if can?(:administer_actions) %>
+          <%= render partial: 'panel_content', :locals => {:f => f} %>
+          <%= render partial: 'panel_settings', :locals => {:f => f} %>
+          <%= render partial: 'panel_photos', :locals => {:f => f} %>
+          <%= render partial: 'panel_social', :locals => {:f => f} %>
+          <%= render partial: 'panel_email', :locals => {:f => f} %>
+          <%= render partial: 'panel_victory', :locals => {:f => f} %>
+        <% end %>
+
+        <% if can?(:view_analytics) %>
+          <%= render partial: 'panel_analytics', :locals => {:f => f} %>
+        <% end %>
       </div><!-- .tab-content -->
 
     </div><!-- .tabs-left -->

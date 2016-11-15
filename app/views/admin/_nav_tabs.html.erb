@@ -2,41 +2,68 @@
 
 <!-- Nav tabs -->
 
-<div class="visible-xs xs-create-action">
-  <%= link_to new_admin_action_page_path, class: 'btn btn-sm btn-default' do -%>
-    <i class="icon-doc-new"></i> Create new action
-  <% end %>
-</div>
+<% if can?(:administer_actions) %>
+  <div class="visible-xs xs-create-action">
+    <%= link_to new_admin_action_page_path, class: 'btn btn-sm btn-default' do -%>
+      <i class="icon-doc-new"></i> Create new action
+    <% end %>
+  </div>
+<% end %>
 
 <ul class="nav nav-tabs responsive" id="tabs">
-  <li class="pull-right create-new hidden-xs">
-    <%= link_to new_admin_action_page_path do %>
-      <i class="icon ion-plus-circled"></i> Create new action
-    <% end %>
-  </li>
-  <li class="active">
-    <%= link_to admin_action_pages_path(anchor: 'action-pages'), data: {tab: 'action-pages', toggle: toggle} do %>
-      <i class="icon ion-flash"></i> Actions
-    <% end %>
-  </li>
-  <li>
-    <%= link_to admin_action_pages_path(anchor: 'homepage-settings'), data: {tab: 'homepage-settings', toggle: toggle} do %>
-      <i class="icon ion-home"></i> Homepage
-    <% end %>
-  </li>
-  <li class="hidden-xs">
-    <%= link_to admin_action_pages_path(anchor: 'analytics'), data: {tab: 'analytics', toggle: toggle} do %>
-      <i class="icon ion-arrow-graph-up-right"></i> Analytics
-    <% end %>
-  </li>
-  <li class="hidden-xs">
-    <%= link_to admin_partners_path(anchor: 'partners'), data: {tab: 'partners'} do %>
-      <i class="icon ion-ios-people"></i> Partners
-    <% end %>
-  </li>
-  <li class="topics hidden-xs">
-    <%= link_to admin_topics_path, data: { tab: "topics" } do %>
-      <i class="icon ion-ios-list"></i> Topics
-    <% end %>
-  </li>
+  <% if can?(:administer_actions) %>
+    <li class="pull-right create-new hidden-xs">
+      <%= link_to new_admin_action_page_path do %>
+        <i class="icon ion-plus-circled"></i> Create new action
+      <% end %>
+    </li>
+  <% end %>
+
+  <% if can?(:browse_actions) %>
+    <li class="active">
+      <%= link_to admin_action_pages_path(anchor: 'action-pages'), data: {tab: 'action-pages', toggle: toggle} do %>
+        <i class="icon ion-flash"></i> Actions
+      <% end %>
+    </li>
+  <% end %>
+
+  <% if can?(:administer_homepage) %>
+    <li>
+      <%= link_to admin_action_pages_path(anchor: 'homepage-settings'), data: {tab: 'homepage-settings', toggle: toggle} do %>
+        <i class="icon ion-home"></i> Homepage
+      <% end %>
+    </li>
+  <% end %>
+
+  <% if can?(:view_analytics) %>
+    <li class="hidden-xs">
+      <%= link_to admin_action_pages_path(anchor: 'analytics'), data: {tab: 'analytics', toggle: toggle} do %>
+        <i class="icon ion-arrow-graph-up-right"></i> Analytics
+      <% end %>
+    </li>
+  <% end %>
+
+  <% if can?(:administer_partners) %>
+    <li class="hidden-xs">
+      <%= link_to admin_partners_path(anchor: 'partners'), data: {tab: 'partners'} do %>
+        <i class="icon ion-ios-people"></i> Partners
+      <% end %>
+    </li>
+  <% end %>
+
+  <% if can?(:administer_topics) %>
+    <li class="topics hidden-xs">
+      <%= link_to admin_topics_path, data: { tab: "topics" } do %>
+        <i class="icon ion-ios-list"></i> Topics
+      <% end %>
+    </li>
+  <% end %>
+
+  <% if can?(:administer_users) %>
+    <li class="hidden-xs">
+      <%= link_to admin_users_path(anchor: 'users'), data: {tab: 'users'} do %>
+        <i class="icon ion-person-stalker"></i> Users
+      <% end %>
+    </li>
+  <% end %>
 </ul>

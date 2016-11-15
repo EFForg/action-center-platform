@@ -52,3 +52,13 @@ end
 Then(/^all signatures are selected$/) do
   expect(first("input[name=signature_ids\\[\\]]:not(:checked)")).to be_nil
 end
+
+Then(/^the user "(.*?)" should( not)? be a collaborator$/) do |email, should_not|
+  user = User.find_by(email: email)
+  expect(user).to be_present
+  if should_not
+    expect(user).not_to be_collaborator
+  else
+    expect(user).to be_collaborator
+  end
+end

@@ -478,3 +478,9 @@ Then(/^the email "(.*?)" should not go to "(.*?)"$/) do |subject, address|
     email.subject.should not_include subject if email.to == address
   end
 end
+
+And(/^I follow the password reset link$/) do
+  email = ActionMailer::Base.deliveries.first
+  reset_link = URI.extract(email.text_part.to_s)[2]
+  visit reset_link
+end

@@ -18,8 +18,8 @@
               <%= t.text_field :title %>
             </div>
             <div class="form-group">
-              <%= t.label :call_campaign_id, "Campaign Id" %>
-              <%= t.text_field :call_campaign_id %>
+              <%= t.label :call_campaign_id, "Campaign" %>
+              <%= t.select :call_campaign_id, call_campaign_options_for_select %>
             </div>
             <div class="form-group">
               <%= t.label :call_campaign_id, "What to say" %>

@@ -13,7 +13,10 @@
   <% signatures_count = @petition.signatures.count %>
   <h3 class="clearfix">
     <%= signatures_count -%> Signatures
-    <%= link_to "Download CSV", csv_admin_petition_path(@petition), class: "btn btn-default btn-sm pull-right"-%>
+
+    <% if can?(:export_signatures) %>
+      <%= link_to "Download CSV", csv_admin_petition_path(@petition), class: "btn btn-default btn-sm pull-right"-%>
+    <% end %>
   </h3>
 
   <% unless signatures_count.zero? %>
