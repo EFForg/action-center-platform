@@ -10,7 +10,6 @@ Feature: Create topics
   Scenario:
     When I am on "/admin/topics"
     And I click the element ".create-btn"
-    And I click the element ".topic_category .panel-body .edit-btn"
     And I fill in "topic[name]" with "newly made topic 1"
     And I click the first ".add_topic"
     And I pause a moment
