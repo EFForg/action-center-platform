@@ -78,7 +78,7 @@ var TopicCategory = React.createClass({
       $.ajax({
         method: "post",
         url: "/admin/topic_categories",
-        data: { name: this.refs.title.value() },
+        data: { "topic_category[name]": this.refs.title.value() },
 
         success: function(topicCategory) {
           self.refs.title.reset();
@@ -96,7 +96,7 @@ var TopicCategory = React.createClass({
       $.ajax({
         method: "post",
         url: "/admin/topic_categories/" + this.props.topicCategoryId,
-        data: { _method: "patch", name: this.refs.title.value() },
+        data: { _method: "patch", "topic_category[name]": this.refs.title.value() },
 
         success: function(topicCategory) {
           self.setState({ editMode: false, topicCategoryName: topicCategory.name });
@@ -134,7 +134,7 @@ var TopicCategory = React.createClass({
     $.ajax({
       method: "post",
       url: "/admin/topic_sets",
-      data: { topic_category_id: this.props.topicCategoryId },
+      data: { "topic_set[topic_category_id]": this.props.topicCategoryId },
 
       success: function(topicSet) {
         self.state.topicSets.push({
@@ -185,7 +185,7 @@ var TopicCategory = React.createClass({
             return $.ajax({
                 method: "post",
                 url: "/admin/topic_sets/" + topicSet.id,
-                data: { _method: "patch", tier: i + 1 },
+                data: { _method: "patch", "topic_set[tier]": i + 1 },
 
                 success: function() {
                   topicSet.tier = i + 1;
@@ -309,7 +309,8 @@ var TopicSetRow = React.createClass({
     var self = this;
     $.ajax({
       method: "post",
-      data: { topic_set_id: this.props.id, name: this.state.newTopicName },
+      data: { "topic[topic_set_id]": this.props.id,
+              "topic[name]": this.state.newTopicName },
 
       success: function(topic) {
         self.state.topics.push({ id: topic.id, name: topic.name });
