@@ -20,6 +20,7 @@ gem 'sass-rails', '~> 4.0.0'
 gem 'uglifier', '>= 1.3.0'        # compressor for JavaScript assets
 gem 'bundler', '>= 1.8.4'         # needed for rails-assets
 gem 'select2-rails'               # Autocomplete select menus
+gem 'react-rails'
 source 'https://rails-assets.org' do
   gem 'rails-assets-lodash', '3.7.0'
   gem 'rails-assets-jquery', '2.1.3'

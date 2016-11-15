@@ -11,7 +11,7 @@ Feature: Destroy topics
        |name|a topic|
 
   Scenario:
-    When I am on "/admin/action_pages#topics"
+    When I am on "/admin/topics"
     And I click the element ".topic_category .panel-body .edit-btn"
     And I click the element ".topic_set_edit .delete-btn"
     Then there should not be a persisted Topic

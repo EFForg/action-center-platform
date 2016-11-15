@@ -1,0 +1,31 @@
+
+*[data-react-class=TopicCategoryTables] {
+  .topic_set {
+    .btn-group, .input-group {
+      margin-bottom: 4px;
+    }
+
+    .btn-group {
+      float: left;
+      margin-left: 6px;
+      .label:hover {
+        color: white;
+      }
+    }
+
+    .input-group {
+      width: 215px;
+      float: left;
+    }
+
+    td {
+      vertical-align: top;
+    }
+
+    /* You can remove this after taking out the backbone css */
+    .topic_set_edit {
+      position: initial;
+      width: initial;
+    }
+  }
+}

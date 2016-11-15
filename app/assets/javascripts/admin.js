@@ -13,6 +13,9 @@
 //= require s3_cors_fileupload
 //= require bootstrap-sass/bootstrap/tab
 //= require bootstrap-responsive-tabs
+//= require react
+//= require react_ujs
+//= require_tree ./admin/components
 
 $(document).on('ready', function() {
 

@@ -1,0 +1,12 @@
+<%= render "admin/header" -%>
+<div class="container-fluid">
+  <div class="tabs-left">
+    <%= render 'admin/nav_tabs' -%>
+    <div class="tab-content responsive">
+      <div class="tab-pane active" id="partners">
+        <%= react_component("TopicCategoryTables",
+              topicCategories: TopicCategory.order(:id).map{ |x| topic_category_props(x) }) %>
+      </div>
+    </div>
+  </div>
+</div>

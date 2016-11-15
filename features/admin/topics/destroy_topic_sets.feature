@@ -10,7 +10,7 @@ Feature: Destroy topic sets
     And that has a persisted item belonging to topics
 
   Scenario:
-    When I am on "/admin/action_pages#topics"
+    When I am on "/admin/topics"
     And I click the element "[data-set-id] td:last-child .delete-btn"
     Then there should not be a persisted Topic
     And there should not be a persisted TopicSet

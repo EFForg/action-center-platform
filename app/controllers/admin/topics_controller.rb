@@ -1,7 +1,7 @@
 class Admin::TopicsController < Admin::ApplicationController
+  layout "admin"
+
   def index
-    @topics = Topic.all
-    render json: @topics
   end
 
   def destroy

@@ -7,7 +7,7 @@ Feature: Create topic categories
     And I am logged in
 
   Scenario:
-    When I am on "/admin/action_pages#topics"
+    When I am on "/admin/topics"
     And I click the element ".create-category-btn"
     And I fill in "topic_category[name]" with "newly made category"
     And I click the first ".update_category"

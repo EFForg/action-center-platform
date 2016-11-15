@@ -9,7 +9,7 @@ Feature: Edit topic categories
         |name|topical category|
 
   Scenario:
-    When I am on "/admin/action_pages#topics"
+    When I am on "/admin/topics"
     And I click the first "[class=icon-pencil]"
     And I fill in the first "[name=topic_category\[name\]]" with "edited topical category"
     And I click the first ".update_category"
