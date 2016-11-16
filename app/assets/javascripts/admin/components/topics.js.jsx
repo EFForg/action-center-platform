@@ -71,43 +71,38 @@ var TopicCategory = React.createClass({
     this.setState({ editMode: false });
   },
 
-  save: function() {
+  save: function(e) {
+    e.preventDefault();
+
+    if (!this.state.editMode)
+      return this.edit();
+
     var self = this;
+    var newRecord = this.isNewRecord();
+    $.ajax({
+      method: "post",
+      url: e.target.action,
 
-    if (this.isNewRecord()) {
-      $.ajax({
-        method: "post",
-        url: "/admin/topic_categories",
-        data: { "topic_category[name]": this.refs.title.value() },
+      processData: false,
+      contentType: false,
+      data: new FormData(e.target),
 
-        success: function(topicCategory) {
+      success: function(topicCategory) {
+        if (newRecord)
           self.refs.title.reset();
-          self.props.onSave({
-            topicCategoryId: topicCategory.id,
-            topicCategoryName: topicCategory.name
-          }, true);
-        },
-
-        error: function() {
-          alert("There has been an error creating this topic category.");
-        }
-      });
-    } else {
-      $.ajax({
-        method: "post",
-        url: "/admin/topic_categories/" + this.props.topicCategoryId,
-        data: { _method: "patch", "topic_category[name]": this.refs.title.value() },
-
-        success: function(topicCategory) {
+        else
           self.setState({ editMode: false, topicCategoryName: topicCategory.name });
-          self.props.onSave && self.props.onSave(this.state, false);
-        },
 
-        error: function() {
-          alert("There has been an error editing this topic category.");
-        }
-      });
-    }
+        self.props.onSave && self.props.onSave({
+          topicCategoryId: topicCategory.id,
+          topicCategoryName: topicCategory.name
+        }, newRecord);
+      },
+
+      error: function() {
+        alert("There has been an error creating this topic category.");
+      }
+    });
   },
 
   destroy: function() {
@@ -215,6 +210,8 @@ var TopicCategory = React.createClass({
     var editMode = this.state.editMode;
     var isNewRecord = this.isNewRecord();
     var panelAttrs = isNewRecord ? {} : { "data-topic-category-id": this.props.topicCategoryId };
+    var saveAction = "/admin/topic_categories/" + (isNewRecord ? '' : this.props.topicCategoryId);
+    var saveMethod = isNewRecord ? "post" : "patch";
 
     var topicSets = this.state.topicSets.slice(0).sort(function(set1, set2) {
       return set1.tier - set2.tier;
@@ -225,24 +222,26 @@ var TopicCategory = React.createClass({
         <div className="panel panel-default topic_category" {...panelAttrs}>
           <div className="panel-heading">
             <div className="panel-title">
-              <EditableText ref="title" editMode={ editMode }
-                            name="topic_category[name]" value={ this.state.topicCategoryName }
-                            placeholder="Category name" />
+              <form action={ saveAction } method="post" onSubmit={ this.save }>
+                <input type="hidden" name="_method" value={ saveMethod } />
+                <EditableText ref="title" editMode={ editMode }
+                              name="topic_category[name]" value={ this.state.topicCategoryName }
+                              placeholder="Category name" />
 
-              <div className="btn-group category pull-right edit-category-btn" key="saveOrEdit">
-                <span onClick={ editMode ? this.save : this.edit }
-                      className="btn btn-success btn-sm update_category">
-                  <Icon name={ editMode ? "check" : "pencil" } />
-                  { isNewRecord ? "Create" : editMode ? "Update" : "Edit" }
-                </span>
+                <div className="btn-group category pull-right edit-category-btn" key="saveOrEdit">
+                  <button type="submit" className="btn btn-success btn-sm update_category">
+                    <Icon name={ editMode ? "check" : "pencil" } />
+                    { isNewRecord ? "Create" : editMode ? "Update" : "Edit" }
+                  </button>
 
-                <Conditional when={ !isNewRecord }>
-                  <span onClick={ editMode ? this.cancelEdit : this.destroy }
-                        className="btn btn-success btn-sm delete-category-btn" key="destroyOrCancel">
-                    <Icon name="trash" /> { editMode ? "Cancel" : "Delete" }
-                  </span>
-                </Conditional>
-              </div>
+                  <Conditional when={ !isNewRecord }>
+                    <span onClick={ editMode ? this.cancelEdit : this.destroy }
+                          className="btn btn-success btn-sm delete-category-btn" key="destroyOrCancel">
+                      <Icon name="trash" /> { editMode ? "Cancel" : "Delete" }
+                    </span>
+                  </Conditional>
+                </div>
+              </form>
             </div>
           </div>
 
@@ -305,12 +304,17 @@ var TopicSetRow = React.createClass({
     this.setState({ newTopicName: e.target.value });
   },
 
-  createTopic: function() {
+  createTopic: function(e) {
+    e.preventDefault();
+
     var self = this;
     $.ajax({
       method: "post",
-      data: { "topic[topic_set_id]": this.props.id,
-              "topic[name]": this.state.newTopicName },
+      url: e.target.action,
+
+      processData: false,
+      contentType: false,
+      data: new FormData(e.target),
 
       success: function(topic) {
         self.state.topics.push({ id: topic.id, name: topic.name });
@@ -362,20 +366,24 @@ var TopicSetRow = React.createClass({
       <tr data-set-id={ this.props.id } className="topic_set">
         <td><span className="badge">{ this.props.tier }</span></td>
         <td>
-          <div className="input-group input-group-sm">
-            <input ref="newTopicInput"
-                   className="form-control"
-                   name="topic[name]"
-                   value={ this.state.newTopicName }
-                   onChange={ this.updateNewTopicName } />
-            <span className="input-group-btn">
-              <span title="Add topic"
-                    onClick={ this.createTopic }
-                    className="btn btn-success add_topic">
-                <Icon name="doc-new" /> <span className="sr-only">Add topic</span>
+          <form action="/admin/topics" method="post"
+                onSubmit={ this.createTopic } >
+            <div className="input-group input-group-sm">
+              <input type="hidden" name="topic[topic_set_id]" value={ this.props.id } />
+              <input ref="newTopicInput"
+                     className="form-control"
+                     name="topic[name]"
+                     value={ this.state.newTopicName }
+                     onChange={ this.updateNewTopicName } />
+              <span className="input-group-btn">
+                <button type="submit"
+                        title="Add topic"
+                        className="btn btn-success add_topic">
+                  <Icon name="doc-new" /> <span className="sr-only">Add topic</span>
+                </button>
               </span>
-            </span>
-          </div>
+            </div>
+          </form>
 
           <div className="topics">
             { this.state.topics.map(topicLabel) }
