@@ -15,12 +15,12 @@ $(function () {
       sequentialUploads: true
     });
 
-    $("#myModal").on("show.bs.modal", function() {
-      $("#myModal").off("show.bs.modal");
+    $("#image-gallery").on("show.bs.modal", function() {
+      $("#image-gallery").off("show.bs.modal");
 
       // Get list of all uploaded images and populate the gallery with refs to them
       $.getJSON('/admin/source_files', function (files) {
-        $("#myModal .loading-indicator").hide();
+        $("#image-gallery .loading-indicator").hide();
         $.each(files, function(index, value) {
           // The template it's using seems to be...
           // app/views/admin/action_pages/_template_uploaded.html.erb
