@@ -6,8 +6,24 @@
         <h4 class="modal-title" id="image-gallery-label">Gallery</h4>
       </div>
       <div class="modal-body">
+        <h3>Upload images</h3>
         <%= render "s3_uploads/upload" %>
-        <div class="loading-indicator">Please wait. Loading gallery...</div>
+
+        <h3>Search images</h3>
+        <form action="/admin/source_files" class="gallery-filter">
+          <div class="input-group">
+            <input type="text" name="f"
+                   placeholder="Filter images by file name"
+                   class="form-control input-sm" />
+            <span class="input-group-btn">
+              <input type="submit" value="Search" class="btn btn-sm" />
+            </span>
+          </div>
+        </form>
+
+        <div class="gallery">
+          <%= render "admin/s3_uploads/table", source_files: SourceFile.order(created_at: :desc).limit(3) %>
+        </div>
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
