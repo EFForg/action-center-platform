@@ -31,17 +31,10 @@ var TopicCategoryTables = React.createClass({
 
     return (
       <div>
-        <div className="text-right">
-          <span onClick={ this.newTopicCategory }
-                className="btn btn-success create-category-btn">
-            <Icon name="doc-new" /> Create new topic category
-          </span>
-        </div>
-
-        { this.state.topicCategories.map(topicCategory) }
-
         <TopicCategory ref="newTopicCategory"
                        editMode={ true } onSave={ this.onSaveTopicCategory } />
+
+        { this.state.topicCategories.map(topicCategory) }
       </div>
     );
   }
@@ -212,6 +205,7 @@ var TopicCategory = React.createClass({
     var panelAttrs = isNewRecord ? {} : { "data-topic-category-id": this.props.topicCategoryId };
     var saveAction = "/admin/topic_categories/" + (isNewRecord ? '' : this.props.topicCategoryId);
     var saveMethod = isNewRecord ? "post" : "patch";
+    var saveUpdateClasses = "btn btn-success btn-sm " + (isNewRecord ?  "create_category" : "update_category");
 
     var topicSets = this.state.topicSets.slice(0).sort(function(set1, set2) {
       return set1.tier - set2.tier;
@@ -229,7 +223,7 @@ var TopicCategory = React.createClass({
                               placeholder="Category name" />
 
                 <div className="btn-group category pull-right edit-category-btn" key="saveOrEdit">
-                  <button type="submit" className="btn btn-success btn-sm update_category">
+                  <button type="submit" className={ saveUpdateClasses }>
                     <Icon name={ editMode ? "check" : "pencil" } />
                     { isNewRecord ? "Create" : editMode ? "Update" : "Edit" }
                   </button>

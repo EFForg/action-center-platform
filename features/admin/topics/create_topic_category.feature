@@ -8,9 +8,8 @@ Feature: Create topic categories
 
   Scenario:
     When I am on "/admin/topics"
-    And I click the element ".create-category-btn"
     And I fill in "topic_category[name]" with "newly made category"
-    And I click the first ".update_category"
+    And I click the first ".create_category"
     Then I should see "newly made category" within ".topic_category[data-topic-category-id] .panel-title"
     And there should be a persisted TopicCategory with:
         |name|newly made category|

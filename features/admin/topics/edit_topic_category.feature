@@ -11,7 +11,7 @@ Feature: Edit topic categories
   Scenario:
     When I am on "/admin/topics"
     And I click the first "[class=icon-pencil]"
-    And I fill in the first "[name=topic_category\[name\]]" with "edited topical category"
+    And I fill in the first ".topic_category[data-topic-category-id] [name=topic_category\[name\]]" with "edited topical category"
     And I click the first ".update_category"
     Then I should see "edited topical category" within ".topic_category[data-topic-category-id] .panel-title"
     And there should be a persisted TopicCategory with:
