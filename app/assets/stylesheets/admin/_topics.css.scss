@@ -4,6 +4,15 @@
 }
 
 *[data-react-class=TopicCategoryTables] {
+  .panel-title {
+    input {
+      margin-left: -4px;
+      margin-top: -4px;
+      margin-bottom: -4px;
+      padding-left: 4px;
+    }
+  }
+
   .create-category-btn {
     margin: 10px;
   }
