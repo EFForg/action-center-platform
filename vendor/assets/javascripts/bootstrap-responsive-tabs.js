@@ -19,14 +19,15 @@ var fakewaffle = ( function ( $, fakewaffle ) {
       visible += ' visible-' + this;
     } );
 
-    $.each( tabGroups, function () {
-      var $tabGroup   = $( this );
-      var tabs        = $tabGroup.find( 'li a' );
+    $.each( tabGroups, function ( index ) {
       var collapseDiv;
-      
-      if ($tabGroup.attr( 'id' ) === undefined)
+      var $tabGroup = $( this );
+      var tabs      = $tabGroup.find( 'li a' );
+
+      if ( $tabGroup.attr( 'id' ) === undefined ) {
         $tabGroup.attr( 'id', 'tabs-' + index );
-      
+      }
+
       collapseDiv = $( '<div></div>', {
         'class' : 'panel-group responsive' + visible,
         'id'    : 'collapse-' + $tabGroup.attr( 'id' )
@@ -80,15 +81,14 @@ var fakewaffle = ( function ( $, fakewaffle ) {
       $tabGroup.next().after( collapseDiv );
       $tabGroup.addClass( hidden );
       $( '.tab-content.responsive' ).addClass( hidden );
-    } );
 
+      if ( activeTab ) {
+        $( activeTab ).collapse( 'show' );
+      }
+    } );
 
     fakewaffle.checkResize();
     fakewaffle.bindTabToCollapse();
-
-    if ( activeTab ) {
-      $( activeTab ).collapse( 'show' );
-    }
   };
 
   fakewaffle.checkResize = function () {
@@ -119,7 +119,7 @@ var fakewaffle = ( function ( $, fakewaffle ) {
         // Convert tab to panel and move to destination
         $( tabContent )
           .removeClass( 'tab-pane' )
-          .addClass( 'panel-body' )
+          .addClass( 'panel-body fw-previous-tab-pane' )
           .appendTo( $( destinationId ) );
 
       } );
@@ -138,11 +138,11 @@ var fakewaffle = ( function ( $, fakewaffle ) {
       var destination   = $( destinationId ).next( '.tab-content' )[ 0 ];
 
       // Find the panel contents
-      var panelContents = $( panelGroup ).find( '.panel-body' );
+      var panelContents = $( panelGroup ).find( '.panel-body.fw-previous-tab-pane' );
 
       // Convert to tab and move to destination
       panelContents
-        .removeClass( 'panel-body' )
+        .removeClass( 'panel-body fw-previous-tab-pane' )
         .addClass( 'tab-pane' )
         .appendTo( $( destination ) );
 
@@ -157,26 +157,32 @@ var fakewaffle = ( function ( $, fakewaffle ) {
 
     // Toggle the panels when the associated tab is toggled
     tabs.on( 'shown.bs.tab', function ( e ) {
-      var $current  = $( e.currentTarget.hash.replace( /#/, '#collapse-' ) );
-      $current.collapse( 'show' );
 
-      if ( e.relatedTarget ) {
-        var $previous = $( e.relatedTarget.hash.replace( /#/, '#collapse-' ) );
-        $previous.collapse( 'hide' );
+      if (fakewaffle.currentPosition === 'tabs') {
+        var $current  = $( e.currentTarget.hash.replace( /#/, '#collapse-' ) );
+        $current.collapse( 'show' );
+
+        if ( e.relatedTarget ) {
+          var $previous = $( e.relatedTarget.hash.replace( /#/, '#collapse-' ) );
+          $previous.collapse( 'hide' );
+        }
       }
+
     } );
 
     // Toggle the tab when the associated panel is toggled
     collapse.on( 'shown.bs.collapse', function ( e ) {
 
-      // Activate current tabs
-      var current = $( e.target ).context.id.replace( /collapse-/g, '#' );
-      $( 'a[href="' + current + '"]' ).tab( 'show' );
+      if (fakewaffle.currentPosition === 'panel') {
+        // Activate current tabs
+        var current = $( e.target ).context.id.replace( /collapse-/g, '#' );
+        $( 'a[href="' + current + '"]' ).tab( 'show' );
 
-      // Update the content with active
-      var panelGroup = $( e.currentTarget ).closest( '.panel-group.responsive' );
-      $( panelGroup ).find( '.panel-body' ).removeClass( 'active' );
-      $( e.currentTarget ).find( '.panel-body' ).addClass( 'active' );
+        // Update the content with active
+        var panelGroup = $( e.currentTarget ).closest( '.panel-group.responsive' );
+        $( panelGroup ).find( '.panel-body' ).removeClass( 'active' );
+        $( e.currentTarget ).find( '.panel-body' ).addClass( 'active' );
+      }
 
     } );
   };
