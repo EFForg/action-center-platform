@@ -371,9 +371,9 @@ var TopicSetRow = React.createClass({
                      onChange={ this.updateNewTopicName } />
               <span className="input-group-btn">
                 <button type="submit"
-                        title="Add topic"
+                        title="Add term"
                         className="btn btn-success add_topic">
-                  <Icon name="doc-new" /> <span className="sr-only">Add topic</span>
+                  <Icon name="doc-new" /> Add term
                 </button>
               </span>
             </div>
