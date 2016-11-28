@@ -156,7 +156,7 @@ var TopicCategory = React.createClass({
         containerSelector: "table",
         itemPath: "> tbody",
         itemSelector: "tr[data-set-id]",
-        placeholder: '<tr class="placeholder"></tr>',
+        placeholder: '<tr class="placeholder"><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td></tr>',
         onDrop: function($item, container) {
           $item.removeClass("dragged").removeAttr("style")
           $("body").removeClass("dragging")
