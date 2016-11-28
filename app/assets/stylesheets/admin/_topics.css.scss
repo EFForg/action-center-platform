@@ -9,6 +9,10 @@
   }
 
   .topic_set {
+    td:first-child {
+      width: 105px;
+    }
+
     .btn-group, .input-group {
       margin-bottom: 4px;
     }
