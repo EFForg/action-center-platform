@@ -9,6 +9,10 @@ class ApplicationController < ActionController::Base
   before_filter :user_conditional_logic
   after_filter :set_cache_headers
 
+  skip_before_action :set_ahoy_cookies
+  skip_before_action :track_ahoy_visit
+  skip_before_action :set_ahoy_request_store
+
   def user_conditional_logic
     if user_signed_in?
       lock_users_with_expired_passwords! unless user_is_being_told_to_reset_pass_or_is_resetting_pass?
