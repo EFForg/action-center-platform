@@ -8,7 +8,7 @@ $(document).on("ready", function() {
     $(".step2-intro").delay(500).slideUp(null, height_changed);
     $(".legislator-label.common-fields").delay(500).slideUp(null, height_changed);
     var action_id = $("[data-action-id]").attr("data-action-id");
-    var url = "/tools/congress-message?action_id=" + action_id;
+    var url = "/tools/message-congress?action_id=" + action_id;
     $.ajax({
       url: url,
       data: {
