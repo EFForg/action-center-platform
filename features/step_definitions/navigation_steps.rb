@@ -18,6 +18,14 @@ When /^I click the element "([^\"]*)"$/ do |selector|
   find(selector).click
 end
 
+When /^I click the first "([^\"]*)"$/ do |selector|
+  first(selector).click
+end
+
+When /^I fill in the first "([^\"]*)" with "([^\"]*)"$/ do |field, value|
+  first(field).set(value)
+end
+
 When /^I fill in "([^\"]*)" with "([^\"]*)"$/ do |field, value|
   fill_in(field.gsub(' ', '_'), :with => value)
 end
@@ -28,7 +36,7 @@ end
 
 When /^I fill in the following:$/ do |fields|
   fields.rows_hash.each do |name, value|
-    When %{I fill in "#{name}" with "#{value}"}
+    step %("I fill in "#{name}" with "#{value}")
   end
 end
 
@@ -52,6 +60,10 @@ end
 
 When /^I choose "([^\"]*)"$/ do |field|
   choose(field)
+end
+
+When /^I drag "([^\"]+)" onto "([^\"]+)"$/ do |source, target|
+  page.find(source).drag_to(page.find(target))
 end
 
 Then /^I should see "([^\"]*)"$/ do |text|
@@ -116,6 +128,10 @@ Then(/^I should see "(.*?)" within "(.*?)"$/) do |text, container|
   find(container).should have_content(text)
 end
 
+Then(/^I should see "(.*?)" within the first "(.*?)"$/) do |text, container|
+  first(container).should have_content(text)
+end
+
 Then(/^I should not see "(.*?)" within "(.*?)"$/) do |text, container|
   find(container).should_not have_content(text)
 end
@@ -124,11 +140,6 @@ Then(/I should see "(.*?)" within the new window$/) do |text|
   page.within_window(page.windows.last.handle) do
     page.should have_content(text)
   end
-end
-
-When(/^I save the page$/) do
-  # Saves HTML to tmp/capybara. Useful for debugging.
-  save_page
 end
 
 Then(/^"(.*?)" should be required within "(.*?)"$/) do |name, container|
