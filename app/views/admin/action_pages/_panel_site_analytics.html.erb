@@ -36,7 +36,7 @@
         library: {responsive: true, canvasDimensions: {width: 500, height: 200}}
       ) %>
 
-      <h3>Emails Sent</h3>
+      <h3>Congress Messages Sent</h3>
       <%= if @date_start == @date_end
         line_chart(
           congress_forms_hour_fills_url(nil, @date_start),
