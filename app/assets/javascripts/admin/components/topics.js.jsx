@@ -1,4 +1,3 @@
-
 var TopicCategoryTables = React.createClass({
   getInitialState: function() {
     return { topicCategories: this.props.topicCategories }
@@ -10,7 +9,7 @@ var TopicCategoryTables = React.createClass({
 
   onSaveTopicCategory: function(topicCategory, newRecord) {
     if (newRecord) {
-      this.state.topicCategories.push(topicCategory);
+      this.state.topicCategories.unshift(topicCategory);
       this.setState({ topicCategories: this.state.topicCategories });
     }
   },
@@ -125,7 +124,7 @@ var TopicCategory = React.createClass({
       data: { "topic_set[topic_category_id]": this.props.topicCategoryId },
 
       success: function(topicSet) {
-        self.state.topicSets.push({
+        self.state.topicSets.unshift({
           id: topicSet.id,
           tier: topicSet.tier,
           topics: []

@@ -11,7 +11,7 @@
         </div>
 
         <%= react_component("TopicCategoryTables",
-              topicCategories: TopicCategory.order(:id).map{ |x| topic_category_props(x) }) %>
+              topicCategories: TopicCategory.order(id: :desc).map{ |x| topic_category_props(x) }) %>
       </div>
     </div>
   </div>
