@@ -1,0 +1,18 @@
+<%= render "admin/header" -%>
+<div class="container-fluid">
+  <div class="tabs-left">
+    <%= render 'admin/nav_tabs' -%>
+    <div class="tab-content responsive">
+      <div class="tab-pane active" id="topics">
+        <div class="panel panel-default">
+          <div class="panel-body intro">
+            Congress topics are used to pre-fill reasonable defaults for the e-mail tool.  You can assign a topic category to e-mail actions to make it quicker and easier for end users to e-mail their reps.  Dragging a row up or down changes the priority or "tier" for the topics.
+          </div>
+        </div>
+
+        <%= react_component("TopicCategoryTables",
+              topicCategories: TopicCategory.order(id: :desc).map{ |x| topic_category_props(x) }) %>
+      </div>
+    </div>
+  </div>
+</div>

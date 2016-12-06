@@ -53,8 +53,8 @@
 
   <% if can?(:administer_topics) %>
     <li class="topics hidden-xs">
-      <%= link_to admin_action_pages_path(anchor: 'topics'), data: {tab: 'topics', toggle: toggle} do %>
-        <i class="icon ion-ios-list"></i> Topics
+      <%= link_to admin_topics_path(anchor: "topics"), data: { tab: "topics" } do %>
+        <i class="icon ion-ios-list"></i> Congress Topics
       <% end %>
     </li>
   <% end %>
