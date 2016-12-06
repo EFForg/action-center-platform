@@ -13,6 +13,10 @@
             <%= f.check_box :enable_call, disabled: true -%>
             <%= link_to "Enable call", "#call-fields", data: { toggle: "collapse" } %>
           <% end %>
+
+          <a class="caret" href="#call-fields" data-toggle="collapse">
+            <i class="icon ion-arrow-<%= @actionPage.enable_call ? 'up' : 'down' %>-b"></i> <span class="sr-only">Toggle call panel</span>
+          </a>
         </div>
 
         <div id="call-fields" class="panel-body collapse <%= 'in' if @actionPage.enable_call? -%>">
@@ -46,6 +50,10 @@
           <%= f.check_box :enable_petition,
             data: {toggle: 'collapse', target: '#petition-fields'} %>
             <%= f.label :enable_petition %>
+
+          <a class="caret" href="#petition-fields" data-toggle="collapse">
+            <i class="icon ion-arrow-<%= @actionPage.enable_petition ? 'up' : 'down' %>-b"></i> <span class="sr-only">Toggle petition panel</span>
+          </a>
         </div>
         <div id='petition-fields' class='panel-body collapse <%= 'in' if @actionPage.enable_petition? -%>'>
           <%= f.fields_for :petition do |p| %>
@@ -94,6 +102,10 @@
           <%= f.check_box :enable_tweet,
             data: {toggle: 'collapse', target: '#tweet-fields'} %>
           <%= f.label :enable_tweet %>
+
+          <a class="caret" href="#tweet-fields" data-toggle="collapse">
+            <i class="icon ion-arrow-<%= @actionPage.enable_tweet ? 'up' : 'down' %>-b"></i> <span class="sr-only">Toggle tweet panel</span>
+          </a>
         </div>
         <div id='tweet-fields' class='panel-body collapse <%= 'in' if @actionPage.enable_tweet? -%>'>
           <%= f.fields_for :tweet do |t| %>
@@ -173,6 +185,10 @@
           <%= f.check_box :enable_email,
             data: {toggle: 'collapse', target: '#email-fields'} %>
           <%= f.label :enable_email %>
+
+          <a class="caret" href="#email-fields" data-toggle="collapse">
+            <i class="icon ion-arrow-<%= @actionPage.enable_email ? 'up' : 'down' %>-b"></i> <span class="sr-only">Toggle email panel</span>
+          </a>
         </div>
         <div id='email-fields' class='panel-body collapse <%= 'in' if @actionPage.enable_email? -%>'>
 
@@ -246,6 +262,10 @@
           <%= f.check_box :enable_redirect,
             data: {toggle: 'collapse', target: '#redirect-fields'} %>
           <%= f.label :enable_redirect %>
+
+          <a class="caret" href="#redirect-fields" data-toggle="collapse">
+            <i class="icon ion-arrow-<%= @actionPage.enable_redirect ? 'up' : 'down' %>-b"></i> <span class="sr-only">Toggle redirect panel</span>
+          </a>
         </div>
         <div id='redirect-fields' class='panel-body collapse <%= 'in' if @actionPage.enable_redirect? -%>'>
           <div class="form-group">

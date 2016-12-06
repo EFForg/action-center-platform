@@ -250,6 +250,15 @@ $(document).on('ready', function() {
 
   // Bootstrap responsive tabs: https://github.com/openam/bootstrap-responsive-tabs
   fakewaffle.responsiveTabs(['xs']);
+
+  $("#action .panel").on("show.bs.collapse", function(e) {
+    $(".caret .icon", this).addClass("ion-arrow-up-b").removeClass("ion-arrow-down-b");
+  });
+
+  $("#action .panel").on("hide.bs.collapse", function(e) {
+    $(".caret .icon", this).addClass("ion-arrow-down-b").removeClass("ion-arrow-up-b");
+  });
+
 });
 
 

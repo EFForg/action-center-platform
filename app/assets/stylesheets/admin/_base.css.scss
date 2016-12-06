@@ -106,6 +106,7 @@ Button styles
 Panels
 *************+*********/
 .panel-heading, .panel-default > .panel-heading {  
+  position: relative;
   font-size: 18px;
   font-weight: 100;
   label, a {
@@ -121,6 +122,17 @@ Panels
 
   input {
     margin: 7px 10px 0 0;
+  }
+
+  .caret {
+    position: absolute;
+    top: 0px;
+    right: 0px;
+    height: 100%;
+    width: 50px;
+    opacity: 0.7;
+    padding-top: 10px;
+    text-align: center;
   }
 }
 
