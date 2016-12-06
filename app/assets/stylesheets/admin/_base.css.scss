@@ -108,16 +108,41 @@ Panels
 .panel-heading, .panel-default > .panel-heading {  
   font-size: 18px;
   font-weight: 100;
-  label {
+  label, a {
     margin: 0;
     cursor: pointer;
     cursor: hand;
     font-weight: 100;
+    color: inherit;
+    display: block;
+    text-decoration: none;
+    outline: 0;
   }
+
   input {
     margin: 7px 10px 0 0;
   }
 }
+
+.panel.disabled {
+  border-color: #ccc;
+
+  .panel-heading {
+    background-color: #ccc;
+    border-color: #ccc;
+    color: #000;
+  }
+
+  .panel-body {
+    background-color: #eaeaea;
+    border-color: #eaeaea;
+
+    fieldset {
+      opacity: 0.5;
+    }
+  }
+}
+
 
 
 /**********************

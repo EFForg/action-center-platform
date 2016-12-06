@@ -1,6 +1,11 @@
 require "rails_helper"
 
 describe CallTool do
+  before do
+    Rails.application.config.call_tool_url = "http://call.example.com"
+    Rails.application.config.call_api_key = "test-call-power-integration"
+  end
+
   describe ".campaign_call" do
     let(:campaign) { FactoryGirl.create(:call_campaign) }
 
