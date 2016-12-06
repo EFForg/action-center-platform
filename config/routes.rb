@@ -21,6 +21,8 @@ Actioncenter::Application.routes.draw do
   get "petition/:id/recent_signatures", :to => "petition#recent_signatures", :format => 'json'
   post "bounce/:amazon_authorize_key", :to => "bounce#index", :format => 'json'
 
+  get "ahoy/visit"
+
   # EFF Resources
 
   devise_for :users, path: '', path_names:  {sign_in:  'login',

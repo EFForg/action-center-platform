@@ -139,17 +139,6 @@ private
                               country_code: current_country_code,
                               email: current_email }
 
-    # Tracking
-    if params[:action] == "show"
-      @action_type = "view"
-    else
-      @action_type = "embedded_view"
-    end
-
-    ahoy.track "View",
-      { type: "action", actionType: @action_type, actionPageId: @actionPage.id },
-      action_page: @actionPage
-
     #request.session_options[:skip] = true  # removes session data
     #response.headers.delete 'Set-Cookie'
     response.headers['Cache-Control'] = 'public, no-cache'
