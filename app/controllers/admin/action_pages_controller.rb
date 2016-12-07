@@ -146,8 +146,7 @@ class Admin::ActionPagesController < Admin::ApplicationController
   private
 
   def set_action_page
-    @actionPage = ActionPage.friendly.find (params[:id] || params[:action_page_id])
-    raise ActiveRecord::RecordNotFound unless @actionPage
+    @actionPage = ActionPage.friendly.find(params[:id] || params[:action_page_id])
   end
 
   def set_date_from_params
