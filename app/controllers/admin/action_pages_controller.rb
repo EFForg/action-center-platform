@@ -81,6 +81,7 @@ class Admin::ActionPagesController < Admin::ApplicationController
   end
 
   def show
+    render json: @actionPage
   end
 
   def updated_at
