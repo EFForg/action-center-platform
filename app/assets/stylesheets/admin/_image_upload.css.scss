@@ -14,7 +14,7 @@
 .select-gallery-image {
   display: none;
 }
-#myModal h4.modal-title {
+#image-gallery h4.modal-title {
   font-size: 40px;
   line-height: 1;
   margin-top: 5px;
@@ -26,7 +26,7 @@
     font-weight: normal;
   }
 }
-#myModal.attach {
+#image-gallery.attach {
   .select-gallery-image {
     display: inline;
   }

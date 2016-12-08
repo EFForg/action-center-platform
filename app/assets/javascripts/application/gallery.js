@@ -24,15 +24,15 @@ $(function() {
     });
   }
 
-  attachGalleryImage('#myModal', '#action_page_featured_image', '#attached-featured_image');
-  attachGalleryImage('#myModal', '#action_page_background_image', '#attached-background_image');
-  attachGalleryImage('#myModal', '#action_page_og_image', '#attached-og_image');
+  attachGalleryImage('#image-gallery', '#action_page_featured_image', '#attached-featured_image');
+  attachGalleryImage('#image-gallery', '#action_page_background_image', '#attached-background_image');
+  attachGalleryImage('#image-gallery', '#action_page_og_image', '#attached-og_image');
 
   $('.tweet-target').each(function(i, target) {
-    attachGalleryImage('#myModal', $(target).find('.image-input'), target);
+    attachGalleryImage('#image-gallery', $(target).find('.image-input'), target);
   });
 
-  $('#myModal').on('hidden.bs.modal', function(e) {
+  $('#image-gallery').on('hidden.bs.modal', function(e) {
       $(e.target).removeClass('attach');
   });
 });

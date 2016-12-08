@@ -1,14 +1,29 @@
-<!-- modal_gallery.html.erb -->
-<!-- Modal -->
-<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+<div class="modal fade" id="image-gallery" tabindex="-1" role="dialog" aria-labelledby="image-gallery-label" aria-hidden="true">
   <div class="modal-dialog  modal-lg">
     <div class="modal-content">
       <div class="modal-header">
         <!--<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>-->
-        <h4 class="modal-title" id="myModalLabel">Gallery</h4>
+        <h4 class="modal-title" id="image-gallery-label">Gallery</h4>
       </div>
       <div class="modal-body">
+        <h3>Upload images</h3>
         <%= render "s3_uploads/upload" %>
+
+        <h3>Search images</h3>
+        <form action="/admin/source_files" class="gallery-filter">
+          <div class="input-group">
+            <input type="text" name="f"
+                   placeholder="Filter images by file name"
+                   class="form-control input-sm" />
+            <span class="input-group-btn">
+              <input type="submit" value="Search" class="btn btn-sm" />
+            </span>
+          </div>
+        </form>
+
+        <div class="gallery">
+          <%= render "admin/s3_uploads/table", source_files: SourceFile.order(created_at: :desc).limit(3) %>
+        </div>
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>

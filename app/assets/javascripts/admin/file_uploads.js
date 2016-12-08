@@ -15,17 +15,35 @@ $(function () {
       sequentialUploads: true
     });
 
-    // Get list of all uploaded images and populate the gallery with refs to them
-    $.getJSON('/admin/source_files', function (files) {
-      $.each(files, function(index, value) {
-        // The template it's using seems to be...
-        // app/views/admin/action_pages/_template_uploaded.html.erb
-        $('#upload_files tbody').append(tmpl('template-uploaded', value));
+    var gallery = $("#image-gallery .gallery");
+    $("#image-gallery form.gallery-filter").on("submit", function(e) {
+      e.preventDefault();
+
+      $.ajax({
+        url: this.action + "?" + $(this).serialize(),
+
+        success: function(response) {
+          gallery.html(response);
+        }
       });
     });
 
+    $("#image-gallery table[role=presentation] form.delete").on("submit", function(e) {
+      e.preventDefault();
+
+      var row = $(this).parents("tr");
+      $.ajax({
+        url: e.target.action,
+        method: "post",
+        data: { _method: "delete" },
+        success: function() {
+          row.remove();
+        }
+      });
+    });
+
+    $("#image-gallery form.gallery-filter input[type=text]").val('');
   }
-  height_changed();
 });
 
 // used by the jQuery File Upload
