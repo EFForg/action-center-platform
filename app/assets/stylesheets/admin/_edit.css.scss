@@ -255,6 +255,16 @@ File upload/gallery
 *************+*********/
 
 #image-gallery {
+
+  .gallery-filter {
+
+    label { @extend h3; }
+
+    .input-group-btn {
+      vertical-align: bottom;
+    }
+  }
+
   .fileupload-buttonbar > div > .cancel,
   .fileupload-buttonbar > div > .delete,
   .fileupload-buttonbar > div > .toggle {

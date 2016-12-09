@@ -9,11 +9,13 @@
         <h3>Upload images</h3>
         <%= render "s3_uploads/upload" %>
 
-        <h3>Search images</h3>
         <form action="/admin/source_files" class="gallery-filter">
           <div class="input-group">
+            <label class="h3" for="gallery-filter-string">Search images</label>
             <input type="text" name="f"
+                   id="gallery-filter-string"
                    placeholder="Filter images by file name"
+                   aria-description="Filter images by file name"
                    class="form-control input-sm" />
             <span class="input-group-btn">
               <input type="submit" value="Search" class="btn btn-sm" />
