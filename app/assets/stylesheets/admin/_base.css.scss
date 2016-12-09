@@ -106,18 +106,55 @@ Button styles
 Panels
 *************+*********/
 .panel-heading, .panel-default > .panel-heading {  
+  position: relative;
   font-size: 18px;
   font-weight: 100;
-  label {
+  label, a {
     margin: 0;
     cursor: pointer;
     cursor: hand;
     font-weight: 100;
+    color: inherit;
+    display: block;
+    text-decoration: none;
+    outline: 0;
   }
+
   input {
     margin: 7px 10px 0 0;
   }
+
+  .caret {
+    position: absolute;
+    top: 0px;
+    right: 0px;
+    height: 100%;
+    width: 50px;
+    opacity: 0.7;
+    padding-top: 10px;
+    text-align: center;
+  }
 }
+
+.panel.disabled {
+  border-color: #ccc;
+
+  .panel-heading {
+    background-color: #ccc;
+    border-color: #ccc;
+    color: #000;
+  }
+
+  .panel-body {
+    background-color: #eaeaea;
+    border-color: #eaeaea;
+
+    fieldset {
+      opacity: 0.5;
+    }
+  }
+}
+
 
 
 /**********************
