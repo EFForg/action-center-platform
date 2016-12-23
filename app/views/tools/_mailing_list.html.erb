@@ -12,7 +12,7 @@
       <%= f.hidden_field :mailing_list, value: 'effector' -%>
           <fieldset>
         <%= f.email_field :email, id: :email, value: current_email,
-          class: "form-control", placeholder: "Email" -%>
+          class: "form-control", placeholder: "Email", "aria-label": "Email" -%>
           </fieldset>
       <%= f.submit 'Subscribe', class: 'btn', name: "commit" -%>
       <% end %>

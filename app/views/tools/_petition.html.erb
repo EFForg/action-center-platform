@@ -78,18 +78,21 @@
             <input type="hidden" name="action_id" value="<%= @actionPage.id %>" />
 
             <fieldset>
-              <%= f.email_field :email, placeholder: 'Email', required: true,
-                class: 'form-control', pattern: '.*\S+.*', title: t('petition_errors.required.email')
+              <%= f.email_field :email, required: true,
+                class: 'form-control', pattern: '.*\S+.*', title: t('petition_errors.required.email'),
+                'aria-label': 'Email', placeholder: 'Email'
               -%>
             </fieldset>
             <fieldset>
-              <%= f.text_field :first_name, placeholder: t(:first_name), required: true,
-                class: 'form-control', pattern: '.*\S+.*', title: t('petition_errors.required.first_name')
+              <%= f.text_field :first_name, required: true,
+                class: 'form-control', pattern: '.*\S+.*', title: t('petition_errors.required.first_name'),
+                'aria-label': t(:first_name), placeholder: t(:first_name)
               -%>
             </fieldset>
             <fieldset>
-              <%= f.text_field :last_name, placeholder: t(:last_name), required: true,
-                class: 'form-control', pattern: '.*\S+.*', title: t('petition_errors.required.last_name')
+              <%= f.text_field :last_name, required: true,
+                class: 'form-control', pattern: '.*\S+.*', title: t('petition_errors.required.last_name'),
+                'aria-label': t(:last_name), placeholder: t(:last_name)
               -%>
             </fieldset>
 

@@ -219,7 +219,7 @@ var TopicCategory = React.createClass({
                 <input type="hidden" name="_method" value={ saveMethod } />
                 <EditableText ref="title" editMode={ editMode }
                               name="topic_category[name]" value={ this.state.topicCategoryName }
-                              placeholder="Category name" />
+                              placeholder="Category name" aria-label="Category name"/>
 
                 <div className="btn-group category pull-right edit-category-btn" key="saveOrEdit">
                   <button type="submit" className={ saveUpdateClasses }>

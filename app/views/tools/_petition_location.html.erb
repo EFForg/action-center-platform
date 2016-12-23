@@ -2,7 +2,9 @@
   <span class='intl-toggle'>
     <div class="row">
       <div class="col-xs-6">
-        <%= f.text_field :zipcode, class: 'form-control', placeholder: "#{t(:zip_code)} #{@require_location ? '' : t(:optional)}",
+        <%= f.text_field :zipcode, class: 'form-control',
+          placeholder: "#{t(:zip_code)} #{@require_location ? '' : t(:optional)}",
+          'aria-label': t(:zip_code),
           title: t('petition_errors.required.zip_code') -%>
       </div>
       <div class="col-xs-6">
@@ -12,7 +14,7 @@
   </span>
 
   <div class='intl-toggle intl collapse'>
-      <%= f.text_field :city, placeholder: t(:city),
+      <%= f.text_field :city, placeholder: t(:city), 'aria-label': t(:city),
         class: 'form-control input-pair', pattern: '.*\S+.*', title: t('petition_errors.required.city')
       -%>
       <a class='intl-toggler pull-right hidden-if-no-js'><%= t :in_the_us -%></a>

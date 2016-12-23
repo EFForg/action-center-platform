@@ -31,11 +31,11 @@
 
           <form class='tweet-tool validate' action="">
             <div class="form-group">
-              <label>Street address</label>
+              <label for="street_address">Street address</label>
               <input class='form-control' type=text id="street_address" required>
             </div>
             <div class="form-group">
-              <label>Zip Code</label>
+              <label for="zipcode">Zip Code</label>
               <input class='form-control' type=text name="zipcode" id="zipcode" required>
             </div>
             <%= render 'tools/save_my_info_option', info: %w[address zipcode] -%>
@@ -67,10 +67,10 @@
   <% unless current_user %>
     <%= form_for :subscription, url: subscriptions_path, remote: true, html: { class: "newsletter-subscription" } do |f| %>
       <hr />
-      <label for="subscription[email]"><%= t :sign_up_for_mailings_from %> <b><%= t :organization_abbreviation %></b>?</label>
+      <%= t :sign_up_for_mailings_from %> <b><%= t :organization_abbreviation %></b>?
 
       <fieldset>
-        <%= f.email_field :email, class: "form-control", placeholder: "Email", required: "email" %>
+        <%= f.email_field :email, class: "form-control", placeholder: "Email", required: "email", "aria-label": "Email" %>
       </fieldset>
 
       <%= render "tools/petition_location", f: f %>

@@ -9,7 +9,9 @@
           { prompt: t(:filter_by_institution),
             selected: @institution ? @institution.id : "" },
           { class: 'form-control institution',
-            style: 'width: 100%', "data-institutions": @institutions.to_json(only: [:id, :name]) }
+            style: 'width: 100%',
+            "aria-label": t(:filter_by_institution),
+            "data-institutions": @institutions.to_json(only: [:id, :name]) }
           -%>
           <% if @institution %>
             <%= link_to 'remove filter', action_page_path, class: 'pull-right small' -%>
