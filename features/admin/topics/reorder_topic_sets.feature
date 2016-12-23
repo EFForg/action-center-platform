@@ -14,7 +14,7 @@ Feature: Reorder topic sets
          |name|topic 2|
 
   Scenario:
-    When I am on "/admin/action_pages#topics"
+    When I am on "/admin/topics"
 
     # this drags the first row below the second
     And I drag ".topic_category tr[data-set-id]:nth-child(1)" onto ".topic_category .clearfix"

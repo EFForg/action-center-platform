@@ -14,11 +14,15 @@
 //= require s3_cors_fileupload
 //= require bootstrap-sass/bootstrap/tab
 //= require bootstrap-responsive-tabs
+//= require react
+//= require react_ujs
+//= require_tree ./admin/components
 
 $(document).on('ready', function() {
 
   var editor = initEpicEditor('action-page-description', 'description');
-  var editor2 = initEpicEditor('action-page-what-to-say', 'what-to-say');
+  var editor2 = $("#action-page-what-to-say").parents(".panel").is(".disabled") ?
+                null : initEpicEditor('action-page-what-to-say', 'what-to-say');
   var editor3 = initEpicEditor('epic-petition-description', 'petition-description');
   var editor4 = initEpicEditor('epic-action-summary', 'action-summary');
   var editor5 = initEpicEditor('epic-email-text', 'email-text');
@@ -58,7 +62,7 @@ $(document).on('ready', function() {
   });
 
   $(".edit-action .panel-heading").click(function(){
-    setTimeout(function() {editor2.reflow()}, 100);
+    setTimeout(function() { editor2 && editor2.reflow() }, 100);
   });
 
   // This is a hack to make the "edit petition description" Epiceditor display at the right height when the panel is openened.
@@ -150,6 +154,15 @@ $(document).on('ready', function() {
 
   // Bootstrap responsive tabs: https://github.com/openam/bootstrap-responsive-tabs
   fakewaffle.responsiveTabs(['xs']);
+
+  $("#action .panel").on("show.bs.collapse", function(e) {
+    $(".caret .icon", this).addClass("ion-arrow-up-b").removeClass("ion-arrow-down-b");
+  });
+
+  $("#action .panel").on("hide.bs.collapse", function(e) {
+    $(".caret .icon", this).addClass("ion-arrow-down-b").removeClass("ion-arrow-up-b");
+  });
+
 });
 
 

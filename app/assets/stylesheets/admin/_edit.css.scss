@@ -311,14 +311,52 @@ div#date_control_container{
 File upload/gallery
 *************+*********/
 
-.fileupload-buttonbar > div > .cancel,
-.fileupload-buttonbar > div > .delete,
-.fileupload-buttonbar > div > .toggle {
-  display: none;
-}
+#image-gallery {
+  .fileupload-buttonbar > div > .cancel,
+  .fileupload-buttonbar > div > .delete,
+  .fileupload-buttonbar > div > .toggle {
+    display: none;
+  }
 
-.fileupload-buttonbar {
-  margin-bottom: 20px;
+  .fileupload-buttonbar {
+    margin-bottom: 20px;
+  }
+
+  form.gallery-filter {
+    margin-bottom: 20px;
+  }
+
+  .gallery table {
+    tr:first-child td {
+      border-top: 0;
+    }
+
+    td {
+      vertical-align: middle;
+    }
+
+    td:first-child {
+      width: 80px;
+
+      .preview {
+        padding-left: 0px;
+
+        img { width: 150px }
+      }
+    }
+
+    td:nth-child(2) {
+      span {
+        font-size: 12px
+      }
+
+      textarea {
+        max-width: 400px;
+        width: 100%;
+        font-size: 10px;
+      }
+    }
+  }
 }
 
 // Fix Gallery button position on non-mobile devices

@@ -3,11 +3,16 @@ class Admin::S3UploadsController < Admin::ApplicationController
   # GET /admin/source_files
   # GET /admin/source_files.json
   def index
-    @source_files = SourceFile.all.order('created_at DESC')
+    if params[:f].present?
+      source_files = SourceFile.where("LOWER(file_name) LIKE ?", "%#{params[:f]}%".downcase)
+    else
+      source_files = SourceFile.limit(3)
+    end
+
+    source_files = source_files.order(created_at: :desc)
 
     respond_to do |format|
-      format.html # index.html.erb
-      format.json { render json: @source_files.map(&:to_jq_upload) }
+      format.html{ render partial: "table", locals: { source_files: source_files } }
     end
   end
 
