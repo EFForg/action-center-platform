@@ -17,10 +17,10 @@
               </h3>
 
               <div class="form-group">
-                <input value="<%= current_user && current_user.street_address %>" class="form-control" placeholder="Street Address" required="required" type="text" id="street_address">
+                <input value="<%= current_user && current_user.street_address %>" class="form-control" placeholder="Street Address" aria-label="Street Address" required="required" type="text" id="street_address">
               </div>
               <div class="form-group">
-                <input value="<%= current_user && current_user.zipcode %>" class="form-control" placeholder="Zip Code" required="required"  type="text" id="zipcode" title="Must be 5 numeric numbers" pattern="\d{5}" maxlength="5" required>
+                <input value="<%= current_user && current_user.zipcode %>" class="form-control" placeholder="Zip Code" aria-label="Zip Code" required="required"  type="text" id="zipcode" title="Must be 5 numeric numbers" pattern="\d{5}" maxlength="5" required>
               </div>
               <p class="privacy-notice">This tool uses the <a href="http://smartystreets.com/legal/privacy-policy" target="_blank">Smarty Streets</a> API (<a class="privacy-notice-popover" href="#" data-container="body" data-toggle="popover" data-title="Email Tool APIs" data-html="true" data-trigger="hover" data-placement="auto" data-content="<p>We need your full address to locate your exact congressional district, but this information isn't stored unless you're logged in.</p><p>We also use the Smarty Streets' API to look up your full 9 digit zip code (Zip+4), since some Congressmember's forms require it.</p>">why?</a>).<br>
               If you prefer not to use our email tool, <a href="https://www.eff.org/congress"  target="_blank">click here</a>.</p>

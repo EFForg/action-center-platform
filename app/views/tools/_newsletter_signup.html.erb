@@ -2,7 +2,9 @@
 <%= send(*form_helper) do |f| %>
 
   <fieldset>
-    <%= f.email_field :email, class: "form-control", placeholder: "Email #{t(:optional)}" %>
+    <%= f.email_field :email, class: "form-control",
+                              placeholder: "Email #{t(:optional)}",
+                              "aria-label": "Email #{t(:optional)}" %>
   </fieldset>
 
   <%= render "tools/petition_location", f: f unless defined?(zip) && !zip %>
