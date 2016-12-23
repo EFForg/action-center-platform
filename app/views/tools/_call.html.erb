@@ -1,135 +1,142 @@
-<div id='call-tool' class="tool">
-  <div class="tool-container">
-    <div class="tool-heading">
-      <h2 class="tool-title precall "><%= @actionPage.call_tool_title %></h2>
-      <h2 class="tool-title postcall hidden">Calling you now</h2>
-    </div>
-
-    <div class="tool-body with-js">
-
-      <!-- If we don't have phone -->
-      <div class="call-body-phone-not-saved <%= 'hidden' if current_user.try(:phone) -%>">
-
-        <div class="call-script-box">
-          <h3 class="header">What to say</h3>
-          <div class="call-script">
-            <%= markdown @actionPage.message_rendered %>
-          </div>
-        </div>
-
-        <p class="small">Enter your phone number below and we'll connect you (US numbers only).</p>
-        <%= form_for(:call_campaign, html: { class: "form call-tool", "data-call-campaign-id": @actionPage.call_campaign.call_campaign_id }) do |f| %>
-          <input type="hidden" name="call_campaign_id" value="<%= @actionPage.call_campaign.call_campaign_id %>" />
-          <input type="hidden" name="action-id" value="<%= @actionPage.id %>" />
-          <fieldset>
-            <div class="form-group">
-              <div id="call-tool-form-container">
-                <input type="text" required class="form-control bfh-phone" id="inputPhone" name="inputPhone" value="<%= current_user.try :phone -%>" data-format="ddd-ddd-dddd" pattern="^((5\d[123467890])|(5[123467890]\d)|([2346789]\d\d))-\d\d\d-\d\d\d\d$" placeholder="Phone Number" aria-label="Phone Number" title="Must be a valid US phone number entered in 555-555-5555 format">
-                <% case CallTool.required_fields_for_campaign(@actionPage.call_campaign.call_campaign_id)["userLocation"] %>
-                <% when "district" %>
-                  <fieldset>
-                    <input type="text" required class="form-control" id="inputStreetAddress" name="inputStreetAddress" value="<%= current_user.try :street_address -%>" placeholder="Street Address" aria-label="Street Address" title='Must be a valid US street address (no city or state necessary)'>
-                  </fieldset>
-                  <fieldset>
-                    <input type="text" required class="form-control" id="inputZip" name="inputZip" value="<%= current_user.try :zipcode -%>" placeholder="Zip Code" aria-label="Street Address" pattern="^[\d]{5}$" title='Must be a valid 5-digit zip code'>
-                  </fieldset>
-                <% when "postal" %>
-                  <fieldset>
-                    <input type="text" required class="form-control" id="inputZip" name="inputZip" value="<%= current_user.try :zipcode -%>" placeholder="Zip Code" aria-label="Street Address" pattern="^[\d]{5}$" title='Must be a valid 5-digit zip code'>
-                  </fieldset>
-                <% end %>
-              </div>
-            </div>
-
-            <%= render 'tools/save_my_info_option', info: ['phone number', 'location'] -%>
-
-            <%= render "tools/newsletter_signup", f: f, zip: false if current_user.nil? %>
-
-            <div class="form-group">
-              <button type="submit" class="btn btn-default call-tool-submit action">Call Now</button>
-            </div>
-          </fieldset>
-            <p class="privacy-notice">Uses <a href="http://smartystreets.com/legal/privacy-policy" target="_blank">Smarty Streets</a>' and <a href="https://www.twilio.com/legal/privacy" target="_blank">Twilio</a>'s APIs (<a class="privacy-notice-popover" href="#"
-              data-container="body"
-              data-toggle="popover"
-              data-title="Email Tool APIs"
-              data-html="true"
-              data-trigger="hover"
-              data-placement="auto bottom"
-              data-content="<p>Our &quot;Call Your Representatives&quot; tool uses Smarty Streets' API to look up your congressional district in order to identify your representatives.</p><p>We also uses Twilio's phone API to call and connect you.</p>">why?</a>).<br>
-              <a href='https://www.eff.org/pages/call-power-privacy-information'>Click here</a> for more information about Twilio's data collection.<br>
-              If you prefer not to use our call tool, <a href="https://www.eff.org/congress"  target="_blank">click here</a>.</p>
-        <% end %>
-
+<% if CallTool.enabled? %>
+  <div id="call-tool" class="tool">
+    <div class="tool-container">
+      <div class="tool-heading">
+        <h2 class="tool-title precall "><%= @actionPage.call_tool_title %></h2>
+        <h2 class="tool-title postcall hidden">Calling you now</h2>
       </div>
-      <!-- If we have phone # -->
-      <div class="call-body-phone-saved <%= 'hidden' unless current_user.try(:phone) -%>">
-        <form class="form call-tool" data-call-campaign-id="<%= @actionPage.call_campaign.call_campaign_id %>">
-          <input type="hidden" name="call_campaign_id" value="<%= @actionPage.call_campaign.call_campaign_id %>" />
-          <input type="hidden" name="action-id" value="<%= @actionPage.id %>" />
-          <input type="hidden" name="phone" id="inputPhone" value="<%= current_user.try :phone -%>" />
+
+      <div class="tool-body with-js">
+
+        <!-- If we don't have phone -->
+        <div class="call-body-phone-not-saved <%= 'hidden' if current_user.try(:phone) -%>">
+
           <div class="call-script-box">
             <h3 class="header">What to say</h3>
             <div class="call-script">
               <%= markdown @actionPage.message_rendered %>
             </div>
           </div>
-          <p class="small">Press the button below and we'll call you at <strong><%= current_user.try :phone -%></strong> and connect you to your representatives. <p>
-          <p class="smalltext"><a class="call-tool-different-number" href="#">Need to use a different number?</a></p>
-          <button type="submit" class="btn btn-default call-tool-submit action">Call now</button>
-        </form>
-            <p class="privacy-notice">Uses <a href="http://smartystreets.com/legal/privacy-policy" target="_blank">Smarty Streets</a>' and <a href="https://www.twilio.com/legal/privacy" target="_blank">Twilio</a>'s APIs (<a class="privacy-notice-popover" href="#"
-          data-container="body"
-          data-toggle="popover"
-          data-title="Call tool APIs"
-          data-html="true"
-          data-trigger="hover"
-          data-placement="auto bottom"
-          data-content="<p>Our &quot;Call Your Representatives&quot; tool uses Smarty Streets' API to look up your congressional district in order to identify your representatives.</p><p>We also uses Twilio's phone API to call and connect you.</p>">why?</a>).<br>
-          <a href='https://www.eff.org/pages/call-power-privacy-information'>Click here</a> for more information about Twilio's data collection.<br>
-          If you prefer not to use our call tool, <a href="https://www.eff.org/congress" target="_blank">click here</a>.</p>
-      </div>
+          <p class="small">Enter your phone number below and we'll connect you (US numbers only).</p>
+          <%= form_for(:call_campaign, html: { class: "form call-tool", "data-call-campaign-id": @actionPage.call_campaign.call_campaign_id }) do |f| %>
+            <input type="hidden" name="call_campaign_id" value="<%= @actionPage.call_campaign.call_campaign_id %>" />
+            <input type="hidden" name="action-id" value="<%= @actionPage.id %>" />
+            <fieldset>
+              <div class="form-group">
+                <div id="call-tool-form-container">
+                  <input type="text" required class="form-control bfh-phone" id="inputPhone" name="inputPhone" value="<%= current_user.try :phone -%>" data-format="ddd-ddd-dddd" pattern="^((5\d[123467890])|(5[123467890]\d)|([2346789]\d\d))-\d\d\d-\d\d\d\d$" placeholder="Phone Number" aria-label="Phone Number" title="Must be a valid US phone number entered in 555-555-5555 format">
+                  <% case CallTool.required_fields_for_campaign(@actionPage.call_campaign.call_campaign_id)["userLocation"] %>
+                  <% when "district" %>
+                    <fieldset>
+                      <input type="text" required class="form-control" id="inputStreetAddress" name="inputStreetAddress" value="<%= current_user.try :street_address -%>" placeholder="Street Address" aria-label="Street Address" title="Must be a valid US street address (no city or state necessary)">
+                    </fieldset>
+                    <fieldset>
+                      <input type="text" required class="form-control" id="inputZip" name="inputZip" value="<%= current_user.try :zipcode -%>" placeholder="Zip Code" aria-label="Zip Code"  pattern="^[\d]{5}$" title="Must be a valid 5-digit zip code">
+                    </fieldset>
+                  <% when "postal" %>
+                    <fieldset>
+                      <input type="text" required class="form-control" id="inputZip" name="inputZip" value="<%= current_user.try :zipcode -%>" placeholder="Zip Code" aria-label="Zip Code" pattern="^[\d]{5}$"  title="Must be a valid 5-digit zip code">
+                    </fieldset>
+                  <% end %>
+                </div>
+              </div>
 
-      <!-- After submit # ---->
-      <div class="call-body-active hidden">
-        <p class="advisory"><strong>If your call doesn't come through within 15 seconds, <a class="call-tool-try-again" href="#">click here</a> to try again.</strong></p>
-        <div class="call-script-box">
-          <h3 class="header">What to say</h3>
-          <div class="call-script">
-            <%= markdown @actionPage.message_rendered %>
-          </div>
-        </div>
+              <%= render "tools/save_my_info_option", info: ["phone number", "location"] -%>
 
-        <div class='vertical-share'>
-          <p>Once you're done, help spread the word:</p>
-          <a href='<%= twitter_share_url(@actionPage) -%>' class='twitter twitter-button'>
-            <div class="sicon" id="stwit"></div>
-            <div class="share-label">Share on Twitter</div>
-          </a>
-          <a href='<%= facebook_share_url(@actionPage) -%>' class='facebook facebook-button'>
-            <div class="sicon" id="sfb"></div>
-            <div class="share-label">Share on Facebook</div>
-          </a>
-          <a href='<%= google_share_url(@actionPage) -%>' class='google google-button'>
-            <div class="sicon" id="sgplus"></div>
-            <div class="share-label">Share on Google+</div>
-          </a>
-        </div>
+              <%= render "tools/newsletter_signup", f: f, zip: false if current_user.nil? %>
 
-        <p style="text-align: center;">
-          <% if !current_user %>
-          <br />
-          <strong><a href="/register">Sign up</a> for an EFF Action account and save your information for next time.</strong>
+              <div class="form-group">
+                <button type="submit" class="btn btn-default call-tool-submit action">Call Now</button>
+              </div>
+            </fieldset>
+              <p class="privacy-notice">Uses <a href="http://smartystreets.com/legal/privacy-policy" target="_blank">Smarty Streets</a>' and <a href="https://www.twilio.com/legal/privacy" target="_blank">Twilio</a>'s APIs (<a class="privacy-notice-popover" href="#"
+                data-container="body"
+                data-toggle="popover"
+                data-title="Email Tool APIs"
+                data-html="true"
+                data-trigger="hover"
+                data-placement="auto bottom"
+                data-content="<p>Our &quot;Call Your Representatives&quot; tool uses Smarty Streets' API to look up your congressional district in order to identify your representatives.</p><p>We also uses Twilio's phone API to call and connect you.</p>">why?</a>).<br>
+                <a href="https://www.eff.org/pages/call-power-privacy-information">Click here</a> for more information about Twilio's data collection.<br>
+                If you prefer not to use our call tool, <a href="https://www.eff.org/congress"  target="_blank">click here</a>.</p>
           <% end %>
-        </p>
+
+        </div>
+        <!-- If we have phone # -->
+        <div class="call-body-phone-saved <%= 'hidden' unless current_user.try(:phone) -%>">
+          <form class="form call-tool" data-call-campaign-id="<%= @actionPage.call_campaign.call_campaign_id %>">
+            <input type="hidden" name="call_campaign_id" value="<%= @actionPage.call_campaign.call_campaign_id %>" />
+            <input type="hidden" name="action-id" value="<%= @actionPage.id %>" />
+            <input type="hidden" name="phone" id="inputPhone" value="<%= current_user.try :phone -%>" />
+            <div class="call-script-box">
+              <h3 class="header">What to say</h3>
+              <div class="call-script">
+                <%= markdown @actionPage.message_rendered %>
+              </div>
+            </div>
+            <p class="small">Press the button below and we'll call you at <strong><%= current_user.try :phone -%></strong> and connect you to your representatives. <p>
+            <p class="smalltext"><a class="call-tool-different-number" href="#">Need to use a different number?</a></p>
+            <button type="submit" class="btn btn-default call-tool-submit action">Call now</button>
+          </form>
+              <p class="privacy-notice">Uses <a href="http://smartystreets.com/legal/privacy-policy" target="_blank">Smarty Streets</a>' and <a href="https://www.twilio.com/legal/privacy" target="_blank">Twilio</a>'s APIs (<a class="privacy-notice-popover" href="#"
+            data-container="body"
+            data-toggle="popover"
+            data-title="Call tool APIs"
+            data-html="true"
+            data-trigger="hover"
+            data-placement="auto bottom"
+            data-content="<p>Our &quot;Call Your Representatives&quot; tool uses Smarty Streets' API to look up your congressional district in order to identify your representatives.</p><p>We also uses Twilio's phone API to call and connect you.</p>">why?</a>).<br>
+            <a href="https://www.eff.org/pages/call-power-privacy-information">Click here</a> for more information about Twilio's data collection.<br>
+            If you prefer not to use our call tool, <a href="https://www.eff.org/congress" target="_blank">click here</a>.</p>
+        </div>
+
+        <!-- After submit # ---->
+        <div class="call-body-active hidden">
+          <p class="advisory"><strong>If your call doesn't come through within 15 seconds, <a class="call-tool-try-again" href="#">click here</a> to try again.</strong></p>
+          <div class="call-script-box">
+            <h3 class="header">What to say</h3>
+            <div class="call-script">
+              <%= markdown @actionPage.message_rendered %>
+            </div>
+          </div>
+
+          <div class="vertical-share">
+            <p>Once you're done, help spread the word:</p>
+            <a href="<%= twitter_share_url(@actionPage) -%>" class="twitter twitter-button">
+              <div class="sicon" id="stwit"></div>
+              <div class="share-label">Share on Twitter</div>
+            </a>
+            <a href="<%= facebook_share_url(@actionPage) -%>" class="facebook facebook-button">
+              <div class="sicon" id="sfb"></div>
+              <div class="share-label">Share on Facebook</div>
+            </a>
+            <a href="<%= google_share_url(@actionPage) -%>" class="google google-button">
+              <div class="sicon" id="sgplus"></div>
+              <div class="share-label">Share on Google+</div>
+            </a>
+          </div>
+
+          <p style="text-align: center;">
+            <% if !current_user %>
+            <br />
+            <strong><a href="/register">Sign up</a> for an EFF Action account and save your information for next time.</strong>
+            <% end %>
+          </p>
+        </div>
+
+      </div>
+
+      <div class="tool-body without-js">
+        <h4><strong>Our call tool requires javascript.</strong></h4>
+        <p>If your browser doesn't support javascript or you prefer not to enable javascript on this site, you can find your legislator's contact forms via the <a target="_blank" href="http://www.house.gov/representatives/find/">House</a> and <a target="_blank" href="https://www.senate.gov/general/contact_information/senators_cfm.cfm">Senate</a> websites.</p>
       </div>
 
     </div>
-
-    <div class="tool-body without-js">
-      <h4><strong>Our call tool requires javascript.</strong></h4>
-      <p>If your browser doesn't support javascript or you prefer not to enable javascript on this site, you can find your legislator's contact forms via the <a target="_blank" href="http://www.house.gov/representatives/find/">House</a> and <a target="_blank" href="https://www.senate.gov/general/contact_information/senators_cfm.cfm">Senate</a> websites.</p>
-    </div>
-
   </div>
-</div>
+<% elsif current_user.try(:admin?) %>
+  <div class="tool">
+    <div class="tool-body">
+      <p>This page includes a call action, but Action Center has not been configured with details to connect to a <%= link_to "Call Power", "https://github.com/EFForg/call-congress" %> instance. Users visiting this page will see the rest of the content, but not this container. </p>
+    </div>
+  </div>
+<% end %>
