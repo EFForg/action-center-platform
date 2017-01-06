@@ -30,6 +30,11 @@ Actioncenter::Application.routes.draw do
                                              sign_up:  'register'},
                                controllers: {sessions: 'sessions', registrations: 'registrations'}
 
+  scope :csrf_protection, controller: "csrf_protection" do
+    get :meta_tags
+    get :authenticity_token
+  end
+
   devise_scope :user do
     get "/sessions/password_reset" => "sessions#password_reset"
   end
