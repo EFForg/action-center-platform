@@ -50,7 +50,10 @@ class ApplicationController < ActionController::Base
   # if the current_user's password is expired, force them to the reset page
   # or lock them out of secure areas
   def lock_users_with_expired_passwords!
-    redirect_to '/sessions/password_reset' if current_user.password_expired?
+    if current_user.password_expired?
+      verifier = ActiveSupport::MessageVerifier.new(Rails.application.secrets.secret_key_base)
+      redirect_to sessions_password_reset_path(continue: verifier.generate(request.path))
+    end
   end
 
   def user_is_being_told_to_reset_pass_or_is_resetting_pass?

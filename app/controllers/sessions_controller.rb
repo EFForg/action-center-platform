@@ -31,7 +31,7 @@ class SessionsController < Devise::SessionsController
   end
 
   def password_reset
-    if (user_signed_in?)
+    if user_signed_in?
       @user = current_user
     else
       redirect_to '/', :flash => { :notice => "You need to be logged in to reset your password!" }

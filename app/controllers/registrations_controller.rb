@@ -36,7 +36,12 @@ class RegistrationsController < Devise::RegistrationsController
   end
 
   def after_update_path_for(resource)
-    edit_registration_path resource
+    if params[:continue].present?
+      verifier = ActiveSupport::MessageVerifier.new(Rails.application.secrets.secret_key_base)
+      verifier.verify(params[:continue])
+    else
+      edit_registration_path(resource)
+    end
   end
 
   def set_create_notice
