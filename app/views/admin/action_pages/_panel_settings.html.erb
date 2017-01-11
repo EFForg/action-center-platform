@@ -215,6 +215,10 @@
           <%= f.check_box :enable_congress_message,
             data: {toggle: "collapse", target: "#congress-message-fields"} %>
           <%= f.label :enable_congress_message, "Enable Congress message" %>
+
+          <a class="caret" href="#congress-message-fields" data-toggle="collapse">
+            <i class="icon ion-arrow-<%= @actionPage.enable_congress_message ? 'up' : 'down' %>-b"></i> <span class="sr-only">Toggle Congress message panel</span>
+          </a>
         </div>
         <div id="congress-message-fields" class="panel-body collapse <%= 'in' if @actionPage.enable_congress_message? -%>">
 
