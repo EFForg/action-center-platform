@@ -50,5 +50,7 @@ module Actioncenter
     config.congress_forms_url = Rails.application.secrets.congress_forms_url
     config.time_zone = Rails.application.secrets.time_zone || 'Eastern Time (US & Canada)'
     config.active_record.raise_in_transactional_callbacks = true
+
+    config.esi_enabled = (ENV["enable_esi"] == "true")
   end
 end

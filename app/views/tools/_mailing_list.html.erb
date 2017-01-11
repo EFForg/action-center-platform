@@ -7,14 +7,14 @@
     </div>
     <div class="tool-body">
       <%= form_for :subscription, url: subscriptions_path, remote: true,
-        html: { id: 'subscription-form', class: '', role: "form" } do |f| -%>
-      <%= hidden_field_tag :authenticity_token, form_authenticity_token %>
-      <%= f.hidden_field :mailing_list, value: 'effector' -%>
-          <fieldset>
-        <%= f.email_field :email, id: :email, value: current_email,
-          class: "form-control", placeholder: "Email", "aria-label": "Email" -%>
-          </fieldset>
-      <%= f.submit 'Subscribe', class: 'btn', name: "commit" -%>
+                    html: { id: "subscription-form", class: "", role: "form" } do |f| -%>
+        <%= token_tag(form_authenticity_token) %>
+        <%= f.hidden_field :mailing_list, value: "effector" -%>
+        <fieldset>
+          <%= f.email_field :email, id: :email, value: current_email,
+                            class: "form-control", placeholder: "Email", "aria-label": "Email" -%>
+        </fieldset>
+        <%= f.submit "Subscribe", class: "btn", name: "commit" -%>
       <% end %>
     </div>
   </div>

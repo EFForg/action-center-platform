@@ -161,7 +161,7 @@
           <%= t :organization_abbreviation -%> to keep a record of actions I take
           on the site, to be used for features like leaderboards or to give out
           prizes to the most active action-takers.
-          <%= tag(:input, :type => "hidden", :name => request_forgery_protection_token.to_s, :value => form_authenticity_token) %>
+          <%= token_tag(form_authenticity_token) %>
         </div>
         <%= submit_tag "Save", class: 'shown-if-no-js btn btn-sm btn-red-outline' %>
       <% end -%>
