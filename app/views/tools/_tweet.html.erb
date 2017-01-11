@@ -29,20 +29,28 @@
       <% end %>
 
       <% if @tweet.target_congress? %>
-        <h3 class="twitter-tool-label" style="display: none"><em>Your Representatives</em></h3>
-        <form class="tweet-tool validate" action="">
-          <div class="form-group">
-            <label for="street_address">Street address</label>
-            <input class="form-control" type=text id="street_address" required>
-          </div>
-          <div class="form-group">
-            <label for="zipcode">Zip Code</label>
-            <input class="form-control" type=text name="zipcode" id="zipcode" required>
-          </div>
-          <%= render "tools/save_my_info_option", info: %w[address zipcode] -%>
-          <input type=submit class="btn action" value="Look up your reps">
-          <%= render "tools/loading" -%>
-        </form>
+        <div class="with-js">
+          <h3 class="twitter-tool-label" style="display: none"><em>Your Representatives</em></h3>
+          <form class="tweet-tool validate" action="">
+            <div class="form-group">
+              <label for="street_address">Street address</label>
+              <input class="form-control" type=text id="street_address" required>
+            </div>
+            <div class="form-group">
+              <label for="zipcode">Zip Code</label>
+              <input class="form-control" type=text name="zipcode" id="zipcode" required>
+            </div>
+            <%= render "tools/save_my_info_option", info: %w[address zipcode] -%>
+            <input type=submit class="btn action" value="Look up your reps">
+            <%= render "tools/loading" -%>
+          </form>
+        </div>
+        <div class="without-js">
+          <h4><strong>Our representative lookup tool requires javascript.</strong></h4>
+          <p>If your browser doesn't support javascript or you prefer not to enable javascript on this site, you can find your legislators' contact information via the <a target="_blank" href="http://www.house.gov/representatives/find/">House</a> and <a target="_blank" href="https://www.senate.gov/general/contact_information/senators_cfm.cfm">Senate</a> websites.</p>
+          <p>The tweet for this campaign is:</p>
+          <textarea class="form-control"><%= @tweet.message.html_safe -%></textarea>
+        </div>
       <% end -%>
     </div>
 
@@ -50,7 +58,7 @@
   </div>
 
   <% if @tweet.target_congress? && !@reps.present? -%>
-    <p class="privacy-notice">
+    <p class="privacy-notice with-js">
       This tool uses <a href="http://smartystreets.com/legal/privacy-policy" target="_blank">Smarty Streets</a>' API.
     (<a class="privacy-notice-popover" href="#"
       data-container="body"
