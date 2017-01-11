@@ -4,4 +4,8 @@ class Tweet < ActiveRecord::Base
   alias :targets :tweet_targets
   accepts_nested_attributes_for :tweet_targets, reject_if: :all_blank,
     allow_destroy: true
+
+  def target_congress?
+    target_house? || target_senate?
+  end
 end
