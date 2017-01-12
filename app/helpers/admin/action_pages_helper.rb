@@ -38,7 +38,9 @@ module Admin
         non_congressional_bioguides.concat(targets.split(/\s*,\s*/) - congressional_bioguides)
       end
 
-      grouped_reps.unshift(["Non-congressional", non_congressional_bioguides.sort])
+      if non_congressional_bioguides.present?
+        grouped_reps.unshift(["Non-congressional", non_congressional_bioguides.sort])
+      end
 
       grouped_options_for_select(grouped_reps, selected)
     end
