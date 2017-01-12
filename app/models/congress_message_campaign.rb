@@ -2,6 +2,8 @@ class CongressMessageCampaign < ActiveRecord::Base
   belongs_to :topic_category
   has_one :action_page
 
+  scope :targets_bioguide_ids, ->{ where("target_bioguide_ids IS NOT NULL") }
+
   before_validation :normalize_fields
 
 

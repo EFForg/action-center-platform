@@ -249,13 +249,14 @@ class Admin::ActionPagesController < Admin::ApplicationController
     response = http.request(request)
   end
 
+
+
   def cleanup_congress_message_params
     if params[:action_page][:congress_message_campaign_attributes][:target_specific_legislators] != '1'
       params[:action_page][:congress_message_campaign_attributes][:target_bioguide_ids] = nil
     else
-      people = params[:action_page][:congress_message_campaign_attributes][:target_bioguide_ids]
-      people = people.scan(/\b(\w\d+)\b/).flatten.join(", ")
-      params[:action_page][:congress_message_campaign_attributes][:target_bioguide_ids] = people
+      people = params[:action_page][:congress_message_campaign_attributes][:target_bioguide_ids].select(&:present?)
+      params[:action_page][:congress_message_campaign_attributes][:target_bioguide_ids] = people.join(", ")
     end
   end
 end

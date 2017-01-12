@@ -244,7 +244,7 @@
                 <%= t.label :target_specific_legislators do -%>
                   <%= t.check_box :target_specific_legislators %> Specific legislators
                 <% end -%>
-                <%= t.text_field :target_bioguide_ids, placeholder: "Specific bioguide ids (comma separated)" %>
+                <%= t.select :target_bioguide_ids, congress_member_options_for_select(t.object), {}, multiple: true %>
                 <div id="congress_message_text_replacement_form_group" class="form-group">
                   <hr>
                   <div class="form-group">
