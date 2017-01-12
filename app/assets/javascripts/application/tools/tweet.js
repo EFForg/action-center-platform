@@ -75,29 +75,13 @@ $(document).on('ready', function() {
   var related = $("#tweet-tool").data("tweet-related");
   var message = $("#tweet-tool").data("tweet-message");
   var targets = $("#tweet-tool").data("tweet-targets");
-  if(typeof targets != "undefined"){
-    var display_num = 3;
-    display_random_targets(display_num);
-  }
 
-  function display_random_targets(display_num){
-    var random_targets = _.sample(targets, display_num);
-    var refresh_button = "";
+  $(".tweet-refresh").on("click", function() {
+    var targets = $("#tweet-tool-container .tweet-individual");
+    var display_num = targets.filter(":visible").length;
+    targets = _.sample($.makeArray(targets), display_num);
 
-    if(targets.length > display_num){
-      var refresh_button = JST['application/templates/tweet_refresh_button']({display_num: display_num});
-    }
-
-    $('#tweet-tool-container').html(_.map(random_targets, function(target){
-      return JST['application/templates/tweet_individual'](_.extend({
-        message: encodeURIComponent(message),
-        related: related
-      }, target));
-    }).join("") + refresh_button);
-    height_changed();
-
-    $(".tweet-refresh").on('click', function(){
-      display_random_targets(display_num);
-    });
-  }
+    $(".tweet-individual").hide();
+    $(targets).show();
+  });
 });

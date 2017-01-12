@@ -257,6 +257,7 @@
 
 #tools #tweet-tool {
   text-align: center;
+  padding-bottom: 15px;
 
   .tool-body {
     padding-bottom: 0px;
@@ -267,7 +268,11 @@
   }
 
   .newsletter-subscription {
-    margin: 0 15px 10px 15px;
+    margin: 0 15px;
+
+    input[type=submit] {
+      margin-bottom: 0;
+    }
   }
 
   input[type=submit] {
