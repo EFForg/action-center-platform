@@ -40,24 +40,40 @@
             }],
             library: {canvasDimensions: {width: 800, height: 300}}
           ) %>
+        <% end %>
 
-          <h3>Emails Sent</h3>
-          <%= link_to date_tabulation_admin_email_campaign_path(@actionPage.email_campaign),
+        <% if @actionPage.enable_congress_message? && @actionPage.congress_message_campaign %>
+          <h3>Congress Messages Tool</h3>
+          <%= if @date_start == @date_end
+            @data = @actionPage.events.congress_messages.where('time BETWEEN ? AND ?', @date_start, @date_end + 1.day).group_by_hour(:time, format: '%Y-%m-%d %H:%M:00 UTC').count
+          else
+            @data = @actionPage.events.congress_messages.where('time BETWEEN ? AND ?', @date_start, @date_end).group_by_day(:time, format: '%Y-%m-%d 00:00:00 UTC').count
+          end
+          line_chart(
+            [{
+              name: "Total Congress Messages",
+              data: @data
+            }],
+            library: {canvasDimensions: {width: 800, height: 300}}
+          ) %>
+
+          <h3>Congresss Messages Sent</h3>
+          <%= link_to date_tabulation_admin_congress_message_campaign_path(@actionPage.congress_message_campaign),
             target: "_blank" do -%>
             <button type='button' class='btn btn-default'>Table View</button>
           <% end -%>
-          <%= link_to congress_tabulation_admin_email_campaign_path(@actionPage.email_campaign),
+          <%= link_to congress_tabulation_admin_congress_message_campaign_path(@actionPage.congress_message_campaign),
             target: "_blank" do -%>
             <button type='button' class='btn btn-default'>Congressional Breakdown</button>
           <% end -%>
           <%= if @date_start == @date_end
             line_chart(
-              congress_forms_hour_fills_url(@actionPage.email_campaign.campaign_tag, @date_start),
+              congress_forms_hour_fills_url(@actionPage.congress_message_campaign.campaign_tag, @date_start),
               library: {canvasDimensions: {width: 800, height: 300}}
             )
           else
             line_chart(
-              congress_forms_date_fills_url(@actionPage.email_campaign.campaign_tag, @date_start, @date_end),
+              congress_forms_date_fills_url(@actionPage.congress_message_campaign.campaign_tag, @date_start, @date_end),
               library: {canvasDimensions: {width: 800, height: 300}}
             )
           end %>

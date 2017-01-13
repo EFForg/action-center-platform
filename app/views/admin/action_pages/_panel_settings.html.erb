@@ -3,7 +3,7 @@
   <div class="row">
     <div class='col-md-10 tools-container'>
 
-      <div class="panel panel-warning <%= 'disabled' unless CallTool.enabled? %>">
+      <div class="panel call <%= 'disabled' unless CallTool.enabled? %>">
         <div class="panel-heading">
           <% if CallTool.enabled? %>
             <%= f.check_box :enable_call,
@@ -43,9 +43,9 @@
             <% end -%>
           </fieldset>
         </div>
-      </div><!-- END div.panel.panel-warning -->
+      </div><!-- END div.panel.call -->
 
-      <div class='panel panel-success'>
+      <div class="panel petition">
         <div class='panel-heading'>
           <%= f.check_box :enable_petition,
             data: {toggle: 'collapse', target: '#petition-fields'} %>
@@ -95,9 +95,9 @@
             </fieldset>
           <% end -%>
          </div>
-      </div><!-- END div.panel.panel-success -->
+      </div><!-- END div.panel.petition -->
 
-      <div class='panel panel-info'>
+      <div class="panel tweet">
         <div class='panel-heading'>
           <%= f.check_box :enable_tweet,
             data: {toggle: 'collapse', target: '#tweet-fields'} %>
@@ -180,7 +180,7 @@
         </div>
       </div><!-- END div.panel.panel-info -->
 
-      <div class='panel panel-danger'>
+      <div class="panel email">
         <div class='panel-heading'>
           <%= f.check_box :enable_email,
             data: {toggle: 'collapse', target: '#email-fields'} %>
@@ -204,60 +204,96 @@
             </div>
             <div class="form-group">
               <label>Targets</label>
-              <fieldset class='target-fields congress'>
+              <%= t.text_field :email_addresses, placeholder: "Email addresses (comma separated)" %>
+            </div>
+          <% end -%><!-- END f.fields_for :email_campaign -->
+        </div>
+      </div><!-- END div.panel.email -->
+
+      <div class="panel congress-message">
+        <div class="panel-heading">
+          <%= f.check_box :enable_congress_message,
+            data: {toggle: "collapse", target: "#congress-message-fields"} %>
+          <%= f.label :enable_congress_message, "Enable Congress message" %>
+
+          <a class="caret" href="#congress-message-fields" data-toggle="collapse">
+            <i class="icon ion-arrow-<%= @actionPage.enable_congress_message ? 'up' : 'down' %>-b"></i> <span class="sr-only">Toggle Congress message panel</span>
+          </a>
+        </div>
+        <div id="congress-message-fields" class="panel-body collapse <%= 'in' if @actionPage.enable_congress_message? -%>">
+
+          <%= f.fields_for :congress_message_campaign do |t| %>
+
+            <div class="form-group">
+              <%= t.label :subject %>
+              <%= t.text_field :subject %>
+            </div>
+            <div class="form-group">
+              <%= t.label :message %>
+              <%= t.text_area :message %>
+            </div>
+            <div class="form-group">
+              <label>Targets</label>
+              <fieldset class="target-fields congress">
                 <%= t.label :target_house do -%>
                   <%= t.check_box :target_house %> House
                 <% end -%>
                 <%= t.label :target_senate do -%>
                   <%= t.check_box :target_senate %> Senate
                 <% end -%>
-                <%= t.label :target_email do -%>
-                  <%= t.check_box :target_email -%> Specific email address(es)
+                <%= t.label :target_specific_legislators do -%>
+                  <%= t.check_box :target_specific_legislators %> Specific legislators
                 <% end -%>
-                <%= t.text_field :email_addresses, placeholder: "Addresses (comma separated)" %>
-                <%= t.label :target_bioguide_id do -%>
-                  <%= t.check_box :target_bioguide_id -%> Specific bioguide id(s)
-                <% end -%>
-                <%= t.text_field :bioguide_id, placeholder: "Bioguide ids (comma separated)" %>
-                <div id='text_replacement_form_group' class="form-group">
+                <%= t.select :target_bioguide_ids, congress_member_options_for_select(t.object), {}, multiple: true %>
+                <div id="congress_message_text_replacement_form_group" class="form-group">
                   <hr>
-                  <%= t.label :alt_text_email_your_rep do -%>
-                    Replace "Email Your Representatives" text with:
-                  <% end -%>
-                  <%= t.text_field :alt_text_email_your_rep -%>
-                  <%= t.label :alt_text_look_up_your_rep do -%>
-                    Replace "Look Up Your Representatives" text with:
-                  <% end -%>
-                  <%= t.text_field :alt_text_look_up_your_rep -%>
-                  <%= t.label :alt_text_extra_fields_explain do -%>
-                    Replace extra fields explanation text with:
-                  <% end -%>
-                  <%= t.text_field :alt_text_extra_fields_explain -%>
-                  <%= t.label :alt_text_look_up_helper do -%>
-                    Replace 'look up' helper text with:
-                  <% end -%>
-                  <%= t.text_field :alt_text_look_up_helper -%>
-                  <%= t.label :alt_text_customize_message_helper do -%>
-                    Replace 'customize message' helper text with:
-                  <% end -%>
-                  <%= t.text_field :alt_text_customize_message_helper -%>
+                  <div class="form-group">
+                    <%= t.label :alt_text_email_your_rep do -%>
+                      Replace "Email Your Representatives" text with:
+                    <% end -%>
+                    <%= t.text_field :alt_text_email_your_rep -%>
+                  </div>
+                    <div class="form-group">
+                    <%= t.label :alt_text_look_up_your_rep do -%>
+                      Replace "Look Up Your Representatives" text with:
+                    <% end -%>
+                    <%= t.text_field :alt_text_look_up_your_rep -%>
+                  </div>
+                  <div class="form-group">
+                    <%= t.label :alt_text_extra_fields_explain do -%>
+                      Replace extra fields explanation text with:
+                    <% end -%>
+                    <%= t.text_field :alt_text_extra_fields_explain -%>
+                  </div>
+                  <div class="form-group">
+                    <%= t.label :alt_text_look_up_helper do -%>
+                      Replace "look up" helper text with:
+                    <% end -%>
+                    <%= t.text_field :alt_text_look_up_helper -%>
+                  </div>
+                  <div class="form-group">
+                    <%= t.label :alt_text_customize_message_helper do -%>
+                      Replace "customize message" helper text with:
+                    <% end -%>
+                    <%= t.text_field :alt_text_customize_message_helper -%>
+                  </div>
                 </div>
               </fieldset>
             </div>
-            <div id='topic_category_form_group' class="form-group">
+            <div id="topic_category_form_group" class="form-group">
               <%= t.label :topic_category %>
               <%= t.collection_select :topic_category_id, @topic_categories, :id, :name, prompt: true %>
             </div>
-            <div id='campaign_tag_form_group' class="form-group">
+            <div id="campaign_tag_form_group" class="form-group">
               <%= t.label :campaign_tag %>
               <%= t.text_field :campaign_tag %>
             </div>
 
-          <% end -%><!-- END f.fields_for :email_campaign -->
+          <% end -%><!-- END f.fields_for :congress_message_campaign -->
         </div>
-      </div><!-- END div.panel.panel-danger -->
+      </div><!-- END div.panel.congress-message -->
 
-      <div class='panel panel-default'>
+      <div class="panel panel-redirect">
         <div class='panel-heading'>
           <%= f.check_box :enable_redirect,
             data: {toggle: 'collapse', target: '#redirect-fields'} %>
@@ -274,7 +310,7 @@
           </div>
 
         </div>
-      </div><!-- END div.panel.panel-default -->
+      </div><!-- END div.panel.redirect -->
 
     </div><!-- END .tools-container -->
   </div>

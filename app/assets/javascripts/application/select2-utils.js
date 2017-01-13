@@ -1,9 +1,12 @@
 $(document).on('ready', function() {
-  // Open autocomplete on keypress
+  // Open autocomplete on keypress. For when user tab focuses the element.
   $('body').on('keypress', '.select2-container--focus', function(e) {
     if (e.which >= 32) {
       var $select = jQuery(this).prev();
       $select.select2('open');
+
+      if ($select.prop("multiple"))
+        return;
 
       var $search = $select.data('select2').dropdown.$search || $select.data('select2').selection.$search;
       $search.val(String.fromCharCode(e.which));

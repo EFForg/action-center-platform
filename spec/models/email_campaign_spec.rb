@@ -3,7 +3,7 @@ require "rails_helper"
 describe EmailCampaign do
   describe "#service_uri(service)" do
     let(:campaign) do
-      FactoryGirl.create(:email_campaign, target_email: true, target_senate: false, target_house: false,
+      FactoryGirl.create(:email_campaign,
                          email_addresses: "a@example.com, b@example.com",
                          subject: "hey hey hey", message: "hello world")
     end

@@ -3,6 +3,15 @@ class CongressMember < ActiveRecord::Base
 
   scope :current, ->{ where("? <= term_end", Time.now) }
 
+  scope :filter, ->(f) do
+    if f.present?
+      fields = "first_name || ' ' || last_name || ' ' || full_name || ' ' || bioguide_id"
+      where("LOWER(#{fields}) LIKE ?", "%#{f.downcase}%")
+    else
+      all
+    end
+  end
+
   def current?
     Time.now <= term_end
   end

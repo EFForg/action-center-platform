@@ -1,13 +1,14 @@
 class Admin::ActionPagesController < Admin::ApplicationController
   before_filter :set_action_page, except: [ :new, :index, :create, :update_featured_pages ]
   before_filter :set_date_from_params, only: [:index, :edit, :new]
+  before_filter :cleanup_congress_message_params, only: [:update]
   skip_before_filter :verify_authenticity_token, :only => [:update_featured_pages]
   after_filter :purge_cache, only: [ :update, :publish ]
 
   allow_collaborators_to :index, :edit
 
   def index
-    @actionPages = ActionPage.order('id desc')
+    @actionPages = ActionPage.order(created_at: :desc)
     @featuredActionPages = FeaturedActionPage.order('weight').
                                               includes(:action_page).
                                               map(&:action_page)
@@ -33,6 +34,7 @@ class Admin::ActionPagesController < Admin::ApplicationController
     @call_campaign = @actionPage.call_campaign = CallCampaign.new
     # Todo - Gotta convert email campaigns to singular - Thomas
     @email_campaign = @actionPage.email_campaign = EmailCampaign.new
+    @congress_message_campaign = @actionPage.congress_message_campaign = CongressMessageCampaign.new
     @categories = Category.all.order :title
     @topic_categories = TopicCategory.all.order :name
     @actionPage.email_text = Rails.application.config.action_pages_email_text
@@ -55,6 +57,7 @@ class Admin::ActionPagesController < Admin::ApplicationController
 
     @actionPage.call_campaign ||= CallCampaign.new
     @actionPage.email_campaign ||= EmailCampaign.new
+    @actionPage.congress_message_campaign ||= CongressMessageCampaign.new
 
     @categories = Category.all.order :title
     @topic_categories = TopicCategory.all.order :name
@@ -116,7 +119,7 @@ class Admin::ActionPagesController < Admin::ApplicationController
     @email_campaign = @actionPage.email_campaign
 
     # Shows a mailing list if no tools enabled
-    @no_tools = [:tweet, :petition, :call, :email].none? do |tool|
+    @no_tools = [:tweet, :petition, :call, :email, :congress_message].none? do |tool|
       @actionPage.send "enable_#{tool}".to_sym
     end
 
@@ -182,7 +185,7 @@ class Admin::ActionPagesController < Admin::ApplicationController
   def action_page_params
     params.require(:action_page).
            permit(:title, :summary, :description, :category_id, :featured_image, :background_image,
-                  :enable_call, :enable_petition, :enable_email, :enable_tweet,
+                  :enable_call, :enable_petition, :enable_email, :enable_tweet, :enable_congress_message,
                   :og_title, :og_image, :share_message, :published,
                   :call_campaign_id, :what_to_say, :redirect_url, :email_text, :enable_redirect,
                   :victory, :victory_message, :partner_id,
@@ -214,6 +217,17 @@ class Admin::ActionPagesController < Admin::ApplicationController
                                                 :alt_text_customize_message_helper,
                                                 :topic_category_id,
                                                 :campaign_tag]},
+                  {congress_message_campaign_attributes: [:id, :message, :subject,
+                                                          :target_house,
+                                                          :target_senate,
+                                                          :target_bioguide_ids,
+                                                          :topic_category_id,
+                                                          :alt_text_email_your_rep,
+                                                          :alt_text_look_up_your_rep,
+                                                          :alt_text_extra_fields_explain,
+                                                          :alt_text_look_up_helper,
+                                                          :alt_text_customize_message_helper,
+                                                          :campaign_tag]},
                   {call_campaign_attributes: [:id, :title, :message, :call_campaign_id]}
                 )
   end
@@ -233,5 +247,16 @@ class Admin::ActionPagesController < Admin::ApplicationController
     http.use_ssl = true
     request = Net::HTTP::Post.new(uri.path, {'Content-Type' =>'application/json'})
     response = http.request(request)
+  end
+
+
+
+  def cleanup_congress_message_params
+    if params[:action_page][:congress_message_campaign_attributes][:target_specific_legislators] != '1'
+      params[:action_page][:congress_message_campaign_attributes][:target_bioguide_ids] = nil
+    else
+      people = params[:action_page][:congress_message_campaign_attributes][:target_bioguide_ids].select(&:present?)
+      params[:action_page][:congress_message_campaign_attributes][:target_bioguide_ids] = people.join(", ")
+    end
   end
 end

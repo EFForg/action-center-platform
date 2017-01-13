@@ -1,5 +1,5 @@
 $(document).ready(function() {
-  $("table#email_tabulation_by_date").each(function() {
+  $("table#congress_message_tabulation_by_date").each(function() {
     $.ajax({
       url: this.dataset.fills_url,
       success: function(data) {
@@ -11,12 +11,12 @@ $(document).ready(function() {
           tbody.append("<tr><td>"+date+"</td><td>"+count+"</td></tr>");
         });
         tbody.append("<tr><td>Total</td><td><b>" + totalCount + "</b></td></tr>");
-        $("#email_tabulation_by_date tbody").replaceWith(tbody);
+        $("#congress_message_tabulation_by_date tbody").replaceWith(tbody);
       }
     });
   });
 
-  $("table#email_tabulation_by_congress").each(function(){
+  $("table#congress_message_tabulation_by_congress").each(function(){
     var table = this;
     Step(
       function fetchBreakdownAndNames(){
@@ -40,7 +40,7 @@ $(document).ready(function() {
           totalCount += breakdown[bioid];
         });
         tbody.append("<tr><td></td><td><b>Total</b></td><td><b>" + totalCount + "</b></td><td></td></tr>");
-        $("#email_tabulation_by_congress tbody").replaceWith(tbody);
+        $("#congress_message_tabulation_by_congress tbody").replaceWith(tbody);
       }
     );
   });

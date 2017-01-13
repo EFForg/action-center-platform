@@ -380,7 +380,7 @@
 }
 
 .description h3, h3.privacy-notice-header,
-h3.header, #tools #email-tool h3 {
+h3.header, #tools #email-tool h3, #tools #congress-message-tool h3 {
   position: relative;
   margin-bottom: 1em;
   font-weight: normal;
@@ -615,7 +615,7 @@ h3.privacy-notice-header {
     }
 }
 
-.email-tool-container {
+.email-tool-container, .congress-message-tool-container {
   display: none;
   input[type=submit] {
     margin-top: 0px !important;
@@ -626,6 +626,36 @@ h3.privacy-notice-header {
   #target-email {
     padding-bottom: 10px;
   }
+  .tool-body {
+    padding-top: 0;
+    padding-bottom: 10px;
+  }
+  .tool-title {
+    margin-bottom: 10px;
+  }
+  textarea {
+    line-height: 1.3;
+    font-size: 13px;
+    padding: 6px;
+  }
+  .form-group {
+    margin-bottom: 7px;
+  }
+  .privacy-notice {
+    margin-bottom: 5px;
+  }
+  input[type=submit] {
+    margin-top: 0.1em;
+    margin-bottom:5px;
+  }
+  h3 {
+    font-size: 17px;
+    color:$blue;
+    margin-top: 0;
+  }
+}
+
+#tools #congress-message-tool {
   .tool-body {
     padding-top: 0;
     padding-bottom: 10px;
@@ -655,7 +685,7 @@ h3.privacy-notice-header {
   .progress {
     margin-top: 15px;
   }
-  .email-tool-container {
+  .congress-message-tool-container {
     margin-top: 20px;
   }
   #congressForms-common-fields div.email-signup:first-child {
@@ -770,7 +800,7 @@ h3.privacy-notice-header {
       margin-bottom:15px;
     }
   }
-  &.email-rep-lookup fieldset:last-of-type {
+  &.congress-message-rep-lookup fieldset:last-of-type {
     margin-bottom:0;
   }
   .rep-photo {

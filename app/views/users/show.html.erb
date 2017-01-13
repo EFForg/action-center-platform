@@ -34,7 +34,7 @@
                 <tr>
                   <td class="icon">
                     <%=
-                    icons_for_action_page(action_page).map{|c| tag('i', class: "action-type icon-#{c}")}.join.html_safe
+                    icons_for_action_page(action_page).map{|c| tag('i', class: "action-type #{c}")}.join.html_safe
                     -%>
                   </td>
                   <td>

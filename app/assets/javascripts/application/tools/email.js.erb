@@ -284,7 +284,7 @@ $(document).on('ready', function() {
 
       $('form.email-rep-lookup').html("");
 
-      var bioguide_ids = tool.data("bioguide_id").split(',');
+      var bioguide_ids = tool.data("bioguide-id").split(",");
       generateCongressForm({
         reps: _.map(bioguide_ids, function(bioguide_id) {
           return {

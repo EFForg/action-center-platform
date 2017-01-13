@@ -7,9 +7,10 @@
 //= require jquery.fix.clone
 //= require admin/file_uploads
 //= require admin/s3_uploads.js
-//= require admin/email_tabulation
+//= require admin/congress_message_tabulation
 //= require admin/petitions
 //= require admin/epic_editor_helper
+//= require_tree ./admin/action_pages
 //= require s3_cors_fileupload
 //= require bootstrap-sass/bootstrap/tab
 //= require bootstrap-responsive-tabs
@@ -83,24 +84,6 @@ $(document).on('ready', function() {
     return false;
   });
 
-  // the campaign tag should mirror the title, unless changed
-  // this is for tracking analytics and will be delivered to congress-forms
-  var campaign_tag_changed = false;
-  var $title = $('#action_page_title');
-  var campaign_tag_selector = '#action_page_email_campaign_attributes_campaign_tag';
-  var $campaign_tag = $(campaign_tag_selector);
-  if($title.val() != $campaign_tag.val())
-    campaign_tag_changed = true;
-  $title.keyup(function(e){
-    var $campaign_tag = $(campaign_tag_selector);
-    if(!campaign_tag_changed){
-      $campaign_tag.val($title.val());
-    }
-  });
-  $campaign_tag.on("change keyup",function(){
-    campaign_tag_changed = true;
-  });
-
   if (window.location.hash.length) {
     $('a[data-tab="'+window.location.hash.slice(1)+'"]').tab('show');
     window.scrollTo(0, 0); // Otherwise page starts scrolled to initial tab location
@@ -146,88 +129,6 @@ $(document).on('ready', function() {
     return false;
   });
 
-  var $target_house = $('#action_page_email_campaign_attributes_target_house');
-  var $target_senate = $('#action_page_email_campaign_attributes_target_senate');
-  var $target_email = $('#action_page_email_campaign_attributes_target_email');
-  var $addresses = $('#action_page_email_campaign_attributes_email_addresses');
-  var $target_bioguide_id = $('#action_page_email_campaign_attributes_target_bioguide_id');
-  var $bioguide_id = $('#action_page_email_campaign_attributes_bioguide_id');
-  var $topic_category = $('#topic_category_form_group');
-  var $campaign_tag = $('#campaign_tag_form_group');
-  var $text_replacement = $('#text_replacement_form_group');
-
-  function setup_target_ux($target_checkbox, $text_field, hide_cf_fields, show_alt_text_fields){
-    if($target_checkbox.is(':checked')){
-      $target_house.prop('disabled', true);
-      $target_senate.prop('disabled', true);
-      $target_bioguide_id.prop('disabled', true);
-      $target_email.prop('disabled', true);
-      $bioguide_id.hide();
-      $addresses.hide();
-
-      if(hide_cf_fields){
-        $topic_category.hide();
-        $campaign_tag.hide();
-      }
-      if(show_alt_text_fields){
-        $text_replacement.show();
-      }
-
-      $text_field.show();
-      $target_checkbox.prop('disabled', false);
-    }
-  }
-
-  function create_target_listener($target_checkbox, $text_field, toggle_cf_fields, toggle_alt_text_fields){
-    $target_checkbox.change(function(e){
-      if($(this).is(':checked')){
-        $target_house.prop('checked', false);
-        $target_house.prop('disabled', true);
-        $target_senate.prop('checked', false);
-        $target_senate.prop('disabled', true);
-        $target_bioguide_id.prop('checked', false);
-        $target_bioguide_id.prop('disabled', true);
-        $target_email.prop('checked', false);
-        $target_email.prop('disabled', true);
-
-        $target_checkbox.prop('checked', true);
-        $target_checkbox.prop('disabled', false);
-
-        if(toggle_cf_fields){
-          $topic_category.hide();
-          $campaign_tag.hide();
-        }
-
-        if(toggle_alt_text_fields){
-          $text_replacement.show();
-        }
-
-        $text_field.show();
-      } else {
-        $target_house.prop('disabled', false);
-        $target_senate.prop('disabled', false);
-        $target_bioguide_id.prop('disabled', false);
-        $target_email.prop('disabled', false);
-
-        if(toggle_cf_fields){
-          $topic_category.show();
-          $campaign_tag.show();
-        }
-
-        if(toggle_alt_text_fields){
-          $text_replacement.hide();
-        }
-
-        $text_field.hide();
-      }
-    });
-  }
-
-  create_target_listener($target_email, $addresses, true, false);
-  create_target_listener($target_bioguide_id, $bioguide_id, false, true);
-
-  setup_target_ux($target_email, $addresses, true, false);
-  setup_target_ux($target_bioguide_id, $bioguide_id, false, true);
 
   // Bootstrap popovers and tooltips
   $('.action_pages-index i.has-tooltip').tooltip();

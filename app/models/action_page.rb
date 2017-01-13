@@ -12,6 +12,7 @@ class ActionPage < ActiveRecord::Base
   belongs_to :petition
   belongs_to :tweet
   belongs_to :email_campaign
+  belongs_to :congress_message_campaign
   belongs_to :call_campaign
   belongs_to :partner
   belongs_to :category
@@ -19,7 +20,7 @@ class ActionPage < ActiveRecord::Base
              :foreign_key => "archived_redirect_action_page_id"
 
   accepts_nested_attributes_for :tweet, :petition, :email_campaign,
-    :call_campaign, reject_if: :all_blank
+    :call_campaign, :congress_message_campaign, reject_if: :all_blank
 
   has_attached_file :featured_image, amazon_credentials.merge( default_url: 'missing.png')
   has_attached_file :background_image, amazon_credentials.merge( default_url: "" )

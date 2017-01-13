@@ -47,7 +47,7 @@ def create_a_call_campaign
 end
 
 def create_an_email_campaign
-  @email_campaign = FactoryGirl.create(:email_campaign_with_custom_target)
+  @email_campaign = FactoryGirl.create(:email_campaign)
   @action_page = @email_campaign.action_page
 end
 
