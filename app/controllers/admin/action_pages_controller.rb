@@ -84,13 +84,7 @@ class Admin::ActionPagesController < Admin::ApplicationController
   end
 
   def show
-  end
-
-  def updated_at
-    if params[:updated_at]
-      updated = Time.zone.parse(params[:updated_at]) < @actionPage.updated_at
-    end
-    render json: {updated: updated, updated_at: @actionPage.updated_at}
+    render json: @actionPage
   end
 
   def publish
@@ -148,8 +142,7 @@ class Admin::ActionPagesController < Admin::ApplicationController
   private
 
   def set_action_page
-    @actionPage = ActionPage.friendly.find (params[:id] || params[:action_page_id])
-    raise ActiveRecord::RecordNotFound unless @actionPage
+    @actionPage = ActionPage.friendly.find(params[:id] || params[:action_page_id])
   end
 
   def set_date_from_params

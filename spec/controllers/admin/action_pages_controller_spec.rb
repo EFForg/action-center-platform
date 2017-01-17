@@ -55,34 +55,4 @@ RSpec.describe Admin::ActionPagesController, type: :controller do
       end
     end
   end
-
-  describe "GET #updated_at" do
-    before{ login_as_admin }
-
-    def tparam(time)
-      time.strftime("%Y/%m/%d %H:%M:%S.%9N %Z %z")
-    end
-
-    it ".updated field should be false if params[:updated_at] is gte action_page.updated_at" do
-      get :updated_at, { action_page_id: petition_action_page.to_param,
-                         updated_at: tparam(petition_action_page.updated_at) }
-
-      expect(response.content_type).to eq("application/json")
-      expect(JSON.parse(response.body)["updated"]).to eq(false)
-
-      get :updated_at, { action_page_id: petition_action_page.to_param,
-                         updated_at: tparam(petition_action_page.updated_at + 2) }
-
-      expect(response.content_type).to eq("application/json")
-      expect(JSON.parse(response.body)["updated"]).to eq(false)
-    end
-
-    it ".updated field should be true if params[:updated_at] is lt action_page.updated_at" do
-      get :updated_at, { action_page_id: petition_action_page.to_param,
-                         updated_at: tparam(petition_action_page.updated_at - 0.1) }
-
-      expect(response.content_type).to eq("application/json")
-      expect(JSON.parse(response.body)["updated"]).to eq(true)
-    end
-  end
 end

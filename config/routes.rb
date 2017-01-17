@@ -101,7 +101,6 @@ Actioncenter::Application.routes.draw do
     resources :topic_categories, :topic_sets, :topics
 
     resources :action_pages do
-      get :updated_at
       get :publish
       get :unpublish
       get :destroy
