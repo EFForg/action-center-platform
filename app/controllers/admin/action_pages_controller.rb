@@ -84,13 +84,6 @@ class Admin::ActionPagesController < Admin::ApplicationController
     render json: @actionPage
   end
 
-  def updated_at
-    if params[:updated_at]
-      updated = Time.zone.parse(params[:updated_at]) < @actionPage.updated_at
-    end
-    render json: {updated: updated, updated_at: @actionPage.updated_at}
-  end
-
   def publish
     @actionPage.update(published: true)
     redirect_to admin_action_pages_path, notice: "Published page: #{@actionPage.title}"
