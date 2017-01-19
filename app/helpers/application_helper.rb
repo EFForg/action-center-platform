@@ -426,9 +426,6 @@ module ApplicationHelper
       p = params.clone
       p.delete(:email)
       current_user.update_attributes p
-    else
-      session[:user] ||= {}
-      session[:user].merge! params
     end
   end
 
@@ -464,8 +461,7 @@ module ApplicationHelper
   end
 
   def current_user_data(field)
-    session[:user] ||= {}
     return nil unless user_session_data_whitelist.include? field
-    current_user.try(field) || session[:user][field]
+    current_user.try(field)
   end
 end

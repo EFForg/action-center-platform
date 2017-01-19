@@ -38,7 +38,6 @@ class ToolsController < ApplicationController
     sbResponse = RestClient.get 'https://socialbuttonsserver.herokuapp.com/',
       {:params => {:url => params[:url], :networks => 'facebook,twitter,googleplus'}}
 
-    request.session_options[:skip] = true  # removes session data
     response.headers['Cache-Control'] = 'public, no-cache'
     response.headers['Surrogate-Control'] = "max-age=300"
 
@@ -98,7 +97,6 @@ class ToolsController < ApplicationController
       respond_to do |format|
         format.json {   render :json => {success: true}, :status => 200 }
         format.html do
-          flash[:notice] = 'You successfully signed the petition'
           begin
             url = URI.parse(request.referer)
             url.query = [url.query.presence, 'thankyou=1'].join('&')
