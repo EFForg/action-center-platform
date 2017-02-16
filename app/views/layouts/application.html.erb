@@ -130,10 +130,10 @@
 
     <div id="anon-stats">
       <noscript>
-        <img src="https://anon-stats.eff.org/piwik.php?idsite=13&amp;rec=1&amp;action_name=<%= escape_page_title -%>" style="border:0" alt="" />
+        <img src="https://anon-stats.eff.org/js/?idsite=13&amp;rec=1&amp;action_name=<%= escape_page_title -%>" style="border:0" alt="" />
       </noscript>
       <script>
-        document.getElementById('anon-stats').innerHTML = '<img src="https://anon-stats.eff.org/piwik.php?idsite=13&amp;rec=1&amp;urlref='+encodeURIComponent(document.referrer)+'&amp;action_name=<%= escape_page_title -%>" style="border:0" alt="" />';
+        document.getElementById('anon-stats').innerHTML = '<img src="https://anon-stats.eff.org/js/?idsite=13&amp;rec=1&amp;urlref='+encodeURIComponent(document.referrer)+'&amp;action_name=<%= escape_page_title -%>" style="border:0" alt="" />';
       </script>
     </div>
     <%= yield(:body) if content_for?(:body) -%>
