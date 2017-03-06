@@ -200,7 +200,7 @@ class ToolsController < ApplicationController
 
       render :json => {content: render_to_string(partial: 'action_page/reps')}, :status => 200
     else
-      render :json => {error: 'No representatives found'}, :status => 204
+      render :json => {error: 'No representatives found'}, :status => 200
     end
   end
 
@@ -213,7 +213,7 @@ class ToolsController < ApplicationController
     if @reps.present?
       render :json => @reps, :status => 200
     else
-      render :json => {error: 'No representatives found'}, :status => 204
+      render :json => {error: 'No representatives found'}, :status => 200
     end
   end
 
