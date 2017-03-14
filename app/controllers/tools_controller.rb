@@ -8,7 +8,6 @@ class ToolsController < ApplicationController
   before_filter :create_newsletter_subscription, only: [:call]
   after_filter :deliver_thanks_message, only: [:call, :petition, :email, :message_congress]
   skip_after_filter :deliver_thanks_message, if: :signature_has_errors
-  skip_before_filter :verify_authenticity_token, only: :petition
 
   def call
     ahoy.track "Action",
