@@ -24,7 +24,7 @@ module SmartyStreets
       res = JSON.parse RestClient.get("#{url}?#{params.to_query}")
       return res
     rescue => e
-      puts "#{ e } (#{ e.class })!"
+      logger.error "#{ e } (#{ e.class })!"
     end
   end
 
