@@ -13,6 +13,10 @@ class ActionPageController < ApplicationController
   manifest :action_page
 
   def show
+    if @actionPage.id == 251
+      params[:nosignup] = 1
+    end
+
     render @actionPage.template, layout: @actionPage.layout
   end
 
