@@ -43,7 +43,7 @@
 
               <%= render "tools/save_my_info_option", info: ["phone number", "location"] -%>
 
-              <%= render "tools/newsletter_signup", f: f, zip: false if current_user.nil? %>
+              <%= render "tools/newsletter_signup", f: f, zip: false if ask_for_newsletter_signup? %>
 
               <div class="form-group">
                 <button type="submit" class="btn btn-default call-tool-submit action">Call Now</button>
