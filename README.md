@@ -90,9 +90,9 @@ You may also want to automate certain other tasks (such as `rake signatures:dedu
 Embedding actions is simple. Just include the following HTML on the page you want the action to be embedded:
 
     <script type="text/javascript" src="https://act.eff.org/action/embed"></script>
-    <a id="action-center-widget" href="https://act.eff.org/action/shut-the-nsa-s-backdoor-to-the-internet">Take part in the action!</a>
+    <a class="action-center-widget" href="https://act.eff.org/action/shut-the-nsa-s-backdoor-to-the-internet">Take part in the action!</a>
 
-The link href should point to the action page you wish to embed.
+The link href should point to the action page you wish to embed. You may add `?nosignup=1` to the URL to get newsletter signup fields omitted from the action.
 
 If you want to get fancy, you can modify the embed code to include some of the following parameters, all of which are optional:
 
