@@ -33,16 +33,7 @@ class ToolsController < ApplicationController
 
   # GET /tools/social_buttons_count
   def social_buttons_count
-    render(:json => {"googleplus" => 0,"facebook" => 0}, :status => 200) and return if Rails.env == 'test'
-
-    sbResponse = RestClient.get 'https://socialbuttonsserver.herokuapp.com/',
-      {:params => {:url => params[:url], :networks => 'facebook,twitter,googleplus'}}
-
-    request.session_options[:skip] = true  # removes session data
-    response.headers['Cache-Control'] = 'public, no-cache'
-    response.headers['Surrogate-Control'] = "max-age=300"
-
-    render :json => sbResponse, :status => 200
+    render status: 500
   end
 
   # POST /tools/petition
