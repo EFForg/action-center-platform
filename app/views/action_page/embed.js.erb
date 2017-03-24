@@ -34,17 +34,18 @@
   * AGPLv3
   */
 (function() {
-  function receiveMessage(event){
-    if (event.origin == "<%= (request.ssl? ? "https://" : "http://") + request.env['HTTP_HOST'] %>"){
-      var window_height = event.data;
-      iframe_tag.height = window_height + "px";
-    }
-  }
-  window.addEventListener("message", receiveMessage, false);
-
   function embed(widget) {
     var width = 500;
     var iframe_tag = document.createElement("iframe");
+
+    window.addEventListener("message", function(event) {
+      if (event.origin == "<%= (request.ssl? ? "https://" : "http://") + request.env['HTTP_HOST'] %>") {
+        var window_height = event.data;
+        iframe_tag.height = window_height + "px";
+      }
+    }, false);
+
+
     var embed_url = widget.getAttribute("href").split('?', 2);
     embed_url = embed_url[0] + '/embed_iframe?' + (embed_url[1] || '');
 
