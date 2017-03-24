@@ -45,7 +45,8 @@
   function embed(widget) {
     var width = 500;
     var iframe_tag = document.createElement("iframe");
-    var embed_url = widget.getAttribute("href") + "/embed_iframe?";
+    var embed_url = widget.getAttribute("href").split('?', 2);
+    embed_url = embed_url[0] + '/embed_iframe?' + (embed_url[1] || '');
 
     if (typeof ac_embed !== "undefined"){
       if("width" in ac_embed)
