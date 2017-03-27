@@ -23,11 +23,11 @@ $(document).on('ready', function() {
               var district = res[0].metadata.congressional_district;
 
               if (district == undefined)
-                cb("Sorry, we couldn't find the congressional district of this address.");
+                cb(App.Strings.districtLookupFailed);
               else
                 cb(null, state + "-" + district);
             } else {
-              cb("Sorry, we couldn't find this address");
+              cb(App.Strings.districtLookupFailed);
             }
           },
           error: function(err){
