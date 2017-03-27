@@ -21,7 +21,10 @@ $(document).on('ready', function() {
             if(res.length == 1){
               var state = res[0].components.state_abbreviation;
               var district = res[0].metadata.congressional_district;
-              cb(null, state + "-" + district);
+              if (!district)
+                cb("No congressional district found");
+              else
+                cb(null, state + "-" + district);
             }
           },
           error: function(err){
@@ -67,29 +70,31 @@ $(document).on('ready', function() {
           hide_form();
           height_changed();
 
-          var fd = new FormData();
-          fd.append("action_id", action_id);
-          fd.append("call_campaign_id", call_campaign_id);
-          fd.append("phone", phone_number);
-          fd.append("location", location);
-          if (street_address != '')
-            fd.append("street_address", street_address);
-          fd.append("zipcode", zip_code);
-          fd.append("update_user_data", update_user_data);
+          if (location) {
+            var fd = new FormData();
+            fd.append("action_id", action_id);
+            fd.append("call_campaign_id", call_campaign_id);
+            fd.append("phone", phone_number);
+            fd.append("location", location);
+            if (street_address != '')
+              fd.append("street_address", street_address);
+            fd.append("zipcode", zip_code);
+            fd.append("update_user_data", update_user_data);
 
-          if (form.find("input[name=subscribe]:checked").val() == "1") {
-            fd.append("subscription[email]", form.find("input[type=email]").val());
-            fd.append("subscription[zipcode]", zip_code);
-            form.attr("data-signed-up-for-mailings", "true");
+            if (form.find("input[name=subscribe]:checked").val() == "1") {
+              fd.append("subscription[email]", form.find("input[type=email]").val());
+              fd.append("subscription[zipcode]", zip_code);
+              form.attr("data-signed-up-for-mailings", "true");
+            }
+
+            $.ajax({
+              url: "/tools/call",
+              type: "POST",
+              data: fd,
+              processData: false,
+              contentType: false
+            });
           }
-
-          $.ajax({
-            url: "/tools/call",
-            type: "POST",
-            data: fd,
-            processData: false,
-            contentType: false
-          });
         }, zip_code, street_address);
       }
 
