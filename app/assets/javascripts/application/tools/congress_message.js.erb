@@ -284,7 +284,7 @@ $(document).on("ready", function() {
         form.find(".progress-striped").hide();
         form.find("input[type=submit]").show();
         form.find(".alert-danger").remove();
-        $(".lookup-address h3").after($('<div class="small alert alert-danger help-block">').text(error));
+        $("#lookup-address h3").after($('<div class="small alert alert-danger help-block">').text(error));
         height_changed();
       }
 
