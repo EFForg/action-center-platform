@@ -286,6 +286,8 @@ end
 
 
 When(/^I click to add an image to the gallery of a new ActionPage$/) do
+  return pending
+
   step "I click to open the gallery of a new ActionPage"
 
   Capybara.ignore_hidden_elements = false
