@@ -3,6 +3,7 @@ Feature: Image Gallery
   An activist
   Should be able to upload to and use files from the gallery
 
+  @wip
   Scenario:  Activist manipulates the gallery and uses an image in an action
     Given my test env has Internet access and I have an S3 key
       And I exist as an activist
