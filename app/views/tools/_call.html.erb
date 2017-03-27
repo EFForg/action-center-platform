@@ -45,6 +45,8 @@
 
               <%= render "tools/newsletter_signup", f: f, zip: false if ask_for_newsletter_signup? %>
 
+              <div class="form-errors info-circle error" style="display: none"></div>
+
               <div class="form-group">
                 <button type="submit" class="btn btn-default call-tool-submit action">Call Now</button>
               </div>

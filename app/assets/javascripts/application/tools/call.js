@@ -18,17 +18,20 @@ $(document).on('ready', function() {
         $.ajax({
           url: '/smarty_streets/street_address/?street=' + encodeURIComponent(street_address) + '&zipcode=' + encodeURIComponent(zip_code),
           success: function(res){
-            if(res.length == 1){
+            if (res.length == 1) {
               var state = res[0].components.state_abbreviation;
               var district = res[0].metadata.congressional_district;
-              if (!district)
-                cb("No congressional district found");
+
+              if (district == undefined)
+                cb("Sorry, we couldn't find the congressional district of this address.");
               else
                 cb(null, state + "-" + district);
+            } else {
+              cb("Sorry, we couldn't find this address");
             }
           },
           error: function(err){
-            cb(err);
+            cb("There was an error processing this request.");
           }
         });
       } else {
@@ -66,11 +69,14 @@ $(document).on('ready', function() {
       } else if ($zip_field.length && zip_code.length != 5) {
         rumbleEl($zip_field);
       } else {
+        form.find('.form-errors').hide();
         determine_location(function(err, location){
-          hide_form();
-          height_changed();
+          if (err) {
+            form.find('.form-errors').text(err).show();
+          } else if (location) {
+            hide_form();
+            height_changed();
 
-          if (location) {
             var fd = new FormData();
             fd.append("action_id", action_id);
             fd.append("call_campaign_id", call_campaign_id);
