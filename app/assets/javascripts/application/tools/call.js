@@ -69,10 +69,10 @@ $(document).on('ready', function() {
       } else if ($zip_field.length && zip_code.length != 5) {
         rumbleEl($zip_field);
       } else {
-        form.find('.form-errors').hide();
+        form.find('.form-errors').addClass("hidden");
         determine_location(function(err, location){
           if (err) {
-            form.find('.form-errors').text(err).show();
+            form.find('.form-errors').text(err).removeClass("hidden");
           } else if (location) {
             hide_form();
             height_changed();
