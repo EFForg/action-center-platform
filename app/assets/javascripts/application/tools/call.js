@@ -73,7 +73,7 @@ $(document).on('ready', function() {
         determine_location(function(err, location){
           if (err) {
             form.find('.form-errors').text(err).removeClass("hidden");
-          } else if (location) {
+          } else {
             hide_form();
             height_changed();
 
