@@ -24,6 +24,8 @@ $(document).on('ready', function() {
 
               if (district == undefined)
                 cb(App.Strings.districtLookupFailed);
+              else if (district == "AL")
+                cb(null, state + "-00");
               else
                 cb(null, state + "-" + district);
             } else {
