@@ -36,7 +36,7 @@ $(document).on("ready", function() {
 
   var generateCongressForm = function (options) {
     var reps = options.reps;
-    var rep_ids = _.map(reps, function(rep){
+    var rep_ids = _.map(reps, function(rep) {
       return rep.bioguide_id;
     });
 
@@ -247,6 +247,18 @@ $(document).on("ready", function() {
             },
             error: function() {}
           });
+        },
+        onDefunctLegislator: function(bioguide, contact_url) {
+          var notice = $("<p>").addClass("defunct-notice")
+              .text("Sorry, we can't message this legislator at the moment. Contact them at ");
+
+          var link = $("<a>").attr({href: contact_url, target: "_blank"}).text("their website");
+          notice.append(link, " instead.");
+
+          var fieldset = $("fieldset[data-legislator-id="+bioguide+"]");
+          fieldset.prop("disabled", true);
+          fieldset.find(".form-group").remove();
+          fieldset.append(notice);
         }
     });
   }
