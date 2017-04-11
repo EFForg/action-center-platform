@@ -250,7 +250,7 @@ $(document).on("ready", function() {
         },
         onDefunctLegislator: function(bioguide, contact_url) {
           var notice = $("<p>").addClass("defunct-notice")
-              .text("Sorry, we can't message this legislator at the moment. Contact them at ");
+              .text("Sorry, we can't message this legislator at the moment. We are working to fix the problem. Please contact them at ");
 
           var link = $("<a>").attr({href: contact_url, target: "_blank"}).text("their website");
           notice.append(link, " instead.");
