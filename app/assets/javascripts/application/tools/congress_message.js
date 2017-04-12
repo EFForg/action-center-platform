@@ -250,10 +250,12 @@ $(document).on("ready", function() {
         },
         onDefunctLegislator: function(bioguide, contact_url) {
           var notice = $("<p>").addClass("defunct-notice")
-              .text("Sorry, we can't message this legislator at the moment. We are working to fix the problem. Please contact them at ");
+              .text("Sorry, we can't message this legislator at the moment. We are working to fix the problem.");
 
-          var link = $("<a>").attr({href: contact_url, target: "_blank"}).text("their website");
-          notice.append(link, " instead.");
+          if (contact_url) {
+            var link = $("<a>").attr({href: contact_url, target: "_blank"}).text("their website");
+            notice.append(" Please contact them at ", link, " instead.");
+          }
 
           var fieldset = $("fieldset[data-legislator-id="+bioguide+"]");
           fieldset.prop("disabled", true);
