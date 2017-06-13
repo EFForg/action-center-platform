@@ -9,7 +9,7 @@ atom_feed do |feed|
       entry.summary((markdown actionPage.summary), type: 'html')
       entry.content((markdown actionPage.description), type: 'html')
 
-      entry.image URI.join(root_url, image_path(actionPage.featured_image))
+      entry.logo URI.join(root_url, image_path(actionPage.featured_image))
       entry.author do |author|
         author.name(t :organization_name)
       end
