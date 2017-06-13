@@ -6,8 +6,8 @@ atom_feed do |feed|
   @actionPages.each do |actionPage|
     feed.entry(actionPage) do |entry|
       entry.title(actionPage.title)
-      entry.summary((markdown actionPage.summary), type: 'html')
-      entry.content((markdown actionPage.description), type: 'html')
+      entry.summary(markdown(actionPage.summary), type: 'html')
+      entry.content(markdown(actionPage.description), type: 'html')
 
       entry.logo URI.join(root_url, image_path(actionPage.featured_image))
       entry.author do |author|
