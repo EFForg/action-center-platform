@@ -1,6 +1,6 @@
 atom_feed do |feed|
   feed.title(t :site_title)
-  feed.description(t :summary)
+  feed.subtitle(t :summary)
   feed.updated(@actionPages[0].created_at) if @actionPages.length > 0
 
   @actionPages.each do |actionPage|
