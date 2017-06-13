@@ -5,8 +5,8 @@ atom_feed do |feed|
 
   @actionPages.each do |actionPage|
     feed.entry(actionPage) do |entry|
-      entry.link(URI.join(root_url, image_path(actionPage.featured_image)),
-                 rel: "enclosure", type: actionPage.featured_image.content_type || "image/png")
+      entry.link(rel: "enclosure", type: actionPage.featured_image.content_type || "image/png",
+                 href: URI.join(root_url, image_path(actionPage.featured_image)))
 
       entry.title(actionPage.title)
       entry.summary(markdown(actionPage.summary), type: 'html')
