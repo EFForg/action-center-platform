@@ -23,6 +23,7 @@ $(document).on('ready', function() {
           $('#petition-tool').removeClass('unsigned').addClass('signed');
           height_changed();
           incrementPetitionCount();
+          getSignatures();
         }
         else if (data.errors) {
           var errors = JSON.parse(data.errors);
@@ -102,7 +103,7 @@ $(document).on('ready', function() {
             time_ago: signature.time_ago + " ago"
           });
         }).join("");
-        $("signatures.ajax-update tbody").html(signatures_html);
+        $("#signatures.ajax-update tbody").html(signatures_html);
 
         // did anything change? if no, wait longer til next check.
         if (_.isEqual(data, previousSignatures)) {

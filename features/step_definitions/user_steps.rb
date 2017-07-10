@@ -7,6 +7,7 @@ end
 def create_visitor
   @visitor ||= { name: "Test User",
     email: "me@example.com",
+    zip_code: "94117",
     password: "strong passwords defeat lobsters covering wealth",
     password_confirmation: "strong passwords defeat lobsters covering wealth" }
 end
