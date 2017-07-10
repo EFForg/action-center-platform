@@ -299,6 +299,7 @@ $(document).on("ready", function() {
         form.find("input[type=submit]").show();
         form.find(".alert-danger").remove();
         $("#lookup-address h3").after($('<div class="small alert alert-danger help-block">').text(error));
+        $("input,textarea,button,select", form).removeAttr("disabled");
         height_changed();
       }
 
@@ -315,11 +316,9 @@ $(document).on("ready", function() {
         .done(function(smart_data) {
           if (smart_data.length > 0) {
             var zip4 = smart_data[0].components.plus4_code;
-            if (!zip4) {
-              $("input,textarea,button,select", form).removeAttr("disabled");
-              show_address_error(App.Strings.addressLookupFailed);
-              return;
-            }
+            if (!zip4)
+              return show_address_error(App.Strings.addressLookupFailed);
+
             var state = smart_data[0].components.state_abbreviation;
             var city = smart_data[0].metadata.county_name;
 
