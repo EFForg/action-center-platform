@@ -42,6 +42,8 @@
     onLegislatorSuccess: function (legislatorId, legislatorFieldset) {},
     onLegislatorError: function (legislatorId, legislatorFieldset) {},
 
+    onDefunctLegislator: function(legislatorId, contactUrl) {},
+
     error: function () {}
   };
 
@@ -99,6 +101,11 @@
           // TODO - throw on server error
           var groupedData = that.groupCommonFields(data);
           that.generateForm(groupedData, form)
+
+          _.each(data, function(legislator, bioguide) {
+            if (legislator.defunct)
+              that.settings.onDefunctLegislator(bioguide, legislator.contact_url);
+          });
         }
 
       });
@@ -114,7 +121,7 @@
       var commonData = commonFieldset.serializeObject();
       //console.log(commonData);
       if($('.' + pluginName + '-legislator-fields').length > 0 ){
-        $.each($('.' + pluginName + '-legislator-fields'), function(index, legislatorFieldset) {
+        $.each($('.' + pluginName + '-legislator-fields:not([disabled])'), function(index, legislatorFieldset) {
           var legislatorId = $(legislatorFieldset).attr('data-legislator-id');
           var legislatorData = $(legislatorFieldset).serializeObject();
           console.log(legislatorId, legislatorFieldset, legislatorData);

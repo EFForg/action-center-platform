@@ -18,14 +18,22 @@ $(document).on('ready', function() {
         $.ajax({
           url: '/smarty_streets/street_address/?street=' + encodeURIComponent(street_address) + '&zipcode=' + encodeURIComponent(zip_code),
           success: function(res){
-            if(res.length == 1){
+            if (res.length == 1) {
               var state = res[0].components.state_abbreviation;
               var district = res[0].metadata.congressional_district;
-              cb(null, state + "-" + district);
+
+              if (district == undefined)
+                cb(App.Strings.districtLookupFailed);
+              else if (district == "AL")
+                cb(null, state + "-00");
+              else
+                cb(null, state + "-" + district);
+            } else {
+              cb(App.Strings.districtLookupFailed);
             }
           },
           error: function(err){
-            cb(err);
+            cb("There was an error processing this request.");
           }
         });
       } else {
@@ -63,33 +71,38 @@ $(document).on('ready', function() {
       } else if ($zip_field.length && zip_code.length != 5) {
         rumbleEl($zip_field);
       } else {
+        form.find('.form-errors').addClass("hidden");
         determine_location(function(err, location){
-          hide_form();
-          height_changed();
+          if (err) {
+            form.find('.form-errors').text(err).removeClass("hidden");
+          } else {
+            hide_form();
+            height_changed();
 
-          var fd = new FormData();
-          fd.append("action_id", action_id);
-          fd.append("call_campaign_id", call_campaign_id);
-          fd.append("phone", phone_number);
-          fd.append("location", location);
-          if (street_address != '')
-            fd.append("street_address", street_address);
-          fd.append("zipcode", zip_code);
-          fd.append("update_user_data", update_user_data);
+            var fd = new FormData();
+            fd.append("action_id", action_id);
+            fd.append("call_campaign_id", call_campaign_id);
+            fd.append("phone", phone_number);
+            fd.append("location", location);
+            if (street_address != '')
+              fd.append("street_address", street_address);
+            fd.append("zipcode", zip_code);
+            fd.append("update_user_data", update_user_data);
 
-          if (form.find("input[name=subscribe]:checked").val() == "1") {
-            fd.append("subscription[email]", form.find("input[type=email]").val());
-            fd.append("subscription[zipcode]", zip_code);
-            form.attr("data-signed-up-for-mailings", "true");
+            if (form.find("input[name=subscribe]:checked").val() == "1") {
+              fd.append("subscription[email]", form.find("input[type=email]").val());
+              fd.append("subscription[zipcode]", zip_code);
+              form.attr("data-signed-up-for-mailings", "true");
+            }
+
+            $.ajax({
+              url: "/tools/call",
+              type: "POST",
+              data: fd,
+              processData: false,
+              contentType: false
+            });
           }
-
-          $.ajax({
-            url: "/tools/call",
-            type: "POST",
-            data: fd,
-            processData: false,
-            contentType: false
-          });
         }, zip_code, street_address);
       }
 
