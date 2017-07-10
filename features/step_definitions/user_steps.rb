@@ -403,7 +403,7 @@ end
 
 When(/^I fill in my phone number, address, and zip code and click call$/) do
   find("input[name=inputPhone]").set("415-555-0100")
-  find("input[name=inputStreetAddress]").set("100 Abc St.")
+  find("input[name=inputStreetAddress]").set("815 Eddy St.")
   find("input[name=inputZip]").set("94109")
   find("button.call-tool-submit").click
 end

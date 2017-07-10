@@ -35,4 +35,6 @@ Actioncenter::Application.configure do
   config.active_support.deprecation = :stderr
 
   config.action_mailer.default_url_options = { :host => 'localhost' }
+
+  config.esi_enabled = false
 end

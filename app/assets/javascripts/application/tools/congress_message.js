@@ -36,7 +36,7 @@ $(document).on("ready", function() {
 
   var generateCongressForm = function (options) {
     var reps = options.reps;
-    var rep_ids = _.map(reps, function(rep){
+    var rep_ids = _.map(reps, function(rep) {
       return rep.bioguide_id;
     });
 
@@ -247,6 +247,20 @@ $(document).on("ready", function() {
             },
             error: function() {}
           });
+        },
+        onDefunctLegislator: function(bioguide, contact_url) {
+          var notice = $("<p>").addClass("defunct-notice")
+              .text("Sorry, we can't message this legislator at the moment. We are working to fix the problem.");
+
+          if (contact_url) {
+            var link = $("<a>").attr({href: contact_url, target: "_blank"}).text("their website");
+            notice.append(" Please contact them at ", link, " instead.");
+          }
+
+          var fieldset = $("fieldset[data-legislator-id="+bioguide+"]");
+          fieldset.prop("disabled", true);
+          fieldset.find(".form-group").remove();
+          fieldset.append(notice);
         }
     });
   }
@@ -284,7 +298,7 @@ $(document).on("ready", function() {
         form.find(".progress-striped").hide();
         form.find("input[type=submit]").show();
         form.find(".alert-danger").remove();
-        $(".lookup-address h3").after($('<div class="small alert alert-danger help-block">').text(error));
+        $("#lookup-address h3").after($('<div class="small alert alert-danger help-block">').text(error));
         height_changed();
       }
 

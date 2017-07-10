@@ -34,53 +34,58 @@
   * AGPLv3
   */
 (function() {
-  var iframe_tag = document.createElement('iframe');
-
-  function receiveMessage(event){
-    if(event.origin == "<%= (request.ssl? ? "https://" : "http://") + request.env['HTTP_HOST'] %>"){
-      var window_height = event.data;
-      iframe_tag.height = window_height + "px";
-    }
-  }
-  window.addEventListener("message", receiveMessage, false);
-
-  domready(function(){
-    var widget = document.getElementById("action-center-widget");
+  function embed(widget) {
     var width = 500;
+    var iframe_tag = document.createElement("iframe");
+
+    window.addEventListener("message", function(event) {
+      if (event.origin == "<%= (request.ssl? ? "https://" : "http://") + request.env['HTTP_HOST'] %>") {
+        var window_height = event.data;
+        iframe_tag.height = window_height + "px";
+      }
+    }, false);
 
 
-    var embed_url = widget.getAttribute("href") + "/embed_iframe?";
-    if(typeof ac_embed !== "undefined"){
-      if("width" in ac_embed){
+    var embed_url = widget.getAttribute("href").split('?', 2);
+    embed_url = embed_url[0] + '/embed_iframe?' + (embed_url[1] || '');
+
+    if (typeof ac_embed !== "undefined"){
+      if("width" in ac_embed)
         width = ac_embed.width;
-      }
-      if("css" in ac_embed){
+
+      if("css" in ac_embed)
         embed_url += "&css=" + encodeURIComponent(ac_embed.css);
-      }
-      if("no_css" in ac_embed && ac_embed.no_css == true){
+
+      if("no_css" in ac_embed && ac_embed.no_css == true)
         embed_url += "&no_css=true";
-      }
-      if("css_content" in ac_embed){
+
+      if("css_content" in ac_embed) {
         var css_content = document.querySelector(ac_embed.css_content).innerHTML;
         embed_url += "&css_content=" + escape(css_content);
       }
-      if("button_text" in ac_embed){
+
+      if("button_text" in ac_embed)
         embed_url += "&button_text=" + encodeURIComponent(ac_embed.button_text);
-      }
-      if("international_only" in ac_embed && ac_embed.international_only == true){
+
+      if("international_only" in ac_embed && ac_embed.international_only == true)
         embed_url += "&international_only=true";
-      }
-      if ("non_us_option" in ac_embed && ac_embed.non_us_option == 'petition') {
+
+      if ("non_us_option" in ac_embed && ac_embed.non_us_option == "petition")
         embed_url += "&non_us_option=petition";
-      }
     }
 
-    iframe_tag.setAttribute("src",embed_url);
-    iframe_tag.setAttribute("frameborder",0);
-    iframe_tag.setAttribute("width",width);
+    iframe_tag.setAttribute("src", embed_url);
+    iframe_tag.setAttribute("frameborder", 0);
+    iframe_tag.setAttribute("width", width);
 
     widget.parentNode.insertBefore(iframe_tag, widget);
-
     widget.remove();
+  }
+
+  domready(function(){
+    var widgets = document.querySelectorAll("#action-center-widget, .action-center-widget")
+
+    for (var i=0; i < widgets.length; ++i)
+      embed(widgets[i]);
   });
 })();

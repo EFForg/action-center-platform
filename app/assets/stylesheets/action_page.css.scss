@@ -613,6 +613,10 @@ h3.privacy-notice-header {
       line-height: 1.5;
       margin-bottom:15px;
     }
+
+    .form-errors {
+      margin-bottom: 1rem;
+    }
 }
 
 .email-tool-container, .congress-message-tool-container {
@@ -869,6 +873,12 @@ h3.privacy-notice-header {
         color: #fff;
       }
     }
+  }
+
+  .defunct-notice {
+    font-size: 13px;
+    margin-bottom: 10px;
+    line-height: 1.5;
   }
 }
 
