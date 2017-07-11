@@ -89,7 +89,6 @@ class ToolsController < ApplicationController
       respond_to do |format|
         format.json {   render :json => {success: true}, :status => 200 }
         format.html do
-          flash[:notice] = 'You successfully signed the petition'
           begin
             url = URI.parse(request.referer)
             url.query = [url.query.presence, 'thankyou=1'].join('&')

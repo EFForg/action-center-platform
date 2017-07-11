@@ -106,12 +106,6 @@ class User < ActiveRecord::Base
     admin? || activist? || collaborator?
   end
 
-  def self.new_with_session(params, session)
-    email = session[:user].with_indifferent_access[:email] if session[:user]
-    params.reverse_merge!(email: email)
-    new params
-  end
-
   # This is here for collission avoidance when generating new user names in tests
   def self.next_id
     self.last.nil? ? 1 : self.last.id + 1
