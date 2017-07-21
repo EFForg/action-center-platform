@@ -56,6 +56,11 @@ When(/^I fill in my email$/) do
   fill_in "Email", :with => @visitor[:email]
 end
 
+When(/^I fill in my zip code$/) do
+  create_visitor
+  fill_in "signature_zipcode", :with => @visitor[:zip_code]
+end
+
 When(/^I submit the petition$/) do
   click_button "Speak Out"
   sleep 0.5 while !page.has_content? "Now help spread the word:"
