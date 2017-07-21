@@ -2,7 +2,7 @@
 # emails or complaints (ex we are marked as spam). The expected JSON is particular to
 # Amazon's SNS notification service, and thus will not work for other services.
 class SnsController < ApplicationController
-  skip_before_filter :verify_authenticity_token
+  protect_from_forgery with: :null_session
   before_filter :verify_amazon_authorize_key
 
   def bounce
