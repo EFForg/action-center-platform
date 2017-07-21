@@ -25,11 +25,17 @@ class SnsController < ApplicationController
       success = true
       message = JSON.parse(request.body.read)['Message']
       complaint = JSON.parse(message)['complaint']
-      complaint['complainedRecipients'].each do |recipient|
+      if complaint.nil?
+        # Save non-standard requests, ex subscription confirmation
+        Complaint.create(body: message)
+        raise 'Unexpected SNS request format'
+      end
+      recipients = complaint['complainedRecipients']
+      recipients.each do |recipient|
         Complaint.create(email: recipient['emailAddress'].downcase,
                          user_agent: complaint['userAgent'],
                          feedback_type: complaint['complaintFeedbackType'],
-                         body: complaint)
+                         body: message)
       end
    rescue
      success = false
