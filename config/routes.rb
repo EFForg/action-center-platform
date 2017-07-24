@@ -22,7 +22,6 @@ Actioncenter::Application.routes.draw do
   get "petition/:id/recent_signatures", :to => "petition#recent_signatures", :format => 'json'
 
   # Handle notifications from Amazon SES
-  # @todo: namespace under sns
   post "bounce/:amazon_authorize_key", :to => "sns#bounce", :format => 'json'
   post "complaint/:amazon_authorize_key", :to => "sns#complaint", :format => 'json'
 
