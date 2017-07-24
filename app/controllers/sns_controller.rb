@@ -21,6 +21,7 @@ class SnsController < ApplicationController
   end
 
   def complaint
+    logger.info 'Received Amazon SES complaint notification'
     begin
       success = true
       message = JSON.parse(request.body.read)['Message']
