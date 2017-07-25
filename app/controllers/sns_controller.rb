@@ -4,45 +4,25 @@
 class SnsController < ApplicationController
   protect_from_forgery with: :null_session
   before_filter :verify_amazon_authorize_key
+  before_action :set_message_and_context, :log_request
 
   def bounce
-    begin
-      success = true
-      message = JSON.parse(request.body.read)['Message']
-      bounce_arr = JSON.parse(message)['bounce']['bouncedRecipients']
-      bounce_arr.each do |recipient|
-        Bounce.create(email: recipient['emailAddress'].downcase)
-      end
-    rescue
-      success = false
-    ensure
-      render json: {success: success}
+    recipients = @message['bounce']['bouncedRecipients']
+    recipients.each do |recipient|
+      Bounce.create(email: recipient['emailAddress'].downcase)
     end
+    render json: {success: true}
   end
 
   def complaint
-    logger.info 'Received Amazon SES complaint notification'
-    begin
-      success = true
-      message = JSON.parse(request.body.read)['Message']
-      complaint = JSON.parse(message)['complaint']
-      if complaint.nil?
-        # Save non-standard requests, ex subscription confirmation
-        Complaint.create(body: message)
-        raise 'Unexpected SNS request format'
-      end
-      recipients = complaint['complainedRecipients']
-      recipients.each do |recipient|
-        Complaint.create(email: recipient['emailAddress'].downcase,
-                         user_agent: complaint['userAgent'],
-                         feedback_type: complaint['complaintFeedbackType'],
-                         body: message)
-      end
-   rescue
-     success = false
-   ensure
-      render json: {success: success}
+    recipients = @message['complaint']['complainedRecipients']
+    recipients.each do |recipient|
+      Complaint.create(email: recipient['emailAddress'].downcase,
+                       user_agent: @message['complaint']['userAgent'],
+                       feedback_type: @message['complaint']['complaintFeedbackType'],
+                       body: @message)
     end
+    render json: {success: true}
   end
 
   private
@@ -50,4 +30,16 @@ class SnsController < ApplicationController
   def verify_amazon_authorize_key
     raise ActiveRecord::RecordNotFound unless params['amazon_authorize_key'] == Rails.application.secrets.amazon_authorize_key
   end
+
+  def set_message_and_context
+    body = JSON.parse(request.body.read)
+    Raven.extra_context(message: body)
+    @message = JSON.parse(body['Message'])
+  end
+
+  def log_request
+    logger.info "Received Amazon SES #{action_name} notification"
+    Raven.capture_message("Received Amazon SES #{action_name} notification", level: 'info')
+  end
+
 end
