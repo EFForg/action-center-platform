@@ -4,10 +4,11 @@
 class SnsController < ApplicationController
   protect_from_forgery with: :null_session
   before_filter :verify_amazon_authorize_key
-  before_action :set_message_and_context, :log_request
+  before_action :set_context, :log_request
 
   def bounce
-    recipients = @message['bounce']['bouncedRecipients']
+    message = set_message()
+    recipients = message['bounce']['bouncedRecipients']
     recipients.each do |recipient|
       Bounce.create(email: recipient['emailAddress'].downcase)
     end
@@ -15,12 +16,13 @@ class SnsController < ApplicationController
   end
 
   def complaint
-    recipients = @message['complaint']['complainedRecipients']
+    message = set_message()
+    recipients = message['complaint']['complainedRecipients']
     recipients.each do |recipient|
       Complaint.create(email: recipient['emailAddress'].downcase,
-                       user_agent: @message['complaint']['userAgent'],
-                       feedback_type: @message['complaint']['complaintFeedbackType'],
-                       body: @message)
+                       user_agent: message['complaint']['userAgent'],
+                       feedback_type: message['complaint']['complaintFeedbackType'],
+                       body: message)
     end
     render json: {success: true}
   end
@@ -31,10 +33,14 @@ class SnsController < ApplicationController
     raise ActiveRecord::RecordNotFound unless params['amazon_authorize_key'] == Rails.application.secrets.amazon_authorize_key
   end
 
-  def set_message_and_context
+  def set_context
+    Raven.extra_context(message: request.body.read)
+    request.body.rewind
+  end
+
+  def set_message
     body = JSON.parse(request.body.read)
-    Raven.extra_context(message: body)
-    @message = JSON.parse(body['Message'])
+    return JSON.parse(body['Message'])
   end
 
   def log_request
