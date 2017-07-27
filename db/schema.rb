@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170724144725) do
+ActiveRecord::Schema.define(version: 20170721170625) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -138,7 +138,7 @@ ActiveRecord::Schema.define(version: 20170724144725) do
     t.string   "email"
     t.string   "feedback_type"
     t.string   "user_agent"
-    t.jsonb    "body"
+    t.json     "body"
     t.datetime "created_at",    null: false
     t.datetime "updated_at",    null: false
   end
