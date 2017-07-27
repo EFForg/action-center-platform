@@ -468,6 +468,7 @@ DEPENDENCIES
   poltergeist
   premailer-rails
   pry
+  rack-attack
   rails (~> 4.2.6)
   rails-assets-EpicEditor!
   rails-assets-bootstrap-daterangepicker (= 1.3.21)!

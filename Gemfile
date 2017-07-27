@@ -10,6 +10,7 @@ gem 'pg', '0.15.1'
 gem 'rails_12factor', group: :production # Loads 'rails_serve_static_assets' and 'rails_stdout_logging'
 gem 'aws-sdk', '< 2.0'
 gem 'dotenv-rails'
+gem 'rack-attack'
 
 # Frontend/assets
 gem 'bourbon'
