@@ -105,4 +105,7 @@ Actioncenter::Application.configure do
       [u, p] == [Rails.application.secrets.basic_auth_username, Rails.application.secrets.basic_auth_password]
     end
   end
+
+  # Rate limiting
+  config.middleware.use Rack::Attack
 end
