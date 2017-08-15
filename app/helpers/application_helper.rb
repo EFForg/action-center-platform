@@ -391,33 +391,40 @@ module ApplicationHelper
   def congress_forms_date_fills_url campaign_tag = nil, date_start = nil, date_end = nil, bioguide_id = nil
     url = Rails.application.config.congress_forms_url + '/successful-fills-by-date/'
     url = url + bioguide_id unless bioguide_id.nil?
-    url = url + '?'
-    url = url + 'campaign_tag=' + Rack::Utils.escape(CGI::escapeHTML(campaign_tag)) unless campaign_tag.nil?
-    url = url + '&time_zone=' + Rack::Utils.escape(Time.zone.name)
-    url = url + '&give_as_utc=true'
-    url = url + '&debug_key=' + Rails.application.secrets.congress_forms_debug_key.to_s
-    url = url + '&date_start=' + date_start.to_s unless date_start.nil?
-    url = url + '&date_end=' + date_end.to_s unless date_end.nil?
-    url
+    params = {
+      :campaign_tag => campaign_tag,
+      :time_zone => Time.zone.name,
+      :give_as_utc => true,
+      :debug_key => Rails.application.secrets.congress_forms_debug_key,
+      :date_start => date_start,
+      :date_end => date_end
+    }
+    params.reject! { |_, v| v.to_param.nil? }
+    url << "?#{params.to_query}"
   end
 
   def congress_forms_hour_fills_url campaign_tag = nil, date = nil, bioguide_id = nil
     url = Rails.application.config.congress_forms_url + '/successful-fills-by-hour/'
     url = url + bioguide_id unless bioguide_id.nil?
-    url = url + '?'
-    url = url + 'campaign_tag=' + Rack::Utils.escape(CGI::escapeHTML(campaign_tag)) unless campaign_tag.nil?
-    url = url + '&time_zone=' + Rack::Utils.escape(Time.zone.name)
-    url = url + '&give_as_utc=true'
-    url = url + '&debug_key=' + Rails.application.secrets.congress_forms_debug_key.to_s
-    url = url + '&date=' + date.strftime('%Y-%m-%d').to_s unless date.nil?
-    url
+    params = {
+      :campaign_tag => campaign_tag,
+      :time_zone => Time.zone.name,
+      :give_as_utc => true,
+      :debug_key => Rails.application.secrets.congress_forms_debug_key,
+      :date => date.strftime('%Y-%m-%d')
+    }
+    params.reject! { |_, v| v.to_param.nil? }
+    url << "?#{params.to_query}"
   end
 
   def congress_forms_member_fills_url campaign_tag = nil
-    url = Rails.application.config.congress_forms_url + '/successful-fills-by-member/?'
-    url = url + 'campaign_tag=' + Rack::Utils.escape(CGI::escapeHTML(campaign_tag)) unless campaign_tag.nil?
-    url = url + '&debug_key=' + Rails.application.secrets.congress_forms_debug_key.to_s
-    url
+    url = Rails.application.config.congress_forms_url + '/successful-fills-by-member/'
+    params = {
+      :campaign_tag => campaign_tag,
+      :debug_key => Rails.application.secrets.congress_forms_debug_key
+    }
+    params.reject! { |_, v| v.to_param.nil? }
+    url << "?#{params.to_query}"
   end
 
   def update_user_data(params={})
