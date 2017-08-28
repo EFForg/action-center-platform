@@ -1,6 +1,14 @@
 class RegistrationsController < Devise::RegistrationsController
   after_filter :set_create_notice, only: :create
 
+  def new
+    super do |resource|
+      if params[:t].present?
+        resource.errors.add("Registration limit", "exceeded. Please try again later.")
+      end
+    end
+  end
+
   # POST /resource
   def create
     super do |resource|
