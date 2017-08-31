@@ -53,6 +53,12 @@
         </div>
       <% end %>
 
+      <div class="form-group">
+        <%= f.label :partner_id, 'Partner newsletter' -%>
+        <%= f.collection_select :partner_id, Partner.all, :id, :name, include_blank: 'None' -%>
+        <p class='hint-text small'><%= link_to 'Add or edit partners', admin_partners_path, target: :blank -%></p>
+      </div>
+
     </div>
 
   </div><!-- END .row -->
