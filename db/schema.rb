@@ -80,14 +80,6 @@ ActiveRecord::Schema.define(version: 20170831214704) do
   add_index "action_pages", ["slug"], name: "index_action_pages_on_slug", using: :btree
   add_index "action_pages", ["tweet_id"], name: "index_action_pages_on_tweet_id", using: :btree
 
-  create_table "action_partnerships", force: :cascade do |t|
-    t.integer "action_page_id"
-    t.integer "partner_id"
-  end
-
-  add_index "action_partnerships", ["action_page_id"], name: "index_action_partnerships_on_action_page_id", using: :btree
-  add_index "action_partnerships", ["partner_id"], name: "index_action_partnerships_on_partner_id", using: :btree
-
   create_table "affiliation_types", force: :cascade do |t|
     t.string   "name"
     t.integer  "action_page_id"
@@ -253,6 +245,14 @@ ActiveRecord::Schema.define(version: 20170831214704) do
     t.time     "deleted_at"
     t.integer  "subscriptions_count", default: 0, null: false
   end
+
+  create_table "partnerships", force: :cascade do |t|
+    t.integer "action_page_id"
+    t.integer "partner_id"
+  end
+
+  add_index "partnerships", ["action_page_id"], name: "index_partnerships_on_action_page_id", using: :btree
+  add_index "partnerships", ["partner_id"], name: "index_partnerships_on_partner_id", using: :btree
 
   create_table "petitions", force: :cascade do |t|
     t.string   "title"

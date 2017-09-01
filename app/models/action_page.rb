@@ -5,8 +5,8 @@ class ActionPage < ActiveRecord::Base
   scope :published, -> { where(published: true) }
 
   has_many :events, class_name: Ahoy::Event
-  has_many :action_partnerships
-  has_many :partners, through: :action_partnerships
+  has_many :partnerships
+  has_many :partners, through: :partnerships
   has_many :action_institutions
   has_many :institutions, through: :action_institutions
   has_many :affiliation_types
