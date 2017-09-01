@@ -2,6 +2,8 @@ class Partner < ActiveRecord::Base
   acts_as_paranoid
   has_many :subscriptions
   has_many :users
+  has_many :action_partnerships
+  has_many :action_pages, through: :action_partnerships
   validates_uniqueness_of :code
 
   def to_csv(options = {})

@@ -5,6 +5,8 @@ class ActionPage < ActiveRecord::Base
   scope :published, -> { where(published: true) }
 
   has_many :events, class_name: Ahoy::Event
+  has_many :action_partnerships
+  has_many :partners, through: :action_partnerships
   has_many :action_institutions
   has_many :institutions, through: :action_institutions
   has_many :affiliation_types
@@ -14,7 +16,6 @@ class ActionPage < ActiveRecord::Base
   belongs_to :email_campaign
   belongs_to :congress_message_campaign
   belongs_to :call_campaign
-  belongs_to :partner
   belongs_to :category
   belongs_to :active_action_page_for_redirect, :class_name => "ActionPage",
              :foreign_key => "archived_redirect_action_page_id"
