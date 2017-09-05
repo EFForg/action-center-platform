@@ -15,7 +15,7 @@ Feature: Manage partners on an action
     And I click "Action Settings"
     And I check "Enable petition"
     And I press "Save"
-    Then I should be on "/action/save-the-internet"
-    Then I should see "Fight for the Future"
-    And I should see "Freedom of the Press Foundation"
+    And I click "Edit this page"
+    Then "Fight for the Future" should be selected from "Partner newsletter signups"
+    And "Freedom of the Press Foundation" should be selected from "Partner newsletter signups"
 

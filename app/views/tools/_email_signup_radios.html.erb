@@ -7,15 +7,14 @@
   <%= t :to_sign_up_for_mailings_from -%> <b><%= t :organization_abbreviation -%></b>
 </div>
 
-
-<% @actionPage.partners.each do |partner| %>
+<% if @partner %>
   <div class="email-signup text-left">
     <%= t :i -%>
-    <input type="radio" name="partner_newsletter" value="<%= partner.code -%>" id="partner_subscribe">
+    <input type="radio" name="partner_newsletter" value="<%= @partner.code -%>" id="partner_subscribe">
     <label class="radio-inline" for="partner_subscribe"><%= t :want -%></label>
     <input type="radio" name="partner_newsletter" value="" id="partner_do_not_subscribe" checked>
     <label class="radio-inline" for="partner_do_not_subscribe"><%= t :do_not_want -%></label>
-    <%= t :to_sign_up_for_mailings_from -%> <b><%= partner.name -%></b>
-    (<%= link_to 'privacy policy', partner.privacy_url -%>).
+    <%= t :to_sign_up_for_mailings_from -%> <b><%= @partner.name -%></b>
+    (<%= link_to 'privacy policy', @partner.privacy_url -%>).
   </div>
 <% end %>
