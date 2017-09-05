@@ -9,5 +9,8 @@
 
   <%= render "tools/petition_location", f: f unless defined?(zip) && !zip %>
   <%= render "tools/email_signup_radios" %>
+  <% @actionPage.partners.each do |partner| %>
+    <%= render "tools/email_signup_radios", partner: partner %>
+  <% end %>
   <%= render "tools/privacy_notice" %>
 <% end %>
