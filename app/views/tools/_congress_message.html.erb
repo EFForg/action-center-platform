@@ -41,6 +41,10 @@
           <%= render "tools/loading" -%>
         </form>
 
+        <div id="email-signup-container" class="hidden">
+          <%= render "tools/email_signup_radios" %>
+        </div>
+
       <%= content_tag(:div, nil, :class => "congress-message-tool-container",
             :data => {
               "congress-forms-url": Rails.application.config.congress_forms_url,
