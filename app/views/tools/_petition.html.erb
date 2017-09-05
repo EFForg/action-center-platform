@@ -124,12 +124,7 @@
               <% unless @require_location %>
                 <%= render 'tools/petition_location', f: f %>
               <% end %>
-
-              <%= render "tools/email_signup_radios" unless user_signed_in? %>
-              <% @actionPage.partners.each do |partner| %>
-                <%= render "tools/email_signup_radios", partner: partner %>
-              <% end %>
-
+              <%= render "tools/email_signup_radios" %>
               <%= render 'tools/save_my_info_option', info: t(%w[email name location]) -%>
 
             </fieldset>
