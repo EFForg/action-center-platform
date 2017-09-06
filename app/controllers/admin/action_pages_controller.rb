@@ -28,7 +28,7 @@ class Admin::ActionPagesController < Admin::ApplicationController
 
   def new
     @actionPage = ActionPage.new
-    @actionPage.partner = Partner.new
+    @actionPage.partners = Partner.all
     @petition = @actionPage.petition = Petition.new
     @tweet    = @actionPage.tweet    = Tweet.new
     @call_campaign = @actionPage.call_campaign = CallCampaign.new
@@ -51,7 +51,7 @@ class Admin::ActionPagesController < Admin::ApplicationController
   end
 
   def edit
-    @actionPage.partner ||= Partner.new
+    @actionPage.partners ||= Partners.all
     @actionPage.petition ||= Petition.new
     @actionPage.tweet ||= Tweet.new
 
@@ -178,10 +178,11 @@ class Admin::ActionPagesController < Admin::ApplicationController
   def action_page_params
     params.require(:action_page).
            permit(:title, :summary, :description, :category_id, :featured_image, :background_image,
+                  { :partner_ids => [] },
                   :enable_call, :enable_petition, :enable_email, :enable_tweet, :enable_congress_message,
                   :og_title, :og_image, :share_message, :published,
                   :call_campaign_id, :what_to_say, :redirect_url, :email_text, :enable_redirect,
-                  :victory, :victory_message, :partner_id,
+                  :victory, :victory_message,
                   :archived_redirect_action_page_id, :archived,
                   {action_page_images_attributes: [:id, :action_page_image]},
                   {tweet_attributes: [:id, :target, :target_house,

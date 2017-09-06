@@ -156,6 +156,10 @@ $(document).on('ready', function() {
     $(".caret .icon", this).addClass("ion-arrow-down-b").removeClass("ion-arrow-up-b");
   });
 
+  $("#action_page_partner_ids").select2({
+    placeholder: "Start typing to search..."
+  });
+
 });
 
 

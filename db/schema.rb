@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170721170625) do
+ActiveRecord::Schema.define(version: 20170831214704) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -66,7 +66,6 @@ ActiveRecord::Schema.define(version: 20170721170625) do
     t.text     "email_text"
     t.boolean  "victory",                          default: false
     t.text     "victory_message"
-    t.integer  "partner_id"
     t.boolean  "archived",                         default: false
     t.integer  "archived_redirect_action_page_id"
     t.integer  "category_id"
@@ -246,6 +245,14 @@ ActiveRecord::Schema.define(version: 20170721170625) do
     t.time     "deleted_at"
     t.integer  "subscriptions_count", default: 0, null: false
   end
+
+  create_table "partnerships", force: :cascade do |t|
+    t.integer "action_page_id"
+    t.integer "partner_id"
+  end
+
+  add_index "partnerships", ["action_page_id"], name: "index_partnerships_on_action_page_id", using: :btree
+  add_index "partnerships", ["partner_id"], name: "index_partnerships_on_partner_id", using: :btree
 
   create_table "petitions", force: :cascade do |t|
     t.string   "title"

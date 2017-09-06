@@ -1,6 +1,6 @@
 $(document).on("ready", function() {
 
-  var emailSignupForm = '<div class="email-signup">I <input type="radio" name="subscribe" value="1" checked id="do-subscribe" > <label class="radio-inline" for="do-subscribe">want</label> <input type="radio" name="subscribe" value="0" id="do-not-subscribe"> <label class="radio-inline" for="do-not-subscribe">do not want</label> to receive the EFF newsletter and emails about other EFF campaigns.</div>';
+  var emailSignupForm = $("#email-signup-container").html();
 
   var emailsSent = 0;
   var allEmailSent = function () {
@@ -20,7 +20,8 @@ $(document).on("ready", function() {
         zipcode:	$('[id="$ADDRESS_ZIP5"]').val(),
         city:		$('[id="$ADDRESS_CITY"]').val(),
         update_user_data: $("#update_user_data").prop("checked"),
-        subscribe:	$('[name="subscribe"]').prop("checked")
+        subscribe:	$('[name="subscribe"]').prop("checked"),
+        partner_newsletter: $("input[name='partner_newsletter']:checked").val()
       },
       type: "POST",
       success: function(res) {},

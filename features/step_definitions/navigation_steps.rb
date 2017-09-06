@@ -105,7 +105,14 @@ Then /^the "([^\"]*)" checkbox should not be checked$/ do |label|
 end
 
 Then(/^"(.*?)" should be selected from "(.*?)"$/) do |value, field|
-  find_field(field).find('option[selected]').text == value
+  selected = false
+  find_field(field).all('option[selected]').each do |el|
+    if el.text == value
+      selected = true
+      break
+    end
+  end
+  selected
 end
 
 Then(/^I should be on "(.*?)"$/) do |path|
