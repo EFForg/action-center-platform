@@ -20,7 +20,8 @@ $(document).on("ready", function() {
         zipcode:	$('[id="$ADDRESS_ZIP5"]').val(),
         city:		$('[id="$ADDRESS_CITY"]').val(),
         update_user_data: $("#update_user_data").prop("checked"),
-        subscribe:	$('[name="subscribe"]').prop("checked")
+        subscribe:	$('[name="subscribe"]').prop("checked"),
+        partner_newsletter: $("input[name='partner_newsletter']:checked").val()
       },
       type: "POST",
       success: function(res) {},

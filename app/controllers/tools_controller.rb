@@ -157,6 +157,15 @@ class ToolsController < ApplicationController
 
     end
 
+    if params[:partner_newsletter].present?
+      Subscription.new(
+        first_name: params[:first_name],
+        last_name: params[:last_name],
+        email: params[:email],
+        partner: Partner.find_by!(code: params[:partner_newsletter])
+      ).save
+    end
+
     @name = email_params[:first_name] # for deliver_thanks_message
 
     render :json => {success: true}, :status => 200
