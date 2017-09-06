@@ -28,7 +28,6 @@ class Admin::ActionPagesController < Admin::ApplicationController
 
   def new
     @actionPage = ActionPage.new
-    @actionPage.partners = Partner.all
     @petition = @actionPage.petition = Petition.new
     @tweet    = @actionPage.tweet    = Tweet.new
     @call_campaign = @actionPage.call_campaign = CallCampaign.new
@@ -51,7 +50,6 @@ class Admin::ActionPagesController < Admin::ApplicationController
   end
 
   def edit
-    @actionPage.partners ||= Partners.all
     @actionPage.petition ||= Petition.new
     @actionPage.tweet ||= Tweet.new
 
