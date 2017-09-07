@@ -25,6 +25,11 @@ FactoryGirl.define do
     enable_email true
   end
 
+  factory :action_page_with_congress_message, :parent => :action_page do
+    enable_congress_message true
+    congress_message_campaign
+  end
+
   factory :archived_action_page, :parent => :action_page do
     archived true
     association :active_action_page_for_redirect, :factory => :action_page
