@@ -1,11 +1,13 @@
-<div class="email-signup text-left">
-  <%= t :i -%>
-  <input type="radio" name="subscribe" value="1" <%= "checked" if params[:subscribe] == "1" -%> id="do-subscribe" >
-  <label class="radio-inline" for="do-subscribe"><%= t :want -%></label>
-  <input type="radio" name="subscribe" value="0" <%= "checked" unless params[:subscribe] == "1" -%> id="do-not-subscribe">
-  <label class="radio-inline" for="do-not-subscribe"><%= t :do_not_want -%></label>
-  <%= t :to_sign_up_for_mailings_from -%> <b><%= t :organization_abbreviation -%></b>
-</div>
+<% if current_user.nil? %>
+  <div class="email-signup text-left">
+    <%= t :i -%>
+    <input type="radio" name="subscribe" value="1" <%= "checked" if params[:subscribe] == "1" -%> id="do-subscribe" >
+    <label class="radio-inline" for="do-subscribe"><%= t :want -%></label>
+    <input type="radio" name="subscribe" value="0" <%= "checked" unless params[:subscribe] == "1" -%> id="do-not-subscribe">
+    <label class="radio-inline" for="do-not-subscribe"><%= t :do_not_want -%></label>
+    <%= t :to_sign_up_for_mailings_from -%> <b><%= t :organization_abbreviation -%></b>
+  </div>
+<% end %>
 
 <% if @partner %>
   <div class="email-signup text-left">

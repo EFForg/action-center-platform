@@ -10,8 +10,4 @@ module ToolsHelper
       "$SUBJECT"        => campaign.subject
     }
   end
-
-  def ask_for_newsletter_signup?
-    current_user.nil? && !params[:nosignup].present?
-  end
 end

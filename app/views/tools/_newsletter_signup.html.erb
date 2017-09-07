@@ -7,7 +7,10 @@
                               "aria-label": "Email #{t(:optional)}" %>
   </fieldset>
 
-  <%= render "tools/petition_location", f: f unless defined?(zip) && !zip %>
+  <% if current_user.nil? %>
+    <%= render "tools/petition_location" %>
+  <% end %>
+
   <%= render "tools/email_signup_radios" %>
   <%= render "tools/privacy_notice" %>
 <% end %>

@@ -64,9 +64,7 @@ $(document).on("ready", function() {
 
 
           $('[id="$CAPTCHA_SOLUTION"]').val("test").hide();
-          if ($("body.logged-in").length == 0) {
-            $("input[name='$EMAIL']").parent().after(emailSignupForm);
-          }
+          $("input[name='$EMAIL']").parent().after(emailSignupForm);
           $("#congressForms-common-fields").after($(".update-user-data-container").show());
 
           // if the common fields are bundled with a specific legislator's fields, there's only one legislator and don't display the common fields label.
