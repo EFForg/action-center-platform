@@ -10,6 +10,7 @@ RUN apt-get update && \
     git \
     libpq-dev \
     nodejs \
+    libfontconfig \
     postgresql-client \
     cron && \
   apt-get clean && \
