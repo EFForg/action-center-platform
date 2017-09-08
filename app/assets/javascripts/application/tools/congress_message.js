@@ -1,7 +1,5 @@
 $(document).on("ready", function() {
 
-  var emailSignupForm = $("#email-signup-container").html();
-
   var emailsSent = 0;
   var allEmailSent = function () {
     $(".email-tool-success-share").delay(500).slideDown(600, height_changed);
@@ -69,7 +67,7 @@ $(document).on("ready", function() {
 
 
           $('[id="$CAPTCHA_SOLUTION"]').val("test").hide();
-          $("input[name='$EMAIL']").parent().after(emailSignupForm);
+          $("input[name='$EMAIL']").after($("#email-signup-container").show());
           $("#congressForms-common-fields").after($(".update-user-data-container").show());
 
           // if the common fields are bundled with a specific legislator's fields, there's only one legislator and don't display the common fields label.
