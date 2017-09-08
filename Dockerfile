@@ -1,10 +1,13 @@
-FROM ruby:2.3.1
+FROM ruby:2.3-slim
 
 RUN mkdir /opt/actioncenter
 WORKDIR /opt/actioncenter
 
 RUN apt-get update && \
   apt-get install -y --no-install-recommends \
+    curl \
+    build-essential \
+    git \
     libpq-dev \
     nodejs \
     postgresql-client \
