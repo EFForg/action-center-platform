@@ -11,7 +11,7 @@ $(document).on("ready", function() {
     var url = "/tools/message-congress?action_id=" + action_id;
     $.ajax({
       url: url,
-      data: {
+      data: _.extend({
         action_id:	action_id,
         email:		$('[id="$EMAIL"]').val(),
         first_name:	$('[id="$NAME_FIRST"]').val(),
@@ -20,14 +20,19 @@ $(document).on("ready", function() {
         zipcode:	$('[id="$ADDRESS_ZIP5"]').val(),
         city:		$('[id="$ADDRESS_CITY"]').val(),
         update_user_data: $("#update_user_data").prop("checked"),
-        subscribe:	$('[name="subscribe"]').prop("checked"),
-        partner_newsletter: $("input[name='partner_newsletter']:checked").val()
-      },
+      }, getPartnerSignups()),
       type: "POST",
       success: function(res) {},
       error: function() {}
     });
   };
+
+  var getPartnerSignups = function() {
+    var partnerSignups = $('.partner input:checked');
+    return _.object(_.map(partnerSignups, function(input) {
+      return [input.name, input.value];
+    }));
+  }
 
   $("#non-us-option").click(function () {
     $("#petition-tool").show();
