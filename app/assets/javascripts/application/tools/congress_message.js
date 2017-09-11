@@ -77,13 +77,8 @@ $(document).on("ready", function() {
           }
 
           $("#congressForms-common-fields").before('<p class="step2-intro">' + options.extraFieldsExplain + "</p>" + common_fields_label);
-          //update-user-data-container
-          $("input:radio").screwDefaultButtons({
-              image: 'url("/checkbox.png")',
-              width: 15,
-              height: 15
-          });
-            // Replace the <label>s with <h3>s
+
+          // Replace the <label>s with <h3>s
           $(".legislator-label").replaceWith(function () {
               var attrs = { };
               $.each($(this)[0].attributes, function(idx, attr) {
