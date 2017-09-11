@@ -119,8 +119,10 @@
           </div>
 
           <p style="text-align: center;">
+            <% if current_user.nil? %>
             <br />
             <strong><a href="/register">Sign up</a> for an EFF Action account and save your information for next time.</strong>
+            <% end %>
           </p>
         </div>
 
