@@ -219,6 +219,7 @@ class ToolsController < ApplicationController
   end
 
   def create_partner_subscription
+    return unless @action_page
     @action_page.partners.each do |partner|
       if params["#{partner.code}_subscribe"] == "1"
         Subscription.new(
