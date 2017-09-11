@@ -8,7 +8,7 @@
   </fieldset>
 
   <% if current_user.nil? %>
-    <%= render "tools/petition_location" %>
+    <%= render "tools/petition_location", f: f %>
   <% end %>
 
   <%= render "tools/email_signup_radios" %>
