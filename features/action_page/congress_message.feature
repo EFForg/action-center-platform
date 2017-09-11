@@ -7,7 +7,7 @@ Feature: Submit messages to congress
     And a congress message campaign exists
 
   Scenario: Users can sign up for a partner newsletter when contacting congress
-    Given a partner named "The Watchers Council" exists
+    Given a partner named "The Watchers Council" with the code "twc" exists
     And "The Watchers Council" is a partner on the action
     When I browse to the action page
     And I fill in "street_address" with "815 Eddy Street"
@@ -16,7 +16,7 @@ Feature: Submit messages to congress
     And I fill in "$NAME_FIRST" with "Buffy"
     And I fill in "$NAME_LAST" with "Summers"
     And I fill in "$EMAIL" with "bsummers@ucsunnydale.edu"
-    And I click the element "label[for='p1_subscribe_1']"
+    And I click the element "label[for='twc_subscribe_1']"
     And I trigger a click on the element ".btn.action"
     Then I should see "Sent"
     And there should be a persisted Subscription with:
