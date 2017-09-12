@@ -14,7 +14,7 @@
         <textarea class="form-control" rows="14"><%= @email_campaign.message %></textarea>
       </fieldset>
 
-      <%= render "tools/newsletter_signup" if ask_for_newsletter_signup? %>
+      <%= render "tools/newsletter_signup" %>
 
       <%= link_to tools_email_target_path(
           action_id: @actionPage.id,

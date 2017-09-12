@@ -95,6 +95,11 @@ $(document).on('ready', function() {
               form.attr("data-signed-up-for-mailings", "true");
             }
 
+            $(".partner input:checked").each(function(i, el) {
+              fd.append("email", form.find("input[type=email]").val());
+              fd.append(el.name, el.value);
+            });
+
             $.ajax({
               url: "/tools/call",
               type: "POST",

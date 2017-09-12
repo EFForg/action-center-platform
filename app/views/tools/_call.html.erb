@@ -43,7 +43,7 @@
 
               <%= render "tools/save_my_info_option", info: ["phone number", "location"] -%>
 
-              <%= render "tools/newsletter_signup", f: f, zip: false if ask_for_newsletter_signup? %>
+              <%= render "tools/newsletter_signup", f: f, zip: false %>
 
               <div class="form-errors info-circle error hidden"></div>
 
@@ -119,7 +119,7 @@
           </div>
 
           <p style="text-align: center;">
-            <% if ask_for_newsletter_signup? %>
+            <% if current_user.nil? %>
             <br />
             <strong><a href="/register">Sign up</a> for an EFF Action account and save your information for next time.</strong>
             <% end %>

@@ -1,7 +1,5 @@
 $(document).on("ready", function() {
 
-  var emailSignupForm = $("#email-signup-container").html();
-
   var emailsSent = 0;
   var allEmailSent = function () {
     $(".email-tool-success-share").delay(500).slideDown(600, height_changed);
@@ -11,7 +9,7 @@ $(document).on("ready", function() {
     var url = "/tools/message-congress?action_id=" + action_id;
     $.ajax({
       url: url,
-      data: {
+      data: _.extend({
         action_id:	action_id,
         email:		$('[id="$EMAIL"]').val(),
         first_name:	$('[id="$NAME_FIRST"]').val(),
@@ -20,14 +18,19 @@ $(document).on("ready", function() {
         zipcode:	$('[id="$ADDRESS_ZIP5"]').val(),
         city:		$('[id="$ADDRESS_CITY"]').val(),
         update_user_data: $("#update_user_data").prop("checked"),
-        subscribe:	$('[name="subscribe"]').prop("checked"),
-        partner_newsletter: $("input[name='partner_newsletter']:checked").val()
-      },
+      }, getPartnerSignups()),
       type: "POST",
       success: function(res) {},
       error: function() {}
     });
   };
+
+  var getPartnerSignups = function() {
+    var partnerSignups = $('.partner input:checked');
+    return _.object(_.map(partnerSignups, function(input) {
+      return [input.name, input.value];
+    }));
+  }
 
   $("#non-us-option").click(function () {
     $("#petition-tool").show();
@@ -64,9 +67,7 @@ $(document).on("ready", function() {
 
 
           $('[id="$CAPTCHA_SOLUTION"]').val("test").hide();
-          if ($("body.logged-in").length == 0) {
-            $("input[name='$EMAIL']").parent().after(emailSignupForm);
-          }
+          $("input[name='$EMAIL']").after($("#email-signup-container").show());
           $("#congressForms-common-fields").after($(".update-user-data-container").show());
 
           // if the common fields are bundled with a specific legislator's fields, there's only one legislator and don't display the common fields label.
@@ -76,13 +77,8 @@ $(document).on("ready", function() {
           }
 
           $("#congressForms-common-fields").before('<p class="step2-intro">' + options.extraFieldsExplain + "</p>" + common_fields_label);
-          //update-user-data-container
-          $("input:radio").screwDefaultButtons({
-              image: 'url("/checkbox.png")',
-              width: 15,
-              height: 15
-          });
-            // Replace the <label>s with <h3>s
+
+          // Replace the <label>s with <h3>s
           $(".legislator-label").replaceWith(function () {
               var attrs = { };
               $.each($(this)[0].attributes, function(idx, attr) {

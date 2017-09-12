@@ -81,8 +81,4 @@ class ActionPage < ActiveRecord::Base
   def no_drafts_on_homepage
     FeaturedActionPage.where(action_page_id: id).destroy_all unless published?
   end
-
-  def random_partner
-    partners.where(id: partners.pluck(:id).sample(1)).first
-  end
 end

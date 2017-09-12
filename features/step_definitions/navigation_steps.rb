@@ -14,6 +14,11 @@ When /^I click "([^\"]*)"$/ do |link|
   click_link(link)
 end
 
+When /^I trigger a click on the element "([^\"]*)"$/ do |selector|
+  # Click events sometimes fail to fire when an animation or css transition is in progress.
+  find(selector, visible: true).trigger(:click)
+end
+
 When /^I click the element "([^\"]*)"$/ do |selector|
   find(selector).click
 end

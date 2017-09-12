@@ -1,3 +1,12 @@
+Given(/^a congress message campaign exists$/) do
+  @action_page = FactoryGirl.create(:action_page_with_congress_message)
+end
+
+Given(/^"(.*?)" is a partner on the action$/) do |name|
+  partner = Partner.where(name: name).first
+  @action_page.partners << partner
+end
+
 Given(/^a petition action exists$/) do
   @action_page = FactoryGirl.create(:petition).action_page
 end

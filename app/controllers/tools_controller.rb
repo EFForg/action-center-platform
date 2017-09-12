@@ -6,6 +6,7 @@ class ToolsController < ApplicationController
   before_filter :set_user
   before_filter :set_action_page
   before_filter :create_newsletter_subscription, only: [:call]
+  before_filter :create_partner_subscription, only: [:call, :petition, :email, :message_congress]
   after_filter :deliver_thanks_message, only: [:call, :petition, :email, :message_congress]
   skip_after_filter :deliver_thanks_message, if: :signature_has_errors
   skip_before_filter :verify_authenticity_token, only: :petition
@@ -56,7 +57,6 @@ class ToolsController < ApplicationController
     end
 
     if @signature.save
-
       # You will only get here if you are not logged in.  Subscribe does not show for logged in users,
       # since they are presented that option at signup.
       if params[:subscribe] == "1"
@@ -67,15 +67,6 @@ class ToolsController < ApplicationController
 
         @source = "action center petition :: " + @action_page.title
         @user.subscribe!(opt_in=true, source=@source)
-
-      end
-
-      if params[:partner_newsletter].present?
-        Subscription.new(
-          signature_params.slice(:email, :first_name, :last_name).merge(
-            partner: Partner.find_by!(code: params[:partner_newsletter])
-          )
-        ).save
       end
 
       if params[:update_user_data]
@@ -128,11 +119,9 @@ class ToolsController < ApplicationController
 
       @source = "action center email :: " + @action_page.title
       @user.subscribe!(opt_in=true, source=@source)
-
     end
 
     @name = email_params[:first_name] # for deliver_thanks_message
-
     render :json => {success: true}, :status => 200
   end
 
@@ -154,20 +143,9 @@ class ToolsController < ApplicationController
 
       @source = "action center congress message :: " + @action_page.title
       @user.subscribe!(opt_in=true, source=@source)
-
-    end
-
-    if params[:partner_newsletter].present?
-      Subscription.new(
-        first_name: params[:first_name],
-        last_name: params[:last_name],
-        email: params[:email],
-        partner: Partner.find_by!(code: params[:partner_newsletter])
-      ).save
     end
 
     @name = email_params[:first_name] # for deliver_thanks_message
-
     render :json => {success: true}, :status => 200
   end
 
@@ -237,6 +215,20 @@ class ToolsController < ApplicationController
       params[:subscription][:opt_in] = true
       params[:subscription][:source] = source
       CiviCRM::subscribe params[:subscription]
+    end
+  end
+
+  def create_partner_subscription
+    return unless @action_page
+    @action_page.partners.each do |partner|
+      if params["#{partner.code}_subscribe"] == "1"
+        Subscription.new(
+          first_name: params[:first_name],
+          last_name: params[:last_name],
+          email: params[:email],
+          partner: partner
+        ).save
+      end
     end
   end
 

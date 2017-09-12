@@ -7,6 +7,7 @@
 require 'cucumber/rails'
 require 'cucumber/rspec/doubles'
 require 'capybara/poltergeist'
+require 'billy/capybara/cucumber'
 
 require_relative './call_tool_mock'
 
@@ -66,6 +67,13 @@ end
 # See https://github.com/cucumber/cucumber-rails/blob/master/features/choose_javascript_database_strategy.feature
 Cucumber::Rails::Database.javascript_strategy = :truncation
 
+Before('@billy') do
+  Capybara.current_driver = :poltergeist_billy
+end
+
+After do
+    Capybara.use_default_driver
+end
 
 def stub_smarty_streets
   stub_resp = {"city"=>"San Francisco", "state_abbreviation"=>"CA", "state"=>"California", "mailable_city"=>true}

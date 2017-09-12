@@ -26,6 +26,6 @@ Feature: Image Gallery
     And I should not see "apple.png" within ".gallery"
 
     When I fill in "f" with "apple"
-    And I press "Search"
+    And I trigger a click on the element "input[value='Search']"
 
     Then I should see "apple.png" within ".gallery"

@@ -109,7 +109,6 @@ private
     @tweet = @actionPage.tweet
     @email_campaign = @actionPage.email_campaign
     @congress_message_campaign = @actionPage.congress_message_campaign
-    @partner = @actionPage.random_partner
 
     # Shows a mailing list if no tools enabled
     @no_tools = [:tweet, :petition, :call, :email, :congress_message].none? do |tool|
