@@ -15,5 +15,21 @@ Feature: Users can sign petitions
     And I fill in my email
     And I fill in my zip code
     And I submit the petition
-    And I save the page
     Then I should see "Test User" within "#signatures"
+
+  Scenario: A user can sign up for a partner newsletter
+    Given a partner named "The Watchers Council" with the code "twc" exists
+    And "The Watchers Council" is a partner on the action
+    And I exist as a user
+    And I am logged in
+    When I browse to the action page
+    And I fill in my name
+    And I fill in my email
+    And I fill in my zip code
+    And I sign up for the newsletter of the partner with code "twc"
+    And I submit the petition
+    And there should be a persisted Subscription with:
+        |first_name|Test|
+        |last_name|User|
+        |email|me@example.com|
+        |partner_id|1|

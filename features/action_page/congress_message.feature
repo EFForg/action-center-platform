@@ -18,7 +18,7 @@ Feature: Submit messages to congress
     And I fill in "$NAME_FIRST" with "Buffy"
     And I fill in "$NAME_LAST" with "Summers"
     And I fill in "$EMAIL" with "bsummers@ucsunnydale.edu"
-    And I click the element "label[for='twc_subscribe_1']"
+    And I sign up for the newsletter of the partner with code "twc"
     And I trigger a click on the element ".btn.action"
     Then I should see "Sent"
     And there should be a persisted Subscription with:

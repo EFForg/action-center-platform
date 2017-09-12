@@ -222,18 +222,21 @@ class ToolsController < ApplicationController
     return unless @action_page
     @action_page.partners.each do |partner|
       if params["#{partner.code}_subscribe"] == "1"
-        Subscription.new(
-          first_name: params[:first_name],
-          last_name: params[:last_name],
-          email: params[:email],
-          partner: partner
-        ).save
+        Subscription.create!(partner_signup_params.merge(partner: partner))
       end
     end
   end
 
   def signature_has_errors
     !@signature.nil? and @signature.errors.count > 0
+  end
+
+  def partner_signup_params
+    if params[:signature].present?
+      params.require(:signature).permit(:first_name, :last_name, :email)
+    else
+      params.permit(:first_name, :last_name, :email)
+    end
   end
 
   def signature_params
