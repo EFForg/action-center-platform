@@ -5,6 +5,8 @@ Feature: Users can sign up for partner mailings on call action pages
     Given a call campaign exists
     And a partner named "Fight for the Future" with the code "ftf" exists
     And "Fight for the Future" is a partner on the action
+    And I exist as a user
+    And I am logged in
     And I browse to the action page
 
   Scenario: I can sign up for partner mailings

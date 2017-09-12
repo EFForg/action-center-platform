@@ -19,10 +19,19 @@ function rumbleEl(el) {
 
 $(document).on('ready', function() {
   jQuery(".timeago").timeago();
+
+  // Show a random e-mail signup (ours or an action partner's) on each tool
+  $.fn.random = function() {
+    return this.eq(Math.floor(Math.random() * this.length));
+  }
+  $('.tool').each(function() {
+    $(this).find('.email-signup').random().toggleClass('without-js');
+  });
+
+  // Enables popover on the action pages.
+  $('.customize-message-popover').popover();
+  $('.privacy-notice-popover').popover();
 });
-// Enables popover on the action pages.
-$('.customize-message-popover').popover();
-$('.privacy-notice-popover').popover();
 
 // Give an approximate character count guide to see how many character's are
 // left in a tweet or social media card.  Tweet length isn't so accurate due to

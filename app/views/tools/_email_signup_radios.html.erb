@@ -1,5 +1,5 @@
 <% if current_user.nil? %>
-  <div class="email-signup text-left">
+  <div class="email-signup text-left without-js">
     <%= t :i -%>
     <input type="radio" name="subscribe" value="1" <%= "checked" if params[:subscribe] == "1" -%> id="do-subscribe" >
     <label class="radio-inline" for="do-subscribe"><%= t :want -%></label>
@@ -10,7 +10,7 @@
 <% end %>
 
 <% @actionPage.partners.each do |partner| %>
-  <div class="email-signup partner text-left">
+  <div class="email-signup partner text-left without-js">
     <%= t :i -%>
 
     <%= radio_button_tag "#{partner.code}_subscribe", 1 %>
