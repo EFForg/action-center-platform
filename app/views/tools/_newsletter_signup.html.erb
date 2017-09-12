@@ -1,16 +1,11 @@
-<% form_helper = defined?(f) ? [:fields_for, :subscription] : [:form_for, :subscription, { url: subscriptions_path, method: :post, remote: true, html: { class: "newsletter-subscription" } }] %>
-<%= send(*form_helper) do |f| %>
+<% if @actionPage.partners.present? or current_user.nil? %>
+  <% form_helper = defined?(f) ? [:fields_for, :subscription] : [:form_for, :subscription, { url: subscriptions_path, method: :post, remote: true, html: { class: "newsletter-subscription" } }] %>
+  <%= send(*form_helper) do |f| %>
 
-  <fieldset>
     <%= f.email_field :email, class: "form-control",
                               placeholder: "Email #{t(:optional)}",
                               "aria-label": "Email #{t(:optional)}" %>
-  </fieldset>
 
-  <% if current_user.nil? and (!defined?(zip) or zip) %>
-    <%= render "tools/petition_location", f: f %>
+    <%= render "tools/email_signup_radios", f: f %>
   <% end %>
-
-  <%= render "tools/email_signup_radios" %>
-  <%= render "tools/privacy_notice" %>
 <% end %>
