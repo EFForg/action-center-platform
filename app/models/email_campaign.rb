@@ -34,9 +34,6 @@ class EmailCampaign < ActiveRecord::Base
 
       gmail: "https://mail.google.com/mail/?view=cm&fs=1&#{{ to: email_addresses, body: message, su: subject }.to_query}",
 
-      # couldn't get newlines to work here, see: https://stackoverflow.com/questions/1632335/uri-encoding-in-yahoo-mail-compose-link
-      yahoo: "https://compose.mail.yahoo.com/?#{{ to: email_addresses, subj: subject, body: message }.to_query}",
-
       hotmail: "https://outlook.live.com/default.aspx?rru=compose&#{{ to: email_addresses, body: message, subject: subject }.to_query}#page=Compose"
     }.with_indifferent_access.fetch(service)
   end
