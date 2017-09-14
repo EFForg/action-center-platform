@@ -77,7 +77,7 @@ module CiviCRM
       raise res['error_message'] if res['error']
       return res
     rescue => e
-      puts "#{ e } (#{ e.class })!"
+      logger.error "#{ e } (#{ e.class })!"
     end
   end
 
