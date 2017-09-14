@@ -1,24 +1,14 @@
 <% if @actionPage.partners.present? or current_user.nil? %>
-  <% form_helper = defined?(f) ? [:fields_for, :subscription] :
-    # If we're not already in a form, create little subscription form
-    [:form_for, :subscription,
-     { url: subscriptions_path,
-       method: :post,
-       remote: true,
-       html: { class: "newsletter-subscription" }
-     }
-    ]
-  %>
-  <%= send(*form_helper) do |f| %>
+  <%= fields_for :subscription do |subscription_fields| %>
 
-    <%= f.email_field :email, class: "form-control",
+    <%= subscription_fields.email_field :email, class: "form-control",
                               placeholder: "Email #{t(:optional)}",
                               "aria-label": "Email #{t(:optional)}" if email %>
 
     <% if current_user.nil? %>
       <div class="email-signup text-left without-js">
 
-        <%= render "tools/petition_location", f: f if location %>
+        <%= render "tools/petition_location", f: subscription_fields if location %>
 
         <div class="signup-radios">
           <%= t :i -%>

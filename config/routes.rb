@@ -13,7 +13,6 @@ Actioncenter::Application.routes.draw do
   post "tools/tweet"
   post "tools/email"
   post "tools/message-congress"
-  get "tools/email_target"
   get "tools/reps"
   get "tools/reps_raw"
   get "tools/social_buttons_count"
