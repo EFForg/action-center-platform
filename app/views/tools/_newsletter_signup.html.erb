@@ -5,7 +5,7 @@
                               placeholder: "Email #{t(:optional)}",
                               "aria-label": "Email #{t(:optional)}" if email %>
 
-    <% if current_user.nil? %>
+    <% if current_user.nil? and params[:partner].nil? %>
       <div class="email-signup text-left without-js">
 
         <%= render "tools/petition_location", f: subscription_fields if location %>
@@ -24,7 +24,7 @@
       </div>
     <% end %>
 
-    <% @actionPage.partners.each do |partner| %>
+    <% visible_partners.each do |partner| %>
       <div class="email-signup partner signup-radios text-left without-js">
         <%= t :i -%>
 

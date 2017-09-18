@@ -235,6 +235,11 @@ Given(/^A petition exists thats one signature away from its goal$/) do
   create_an_action_page_petition_needing_one_more_signature
 end
 
+Given(/^I browse to the action page with a "(.*?)" newsletter signup$/) do |partner|
+  partner_code = Partner.find_by(name: partner).code
+  visit "/action/#{@action_page.title.downcase.gsub(" ", "-")}?partner=#{partner_code}"
+end
+
 When(/^I browse to the action page$/) do
   visit "/action/#{@action_page.title.downcase.gsub(" ", "-")}"
 end
