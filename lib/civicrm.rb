@@ -69,9 +69,12 @@ module CiviCRM
     )
   end
 
+  def self.supporters_api_url
+    "#{Rails.application.secrets.supporters['host']}/#{Rails.application.secrets.supporters['path']}"
+  end
+
   private
   def self.post(params)
-    supporters_api_url = "#{Rails.application.secrets.supporters['host']}/#{Rails.application.secrets.supporters['path']}"
     begin
       res = JSON.parse RestClient.post(supporters_api_url, params)
       raise res['error_message'] if res['error']
