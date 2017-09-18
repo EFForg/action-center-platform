@@ -33,7 +33,7 @@ module CiviCRM
   end
 
   def self.skip_crm?
-    Rails.env == 'test' or Rails.application.secrets.supporters['api_key'].nil?
+    Rails.application.secrets.supporters['api_key'].nil?
   end
 
   def self.subscribe(params)

@@ -6,5 +6,5 @@ Feature: Users can sign up for mailings on tweet action pages
     When I browse to the action page
     Then I should see a sign up form for mailings
 
-    When I enter my email address for mailings and click Sign Up
-    Then I should have signed up for mailings
+    When I enter the email "me@test.com" and click Sign Up
+    Then "me@test.com" should be signed up for mailings

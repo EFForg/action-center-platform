@@ -439,8 +439,8 @@ Given(/^an email campaign exists$/) do
   create_an_email_campaign
 end
 
-When(/^I enter my email address and opt for mailings$/) do
-  find("input[name=subscription\\[email\\]]").set("abcdef@example.com")
+When(/^I enter the email "(.*?)" and opt for mailings$/) do |email|
+  find("input[name=subscription\\[email\\]]").set(email)
   find("label[for=do-subscribe]").click
 end
 
@@ -449,8 +449,13 @@ Then(/^I should see an option to sign up for mailings$/) do
   expect(page).to have_css(".email-signup input[type=radio][name=subscribe][value='1']", visible: false)
 end
 
-Then(/^I should have signed up for mailings$/) do
-  expect(page).to have_css("form[data-signed-up-for-mailings=true]", visible: false)
+Then(/^"(.*?)" should be signed up for mailings$/) do |email|
+  Timeout.timeout(Capybara.default_max_wait_time) do
+    sleep(0.1) while CiviCRM::subscriptions.empty?
+  end
+  subscription = JSON.parse(CiviCRM::subscriptions[0][:data])
+  subscribed_email = subscription["contact_params"]["email"]
+  expect(subscribed_email).to eq(email)
 end
 
 Then(/^I should not have signed up for mailings$/) do
@@ -465,8 +470,8 @@ Then(/^I should see a sign up form for mailings$/) do
   expect(page).to have_css("form.newsletter-subscription")
 end
 
-When(/^I enter my email address for mailings and click Sign Up$/) do
-  find("input[name=subscription\\[email\\]]").set("abcdef@example.com")
+When(/^I enter the email "(.*?)" and click Sign Up$/) do |email|
+  find("input[name=subscription\\[email\\]]").set(email)
   click_on "Sign up"
 end
 

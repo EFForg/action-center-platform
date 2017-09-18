@@ -9,8 +9,6 @@ require 'cucumber/rspec/doubles'
 require 'capybara/poltergeist'
 require 'billy/capybara/cucumber'
 
-require_relative './call_tool_mock'
-
 Capybara.register_driver :poltergeist do |app|
   Capybara::Poltergeist::Driver.new(app, url_blacklist: ["anon-stats.eff.org"])
 end
@@ -72,7 +70,7 @@ Before('@billy') do
 end
 
 After do
-    Capybara.use_default_driver
+  Capybara.use_default_driver
 end
 
 def stub_smarty_streets

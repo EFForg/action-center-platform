@@ -11,6 +11,6 @@ Feature: Users can sign up for mailings on call action pages
     Then I should not have signed up for mailings
 
   Scenario: Opting in should sign you up for mailings
-    When I enter my email address and opt for mailings
+    When I enter the email "test@example.com" and opt for mailings
     And I fill in my phone number, address, and zip code and click call
-    Then I should have signed up for mailings
+    Then "test@example.com" should be signed up for mailings
