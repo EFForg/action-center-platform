@@ -9,15 +9,19 @@ RUN apt-get update && \
     build-essential \
     git \
     libpq-dev \
-    nodejs \
     libfontconfig \
     postgresql-client \
-    cron && \
-  apt-get clean && \
-  rm -rf /var/lib/apt/lists/* \
-    /tmp/* \
-    /var/tmp/*
+    cron
 
+RUN set -x; \
+  curl -sL https://deb.nodesource.com/setup_6.x -o nodesource_setup.sh \
+  && chmod +x nodesource_setup.sh \
+  && ./nodesource_setup.sh \
+  && apt-get update \
+  && apt-get install -y --no-install-recommends \
+    nodejs \
+  && apt-get clean \
+  && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
 # Create a symlink to what will be the phantomjs exec path
 RUN ln -s /phantomjs-2.1.1-linux-x86_64/bin/phantomjs /bin/phantomjs
