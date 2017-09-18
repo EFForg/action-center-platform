@@ -1,8 +1,5 @@
 require "civicrm"
 
-# def senate_call_campaign_id; 1; end
-# def custom_call_campaign_id; 2; end
-
 module CiviCRM
   module UserMethods
     def contact_id!
@@ -18,7 +15,6 @@ module CiviCRM
   # Instead of posting to CiviCRM,
   # we store posts in memory so we can query them in our tests.
   def self.post(params)
-    puts params
     subscriptions.push(params)
   end
   
