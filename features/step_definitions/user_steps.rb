@@ -451,6 +451,7 @@ Then(/^I should see an option to sign up for mailings$/) do
 end
 
 Then(/^"(.*?)" should be signed up for mailings$/) do |email|
+  sleep(2)
   email = email.sub("@", "%40")
   WebMock.should have_requested(:post, CiviCRM::supporters_api_url).
     with(body: /.*#{email}.*/)
