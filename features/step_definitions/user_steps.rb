@@ -407,6 +407,7 @@ When(/^I fill in my phone number, address, and zip code and click call$/) do
   find("input[name=inputStreetAddress]").set("815 Eddy St.")
   find("input[name=inputZip]").set("94109")
   find("button.call-tool-submit").click
+  expect(page).to have_css("form[data-success=true]", visible: false)
 end
 
 When(/^I fill in my phone number and click call$/) do
@@ -450,12 +451,9 @@ Then(/^I should see an option to sign up for mailings$/) do
 end
 
 Then(/^"(.*?)" should be signed up for mailings$/) do |email|
-  Timeout.timeout(Capybara.default_max_wait_time) do
-    sleep(0.1) while CiviCRM::subscriptions.empty?
-  end
-  subscription = JSON.parse(CiviCRM::subscriptions[0][:data])
-  subscribed_email = subscription["contact_params"]["email"]
-  expect(subscribed_email).to eq(email)
+  email = email.sub("@", "%40")
+  WebMock.should have_requested(:post, CiviCRM::supporters_api_url).
+    with(body: /.*#{email}.*/)
 end
 
 Then(/^I should not have signed up for mailings$/) do
@@ -473,6 +471,10 @@ end
 When(/^I enter the email "(.*?)" and click Sign Up$/) do |email|
   find("input[name=subscription\\[email\\]]").set(email)
   click_on "Sign up"
+end
+
+When(/^I wait for the tweet submission to succeed$/) do
+  expect(page).to have_selector("input[value='Subscribed!']")
 end
 
 Then(/^the email "(.*?)" should go to "(.*?)"$/) do |subject, address|

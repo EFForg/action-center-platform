@@ -8,12 +8,17 @@ require 'cucumber/rails'
 require 'cucumber/rspec/doubles'
 require 'capybara/poltergeist'
 require 'billy/capybara/cucumber'
+require 'webmock/cucumber'
+
+Dir[Rails.root.join("spec/support/**/*.rb")].each {|f| require f}
 
 Capybara.register_driver :poltergeist do |app|
   Capybara::Poltergeist::Driver.new(app, url_blacklist: ["anon-stats.eff.org"])
 end
 
 Capybara.javascript_driver = :poltergeist
+
+WebMock.allow_net_connect!
 
 # Capybara defaults to CSS3 selectors rather than XPath.
 # If you'd prefer to use XPath, just uncomment this line and adjust any
@@ -71,6 +76,10 @@ end
 
 After do
   Capybara.use_default_driver
+end
+
+Before do
+  stub_civicrm
 end
 
 def stub_smarty_streets
