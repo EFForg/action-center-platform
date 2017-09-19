@@ -13,4 +13,5 @@ Feature: Users can sign up for mailings on email action pages
   Scenario: Opting in should sign you up for mailings
     When I enter the email "test@example.com" and opt for mailings
     And I click open using gmail
+    And a new window opens
     Then "test@example.com" should be signed up for mailings

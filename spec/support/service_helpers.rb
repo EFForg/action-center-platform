@@ -9,3 +9,5 @@ end
 RSpec.configure do |c|
   c.include ServiceHelpers
 end
+
+World(ServiceHelpers) if respond_to?(:World) #cucumber
