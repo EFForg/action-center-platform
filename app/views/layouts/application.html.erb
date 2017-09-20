@@ -15,6 +15,11 @@
     <%= stylesheet_link_tag "application", media: "all" %>
     <%= yield(:head) if content_for?(:head) -%>
     <%= csrf_meta_tags %>
+
+    <script type="text/javascript">
+      // Remove the no-js class from <html> if js is loading
+        document.documentElement.className = document.documentElement.className.replace("no-js", "js");
+    </script>
   </head>
 
   <body class="<%= current_user ? 'logged-in' : '' %> <%= controller.controller_name  + "-" +action_name %>">

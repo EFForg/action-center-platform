@@ -21,10 +21,6 @@
   }
 }());
 
-//Remove the no-js class from <html> if js is loading
-document.documentElement.className = document.documentElement.className.replace("no-js", "js");
-
-
 webshims.setOptions('basePath', '/webshims/shims/')
 webshims.setOptions('forms', {
   //show custom styleable validation bubble

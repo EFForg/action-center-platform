@@ -16,17 +16,16 @@ function rumbleEl(el) {
   }, 500);
 }
 
+// Show a random e-mail signup (ours or an action partner's) on each tool
+$.fn.random = function() {
+  return this.eq(Math.floor(Math.random() * this.length));
+}
+$('.tool').each(function() {
+  $(this).find('.email-signup').hide().random().show();
+});
 
 $(document).on('ready', function() {
   jQuery(".timeago").timeago();
-
-  // Show a random e-mail signup (ours or an action partner's) on each tool
-  $.fn.random = function() {
-    return this.eq(Math.floor(Math.random() * this.length));
-  }
-  $('.tool').each(function() {
-    $(this).find('.email-signup').random().toggleClass('without-js');
-  });
 
   // Enables popover on the action pages.
   $('.customize-message-popover').popover();
