@@ -80,7 +80,8 @@ module CiviCRM
       raise res['error_message'] if res['error']
       return res
     rescue => e
-      puts "#{ e } (#{ e.class })!"
+      Rails.logger.error "#{ e } (#{ e.class })!"
+      return false
     end
   end
 

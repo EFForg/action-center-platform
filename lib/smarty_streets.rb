@@ -3,7 +3,7 @@ module SmartyStreets
   def self.get_city_state(zipcode)
     url = "https://api.smartystreets.com/zipcode/"
     res = post(url, base_params.merge(zipcode: zipcode))
-    if res && res.first
+    if res && !res.empty?
       res.first['city_states'].try :first
     end
   end
@@ -24,7 +24,8 @@ module SmartyStreets
       res = JSON.parse RestClient.get("#{url}?#{params.to_query}")
       return res
     rescue => e
-      puts "#{ e } (#{ e.class })!"
+      Rails.logger.error "#{ e } (#{ e.class })!"
+      return false
     end
   end
 

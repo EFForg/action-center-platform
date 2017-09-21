@@ -41,7 +41,7 @@ class SmartyStreetsController < ApplicationController
     begin
       return RestClient.get url, accept: :json, :'X-Include-Invalid' => 'true'
     rescue => e
-      puts e
+      logger.error e
     end
   end
 

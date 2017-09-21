@@ -370,14 +370,14 @@ Styles for the alert box
 
   #dummy:checked,
   input[type="radio"] + label::before {
-    content: url('/assets/radio-unchecked.png');
+    content: asset-data-url('radio-unchecked.png');
     top: 3px;
     left: 4px;
     position: absolute;
   }
 
   input[type="radio"]:checked + label::before {
-    content: url('/assets/radio-checked.png');
+    content: asset-data-url('radio-checked.png');
   }
 
 }

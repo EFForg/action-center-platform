@@ -3,7 +3,6 @@
  * listed below.
  */
 
-
 .redtop {
   padding: 2em 0 0;
   h1 {
@@ -226,9 +225,18 @@
         }
       }
     }
+
   }
   .progress {
     height: 41px;
+  }
+}
+
+.js {
+  .tool {
+    .email-signup + .email-signup {
+      display: none;
+    }
   }
 }
 
