@@ -14,6 +14,10 @@ When /^I click "([^\"]*)"$/ do |link|
   click_link(link)
 end
 
+When /^a new window opens$/ do
+  expect(page.driver.browser.window_handles.size).to eq(2)
+end
+
 When /^I trigger a click on the element "([^\"]*)"$/ do |selector|
   # Click events sometimes fail to fire when an animation or css transition is in progress.
   find(selector, visible: true).trigger(:click)

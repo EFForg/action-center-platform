@@ -106,6 +106,8 @@ $(document).on('ready', function() {
               data: fd,
               processData: false,
               contentType: false
+            }).success(function() {
+              form.attr("data-success", "true");
             });
           }
         }, zip_code, street_address);

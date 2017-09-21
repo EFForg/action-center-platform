@@ -2,6 +2,10 @@ Given(/^a congress message campaign exists$/) do
   @action_page = FactoryGirl.create(:action_page_with_congress_message)
 end
 
+When(/^I sign up for the newsletter of the partner with code "(.*?)"$/) do |code|
+  find("label[for='#{code}_subscribe_1']").click
+end
+
 Given(/^"(.*?)" is a partner on the action$/) do |name|
   partner = Partner.where(name: name).first
   @action_page.partners << partner

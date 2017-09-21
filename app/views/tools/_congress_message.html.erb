@@ -42,7 +42,7 @@
         </form>
 
         <div id="email-signup-container" style="display:none;">
-          <%= render "tools/email_signup_radios" %>
+          <%= render "tools/newsletter_signup", email: false, location: false, privacy_notice: false %>
         </div>
 
       <%= content_tag(:div, nil, :class => "congress-message-tool-container",

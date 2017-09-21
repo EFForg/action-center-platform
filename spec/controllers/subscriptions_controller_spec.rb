@@ -10,6 +10,10 @@ RSpec.describe SubscriptionsController, type: :controller do
     :format => :json
     } }
 
+  before(:each) do
+    stub_civicrm
+  end
+
   it "can accept an email" do
     post :create, valid_attributes
 

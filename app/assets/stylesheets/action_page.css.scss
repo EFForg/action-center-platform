@@ -3,7 +3,6 @@
  * listed below.
  */
 
-
 .redtop {
   padding: 2em 0 0;
   h1 {
@@ -226,9 +225,18 @@
         }
       }
     }
+
   }
   .progress {
     height: 41px;
+  }
+}
+
+.js {
+  .tool {
+    .email-signup + .email-signup {
+      display: none;
+    }
   }
 }
 
@@ -642,6 +650,9 @@ h3.privacy-notice-header {
     font-size: 13px;
     padding: 6px;
   }
+  form {
+    text-align: center;
+  }
   .form-group {
     margin-bottom: 7px;
   }
@@ -692,7 +703,7 @@ h3.privacy-notice-header {
   .congress-message-tool-container {
     margin-top: 20px;
   }
-  #congressForms-common-fields div.email-signup:first-child {
+  #congressForms-common-fields div.signup-radios:first-child {
     display:block;
   }
   .captcha-form {

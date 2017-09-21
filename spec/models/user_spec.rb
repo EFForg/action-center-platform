@@ -5,6 +5,10 @@ describe User do
   let(:attr) { FactoryGirl.attributes_for :user }
   let(:user) { FactoryGirl.create(:user) }
 
+  before(:each) do
+    stub_civicrm
+  end
+
   it "creates a new instance given a valid attributes" do
     User.create!(attr)
   end

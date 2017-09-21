@@ -11,6 +11,7 @@ Feature: Users can sign up for mailings on email action pages
     Then I should not have signed up for mailings
 
   Scenario: Opting in should sign you up for mailings
-    When I enter my email address and opt for mailings
+    When I enter the email "test@example.com" and opt for mailings
     And I click open using gmail
-    Then I should have signed up for mailings
+    And a new window opens
+    Then "test@example.com" should be signed up for mailings

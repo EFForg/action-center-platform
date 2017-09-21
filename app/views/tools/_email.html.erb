@@ -13,62 +13,54 @@
       <fieldset disabled>
         <textarea class="form-control" rows="14"><%= @email_campaign.message %></textarea>
       </fieldset>
+      <%= form_tag '/tools/email', method: 'post', target: '_blank' do |f| -%>
+        <input type="hidden" name="action_id" value="<%= @actionPage.id %>" />
+        <input type="hidden" name="dnt" value="false" />
 
-      <%= render "tools/newsletter_signup" %>
+        <%= render "/tools/newsletter_signup", email: true, location: true, privacy_notice: true %>
 
-      <%= link_to tools_email_target_path(
-          action_id: @actionPage.id,
-          service: 'default'),
-          target: '_blank',
-          class: 'btn btn-red email-action' do -%>
-             <i class="icon-mail"></i> Open using default mail client
+        <%= button_tag type: 'submit',
+                       name: 'service',
+                       value: 'default',
+                       class: 'btn btn-red email-action' do -%>
+          Open using default mail client
+        <% end %>
+        <p class="small">Or send using:</p>
+
+        <%= button_tag type: 'submit',
+                       name: 'service',
+                       value: 'gmail',
+                       class: 'btn btn-sm btn-red-outline email-action' do -%>
+          <i class="icon-google"></i> Gmail
+        <% end %>
+
+        <%= button_tag type: 'submit',
+                       name: 'service',
+                       value: 'hotmail',
+                       class: 'btn btn-sm btn-red-outline email-action' do -%>
+          <i class="icon-windows"></i> Outlook
+        <% end %>
+        <br>
+
+        <%= button_tag type: 'submit',
+                       name: 'service',
+                       value: 'copy',
+                       data: {
+                         :'clipboard-target' => 'email_target_text',
+                         :placement => 'bottom',
+                         :toggle => 'tooltip',
+                         :title => 'Copied!',
+                         :trigger => 'click',
+                       },
+                       id: 'copy-email-action',
+                       class: 'btn btn-sm btn-red-outline email-action' do -%>
+          <i class="icon-copy"></i> Copy to Clipboard
+        <% end %>
+
+        <div id='email_target_text'><%= render 'tools/email_target_text' %></div>
+
+        <%= render 'tools/share' -%>
       <% end %>
-
-      <p class="small">Or send using:</p>
-
-      <!--
-      <%= link_to tools_email_target_path(
-          action_id: @actionPage.id,
-          service: 'yahoo'),
-          target: '_blank',
-          class: 'btn btn-sm btn-red-outline email-action' do -%>
-             <i class="icon-yahoo"></i> Yahoo Mail
-      <% end %>
-      -->
-
-      <%= link_to tools_email_target_path(
-          action_id: @actionPage.id,
-          service: 'gmail'),
-          target: '_blank',
-          class: 'btn btn-sm btn-red-outline email-action' do -%>
-             <i class="icon-google"></i> Gmail
-      <% end %>
-      <%= link_to tools_email_target_path(
-          action_id: @actionPage.id,
-          service: 'hotmail'),
-          target: '_blank',
-          class: 'btn btn-sm btn-red-outline email-action' do -%>
-             <i class="icon-windows"></i> Outlook
-      <% end %>
-      <br>
-      <%= link_to tools_email_target_path(
-          action_id: @actionPage.id,
-          service: 'copy'),
-          target: '_blank',
-          id: 'copy-email-action',
-          data: {
-            :'clipboard-target' => 'email_target_text',
-            :placement => 'bottom',
-            :toggle => 'tooltip',
-            :title => 'Copied!',
-            :trigger => 'click',
-          },
-          class: 'btn btn-sm btn-red-outline email-action' do -%>
-             <i class="icon-copy"></i> Copy to Clipboard
-      <% end %>
-      <div id='email_target_text'><%= render 'tools/email_target_text' %></div>
-
-      <%= render 'tools/share' -%>
     </div>
   </div>
 </div>

@@ -407,6 +407,7 @@ When(/^I fill in my phone number, address, and zip code and click call$/) do
   find("input[name=inputStreetAddress]").set("815 Eddy St.")
   find("input[name=inputZip]").set("94109")
   find("button.call-tool-submit").click
+  expect(page).to have_css("form[data-success=true]", visible: false)
 end
 
 When(/^I fill in my phone number and click call$/) do
@@ -439,8 +440,8 @@ Given(/^an email campaign exists$/) do
   create_an_email_campaign
 end
 
-When(/^I enter my email address and opt for mailings$/) do
-  find("input[name=subscription\\[email\\]]").set("abcdef@example.com")
+When(/^I enter the email "(.*?)" and opt for mailings$/) do |email|
+  find("input[name=subscription\\[email\\]]").set(email)
   find("label[for=do-subscribe]").click
 end
 
@@ -449,8 +450,10 @@ Then(/^I should see an option to sign up for mailings$/) do
   expect(page).to have_css(".email-signup input[type=radio][name=subscribe][value='1']", visible: false)
 end
 
-Then(/^I should have signed up for mailings$/) do
-  expect(page).to have_css("form[data-signed-up-for-mailings=true]", visible: false)
+Then(/^"(.*?)" should be signed up for mailings$/) do |email|
+  email = email.sub("@", "%40")
+  WebMock.should have_requested(:post, CiviCRM::supporters_api_url).
+    with(body: /.*#{email}.*/)
 end
 
 Then(/^I should not have signed up for mailings$/) do
@@ -465,9 +468,13 @@ Then(/^I should see a sign up form for mailings$/) do
   expect(page).to have_css("form.newsletter-subscription")
 end
 
-When(/^I enter my email address for mailings and click Sign Up$/) do
-  find("input[name=subscription\\[email\\]]").set("abcdef@example.com")
+When(/^I enter the email "(.*?)" and click Sign Up$/) do |email|
+  find("input[name=subscription\\[email\\]]").set(email)
   click_on "Sign up"
+end
+
+When(/^I wait for the tweet submission to succeed$/) do
+  expect(page).to have_selector("input[value='Subscribed!']")
 end
 
 Then(/^the email "(.*?)" should go to "(.*?)"$/) do |subject, address|

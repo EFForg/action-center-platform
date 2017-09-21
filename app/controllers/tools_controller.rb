@@ -5,9 +5,9 @@ require 'json'
 class ToolsController < ApplicationController
   before_filter :set_user
   before_filter :set_action_page
-  before_filter :create_newsletter_subscription, only: [:call]
-  before_filter :create_partner_subscription, only: [:call, :petition, :email, :message_congress]
-  after_filter :deliver_thanks_message, only: [:call, :petition, :email, :message_congress]
+  before_filter :create_newsletter_subscription, only: [:email, :call]
+  before_filter :create_partner_subscription, only: [:email, :call, :petition, :message_congress]
+  after_filter :deliver_thanks_message, only: [:email, :call, :petition, :message_congress]
   skip_after_filter :deliver_thanks_message, if: :signature_has_errors
   skip_before_filter :verify_authenticity_token, only: :petition
 
@@ -101,30 +101,6 @@ class ToolsController < ApplicationController
     render :json => {success: true}, :status => 200
   end
 
-  def email
-    @user ||= User.find_or_initialize_by(email: params[:email])
-
-    update_user_data(email_params.with_indifferent_access) if params[:update_user_data] == "true"
-
-    ahoy.track "Action",
-      { type: "action", actionType: "email", actionPageId: params[:action_id] },
-      action_page: @action_page
-
-    # You will only get here if you are not logged in.  Subscribe does not show for logged in users,
-    # since they are presented that option at signup.
-    if params[:subscribe] == "true"
-      @user.attributes = email_params.slice(
-        :first_name, :last_name, :city, :state, :street_address, :zipcode
-      )
-
-      @source = "action center email :: " + @action_page.title
-      @user.subscribe!(opt_in=true, source=@source)
-    end
-
-    @name = email_params[:first_name] # for deliver_thanks_message
-    render :json => {success: true}, :status => 200
-  end
-
   def message_congress
     @user ||= User.find_or_initialize_by(email: params[:email])
 
@@ -149,10 +125,7 @@ class ToolsController < ApplicationController
     render :json => {success: true}, :status => 200
   end
 
-  # GET /tools/email_target
-  #
-  # This endpoint is hit by...
-  def email_target
+  def email
     unless (@user and @user.events.emails.find_by_action_page_id(params[:action_id])) or params.include? :dnt
       ahoy.track "Action",
         { type: "action", actionType: "email", actionPageId: params[:action_id] },
@@ -161,6 +134,7 @@ class ToolsController < ApplicationController
 
     if params[:service] == "copy"
       @actionPage = @action_page
+      render :email_target
     else
       redirect_to @action_page.email_campaign.service_uri(params[:service])
     end
@@ -222,18 +196,22 @@ class ToolsController < ApplicationController
     return unless @action_page
     @action_page.partners.each do |partner|
       if params["#{partner.code}_subscribe"] == "1"
-        Subscription.new(
-          first_name: params[:first_name],
-          last_name: params[:last_name],
-          email: params[:email],
-          partner: partner
-        ).save
+        Subscription.create!(partner_signup_params.merge(partner: partner))
       end
     end
   end
 
   def signature_has_errors
     !@signature.nil? and @signature.errors.count > 0
+  end
+
+  def partner_signup_params
+    if params[:signature].present?
+      params.require(:signature).permit(:first_name, :last_name, :email)
+    else
+      # Partner signup params might come through the main form or a nested subscription form.
+      params.merge(params[:subscription] || {}).permit(:first_name, :last_name, :email)
+    end
   end
 
   def signature_params

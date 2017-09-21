@@ -33,7 +33,7 @@ module CiviCRM
   end
 
   def self.skip_crm?
-    Rails.env == 'test' or Rails.application.secrets.supporters['api_key'].nil?
+    Rails.application.secrets.supporters['api_key'].nil?
   end
 
   def self.subscribe(params)
@@ -69,9 +69,12 @@ module CiviCRM
     )
   end
 
+  def self.supporters_api_url
+    "#{Rails.application.secrets.supporters['host']}/#{Rails.application.secrets.supporters['path']}"
+  end
+
   private
   def self.post(params)
-    supporters_api_url = "#{Rails.application.secrets.supporters['host']}/#{Rails.application.secrets.supporters['path']}"
     begin
       res = JSON.parse RestClient.post(supporters_api_url, params)
       raise res['error_message'] if res['error']

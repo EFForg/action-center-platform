@@ -7,7 +7,7 @@ $(function() {
       $(e.target).submit();
       $('.savedLabel').remove();
       var savedText = $('<span/>').addClass('savedLabel').css({'font-weight': 'bold'}).text('Saved');
-      $('.email-signup').append(savedText);
+      $('.email-signup').last().append(savedText);
       setTimeout(function () {
         savedText.fadeOut(500);
       }, 1000)

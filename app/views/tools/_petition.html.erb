@@ -124,7 +124,7 @@
               <% unless @require_location %>
                 <%= render 'tools/petition_location', f: f %>
               <% end %>
-              <%= render "tools/email_signup_radios" %>
+              <%= render "tools/newsletter_signup", email: false, location: false, privacy_notice: false %>
               <%= render 'tools/save_my_info_option', info: t(%w[email name location]) -%>
 
             </fieldset>

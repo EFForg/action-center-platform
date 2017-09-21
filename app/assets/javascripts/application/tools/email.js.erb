@@ -1,19 +1,12 @@
 $(document).on('ready', function() {
   var dnt = false;
-  $('#target-email a.email-action').click(function(){
-    // we need this timeout so the link isn't changed before it is followed
-    setTimeout(function(){
-      if(!dnt){
-        $('#target-email a.email-action').each(function(){
-          $(this).attr('href', $(this).attr('href') + "&dnt=true");
-        });
-      }
+  $('#target-email .email-action').click(function(){
+    // we need this timeout so the value isn't changed before submission
+    setTimeout(function() {
+      if (!dnt) { $('input[name="dnt"]').val('true'); }
       dnt = true;
     }, 0);
 
     $('.email-tool-success-share').delay(5000).slideDown(600, height_changed);
-
-    if ($("form.newsletter-subscription input[name=subscribe]:checked").val() == "1")
-      $("form.newsletter-subscription").submit();
   });
 });
