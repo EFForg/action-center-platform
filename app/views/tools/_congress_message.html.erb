@@ -47,7 +47,7 @@
 
       <%= content_tag(:div, nil, :class => "congress-message-tool-container",
             :data => {
-              "congress-forms-url": Rails.application.config.congress_forms_url,
+              "congress-forms-url": "/phantomdc",
               "campaign-tag": @congress_message_campaign.campaign_tag,
               "email-values": congress_forms_email_values(@congress_message_campaign).to_json,
               "target-house": @congress_message_campaign.target_house,
