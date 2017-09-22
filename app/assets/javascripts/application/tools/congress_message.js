@@ -48,12 +48,10 @@ $(document).on("ready", function() {
     // Stop character encoding on the subject
     emailValues["$SUBJECT"] =$("<div/>").html(emailValues["$SUBJECT"]).text();
 
-    var congressFormsUrl = $(".congress-message-tool-container").data("congress-forms-url")
-
     $(".congress-message-tool-container").congressForms({
         bioguide_ids: rep_ids,
         labels: false,
-        contactCongressServer: congressFormsUrl,
+        contactCongressServer: '/phantomdc',
         values: emailValues || {},
         topic_category: options.topicCategory,
         campaign_tag: options.campaignTag,
