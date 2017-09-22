@@ -5,11 +5,12 @@ end
 Given(/^a stubbed phantomdc$/) do
   Rails.application.config.congress_forms_url = "http://phantomdc.test"
 
-  proxy.stub("#{Rails.application.config.congress_forms_url}/retrieve-form-elements", :method => 'post').
-    and_return( Proc.new { |params, headers, body| {
-      :headers => { 'Access-Control-Allow-Origin' => '*' },
-      :json => {
-        "#{body.last(7)}": {
+  stub_request(:post, "#{Rails.application.config.congress_forms_url}/retrieve-form-elements").
+    and_return( Proc.new { |request| {
+      :headers => { 'Access-Control-Allow-Origin' => '*',
+                    'Content-Type' => 'application/json' },
+      :body => {
+        "#{request.body.last(7)}": {
           defunct: false,
           contact_url: nil,
           required_actions: [
@@ -18,14 +19,15 @@ Given(/^a stubbed phantomdc$/) do
             {value: "$EMAIL", maxlength: nil, options_hash: nil}
           ]
         }
-      }
+      }.to_json
     }
   })
 
-  proxy.stub("#{Rails.application.config.congress_forms_url}/fill-out-form", :method => 'post').
-    and_return( Proc.new { |params, headers, body| {
-      :headers => { 'Access-Control-Allow-Origin' => '*' },
-      :json => { status: "success" }
+  stub_request(:post, "#{Rails.application.config.congress_forms_url}/fill-out-form").
+    and_return( Proc.new { |request| {
+      :headers => { 'Access-Control-Allow-Origin' => '*',
+                    'Content-Type' => 'application/json' },
+      :body => { status: "success" }.to_json
     }
   })
 end
