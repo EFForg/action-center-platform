@@ -125,4 +125,18 @@ Actioncenter::Application.routes.draw do
       get :search
     end
   end
+
+  scope "phantomdc", controller: "phantom_dc" do
+    post "retrieve-form-elements"
+    post "fill-out-form"
+    post "fill-out-captcha"
+
+    get "recent-fill-image/:bio_id", action: "recent_fill_image"
+    get "recent-fill-status/:bio_id", action: "recent_fill_status"
+    get "recent-statuses-detailed/:bio_id", action: "recent_statuses_detailed"
+    get "list-actions/:bio_id", action: "list_actions"
+    get "list-congress-members", action: "list_congress_members"
+    get "successful-fills-by-date/:bio_id", action: "successful_fills_by_date"
+    get "successful-fills-by-member/:bio_id", action: "successful_fills_by_member"
+  end
 end
