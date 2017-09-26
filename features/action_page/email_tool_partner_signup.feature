@@ -5,9 +5,7 @@ Feature: Users can sign up for mailings on email action pages
     Given an email campaign exists
     And a partner named "The Watchers Council" with the code "twc" exists
     And "The Watchers Council" is a partner on the action
-    And I exist as a user
-    And I am logged in
-    And I browse to the action page
+    And I browse to the action page with a "The Watchers Council" newsletter signup
 
   Scenario: Opting in should sign you up for mailings
     When I fill in "subscription_email" with "bsummers@ucsunnydale.edu"

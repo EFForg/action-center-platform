@@ -77,4 +77,9 @@ module ActionPageHelper
       gsub(/\$URL/, url).
       gsub(/\$NAME/, name)
   end
+
+  def visible_partners
+    featured = @actionPage.partners.where(code: params[:partner])
+    featured.empty? ? @actionPage.partners : featured
+  end
 end
