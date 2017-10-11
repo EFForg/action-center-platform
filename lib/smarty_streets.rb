@@ -1,7 +1,7 @@
 require 'rest_client'
 module SmartyStreets
   def self.get_city_state(zipcode)
-    url = "https://api.smartystreets.com/zipcode/"
+    url = "https://us-zipcode.api.smartystreets.com/lookup"
     res = post(url, base_params.merge(zipcode: zipcode))
     if res && !res.empty?
       res.first['city_states'].try :first
