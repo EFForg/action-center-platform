@@ -5,9 +5,9 @@ class Rack::Attack
     end
   end
 
-  throttle('password reset', limit: 10, period: 1.day) do |req|
-    if req.path == '/password'
-      req.env['HTTP_X_FORWARDED_FOR'].split(/\s*,\s*/)[0]
+  throttle('password reset', limit: 1, period: 1.day) do |req|
+    if req.path == '/password' && req.params['user']
+      req.params['user']['email'].presence
     end
   end
 end
