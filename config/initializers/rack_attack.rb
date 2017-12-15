@@ -5,6 +5,12 @@ class Rack::Attack
     end
   end
 
+  throttle('password reset', limit: 10, period: 1.day) do |req|
+    if req.path == '/password'
+      req.env['HTTP_X_FORWARDED_FOR'].split(/\s*,\s*/)[0]
+    end
+  end
+
   ### Custom Throttle Response ###
 
   self.throttled_response = lambda do |env|
