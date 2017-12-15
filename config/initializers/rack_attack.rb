@@ -5,16 +5,6 @@ class Rack::Attack
     end
   end
 
-  # this didn't interact well with redirects
-  # throttle('everything', limit: 50, period: 1.day) do |req|
-  #   req.env['HTTP_X_FORWARDED_FOR'].split(/\s*,\s*/)[0]
-  # end
-
-  blocklist("security probes") do |req|
-    ip = req.env['HTTP_X_FORWARDED_FOR'].split(/\s*,\s*/)[0]
-    ["111.125.208.206"].include?(ip)
-  end
-
   ### Custom Throttle Response ###
 
   self.throttled_response = lambda do |env|
