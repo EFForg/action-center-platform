@@ -1,7 +1,11 @@
 class Rack::Attack
   throttle('registrations', limit: 10, period: 1.day) do |req|
     if req.path == '/' && req.post?
-      req.ip || req.env['HTTP_X_FORWARDED_FOR'].ip.split(/\s*,\s*/)[0]
+      if req.env['HTTP_X_FORWARDED_FOR']
+        req.env['HTTP_X_FORWARDED_FOR'].ip.split(/\s*,\s*/)[0]
+      else
+        req.ip
+      end
     end
   end
 
