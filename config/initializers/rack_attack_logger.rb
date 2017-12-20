@@ -1,6 +1,6 @@
 ActiveSupport::Notifications.subscribe('rack.attack') do |name, start, finish, request_id, req|
   if req.env['HTTP_X_FORWARDED_FOR']
-    ip = req.env['HTTP_X_FORWARDED_FOR'].ip.split(/\s*,\s*/)[0]
+    ip = req.env['HTTP_X_FORWARDED_FOR'].split(/\s*,\s*/)[0]
   else
     ip = req.ip
   end
