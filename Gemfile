@@ -117,7 +117,6 @@ group :development, :test do
   gem 'database_cleaner'
   gem 'pry'
   gem 'factory_girl_rails'
-  gem "codeclimate-test-reporter", require: nil
 end
 
 group :production do

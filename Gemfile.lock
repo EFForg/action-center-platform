@@ -109,8 +109,6 @@ GEM
     cocaine (0.5.8)
       climate_control (>= 0.0.3, < 1.0)
     cocoon (1.2.9)
-    codeclimate-test-reporter (0.5.0)
-      simplecov (>= 0.7.1, < 1.0.0)
     coderay (1.1.1)
     coffee-script-source (1.10.0)
     concurrent-ruby (1.0.5)
@@ -150,7 +148,6 @@ GEM
       thread_safe (~> 0.1)
       warden (~> 1.2.3)
     diff-lcs (1.2.5)
-    docile (1.1.5)
     domain_name (0.5.20160310)
       unf (>= 0.0.5, < 1.0.0)
     dotenv (2.1.1)
@@ -210,6 +207,8 @@ GEM
     http_parser.rb (0.6.0)
     i18n (0.9.1)
       concurrent-ruby (~> 1.0)
+    invisible_captcha (0.10.0)
+      rails (>= 3.2.0)
     iso_country_codes (0.7.5)
     jbuilder (1.5.3)
       activesupport (>= 3.0.0)
@@ -399,11 +398,6 @@ GEM
       websocket (~> 1.0)
     sentry-raven (0.15.6)
       faraday (>= 0.7.6)
-    simplecov (0.11.2)
-      docile (~> 1.1.0)
-      json (~> 1.8)
-      simplecov-html (~> 0.10.0)
-    simplecov-html (0.10.0)
     slop (3.6.0)
     sprockets (2.12.4)
       hike (~> 1.2)
@@ -464,7 +458,6 @@ DEPENDENCIES
   capybara (~> 2.5.0)
   chartkick
   cocoon
-  codeclimate-test-reporter
   cucumber-rails (= 1.4.2)
   daemons
   database_cleaner
@@ -481,6 +474,7 @@ DEPENDENCIES
   gravatar-ultimate
   groupdate
   http_accept_language
+  invisible_captcha
   iso_country_codes
   jbuilder (~> 1.2)
   jquery-fileupload-rails
@@ -538,4 +532,4 @@ DEPENDENCIES
   will_paginate (~> 3.0)
 
 BUNDLED WITH
-   1.13.1
+   1.15.4
