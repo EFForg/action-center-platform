@@ -109,8 +109,6 @@ GEM
     cocaine (0.5.8)
       climate_control (>= 0.0.3, < 1.0)
     cocoon (1.2.9)
-    codeclimate-test-reporter (1.0.8)
-      simplecov (<= 0.13)
     coderay (1.1.1)
     coffee-script-source (1.10.0)
     concurrent-ruby (1.0.5)
@@ -150,7 +148,6 @@ GEM
       thread_safe (~> 0.1)
       warden (~> 1.2.3)
     diff-lcs (1.2.5)
-    docile (1.1.5)
     domain_name (0.5.20160310)
       unf (>= 0.0.5, < 1.0.0)
     dotenv (2.1.1)
@@ -400,11 +397,6 @@ GEM
       websocket (~> 1.0)
     sentry-raven (0.15.6)
       faraday (>= 0.7.6)
-    simplecov (0.13.0)
-      docile (~> 1.1.0)
-      json (>= 1.8, < 3)
-      simplecov-html (~> 0.10.0)
-    simplecov-html (0.10.2)
     slop (3.6.0)
     sprockets (2.12.4)
       hike (~> 1.2)
@@ -462,7 +454,6 @@ DEPENDENCIES
   capybara (~> 2.5.0)
   chartkick
   cocoon
-  codeclimate-test-reporter
   cucumber-rails (= 1.4.2)
   daemons
   database_cleaner
