@@ -35,8 +35,6 @@ services:
     #   - ./Gemfile:/opt/Gemfile
     #   - ./Gemfile.lock:/opt/Gemfile.lock
 
-    # # Serve Rails using unicorn in production.
-    # command: unicorn
     # # Automatically restart the app on exit in production.
     # restart: always
 

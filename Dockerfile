@@ -41,7 +41,6 @@ ADD bin/ ./bin
 ADD config/ ./config
 ADD config.ru ./
 ADD Rakefile ./
-ADD Procfile ./
 ADD db/ ./db
 ADD lib/ ./lib
 ADD public/ ./public
