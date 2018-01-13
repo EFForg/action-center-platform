@@ -64,7 +64,7 @@ $(document).on('ready', function() {
     $.ajax({ url: '/tools/tweet?action_id=' + action_id, type: 'POST' });
 
     var btn = $(e.target);
-    var msg = $('#tweet-message');
+    var msg = $('#tweet-message-wrapper textarea');
     if (msg.length > 0) {
       btn.attr('href', "https://twitter.com/intent/tweet?related=eff&status=" +
         "." + btn.data('twitter-id') + "%20" + encodeURIComponent(msg.val()));

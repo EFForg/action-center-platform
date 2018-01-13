@@ -86,6 +86,7 @@ gem 'oauth'
 gem 'email_validator'
 gem 'iso_country_codes'
 gem 'cocoon'                      # Dynamically add and remove nested associations from forms
+gem 'invisible_captcha'           # Prevent form submissions by bots
 
 group :doc do
   # bundle exec rake doc:rails generates the API under doc/api
@@ -116,10 +117,9 @@ group :development, :test do
   gem 'database_cleaner'
   gem 'pry'
   gem 'factory_girl_rails'
-  gem "codeclimate-test-reporter", require: nil
 end
 
 group :production do
   gem 'lograge'
-  gem 'unicorn'
+  gem 'puma'
 end
