@@ -108,4 +108,7 @@ Actioncenter::Application.configure do
 
   # Rate limiting
   config.middleware.use Rack::Attack
+
+  # Quieter, ip-free logging
+   config.lograge.enabled = true
 end

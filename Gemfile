@@ -120,5 +120,6 @@ group :development, :test do
 end
 
 group :production do
+  gem 'lograge'
   gem 'puma'
 end
