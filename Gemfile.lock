@@ -103,8 +103,7 @@ GEM
     childprocess (0.5.9)
       ffi (~> 1.0, >= 1.0.11)
     chronic (0.10.2)
-    climate_control (0.0.3)
-      activesupport (>= 3.0)
+    climate_control (0.2.0)
     cliver (0.3.2)
     cocaine (0.5.8)
       climate_control (>= 0.0.3, < 1.0)
@@ -232,7 +231,7 @@ GEM
       mini_mime (>= 0.1.1)
     method_source (0.8.2)
     mime-types (2.99.3)
-    mimemagic (0.3.0)
+    mimemagic (0.3.2)
     mini_mime (1.0.0)
     mini_portile2 (2.3.0)
     minitest (5.10.3)
@@ -246,12 +245,12 @@ GEM
       nokogiri
     oauth (0.5.1)
     orm_adapter (0.5.0)
-    paperclip (4.3.6)
-      activemodel (>= 3.2.0)
-      activesupport (>= 3.2.0)
+    paperclip (5.2.1)
+      activemodel (>= 4.2.0)
+      activesupport (>= 4.2.0)
       cocaine (~> 0.5.5)
       mime-types
-      mimemagic (= 0.3.0)
+      mimemagic (~> 0.3.0)
     pg (0.15.1)
     poltergeist (1.10.0)
       capybara (~> 2.1)
@@ -482,7 +481,7 @@ DEPENDENCIES
   lograge
   nokogiri
   oauth
-  paperclip (~> 4.1)
+  paperclip (~> 5.2)
   pg (= 0.15.1)
   poltergeist
   premailer-rails

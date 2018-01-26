@@ -44,7 +44,7 @@ end
 
 # File upload
 gem 's3_cors_fileupload', git: 'https://github.com/sinak/s3_cors_fileupload', ref: 'd5e14'
-gem "paperclip", "~> 4.1"
+gem "paperclip", "~> 5.2"
 gem "jquery-fileupload-rails"
 
 # Email preformatting
