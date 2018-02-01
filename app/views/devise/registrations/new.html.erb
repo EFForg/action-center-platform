@@ -12,6 +12,7 @@
           </div>
           <div class="form-group">
             <%= f.label :password %>
+            <%= link_to 'How to create strong passwords', 'https://ssd.eff.org/en/module/creating-strong-passwords', class: 'input-note' %>
             <%= f.password_field :password, :class => 'form-control', :required => 'required' %>
           </div>
           <div class="form-group">
@@ -24,10 +25,10 @@
             I
             <%= f.radio_button :subscribe, 'true'-%>
             <%= f.label :subscribe, 'want', value: 'true', class: 'radio-inline'-%>
-              
+
             <%= f.radio_button :subscribe, 'false'-%>
             <%= f.label :subscribe, 'do not want', value: 'false', class: 'radio-inline'-%>
-            
+
             to receive the EFF newsletter and emails about other EFF campaigns.
           </div>
 
@@ -35,10 +36,10 @@
             I
             <%= f.radio_button :record_activity, 'true', id: 'do-record' -%>
             <label class="radio-inline" for="do-record">want</label>
-              
+
             <%= f.radio_button :record_activity, 'false', id: 'do-not-record' -%>
             <label class="radio-inline" for="do-not-record">do not want</label>
-            
+
             EFF to keep a record of actions I take on the site, to be used for features like leaderboards or to give out prizes to the most active action-takers.
           </div>
           <div><%= f.submit "Sign up", :class => 'btn btn-default' %></div>
