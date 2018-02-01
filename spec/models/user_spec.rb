@@ -21,6 +21,13 @@ describe User do
       expect(user.reset_password_token).to be_nil
     end
 
+    it "resets password reset tokens upon password change" do
+      user.update_attributes(reset_password_token: "stub_token")
+      expect(user.reset_password_token).not_to be_nil
+      user.update_attributes(password: "My new password is pretty great")
+      expect(user.reset_password_token).to be_nil
+    end
+
     it "allows new users to use weak passwords" do
       result = set_weak_password(user)
       expect(result).to be_truthy
