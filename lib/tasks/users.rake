@@ -20,7 +20,7 @@ namespace :users do
   task :add_admin, [:email] => :environment do |t, args|
     email = args[:email]
     u = User.find_by_email(email)
-    next(puts "I couldn't find a user with the email '#{email}'.") unless u
+    abort("I couldn't find a user with the email '#{email}'.") unless u
 
     u.admin = true
     if u.save

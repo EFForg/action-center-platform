@@ -52,6 +52,10 @@ describe "User-related rake tasks" do
           /I couldn't find a user with the email '#{email}'./
         ).to_stdout
       end
+
+      it 'returns failure code' do
+        expect { run_task }.to exit_with_failure_code
+      end
     end
   end
 
@@ -65,11 +69,6 @@ describe "User-related rake tasks" do
       expect(user.reload.admin?).to be_falsey
     end
 
-    it 'returns success code' do
-      run_task
-      expect(`echo $?`).to match(/0/)
-    end
-
     context 'when user is missing' do
       let(:email) { 'nobody@nothing.net' }
 
@@ -80,8 +79,7 @@ describe "User-related rake tasks" do
       end
 
       it 'returns failure code' do
-        run_task
-        expect(`echo $?`).not_to match(/0/)
+        expect { run_task }.to exit_with_failure_code(1)
       end
     end
   end
