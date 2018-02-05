@@ -47,14 +47,10 @@ describe "User-related rake tasks" do
     context 'when user is missing' do
       let(:email) { 'nobody@nothing.net' }
 
-      it 'returns a friendly message' do
-        expect { run_task }.to output(
-          /I couldn't find a user with the email '#{email}'./
-        ).to_stdout
-      end
-
       it 'returns failure code' do
-        expect { run_task }.to exit_with_failure_code
+        expect { run_task }.to raise_error(
+          /I couldn't find a user with the email '#{email}'/
+        )
       end
     end
   end
@@ -72,14 +68,10 @@ describe "User-related rake tasks" do
     context 'when user is missing' do
       let(:email) { 'nobody@nothing.net' }
 
-      it 'returns a friendly message' do
-        expect { run_task }.to output(
-          /I couldn't find a user with the email '#{email}'./
-        ).to_stdout
-      end
-
       it 'returns failure code' do
-        expect { run_task }.to exit_with_failure_code(1)
+        expect { run_task }.to raise_error(
+          /I couldn't find a user with the email '#{email}'/
+        )
       end
     end
   end
