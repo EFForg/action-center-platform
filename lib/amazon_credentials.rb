@@ -14,6 +14,7 @@ module AmazonCredentials
         access_key_id: Rails.application.secrets.amazon_access_key_id,
         secret_access_key: Rails.application.secrets.amazon_secret_access_key
       },
+      region: Rails.application.secrets.amazon_region,
       s3_host_name: build_s3_host_name,
       s3_protocol: "https"
     }.merge(bucket_url_options)
