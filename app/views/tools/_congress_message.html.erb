@@ -12,8 +12,8 @@
           <% unless @congress_message_campaign.target_bioguide_ids %>
             <fieldset id="lookup-address">
               <h3>
-                <em><%= @congress_message_campaign.look_up_your_rep_text "Look up your representatives" %></em>
                 <span class="customize-message-popover" data-container="body" data-toggle="popover" data-trigger="hover" data-placement="auto bottom" data-content="<%= @congress_message_campaign.look_up_helper_text "We'll use your address to look up your congressional district and find your representatives." %>">?</span>
+                <em><%= @congress_message_campaign.look_up_your_rep_text "Look up your representatives" %></em>
               </h3>
 
               <div class="form-group">
@@ -28,8 +28,8 @@
           <% end %>
           <fieldset id="customize-message">
             <h3>
-              <em>Customize your message</em>
               <span class="customize-message-popover" data-container="body" data-toggle="popover" data-trigger="hover" data-placement="auto bottom" data-content="<%= @congress_message_campaign.customize_message_helper_text "Add a personal note about why this matters to you. Members of Congress value a customized message much higher than a form letter." %>">?</span>
+              <em>Customize your message</em>
             </h3>
             <div class="form-group">
                 <textarea class="campaign-message form-control" rows="11"><%= @congress_message_campaign.message -%></textarea>
