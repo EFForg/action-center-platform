@@ -1,14 +1,3 @@
-<script type='text/x-underscore-template' id='individual_signature'>
-  <tr>
-    <td>
-      <div>{{ name }}</div>
-      <div>{{ location }}</div>
-    </td>
-    <td class="timeago">
-      {{ time_ago }}
-    </td>
-  </tr>
-</script>
 <div id="petition-tool" class="tool <%= 'un' unless current_user.try(:signed?, @actionPage.petition) || params[:thankyou] -%>signed" data-petition-id="<%= @actionPage.petition.id %>">
   <div class="tool-container">
 

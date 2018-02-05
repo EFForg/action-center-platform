@@ -95,7 +95,11 @@ $(document).on('ready', function() {
         var progress_total = $('.signatures-bar').attr('aria-valuemax');
         $(".signatures-bar").attr('aria-valuenow', signatures_total).css({width: signatures_total/progress_total*100 + '%'});
         var signatures = data.signatories;
-        var individual_signature_template = $('#individual_signature').html();
+        var individual_signature_template =
+          "<tr>\
+            <td> <div>{{ name }}</div> <div>{{ location }}</div> </td>\
+            <td class='timeago'> {{ time_ago }} </td>\
+          </tr>"
         var signatures_html = _.map(signatures, function(signature){
           return _.template(individual_signature_template)({
             name: (signature.first_name ? signature.first_name + " " + signature.last_name : "Anonymous"),
