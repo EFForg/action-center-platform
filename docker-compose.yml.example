@@ -18,9 +18,9 @@ services:
   app:
     build: .
 
-    # # Expose ports for development.
+    # # Expose ports for development. Use 8094 to integrate with Congress Forms.
     # ports:
-    #   - '3000:3000'
+    #   - '8094:3000'
     # # Use volumes to edit files from the host OS in development.
     # volumes:
     #   - ./app:/opt/actioncenter/app
