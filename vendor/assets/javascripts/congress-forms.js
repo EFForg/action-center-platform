@@ -477,7 +477,18 @@
           .attr('placeholder', label_name);
         $input.addClass(that.settings.textareaClasses);
       } else if(field_name === '$PHONE') {
-        var $input = $(JST['application/templates/phone_fields']());
+        var $input = $("<input \
+          type='text' \
+          placeholder='Phone number' \
+          aria-label='Phone number' \
+          id='$PHONE' \
+          name='$PHONE' \
+          class='form-control bfh-phone' \
+          data-format='ddd-ddd-dddd' \
+          pattern='^((5\d[123467890])|(5[123467890]\d)|([2346789]\d\d))-\d\d\d-\d\d\d\d$' \
+          title='Must be a valid US phone number entered in 555-555-5555 format' \
+          required='required'\
+        >")
         $input.each(function(){
           $phone = $(this);
           $phone.bfhphone($phone.data());
