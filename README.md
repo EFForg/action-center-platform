@@ -18,6 +18,7 @@ Follow these instructions to run the Action Center using Docker (recommended). T
 5. Run the application: `sudo docker-compose up`
 6. In a new tab, get a bash shell with access to your app: `sudo docker-compose exec app bash`.
     1. If you aren't running migrations automatically, run `rake db:migrate` to migrate the database.
+    2. Run `rake congress:update` to populate CongressMember table.
 
 
 ### Notable Dependencies
