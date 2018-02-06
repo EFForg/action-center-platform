@@ -62,7 +62,7 @@
     legislatorCount: 0,
 
     init: function() {
-      _.bindAll(this, 'toggleChecked', 'onCaptchaNeeded');
+      _.bindAll(this, 'onCaptchaNeeded');
       var that = this;
 
       var form = $('<form/>').addClass(this.settings.formClasses);
@@ -72,10 +72,6 @@
       // Detect click of captcha form
       $('body').on('click', '.' + pluginName + '-captcha-button', function (ev) {
         var answerEl = $(ev.currentTarget).parents('.' + pluginName + '-captcha-container').find('.' + pluginName + '-captcha');
-        that.submitCaptchaForm(answerEl);
-      });
-      $('body').on('click', '.recaptcha-submit', function(ev){
-        var answerEl = $(ev.currentTarget).parents('.recaptcha-wrapper').find('#answer_serialized');
         that.submitCaptchaForm(answerEl);
       });
       // Detect enter key on input
@@ -219,17 +215,8 @@
     },
     onCaptchaNeeded: function(legislator, fieldset, url, uid, replace){
       var captchaForm;
-      if($('[data-google-recaptcha=true]', fieldset).length > 0){
-        captchaForm = this.generateRecaptchaForm(url, legislator, uid);
-        $('.recaptcha-option', captchaForm).click(this.toggleChecked);
-      } else {
-        captchaForm = this.generateCaptchaForm(url, legislator, uid);
-      }
-      if(replace){
-        $(fieldset).find('.recaptcha-div').replaceWith(captchaForm);
-      } else {
-        $(fieldset).append(captchaForm);
-      }
+      captchaForm = this.generateCaptchaForm(url, legislator, uid);
+      $(fieldset).append(captchaForm);
       this.settings.onLegislatorCaptcha(legislator, $(fieldset));
     },
     generateForm: function(groupedData, form) {
@@ -327,24 +314,6 @@
       var submitButton = $('<button>').attr('type', 'button').addClass('btn btn-primary ' + pluginName +'-captcha-button').text('Submit Captcha');
       formGroup.append(submitButton);
       return formGroup;
-    },
-    generateRecaptchaForm: function (captchaUrl, legislatorId, captchaUID) {
-      return $(JST['application/templates/recaptcha']({
-        captcha_url: captchaUrl,
-        captcha_uid: captchaUID,
-        legislator_id: legislatorId
-      }));
-    },
-    toggleChecked: function(ev){
-      var options_selected = this.deserialize_options($('#answer_serialized', $(ev.target).parents('.recaptcha-wrapper')).val());
-      var new_value = !options_selected[$(ev.target).data('recaptcha-option')];
-      options_selected[$(ev.target).data('recaptcha-option')] = new_value;
-      if(new_value){
-        $(ev.target).html('&#10003;');
-      } else {
-        $(ev.target).html('');
-      }
-      $('#answer_serialized', $(ev.target).parents('.recaptcha-wrapper')).val(this.serialize_options(options_selected));
     },
     deserialize_options: function(serialized){
       var deserialized = {};
@@ -497,8 +466,6 @@
         var $input = $('<input type="text" />')
           .attr('placeholder', label_name);
         $input.addClass(that.settings.textInputClasses);
-        if(field.options_hash && "google_recaptcha" in field.options_hash)
-          $input.attr('data-google-recaptcha', 'true');
       }
       if(that.settings.values && typeof that.settings.values[field_name] !== 'undefined') {
         $input.val(that.settings.values[field_name]);
