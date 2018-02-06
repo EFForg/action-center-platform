@@ -39,7 +39,6 @@
     onLegislatorCaptchaSubmit: function (legislatorId, legislatorFieldset) {},
     onLegislatorCaptchaSuccess: function (legislatorId, legislatorFieldset) {},
     onLegislatorCaptchaError: function (legislatorId, legislatorFieldset) {},
-    onLegislatorSuccess: function (legislatorId, legislatorFieldset) {},
     onLegislatorError: function (legislatorId, legislatorFieldset) {},
 
     onDefunctLegislator: function(legislatorId, contactUrl) {},
@@ -68,7 +67,6 @@
 
       var form = $('<form/>').addClass(this.settings.formClasses);
       this.retrieveFormElements(form);
-      //console.log(form);
       $(form).on('submit', this.submitForm.bind(this));
 
       // Detect click of captcha form
@@ -112,19 +110,16 @@
 
     },
     submitForm: function (ev) {
-      //console.log(this, 'a')
       var that = this;
 
       var form = $(ev.currentTarget);
       // Select common field set
       var commonFieldset = $('#' + pluginName + '-common-fields', form);
       var commonData = commonFieldset.serializeObject();
-      //console.log(commonData);
       if($('.' + pluginName + '-legislator-fields').length > 0 ){
         $.each($('.' + pluginName + '-legislator-fields:not([disabled])'), function(index, legislatorFieldset) {
           var legislatorId = $(legislatorFieldset).attr('data-legislator-id');
           var legislatorData = $(legislatorFieldset).serializeObject();
-          console.log(legislatorId, legislatorFieldset, legislatorData);
           var fullData = $.extend({}, commonData, legislatorData);
           var captcha_uid = that.generateUID();
           that.settings.onLegislatorSubmit(legislatorId, $(legislatorFieldset));
@@ -161,16 +156,13 @@
                 fields: fullData
               },
               success: function( data ) {
-                console.log('what', data)
                 if(data.status === 'success') {
                   that.settings.onLegislatorSuccess(legislatorId, $(legislatorFieldset));
-                  //SUCCESS GOES HERE
                 } else if (data.status === 'captcha_needed'){
                   that.onCaptchaNeeded(legislatorId, legislatorFieldset, data.url, data.uid);
                 } else {
                   that.settings.onLegislatorError(legislatorId, $(legislatorFieldset));
                 }
-                //console.log(arguments);
               }
             });
 
@@ -210,16 +202,13 @@
               fields: commonData
             },
             success: function( data ) {
-              console.log('hey', data);
               if(data.status === 'success') {
                 that.settings.onLegislatorSuccess(legislator, $(commonFieldset));
-                //SUCCESS GOES HERE
               } else if (data.status === 'captcha_needed'){
                 that.onCaptchaNeeded(legislator, commonFieldset, data.url, data.uid);
               } else {
                 that.settings.onLegislatorError(legislator, $(commonFieldset));
               }
-              //console.log(arguments);
             }
           });
         }
@@ -251,7 +240,6 @@
 
       // Generate a <fieldset> for common fields
       var commonFieldsFieldSet = $('<fieldset/>').attr('id', pluginName + '-common-fields');
-      //commonFieldsFieldSet.append('<legend>Common Fields</legend>');
       $.each(required_actions, function(index, field) {
         var form_group = that.generateFormGroup(field);
         commonFieldsFieldSet.append(form_group);
@@ -260,10 +248,8 @@
 
       // Generate a <fieldset> for each extra legislator fields
       $.each(groupedData.individual_fields, function(legislator, fields) {
-        //console.log(legislator);
         var fieldset = $('<fieldset/>').attr('data-legislator-id', legislator).addClass(pluginName + '-legislator-fields');
         fieldset.append($('<label>').text(legislator).addClass(that.settings.legislatorLabelClasses));
-        //fieldset.append('<legend>' + legislator + '</legend>');
         $.each(fields, function(index, field) {
           var form_group = that.generateFormGroup(field);
           fieldset.append(form_group);
@@ -325,17 +311,6 @@
           }
         });
       }
-  /*
-        $.each($('.' + pluginName + '-legislator-fields'), function(index, legislatorFieldset) {
-          var legislatorId = $(legislatorFieldset).attr('data-legislator-id');
-          var legislatorData = $(legislatorFieldset).serializeObject();
-          console.log(legislatorId, legislatorFieldset, legislatorData);
-          var fullData = $.extend({}, commonData, legislatorData);
-          var captcha_uid = that.generateUID();
-          that.settings.onLegislatorSubmit(legislatorId, $(legislatorFieldset));
-*/
-
-      console.log('answer', answer,captchaUID, legislatorId, legislatorFieldset);
       return false;
     },
     generateCaptchaForm: function (captchaUrl, legislatorId, captchaUID) {
@@ -453,7 +428,6 @@
           });
           delete field.options_hash;
         };
-        //console.log(typeof field.options_hash)
         if (typeof field.options_hash === 'string' || !field.options_hash) {
           field.options_hash = [];
         }
@@ -485,7 +459,6 @@
           $input.append(optionEl);
         });
         $.each(field.options, function(key, option) {
-        	//console.log(option);
           var optionEl = $('<option/>')
             .attr('value', option.value)
             .text(option.name);
@@ -641,7 +614,6 @@
           sort
         );
       }
-      //console.log(groupedData);
       return groupedData;
     },
 

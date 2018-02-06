@@ -180,10 +180,9 @@ $(document).on("ready", function() {
           }
         },
         onLegislatorSuccess: function(legislatorId, legislatorFieldSet) {
-          console.log("EMAIL SUCCESSFULLY SENT");
+          // currently no-op
         },
         onLegislatorError: function(legislatorId, legislatorFieldSet) {
-          console.log("EMAIL ACTUALLY FAILED");
           emailsSent++;
           if (emailsSent === rep_ids.length) {
             allEmailSent();
@@ -192,7 +191,6 @@ $(document).on("ready", function() {
           legislatorFieldSet.find("span.info-circle").replaceWith('<span class="info-circle success">Sent <i class="icon-ok-circle"></i></span>');
           // All emails are considered sent, even if the server fails
           //legislatorFieldSet.find('span.info-circle').replaceWith('<span class="info-circle error">Error <i class="icon-error-alt"></i></span>');
-          console.log(legislatorId, "THIS EMAIL DIDN'T ACTUALLY SEND");
         },
         onLegislatorCaptcha: function(legislatorId, legislatorFieldSet) {
           $(".form-group", legislatorFieldSet).slideUp(400, height_changed);
@@ -203,7 +201,6 @@ $(document).on("ready", function() {
           $.each($(legislatorFieldSet).find(".congressForms-captcha")[0].attributes, function(idx, attr) {
             attrs[attr.nodeName] = attr.nodeValue;
           });
-          console.log(attrs);
 
           // Replace the original input
           if ($("[data-google-recaptcha=true]", legislatorFieldSet).length == 0){
