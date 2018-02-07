@@ -151,10 +151,17 @@ span.green-rect {
   }
 }
 
-.passwords-edit, .passwords-new, .confirmations-new, .sessions-new, .registrations-new, .registrations-create,  .confirmations-create, .confirmations-show {
+.passwords-edit,
+.passwords-new,
+.confirmations-new,
+.sessions-new,
+.registrations-new,
+.registrations-create,
+.confirmations-create,
+.confirmations-show,
+.unlocks-new {
   .wrapper {
     background-color: $red;
-    //min-height: 90%;
   }
   .redtop {
     padding-bottom: 3em;
