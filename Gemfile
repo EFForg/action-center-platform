@@ -115,6 +115,8 @@ group :development, :test do
   gem 'capybara', '~> 2.5.0'
   gem 'selenium-webdriver', '~> 2.49', require: false
   gem 'poltergeist'
+  gem 'rubocop', '0.50.0'
+  gem 'rubocop-github', '0.5.0'
   gem 'database_cleaner'
   gem 'pry'
   gem 'factory_girl_rails'
