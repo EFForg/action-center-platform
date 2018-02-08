@@ -9,11 +9,11 @@
 
           <div class="form-group">
             <%= f.label :email %>
-            <%= f.email_field :email, autofocus: true, :class => 'form-control', :required => 'required' %>
+            <%= f.email_field :email, autofocus: true, class: 'form-control', required: 'required' %>
           </div>
 
           <div>
-            <%= f.submit "Resend unlock instructions", :class => 'btn btn-default' %>
+            <%= f.submit "Resend unlock instructions", class: 'btn btn-default' %>
           </div>
         <% end %>
 
