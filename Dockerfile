@@ -50,6 +50,7 @@ ADD script/ ./script
 ADD spec/ ./spec
 ADD vendor/ ./vendor
 ADD docker/ ./docker
+ADD .rubocop.yml ./.rubocop.yml
 
 RUN usermod -u 1000 www-data
 
