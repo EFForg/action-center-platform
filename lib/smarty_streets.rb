@@ -1,10 +1,10 @@
-require 'rest_client'
+require "rest_client"
 module SmartyStreets
   def self.get_city_state(zipcode)
     url = "https://us-zipcode.api.smartystreets.com/lookup"
     res = post(url, base_params.merge(zipcode: zipcode))
     if res && !res.empty?
-      res.first['city_states'].try :first
+      res.first["city_states"].try :first
     end
   end
 
@@ -19,6 +19,7 @@ module SmartyStreets
   end
 
   private
+
   def self.post(url, params)
     begin
       res = JSON.parse RestClient.get("#{url}?#{params.to_query}")
@@ -31,8 +32,8 @@ module SmartyStreets
 
   def self.base_params
     {
-      'auth-id' => Rails.application.secrets.smarty_streets_id,
-      'auth-token' => Rails.application.secrets.smarty_streets_token
+      "auth-id" => Rails.application.secrets.smarty_streets_id,
+      "auth-token" => Rails.application.secrets.smarty_streets_token
     }
   end
 end

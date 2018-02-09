@@ -2,7 +2,7 @@ class Admin::InstitutionsController < Admin::ApplicationController
   before_filter :set_action_page
   before_action :set_institution, only: [:destroy]
 
-  require 'csv'
+  require "csv"
 
   # GET /admin/action_pages/:action_page_id/institutions
   def index
@@ -21,9 +21,9 @@ class Admin::InstitutionsController < Admin::ApplicationController
 
     respond_to do |format|
       if @institution.save
-        format.html { redirect_to [:admin, @actionPage, Institution], notice: 'Institution was successfully created.' }
+        format.html { redirect_to [:admin, @actionPage, Institution], notice: "Institution was successfully created." }
       else
-        format.html { render action: 'new' }
+        format.html { render "new" }
       end
     end
   end
@@ -33,11 +33,11 @@ class Admin::InstitutionsController < Admin::ApplicationController
     names = []
     CSV.foreach(params[:file].path, headers: true) do |row|
       params = row.to_hash
-      unless params['name']
-        flash[:notice] = 'Import failed. Please check CSV formatting'
+      unless params["name"]
+        flash[:notice] = "Import failed. Please check CSV formatting"
         break
       end
-      names << params['name']
+      names << params["name"]
     end
 
     Institution.delay.import(names, @actionPage)
@@ -62,17 +62,18 @@ class Admin::InstitutionsController < Admin::ApplicationController
   end
 
   private
-    def set_action_page
-      @actionPage = ActionPage.friendly.find(params[:action_page_id])
-      raise ActiveRecord::RecordNotFound unless @actionPage
-    end
 
-    def set_institution
-      @institution = Institution.friendly.find(params[:id])
-    end
+  def set_action_page
+    @actionPage = ActionPage.friendly.find(params[:action_page_id])
+    raise ActiveRecord::RecordNotFound unless @actionPage
+  end
 
-    # Never trust parameters from the scary internet, only allow the white list through.
-    def institution_params
-      params.require(:institution).permit(:name, :action_page_id)
-    end
+  def set_institution
+    @institution = Institution.friendly.find(params[:id])
+  end
+
+  # Never trust parameters from the scary internet, only allow the white list through.
+  def institution_params
+    params.require(:institution).permit(:name, :action_page_id)
+  end
 end

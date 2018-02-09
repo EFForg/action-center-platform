@@ -1,7 +1,6 @@
-require 'rails_helper'
+require "rails_helper"
 
 RSpec.describe ToolsController, type: :controller do
-
   let(:valid_attributes) { {
     signature: {
       "petition_id"=>"1",

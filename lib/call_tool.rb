@@ -46,7 +46,7 @@ module CallTool
 
   private
 
-  def self.get(action, params={})
+  def self.get(action, params = {})
     RestClient.get endpoint(action), params: params
   rescue RestClient::BadRequest => e
     begin
@@ -66,8 +66,8 @@ module CallTool
   end
 
   def self.endpoint(action)
-    base = Rails.application.config.call_tool_url.sub(/\/$/, '')
-    action = action.sub(/^\//, '')
+    base = Rails.application.config.call_tool_url.sub(/\/$/, "")
+    action = action.sub(/^\//, "")
     "#{base}/#{action}"
   end
 

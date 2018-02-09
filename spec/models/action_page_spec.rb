@@ -1,7 +1,6 @@
 require "rails_helper"
 
 describe ActionPage do
-
   let(:attr) { FactoryGirl.attributes_for :action_page }
 
   it "creates a new instance given a valid attribute" do
@@ -23,44 +22,45 @@ describe ActionPage do
   #   }.to raise_exception(ActiveRecord::RecordInvalid)
   #
   #   expect(ActionPage.count).to eq 0
+  # end
 
-  describe 'slug' do
+  describe "slug" do
     let(:page) { FactoryGirl.create(:action_page) }
-    let(:new_slug) { 'a-better-slug' }
+    let(:new_slug) { "a-better-slug" }
 
-    it 'has a friendly slug' do
-      expect(page.slug).to eq(page.title.downcase.gsub(' ', '-'))
+    it "has a friendly slug" do
+      expect(page.slug).to eq(page.title.downcase.gsub(" ", "-"))
     end
 
-    it 'updates the slug when title changes' do
-      expect { page.update(title: 'something else') }
+    it "updates the slug when title changes" do
+      expect { page.update(title: "something else") }
         .to change { page.slug }
     end
 
-    it 'does not update slug when unrelated attr changes' do
-      expect { page.update(summary: 'something else') }
+    it "does not update slug when unrelated attr changes" do
+      expect { page.update(summary: "something else") }
         .not_to change { page.slug }
     end
 
-    context 'when a dev has added a custom slug' do
+    context "when a dev has added a custom slug" do
       before { page.update(slug: new_slug) }
 
-      it 'remembers the new slug' do
+      it "remembers the new slug" do
         expect(page.slug).to eq(new_slug)
       end
 
-      it 'updates the slug when the title changes' do
-        expect { page.update(title: 'something else') }
+      it "updates the slug when the title changes" do
+        expect { page.update(title: "something else") }
           .to change { page.slug }
       end
 
-      it 'does not update slug when unrelated attr changes' do
-        expect { page.update(summary: 'something else') }
+      it "does not update slug when unrelated attr changes" do
+        expect { page.update(summary: "something else") }
           .not_to change { page.slug }
       end
     end
 
-    context 'with historical slugs' do
+    context "with historical slugs" do
       # This is here as documentation of FriendlyId's behavior,
       # because it surprised me a little, and it might surprise you.
       # FriendlyId's `history` module remembers all of a model's slugs
@@ -73,7 +73,7 @@ describe ActionPage do
       let(:old_slug) { page.slugs.first }
       before { page.update(slug: new_slug) }
 
-      it 'does not allow slug conflicts' do
+      it "does not allow slug conflicts" do
         expect(FactoryGirl.create(:action_page, slug: old_slug).slug)
           .not_to eq(old_slug)
       end

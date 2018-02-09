@@ -1,4 +1,4 @@
-require 'civicrm'
+require "civicrm"
 class User < ActiveRecord::Base
   include CiviCRM::UserMethods
   # Include default devise modules. Others available are:
@@ -14,9 +14,9 @@ class User < ActiveRecord::Base
   validate :password_complexity
   delegate :actions, :views, to: :events
 
-  before_update :invalidate_password_reset_tokens, :if => :email_changed?
-  before_update :invalidate_new_activists_password, :if => :admin_changed?
-  after_validation :reset_password_expiration_flag, :if => :encrypted_password_changed?
+  before_update :invalidate_password_reset_tokens, if: :email_changed?
+  before_update :invalidate_new_activists_password, if: :admin_changed?
+  after_validation :reset_password_expiration_flag, if: :encrypted_password_changed?
 
   alias_attribute :activist?, :admin?
 
@@ -53,15 +53,15 @@ class User < ActiveRecord::Base
   end
 
   def name
-    [first_name, last_name].join(' ')
+    [first_name, last_name].join(" ")
   end
 
   def percentile_rank
-    user_action_counts = Rails.cache.fetch('user_action_counts', :expires_in => 24.hours) {
-      User.select( "users.id, count(ahoy_events.id) AS events_count" )
-        .joins( "LEFT OUTER JOIN ahoy_events ON ahoy_events.user_id = users.id" )
-        .where( "ahoy_events.name IS null OR ahoy_events.name = ?", "Action" )
-        .group( "users.id" )
+    user_action_counts = Rails.cache.fetch("user_action_counts", expires_in: 24.hours) {
+      User.select("users.id, count(ahoy_events.id) AS events_count")
+        .joins("LEFT OUTER JOIN ahoy_events ON ahoy_events.user_id = users.id")
+        .where("ahoy_events.name IS null OR ahoy_events.name = ?", "Action")
+        .group("users.id")
         .map { |u| u.events_count }
     }
 
@@ -112,6 +112,7 @@ class User < ActiveRecord::Base
   end
 
   protected
+
   def after_confirmation
     subscribe!(opt_in=true) if self.subscribe?
   end

@@ -5,10 +5,12 @@ end
 Given(/^a stubbed phantomdc$/) do
   Rails.application.config.congress_forms_url = "http://phantomdc.test"
 
-  proxy.stub("#{Rails.application.config.congress_forms_url}/retrieve-form-elements", :method => 'post').
-    and_return( Proc.new { |params, headers, body| {
-      :headers => { 'Access-Control-Allow-Origin' => '*' },
-      :json => {
+  proxy.stub(
+    "#{Rails.application.config.congress_forms_url}/retrieve-form-elements", method: "post"
+  ).and_return(
+    Proc.new { |params, headers, body| {
+      headers: { "Access-Control-Allow-Origin" => "*" },
+      json: {
         "#{body.last(7)}": {
           defunct: false,
           contact_url: nil,
@@ -19,13 +21,15 @@ Given(/^a stubbed phantomdc$/) do
           ]
         }
       }
-    }
-  })
+    } }
+  )
 
-  proxy.stub("#{Rails.application.config.congress_forms_url}/fill-out-form", :method => 'post').
-    and_return( Proc.new { |params, headers, body| {
-      :headers => { 'Access-Control-Allow-Origin' => '*' },
-      :json => { status: "success" }
-    }
-  })
+  proxy.stub(
+    "#{Rails.application.config.congress_forms_url}/fill-out-form", method: "post"
+  ).and_return(
+    Proc.new { |params, headers, body| {
+      headers: { "Access-Control-Allow-Origin" => "*" },
+      json: { status: "success" }
+    } }
+  )
 end

@@ -1,6 +1,6 @@
 namespace :users do
   desc "List the emails of all admin accounts"
-  task :list_admins => :environment do
+  task list_admins: :environment do
     admins = User.where(admin: true).map do |u|
       u.email
     end.sort

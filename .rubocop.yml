@@ -3,11 +3,8 @@ inherit_gem:
     - config/default.yml
     - config/rails.yml
 
-inherit_from: .rubocop_todo.yml
-
 AllCops:
   TargetRailsVersion: 4.2
-  DisabledByDefault: false
   Exclude:
     - 'db/**/*'
     - 'config/**/*'
@@ -15,9 +12,34 @@ AllCops:
     - 'vendor/**/*'
 
 Style/FrozenStringLiteralComment:
+  # We aren't upgrading to Ruby 3.0, so this is just noise
+  Enabled: false
+
+Metrics/ModuleLength:
+  # IME enforcing a module length creates more problems than it solves
+  Enabled: false
+
+GitHub/RailsControllerRenderLiteral:
+  # Prevents us from dynamically generating layouts
+  Enabled: false
+
+GitHub/RailsControllerRenderPathsExist:
+  # Doesn't seem to work; can't find templates that exist
+  Enabled: false
+
+GitHub/RailsApplicationRecord:
+  # Doesn't apply to < Rails 5.0, and ignores TargetRailsVersion
   Enabled: false
 
 Lint/Void:
   Exclude:
     - 'features/**/*'
+    - 'spec/**/*'
+
+Lint/Debugger:
+  Exclude:
+    - 'features/step_definitions/debug_steps.rb'
+
+Style/BlockComments:
+  Exclude:
     - 'spec/**/*'

@@ -34,4 +34,3 @@ describe Institution do
     end
   end
 end
-

@@ -1,4 +1,4 @@
-require 'rails_helper'
+require "rails_helper"
 
 RSpec.describe Admin::InstitutionsController, type: :controller do
   include Devise::TestHelpers
@@ -23,13 +23,13 @@ RSpec.describe Admin::InstitutionsController, type: :controller do
     it "assigns all actionPage.institutions as @institutions" do
       institution = Institution.create! valid_attributes
       @actionPage.institutions << institution
-      get :index, {:action_page_id => @actionPage.id}
+      get :index, {action_page_id: @actionPage.id}
       expect(assigns(:institutions)).to eq([institution])
     end
 
     it "does not show institutions not linked to the action page" do
       institution = Institution.create! valid_attributes
-      get :index, { :action_page_id => @actionPage.id }
+      get :index, { action_page_id: @actionPage.id }
       expect(assigns(:institutions)).to be_empty
     end
   end
@@ -38,15 +38,15 @@ RSpec.describe Admin::InstitutionsController, type: :controller do
     context "with valid params" do
       it "creates a new institution" do
         expect {
-          post :create, {:action_page_id => @actionPage.id,
-            :institution => valid_attributes}
+          post :create, {action_page_id: @actionPage.id,
+            institution: valid_attributes}
         }.to change(Institution, :count).by(1)
       end
 
       it "adds the institution to the action" do
         expect {
-          post :create, {:action_page_id => @actionPage.id,
-            :institution => valid_attributes}
+          post :create, {action_page_id: @actionPage.id,
+            institution: valid_attributes}
         }.to change(@actionPage.institutions, :count).by(1)
       end
 
@@ -54,24 +54,23 @@ RSpec.describe Admin::InstitutionsController, type: :controller do
         institution = Institution.create! valid_attributes
         @actionPage.institutions << institution
         expect {
-          post :create, {:action_page_id => @actionPage.id,
-            :institution => valid_attributes}
+          post :create, {action_page_id: @actionPage.id,
+            institution: valid_attributes}
         }.to_not change(Institution, :count)
       end
 
       it "redirects to the action's institutions overview" do
-        post :create, {:action_page_id => @actionPage.id,
-          :institution => valid_attributes}
+        post :create, {action_page_id: @actionPage.id,
+          institution: valid_attributes}
         expect(response).to redirect_to([:admin, @actionPage, Institution])
       end
     end
   end
 
   describe "POST #import" do
-
     context "with valid csv" do
       let(:file) {
-        fixture_file_upload('files/schools.csv')
+        fixture_file_upload("files/schools.csv")
       }
 
       it "does not remove existing institutions from the action" do
@@ -80,29 +79,29 @@ RSpec.describe Admin::InstitutionsController, type: :controller do
           institution = Institution.create! valid_attributes
           @actionPage.institutions << institution
 
-          post :import, {:action_page_id => @actionPage.id,
-            :file => file}
+          post :import, {action_page_id: @actionPage.id,
+            file: file}
         }.to change(@actionPage.institutions, :count).by(4)
       end
 
       it "uploads institutions from a csv" do
         pending("test delayed job")
         expect {
-          post :import, {:action_page_id => @actionPage.id,
-            :file => file}
+          post :import, {action_page_id: @actionPage.id,
+            file: file}
         }.to change(Institution, :count).by(3)
       end
     end
 
     context "with an invalid csv" do
       let(:file) {
-        fixture_file_upload('files/bad_schools.csv')
+        fixture_file_upload("files/bad_schools.csv")
       }
 
       it "handles formatting errors" do
         expect {
-          post :import, {:action_page_id => @actionPage.id,
-            :file => file}
+          post :import, {action_page_id: @actionPage.id,
+            file: file}
         }.to change(Institution, :count).by(0)
         expect(flash[:notice]).to include("Import failed")
       end
@@ -114,8 +113,8 @@ RSpec.describe Admin::InstitutionsController, type: :controller do
       institution = Institution.create! valid_attributes
       @actionPage.institutions << institution
       expect {
-        delete :destroy, {:action_page_id => @actionPage.id,
-          :id => institution.to_param}
+        delete :destroy, {action_page_id: @actionPage.id,
+          id: institution.to_param}
       }.to change(@actionPage.institutions, :count).by(-1)
     end
 
@@ -123,16 +122,16 @@ RSpec.describe Admin::InstitutionsController, type: :controller do
       institution = Institution.create! valid_attributes
       @actionPage.institutions << institution
       expect {
-        delete :destroy, {:action_page_id => @actionPage.id,
-          :id => institution.to_param}
+        delete :destroy, {action_page_id: @actionPage.id,
+          id: institution.to_param}
       }.to_not change(Institution, :count)
     end
 
     it "redirects to the institution_sets list" do
       institution = Institution.create! valid_attributes
       @actionPage.institutions << institution
-      delete :destroy, {:action_page_id => @actionPage.id,
-        :id => institution.to_param}
+      delete :destroy, {action_page_id: @actionPage.id,
+        id: institution.to_param}
       expect(response).to redirect_to([:admin, @actionPage, Institution])
     end
   end
@@ -142,8 +141,8 @@ RSpec.describe Admin::InstitutionsController, type: :controller do
       institution = Institution.create! valid_attributes
       @actionPage.institutions << institution
       expect {
-        delete :destroy_all, {:action_page_id => @actionPage.id,
-          :id => institution.to_param}
+        delete :destroy_all, {action_page_id: @actionPage.id,
+          id: institution.to_param}
       }.to change(@actionPage.institutions, :count).by(-1)
     end
 
@@ -151,10 +150,9 @@ RSpec.describe Admin::InstitutionsController, type: :controller do
       institution = Institution.create! valid_attributes
       @actionPage.institutions << institution
       expect {
-        delete :destroy_all, {:action_page_id => @actionPage.id,
-          :id => institution.to_param}
+        delete :destroy_all, {action_page_id: @actionPage.id,
+          id: institution.to_param}
       }.to_not change(Institution, :count)
     end
   end
-
 end

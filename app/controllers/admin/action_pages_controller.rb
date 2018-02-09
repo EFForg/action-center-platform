@@ -1,15 +1,15 @@
 class Admin::ActionPagesController < Admin::ApplicationController
-  before_filter :set_action_page, except: [ :new, :index, :create, :update_featured_pages ]
+  before_filter :set_action_page, except: [:new, :index, :create, :update_featured_pages]
   before_filter :set_date_from_params, only: [:index, :edit, :new]
   before_filter :cleanup_congress_message_params, only: [:update]
-  skip_before_filter :verify_authenticity_token, :only => [:update_featured_pages]
-  after_filter :purge_cache, only: [ :update, :publish ]
+  skip_before_filter :verify_authenticity_token, only: [:update_featured_pages]
+  after_filter :purge_cache, only: [:update, :publish]
 
   allow_collaborators_to :index, :edit
 
   def index
     @actionPages = ActionPage.order(created_at: :desc)
-    @featuredActionPages = FeaturedActionPage.order('weight').
+    @featuredActionPages = FeaturedActionPage.order("weight").
                                               includes(:action_page).
                                               map(&:action_page)
   end
@@ -17,13 +17,13 @@ class Admin::ActionPagesController < Admin::ApplicationController
   def update_featured_pages
     FeaturedActionPage.destroy_all
     featuredPages = Array.new
-    featuredPages << {:action_page_id => featured_page_params[:fp4], :weight => 4}
-    featuredPages << {:action_page_id => featured_page_params[:fp3], :weight => 3}
-    featuredPages << {:action_page_id => featured_page_params[:fp2], :weight => 2}
-    featuredPages << {:action_page_id => featured_page_params[:fp1], :weight => 1}
+    featuredPages << {action_page_id: featured_page_params[:fp4], weight: 4}
+    featuredPages << {action_page_id: featured_page_params[:fp3], weight: 3}
+    featuredPages << {action_page_id: featured_page_params[:fp2], weight: 2}
+    featuredPages << {action_page_id: featured_page_params[:fp1], weight: 1}
     FeaturedActionPage.create(featuredPages)
     #render :json => {success: true}, :status => 200
-    redirect_to( { :action => 'index' }, :notice => "Featured pages updated")
+    redirect_to({ action: "index" }, notice: "Featured pages updated")
   end
 
   def new
@@ -45,7 +45,7 @@ class Admin::ActionPagesController < Admin::ApplicationController
       add_twitter_targets
       redirect_to_action_page
     else
-      render :new
+      render "new"
     end
   end
 
@@ -70,7 +70,7 @@ class Admin::ActionPagesController < Admin::ApplicationController
 
     add_twitter_targets
 
-    redirect_to( { :action => 'edit', anchor: params[:anchor]}, :notice => "Action Page was successfully updated.")
+    redirect_to({ action: "edit", anchor: params[:anchor]}, notice: "Action Page was successfully updated.")
   end
 
   def destroy
@@ -96,7 +96,7 @@ class Admin::ActionPagesController < Admin::ApplicationController
     @actionPage.attributes = action_page_params
 
     if @actionPage.enable_redirect
-        redirect_to @actionPage.redirect_url, :status => 301
+        redirect_to @actionPage.redirect_url, status: 301
       return
     end
 
@@ -131,7 +131,7 @@ class Admin::ActionPagesController < Admin::ApplicationController
                               country_code: current_country_code,
                               email: current_email }
 
-    render 'action_page/show', layout: 'application'
+    render "action_page/show", layout: "application"
   end
 
   private
@@ -171,54 +171,32 @@ class Admin::ActionPagesController < Admin::ApplicationController
   end
 
   def action_page_params
-    params.require(:action_page).
-           permit(:title, :summary, :description, :category_id, :featured_image, :background_image,
-                  { :partner_ids => [] },
-                  :enable_call, :enable_petition, :enable_email, :enable_tweet, :enable_congress_message,
-                  :og_title, :og_image, :share_message, :published,
-                  :call_campaign_id, :what_to_say, :redirect_url, :email_text, :enable_redirect,
-                  :victory, :victory_message,
-                  :archived_redirect_action_page_id, :archived,
-                  {action_page_images_attributes: [:id, :action_page_image]},
-                  {tweet_attributes: [:id, :target, :target_house,
-                                      :target_senate, :message, :cta,
-                                      :bioguide_id,
-                                      {tweet_targets_attributes: [:id,
-                                                                  :_destroy,
-                                                                  :twitter_id,
-                                                                  :image]}]},
-                  {petition_attributes: [:id,
-                                         :title,
-                                         :description,
-                                         :goal,
-                                         :enable_affiliations]},
-                  {email_campaign_attributes: [:id, :message, :subject,
-                                                :target_house,
-                                                :target_senate,
-                                                :target_email,
-                                                :email_addresses,
-                                                :target_bioguide_id,
-                                                :bioguide_id,
-                                                :alt_text_email_your_rep,
-                                                :alt_text_look_up_your_rep,
-                                                :alt_text_extra_fields_explain,
-                                                :alt_text_look_up_helper,
-                                                :alt_text_customize_message_helper,
-                                                :topic_category_id,
-                                                :campaign_tag]},
-                  {congress_message_campaign_attributes: [:id, :message, :subject,
-                                                          :target_house,
-                                                          :target_senate,
-                                                          :target_bioguide_ids,
-                                                          :topic_category_id,
-                                                          :alt_text_email_your_rep,
-                                                          :alt_text_look_up_your_rep,
-                                                          :alt_text_extra_fields_explain,
-                                                          :alt_text_look_up_helper,
-                                                          :alt_text_customize_message_helper,
-                                                          :campaign_tag]},
-                  {call_campaign_attributes: [:id, :title, :message, :call_campaign_id]}
-                )
+    params.require(:action_page).permit(
+      :title, :summary, :description, :category_id, :featured_image, :background_image,
+      :enable_call, :enable_petition, :enable_email, :enable_tweet,
+      :enable_congress_message, :og_title, :og_image, :share_message, :published,
+      :call_campaign_id, :what_to_say, :redirect_url, :email_text, :enable_redirect,
+      :victory, :victory_message, :archived_redirect_action_page_id, :archived,
+      partner_ids: [], action_page_images_attributes: [:id, :action_page_image],
+      call_campaign_attributes: [:id, :title, :message, :call_campaign_id],
+      petition_attributes: [:id, :title, :description, :goal, :enable_affiliations],
+      tweet_attributes: [
+        :id, :target, :target_house, :target_senate, :message, :cta, :bioguide_id,
+        tweet_targets_attributes: [:id, :_destroy, :twitter_id, :image]
+      ],
+      email_campaign_attributes: [
+        :id, :message, :subject, :target_house, :target_senate, :target_email,
+        :email_addresses, :target_bioguide_id, :bioguide_id, :alt_text_email_your_rep,
+        :alt_text_look_up_your_rep, :alt_text_extra_fields_explain, :topic_category_id,
+        :alt_text_look_up_helper, :alt_text_customize_message_helper, :campaign_tag
+      ],
+      congress_message_campaign_attributes: [
+        :id, :message, :subject, :target_house, :target_senate, :target_bioguide_ids,
+        :topic_category_id, :alt_text_email_your_rep, :alt_text_look_up_your_rep,
+        :alt_text_extra_fields_explain, :alt_text_look_up_helper,
+        :alt_text_customize_message_helper, :campaign_tag
+      ]
+    )
   end
 
   def tweet_params
@@ -226,7 +204,7 @@ class Admin::ActionPagesController < Admin::ApplicationController
   end
 
   def featured_page_params
-    params.permit(:fp1,:fp2,:fp3,:fp4)
+    params.permit(:fp1, :fp2, :fp3, :fp4)
   end
 
   def purge_cache
@@ -234,14 +212,12 @@ class Admin::ActionPagesController < Admin::ApplicationController
     uri = URI.parse("https://api.fastly.com/purge/" + page)
     http = Net::HTTP.new(uri.host, uri.port)
     http.use_ssl = true
-    request = Net::HTTP::Post.new(uri.path, {'Content-Type' =>'application/json'})
+    request = Net::HTTP::Post.new(uri.path, {"Content-Type" => "application/json"})
     response = http.request(request)
   end
 
-
-
   def cleanup_congress_message_params
-    if params[:action_page][:congress_message_campaign_attributes][:target_specific_legislators] != '1'
+    if params[:action_page][:congress_message_campaign_attributes][:target_specific_legislators] != "1"
       params[:action_page][:congress_message_campaign_attributes][:target_bioguide_ids] = nil
     else
       people = params[:action_page][:congress_message_campaign_attributes][:target_bioguide_ids].select(&:present?)

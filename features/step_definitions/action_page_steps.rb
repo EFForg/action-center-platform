@@ -37,7 +37,6 @@ Given(/^the local organizing campaign has multiple institutions$/) do
   @action_page.save
 end
 
-
 When(/^I visit an action page$/) do
   visit "/action/#{@action_page.title.downcase.gsub(" ", "-")}"
 end
@@ -47,15 +46,15 @@ When(/^I edit the action page$/) do
 end
 
 When(/^I input a second affiliation$/) do
-  within('#affiliations .nested-fields:nth-child(2)') {
-    select("University of Wherever 2", :from => "Institution")
-    select("Parent", :from => "Affiliation type")
+  within("#affiliations .nested-fields:nth-child(2)") {
+    select("University of Wherever 2", from: "Institution")
+    select("Parent", from: "Affiliation type")
   }
 end
 
 Then(/^I should receive a CSV file$/) do
-  page.response_headers['Content-Type'].should == "application/octet-stream"
-  page.response_headers['Content-Disposition'].should == "attachment"
+  page.response_headers["Content-Type"].should == "application/octet-stream"
+  page.response_headers["Content-Disposition"].should == "attachment"
 end
 
 When(/^I fill in my name$/) do
@@ -66,12 +65,12 @@ end
 
 When(/^I fill in my email$/) do
   create_visitor
-  fill_in "Email", :with => @visitor[:email]
+  fill_in "Email", with: @visitor[:email]
 end
 
 When(/^I fill in my zip code$/) do
   create_visitor
-  fill_in "signature_zipcode", :with => @visitor[:zip_code]
+  fill_in "signature_zipcode", with: @visitor[:zip_code]
 end
 
 When(/^I submit the petition$/) do

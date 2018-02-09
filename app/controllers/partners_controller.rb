@@ -1,5 +1,5 @@
 class PartnersController < ApplicationController
-  layout 'admin'
+  layout "admin"
   before_action :set_partner
   before_filter :authenticate
 
@@ -7,8 +7,8 @@ class PartnersController < ApplicationController
   # GET /partners/1.json
   def show
     @subscriptions = @partner.subscriptions.
-      paginate(:page => params[:page], :per_page => 10).
-      order('id desc')
+      paginate(page: params[:page], per_page: 10).
+      order("id desc")
   end
 
   def csv
@@ -20,10 +20,10 @@ class PartnersController < ApplicationController
   def update
     respond_to do |format|
       if @partner.update(partner_params)
-        format.html { redirect_to @partner, notice: 'Partner was successfully updated.' }
+        format.html { redirect_to @partner, notice: "Partner was successfully updated." }
         format.json { head :no_content }
       else
-        format.html { render action: 'edit' }
+        format.html { render "edit" }
         format.json { render json: @partner.errors, status: :unprocessable_entity }
       end
     end
@@ -58,20 +58,21 @@ class PartnersController < ApplicationController
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_partner
-      @partner = Partner.find(params[:id])
-    end
 
-    def authenticate
-      authenticate_user!
-      unless current_user.admin?
-        raise ActiveRecord::RecordNotFound if current_user.partner != @partner
-      end
-    end
+  # Use callbacks to share common setup or constraints between actions.
+  def set_partner
+    @partner = Partner.find(params[:id])
+  end
 
-    # Never trust parameters from the scary internet, only allow the white list through.
-    def partner_params
-      params.require(:partner).permit(:name, :privacy_url, :code)
+  def authenticate
+    authenticate_user!
+    unless current_user.admin?
+      raise ActiveRecord::RecordNotFound if current_user.partner != @partner
     end
+  end
+
+  # Never trust parameters from the scary internet, only allow the white list through.
+  def partner_params
+    params.require(:partner).permit(:name, :privacy_url, :code)
+  end
 end

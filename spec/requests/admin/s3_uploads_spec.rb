@@ -1,7 +1,6 @@
-require 'rails_helper'
+require "rails_helper"
 
 RSpec.describe "S3 Uploads Spec", type: :request do
-
   let(:valid_attributes) { {
     "source_file" => {
       "bucket"=>"actioncenter-staging",
@@ -33,5 +32,4 @@ RSpec.describe "S3 Uploads Spec", type: :request do
       post "/admin/source_files", valid_attributes
     }.to change{SourceFile.count}.by(1)
   end
-
 end

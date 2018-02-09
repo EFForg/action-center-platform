@@ -17,17 +17,17 @@ class ActionPage < ActiveRecord::Base
   belongs_to :congress_message_campaign
   belongs_to :call_campaign
   belongs_to :category
-  belongs_to :active_action_page_for_redirect, :class_name => "ActionPage",
-             :foreign_key => "archived_redirect_action_page_id"
+  belongs_to :active_action_page_for_redirect, class_name: "ActionPage",
+             foreign_key: "archived_redirect_action_page_id"
 
   accepts_nested_attributes_for :tweet, :petition, :email_campaign,
     :call_campaign, :congress_message_campaign, reject_if: :all_blank
 
-  has_attached_file :featured_image, amazon_credentials.merge( default_url: 'missing.png')
-  has_attached_file :background_image, amazon_credentials.merge( default_url: "" )
-  has_attached_file :og_image, amazon_credentials.merge( :default_url => "" )
+  has_attached_file :featured_image, amazon_credentials.merge(default_url: "missing.png")
+  has_attached_file :background_image, amazon_credentials.merge(default_url: "")
+  has_attached_file :og_image, amazon_credentials.merge(default_url: "")
   validates_attachment_content_type [:og_image, :background_image, :featured_image],
-    :content_type => /\Aimage\/.*\Z/
+    content_type: /\Aimage\/.*\Z/
 
   #validates_length_of :og_title, maximum: 65
   after_save :no_drafts_on_homepage
@@ -41,17 +41,20 @@ class ActionPage < ActiveRecord::Base
   end
 
   def call_tool_title
-    call_campaign && call_campaign.title.length > 0 && call_campaign.title || 'Call Your Legislators'
+    call_campaign &&
+      call_campaign.title.length > 0 &&
+      call_campaign.title ||
+      "Call Your Legislators"
   end
 
   def message_rendered
-    # TODO - just write a test for this and rename this to .to_md
-    call_campaign && call_campaign.message || ''
+    # TODO: just write a test for this and rename this to .to_md
+    call_campaign && call_campaign.message || ""
   end
 
   def verb
-    return 'sign' if enable_petition?
-    return 'tweet' if enable_tweet?
+    return "sign" if enable_petition?
+    return "tweet" if enable_tweet?
   end
 
   def tweet_individual?
@@ -59,15 +62,15 @@ class ActionPage < ActiveRecord::Base
   end
 
   def tweet_congress?
-    tweet && !(tweet.target.present?)
+    tweet && tweet.target.blank?
   end
 
   def redirect_from_archived_to_active_action?
-    archived? and active_action_page_for_redirect and !victory?
+    archived? && active_action_page_for_redirect && !victory?
   end
 
   def template
-    self[:template]  || :show
+    self[:template] || :show
   end
 
   def layout

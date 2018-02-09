@@ -8,7 +8,6 @@ module Admin
       else
         []
       end
-
     rescue SystemCallError, RestClient::Exception
       []
     end

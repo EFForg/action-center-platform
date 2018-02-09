@@ -7,21 +7,21 @@ class SnsController < ApplicationController
   before_action :set_context, :log_request
 
   def bounce
-    message = set_message()
-    recipients = message['bounce']['bouncedRecipients']
+    message = set_message
+    recipients = message["bounce"]["bouncedRecipients"]
     recipients.each do |recipient|
-      Bounce.create(email: recipient['emailAddress'].downcase)
+      Bounce.create(email: recipient["emailAddress"].downcase)
     end
     render json: {success: true}
   end
 
   def complaint
-    message = set_message()
-    recipients = message['complaint']['complainedRecipients']
+    message = set_message
+    recipients = message["complaint"]["complainedRecipients"]
     recipients.each do |recipient|
-      Complaint.create(email: recipient['emailAddress'].downcase,
-                       user_agent: message['complaint']['userAgent'],
-                       feedback_type: message['complaint']['complaintFeedbackType'],
+      Complaint.create(email: recipient["emailAddress"].downcase,
+                       user_agent: message["complaint"]["userAgent"],
+                       feedback_type: message["complaint"]["complaintFeedbackType"],
                        body: message)
     end
     render json: {success: true}
@@ -30,7 +30,7 @@ class SnsController < ApplicationController
   private
 
   def verify_amazon_authorize_key
-    raise ActiveRecord::RecordNotFound unless params['amazon_authorize_key'] == Rails.application.secrets.amazon_authorize_key
+    raise ActiveRecord::RecordNotFound unless params["amazon_authorize_key"] == Rails.application.secrets.amazon_authorize_key
   end
 
   def set_context
@@ -40,12 +40,11 @@ class SnsController < ApplicationController
 
   def set_message
     body = JSON.parse(request.body.read)
-    return JSON.parse(body['Message'])
+    return JSON.parse(body["Message"])
   end
 
   def log_request
     logger.info "Received Amazon SES #{action_name} notification"
-    Raven.capture_message("Received Amazon SES #{action_name} notification", level: 'info')
+    Raven.capture_message("Received Amazon SES #{action_name} notification", level: "info")
   end
-
 end

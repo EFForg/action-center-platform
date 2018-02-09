@@ -1,4 +1,4 @@
-require 'rails_helper'
+require "rails_helper"
 
 RSpec.describe Admin::UsersController, type: :controller do
   include Devise::TestHelpers
@@ -18,5 +18,4 @@ RSpec.describe Admin::UsersController, type: :controller do
       expect(response).to have_http_status(:found)
     end
   end
-
 end

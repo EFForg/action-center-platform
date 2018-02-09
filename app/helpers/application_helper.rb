@@ -1,6 +1,6 @@
 module ApplicationHelper
   def page_title
-    [@title, I18n.t('site_title')].compact.join(' | ')
+    [@title, I18n.t("site_title")].compact.join(" | ")
   end
 
   def escape_page_title
@@ -8,7 +8,7 @@ module ApplicationHelper
   end
 
   def twitter_handle
-    '@' + Rails.application.config.twitter_handle.to_s
+    "@" + Rails.application.config.twitter_handle.to_s
   end
 
   def markdown(blogtext)
@@ -16,19 +16,19 @@ module ApplicationHelper
     renderOptions = {hard_wrap: true, filter_html: false}
     markdownOptions = {autolink: true, no_intra_emphasis: true, fenced_code_blocks: true}
     markdown = Redcarpet::Markdown.new(MarkdownRenderer.new(renderOptions), markdownOptions)
-    markdown.render(blogtext).html_safe
+    markdown.render(blogtext).html_safe # rubocop:disable Rails/OutputSafety
   end
 
   def substitute_keywords(blogtext)
     if @actionPage and @actionPage.description and @petition
-      blogtext.gsub('$SIGNATURECOUNT', @petition.signatures.pretty_count)
+      blogtext.gsub("$SIGNATURECOUNT", @petition.signatures.pretty_count)
     else
       blogtext
     end
   end
 
   def stripdown(str)
-    require 'redcarpet/render_strip'
+    require "redcarpet/render_strip"
     renderer = Redcarpet::Markdown.new(Redcarpet::Render::StripDown)
     renderer.render(str)
   end
@@ -388,46 +388,46 @@ module ApplicationHelper
     current_user_data(:country_code)
   end
 
-  def congress_forms_date_fills_url campaign_tag = nil, date_start = nil, date_end = nil, bioguide_id = nil
-    url = Rails.application.config.congress_forms_url + '/successful-fills-by-date/'
+  def congress_forms_date_fills_url(campaign_tag = nil, date_start = nil, date_end = nil, bioguide_id = nil)
+    url = Rails.application.config.congress_forms_url + "/successful-fills-by-date/"
     url = url + bioguide_id unless bioguide_id.nil?
     params = {
-      :campaign_tag => campaign_tag,
-      :time_zone => Time.zone.name,
-      :give_as_utc => true,
-      :debug_key => Rails.application.secrets.congress_forms_debug_key,
-      :date_start => date_start,
-      :date_end => date_end
+      campaign_tag: campaign_tag,
+      time_zone: Time.zone.name,
+      give_as_utc: true,
+      debug_key: Rails.application.secrets.congress_forms_debug_key,
+      date_start: date_start,
+      date_end: date_end
     }
     params.reject! { |_, v| v.to_param.nil? }
     url << "?#{params.to_query}"
   end
 
-  def congress_forms_hour_fills_url campaign_tag = nil, date = nil, bioguide_id = nil
-    url = Rails.application.config.congress_forms_url + '/successful-fills-by-hour/'
+  def congress_forms_hour_fills_url(campaign_tag = nil, date = nil, bioguide_id = nil)
+    url = Rails.application.config.congress_forms_url + "/successful-fills-by-hour/"
     url = url + bioguide_id unless bioguide_id.nil?
     params = {
-      :campaign_tag => campaign_tag,
-      :time_zone => Time.zone.name,
-      :give_as_utc => true,
-      :debug_key => Rails.application.secrets.congress_forms_debug_key,
-      :date => date.strftime('%Y-%m-%d')
+      campaign_tag: campaign_tag,
+      time_zone: Time.zone.name,
+      give_as_utc: true,
+      debug_key: Rails.application.secrets.congress_forms_debug_key,
+      date: date.strftime("%Y-%m-%d")
     }
     params.reject! { |_, v| v.to_param.nil? }
     url << "?#{params.to_query}"
   end
 
-  def congress_forms_member_fills_url campaign_tag = nil
-    url = Rails.application.config.congress_forms_url + '/successful-fills-by-member/'
+  def congress_forms_member_fills_url(campaign_tag = nil)
+    url = Rails.application.config.congress_forms_url + "/successful-fills-by-member/"
     params = {
-      :campaign_tag => campaign_tag,
-      :debug_key => Rails.application.secrets.congress_forms_debug_key
+      campaign_tag: campaign_tag,
+      debug_key: Rails.application.secrets.congress_forms_debug_key
     }
     params.reject! { |_, v| v.to_param.nil? }
     url << "?#{params.to_query}"
   end
 
-  def update_user_data(params={})
+  def update_user_data(params = {})
     params = params.with_indifferent_access.slice(*user_session_data_whitelist)
     if user_signed_in?
       p = params.clone
@@ -446,10 +446,10 @@ module ApplicationHelper
     # We now have one or two parts (depending on whether we could find
     # a suitable period). For each of these parts, replace any unwanted
     # sequence of characters with an underscore
-    fn.map! { |s| s.gsub /[^a-z0-9\-]+/i, '_' }
+    fn.map! { |s| s.gsub /[^a-z0-9\-]+/i, "_" }
 
     # Finally, join the parts with a period and return the result
-    return fn.join '.'
+    return fn.join "."
   end
 
   def can?(ability)
@@ -457,11 +457,12 @@ module ApplicationHelper
   end
 
   def pluralize_with_span(count, noun)
-    noun = if count == 1 then noun else noun.pluralize end
+    noun = count == 1 ? noun : noun.pluralize
     content_tag(:span, count) + " #{noun}"
   end
 
   private
+
   def user_session_data_whitelist
     [:email, :last_name, :first_name, :street_address, :city, :state, :zipcode,
      :country_code, :phone]

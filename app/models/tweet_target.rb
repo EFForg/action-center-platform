@@ -1,11 +1,11 @@
 class TweetTarget < ActiveRecord::Base
   extend AmazonCredentials
-  require 'open-uri'
+  require "open-uri"
 
   belongs_to :tweet
-  has_attached_file :image,  :default_url => ""
-  has_attached_file :image, amazon_credentials.merge( :default_url => "" )
-  validates_attachment_content_type :image, :content_type => /\Aimage\/.*\Z/
+  has_attached_file :image, default_url: ""
+  has_attached_file :image, amazon_credentials.merge(default_url: "")
+  validates_attachment_content_type :image, content_type: /\Aimage\/.*\Z/
   after_save :attach_twitter_image
 
   def url
@@ -27,7 +27,7 @@ class TweetTarget < ActiveRecord::Base
     response = access_token.request(:get, "https://api.twitter.com/1.1/users/show.json?screen_name=" + twitter_id)
     user_info = JSON.load response.body
     user_image_url = user_info["profile_image_url_https"].gsub(/_normal\./, "_bigger.")
-    
+
     self.image = URI.parse(user_image_url)
     self.save
   end

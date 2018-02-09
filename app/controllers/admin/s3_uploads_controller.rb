@@ -1,5 +1,4 @@
 class Admin::S3UploadsController < Admin::ApplicationController
-
   # GET /admin/source_files
   # GET /admin/source_files.json
   def index
@@ -25,13 +24,13 @@ class Admin::S3UploadsController < Admin::ApplicationController
     respond_to do |format|
       if @source_file.save
         format.html {
-          render :json => @source_file.to_jq_upload,
-          :content_type => 'text/html',
-          :layout => false
+          render json: @source_file.to_jq_upload,
+          content_type: "text/html",
+          layout: false
         }
         format.json { render json: @source_file.to_jq_upload, status: :created }
       else
-        format.html { render action: "new" }
+        format.html { render "new" }
         format.json { render json: @source_file.errors, status: :unprocessable_entity }
       end
     end
@@ -54,7 +53,7 @@ class Admin::S3UploadsController < Admin::ApplicationController
   # for /admin/action_page/new
   # GET /admin/source_files/generate_key
   def generate_key
-    uid = SecureRandom.uuid.gsub(/-/,'')
+    uid = SecureRandom.uuid.gsub(/-/, "")
 
     render json: {
       key: "uploads/#{uid}/#{params[:filename]}",

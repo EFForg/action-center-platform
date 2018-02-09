@@ -21,7 +21,7 @@ describe CallTool do
 
     it "should get call_tool_url/call/create, transforming keyword arguments into params" do
       expect(RestClient).to receive(:get) do |url, opts|
-        base_href = Rails.application.config.call_tool_url.sub(/\/$/, '')
+        base_href = Rails.application.config.call_tool_url.sub(/\/$/, "")
         expect(url).to eq("#{base_href}/call/create")
         expect(opts[:params]).not_to be_nil
         expect(opts[:params][:campaignId]).to eq(campaign.to_param)
@@ -79,7 +79,7 @@ describe CallTool do
     it "should get call_tool_url/api/campaign/:id with the call tool api key" do
       campaign = 12345
       expect(RestClient).to receive(:get) do |url, opts|
-        base_href = Rails.application.config.call_tool_url.sub(/\/$/, '')
+        base_href = Rails.application.config.call_tool_url.sub(/\/$/, "")
         expect(url).to eq("#{base_href}/api/campaign/#{campaign}")
         expect(opts[:params][:api_key]).to eq(Rails.application.secrets.call_tool_api_key)
         OpenStruct.new(body: {required_fields: { userLocation: "postal", userPhone: "US" } }.to_json)

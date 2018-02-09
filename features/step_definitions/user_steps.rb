@@ -30,9 +30,9 @@ def create_community_member_user
 end
 
 def sign_in
-  visit '/login'
-  fill_in "Email", :with => @visitor[:email]
-  fill_in "Password", :with => @visitor[:password]
+  visit "/login"
+  fill_in "Email", with: @visitor[:email]
+  fill_in "Password", with: @visitor[:password]
 
   click_button "Sign in"
 end
@@ -65,7 +65,7 @@ Given(/^I exist as an activist$/) do
 end
 
 Given(/^I am not logged in$/) do
-  visit '/logout'
+  visit "/logout"
 end
 
 When(/^I sign in with valid credentials$/) do
@@ -77,7 +77,7 @@ Then(/^I see a successful sign in message$/) do
 end
 
 When(/^I return to the site$/) do
-  visit '/'
+  visit "/"
 end
 
 Then(/^I should be signed in$/) do
@@ -87,7 +87,7 @@ Then(/^I should be signed in$/) do
 end
 
 When(/^I visit the admin page$/) do
-  visit '/admin/action_pages'
+  visit "/admin/action_pages"
 end
 
 Then(/^I am shown admin controls$/) do
@@ -117,7 +117,7 @@ def fill_in_petition_action_inputs
 
   find("#action_page_petition_attributes_title").set(c[:title])
   find("#epic-petition-description").set(c[:description])
-  find("#action_page_petition_attributes_goal").set('100')
+  find("#action_page_petition_attributes_goal").set("100")
 
   first(:button, "Save").click
 end
@@ -129,16 +129,14 @@ Then(/^I get the unpublished petition page$/) do
   expect(page).to have_content(c[:title])
 end
 
-
 When(/^I create a vanilla action$/) do
   sign_in
-  visit '/admin/action_pages'
+  visit "/admin/action_pages"
   loop while first(:link, "Create new action").nil?
   first(:link, "Create new action").click
   confirm_action_page_new_view_works
   fill_in_petition_action_inputs
 end
-
 
 Given(/^I exist as a user$/) do
   create_community_member_user
@@ -149,15 +147,15 @@ Given(/^I am logged in$/) do
 end
 
 When(/^I visit the dashboard$/) do
-  visit '/account'
+  visit "/account"
 end
 
 When(/^I sign out$/) do
-  visit '/logout'
+  visit "/logout"
 end
 
 When(/^I click the back button$/) do
-  page.evaluate_script('window.history.back()')
+  page.evaluate_script("window.history.back()")
 end
 
 Then(/^I don't see my information$/) do
@@ -165,16 +163,16 @@ Then(/^I don't see my information$/) do
 end
 
 When(/^I initiate a password reset request$/) do
-  visit '/password/new'
+  visit "/password/new"
 
-  fill_in "Email", :with => @visitor[:email]
+  fill_in "Email", with: @visitor[:email]
   click_button "Send me reset password instructions"
   @reset_token = User.find_by_email(@visitor[:email]).reset_password_token
 end
 
 When(/^I change my email address to "(.*?)"$/) do |email|
   @changed_email = email
-  visit '/edit'
+  visit "/edit"
   fill_in "Email", with: @changed_email
   fill_in "Current password", with: @visitor[:password]
   click_button "Change"
@@ -195,7 +193,7 @@ When(/^I log in$/) do
 end
 
 When(/^I log out$/) do
-  visit '/logout'
+  visit "/logout"
 end
 
 def make_user_activist
@@ -213,14 +211,14 @@ Then(/^I am prevented from using the app until I supply a strong password$/) do
 
   # check app is locked down for this user
   expect(page).to have_content("Current Password")
-  visit '/admin/action_pages'
+  visit "/admin/action_pages"
   expect(page).to have_content("Current Password")
 
   # submit strong password
   submit_a_strong_password
 
   # check lockdown is resolved
-  visit '/admin/action_pages'
+  visit "/admin/action_pages"
   expect(page).to have_content("Action Center Admin")
 end
 
@@ -275,7 +273,6 @@ Then(/^I see a victory message$/) do
   expect(page).to have_content("We won")
 end
 
-
 When(/^I sign a petition thats one signature away from victory$/) do
   visit "/action/#{@action_page.title.downcase.gsub(" ", "-")}"
 
@@ -289,7 +286,6 @@ Then(/^my signature is acknowledged$/) do
   expect(page).to have_content("Now help spread the word:")
   expect(page).to have_content("100 / 100 signatures")
 end
-
 
 When(/^I click to add an image to the gallery of a new ActionPage$/) do
   step "I click to open the gallery of a new ActionPage"
@@ -316,7 +312,7 @@ end
 
 When(/^I click to open the gallery of a new ActionPage$/) do
   # get to a new action_page's view
-  visit '/admin/action_pages'
+  visit "/admin/action_pages"
   loop while first(:link, "Create new action").nil?
 
   first(:link, "Create new action").click
@@ -324,7 +320,6 @@ When(/^I click to open the gallery of a new ActionPage$/) do
 
   first(:link, "Open Gallery").click
 end
-
 
 When(/^the image shows up as uploaded over ajax$/) do
   loop until img_node = first(:img, "#description > p:nth-child(1) > img:nth-child(1)")
@@ -360,7 +355,6 @@ When(/^I fill in my tweet petition location info$/) do
   fill_in "zipcode", with: "94109"
 end
 
-
 When(/^I click the button to lookup my reps$/) do
   RSpec::Mocks.with_temporary_scope do
     stub_smarty_streets_street_address
@@ -373,9 +367,8 @@ When(/^I click the button to lookup my reps$/) do
   expect(first(:link, "Tweet @NancyPelosi")).to be_truthy
 end
 
-
 Given(/^my test env has Internet access and I have an S(\d+) key$/) do |arg1|
-  pending if this_machine_offline? or ENV['amazon_access_key_id'].nil?
+  pending if this_machine_offline? or ENV["amazon_access_key_id"].nil?
 end
 
 Given(/^a call petition targeting senate exists$/) do
@@ -427,14 +420,13 @@ end
 def this_machine_offline?
   return $OfflineMode unless $OfflineMode.nil?
 
-  require 'net/http'
+  require "net/http"
   begin
-    response = Net::HTTP.get(URI.parse('http://www.example.com/'))
+    response = Net::HTTP.get(URI.parse("http://www.example.com/"))
     $OfflineMode = false
   rescue
     $OfflineMode = true
   end
-
 end
 
 Given(/^a call campaign exists$/) do

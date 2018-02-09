@@ -1,11 +1,11 @@
 # This file is copied to spec/ when you run 'rails generate rspec:install'
-ENV['RAILS_ENV'] ||= 'test'
-require File.expand_path('../../config/environment', __FILE__)
+ENV["RAILS_ENV"] ||= "test"
+require File.expand_path("../../config/environment", __FILE__)
 # Prevent database truncation if the environment is production
 abort("The Rails environment is running in production mode!") if Rails.env.production?
-require 'spec_helper'
-require 'rspec/rails'
-require 'pry'
+require "spec_helper"
+require "rspec/rails"
+require "pry"
 
 # Add additional requires below this line. Rails is not loaded until this point!
 
@@ -31,7 +31,6 @@ ActiveRecord::Migration.maintain_test_schema!
 RSpec.configure do |config|
   config.include Devise::TestHelpers, type: :controller
   config.include Warden::Test::Helpers, type: :request
-
 
   # Remove this line if you're not using ActiveRecord or ActiveRecord fixtures
   config.fixture_path = "#{::Rails.root}/spec/fixtures"
@@ -64,10 +63,10 @@ end
 
 # for request tests
 def login(user)
-  login_path = '/login'
+  login_path = "/login"
   post login_path, {
     user: {
-      :email => user.email,
-      :password => "strong passwords defeat lobsters covering wealth" }
+      email: user.email,
+      password: "strong passwords defeat lobsters covering wealth" }
   }
 end

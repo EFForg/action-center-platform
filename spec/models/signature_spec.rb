@@ -1,19 +1,18 @@
 require "rails_helper"
 
 describe Signature do
-
   before(:each) do
     @attr = {
-      :petition_id => 1,
-      :first_name => "Save Kittens",
-      :last_name => "Save kittens in great detail",
-      :email => "johnsmith@eff.org",
-      :country_code => "US",
-      :zipcode => "94109",
-      :street_address => "815 Eddy Street",
-      :city => "San Francisco",
-      :state => "CA",
-      :anonymous => false
+      petition_id: 1,
+      first_name: "Save Kittens",
+      last_name: "Save kittens in great detail",
+      email: "johnsmith@eff.org",
+      country_code: "US",
+      zipcode: "94109",
+      street_address: "815 Eddy Street",
+      city: "San Francisco",
+      state: "CA",
+      anonymous: false
     }
   end
 

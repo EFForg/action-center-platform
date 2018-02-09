@@ -1,7 +1,6 @@
-require 'rails_helper'
+require "rails_helper"
 
 RSpec.describe "Admin Action Pages", type: :request do
-
   let(:valid_attributes) { {
     action_page: {
       title: "Save Kittens",
@@ -13,17 +12,14 @@ RSpec.describe "Admin Action Pages", type: :request do
   } }
 
   describe "Non-Privileged Users" do
-
     it "should prevent them creating action pages" do
       expect {
         post "/admin/action_pages", valid_attributes
       }.to raise_exception(ActiveRecord::RecordNotFound)
     end
-
   end
 
   describe "Admins" do
-
     before(:each) do
       @admin = FactoryGirl.create(:admin_user)
       login @admin
@@ -38,7 +34,5 @@ RSpec.describe "Admin Action Pages", type: :request do
       expect(response.code).to eq "200"
       expect(ActionPage.count).to eq 1
     end
-
   end
-
 end

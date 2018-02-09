@@ -1,8 +1,8 @@
 class ExceptionsController < ApplicationController
-  layout 'application'
+  layout "application"
 
   def show
-    @exception       = env['action_dispatch.exception']
+    @exception       = env["action_dispatch.exception"]
     @status_code     = ActionDispatch::ExceptionWrapper.new(env, @exception).status_code
     @rescue_response = ActionDispatch::ExceptionWrapper.rescue_responses[@exception.class.name]
 
@@ -24,5 +24,4 @@ class ExceptionsController < ApplicationController
     end
   end
   helper_method :details
-
 end

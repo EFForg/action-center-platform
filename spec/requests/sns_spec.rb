@@ -1,11 +1,10 @@
 require "rails_helper"
 
-RSpec.describe "Amazon SNS endpoints", :type => :request do
-
+RSpec.describe "Amazon SNS endpoints", type: :request do
   before(:each) do
-    Rails.application.secrets.amazon_authorize_key = 'my_amazon_key'
+    Rails.application.secrets.amazon_authorize_key = "my_amazon_key"
   end
-  
+
   describe "complaint notification" do
     it "logs complaint notifications" do
       headers = { "CONTENT_TYPE" => "application/json" }
@@ -15,5 +14,4 @@ RSpec.describe "Amazon SNS endpoints", :type => :request do
       expect(Complaint.count).to eq 1
     end
   end
-
 end
