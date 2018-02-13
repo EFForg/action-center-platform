@@ -35,8 +35,9 @@ class ActionPage < ActiveRecord::Base
   scope :categorized, ->(category){ joins(:category).where(categories: { title: category }) }
 
   def should_generate_new_friendly_id?
-    # create friendly slugs with FriendlyId, but also allow us to set custom slugs
-    slug.blank? || title_changed? || super
+    # create slugs with FriendlyId and respect our custom slugs
+    # set a custom slug with `page.update(slug: new_slug)`
+    title.present? && (slug.blank? || title_changed?)
   end
 
   def call_tool_title
