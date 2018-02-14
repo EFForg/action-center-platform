@@ -82,7 +82,7 @@ describe CallTool do
         base_href = Rails.application.config.call_tool_url.sub(/\/$/, "")
         expect(url).to eq("#{base_href}/api/campaign/#{campaign}")
         expect(opts[:params][:api_key]).to eq(Rails.application.secrets.call_tool_api_key)
-        OpenStruct.new(body: {required_fields: { userLocation: "postal", userPhone: "US" } }.to_json)
+        OpenStruct.new(body: { required_fields: { userLocation: "postal", userPhone: "US" } }.to_json)
       end
 
       CallTool.required_fields_for_campaign(campaign)

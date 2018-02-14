@@ -1,15 +1,18 @@
 require "rails_helper"
 
 RSpec.describe "Admin Action Pages", type: :request do
-  let(:valid_attributes) { {
-    action_page: {
-      title: "Save Kittens",
-      summary: "Save kittens in great detail",
-      description: "Some description",
-      email_text: "",
-      enable_tweet: "0"},
-    add_targets: ""
-  } }
+  let(:valid_attributes) do
+    {
+      action_page: {
+        title: "Save Kittens",
+        summary: "Save kittens in great detail",
+        description: "Some description",
+        email_text: "",
+        enable_tweet: "0"
+      },
+      add_targets: ""
+    }
+  end
 
   describe "Non-Privileged Users" do
     it "should prevent them creating action pages" do

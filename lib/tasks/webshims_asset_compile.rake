@@ -18,7 +18,7 @@ namespace :webshims do
   # but limited to files in webshims namespaced asset directories.
   task create_non_digest_assets: :"assets:environment" do
     manifest_path = Dir.glob(File.join(Rails.root, "public/assets/manifest-*.json")).first
-    manifest_data = JSON.load(File.new(manifest_path))
+    manifest_data = JSON.load(File.new(manifest_path)) # rubocop:disable Security/JSONLoad
 
     manifest_data["assets"].each do |logical_path, digested_path|
       logical_pathname = Pathname.new logical_path

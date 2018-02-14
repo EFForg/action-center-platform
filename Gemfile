@@ -51,10 +51,10 @@ gem "nokogiri"                    # Required for premailer-rails
 gem "premailer-rails"             # Inline styles for emails
 
 # Optimization
-gem "sprockets-image_compressor"  # Optimizes png/jpg
+gem "sprockets-image_compressor" # Optimizes png/jpg
 
 # Analytics
-gem "ahoy_matey"                  # Analytics
+gem "ahoy_matey" # Analytics
 gem "chartkick"
 gem "groupdate"
 

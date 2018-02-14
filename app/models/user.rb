@@ -66,7 +66,7 @@ class User < ActiveRecord::Base
     }
 
     user_count = events.actions.count
-    percentile = user_action_counts.percentile_rank(user_count-1).round(0)
+    percentile = user_action_counts.percentile_rank(user_count - 1).round(0)
   end
 
   def signed?(petition)
@@ -114,6 +114,6 @@ class User < ActiveRecord::Base
   protected
 
   def after_confirmation
-    subscribe!(opt_in=true) if self.subscribe?
+    subscribe!(opt_in = true) if self.subscribe?
   end
 end

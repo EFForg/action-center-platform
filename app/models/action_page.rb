@@ -32,7 +32,7 @@ class ActionPage < ActiveRecord::Base
   #validates_length_of :og_title, maximum: 65
   after_save :no_drafts_on_homepage
 
-  scope :categorized, ->(category){ joins(:category).where(categories: { title: category }) }
+  scope :categorized, ->(category) { joins(:category).where(categories: { title: category }) }
 
   def should_generate_new_friendly_id?
     # create slugs with FriendlyId and respect our custom slugs

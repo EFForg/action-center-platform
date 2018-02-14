@@ -6,7 +6,7 @@ describe ActionPage do
   it "creates a new instance given a valid attribute" do
     expect {
       ActionPage.create!(attr)
-    }.to change{ActionPage.count}.by(1)
+    }.to change { ActionPage.count }.by(1)
   end
 
   it "knows when to redirect from an archived action" do

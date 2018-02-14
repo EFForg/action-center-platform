@@ -17,10 +17,10 @@ class Admin::ActionPagesController < Admin::ApplicationController
   def update_featured_pages
     FeaturedActionPage.destroy_all
     featuredPages = Array.new
-    featuredPages << {action_page_id: featured_page_params[:fp4], weight: 4}
-    featuredPages << {action_page_id: featured_page_params[:fp3], weight: 3}
-    featuredPages << {action_page_id: featured_page_params[:fp2], weight: 2}
-    featuredPages << {action_page_id: featured_page_params[:fp1], weight: 1}
+    featuredPages << { action_page_id: featured_page_params[:fp4], weight: 4 }
+    featuredPages << { action_page_id: featured_page_params[:fp3], weight: 3 }
+    featuredPages << { action_page_id: featured_page_params[:fp2], weight: 2 }
+    featuredPages << { action_page_id: featured_page_params[:fp1], weight: 1 }
     FeaturedActionPage.create(featuredPages)
     #render :json => {success: true}, :status => 200
     redirect_to({ action: "index" }, notice: "Featured pages updated")
@@ -70,7 +70,7 @@ class Admin::ActionPagesController < Admin::ApplicationController
 
     add_twitter_targets
 
-    redirect_to({ action: "edit", anchor: params[:anchor]}, notice: "Action Page was successfully updated.")
+    redirect_to({ action: "edit", anchor: params[:anchor] }, notice: "Action Page was successfully updated.")
   end
 
   def destroy
@@ -212,7 +212,7 @@ class Admin::ActionPagesController < Admin::ApplicationController
     uri = URI.parse("https://api.fastly.com/purge/" + page)
     http = Net::HTTP.new(uri.host, uri.port)
     http.use_ssl = true
-    request = Net::HTTP::Post.new(uri.path, {"Content-Type" => "application/json"})
+    request = Net::HTTP::Post.new(uri.path, { "Content-Type" => "application/json" })
     response = http.request(request)
   end
 

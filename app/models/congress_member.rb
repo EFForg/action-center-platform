@@ -1,7 +1,7 @@
 class CongressMember < ActiveRecord::Base
   validates_uniqueness_of :bioguide_id
 
-  scope :current, ->{ where("? <= term_end", Time.now) }
+  scope :current, -> { where("? <= term_end", Time.now) }
 
   scope :filter, ->(f) do
     if f.present?

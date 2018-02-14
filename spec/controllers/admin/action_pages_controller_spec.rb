@@ -3,13 +3,13 @@ require "rails_helper"
 RSpec.describe Admin::ActionPagesController, type: :controller do
   include Devise::TestHelpers
 
-  let(:petition_action_page){ FactoryGirl.create(:action_page_with_petition) }
+  let(:petition_action_page) { FactoryGirl.create(:action_page_with_petition) }
 
   describe "GET #index" do
     render_views
 
     context "user is an admin" do
-      before{ login_as_admin }
+      before { login_as_admin }
 
       it "should have tabs and panels for create/browse actions, homepage, analytics, partners, topics, and users" do
         get :index
@@ -32,7 +32,7 @@ RSpec.describe Admin::ActionPagesController, type: :controller do
     end
 
     context "user is a collaborator" do
-      before{ login_as_collaborator }
+      before { login_as_collaborator }
 
       it "should have tabs and panels for actions and analytics, and nothing else" do
         get :index

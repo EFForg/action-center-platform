@@ -10,7 +10,7 @@ require "capybara/poltergeist"
 require "billy/capybara/cucumber"
 require "webmock/cucumber"
 
-Dir[Rails.root.join("spec/support/**/*.rb")].each {|f| require f}
+Dir[Rails.root.join("spec/support/**/*.rb")].each { |f| require f }
 
 Capybara.register_driver :poltergeist do |app|
   Capybara::Poltergeist::Driver.new(app, url_blacklist: ["anon-stats.eff.org"])
@@ -88,7 +88,7 @@ Before do
 end
 
 def stub_smarty_streets
-  stub_resp = {"city"=>"San Francisco", "state_abbreviation"=>"CA", "state"=>"California", "mailable_city"=>true}
+  stub_resp = { "city" => "San Francisco", "state_abbreviation" => "CA", "state" => "California", "mailable_city" => true }
   allow(SmartyStreets).to receive(:get_city_state).with("94109").and_return(stub_resp)
 end
 

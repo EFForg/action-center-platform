@@ -8,7 +8,8 @@ RSpec.describe "Admin Action Pages", type: :request do
         summary: "Save kittens in great detail",
         description: "Some description",
         email_text: "",
-        enable_tweet: "0"},
+        enable_tweet: "0"
+      },
       add_targets: ""
     }
   end

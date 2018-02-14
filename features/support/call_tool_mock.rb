@@ -11,7 +11,7 @@ module CallTool
       { "userLocation" => "district" }
 
     when custom_call_campaign_id
-      { }
+      {}
     end
   end
 

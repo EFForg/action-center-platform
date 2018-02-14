@@ -66,7 +66,7 @@ class ToolsController < ApplicationController
         )
 
         @source = "action center petition :: " + @action_page.title
-        @user.subscribe!(opt_in=true, source=@source)
+        @user.subscribe!(opt_in = true, source = @source)
       end
 
       if params[:update_user_data]
@@ -78,7 +78,7 @@ class ToolsController < ApplicationController
         action_page: @action_page
 
       respond_to do |format|
-        format.json {   render json: {success: true}, status: 200 }
+        format.json { render json: { success: true }, status: 200 }
         format.html do
           begin
             url = URI.parse(request.referrer)
@@ -90,7 +90,7 @@ class ToolsController < ApplicationController
         end
       end
     else
-      render json: {errors: @signature.errors.to_json}, status: 200
+      render json: { errors: @signature.errors.to_json }, status: 200
     end
   end
 
@@ -98,7 +98,7 @@ class ToolsController < ApplicationController
     ahoy.track "Action",
       { type: "action", actionType: "tweet", actionPageId: params[:action_id] },
       action_page: @action_page
-    render json: {success: true}, status: 200
+    render json: { success: true }, status: 200
   end
 
   def message_congress
@@ -118,11 +118,11 @@ class ToolsController < ApplicationController
       )
 
       @source = "action center congress message :: " + @action_page.title
-      @user.subscribe!(opt_in=true, source=@source)
+      @user.subscribe!(opt_in = true, source = @source)
     end
 
     @name = email_params[:first_name] # for deliver_thanks_message
-    render json: {success: true}, status: 200
+    render json: { success: true }, status: 200
   end
 
   def email
@@ -149,9 +149,9 @@ class ToolsController < ApplicationController
     if @reps.present?
       update_user_data(params.slice(:street_address, :zipcode)) if params[:update_user_data] == "true"
 
-      render json: {content: render_to_string(partial: "action_page/reps")}, status: 200
+      render json: { content: render_to_string(partial: "action_page/reps") }, status: 200
     else
-      render json: {error: "No representatives found"}, status: 200
+      render json: { error: "No representatives found" }, status: 200
     end
   end
 
@@ -164,7 +164,7 @@ class ToolsController < ApplicationController
     if @reps.present?
       render json: @reps, status: 200
     else
-      render json: {error: "No representatives found"}, status: 200
+      render json: { error: "No representatives found" }, status: 200
     end
   end
 

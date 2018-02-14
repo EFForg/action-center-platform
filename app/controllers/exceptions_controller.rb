@@ -9,7 +9,7 @@ class ExceptionsController < ApplicationController
     respond_to do |format|
       format.html { render :show, status: @status_code, layout: !request.xhr? }
       format.xml  { render xml: details, root: "error", status: @status_code }
-      format.json { render json: {error: details}, status: @status_code }
+      format.json { render json: { error: details }, status: @status_code }
     end
   end
 

@@ -11,7 +11,7 @@ class SourceFile < ActiveRecord::Base
   before_validation(on: :create) do
     are_we_testing = pull_down_s3_object_attributes
 
-    if are_we_testing  # true if you stub pull_down_s3_object_attributes with true
+    if are_we_testing # true if you stub pull_down_s3_object_attributes with true
       self.file_name = key.split("/").last if key
       self.file_size = 10
       self.file_content_type = "image"

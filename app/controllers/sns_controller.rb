@@ -12,7 +12,7 @@ class SnsController < ApplicationController
     recipients.each do |recipient|
       Bounce.create(email: recipient["emailAddress"].downcase)
     end
-    render json: {success: true}
+    render json: { success: true }
   end
 
   def complaint
@@ -24,7 +24,7 @@ class SnsController < ApplicationController
                        feedback_type: message["complaint"]["complaintFeedbackType"],
                        body: message)
     end
-    render json: {success: true}
+    render json: { success: true }
   end
 
   private

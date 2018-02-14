@@ -1,7 +1,7 @@
 module PetitionHelper
   def legislator_title(legislator)
     prefix = legislator.chamber == "senate" ? "Senator" : "Representative"
-    [prefix,  @legislator.last_name].join(" ")
+    [prefix, @legislator.last_name].join(" ")
   end
 
   def signature_location(signature)

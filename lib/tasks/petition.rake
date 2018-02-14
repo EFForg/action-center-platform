@@ -16,7 +16,7 @@ goals = [
 ] # stay here until we get to over 70,000 then jump to 100,000
 
 def next_goal(goal)
-  goals.each {|g| return g if g > goal }
+  goals.each { |g| return g if g > goal }
 end
 
 namespace :petition do
@@ -28,8 +28,8 @@ namespace :petition do
       petition.signatures << FactoryGirl.build(:signature, petition: petition)
       petition.signatures.last.affiliations << FactoryGirl.build(
         :affiliation,
-        institution: petition.action_page.institutions[i%10],
-        affiliation_type: petition.action_page.affiliation_types[i%5]
+        institution: petition.action_page.institutions[i % 10],
+        affiliation_type: petition.action_page.affiliation_types[i % 5]
       )
     end
   end

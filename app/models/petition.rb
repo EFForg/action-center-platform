@@ -23,7 +23,7 @@ class Petition < ActiveRecord::Base
 
   def signatures_by_institution(institution)
     signatures.includes(affiliations: :institution)
-      .where(institutions: {id: institution})
+      .where(institutions: { id: institution })
   end
 
   def location_required?

@@ -23,7 +23,7 @@ RSpec.describe Admin::AffiliationTypesController, type: :controller do
     it "assigns all actionPage.affiliation_types as @affiliation_types" do
       affiliation_type = AffiliationType.create! valid_attributes
       @actionPage.affiliation_types << affiliation_type
-      get :index, {action_page_id: @actionPage.id}
+      get :index, { action_page_id: @actionPage.id }
       expect(assigns(:affiliation_types)).to eq([affiliation_type])
     end
 
@@ -38,21 +38,21 @@ RSpec.describe Admin::AffiliationTypesController, type: :controller do
     context "with valid params" do
       it "creates a new affiliation_type" do
         expect {
-          post :create, {action_page_id: @actionPage.id,
-            affiliation_type: valid_attributes}
+          post :create, { action_page_id: @actionPage.id,
+            affiliation_type: valid_attributes }
         }.to change(AffiliationType, :count).by(1)
       end
 
       it "adds the affiliation_type to the action" do
         expect {
-          post :create, {action_page_id: @actionPage.id,
-            affiliation_type: valid_attributes}
+          post :create, { action_page_id: @actionPage.id,
+            affiliation_type: valid_attributes }
         }.to change(@actionPage.affiliation_types, :count).by(1)
       end
 
       it "redirects to the action's affiliation_types overview" do
-        post :create, {action_page_id: @actionPage.id,
-          affiliation_type: valid_attributes}
+        post :create, { action_page_id: @actionPage.id,
+          affiliation_type: valid_attributes }
         expect(response).to redirect_to([:admin, @actionPage, AffiliationType])
       end
     end
@@ -63,16 +63,16 @@ RSpec.describe Admin::AffiliationTypesController, type: :controller do
       affiliation_type = AffiliationType.create! valid_attributes
       @actionPage.affiliation_types << affiliation_type
       expect {
-        delete :destroy, {action_page_id: @actionPage.id,
-          id: affiliation_type.to_param}
+        delete :destroy, { action_page_id: @actionPage.id,
+          id: affiliation_type.to_param }
       }.to change(AffiliationType, :count).by(-1)
     end
 
     it "redirects to the affiliation_types list" do
       affiliation_type = AffiliationType.create! valid_attributes
       @actionPage.affiliation_types << affiliation_type
-      delete :destroy, {action_page_id: @actionPage.id,
-        id: affiliation_type.to_param}
+      delete :destroy, { action_page_id: @actionPage.id,
+        id: affiliation_type.to_param }
       expect(response).to redirect_to([:admin, @actionPage, AffiliationType])
     end
   end

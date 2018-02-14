@@ -38,7 +38,7 @@ describe Signature do
   end
 
   it "should reject long zipcodes" do
-    long_zip = @attr.merge(zipcode: "9"*13)
+    long_zip = @attr.merge(zipcode: "9" * 13)
 
     expect {
       Signature.create!(long_zip)
@@ -46,12 +46,12 @@ describe Signature do
   end
 
   describe ".filter" do
-    let(:jon){ Signature.create!(@attr.merge(email: "xx@example.com", first_name: "Jon", last_name: "A")) }
-    let(:jan){ Signature.create!(@attr.merge(email: "xy@example.com", first_name: "Jan", last_name: "B")) }
-    let(:jeb){ Signature.create!(@attr.merge(email: "wz@example.com", first_name: "Jeb", last_name: "C")) }
-    let(:jen){ Signature.create!(@attr.merge(email: "wv@example.com", first_name: "Jen", last_name: "D")) }
+    let(:jon) { Signature.create!(@attr.merge(email: "xx@example.com", first_name: "Jon", last_name: "A")) }
+    let(:jan) { Signature.create!(@attr.merge(email: "xy@example.com", first_name: "Jan", last_name: "B")) }
+    let(:jeb) { Signature.create!(@attr.merge(email: "wz@example.com", first_name: "Jeb", last_name: "C")) }
+    let(:jen) { Signature.create!(@attr.merge(email: "wv@example.com", first_name: "Jen", last_name: "D")) }
 
-    let(:all_signatures){ [jon, jan, jeb, jen] }
+    let(:all_signatures) { [jon, jan, jeb, jen] }
 
     it "should return .all when query is blank" do
       expect(Signature.filter(nil)).to contain_exactly(*all_signatures)

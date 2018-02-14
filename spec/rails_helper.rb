@@ -67,6 +67,7 @@ def login(user)
   post login_path, {
     user: {
       email: user.email,
-      password: "strong passwords defeat lobsters covering wealth" }
+      password: "strong passwords defeat lobsters covering wealth"
+    }
   }
 end

@@ -11,7 +11,7 @@ class Admin::S3UploadsController < Admin::ApplicationController
     source_files = source_files.order(created_at: :desc)
 
     respond_to do |format|
-      format.html{ render partial: "table", locals: { source_files: source_files } }
+      format.html { render partial: "table", locals: { source_files: source_files } }
     end
   end
 

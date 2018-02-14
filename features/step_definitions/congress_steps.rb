@@ -15,9 +15,9 @@ Given(/^a stubbed phantomdc$/) do
           defunct: false,
           contact_url: nil,
           required_actions: [
-            {value: "$NAME_FIRST", maxlength: nil, options_hash: nil},
-            {value: "$NAME_LAST", maxlength: nil, options_hash: nil},
-            {value: "$EMAIL", maxlength: nil, options_hash: nil}
+            { value: "$NAME_FIRST", maxlength: nil, options_hash: nil },
+            { value: "$NAME_LAST", maxlength: nil, options_hash: nil },
+            { value: "$EMAIL", maxlength: nil, options_hash: nil }
           ]
         }
       }

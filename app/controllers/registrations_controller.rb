@@ -47,7 +47,7 @@ class RegistrationsController < Devise::RegistrationsController
 
   def set_create_notice
     if resource.errors.empty?
-      cookies[:sweetAlert] = JSON.dump({title: "Thanks!", text: "A message with a confirmation link has been sent to your email address. Please open the link to activate your account."})
+      cookies[:sweetAlert] = JSON.dump({ title: "Thanks!", text: "A message with a confirmation link has been sent to your email address. Please open the link to activate your account." })
       flash[:notice] = nil
     end
   end

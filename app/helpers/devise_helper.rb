@@ -38,7 +38,7 @@ module DeviseHelper
   end
 
   def devise_error_messages?
-    @hasErrorMessages ? true: false
+    @hasErrorMessages ? true : false
   end
 
   def locked_account?

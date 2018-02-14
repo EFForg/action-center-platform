@@ -12,7 +12,7 @@ RSpec.describe ActionPageController, type: :controller do
 
     it "filters by category" do
       action_page
-      category =  FactoryGirl.create(:category, title: "Privacy")
+      category = FactoryGirl.create(:category, title: "Privacy")
       privacy_action_page = FactoryGirl.create(:action_page, category: category)
       get :index, { category: "Privacy" }
       expect(assigns(:actionPages)).to contain_exactly(privacy_action_page)
@@ -116,8 +116,8 @@ RSpec.describe ActionPageController, type: :controller do
 
     context "html" do
       it "assigns signatures filtered by institution" do
-        get :show_by_institution, {id: @actionPage.id,
-          institution_id: @actionPage.institutions.first.id}
+        get :show_by_institution, { id: @actionPage.id,
+          institution_id: @actionPage.institutions.first.id }
         expect(assigns(:institution)).to eq(@actionPage.institutions.first)
 
         # it should assign signatures associated with the institution
@@ -132,9 +132,9 @@ RSpec.describe ActionPageController, type: :controller do
     context "csv" do
       render_views
       it "returns a csv with filtered affiliations" do
-        get :show_by_institution, {id: @actionPage.id,
+        get :show_by_institution, { id: @actionPage.id,
           institution_id: @actionPage.institutions.first.id,
-          format: "csv"}
+          format: "csv" }
 
         signature = @petition.signatures.first
         csv_contents = [

@@ -5,7 +5,7 @@ class UsersController < ApplicationController
     send_cache_disablement_headers
 
     @actionPages = ActionPage.order("id desc")
-    @actions_taken = current_user.events.actions.map {|i| i["properties"]["actionPageId"].to_i}
+    @actions_taken = current_user.events.actions.map { |i| i["properties"]["actionPageId"].to_i }
   end
 
   def update
