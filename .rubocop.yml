@@ -5,6 +5,7 @@ inherit_gem:
 
 AllCops:
   TargetRailsVersion: 4.2
+  TargetRubyVersion: 2.3
   Exclude:
     - 'db/**/*'
     - 'config/**/*'
