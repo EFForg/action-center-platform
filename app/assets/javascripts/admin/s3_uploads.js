@@ -22,7 +22,7 @@ $(function() {
   // This is triggered when the user clicks "start" for initiating the upload
   // of a new image file
   $('#fileupload').bind('fileuploadsubmit', function (e, data) {
-      var file_name = data.files[0].name;
+      var file_name = parsableNameFor(data.files[0]);
       // transfer the data from the upload-template .form hidden fields to the real form's hidden fields
       var form = $('#fileupload');
       form.find('input[name=key]').val(s3_upload_hash[file_name]['key']);
@@ -71,7 +71,7 @@ $(function() {
   // file to at S3.  This function populates s3_upload_hash
   function askRailsWhereToUploadThisFileTo(e, data) {
     var content_type = data.files[0].type;
-    var file_name = data.files[0].name;
+    var file_name = parsableNameFor(data.files[0]);
 
     $.getJSON('/admin/source_files/generate_key.json', {filename: file_name}, function(data) {
       // Now that we have our data, we add it to the global s3_upload_hash so that it can be
@@ -95,4 +95,8 @@ function formatFileSize(bytes) {
     return (bytes / 1000000).toFixed(2) + ' MB';
   else
     return (bytes / 1000).toFixed(2) + ' KB';
+}
+
+function parsableNameFor(file) {
+  return file.name.replace(/ /g, '_');
 }
