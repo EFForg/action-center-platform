@@ -70,9 +70,6 @@ class Admin::ActionPagesController < Admin::ApplicationController
 
     add_twitter_targets
 
-    @actionPage.slug = nil
-    @actionPage.save!
-
     redirect_to( { :action => 'edit', anchor: params[:anchor]}, :notice => "Action Page was successfully updated.")
   end
 

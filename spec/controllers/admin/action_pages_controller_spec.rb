@@ -55,4 +55,68 @@ RSpec.describe Admin::ActionPagesController, type: :controller do
       end
     end
   end
+
+  describe 'PATCH #update' do
+    let(:page) { FactoryGirl.create(:action_page) }
+    let(:image) { Rails.root.join('spec/fixtures/images/eff.png') }
+    let(:update) { put :update, attrs }
+    let(:targets) { "" }
+    let(:page_attrs) { {} }
+    let(:attrs) do
+      {
+        id: page.slug,
+        action_page: {
+          title: '', # the page passes all attributes, which confuses the model
+          congress_message_campaign_attributes: {
+            target_specific_legislators: "0",
+          },
+        }.merge(page_attrs),
+        add_targets: targets
+      }
+    end
+
+    before do
+      stub_request(:post, %r(api.fastly.com))
+        .to_return(status: 200, body: "", headers: {})
+      login_as_admin
+    end
+
+    context 'with a tweet' do
+      let(:page) { ActionPage.find_by(tweet_id: tweet.id) }
+      let(:tweet) { FactoryGirl.create(:tweet) }
+      let(:targets) {"rep1\r\nrep2" }
+
+      it 'saves twitter targets' do
+        expect { update }.to change(tweet.tweet_targets, :count)
+          .by(targets.split("\r\n").count)
+      end
+    end
+
+    context 'with a custom slug' do
+      let(:slug) { 'slug' }
+
+      before do
+        page.update(slug: slug)
+        expect(page.slug).to eq(slug)
+      end
+
+      context 'with non-title-related changes' do
+        let(:page_attrs) { { summary: 'a new summary' } }
+
+        it 'does not change the slug' do
+          update
+          expect(page.reload.slug).to eq(slug)
+        end
+      end
+
+      context 'with a title change' do
+        let(:page_attrs) { { title: 'a new title' } }
+
+        it 'changes the slug' do
+          update
+          expect(page.reload.slug).not_to eq(slug)
+        end
+      end
+    end
+  end
 end
