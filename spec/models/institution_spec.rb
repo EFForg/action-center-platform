@@ -33,4 +33,29 @@ describe Institution do
       expect(petition.action_page.institutions.top(3, first: low_rank.id).to_a).to eq([low_rank, high_rank, mid_rank])
     end
   end
+
+  describe ".import" do
+    let(:action_page) { FactoryGirl.create(:action_page) }
+    let(:institution) { FactoryGirl.create(:institution) }
+    let(:names) do
+      ["University of California, Berkeley",
+       "University of California, Santa Cruz"]
+    end
+
+    it "adds institutions by name" do
+      expect {
+        described_class.import(names, action_page)
+      }.to change(action_page.institutions, :count).by(names.count)
+    end
+
+    context "when a page has existing institutions" do
+      before { action_page.institutions << institution }
+
+      it "does not remove existing institutions from the action" do
+        expect {
+          described_class.import(names << institution.name, action_page)
+        }.to change(action_page.institutions, :count).by(names.count + 1)
+      end
+    end
+  end
 end
