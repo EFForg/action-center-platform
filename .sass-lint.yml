@@ -1,0 +1,57 @@
+files:
+  include:
+    - 'app/assets/stylesheets/**/*.scss'
+
+options:
+  merge-default-rules: false
+
+rules:
+  indentation:
+    - 2
+    -
+      size: 2
+
+  brace-style:
+    - 2
+    -
+      style: 1tbs
+
+  declarations-before-nesting: 2
+  extends-before-declarations: 2
+  mixins-before-declarations:
+    - 2
+    -
+      exclude: breakpoint
+
+  leading-zero:
+    - 2
+    -
+      include: true
+
+  nesting-depth:
+    - 2
+    -
+      max-depth: 3
+
+  no-duplicate-properties:
+    - 2
+    -
+      exclude: 'background-image' # for cross-browser support
+
+  no-important: 0 # TODO: go through and remove !importants where possible
+  no-invalid-hex: 2
+  no-misspelled-properties: 2
+  no-trailing-whitespace: 2
+  space-after-colon: 2
+  space-after-comma: 2
+  space-before-brace: 2
+
+  space-before-colon:
+    - 2
+    -
+      include: false
+
+  space-before-bang: 2
+  trailing-semicolon: 2
+  url-quotes: 2
+
