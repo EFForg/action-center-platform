@@ -4,13 +4,13 @@
 # instead of editing this one. Cucumber will automatically load all features/**/*.rb
 # files.
 
-require 'cucumber/rails'
-require 'cucumber/rspec/doubles'
-require 'capybara/poltergeist'
-require 'billy/capybara/cucumber'
-require 'webmock/cucumber'
+require "cucumber/rails"
+require "cucumber/rspec/doubles"
+require "capybara/poltergeist"
+require "billy/capybara/cucumber"
+require "webmock/cucumber"
 
-Dir[Rails.root.join("spec/support/**/*.rb")].each {|f| require f}
+Dir[Rails.root.join("spec/support/**/*.rb")].each { |f| require f }
 
 Capybara.register_driver :poltergeist do |app|
   Capybara::Poltergeist::Driver.new(app, url_blacklist: ["anon-stats.eff.org"])
@@ -75,7 +75,7 @@ end
 # See https://github.com/cucumber/cucumber-rails/blob/master/features/choose_javascript_database_strategy.feature
 Cucumber::Rails::Database.javascript_strategy = :truncation
 
-Before('@billy') do
+Before("@billy") do
   Capybara.current_driver = :poltergeist_billy
 end
 
@@ -88,10 +88,9 @@ Before do
 end
 
 def stub_smarty_streets
-  stub_resp = {"city"=>"San Francisco", "state_abbreviation"=>"CA", "state"=>"California", "mailable_city"=>true}
+  stub_resp = { "city" => "San Francisco", "state_abbreviation" => "CA", "state" => "California", "mailable_city" => true }
   allow(SmartyStreets).to receive(:get_city_state).with("94109").and_return(stub_resp)
 end
-
 
 def stub_smarty_streets_street_address
   stubbed_address = '[{"input_index":0,"candidate_index":0,"delivery_line_1":"815 Eddy St","last_line":"San Francisco CA 94109-7701","delivery_point_barcode":"941097701156","components":{"primary_number":"815","street_name":"Eddy","street_suffix":"St","city_name":"San Francisco","state_abbreviation":"CA","zipcode":"94109","plus4_code":"7701","delivery_point":"15","delivery_point_check_digit":"6"},"metadata":{"record_type":"S","zip_type":"Standard","county_fips":"06075","county_name":"San Francisco","carrier_route":"C043","congressional_district":"12","rdi":"Commercial","elot_sequence":"0167","elot_sort":"A","latitude":37.78277,"longitude":-122.42104,"precision":"Zip9","time_zone":"Pacific","utc_offset":-8,"dst":true},"analysis":{"dpv_match_code":"Y","dpv_footnotes":"AABB","dpv_cmra":"N","dpv_vacant":"N","active":"Y"}}]'

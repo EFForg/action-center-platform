@@ -35,10 +35,7 @@ class SessionsController < Devise::SessionsController
       @user = current_user
     else
       # Should never end up here
-      redirect_to '/', :flash => { :notice => "You need to be logged in to reset your password!" }
+      redirect_to "/", flash: { notice: "You need to be logged in to reset your password!" }
     end
   end
-
-
-
 end

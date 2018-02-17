@@ -1,7 +1,6 @@
 require "rails_helper"
 
 describe User do
-
   let(:attr) { FactoryGirl.attributes_for :user }
   let(:user) { FactoryGirl.create(:user) }
 
@@ -72,7 +71,6 @@ describe User do
     end
   end
 end
-
 
 def record_several_actions
   FactoryGirl.create(:user)

@@ -23,7 +23,6 @@ describe CongressMember do
     ]
   end
 
-
   describe ".bioguide_map" do
     it "should return a hash mapping bioguide_id to info about a legislator" do
       expect(CongressMember).to receive(:all).and_return(legislators)

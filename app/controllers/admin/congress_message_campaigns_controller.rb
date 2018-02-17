@@ -11,12 +11,12 @@ class Admin::CongressMessageCampaignsController < Admin::ApplicationController
 
   def staffer_report
     @bioguide_id = params[:bioguide_id]
-    render 'admin/congress_message_campaigns/staffer_report', layout: 'admin-blank'
+    render "admin/congress_message_campaigns/staffer_report", layout: "admin-blank"
   end
 
   private
+
   def set_congress_message_campaign
     @congress_message_campaign = CongressMessageCampaign.find(params[:id])
   end
-
 end

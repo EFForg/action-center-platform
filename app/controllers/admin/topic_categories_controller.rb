@@ -10,7 +10,7 @@ class Admin::TopicCategoriesController < Admin::ApplicationController
       render json: topic_category
     else
       render json: topic_category.errors, status: 500
-    end    
+    end
   end
 
   def destroy

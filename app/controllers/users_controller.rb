@@ -4,8 +4,8 @@ class UsersController < ApplicationController
   def show
     send_cache_disablement_headers
 
-    @actionPages = ActionPage.order('id desc')
-    @actions_taken = current_user.events.actions.map {|i| i['properties']['actionPageId'].to_i}
+    @actionPages = ActionPage.order("id desc")
+    @actions_taken = current_user.events.actions.map { |i| i["properties"]["actionPageId"].to_i }
   end
 
   def update
@@ -30,9 +30,9 @@ class UsersController < ApplicationController
   protected
 
   def user_params
-    params.require(:user).permit(:first_name, :last_name, :street_address,
-                                 :city, :state, :country_code, :zipcode,
-                                 :phone, :record_activity)
+    params.require(:user).permit(
+      :first_name, :last_name, :street_address, :city, :state,
+      :country_code, :zipcode, :phone, :record_activity
+    )
   end
-
 end

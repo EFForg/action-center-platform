@@ -1,6 +1,6 @@
-require 'rest_client'
-require 'uri'
-require 'json'
+require "rest_client"
+require "uri"
+require "json"
 
 class ToolsController < ApplicationController
   before_filter :set_user
@@ -29,12 +29,12 @@ class ToolsController < ApplicationController
                            action_id: @action_page.to_param,
                            callback_url: root_url)
 
-    render :json => {}, :status => 200
+    render json: {}, status: 200
   end
 
   # GET /tools/social_buttons_count
   def social_buttons_count
-    render status: 500
+    render "application/error.html.erb", status: 500
   end
 
   # POST /tools/petition
@@ -47,12 +47,12 @@ class ToolsController < ApplicationController
     @action_page = Petition.find(params[:signature][:petition_id]).action_page
     @signature = Signature.new(signature_params.merge(user_id: @user.id))
 
-    @signature.country_code = 'US' if @signature.zipcode.present?
+    @signature.country_code = "US" if @signature.zipcode.present?
 
-    if @signature.country_code == 'US' && !Rails.application.secrets.smarty_streets_id.nil?
+    if @signature.country_code == "US" && !Rails.application.secrets.smarty_streets_id.nil?
       if city_state = SmartyStreets.get_city_state(@signature.zipcode)
-        @signature.city = city_state['city']
-        @signature.state = city_state['state']
+        @signature.city = city_state["city"]
+        @signature.state = city_state["state"]
       end
     end
 
@@ -66,7 +66,7 @@ class ToolsController < ApplicationController
         )
 
         @source = "action center petition :: " + @action_page.title
-        @user.subscribe!(opt_in=true, source=@source)
+        @user.subscribe!(opt_in = true, source = @source)
       end
 
       if params[:update_user_data]
@@ -78,11 +78,11 @@ class ToolsController < ApplicationController
         action_page: @action_page
 
       respond_to do |format|
-        format.json {   render :json => {success: true}, :status => 200 }
+        format.json { render json: { success: true }, status: 200 }
         format.html do
           begin
-            url = URI.parse(request.referer)
-            url.query = [url.query.presence, 'thankyou=1'].join('&')
+            url = URI.parse(request.referrer)
+            url.query = [url.query.presence, "thankyou=1"].join("&")
             redirect_to url.to_s
           rescue
             redirect_to welcome_index_path
@@ -90,7 +90,7 @@ class ToolsController < ApplicationController
         end
       end
     else
-      render :json => {errors: @signature.errors.to_json}, :status => 200
+      render json: { errors: @signature.errors.to_json }, status: 200
     end
   end
 
@@ -98,7 +98,7 @@ class ToolsController < ApplicationController
     ahoy.track "Action",
       { type: "action", actionType: "tweet", actionPageId: params[:action_id] },
       action_page: @action_page
-    render :json => {success: true}, :status => 200
+    render json: { success: true }, status: 200
   end
 
   def message_congress
@@ -118,11 +118,11 @@ class ToolsController < ApplicationController
       )
 
       @source = "action center congress message :: " + @action_page.title
-      @user.subscribe!(opt_in=true, source=@source)
+      @user.subscribe!(opt_in = true, source = @source)
     end
 
     @name = email_params[:first_name] # for deliver_thanks_message
-    render :json => {success: true}, :status => 200
+    render json: { success: true }, status: 200
   end
 
   def email
@@ -134,7 +134,7 @@ class ToolsController < ApplicationController
 
     if params[:service] == "copy"
       @actionPage = @action_page
-      render :email_target
+      render "email_target"
     else
       redirect_to @action_page.email_campaign.service_uri(params[:service])
     end
@@ -149,9 +149,9 @@ class ToolsController < ApplicationController
     if @reps.present?
       update_user_data(params.slice(:street_address, :zipcode)) if params[:update_user_data] == "true"
 
-      render :json => {content: render_to_string(partial: 'action_page/reps')}, :status => 200
+      render json: { content: render_to_string(partial: "action_page/reps") }, status: 200
     else
-      render :json => {error: 'No representatives found'}, :status => 200
+      render json: { error: "No representatives found" }, status: 200
     end
   end
 
@@ -162,13 +162,14 @@ class ToolsController < ApplicationController
   def reps_raw
     @reps = CongressMember.lookup(street: params[:street_address], zipcode: params[:zipcode])
     if @reps.present?
-      render :json => @reps, :status => 200
+      render json: @reps, status: 200
     else
-      render :json => {error: 'No representatives found'}, :status => 200
+      render json: { error: "No representatives found" }, status: 200
     end
   end
 
   private
+
   def set_user
     @user = current_user
   end
@@ -215,12 +216,13 @@ class ToolsController < ApplicationController
   end
 
   def signature_params
-    params.require(:signature).
-      permit(:first_name, :last_name, :email, :petition_id, :user_id,
-             :street_address, :city, :state, :country_code, :zipcode, :anonymous,
-             affiliations_attributes: [:id,
-                                      :institution_id,
-                                      :affiliation_type_id])
+    params.require(:signature).permit(
+      :first_name, :last_name, :email, :petition_id, :user_id,
+      :street_address, :city, :state, :country_code, :zipcode, :anonymous,
+      affiliations_attributes: [
+        :id, :institution_id, :affiliation_type_id
+      ]
+    )
   end
 
   def call_params

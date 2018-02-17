@@ -15,9 +15,9 @@ class Admin::TopicsController < Admin::ApplicationController
     topic = topic_set.topics.build(topic_params)
 
     if topic.save
-      render :json => topic
+      render json: topic
     else
-      render :json => topic.errors, :status => 500
+      render json: topic.errors, status: 500
     end
   end
 
