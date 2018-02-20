@@ -23,6 +23,12 @@ RUN set -x; \
   && apt-get clean \
   && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
+RUN curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | apt-key add - \
+  && echo "deb https://dl.yarnpkg.com/debian/ stable main" | tee /etc/apt/sources.list.d/yarn.list \
+  && apt-get update \
+  && apt-get install \
+    yarn
+
 # Create a symlink to what will be the phantomjs exec path
 RUN ln -s /phantomjs-2.1.1-linux-x86_64/bin/phantomjs /bin/phantomjs
 
@@ -32,6 +38,8 @@ RUN cd / && curl -sLo phantomjs.tar.bz2 https://github.com/Medium/phantomjs/rele
   tar -jxvf phantomjs.tar.bz2 > /dev/null && \
   rm phantomjs.tar.bz2
 
+COPY yarn.lock package.json ./
+RUN yarn install
 
 ADD Gemfile* ./
 
@@ -51,6 +59,7 @@ ADD spec/ ./spec
 ADD vendor/ ./vendor
 ADD docker/ ./docker
 ADD .rubocop.yml ./.rubocop.yml
+ADD .sass-lint.yml ./.sass-lint.yml
 
 RUN usermod -u 1000 www-data
 
