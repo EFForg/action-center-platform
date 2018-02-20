@@ -12,12 +12,12 @@
   }
   h1, h2 {
     text-align: center;
-    margin:0;
+    margin: 0;
   }
   h1 {
     font-weight: 200;
     font-size: 38px;
-    text-shadow: 0px 0px 5px rgba(0,0,0,0.25);
+    text-shadow: 0px 0px 5px rgba(0, 0, 0, 0.25);
     letter-spacing: -2px;
     line-height: 1.1;
 
@@ -29,8 +29,8 @@
     }
   }
   h2 {
-    font-size:22px;
-    margin-top:5px;
+    font-size: 22px;
+    margin-top: 5px;
     font-weight: 400;
   }
   .container {
@@ -42,7 +42,7 @@
   }
   .email-signup {
     max-width: 460px;
-    margin-top:60px;
+    margin-top: 60px;
 
     @media (max-width: $screen-xs-max) {
       margin-top: 40px;
@@ -50,21 +50,23 @@
     input, button {
       border-radius: 4px;
       height: 55px;
-      border:0;
+      border: 0;
     }
     input {
-      font-size:20px;
-      margin: 0 4px 0 0;
       @include placeholders {
         color: #aaa;
         -webkit-font-smoothing: antialiased;
       }
+      font-size: 20px;
+      margin: 0 4px 0 0;
+
       @media (max-width: $screen-xs-max) {
         max-width: 80%;
         margin: 0 auto;
       }
     }
     .btn {
+      @include transition (all 0.3s ease-in-out);
       font-size: 14px;
       font-weight: bold;
       color: #fff;
@@ -75,7 +77,6 @@
       padding: 0px 20px;
       border-radius: 8px;
       -webkit-font-smoothing: antialiased;
-      @include transition (all 0.3s ease-in-out);
     }
     .btn:hover {
       background-color: $darkred;
@@ -87,14 +88,14 @@
 section.featured-action {
   .container {
     margin-top: 100px;
-    margin-bottom:100px;
+    margin-bottom: 100px;
     @media (max-width: 991px) {
       margin-top: 50px;
       margin-bottom: 30px;
     }
   }
   .image {
-    text-align:center;
+    text-align: center;
     img {
       max-width: 100%;
       max-height: 300px;
@@ -110,18 +111,18 @@ section.featured-action {
       margin-top: 0px;
     }
     span {
-      font-style:italic;
+      font-style: italic;
       font-weight: 100;
       text-transform: uppercase;
       font-size: 22px;
     }
   }
   .btn {
-    margin-top:13px;
+    margin-top: 13px;
   }
 
-  a, a:hover, a:focus{
-    h2, p{
+  a, a:hover, a:focus {
+    h2, p {
       color: black;
       text-decoration: none;
     }
@@ -135,17 +136,17 @@ section.more-actions {
   padding-bottom: 40px;
   .row > div:first-child {
     @media (min-width: 992px) {
-    border-right: 1px solid lighten($darkgrey, 60%);
+      border-right: 1px solid lighten($darkgrey, 60%);
     }
   }
   .row > div:last-child {
     @media (min-width: 992px) {
-    border-left: 1px solid lighten($darkgrey, 60%);
+      border-left: 1px solid lighten($darkgrey, 60%);
     }
   }
   .image {
-    overflow:hidden;
-    position:relative;
+    overflow: hidden;
+    position: relative;
     img {
       max-width: 100%;
     }
@@ -156,14 +157,14 @@ section.more-actions {
   }
   .text {
     h3 {
+      @include transition (color 0.3s ease-in-out);
       text-align: left;
       font-size: 20px;
-      @include transition (color 0.3s ease-in-out);
     }
     p {
+      @include transition (color 0.3s ease-in-out);
       text-align: left;
       font-size: 14px;
-      @include transition (color 0.3s ease-in-out);
 
       @media (max-width: 991px) {
         text-align: left;
@@ -177,19 +178,19 @@ section.more-actions {
     position: relative;
     &:hover {
       @media (min-width: 767px) {
-      color: $darkred;
+        color: $darkred;
       }
       h3 {
         color: $red;
       }
     }
-    &:last-child{
+    &:last-child {
       @media (max-width: 991px) {
-        margin-bottom:0px;
+        margin-bottom: 0px;
       }
     }
     @media (max-width: 991px) {
-      margin-bottom:70px;
+      margin-bottom: 70px;
     }
 
   }
@@ -200,17 +201,17 @@ section.more-actions {
     font-weight: bold;
     letter-spacing: 1px;
     font-size: 14px;
-    margin-top:25px;
-    margin-bottom:0;
+    margin-top: 25px;
+    margin-bottom: 0;
     a {
       @include transition (all 0.3s ease-in-out);
 
       .arrow {
+        @include transition (all 0.3s ease-in-out);
         fill: $red;
         width: 10px;
         height: 10px;
-        margin-left:5px;
-        @include transition (all 0.3s ease-in-out);
+        margin-left: 5px;
       }
       &:hover .arrow {
         @include transform(rotate(90deg));
@@ -223,9 +224,9 @@ section.more-actions {
 section.mobile-apps {
   margin-top: 70px;
   .image {
-    text-align:right;
+    text-align: right;
     img {
-      margin-right:10px;
+      margin-right: 10px;
     }
   }
 }
@@ -239,14 +240,14 @@ section.mobile-apps {
 
 /* Link a whole div as per https://stackoverflow.com/questions/796087/make-a-div-into-a-link */
 span.link-div {
-  position:absolute; 
-  width:100%;
-  height:100%;
-  top:0;
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: 0;
   left: 0;
   z-index: 1;
 
-  /* Fixes overlap error in IE7/8, 
+  /* Fixes overlap error in IE7/8,
    make sure you have an empty gif */
   background-image: image-url('empty.gif');
 }

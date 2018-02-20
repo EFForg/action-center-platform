@@ -15,7 +15,7 @@ Navbar styles
 .navbar-wrapper .navbar-inverse {
   background-color: #f8f8f8;
 }
-.navbar-inverse .navbar-nav > li > a { 
+.navbar-inverse .navbar-nav > li > a {
   color: $red;
   &:hover {
     color: darken($red, 15%);
@@ -34,7 +34,7 @@ Simple header
 .simple-header {
   border-bottom: 1px solid $lightgrey;
   padding-bottom: 15px;
-  
+
   h1.page-title {
     font-weight: 100;
   }
@@ -44,7 +44,7 @@ Simple header
 /**********************
 Simple table
 *************+*********/
-.table.table-simple td:first-child { 
+.table.table-simple td:first-child {
   text-transform: none;
 }
 
@@ -72,9 +72,9 @@ Button styles
 *************+*********/
 
 .btn-success {
+  @include transition( background-color 0.3s ease );
   background-color: #fff;
   color: #4cae4c;
-  @include transition( background-color 0.3s ease );
 
   &:hover, &:focus {
     background-color: lighten(#4cae4c, 47%);
@@ -82,9 +82,9 @@ Button styles
   }
 }
 .btn-info {
+  @include transition( background-color 0.3s ease );
   background-color: #fff;
   color: #46b8da;
-  @include transition( background-color 0.3s ease );
 
   &:hover, &:focus {
     background-color: lighten(#46b8da, 40%);
@@ -92,9 +92,9 @@ Button styles
   }
 }
 .btn-primary {
+  @include transition( background-color 0.3s ease );
   background-color: #fff;
   color: #428bca;
-  @include transition( background-color 0.3s ease );
 
   &:hover, &:focus {
     background-color: lighten(#428bca, 40%);
@@ -105,14 +105,13 @@ Button styles
 /**********************
 Panels
 *************+*********/
-.panel-heading, .panel-default > .panel-heading {  
+.panel-heading, .panel-default > .panel-heading {
   position: relative;
   font-size: 18px;
   font-weight: 100;
   label, a {
     margin: 0;
     cursor: pointer;
-    cursor: hand;
     font-weight: 100;
     color: inherit;
     display: block;
@@ -199,7 +198,7 @@ Left-aligned tabs
   .tab-content {
     display: table-cell;
     vertical-align: top;
-    width: 100%
+    width: 100%;
   }
   .tab-content > .tab-pane,
   .pill-content > .pill-pane {
@@ -221,11 +220,11 @@ Left-aligned tabs
   }
 
   .tabs-left > .nav-tabs > li > a {
+    @include transition( background 0.3s ease-in-out, color 0.3s ease-in-out, border 0.3s ease-in-out );
     min-width: 74px;
     margin-right: 0;
     margin-bottom: 3px;
     color: $mediumgrey;
-    @include transition( background 0.3s ease-in-out, color 0.3s ease-in-out, border 0.3s ease-in-out );
 
     &:hover {
       color: $red;
@@ -248,15 +247,15 @@ Left-aligned tabs
   }
 
   .tabs-left > .nav-tabs > li > a {
+    @include transition( padding 0.3s ease-in-out );
     margin-right: -1px;
     -webkit-border-radius: 4px 0 0 4px;
-       -moz-border-radius: 4px 0 0 4px;
-            border-radius: 4px 0 0 4px;
-    @include transition( padding 0.3s ease-in-out );
+    -moz-border-radius: 4px 0 0 4px;
+    border-radius: 4px 0 0 4px;
     &:hover {
       padding-left: 30px;
     }
-    
+
     .tabs-left > .nav-tabs > li.active > a:hover {
       // Prevent active tab from shifting right on hover.
       padding-left: 0;
@@ -272,7 +271,7 @@ Left-aligned tabs
   .tabs-left > .nav-tabs .active > a:hover,
   .tabs-left > .nav-tabs .active > a:focus {
     border-color: #ddd transparent #ddd #ddd;
-    *border-right-color: #ffffff;
+    border-right-color: #ffffff;
   }
 
   .tab-content {
@@ -287,20 +286,21 @@ Left-aligned tabs
     font-size: 13px;
   }
 }
+
 #tabs {
   i.icon {
     font-size: inherit;
-    margin-right:5px;
+    margin-right: 5px;
   }
 }
 
 .tab-content > .tab-pane, .pill-content > .pill-pane {
-    display: block;    /* undo display:none          */
-    height: 0;         /* height:0 is also invisible */ 
-    overflow: hidden;  /* no-overflow      */ 
-    padding: 0 !important;        
+  display: block;    /* undo display:none          */
+  height: 0;         /* height:0 is also invisible */
+  overflow: hidden;  /* no-overflow      */
+  padding: 0 !important;
 }
 .tab-content > .active, .pill-content > .active {
-    height: auto;      /* let the content decide it  */
-    margin-bottom: 50px;
+  height: auto;      /* let the content decide it  */
+  margin-bottom: 50px;
 } /* bootstrap hack end */

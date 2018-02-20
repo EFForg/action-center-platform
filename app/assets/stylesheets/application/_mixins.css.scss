@@ -1,4 +1,5 @@
 @mixin speak-out-button {
+  @include transition (background-color 0.2s ease-in-out);
   width: 100%;
   border: none;
   font-size: 0.9em;
@@ -8,7 +9,6 @@
   text-transform: uppercase;
   margin-top: 1em;
   letter-spacing: 0.06em;
-    @include transition (background-color 0.2s ease-in-out);
   &:hover {
     background-color: darken($red, 15%);
   }

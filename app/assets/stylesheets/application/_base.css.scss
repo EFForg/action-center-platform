@@ -1,18 +1,18 @@
 html {
-   -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
 * {
-   margin: 0;
+  margin: 0;
 }
 
 html, body {
-   height: 100%;
+  height: 100%;
 }
 
 body>.wrapper {
-  position:relative;
+  position: relative;
   min-height: 100%;
 }
 
@@ -21,7 +21,7 @@ body>.wrapper {
 }
 
 .radio, .checkbox {
-   padding-left:20px;
+  padding-left: 20px;
 }
 
 .checkbox.small {
@@ -29,36 +29,38 @@ body>.wrapper {
 }
 
 .radio label, .checkbox label {
-   padding-left: 0;
-   display: inline;
+  padding-left: 0;
+  display: inline;
 }
 
 .radio-inline {
-   color: $darkgrey;
+  color: $darkgrey;
 }
+
 label {
   font-weight: normal;
 }
+
 ul li {
   margin-bottom: 10px;
 }
 
 .link-button {
-     background: none;
-     border: none;
-     color: $red;
-     text-decoration: none;
-     padding: 0;
-     cursor: pointer;
-     &:hover {
-      @extend a:hover;
-     }
+  background: none;
+  border: none;
+  color: $red;
+  text-decoration: none;
+  padding: 0;
+  cursor: pointer;
+  &:hover {
+    @extend a:hover;
+  }
 }
 
-.push {height: 100px;}
+.push { height: 100px;}
 
 a:hover {
-   text-decoration: none;
+  text-decoration: none;
 }
 
 .nav > li {
@@ -66,86 +68,94 @@ a:hover {
 }
 
 .nav > li > a {
-   padding-right: 20px;
-   padding-left: 20px;
-   @media (max-width: $screen-sm-max) and (min-width: $screen-sm-min) {
+  padding-right: 20px;
+  padding-left: 20px;
+  @media (max-width: $screen-sm-max) and (min-width: $screen-sm-min) {
     padding-left: 15px;
     padding-right: 15px;
-   }
+  }
 }
 
 .navbar-wrapper {
-   background: $red;
-   .navbar-inverse {
-      border:0;
-      background-color: #cc0000;
-      background-image: none;
-   }
-   .navbar {
-      font-size:13px;
-      margin-bottom: 0px;
-      z-index: 102;
-   }
-   .navbar-right {
-      margin-top:4px;
-   }
-   .horiz-rule {
-      background-color: #C40B02;
-      height:1px;
-   }
-   .navbar-brand {
-      height :auto;
-      padding-top: 14px;
-      padding-bottom:10px;
-   }
-   .icon-eff-action-logo {
-    color:#fff;
-    font-size:29px;
-   }
+  background: $red;
+
+  .navbar-inverse {
+    border: 0;
+    background-color: #cc0000;
+    background-image: none;
+  }
+
+  .navbar {
+    font-size: 13px;
+    margin-bottom: 0px;
+    z-index: 102;
+  }
+
+  .navbar-right {
+    margin-top: 4px;
+  }
+
+  .horiz-rule {
+    background-color: #C40B02;
+    height: 1px;
+  }
+
+  .navbar-brand {
+    height: auto;
+    padding-top: 14px;
+    padding-bottom: 10px;
+  }
+
+  .icon-eff-action-logo {
+    color: #fff;
+    font-size: 29px;
+  }
 }
 
 @media (min-width: 768px) {
-   .navbar-nav.navbar-right:last-child {
-      margin-right:0;
-   }
+  .navbar-nav.navbar-right:last-child {
+    margin-right: 0;
+  }
 }
 
 .redtop {
-   background-color: $red;
-   color: #fff;
-   .ws-po-box {
-      color: $darkgrey;
-   }
+  background-color: $red;
+  color: #fff;
+  .ws-po-box {
+    color: $darkgrey;
+  }
 }
 
-.triangle{
-   height: 57px;
-   width: 100%;
-   fill: #fff;
-   display: block
+.triangle {
+  height: 57px;
+  width: 100%;
+  fill: #fff;
+  display: block;
 }
 
 .btn-red {
-   font-weight: bold;
-   text-transform: uppercase;
-   background-color: $red;
-   color: #fff;
-   letter-spacing: 1px;
-   font-size: 16px;
-   padding: 18px 40px 15px 40px;
-   -webkit-font-smoothing: antialiased;
-   @include transition (background-color 0.3s ease-in-out, color 0.3s ease-in-out);
+  @include transition (background-color 0.3s ease-in-out, color 0.3s ease-in-out);
+  font-weight: bold;
+  text-transform: uppercase;
+  background-color: $red;
+  color: #fff;
+  letter-spacing: 1px;
+  font-size: 16px;
+  padding: 18px 40px 15px 40px;
+  -webkit-font-smoothing: antialiased;
 
-   &:hover {
+  &:hover {
     background-color: $darkred;
     color: #fff;
-   }
-   &:focus {
+  }
+
+  &:focus {
     color: #fff;
-   }
+  }
 }
 
 .btn-red-outline {
+  @include transition (all 0.2s ease-in-out);
   background-color: #fff;
   color: $red;
   font-size: 14px;
@@ -153,97 +163,108 @@ a:hover {
   border: 1px solid #cc0000;
   border-radius: 8px;
   -webkit-font-smoothing: antialiased;
-  @include transition (all 0.2s ease-in-out);
 
-   &:hover {
-      color: #fff;
-      border-color: $red;
-      background-color: $red;
-   }
-   &.btn-sm {
-      margin-top: -1px;
-      padding: 3px 9px;
-      margin-bottom: 10px;
-      border-radius: 3px;
-      text-transform: uppercase;
-      font-weight: bold;
-      letter-spacing: 1px;
-      font-size: 11px;
-      line-height: 1.1;
-   }
+  &:hover {
+    color: #fff;
+    border-color: $red;
+    background-color: $red;
+  }
+
+  &.btn-sm {
+    margin-top: -1px;
+    padding: 3px 9px;
+    margin-bottom: 10px;
+    border-radius: 3px;
+    text-transform: uppercase;
+    font-weight: bold;
+    letter-spacing: 1px;
+    font-size: 11px;
+    line-height: 1.1;
+  }
 }
 
 
-.avatar-frame{border: 2px solid #cc0000;}
-.avatar-frame,.avatar-frame img{
-   width: 120px;
-   margin-bottom: 17px;
-   height: 120px;
-   -webkit-border-radius: 80px; /* Saf3+, Chrome */
-   border-radius: 80px; /* Opera 10.5, IE 9 */
-   /*-moz-border-radius: 30px;  Disabled for FF1+ */
+.avatar-frame {
+  border: 2px solid #cc0000;
+}
+
+.avatar-frame, .avatar-frame img {
+  width: 120px;
+  margin-bottom: 17px;
+  height: 120px;
+  -webkit-border-radius: 80px; /* Saf3+, Chrome */
+  border-radius: 80px; /* Opera 10.5, IE 9 */
+  /*-moz-border-radius: 30px;  Disabled for FF1+ */
 }
 
 #anon-stats {
-   height: 0;
-   overflow: hidden;
+  height: 0;
+  overflow: hidden;
 }
-
 
 .footer {
   background: #1a1a1a;
-  z-index: 10;
   position: absolute;
   left: 0;
   right: 0;
   bottom: 0;
- color: #fff;
- z-index: 10;
+  color: #fff;
+  z-index: 10;
+
   a {
     color: #fff;
-      &:hover {color: #cc0000;}
+    &:hover {
+      color: #cc0000;
+    }
   }
+
   .icon-eff-logo {
     font-size: 30px;
     line-height: 1;
   }
-   .cc-notice {
-      font-size: 11px;
-      i {font-size:25px;}
-   }
-   .triangle {
-      fill: #1a1a1a;
-      z-index: 10;
-      position: relative;
-      transform: translate(0, -57px);
-   }
 
-   .container {
-      padding-top: 0;
-      padding-bottom: 18px;
-      background: #1a1a1a;
-      margin-top: -10px;
-   }
-   .logo {
-      a {
-        display: block;
-        margin-bottom:10px;
-        @include transition (color 0.2s ease-in-out);
-      }
-   }
-   .links {
-      text-align: right;
-      padding: 0;
-      line-height: 32px;
-      margin: 0;
-      color: #cc0000;
-      font-size: 13px;
+  .cc-notice {
+    font-size: 11px;
+    i {
+      font-size: 25px;
+    }
+  }
 
-      a {
-        margin-right:13px;
-        @include transition (color 0.2s ease-in-out);
-      }
-   }
+  .triangle {
+    fill: #1a1a1a;
+    z-index: 10;
+    position: relative;
+    transform: translate(0, -57px);
+  }
+
+  .container {
+    padding-top: 0;
+    padding-bottom: 18px;
+    background: #1a1a1a;
+    margin-top: -10px;
+  }
+
+  .logo {
+    a {
+      @include transition (color 0.2s ease-in-out);
+      display: block;
+      margin-bottom: 10px;
+    }
+  }
+
+  .links {
+    text-align: right;
+    padding: 0;
+    line-height: 32px;
+    margin: 0;
+    color: #cc0000;
+    font-size: 13px;
+
+    a {
+      @include transition (color 0.2s ease-in-out);
+      margin-right: 13px;
+    }
+  }
 }
 
 .top-buffer {
@@ -262,85 +283,87 @@ a:hover {
 Styles for the alert box
 ===============================================*/
 
-   .alert-container {
-      position:relative;
-      height:0;
-      overflow: visible;
-   }
+.alert-container {
+  position: relative;
+  height: 0;
+  overflow: visible;
+}
 
-   .alert.alert-info, .alert.alert-error {
-      position: fixed;
-      z-index: 101;
-      bottom: 0;
-      right: 20px;
-      background-color: $blue;
+.alert.alert-info, .alert.alert-error {
+  @include box-shadow(0 0 10px 3px rgba(0, 0, 0, 0.1));
+  position: fixed;
+  z-index: 101;
+  bottom: 0;
+  right: 20px;
+  background-color: $blue;
 
-      background-image: -webkit-linear-gradient($darkgrey,lighten($darkgrey, 10%));
-      background-image: -moz-linear-gradient($darkgrey,lighten($darkgrey, 10%));
-      background-image: linear-gradient($darkgrey,lighten($darkgrey, 10%));
+  background-image: -webkit-linear-gradient($darkgrey, lighten($darkgrey, 10%));
+  background-image: -moz-linear-gradient($darkgrey, lighten($darkgrey, 10%));
+  background-image: linear-gradient($darkgrey, lighten($darkgrey, 10%));
 
-      color: #fff;
-      border-radius: 0;
-      text-align: center;
-      line-height: 1.3;
-      overflow: hidden;
-      border: 1px solid #ddd;
-      border-radius: 10px;
-      @include box-shadow(0 0 10px 3px rgba(0, 0, 0, 0.1));
-      padding: 20px 30px;
-      font-size: 15px;
-      height: auto;
-      max-width: 500px;
+  color: #fff;
+  text-align: center;
+  line-height: 1.3;
+  overflow: hidden;
+  border: 1px solid #ddd;
+  border-radius: 10px;
+  padding: 20px 30px;
+  font-size: 15px;
+  height: auto;
+  max-width: 500px;
 
-      @media (max-width: $screen-xs-max) {
-        left:20px;
-        right: 20px;
-      }
+  @media (max-width: $screen-xs-max) {
+    left: 20px;
+    right: 20px;
+  }
 
-      .close {
-         position: absolute;
-         right: 10px;
-         top: 9px;
-         text-indent: -9999px;
-         background: image-url('close.png');
-         height: 16px;
-         width: 16px;
-         cursor: pointer;
-      }
-   }
+  .close {
+    position: absolute;
+    right: 10px;
+    top: 9px;
+    text-indent: -9999px;
+    background: image-url('close.png');
+    height: 16px;
+    width: 16px;
+    cursor: pointer;
+  }
+}
 
-   @media (max-width: 991px) {
-      alert.alert-info, .alert.alert-error {
-         font-size:14px;
-      }
-   }
+@media (max-width: 991px) {
+  alert.alert-info, .alert.alert-error {
+    font-size: 14px;
+  }
+}
 
-   .cssanimations.csstransforms  .alert.alert-info, .cssanimations.csstransforms  .alert.alert-error {
-      -webkit-animation: fade 3.5s 1.0s 1 ease forwards;
-      -moz-animation:    fade 3.5s 1.0s 1 ease forwards;
-      #close {
-         display: none;
-      }
-   }
+.cssanimations.csstransforms
+.alert.alert-info,
+.cssanimations.csstransforms
+.alert.alert-error {
+  -webkit-animation: fade 3.5s 1.0s 1 ease forwards;
+  -moz-animation:    fade 3.5s 1.0s 1 ease forwards;
+  #close {
+    display: none;
+  }
+}
 
-   @-webkit-keyframes fade {
-      0%, 100% { opacity: 0; transform: translate(0,30px); }
-      10%, 90% { opacity: 1; transform: translate(0,0); }
-   }
-   @-moz-keyframes fade {
-      0%, 100% { opacity: 0; transform: translate(0,30px); }
-      10%, 90% { opacity: 1; transform: translate(0,0); }
-   }
+@-webkit-keyframes fade {
+  0%, 100% { opacity: 0; transform: translate(0, 30px); }
+  10%, 90% { opacity: 1; transform: translate(0, 0); }
+}
+@-moz-keyframes fade {
+  0%, 100% { opacity: 0; transform: translate(0, 30px); }
+  10%, 90% { opacity: 1; transform: translate(0, 0); }
+}
 
 .signup-radios,
 .email-signup {
   font-size: 13px;
-  margin-bottom:10px;
-  margin-top:20px;
+  margin-bottom: 10px;
+  margin-top: 20px;
   line-height: 1.5;
 
   label.radio-inline {
-    margin-top:-3px;
+    margin-top: -3px;
     border: 1px solid #ddd;
     border-radius: 8px;
     padding-left: 23px;
@@ -349,14 +372,13 @@ Styles for the alert box
     input[type=radio] {
       margin-top: 4px;
       cursor: pointer;
-      cursor: hand;
-      margin-left:-18px;
+      margin-left: -18px;
     }
     &:first-child {
-      margin-right:1px;
+      margin-right: 1px;
     }
     &:last-child {
-      margin-right:2px;
+      margin-right: 2px;
     }
   }
 
@@ -364,9 +386,8 @@ Styles for the alert box
   // The rest of the rule will be thrown out if that fails.
   #dummy:checked::before,
   input[type="radio"] {
-    position:absolute;
-    clip: rect(0,0,0,0);
-    clip: rect(0 0 0 0);
+    position: absolute;
+    clip: rect(0, 0, 0, 0);
   }
 
   #dummy:checked,
@@ -380,7 +401,6 @@ Styles for the alert box
   input[type="radio"]:checked + label::before {
     content: asset-data-url('radio-checked.png');
   }
-
 }
 
 /* ======================
@@ -388,30 +408,31 @@ No-js styles
 ========================*/
 
 html.no-js {
-   .collapse {
-      display: block
-   }
-   .shown-if-no-js {
-      display: block;
-   }
-   .hidden-if-no-js {
-      display:none;
-   }
+  .collapse {
+    display: block;
+  }
+  .shown-if-no-js {
+    display: block;
+  }
+  .hidden-if-no-js {
+    display: none;
+  }
 }
+
 html.js {
-   .shown-if-no-js {
-      display:none;
-   }
+  .shown-if-no-js {
+    display: none;
+  }
 }
 
 /* ======================
 Email Target Copy Page
 ========================*/
-textarea#email_target_text{
+textarea#email_target_text {
   width: 100%;
   height: 500px;
 }
-div#email_target_text{
+div#email_target_text {
   display: none;
 }
 .btn-red-outline.hover {

@@ -1,0 +1,7 @@
+{
+  "name": "action-center",
+  "private": true,
+  "dependencies": {
+    "sass-lint": "^1.12.1"
+  }
+}
