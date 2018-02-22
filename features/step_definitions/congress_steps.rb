@@ -3,6 +3,7 @@ Given(/^a congress member exists$/) do
 end
 
 Given(/^a stubbed phantomdc$/) do
+  puts Rails.application.config.congress_forms_url
   Rails.application.config.congress_forms_url = "http://phantomdc.test"
 
   proxy.stub("#{Rails.application.config.congress_forms_url}/retrieve-form-elements", :method => 'post').

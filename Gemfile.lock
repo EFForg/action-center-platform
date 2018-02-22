@@ -167,7 +167,7 @@ GEM
       em-socksify (>= 0.3)
       eventmachine (>= 1.0.3)
       http_parser.rb (>= 0.6.0)
-    em-socksify (0.3.1)
+    em-socksify (0.3.2)
       eventmachine (>= 1.0.0.beta.4)
     em-synchrony (1.0.6)
       eventmachine (>= 1.0.0.beta.1)
@@ -175,7 +175,7 @@ GEM
       activemodel
     errbase (0.0.3)
     erubis (2.7.0)
-    eventmachine (1.0.9.1)
+    eventmachine (1.2.0.1)
     eventmachine_httpserver (0.2.1)
     execjs (2.6.0)
     factory_girl (4.7.0)
@@ -273,11 +273,11 @@ GEM
       coderay (~> 1.1.0)
       method_source (~> 0.8.1)
       slop (~> 3.4)
-    puffing-billy (0.10.1)
-      addressable (~> 2.4.0)
-      em-http-request (~> 1.1.0)
+    puffing-billy (0.12.0)
+      addressable (~> 2.4, >= 2.4.0)
+      em-http-request (~> 1.1, >= 1.1.0)
       em-synchrony
-      eventmachine (~> 1.0.4)
+      eventmachine (= 1.2.0.1)
       eventmachine_httpserver
       http_parser.rb (~> 0.6.0)
       multi_json
@@ -494,7 +494,7 @@ DEPENDENCIES
   poltergeist
   premailer-rails
   pry
-  puffing-billy
+  puffing-billy (~> 0.12.0)
   puma
   rack-attack
   rails (~> 4.2.6)
