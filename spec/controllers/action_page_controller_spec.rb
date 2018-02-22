@@ -151,7 +151,7 @@ RSpec.describe ActionPageController, type: :controller do
     it "assigns target bioguide ids" do
       action_page
       bioguide_ids = ["P000197", "H001075"]
-      get :embed_iframe, { id: action_page.id, :bioguide_ids => bioguide_ids }
+      get :embed_iframe, { id: action_page.id, bioguide_ids: bioguide_ids }
       expect(assigns(:target_bioguide_ids)).to match_array(bioguide_ids)
     end
   end
