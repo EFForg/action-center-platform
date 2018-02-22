@@ -24,3 +24,9 @@ Feature: Submit messages to congress
         |last_name|Summers|
         |email|bsummers@ucsunnydale.edu|
         |partner_id|1|
+
+  Scenario: Embedded actions can target specific congress members
+    When I browse to an embedded action targetting Nancy Pelosi and Kamala Harris
+    Then I should not see "Look up your representatives"
+    When I press "Submit your message"
+    Then I should see "Common fields"

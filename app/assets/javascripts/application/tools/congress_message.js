@@ -257,12 +257,12 @@ $(document).on("ready", function() {
     var tool = $(this).parents(".tool-body").find(".congress-message-tool-container");
     var emailValues = tool.data("email-values");
 
-    if (tool.data("target-bioguide-id")) {
+    if (tool.data("bioguide-ids").length > 0) {
       emailValues["$MESSAGE"] = form.find(".campaign-message").val();
 
       $("form.congress-message-rep-lookup").html("");
 
-      var bioguide_ids = tool.data("bioguide-id").split(",");
+      var bioguide_ids = tool.data("bioguide-ids").split(",");
       generateCongressForm({
         reps: _.map(bioguide_ids, function(bioguide_id) {
           return {

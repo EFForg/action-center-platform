@@ -9,7 +9,7 @@
 
     <div class="tool-body with-js">
         <form class="form congress-message-rep-lookup">
-          <% unless @congress_message_campaign.target_bioguide_ids %>
+          <% unless @congress_message_campaign.target_bioguide_ids || @target_bioguide_ids %>
             <fieldset id="lookup-address">
               <h3>
                 <span class="customize-message-popover" data-container="body" data-toggle="popover" data-trigger="hover" data-placement="auto bottom" data-content="<%= @congress_message_campaign.look_up_helper_text "We'll use your address to look up your congressional district and find your representatives." %>">?</span>
@@ -52,9 +52,8 @@
               "email-values": congress_forms_email_values(@congress_message_campaign).to_json,
               "target-house": @congress_message_campaign.target_house,
               "target-senate": @congress_message_campaign.target_senate,
-              "target-bioguide-id": @congress_message_campaign.target_bioguide_ids.present?,
               "extra-fields-explain": @congress_message_campaign.extra_fields_explain_text("We send your comments to your representatives by automatically filling out their online contact forms. Because each representative's form is a little different, we need your help filling out a few extra fields before we can send your message:"),
-              "bioguide-id": @congress_message_campaign.target_bioguide_ids,
+              "bioguide-ids": bioguide_ids(@congress_message_campaign, @target_bioguide_ids),
               "topic-category": @topic_category.to_json
             }) %>
       <%= render "tools/share" -%>

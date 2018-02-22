@@ -38,9 +38,8 @@ class ActionPageController < ApplicationController
   end
 
   def embed_iframe
-    if params.include? :css
-      @css = params[:css]
-    end
+    @css = params[:css] if params.include? :css
+    @target_bioguide_ids = params[:bioguide_ids] if params.include? :bioguide_ids
 
     render layout: 'application-blank'
   end
