@@ -101,6 +101,7 @@ If you want to get fancy, you can modify the embed code to include some of the f
         ac_embed.width = 500; // specify a width manually
         ac_embed.no_css = true; // remove all default styles
         ac_embed.css_content = "#some_elem"; // specify an element which itself contains some styles
+        ac_embed.bioguide_ids = ["ID1", "ID2"...] // bioguide IDs of congress members to target
     </script>
     <script id="some_div" type="text/x-css-content">
         body{
