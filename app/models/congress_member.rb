@@ -1,7 +1,7 @@
 class CongressMember < ActiveRecord::Base
   validates_uniqueness_of :bioguide_id
 
-  scope :current, ->{ where("? <= term_end", Time.now) }
+  scope :current, -> { where("? <= term_end", Time.now) }
 
   scope :filter, ->(f) do
     if f.present?
@@ -29,7 +29,7 @@ class CongressMember < ActiveRecord::Base
   end
 
   def self.bioguide_map
-    Hash[all.group_by(&:bioguide_id).map{ |bio,mem| [bio, mem[0]] }]
+    Hash[all.group_by(&:bioguide_id).map{ |bio, mem| [bio, mem[0]] }]
   end
 
   def self.lookup(street:, zipcode:)

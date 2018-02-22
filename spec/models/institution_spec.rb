@@ -2,11 +2,11 @@ require "rails_helper"
 
 describe Institution do
   describe ".top" do
-    let(:petition){ FactoryGirl.create(:local_organizing_petition) }
+    let(:petition) { FactoryGirl.create(:local_organizing_petition) }
 
-    let(:high_rank){ petition.action_page.institutions.create(name: "A") }
-    let(:mid_rank){ petition.action_page.institutions.create(name: "B") }
-    let(:low_rank){ petition.action_page.institutions.create(name: "C") }
+    let(:high_rank) { petition.action_page.institutions.create(name: "A") }
+    let(:mid_rank) { petition.action_page.institutions.create(name: "B") }
+    let(:low_rank) { petition.action_page.institutions.create(name: "C") }
 
     before(:each) do
       100.times do
@@ -34,4 +34,3 @@ describe Institution do
     end
   end
 end
-

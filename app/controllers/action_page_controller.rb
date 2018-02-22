@@ -18,14 +18,14 @@ class ActionPageController < ApplicationController
 
   def index
     @actionPages = ActionPage.where(published: true, archived: false, victory: false).
-      paginate(:page => params[:page], :per_page => 9).
+      paginate(page: params[:page], per_page: 9).
       order(created_at: :desc)
 
     @actionPages = @actionPages.categorized(params[:category]) if params[:category].present?
 
-    response.headers['Cache-Control'] = 'public, no-cache'
-    response.headers['Surrogate-Control'] = "max-age=120"
-    response.headers['Access-Control-Allow-Origin'] = "*"
+    response.headers["Cache-Control"] = "public, no-cache"
+    response.headers["Surrogate-Control"] = "max-age=120"
+    response.headers["Access-Control-Allow-Origin"] = "*"
     respond_to do |format|
       format.html
       format.atom
@@ -34,25 +34,25 @@ class ActionPageController < ApplicationController
   end
 
   def embed
-    render layout: false, template: "action_page/embed.js.erb"
+    render "action_page/embed.js.erb", layout: false
   end
 
   def embed_iframe
     @css = params[:css] if params.include? :css
     @target_bioguide_ids = params[:bioguide_ids] if params.include? :bioguide_ids
 
-    render layout: 'application-blank'
+    render layout: "application-blank"
   end
 
   def signature_count
     send_cache_disablement_headers
-    response.headers['Access-Control-Allow-Origin'] = "*"
+    response.headers["Access-Control-Allow-Origin"] = "*"
     @actionPage = ActionPage.friendly.find(params[:id])
 
     if petition = @actionPage.petition
       render text: petition.signatures.count
     else
-      render text: '0'
+      render text: "0"
     end
   end
 
@@ -67,7 +67,8 @@ class ActionPageController < ApplicationController
     redirect_to institution_action_page_url(params[:id], @institution)
   end
 
-private
+  private
+
   def set_action_page
     @actionPage = ActionPage.friendly.find(params[:id])
   end
@@ -84,7 +85,7 @@ private
 
   def redirect_to_specified_url
     if @actionPage.enable_redirect
-      redirect_to @actionPage.redirect_url, :status => 301
+      redirect_to @actionPage.redirect_url, status: 301
     end
   end
 
@@ -102,7 +103,6 @@ private
   end
 
   def set_action_display_variables
-
     @title = @actionPage.title
     @petition = @actionPage.petition
     @tweet = @actionPage.tweet
@@ -122,7 +122,7 @@ private
     end
 
     @topic_category = nil
-    if @email_campaign and not @email_campaign.topic_category.nil?
+    if @email_campaign and !@email_campaign.topic_category.nil?
       @topic_category = @email_campaign.topic_category.as_2d_array
     end
     if @congress_message_campaign.try(:topic_category).present?
@@ -141,8 +141,8 @@ private
                               country_code: current_country_code,
                               email: current_email }
 
-    response.headers['Cache-Control'] = 'public, no-cache'
-    response.headers['Surrogate-Control'] = "max-age=120"
+    response.headers["Cache-Control"] = "public, no-cache"
+    response.headers["Surrogate-Control"] = "max-age=120"
   end
 
   def set_signatures
@@ -151,15 +151,15 @@ private
       # Signatures filtered by institution
       if @institution
         @signatures = @petition.signatures_by_institution(@institution)
-            .paginate(:page => params[:page], :per_page => 9)
+            .paginate(page: params[:page], per_page: 9)
             .order(created_at: :desc)
         @institution_signature_count = @signatures.pretty_count
 
       # Signatures with associated affiliations
       elsif @petition.enable_affiliations
         @signatures = @petition.signatures
-            .includes(:affiliations => [:institution, :affiliation_type])
-            .paginate(:page => params[:page], :per_page => 9)
+            .includes(affiliations: [:institution, :affiliation_type])
+            .paginate(page: params[:page], per_page: 9)
             .order(created_at: :desc)
 
       # Signatures, no affiliations
@@ -176,6 +176,6 @@ private
   end
 
   def allow_iframe
-    response.headers.except! 'X-Frame-Options'
+    response.headers.except! "X-Frame-Options"
   end
 end

@@ -74,6 +74,7 @@ GEM
       user_agent_parser
       uuidtools
     arel (6.0.4)
+    ast (2.4.0)
     aws-s3 (0.6.3)
       builder
       mime-types
@@ -258,11 +259,15 @@ GEM
       cocaine (~> 0.5.5)
       mime-types
       mimemagic (= 0.3.0)
+    parallel (1.12.1)
+    parser (2.4.0.2)
+      ast (~> 2.3)
     pg (0.15.1)
     poltergeist (1.10.0)
       capybara (~> 2.1)
       cliver (~> 0.3.1)
       websocket-driver (>= 0.2.0)
+    powerpack (0.1.1)
     premailer (1.8.6)
       css_parser (>= 1.3.6)
       htmlentities (>= 4.0.0)
@@ -342,6 +347,8 @@ GEM
       activesupport (= 4.2.10)
       rake (>= 0.8.7)
       thor (>= 0.18.1, < 2.0)
+    rainbow (2.2.2)
+      rake
     rake (12.3.0)
     rb-fchange (0.0.6)
       ffi
@@ -383,6 +390,16 @@ GEM
       rspec-mocks (~> 3.5.0)
       rspec-support (~> 3.5.0)
     rspec-support (3.5.0)
+    rubocop (0.50.0)
+      parallel (~> 1.10)
+      parser (>= 2.3.3.1, < 3.0)
+      powerpack (~> 0.1)
+      rainbow (>= 2.2.2, < 3.0)
+      ruby-progressbar (~> 1.7)
+      unicode-display_width (~> 1.0, >= 1.0.1)
+    rubocop-github (0.5.0)
+      rubocop (~> 0.49)
+    ruby-progressbar (1.9.0)
     rubyzip (1.2.1)
     safe_yaml (1.0.4)
     safely_block (0.1.0)
@@ -430,6 +447,7 @@ GEM
     unf (0.1.4)
       unf_ext
     unf_ext (0.0.7.2)
+    unicode-display_width (1.3.0)
     user_agent_parser (2.3.0)
     uuidtools (2.1.5)
     warden (1.2.4)
@@ -525,6 +543,8 @@ DEPENDENCIES
   rest-client
   rspec-core
   rspec-rails
+  rubocop (= 0.50.0)
+  rubocop-github (= 0.5.0)
   s3_cors_fileupload!
   sanitize
   sass-rails (~> 4.0.0)
@@ -541,4 +561,4 @@ DEPENDENCIES
   will_paginate (~> 3.0)
 
 BUNDLED WITH
-   1.15.4
+   1.16.1

@@ -11,7 +11,7 @@ h1 {
 }
 
 
-.table tbody tr.tweet-target td{
+.table tbody tr.tweet-target td {
   vertical-align: middle;
 }
 
@@ -20,7 +20,7 @@ h1 {
 }
 
 .thumbnail {
-  margin-bottom:7px;
+  margin-bottom: 7px;
 }
 
 .character-counter-text {
@@ -114,9 +114,9 @@ a.preview {
 }
 
 .published-container {
-  margin-top:22px;
-  display:inline-block;
-  margin-right:10px;
+  margin-top: 22px;
+  display: inline-block;
+  margin-right: 10px;
   label {
     margin-bottom: 0;
     font-size: 15px;
@@ -130,7 +130,7 @@ a.preview {
 
 .panel-body {
   input[type='checkbox'] {
-    margin-right:3px;
+    margin-right: 3px;
   }
 }
 
@@ -254,7 +254,7 @@ Arcive/Victory
 *************+*********/
 #victory {
   .panel {
-    margin-top:20px;
+    margin-top: 20px;
   }
   h4 {
     margin-top: 20px;
@@ -275,19 +275,19 @@ Analytics
   hr {
     margin-top: 0;
   }
-  .times-notification{
+  .times-notification {
     display: inline-block;
   }
 }
 
-div#date_control_container{
+div#date_control_container {
   margin-top: 10px;
 
-  input[type='text'].text-inline, button.submit-inline{
+  input[type='text'].text-inline, button.submit-inline {
     display: inline;
     margin-top: 0px;
   }
-  input[type='text'].text-inline{
+  input[type='text'].text-inline {
     width: 150px;
   }
 }
@@ -336,13 +336,13 @@ File upload/gallery
       .preview {
         padding-left: 0px;
 
-        img { width: 150px }
+        img { width: 150px; }
       }
     }
 
     td:nth-child(2) {
       span {
-        font-size: 12px
+        font-size: 12px;
       }
 
       textarea {

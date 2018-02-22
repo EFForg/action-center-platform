@@ -9,7 +9,7 @@ RSpec.describe Admin::PetitionsController, type: :controller do
   end
 
   describe "GET #show" do
-    let(:petition){ FactoryGirl.create(:petition) }
+    let(:petition) { FactoryGirl.create(:petition) }
 
     it "assigns @signatures" do
       get :show, id: petition.id
@@ -20,7 +20,7 @@ RSpec.describe Admin::PetitionsController, type: :controller do
     it "passes the 'query' param through Signature.filter" do
       query = "jo@example.com"
 
-      expect(Petition).to receive(:find){ petition }
+      expect(Petition).to receive(:find) { petition }
       expect(petition.signatures).to receive(:filter) do |q|
         expect(q).to eq(query)
         Signature.all
@@ -32,7 +32,7 @@ RSpec.describe Admin::PetitionsController, type: :controller do
   end
 
   describe "DELETE #destroy_signatures" do
-    let(:petition){ FactoryGirl.create(:petition) }
+    let(:petition) { FactoryGirl.create(:petition) }
     let(:signatures) do
       30.times.map do
         petition.signatures.create(

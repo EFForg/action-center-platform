@@ -1,9 +1,9 @@
 class Admin::ApplicationController < ApplicationController
-  layout 'admin'
+  layout "admin"
   before_filter :must_be_admin
 
   def manifest
-    self.class.manifest || 'admin'
+    self.class.manifest || "admin"
   end
 
   protected

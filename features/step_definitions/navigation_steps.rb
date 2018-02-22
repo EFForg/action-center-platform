@@ -36,11 +36,11 @@ When /^I fill in the first "([^\"]*)" with "([^\"]*)"$/ do |field, value|
 end
 
 When /^I fill in "([^\"]*)" with "([^\"]*)"$/ do |field, value|
-  fill_in(field.gsub(' ', '_'), :with => value)
+  fill_in(field.gsub(" ", "_"), with: value)
 end
 
 When /^I fill in "([^\"]*)" for "([^\"]*)"$/ do |value, field|
-  fill_in(field.gsub(' ', '_'), :with => value)
+  fill_in(field.gsub(" ", "_"), with: value)
 end
 
 When /^I fill in the following:$/ do |fields|
@@ -50,12 +50,12 @@ When /^I fill in the following:$/ do |fields|
 end
 
 When /^I select "([^\"]*)" from "([^\"]*)"$/ do |value, field|
-  select(value, :from => field)
+  select(value, from: field)
 end
 
 When /^I select "([^\"]*)" from "([^\"]*)" within "([^\"]*)"$/ do |value, field, container|
   within(container) {
-    select(value, :from => field)
+    select(value, from: field)
   }
 end
 
@@ -115,7 +115,7 @@ end
 
 Then(/^"(.*?)" should be selected from "(.*?)"$/) do |value, field|
   selected = false
-  find_field(field).all('option[selected]').each do |el|
+  find_field(field).all("option[selected]").each do |el|
     if el.text == value
       selected = true
       break
@@ -129,7 +129,7 @@ Then(/^I should be on "(.*?)"$/) do |path|
 end
 
 Then /^page should have (.+) message "([^\"]*)"$/ do |type, text|
-  page.has_css?("p.#{type}", :text => text, :visible => true)
+  page.has_css?("p.#{type}", text: text, visible: true)
 end
 
 When(/^I reload the page$/) do
@@ -160,17 +160,16 @@ end
 
 Then(/^"(.*?)" should be required within "(.*?)"$/) do |name, container|
   within(container) {
-    expect(find_field(name)['required']).to be_truthy
+    expect(find_field(name)["required"]).to be_truthy
   }
 end
 
 Then(/^"(.*?)" should not be required within "(.*?)"$/) do |name, container|
   within(container) {
-    expect(find_field(name)['required']).to be_falsey
+    expect(find_field(name)["required"]).to be_falsey
   }
 end
 
 Then(/^the element "(.*?)" should not exist$/) do |element|
   expect(page).not_to have_selector(element)
 end
-

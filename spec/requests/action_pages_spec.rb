@@ -1,7 +1,6 @@
 require "rails_helper"
 
-RSpec.describe "Action Pages", :type => :request do
-
+RSpec.describe "Action Pages", type: :request do
   describe "small petition" do
     before(:each) do
       @action_page = FactoryGirl.create(:petition_with_99_signatures_needing_1_more).action_page
@@ -17,7 +16,9 @@ RSpec.describe "Action Pages", :type => :request do
     it "should allow cors wildcard for broad web consumption" do
       get "/action"
 
-      cors_wildcard_presence = response.headers.any?{ |k,v| k == "Access-Control-Allow-Origin" && v == "*" }
+      cors_wildcard_presence = response.headers.any? do |k, v|
+        k == "Access-Control-Allow-Origin" && v == "*"
+      end
       expect(cors_wildcard_presence).to be_truthy
     end
   end
@@ -32,5 +33,4 @@ RSpec.describe "Action Pages", :type => :request do
       expect(response.body).to eq "1000"
     end
   end
-
 end

@@ -1,4 +1,4 @@
-require 'rails_helper'
+require "rails_helper"
 
 RSpec.describe ActionPageController, type: :controller do
   include Devise::TestHelpers
@@ -12,15 +12,15 @@ RSpec.describe ActionPageController, type: :controller do
 
     it "filters by category" do
       action_page
-      category =  FactoryGirl.create(:category, title: "Privacy")
+      category = FactoryGirl.create(:category, title: "Privacy")
       privacy_action_page = FactoryGirl.create(:action_page, category: category)
-      get :index, { :category => "Privacy" }
+      get :index, { category: "Privacy" }
       expect(assigns(:actionPages)).to contain_exactly(privacy_action_page)
     end
 
     it "returns json" do
       action_page
-      get :index, { :format => "json" }
+      get :index, { format: "json" }
       expect(response.content_type).to eq("application/json")
       expect(response.body).to include(action_page.title)
     end
@@ -32,12 +32,12 @@ RSpec.describe ActionPageController, type: :controller do
       action_page.title = "Renamed Sample Action Page"
       action_page.save
 
-      get :show, { :id => original_slug }
+      get :show, { id: original_slug }
       expect(response).to redirect_to action_page
     end
 
     it "doesn't redirect if the url is already cannonical" do
-      get :show, { :id => action_page.slug }
+      get :show, { id: action_page.slug }
       expect(response.status).to eq(200)
     end
 
@@ -45,7 +45,7 @@ RSpec.describe ActionPageController, type: :controller do
       action_page = FactoryGirl.create :action_page,
                       enable_redirect: true,
                       redirect_url: "https://example.com"
-      get :show, { :id => action_page }
+      get :show, { id: action_page }
       expect(response).to redirect_to "https://example.com"
     end
 
@@ -57,13 +57,13 @@ RSpec.describe ActionPageController, type: :controller do
       }
 
       it "redirects archived actions to active actions" do
-        get :show, { :id => archived_action_page }
+        get :show, { id: archived_action_page }
         expect(response).to redirect_to active_action_page
       end
 
       it "doesn't redirect away from victories" do
         archived_action_page.update_attributes(victory: true)
-        get :show, { :id => archived_action_page }
+        get :show, { id: archived_action_page }
         expect(response.status).to eq(200)
       end
     end
@@ -73,19 +73,19 @@ RSpec.describe ActionPageController, type: :controller do
 
       it "hides unpublished pages from unprivileged users" do
         expect {
-          get :show, { :id => unpublished_action_page }
+          get :show, { id: unpublished_action_page }
         }.to raise_error ActiveRecord::RecordNotFound
       end
 
       it "notifies admin users that a page is unpublished" do
         admin
-        get :show, { :id => unpublished_action_page }
+        get :show, { id: unpublished_action_page }
         expect(flash[:notice]).to include("not published")
       end
 
       it "notifies collaborator users that a page is unpublished" do
         collaborator
-        get :show, { :id => unpublished_action_page }
+        get :show, { id: unpublished_action_page }
         expect(flash[:notice]).to include("not published")
       end
     end
@@ -116,8 +116,8 @@ RSpec.describe ActionPageController, type: :controller do
 
     context "html" do
       it "assigns signatures filtered by institution" do
-        get :show_by_institution, {:id => @actionPage.id,
-          :institution_id => @actionPage.institutions.first.id}
+        get :show_by_institution, { id: @actionPage.id,
+          institution_id: @actionPage.institutions.first.id }
         expect(assigns(:institution)).to eq(@actionPage.institutions.first)
 
         # it should assign signatures associated with the institution
@@ -125,22 +125,24 @@ RSpec.describe ActionPageController, type: :controller do
         signature = @petition.signatures.first
         expect(assigns(:signatures)).to contain_exactly(signature)
         expect(assigns(:signatures).first)
-          .to have_attributes(:affiliations => [signature.affiliations.first])
+          .to have_attributes(affiliations: [signature.affiliations.first])
       end
     end
 
     context "csv" do
       render_views
       it "returns a csv with filtered affiliations" do
-        get :show_by_institution, {:id => @actionPage.id,
-          :institution_id => @actionPage.institutions.first.id,
-          :format => 'csv'}
+        get :show_by_institution, { id: @actionPage.id,
+          institution_id: @actionPage.institutions.first.id,
+          format: "csv" }
 
         signature = @petition.signatures.first
-        csv_contents = [signature.name,
+        csv_contents = [
+          signature.name,
           signature.affiliations.first.institution.name,
-          signature.affiliations.first.affiliation_type.name]
-        expect(response.body.strip()).to eq(csv_contents.join(','))
+          signature.affiliations.first.affiliation_type.name
+        ]
+        expect(response.body.strip).to eq(csv_contents.join(","))
       end
     end
   end

@@ -1,9 +1,9 @@
-require 'rails_helper'
+require "rails_helper"
 
 RSpec.describe Admin::UsersController, type: :controller do
   include Devise::TestHelpers
 
-  before{ login_as_admin }
+  before { login_as_admin }
 
   describe "GET #index" do
     it "returns http success" do
@@ -18,5 +18,4 @@ RSpec.describe Admin::UsersController, type: :controller do
       expect(response).to have_http_status(:found)
     end
   end
-
 end

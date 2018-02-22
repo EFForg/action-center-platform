@@ -10,6 +10,4 @@ FactoryGirl.define do
     state "California"
     anonymous false
   end
-
-
 end

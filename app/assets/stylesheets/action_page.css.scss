@@ -9,7 +9,7 @@
     font-size: 2.5em;
     font-weight: normal;
     line-height: 1.2;
-    margin-top:0;
+    margin-top: 0;
   }
 
   a {
@@ -85,8 +85,8 @@
     margin-bottom: 20px;
     border: solid 1px #cc0000;
     border-radius: 4px;
-    -webkit-box-shadow: 0 0 5px 5px rgba(0,0,0,.1); // iOS <4.3 & Android <4.1
-    box-shadow: 0 0 2px 2px rgba(0,0,0,.1);
+    -webkit-box-shadow: 0 0 5px 5px rgba(0, 0, 0, 0.1); // iOS <4.3 & Android <4.1
+    box-shadow: 0 0 2px 2px rgba(0, 0, 0, 0.1);
 
     .tool-container {
       padding: 1em 0.4em 0 0.4em;
@@ -150,7 +150,7 @@
       margin: 10px 0px 10px 0px;
     }
     .privacy-notice {
-      font-size:11px;
+      font-size: 11px;
       padding: 5px 0;
     }
     p.step2-intro {
@@ -179,14 +179,14 @@
         margin-bottom: 0;
       }
       .info-circle {
+        @include transition (all 0.2s ease-in-out);
         display: inline-block;
         float: right;
         border: 1px solid $red;
         text-align: center;
         border-radius: 10px;
-        line-height: 18px;
-        position:relative;
-        top:-1px;
+        position: relative;
+        top: -1px;
         text-transform: none;
         font-weight: normal;
         letter-spacing: 0;
@@ -194,8 +194,6 @@
         font-style: normal;
         padding: 0px 6px;
         line-height: 20px;
-
-        @include transition (all 0.2s ease-in-out);
         background-color: #fff;
         color: $red;
 
@@ -249,11 +247,11 @@
 
 #tools #petition-tool {
   input[type=submit] {
-    margin-top:0;
+    margin-top: 0;
     margin-bottom: 5px;
   }
   fieldset:last-of-type {
-    margin-bottom:5px;
+    margin-bottom: 5px;
   }
 }
 
@@ -284,7 +282,7 @@
   }
 
   input[type=submit] {
-    margin-top:0;
+    margin-top: 0;
   }
 
   img.individual {
@@ -334,15 +332,15 @@
     }
   }
 
-  #tweet-tool-container{
+  #tweet-tool-container {
     margin-top: 20px;
   }
 
-  h3.twitter-tool-label{
+  h3.twitter-tool-label {
     text-align: left;
     margin-top: 40px;
   }
-  h3.twitter-tool-label em{
+  h3.twitter-tool-label em {
     font-size: 17px;
     color: #0A639B;
     font-style: normal;
@@ -350,7 +348,7 @@
     background-color: white;
     padding-right: 0.3em;
   }
-  h3.twitter-tool-label::before{
+  h3.twitter-tool-label::before {
     margin-bottom: -0.6em;
     border-bottom: 1px solid #eee;
     content: "";
@@ -362,12 +360,11 @@
   color: #333;
   text-decoration: none;
   background-color: #e1e8ed;
-  background-image: -webkit-linear-gradient(#fff,#e1e8ed);
-  background-image: -moz-linear-gradient(#fff,#e1e8ed);
-  background-image: linear-gradient(#fff,#e1e8ed);
+  background-image: -webkit-linear-gradient(#fff, #e1e8ed);
+  background-image: -moz-linear-gradient(#fff, #e1e8ed);
+  background-image: linear-gradient(#fff, #e1e8ed);
   -ms-filter: "progid:DXImageTransform.Microsoft.gradient(enabled=false)";
   font-weight: bold;
-
 }
 
 .description img.full-width {
@@ -411,7 +408,7 @@ h3.header, #tools #email-tool h3, #tools #congress-message-tool h3 {
     border-bottom: solid 1px #eee;
     width: 100%;
     position: absolute;
-    top: 8px
+    top: 8px;
   }
 }
 
@@ -421,25 +418,23 @@ h3.header, #tools #email-tool h3, #tools #congress-message-tool h3 {
 
 h3.privacy-notice-header {
   font-size: 15px;
-  color:$blue;
+  color: $blue;
   margin-top: 1em;
   span.privacy-notice-popover {
+    @include transition (all 0.2s ease-in-out);
     display: inline-block;
-    float:right;
+    float: right;
     border: 1px solid #cc0000;
     height: 18px;
     width: 18px;
     text-align: center;
     border-radius: 10px;
     font-style: normal;
-    font-weight: normal;
     line-height: 17px;
     padding-top: 0px;
-    cursor:pointer;
-    cursor:hand;
-    position:relative;
+    cursor: pointer;
+    position: relative;
     font-weight: bold;
-    @include transition (all 0.2s ease-in-out);
     background-color: #fff;
     color: #cc0000;
     &:hover {
@@ -466,8 +461,8 @@ h3.privacy-notice-header {
   }
 }
 #description .letter, #letter {
-  -webkit-box-shadow: 0 0 25px 5px rgba(0,0,0,.1); // iOS <4.3 & Android <4.1
-  box-shadow: 0 0 25px 5px rgba(0,0,0,.1);
+  -webkit-box-shadow: 0 0 25px 5px rgba(0, 0, 0, 0.1); // iOS <4.3 & Android <4.1
+  box-shadow: 0 0 25px 5px rgba(0, 0, 0, 0.1);
 
   margin: 2em 0 3em;
   padding: 3em 3em 5em;
@@ -536,21 +531,22 @@ h3.privacy-notice-header {
     max-width: 276px;
 
     &.twitter {
-      background-color: #51c5f4;
       @include transition (background-color 0.5s ease-in-out);
+      background-color: #51c5f4;
     }
     &.facebook {
-      background-color: #3f75bd;
       @include transition (background-color 0.5s ease-in-out);
+      background-color: #3f75bd;
     }
     &.google {
-      background-color: #df5138;
       @include transition (background-color 0.5s ease-in-out);
+      background-color: #df5138;
     }
     div.share-label {
       text-align: center;
     }
   }
+
   a:hover {
     color: #fbfbfb;
 
@@ -568,63 +564,62 @@ h3.privacy-notice-header {
 }
 
 #tools #call-tool {
+  padding-bottom: 0;
+  .checkbox {
+    margin-top: -5px;
+  }
+  .tool-body {
     padding-bottom: 0;
-    .checkbox {
-      margin-top:-5px;
-    }
-    .tool-body {
-      padding-bottom:0;
-    }
-    .tool-container {
-      padding-bottom: 0.5em;
-    }
-    .form-group:last-child {
-      margin-bottom:0;
-    }
-    .privacy-notice {
-      margin-bottom: 0px;
-      text-align: center;
-      margin-top: 5px;
-    }
-    input[type=submit], button[type=submit] {
-      margin-top: 0.1em;
-      margin-bottom: 0.3em;
-    }
-    .smalltext {
-      font-size: 13px;
-    }
-    h3.header {
-      position: relative;
-      text-transform: uppercase;
-      margin-bottom: 0.3em;
-      margin-top: 0.4em;
-      letter-spacing: 0.06em;
-      color: #0a639b;
-      font-size: 0.8em;
-      font-weight: bold;
-    }
-    .call-script-box {
-      padding: 6px 12px 2px 12px;
-      background-color: #eee;
-      margin-bottom: 1.0em;
-      margin-top: 0.3em;
-    }
-    .call-script {
-      padding: 0px;
-      font-size: 14px;
-    }
-    .call-body-active .advisory {
-      margin-bottom: 0.8em;
-      line-height: 1.2;
-    }
-    .vertical-share p {
-      line-height: 1.5;
-      margin-bottom:15px;
-    }
-
-    .form-errors {
-      margin-bottom: 1rem;
-    }
+  }
+  .tool-container {
+    padding-bottom: 0.5em;
+  }
+  .form-group:last-child {
+    margin-bottom: 0;
+  }
+  .privacy-notice {
+    margin-bottom: 0px;
+    text-align: center;
+    margin-top: 5px;
+  }
+  input[type=submit], button[type=submit] {
+    margin-top: 0.1em;
+    margin-bottom: 0.3em;
+  }
+  .smalltext {
+    font-size: 13px;
+  }
+  h3.header {
+    position: relative;
+    text-transform: uppercase;
+    margin-bottom: 0.3em;
+    margin-top: 0.4em;
+    letter-spacing: 0.06em;
+    color: #0a639b;
+    font-size: 0.8em;
+    font-weight: bold;
+  }
+  .call-script-box {
+    padding: 6px 12px 2px 12px;
+    background-color: #eee;
+    margin-bottom: 1.0em;
+    margin-top: 0.3em;
+  }
+  .call-script {
+    padding: 0px;
+    font-size: 14px;
+  }
+  .call-body-active .advisory {
+    margin-bottom: 0.8em;
+    line-height: 1.2;
+  }
+  .vertical-share p {
+    line-height: 1.5;
+    margin-bottom: 15px;
+  }
+  .form-errors {
+    margin-bottom: 1rem;
+  }
 }
 
 .email-tool-container, .congress-message-tool-container {
@@ -661,11 +656,11 @@ h3.privacy-notice-header {
   }
   input[type=submit] {
     margin-top: 0.1em;
-    margin-bottom:5px;
+    margin-bottom: 5px;
   }
   h3 {
     font-size: 17px;
-    color:$blue;
+    color: $blue;
     margin-top: 0;
   }
 }
@@ -695,7 +690,7 @@ h3.privacy-notice-header {
   }
   input[type=submit] {
     margin-top: 0.1em;
-    margin-bottom:5px;
+    margin-bottom: 5px;
   }
   .progress {
     margin-top: 15px;
@@ -704,18 +699,18 @@ h3.privacy-notice-header {
     margin-top: 20px;
   }
   #congressForms-common-fields div.signup-radios:first-child {
-    display:block;
+    display: block;
   }
   .captcha-form {
     margin-top: 10px;
     margin-bottom: 15px;
   }
   #congressForms-common-fields {
-    margin-bottom:0;
+    margin-bottom: 0;
     margin-top: 4px;
   }
-  .update-user-data-container .checkbox{
-    line-height:1.3;
+  .update-user-data-container .checkbox {
+    line-height: 1.3;
     margin-top: 3px;
     padding-bottom: 5px;
   }
@@ -727,25 +722,25 @@ h3.privacy-notice-header {
     font-size: 14px;
   }
   .congressForms-legislator-fields {
-    margin-bottom:15px;
+    margin-bottom: 15px;
     margin-top: 15px;
     &:last-of-type {
-      margin-bottom:15px;
+      margin-bottom: 15px;
     }
   }
   &.congress-message-rep-lookup fieldset:last-of-type {
-    margin-bottom:0;
+    margin-bottom: 0;
   }
   .rep-photo {
     padding: 0;
   }
   h3 {
     font-size: 17px;
-    color:$blue;
+    color: $blue;
     margin-top: 0;
 
     &.legislator-label {
-      margin-top:0px;
+      margin-top: 0px;
       margin-bottom: 10px;
       &.common-fields {
         margin-top: 17px;
@@ -753,22 +748,20 @@ h3.privacy-notice-header {
       }
     }
     span.customize-message-popover {
+      @include transition (all 0.2s ease-in-out);
       display: inline-block;
-      float:right;
+      float: right;
       border: 1px solid #cc0000;
       height: 20px;
       width: 20px;
       text-align: center;
       border-radius: 10px;
       font-style: normal;
-      font-weight: normal;
       line-height: 18px;
       padding-top: 0px;
-      cursor:pointer;
-      cursor:hand;
-      position:relative;
+      cursor: pointer;
+      position: relative;
       font-weight: bold;
-      @include transition (all 0.2s ease-in-out);
       background-color: #fff;
       color: #cc0000;
 
@@ -778,22 +771,20 @@ h3.privacy-notice-header {
       }
     }
     span.legislator-info-popover {
+      @include transition (all 0.2s ease-in-out);
       display: inline-block;
-      float:right;
+      float: right;
       border: 1px solid #cc0000;
       height: 20px;
       width: 20px;
       text-align: center;
       border-radius: 10px;
       font-style: normal;
-      font-weight: normal;
       line-height: 18px;
       padding-top: 0px;
-      cursor:pointer;
-      cursor:hand;
-      position:relative;
+      cursor: pointer;
+      position: relative;
       font-weight: bold;
-      @include transition (all 0.2s ease-in-out);
       background-color: #fff;
       color: #cc0000;
       font-size: 12px;
@@ -835,7 +826,7 @@ h3.privacy-notice-header {
     cursor: default;
   }
   .btn-red-outline {
-    margin-bottom:15px;
+    margin-bottom: 15px;
   }
   i {
     margin-right: 5px;
@@ -878,10 +869,10 @@ h3.privacy-notice-header {
 
 .mailing-list-tool {
   form {
-    padding-bottom:10px;
+    padding-bottom: 10px;
   }
   #subscription-form input[type=submit] {
-    margin-top:5px;
+    margin-top: 5px;
   }
 }
 .popover {
@@ -919,7 +910,7 @@ h3.privacy-notice-header {
 
 
 .action-page-list-image img {
-  width:50px;
+  width: 50px;
   float: left;
   margin-right: 15px;
   margin-bottom: 15px;
@@ -939,7 +930,7 @@ h3.privacy-notice-header {
   }
   section.more-actions {
     background-color: #fff;
-    padding-top:100px;
+    padding-top: 100px;
     .row > div:first-child {
       border: 0;
     }
@@ -959,12 +950,11 @@ h3.privacy-notice-header {
 input[type="file"] {
   font-size: 12px;
   line-height: 1;
-  margin-bottom:10px;
+  margin-bottom: 10px;
 }
 
-.chosen-container
-{
-    width: 100% !important;
+.chosen-container {
+  width: 100% !important;
 }
 .chosen-container-single .chosen-single {
   height: 26px;
@@ -980,7 +970,7 @@ input[type="file"] {
 /* Set how things appear for users without js */
 html.no-js {
   .with-js {
-    display:none;
+    display: none;
   }
   .without-js {
     display: block;
@@ -988,14 +978,14 @@ html.no-js {
     .tool-body {
       font-size: 15px;
       textarea.samplemessage {
-        font-size:12px;
+        font-size: 12px;
         width: 100%;
         height: 140px;
-        margin-bottom:10px;
+        margin-bottom: 10px;
         padding: 5px;
       }
       form {
-        margin-top:20px;
+        margin-top: 20px;
       }
       h4 {
         font-size: 16px;
@@ -1007,8 +997,8 @@ html.no-js {
   }
 }
 html.js {
-  .with-js{
-    display:block;
+  .with-js {
+    display: block;
   }
   .without-js {
     display: none;
@@ -1032,7 +1022,7 @@ html.js {
     top: 97px;
   }
   .congressForms-legislator-fields .col-xs-9 {
-    padding-left:0;
+    padding-left: 0;
     padding-right: 0;
   }
   #tools .tool select {
@@ -1046,7 +1036,7 @@ html.js {
     margin-left: 20px;
   }
   .congressForms-legislator-fields .col-xs-9 {
-    padding-left:15px;
+    padding-left: 15px;
     padding-right: 15px;
   }
 }
@@ -1066,7 +1056,7 @@ html.js {
 
 @media (min-width: 1200px) {
   .redtop .container, .action-content.container {
-    padding-left:40px;
+    padding-left: 40px;
   }
   #tools {
     width: 390px;
@@ -1086,10 +1076,10 @@ html.js {
 
 @media (min-width: 768px) and (max-width: 991px) {
   #tools .tool .tool-heading .tool-title {
-    font-size:1.35em;
+    font-size: 1.35em;
   }
   #tools #tweet-tool .rep img {
-    margin-right:0.3em;
+    margin-right: 0.3em;
   }
   #tools #tweet-tool .privacy-notice, #tools .tool .privacy-notice {
     font-size: 9px;

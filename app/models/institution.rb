@@ -1,5 +1,5 @@
 class Institution < ActiveRecord::Base
-  require 'csv'
+  require "csv"
   extend FriendlyId
 
   friendly_id :name, use: [:slugged, :history]

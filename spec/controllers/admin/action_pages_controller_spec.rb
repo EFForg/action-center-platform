@@ -3,13 +3,13 @@ require "rails_helper"
 RSpec.describe Admin::ActionPagesController, type: :controller do
   include Devise::TestHelpers
 
-  let(:petition_action_page){ FactoryGirl.create(:action_page_with_petition) }
+  let(:petition_action_page) { FactoryGirl.create(:action_page_with_petition) }
 
   describe "GET #index" do
     render_views
 
     context "user is an admin" do
-      before{ login_as_admin }
+      before { login_as_admin }
 
       it "should have tabs and panels for create/browse actions, homepage, analytics, partners, topics, and users" do
         get :index
@@ -32,7 +32,7 @@ RSpec.describe Admin::ActionPagesController, type: :controller do
     end
 
     context "user is a collaborator" do
-      before{ login_as_collaborator }
+      before { login_as_collaborator }
 
       it "should have tabs and panels for actions and analytics, and nothing else" do
         get :index
@@ -56,9 +56,9 @@ RSpec.describe Admin::ActionPagesController, type: :controller do
     end
   end
 
-  describe 'PATCH #update' do
+  describe "PATCH #update" do
     let(:page) { FactoryGirl.create(:action_page) }
-    let(:image) { Rails.root.join('spec/fixtures/images/eff.png') }
+    let(:image) { Rails.root.join("spec/fixtures/images/eff.png") }
     let(:update) { put :update, attrs }
     let(:targets) { "" }
     let(:page_attrs) { {} }
@@ -66,7 +66,7 @@ RSpec.describe Admin::ActionPagesController, type: :controller do
       {
         id: page.slug,
         action_page: {
-          title: '', # the page passes all attributes, which confuses the model
+          title: "", # the page passes all attributes, which confuses the model
           congress_message_campaign_attributes: {
             target_specific_legislators: "0",
           },
@@ -81,38 +81,38 @@ RSpec.describe Admin::ActionPagesController, type: :controller do
       login_as_admin
     end
 
-    context 'with a tweet' do
+    context "with a tweet" do
       let(:page) { ActionPage.find_by(tweet_id: tweet.id) }
       let(:tweet) { FactoryGirl.create(:tweet) }
-      let(:targets) {"rep1\r\nrep2" }
+      let(:targets) { "rep1\r\nrep2" }
 
-      it 'saves twitter targets' do
+      it "saves twitter targets" do
         expect { update }.to change(tweet.tweet_targets, :count)
           .by(targets.split("\r\n").count)
       end
     end
 
-    context 'with a custom slug' do
-      let(:slug) { 'slug' }
+    context "with a custom slug" do
+      let(:slug) { "slug" }
 
       before do
         page.update(slug: slug)
         expect(page.slug).to eq(slug)
       end
 
-      context 'with non-title-related changes' do
-        let(:page_attrs) { { summary: 'a new summary' } }
+      context "with non-title-related changes" do
+        let(:page_attrs) { { summary: "a new summary" } }
 
-        it 'does not change the slug' do
+        it "does not change the slug" do
           update
           expect(page.reload.slug).to eq(slug)
         end
       end
 
-      context 'with a title change' do
-        let(:page_attrs) { { title: 'a new title' } }
+      context "with a title change" do
+        let(:page_attrs) { { title: "a new title" } }
 
-        it 'changes the slug' do
+        it "changes the slug" do
           update
           expect(page.reload.slug).not_to eq(slug)
         end

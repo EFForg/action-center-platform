@@ -15,15 +15,15 @@
     bottom: 1px;
   }
   table {
-    margin-bottom:0;
+    margin-bottom: 0;
   }
   .table > tbody > tr > td {
     vertical-align: middle;
   }
   .xs-create-action {
-    margin-top:15px;
+    margin-top: 15px;
     margin-bottom: 15px;
-    margin-left:10px;
+    margin-left: 10px;
   }
   #homepage-settings {
     padding: 10px;
@@ -38,25 +38,25 @@
   }
 
   .action-icons {
-    max-width:30px;
+    max-width: 30px;
   }
 
   .action-pages {
     margin-bottom: 80px;
-    border-top:0;
+    border-top: 0;
     .panel-body {
       padding: 0;
       .table {
-        margin-bottom:0;
-        .action-id {
-          text-align:center;
-          .badge {
-            background-color: transparent;
-            color: #323232;
-            font-size: 11px;
-            border: 1px solid #aaa;
-            font-weight:normal;
-          }
+        margin-bottom: 0;
+      }
+      .action-id {
+        text-align: center;
+        .badge {
+          background-color: transparent;
+          color: #323232;
+          font-size: 11px;
+          border: 1px solid #aaa;
+          font-weight: normal;
         }
       }
     }
@@ -66,7 +66,7 @@
 .action_pages-update,
 .action_pages-edit, .action_pages-new {
   .published-checkbox {
-    margin-bottom:0;
+    margin-bottom: 0;
   }
   .help-block {
     font-size: 13px;
@@ -79,13 +79,13 @@
 
 @media (max-width: 767px) {
   .panel-collapse .panel-body {
-    padding:0;
+    padding: 0;
   }
   .select-featured .panel-body {
     padding: 10px;
   }
   .btn-group .btn {
-    margin-bottom:3px;
+    margin-bottom: 3px;
   }
   .update-action-bar {
     height: 56px;
@@ -96,7 +96,7 @@
     }
     form#action-page-form {
       .help-block {
-        display:none;
+        display: none;
       }
       input.update.btn,  a.preview {
         margin-top: 10px;
@@ -114,11 +114,11 @@
 
 .popover-content {
   ul {
-  padding-left:10px;
-  font-size:13px;
+    padding-left: 10px;
+    font-size: 13px;
   }
   pre {
-    font-size:13px;
+    font-size: 13px;
   }
 }
 
@@ -133,18 +133,18 @@ body.dragging, body.dragging * {
 }
 
 
-body.action_pages-staffer_report{
-  h1{
+body.action_pages-staffer_report {
+  h1 {
     font-size: 40px;
   }
-  h2{
+  h2 {
     font-size: 20px;
     margin: 0px;
   }
-  i.icon-eff-logo{
+  i.icon-eff-logo {
     font-size: 50px;
   }
-  div.chart_wrapper{
+  div.chart_wrapper {
     border: 1px solid #ddd;
     border-radius: 4px;
     padding: 10px;

@@ -7,7 +7,7 @@ module CsrfProtectionHelper
     end
   end
 
-  def token_tag(token=nil)
+  def token_tag(token = nil)
     if Rails.application.config.esi_enabled
       tag("esi:include", src: authenticity_token_path(format: :html))
     else
