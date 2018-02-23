@@ -30,7 +30,7 @@ module Admin
         end
       end
 
-      grouped_reps = grouped_reps.keys.sort.map{ |k| [k, grouped_reps[k]] }
+      grouped_reps = grouped_reps.keys.sort.map { |k| [k, grouped_reps[k]] }
 
       non_congressional_bioguides = []
       CongressMessageCampaign.targets_bioguide_ids.pluck(:target_bioguide_ids).each do |targets|

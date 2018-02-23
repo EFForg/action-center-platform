@@ -40,38 +40,38 @@ describe CallTool do
     it "should raise ArgumentError if a required param is missing" do
       allow(RestClient).to receive(:get)
 
-      expect{
+      expect {
         CallTool.campaign_call(nil, **keywords)
       }.to raise_error(ArgumentError)
 
-      expect{
-        CallTool.campaign_call(campaign, **keywords.dup.tap{ |x| x[:phone] = nil })
+      expect {
+        CallTool.campaign_call(campaign, **keywords.dup.tap { |x| x[:phone] = nil })
       }.to raise_error(ArgumentError)
 
-      expect{
-        CallTool.campaign_call(campaign, **keywords.dup.tap{ |x| x[:location] = nil })
+      expect {
+        CallTool.campaign_call(campaign, **keywords.dup.tap { |x| x[:location] = nil })
       }.to raise_error(ArgumentError)
 
-      expect{
-        CallTool.campaign_call(campaign, **keywords.dup.tap{ |x| x[:action_id] = nil })
+      expect {
+        CallTool.campaign_call(campaign, **keywords.dup.tap { |x| x[:action_id] = nil })
       }.to raise_error(ArgumentError)
 
-      expect{
-        CallTool.campaign_call(campaign, **keywords.dup.tap{ |x| x[:callback_url] = nil })
+      expect {
+        CallTool.campaign_call(campaign, **keywords.dup.tap { |x| x[:callback_url] = nil })
       }.to raise_error(ArgumentError)
 
-      expect{
-        CallTool.campaign_call(campaign, **keywords.dup.tap{ |x| x[:user_id] = nil })
+      expect {
+        CallTool.campaign_call(campaign, **keywords.dup.tap { |x| x[:user_id] = nil })
       }.not_to raise_error
     end
 
     it "should not raise any errors for twilio 'number invalid' error" do
       exception = RestClient::BadRequest.new
-      expect(exception).to receive(:http_body){ %({"error": "13224: number invalid"}) }
+      expect(exception).to receive(:http_body) { %({"error": "13224: number invalid"}) }
       expect(RestClient).to receive(:get).and_raise(exception)
 
       expect(Raven).not_to receive(:capture_message)
-      expect{ CallTool.campaign_call(campaign, **keywords) }.not_to raise_exception
+      expect { CallTool.campaign_call(campaign, **keywords) }.not_to raise_exception
     end
   end
 

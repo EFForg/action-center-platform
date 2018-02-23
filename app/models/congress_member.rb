@@ -29,7 +29,7 @@ class CongressMember < ActiveRecord::Base
   end
 
   def self.bioguide_map
-    Hash[all.group_by(&:bioguide_id).map{ |bio, mem| [bio, mem[0]] }]
+    Hash[all.group_by(&:bioguide_id).map { |bio, mem| [bio, mem[0]] }]
   end
 
   def self.lookup(street:, zipcode:)

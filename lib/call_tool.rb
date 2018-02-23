@@ -34,7 +34,7 @@ module CallTool
     until api_response["page"] >= api_response["total_pages"]
       api_response = JSON.parse(get "/api/campaign", { api_key: api_key, page: api_response["page"] + 1 })
 
-      campaigns.concat(api_response["objects"].map{ |campaign| campaign.slice("id", "name", "allow_call_in", "phone_numbers", "status") })
+      campaigns.concat(api_response["objects"].map { |campaign| campaign.slice("id", "name", "allow_call_in", "phone_numbers", "status") })
     end
 
     campaigns
