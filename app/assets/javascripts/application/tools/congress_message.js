@@ -262,7 +262,8 @@ $(document).on("ready", function() {
 
       $("form.congress-message-rep-lookup").html("");
 
-      var bioguide_ids = tool.data("bioguide-ids").split(",").map(x => x.trim());
+      var bioguide_ids = tool.data("bioguide-ids").split(",")
+        .map(function(x) { return x.trim() });
       generateCongressForm({
         reps: _.map(bioguide_ids, function(bioguide_id) {
           return {
