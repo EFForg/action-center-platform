@@ -5,7 +5,7 @@ module Admin
         {
           id: topic_set.id,
           tier: topic_set.tier,
-          topics: topic_set.topics.map{ |topic| topic.attributes.slice("id", "name") }
+          topics: topic_set.topics.map { |topic| topic.attributes.slice("id", "name") }
         }
       end
 

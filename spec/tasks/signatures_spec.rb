@@ -14,8 +14,8 @@ describe "signatures namespace rake tasks" do
       regular_petition = FactoryGirl.create(:petition_complete_with_one_hundred_signatures)
 
       petition_with_dups = FactoryGirl.create(:petition_complete_with_one_hundred_signatures)
-      petition_with_dups.signatures.take(20).each{ |sig| sig.update_column(:email, "dup1@example.com") }
-      petition_with_dups.signatures.take(10).each{ |sig| sig.update_column(:email, "dup2@example.com") }
+      petition_with_dups.signatures.take(20).each { |sig| sig.update_column(:email, "dup1@example.com") }
+      petition_with_dups.signatures.take(10).each { |sig| sig.update_column(:email, "dup2@example.com") }
 
       distinct_emails = petition_with_dups.signatures.pluck(:email).uniq
 
