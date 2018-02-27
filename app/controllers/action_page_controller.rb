@@ -40,6 +40,7 @@ class ActionPageController < ApplicationController
   def embed_iframe
     @css = params[:css] if params.include? :css
     @target_bioguide_ids = params[:bioguide_ids] if params.include? :bioguide_ids
+    @location = location_params
 
     render layout: "application-blank"
   end
@@ -173,6 +174,11 @@ class ActionPageController < ApplicationController
 
   def set_institution
     @institution = Institution.friendly.find(params[:institution_id])
+  end
+
+
+  def location_params
+    params.permit(:zip4, :zip5, :street, :city, :state)
   end
 
   def allow_iframe

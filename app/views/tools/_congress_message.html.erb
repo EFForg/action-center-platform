@@ -49,7 +49,7 @@
             :data => {
               "congress-forms-url": Rails.application.config.congress_forms_url,
               "campaign-tag": @congress_message_campaign.campaign_tag,
-              "email-values": congress_forms_email_values(@congress_message_campaign).to_json,
+              "email-values": congress_forms_email_values(@congress_message_campaign, @location).to_json,
               "target-house": @congress_message_campaign.target_house,
               "target-senate": @congress_message_campaign.target_senate,
               "extra-fields-explain": @congress_message_campaign.extra_fields_explain_text("We send your comments to your representatives by automatically filling out their online contact forms. Because each representative's form is a little different, we need your help filling out a few extra fields before we can send your message:"),
