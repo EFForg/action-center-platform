@@ -178,7 +178,7 @@ class ActionPageController < ApplicationController
 
 
   def location_params
-    params.permit(:zip4, :zip5, :street, :city, :state)
+    params.permit(:zip4, :zipcode, :street, :city, :state)
   end
 
   def allow_iframe

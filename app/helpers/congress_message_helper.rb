@@ -20,7 +20,7 @@ module CongressMessageHelper
       "$ADDRESS_STREET": location[:street] || current_street_address,
       "$ADDRESS_CITY": location[:city] || current_city,
       "$ADDRESS_ZIP4": location[:zip4],
-      "$ADDRESS_ZIP5": location[:zip5],
+      "$ADDRESS_ZIP5": location[:zipcode],
       "$STATE": location[:state]
     }
   end
