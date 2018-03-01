@@ -11,7 +11,7 @@
       <p>Send this email:</p>
 
       <fieldset disabled>
-        <textarea class="form-control" rows="14"><%= @email_campaign.message %></textarea>
+        <textarea class="form-control" rows="14"><%= email_campaign.message %></textarea>
       </fieldset>
       <%= form_tag '/tools/email', method: 'post', target: '_blank' do |f| -%>
         <input type="hidden" name="action_id" value="<%= @actionPage.id %>" />

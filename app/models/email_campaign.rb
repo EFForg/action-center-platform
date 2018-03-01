@@ -1,5 +1,4 @@
 class EmailCampaign < ActiveRecord::Base
-  belongs_to :topic_category
   has_one :action_page
 
   def email_your_rep_text(default)

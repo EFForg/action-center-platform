@@ -102,8 +102,6 @@ class ActionPageController < ApplicationController
 
   def set_action_display_variables
     @title = @actionPage.title
-    @email_campaign = @actionPage.email_campaign
-    @congress_message_campaign = @actionPage.congress_message_campaign
 
     # Shows a mailing list if no tools enabled
     @no_tools = [:tweet, :petition, :call, :email, :congress_message].none? do |tool|
@@ -117,13 +115,7 @@ class ActionPageController < ApplicationController
       @institutions = @actionPage.institutions.order(:name)
     end
 
-    @topic_category = nil
-    if @email_campaign and !@email_campaign.topic_category.nil?
-      @topic_category = @email_campaign.topic_category.as_2d_array
-    end
-    if @congress_message_campaign.try(:topic_category).present?
-      @topic_category = @congress_message_campaign.topic_category.as_2d_array
-    end
+    @topic_category = @actionPage.tool(:congress_message_campaign).topic_category.presence.try(:as_2d_array)
 
     # Initialize a temporary signature object for form auto-population
     current_zipcode = params[:zipcode] || current_user.try(:zipcode)
