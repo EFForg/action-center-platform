@@ -5,7 +5,7 @@
     <% elsif @actionPage.archived? -%>
       <%= render "tools/archived" if @actionPage.archived? %>
     <% else -%>
-      <%= render "tools/petition" if @actionPage.enable_petition? && @actionPage.petition %>
+      <%= render "tools/petition", petition: @actionPage.tool(:petition) if @actionPage.tool(:petition) %>
       <%= render "tools/call" if @actionPage.enable_call? && @actionPage.call_campaign %>
       <%= render "tools/email" if @actionPage.enable_email? && @actionPage.email_campaign %>
       <%= render "tools/congress_message" if @actionPage.enable_congress_message? && @actionPage.congress_message_campaign %>

@@ -11,7 +11,7 @@
     </div>
 
     <div class="tool-body">
-      <%- if @petition.enable_affiliations -%>
+      <%- if petition.enable_affiliations -%>
         <div class='small tool-notice'>
           <%= t :name_and_affiliations_published -%>
         </div>
@@ -101,7 +101,7 @@
             <% end %>
 
             <fieldset>
-              <% unless @petition.enable_affiliations %>
+              <% unless petition.enable_affiliations %>
                 <div class='checkbox small'>
                   <%= f.label :anonymous do -%>
                     <%= check_box_tag 'signature[anonymous]' -%>
@@ -129,7 +129,7 @@
   </div>
 </div>
 
-<% if !@petition.enable_affiliations? -%>
+<% if !petition.enable_affiliations? -%>
 <div id='signatures' class="hidden-xs ajax-update">
   <h4 class='header'><em><%= t :recent_signatories -%></em></h4>
   <%= render(partial: "tools/signatures", layout: false) %>
