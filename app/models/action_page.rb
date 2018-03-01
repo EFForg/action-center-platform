@@ -69,14 +69,6 @@ class ActionPage < ActiveRecord::Base
     archived? && active_action_page_for_redirect && !victory?
   end
 
-  def template
-    self[:template] || :show
-  end
-
-  def layout
-    self[:layout] || :default
-  end
-
   def og_title
     self[:og_title].presence || title
   end

@@ -11,7 +11,6 @@ class ActionPageController < ApplicationController
   after_action :allow_iframe, only: :embed_iframe
 
   def show
-    render @actionPage.template, layout: @actionPage.layout
   end
 
   def index
@@ -58,7 +57,7 @@ class ActionPageController < ApplicationController
   def show_by_institution
     respond_to do |format|
       format.csv { send_data @petition.to_affiliation_csv(@institution) }
-      format.html { render @actionPage.template, layout: @actionPage.layout }
+      format.html
     end
   end
 

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180124013711) do
+ActiveRecord::Schema.define(version: 20180301015010) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -54,8 +54,6 @@ ActiveRecord::Schema.define(version: 20180124013711) do
     t.string   "background_image_content_type"
     t.integer  "background_image_file_size"
     t.datetime "background_image_updated_at"
-    t.string   "template"
-    t.string   "layout"
     t.string   "og_title"
     t.string   "og_image_file_name"
     t.string   "og_image_content_type"
