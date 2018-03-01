@@ -110,7 +110,7 @@ class ActionPageController < ApplicationController
 
     set_signatures
 
-    if @actionPage.petition and @actionPage.petition.enable_affiliations
+    if @actionPage.tool(:petition).try(:enable_affiliations)
       @top_institutions = @actionPage.institutions.top(300, first: @institution.try(:id))
       @institutions = @actionPage.institutions.order(:name)
     end
