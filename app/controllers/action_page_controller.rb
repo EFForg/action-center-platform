@@ -102,7 +102,6 @@ class ActionPageController < ApplicationController
 
   def set_action_display_variables
     @title = @actionPage.title
-    @tweet = @actionPage.tweet
     @email_campaign = @actionPage.email_campaign
     @congress_message_campaign = @actionPage.congress_message_campaign
 

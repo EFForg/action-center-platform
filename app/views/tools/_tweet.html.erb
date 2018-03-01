@@ -1,37 +1,37 @@
 <div class="tool <%= tweet_tool_classes -%>" id="tweet-tool"
-     data-tweet-targets="<%= @tweet.targets.to_json(only: :twitter_id, methods: :image_url) %>"
-     data-tweet-message="<%= @tweet.message %>"
+     data-tweet-targets="<%= tweet.targets.to_json(only: :twitter_id, methods: :image_url) %>"
+     data-tweet-message="<%= tweet.message %>"
      data-tweet-related="<%= Rails.application.config.twitter_related.to_a.join(",") %>">
   <div class="tool-container">
-    <div class="tool-heading"><h3 class="tool-title"><%= @tweet.cta -%></h3></div>
+    <div class="tool-heading"><h3 class="tool-title"><%= tweet.cta -%></h3></div>
     <div class="tool-body">
-      <div id="tweet-message-wrapper"<%= %( style="display: none").html_safe if @tweet.target_congress? %>>
-        <textarea class="form-control"><%= @tweet.message.html_safe -%></textarea>
+      <div id="tweet-message-wrapper"<%= %( style="display: none").html_safe if tweet.target_congress? %>>
+        <textarea class="form-control"><%= tweet.message.html_safe -%></textarea>
       </div>
 
-      <% if @tweet.targets.present? %>
-        <div id="tweet-tool-container"<%= %( style="display: none").html_safe if @tweet.target_congress? %>>
+      <% if tweet.targets.present? %>
+        <div id="tweet-tool-container"<%= %( style="display: none").html_safe if tweet.target_congress? %>>
           <h3 class="twitter-tool-label"><em>Individuals</em></h3>
-          <% initial_targets = @tweet.targets.sample(3) %>
-          <% @tweet.targets.each do |target| %>
+          <% initial_targets = tweet.targets.sample(3) %>
+          <% tweet.targets.each do |target| %>
             <div class="tweet-individual"<%= %( style="display: none").html_safe unless initial_targets.include?(target) %>>
               <% if target.image_url.present? %>
                 <img src="<%= target.image_url %>" class="individual">
               <% end %>
 
-              <%= link_to "https://twitter.com/intent/tweet?" + {status: ".@#{target.twitter_id} #{@tweet.message}", related: Rails.application.config.twitter_related.to_a.join(',')}.to_query, :target => "_blank", :class => "btn btn-default btn-tweet individual", :"data-twitter-id" => target.twitter_id do %>
+              <%= link_to "https://twitter.com/intent/tweet?" + {status: ".@#{target.twitter_id} #{tweet.message}", related: Rails.application.config.twitter_related.to_a.join(',')}.to_query, :target => "_blank", :class => "btn btn-default btn-tweet individual", :"data-twitter-id" => target.twitter_id do %>
                 <i class="icon-twitter-1"></i> Tweet <%= target.twitter_id %>
               <% end %>
             </div>
           <% end %>
 
-          <% if @tweet.targets.size > 3 %>
+          <% if tweet.targets.size > 3 %>
             <button class="btn btn-success btn-sm tweet-refresh"><i class="icon-loop"></i> Display another 3</button>
           <% end %>
         </div>
       <% end %>
 
-      <% if @tweet.target_congress? %>
+      <% if tweet.target_congress? %>
         <div class="with-js">
           <h3 class="twitter-tool-label" style="display: none"><em>Your Representatives</em></h3>
           <form class="tweet-tool validate" action="">
@@ -52,7 +52,7 @@
           <h4><strong>Our representative lookup tool requires javascript.</strong></h4>
           <p>If your browser doesn't support javascript or you prefer not to enable javascript on this site, you can find your legislators' contact information via the <a target="_blank" href="http://www.house.gov/representatives/find/">House</a> and <a target="_blank" href="https://www.senate.gov/general/contact_information/senators_cfm.cfm">Senate</a> websites.</p>
           <p>The tweet for this campaign is:</p>
-          <textarea class="form-control"><%= @tweet.message.html_safe -%></textarea>
+          <textarea class="form-control"><%= tweet.message.html_safe -%></textarea>
         </div>
       <% end -%>
     </div>
@@ -60,7 +60,7 @@
     <input type="hidden" name="action-id" value="<%= @actionPage.id -%>">
   </div>
 
-  <% if @tweet.target_congress? && !@reps.present? -%>
+  <% if tweet.target_congress? && !@reps.present? -%>
     <p class="privacy-notice with-js">
       This tool uses <a href="http://smartystreets.com/legal/privacy-policy" target="_blank">Smarty Streets</a>' API.
     (<a class="privacy-notice-popover" href="#"

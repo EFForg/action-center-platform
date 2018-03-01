@@ -51,7 +51,7 @@ module ActionPageHelper
   def tweet_link(twitter_id, params = {})
     twitter_id = "@#{twitter_id}" unless twitter_id.to_s.starts_with? "@"
     link_to raw("<i class='icon-twitter-1'></i> Tweet #{twitter_id}"), # rubocop:disable Rails/OutputSafety
-            tweet_url(twitter_id, @tweet.try(:message)),
+            tweet_url(twitter_id, @actionPage.tweet.try(:message)),
             class: "btn btn-tweet btn-default #{params[:class]}",
             data: { twitter_id: twitter_id },
             target: :blank
