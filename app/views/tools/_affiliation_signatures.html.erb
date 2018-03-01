@@ -24,13 +24,13 @@
     <% if @institution %>
       <div id="institution-header">
         <h3><%= @institution.name %></h3>
-        <h4><%= @institution_signature_count %> signatures</h4>
+        <h4><%= pretty_count(@institution_signature_count) %> signatures</h4>
       </div>
     <% end %>
 
     <%= render(partial: "tools/signatures", layout: false) %>
 
-    <% if @institution and @institution_signature_count != '0' -%>
+    <% if @institution && !@institution_signature_count.zero? -%>
       <%= link_to 'Download CSV', institution_action_page_path(@actionPage, @institution, :format => 'csv') -%>
     <% end -%>
     <%= will_paginate @signatures %>

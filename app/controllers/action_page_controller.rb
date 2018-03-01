@@ -142,7 +142,7 @@ class ActionPageController < ApplicationController
         @signatures = petition.signatures_by_institution(@institution)
             .paginate(page: params[:page], per_page: 9)
             .order(created_at: :desc)
-        @institution_signature_count = @signatures.pretty_count
+        @institution_signature_count = @signatures.count
 
       # Signatures with associated affiliations
       elsif petition.enable_affiliations
@@ -155,7 +155,7 @@ class ActionPageController < ApplicationController
       else
         @signatures = petition.signatures.order(created_at: :desc).limit(5)
       end
-      @signature_count = petition.signatures.pretty_count
+      @signature_count = petition.signatures.count
       @require_location = !petition.enable_affiliations
     end
   end

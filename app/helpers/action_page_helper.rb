@@ -84,4 +84,8 @@ module ActionPageHelper
 
     featured.present? ? featured : @actionPage.partners
   end
+
+  def pretty_count(n)
+    ActiveSupport::NumberHelper::number_to_delimited(n, delimiter: ",")
+  end
 end

@@ -19,17 +19,17 @@
 
       <%- if @actionPage.petition.goal -%>
         <div id="progress-bar">
-          <div class='count'><b><%= @signature_count -%></b> /
+          <div class='count'><b><%= pretty_count(@signature_count) -%></b> /
             <span class='goal'><%= @actionPage.petition.goal -%> <%= t :signatures -%></span>
           </div>
           <div class="progress">
-            <div class="progress-bar progress-bar-danger signatures-bar" role="progressbar" aria-valuenow="<%= @signature_count -%>>" aria-valuemin="0" aria-valuemax="<%= @actionPage.petition.goal-%>" style="width: <%= @actionPage.petition.percent_complete -%>%">
+            <div class="progress-bar progress-bar-danger signatures-bar" role="progressbar" aria-valuenow="<%= pretty_count(@signature_count) -%>>" aria-valuemin="0" aria-valuemax="<%= @actionPage.petition.goal-%>" style="width: <%= @actionPage.petition.percent_complete -%>%">
             </div>
           </div>
         </div>
       <% else %>
         <div id="progress-bar">
-          <div class='count'><b><%= @signature_count -%></b><span class='goal'> <%= t :signatures -%></span>
+          <div class='count'><b><%= pretty_count(@signature_count) -%></b><span class='goal'> <%= t :signatures -%></span>
           </div>
         </div>
       <% end -%>

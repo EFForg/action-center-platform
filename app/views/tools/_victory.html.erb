@@ -7,7 +7,7 @@
     </div>
     <div class="tool-body">
       <% if @actionPage.enable_petition? %>
-        <div class='victory-count'><b><%= @signature_count -%></b> signatures total</div>
+        <div class='victory-count'><b><%= pretty_count(@signature_count) -%></b> signatures total</div>
       <% end %>
       <%= markdown @actionPage.victory_message %>
     </div>

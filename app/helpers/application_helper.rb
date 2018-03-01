@@ -21,7 +21,7 @@ module ApplicationHelper
 
   def substitute_keywords(blogtext)
     if @actionPage.try(:description) && @actionPage.tool(:petition)
-      blogtext.gsub("$SIGNATURECOUNT", @actionPage.tool(:petition).signatures.pretty_count)
+      blogtext.gsub("$SIGNATURECOUNT", pretty_count(@signature_count))
     else
       blogtext
     end
