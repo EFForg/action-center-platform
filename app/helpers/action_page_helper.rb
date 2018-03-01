@@ -78,7 +78,10 @@ module ActionPageHelper
   end
 
   def visible_partners
-    featured = @actionPage.partners.where(code: params[:partner])
-    featured.empty? ? @actionPage.partners : featured
+    if params[:partner].present?
+      featured = @actionPage.partners.where(code: params[:partner])
+    end
+
+    featured.present? ? featured : @actionPage.partners
   end
 end

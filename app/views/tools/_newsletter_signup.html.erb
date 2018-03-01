@@ -1,4 +1,4 @@
-<% if @actionPage.partners.present? or current_user.nil? %>
+<% if current_user.nil? || @actionPage.partners.present? %>
   <%= fields_for :subscription do |subscription_fields| %>
 
     <%= subscription_fields.email_field :email, class: "form-control",
