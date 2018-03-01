@@ -88,4 +88,9 @@ class ActionPage < ActiveRecord::Base
   def tool(type)
     send(type) if send(:"enable_#{type}?")
   end
+
+  def self.tools
+    [:petition, :call_campaign, :email_campaign,
+     :congress_message_campaign, :tweet]
+  end
 end

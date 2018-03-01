@@ -103,10 +103,11 @@ class ActionPageController < ApplicationController
   def set_action_display_variables
     @title = @actionPage.title
 
-    # Shows a mailing list if no tools enabled
-    @no_tools = [:tweet, :petition, :call, :email, :congress_message].none? do |tool|
-      @actionPage.send "enable_#{tool}".to_sym
+    ActionPage.tools.each do |type|
+      @tool ||= @actionPage.tool(type)
     end
+
+    @no_tools = @tool.nil?
 
     set_signatures
 

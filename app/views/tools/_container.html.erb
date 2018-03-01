@@ -4,15 +4,14 @@
       <%= render "tools/victory"  %>
     <% elsif @actionPage.archived? -%>
       <%= render "tools/archived" if @actionPage.archived? %>
+    <% elsif @tool -%>
+      <%= render "tools/#{@tool.class.name.underscore}",
+            @tool.class.name.underscore.to_sym => @tool %>
     <% else -%>
-      <%= render "tools/petition", petition: @actionPage.tool(:petition) if @actionPage.tool(:petition) %>
-      <%= render "tools/call" if @actionPage.enable_call? && @actionPage.call_campaign %>
-      <%= render "tools/email", email_campaign: @actionPage.tool(:email_campaign) if @actionPage.tool(:email_campaign) %>
-      <%= render "tools/congress_message", congress_message_campaign: @actionPage.tool(:congress_message_campaign) if @actionPage.tool(:congress_message_campaign) %>
-      <%= render "tools/tweet", tweet: @actionPage.tool(:tweet) if @actionPage.tool(:tweet) %>
       <%= render "tools/mailing_list" if @no_tools == true %>
     <% end -%>
-    <div id='share-buttons-wrapper'>
+
+    <div id="share-buttons-wrapper">
       <div id="share-buttons">
         <a data-network="twitter" href="<%= twitter_share_url(@actionPage) -%>" count="0" target="_blank" class="twitter-button" >
             <div class="sicon" id="stwit"></div>
@@ -27,3 +26,4 @@
     </div>
   </div>
 </div>
+
