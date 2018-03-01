@@ -28,18 +28,6 @@ class ApplicationController < ActionController::Base
     end
   end
 
-  def self.manifest(value = nil)
-    if value.nil?
-      @manifest
-    else
-      @manifest = value
-    end
-  end
-
-  def manifest
-    self.class.manifest || "application"
-  end
-
   # header disables cache so backbutton post-logout reveals no email address
   def send_cache_disablement_headers
     response.headers["Cache-Control"] = "private, no-cache, no-store, max-age=0, must-revalidate"

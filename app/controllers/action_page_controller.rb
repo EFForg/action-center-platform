@@ -10,8 +10,6 @@ class ActionPageController < ApplicationController
   skip_before_filter :verify_authenticity_token, only: :embed
   after_action :allow_iframe, only: :embed_iframe
 
-  manifest :action_page
-
   def show
     render @actionPage.template, layout: @actionPage.layout
   end

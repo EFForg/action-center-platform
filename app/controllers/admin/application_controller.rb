@@ -2,10 +2,6 @@ class Admin::ApplicationController < ApplicationController
   layout "admin"
   before_filter :must_be_admin
 
-  def manifest
-    self.class.manifest || "admin"
-  end
-
   protected
 
   def self.allow_collaborators_to(*actions)

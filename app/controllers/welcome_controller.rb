@@ -1,5 +1,4 @@
 class WelcomeController < ApplicationController
-  manifest :welcome
   def index
     @actionPages = FeaturedActionPage.includes(:action_page).
                                       order("weight desc").
