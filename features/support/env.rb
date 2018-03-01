@@ -13,7 +13,10 @@ require 'webmock/cucumber'
 Dir[Rails.root.join("spec/support/**/*.rb")].each {|f| require f}
 
 Capybara.register_driver :poltergeist do |app|
-  Capybara::Poltergeist::Driver.new(app, url_blacklist: ["anon-stats.eff.org"])
+  Capybara::Poltergeist::Driver.new(app,
+                                    url_blacklist: ["anon-stats.eff.org"],
+                                    phantomjs_logger: StringIO.new,
+                                    js_errors: true)
 end
 
 Capybara.javascript_driver = :poltergeist
