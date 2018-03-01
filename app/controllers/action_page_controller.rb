@@ -115,7 +115,8 @@ class ActionPageController < ApplicationController
       @institutions = @actionPage.institutions.order(:name)
     end
 
-    @topic_category = @actionPage.tool(:congress_message_campaign).topic_category.presence.try(:as_2d_array)
+    @topic_category = @actionPage.tool(:congress_message_campaign).
+                      try(:topic_category).try(:as_2d_array)
 
     # Initialize a temporary signature object for form auto-population
     current_zipcode = params[:zipcode] || current_user.try(:zipcode)
