@@ -25,8 +25,9 @@
       <div class="description" id="description">
         <%= markdown @actionPage.description -%>
       </div>
-      <% if @actionPage.enable_petition? && @petition && @petition.description.present? && !@actionPage.description.include?('``` letter') -%>
-        <%= render(partial: "action_page/letter", layout: false) %>
+
+      <% if @actionPage.tool(:petition).present? -%>
+        <%= render "action_page/letter", letter: @actionPage.tool(:petition) %>
       <% end -%>
 
       <% if @actionPage.petition && @actionPage.enable_petition? && @actionPage.petition.enable_affiliations? -%>

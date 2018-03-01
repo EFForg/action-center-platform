@@ -34,6 +34,10 @@ class ActionPage < ActiveRecord::Base
 
   scope :categorized, ->(category) { joins(:category).where(categories: { title: category }) }
 
+  alias_attribute :enable_call_campaign, :enable_call
+  alias_attribute :enable_congress_message_campaign, :enable_congress_message
+  alias_attribute :enable_email_campaign, :enable_email
+
   def should_generate_new_friendly_id?
     # create slugs with FriendlyId and respect our custom slugs
     # set a custom slug with `page.update(slug: new_slug)`
@@ -79,5 +83,9 @@ class ActionPage < ActiveRecord::Base
 
   def no_drafts_on_homepage
     FeaturedActionPage.where(action_page_id: id).destroy_all unless published?
+  end
+
+  def tool(type)
+    send(type) if send(:"enable_#{type}?")
   end
 end
