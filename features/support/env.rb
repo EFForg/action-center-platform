@@ -29,6 +29,7 @@ Billy.configure do |c|
   c.ignore_params = ["https//anon-stats.eff.org"]
   c.persist_cache = true
   c.cache_path = "features/req_cache/"
+  c.non_whitelisted_requests_disabled = ENV["DISABLE_PUFFING_BILLY_REQUESTS"]
   c.after_cache_handles_request = proc do |_request, response|
     response[:headers]["Access-Control-Allow-Origin"] = "*"
   end
