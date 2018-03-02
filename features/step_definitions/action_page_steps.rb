@@ -1,10 +1,19 @@
 Given(/^a congress message campaign exists$/) do
+  stub_legislators
   @action_page = FactoryGirl.create(:action_page_with_congress_message)
 end
 
 When(/^I browse to an embedded action targetting Nancy Pelosi and Kamala Harris$/) do
   params = "?bioguide_ids[]=P000197&bioguide_ids[]=H001075"
   visit "/action/#{@action_page.title.downcase.gsub(" ", "-")}/embed_iframe#{params}"
+end
+
+When(/^I fill out the required fields for Nancy Pelosi$/) do
+  select("Ms.", from: "$NAME_PREFIX")
+  fill_in("$NAME_FIRST", :with => "Buffy")
+  fill_in("$NAME_LAST", :with => "Summers")
+  fill_in("$EMAIL", :with => "bsummers@ucsunnydale.edu")
+  select("Congress", from: "$TOPIC")
 end
 
 When(/^I sign up for the newsletter of the partner with code "(.*?)"$/) do |code|

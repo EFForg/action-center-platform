@@ -26,20 +26,11 @@ WebMock.allow_net_connect!
 Billy.configure do |c|
   c.cache = true
   c.cache_request_headers = false
-  c.path_blacklist = []
-  c.merge_cached_responses_whitelist = []
   c.persist_cache = true
-  # c.ignore_cache_port = true # defaults to true
-  c.non_successful_cache_disabled = false
-  c.non_successful_error_level = :warn
-  c.non_whitelisted_requests_disabled = false
   c.cache_path = 'features/req_cache/'
-  c.certs_path = 'features/req_certs/'
-  # c.proxy_host = 'example.com' # defaults to localhost
-  # c.proxy_port = 12345 # defaults to random
-  c.proxied_request_host = nil
-  c.proxied_request_port = 80
-  # c.cache_request_body_methods = ['post', 'patch', 'put'] # defaults to ['post']
+  c.after_cache_handles_request = proc do |_request, response|
+    response[:headers]['Access-Control-Allow-Origin'] = "*"
+  end
 end
 
 # Don't prevent form fills by bots during the test run

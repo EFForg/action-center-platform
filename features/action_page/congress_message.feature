@@ -2,8 +2,6 @@
 Feature: Submit messages to congress
 
   Background:
-    Given a stubbed phantomdc
-    And a congress member exists
     And a congress message campaign exists
 
   Scenario: Users can sign up for a partner newsletter when contacting congress
@@ -13,9 +11,7 @@ Feature: Submit messages to congress
     And I fill in "street_address" with "815 Eddy Street"
     And I fill in "zipcode" with "94109"
     And I press "Submit your message"
-    And I fill in "$NAME_FIRST" with "Buffy"
-    And I fill in "$NAME_LAST" with "Summers"
-    And I fill in "$EMAIL" with "bsummers@ucsunnydale.edu"
+    And I fill out the required fields for Nancy Pelosi
     And I sign up for the newsletter of the partner with code "twc"
     And I trigger a click on the element ".btn.action"
     Then I should see "Sent"
