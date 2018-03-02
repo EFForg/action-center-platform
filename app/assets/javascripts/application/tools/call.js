@@ -2,7 +2,7 @@ $(document).on('ready', function() {
   if($('#call-tool').length > 0){
     height_changed();
 
-    var call_campaign_id = $('[data-call-campaign-id]').attr('data-call-campaign-id');
+    var call_campaign_id = $('[name=call_campaign_id]').val();
     var $phone_number_field = $("#inputPhone");
     var $zip_field = $("#inputZip");
     var $street_address_field = $("#inputStreetAddress");
@@ -57,7 +57,7 @@ $(document).on('ready', function() {
       $('.call-body-phone-saved').addClass('hidden');
     }
 
-    $('form.call-tool, form.call-tool-saved').on('submit', function(ev) {
+    $('form.call_campaign-tool').on('submit', function(ev) {
       var form = $(ev.currentTarget);
 
       var update_user_data = $('#update_user_data', form).val();
@@ -101,7 +101,7 @@ $(document).on('ready', function() {
             });
 
             $.ajax({
-              url: "/tools/call",
+              url: "/tools/call_campaign",
               type: "POST",
               data: fd,
               processData: false,
