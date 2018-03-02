@@ -6,7 +6,7 @@
 :method: get
 :headers:
   Server: nginx
-  Date: Fri, 02 Mar 2018 01:27:06 GMT
+  Date: Fri, 02 Mar 2018 19:11:02 GMT
   Content-Type: image/gif
   Transfer-Encoding: chunked
   Connection: close
