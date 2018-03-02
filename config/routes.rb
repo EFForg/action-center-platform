@@ -8,10 +8,10 @@ Actioncenter::Application.routes.draw do
 
   # EFF TOOLS (Call, Share, Petition) - External Reusable Services
 
-  post "tools/call"
+  post "tools/call_campaign"
   post "tools/petition"
   post "tools/tweet"
-  post "tools/email"
+  post "tools/email_campaign"
   post "tools/message-congress"
   get "tools/reps"
   get "tools/reps_raw"
