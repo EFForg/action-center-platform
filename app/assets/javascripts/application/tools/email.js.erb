@@ -1,4 +1,6 @@
 $(document).on('ready', function() {
+  $('form.email_campaign-tool').attr('target', '_blank');
+
   var dnt = false;
   $('#target-email .email-action').click(function(){
     // we need this timeout so the value isn't changed before submission

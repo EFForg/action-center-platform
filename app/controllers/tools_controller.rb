@@ -5,9 +5,9 @@ require "json"
 class ToolsController < ApplicationController
   before_filter :set_user
   before_filter :set_action_page
-  before_filter :create_newsletter_subscription, only: [:email, :call_campaign]
-  before_filter :create_partner_subscription, only: [:email, :call_campaign, :petition, :message_congress]
-  after_filter :deliver_thanks_message, only: [:email, :call_campaign, :petition, :message_congress]
+  before_filter :create_newsletter_subscription, only: [:email_campaign, :call_campaign]
+  before_filter :create_partner_subscription, only: [:email_campaign, :call_campaign, :petition, :message_congress]
+  after_filter :deliver_thanks_message, only: [:email_campaign, :call_campaign, :petition, :message_congress]
   skip_after_filter :deliver_thanks_message, if: :signature_has_errors
   skip_before_filter :verify_authenticity_token, only: :petition
 
@@ -125,7 +125,7 @@ class ToolsController < ApplicationController
     render json: { success: true }, status: 200
   end
 
-  def email
+  def email_campaign
     unless (@user and @user.events.emails.find_by_action_page_id(params[:action_id])) or params.include? :dnt
       ahoy.track "Action",
         { type: "action", actionType: "email", actionPageId: params[:action_id] },
