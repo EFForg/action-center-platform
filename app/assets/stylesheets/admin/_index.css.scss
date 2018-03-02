@@ -17,10 +17,10 @@ td.action-icons {
   }
 }
 #action-pages td.action-titles {
-  word-wrap: break-word; 
+  word-wrap: break-word;
   max-width: 520px;
   @media (max-width: $screen-xs-max) {
-    display:block;
+    display: block;
     border-bottom: 0;
   }
 }
@@ -62,12 +62,12 @@ td.action-icons {
   }
 }
 #action-pages .btn-group i {
+  @include transition( color 0.5s ease );
   position: relative;
   font-size: 19px;
   left: -4px;
   top: 1px;
   padding-right: 1px;
-  @include transition( color 0.5s ease );
 
   @media (max-width: $screen-sm-max) {
     display: none;
@@ -83,7 +83,7 @@ td.action-icons {
 Homepage tab
 *************+*********/
 .select-featured {
-  margin-bottom:50px;
+  margin-bottom: 50px;
   select {
     max-width: 100%;
   }

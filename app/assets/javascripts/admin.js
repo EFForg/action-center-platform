@@ -143,7 +143,7 @@ $(document).on('ready', function() {
   // Prevent scrolling to the top of the page when clicking on protip popovers.
   $( 'a[href="#"]' ).click( function(e) {
     e.preventDefault();
-  } );
+  });
 
   // Bootstrap responsive tabs: https://github.com/openam/bootstrap-responsive-tabs
   fakewaffle.responsiveTabs(['xs']);

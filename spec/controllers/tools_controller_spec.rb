@@ -1,16 +1,15 @@
-require 'rails_helper'
+require "rails_helper"
 
 RSpec.describe ToolsController, type: :controller do
-
   let(:valid_attributes) { {
     signature: {
-      "petition_id"=>"1",
-      "email"=>"rob@eff.org",
-      "first_name"=>"adsf",
-      "last_name"=>"asdf",
-      "zipcode"=>"94109",
-      "city"=>"",
-      "country_code"=>""
+      "petition_id" => "1",
+      "email" => "rob@eff.org",
+      "first_name" => "adsf",
+      "last_name" => "asdf",
+      "zipcode" => "94109",
+      "city" => "",
+      "country_code" => ""
     }
   } }
 
@@ -59,12 +58,12 @@ RSpec.describe ToolsController, type: :controller do
   end
 
   describe "#email" do
-    let(:email_campaign){ FactoryGirl.create(:email_campaign) }
+    let(:email_campaign) { FactoryGirl.create(:email_campaign) }
 
     it "should redirect to ActionPage#service_uri(service)" do
       service, uri = "gmail", "https://composeurl.example.com"
-      expect(ActionPage).to receive(:find_by_id){ email_campaign.action_page }
-      expect(email_campaign).to receive(:service_uri).with(service){ uri }
+      expect(ActionPage).to receive(:find_by_id) { email_campaign.action_page }
+      expect(email_campaign).to receive(:service_uri).with(service) { uri }
       get :email, { action_id: email_campaign.action_page.id, service: service }
       expect(response).to redirect_to(uri)
     end
@@ -77,6 +76,6 @@ def create_signature_and_have_user_sign
 end
 
 def stub_smarty_streets
-  stub_resp = {"city"=>"San Francisco", "state_abbreviation"=>"CA", "state"=>"California", "mailable_city"=>true}
+  stub_resp = { "city" => "San Francisco", "state_abbreviation" => "CA", "state" => "California", "mailable_city" => true }
   allow(SmartyStreets).to receive(:get_city_state).with("94109").and_return(stub_resp)
 end

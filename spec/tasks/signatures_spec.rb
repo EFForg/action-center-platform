@@ -14,8 +14,8 @@ describe "signatures namespace rake tasks" do
       regular_petition = FactoryGirl.create(:petition_complete_with_one_hundred_signatures)
 
       petition_with_dups = FactoryGirl.create(:petition_complete_with_one_hundred_signatures)
-      petition_with_dups.signatures.take(20).each{ |sig| sig.update_column(:email, "dup1@example.com") }
-      petition_with_dups.signatures.take(10).each{ |sig| sig.update_column(:email, "dup2@example.com") }
+      petition_with_dups.signatures.take(20).each { |sig| sig.update_column(:email, "dup1@example.com") }
+      petition_with_dups.signatures.take(10).each { |sig| sig.update_column(:email, "dup2@example.com") }
 
       distinct_emails = petition_with_dups.signatures.pluck(:email).uniq
 
@@ -30,7 +30,7 @@ describe "signatures namespace rake tasks" do
       expect(petition_with_dups.signatures.reload.pluck(:email)).to contain_exactly(*distinct_emails)
     end
 
-    context 'with duplicate subscriptions' do
+    context "with duplicate subscriptions" do
       let(:subscription) { FactoryGirl.create(:subscription) }
       let(:email) { subscription.email }
       let(:partner) { subscription.partner }
@@ -44,7 +44,7 @@ describe "signatures namespace rake tasks" do
         FactoryGirl.create(:subscription, email: email, partner: partner)
       end
 
-      it 'removes the newer duplicates' do
+      it "removes the newer duplicates" do
         expect(Subscription.where(email: email, partner: partner).count).to eq(2)
         expect(Subscription.where(email: email).count).to eq(3)
         expect(Subscription.where(partner: partner).count).to eq(3)

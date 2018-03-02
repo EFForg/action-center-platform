@@ -1,5 +1,5 @@
 class Admin::PartnersController < Admin::ApplicationController
-  layout 'admin'
+  layout "admin"
 
   # GET /partners
   # GET /partners.json
@@ -19,10 +19,10 @@ class Admin::PartnersController < Admin::ApplicationController
 
     respond_to do |format|
       if @partner.save
-        format.html { redirect_to @partner, notice: 'Partner was successfully created.' }
-        format.json { render action: 'show', status: :created, location: @partner }
+        format.html { redirect_to @partner, notice: "Partner was successfully created." }
+        format.json { render "show", status: :created, location: @partner }
       else
-        format.html { render action: 'new' }
+        format.html { render "new" }
         format.json { render json: @partner.errors, status: :unprocessable_entity }
       end
     end
@@ -39,10 +39,10 @@ class Admin::PartnersController < Admin::ApplicationController
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
 
-    # Never trust parameters from the scary internet, only allow the white list through.
-    def partner_params
-      params.require(:partner).permit(:name, :privacy_url, :code)
-    end
+  # Use callbacks to share common setup or constraints between actions.
+  # Never trust parameters from the scary internet, only allow the white list through.
+  def partner_params
+    params.require(:partner).permit(:name, :privacy_url, :code)
+  end
 end

@@ -26,13 +26,13 @@ module Ahoy
     end
 
     def record_civicrm
-      if name == 'Action' && user && action_page_id
+      if name == "Action" && user && action_page_id
         user.add_civicrm_activity! action_page_id
       end
     end
 
     def anonymize_views
-      self.user_id = nil if name == 'View'
+      self.user_id = nil if name == "View"
     end
   end
 end

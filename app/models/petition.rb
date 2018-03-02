@@ -1,4 +1,4 @@
-require 'csv'
+require "csv"
 
 class Petition < ActiveRecord::Base
   has_one :action_page
@@ -13,17 +13,17 @@ class Petition < ActiveRecord::Base
     recent = []
     signatures.last(num).reverse.each do |s|
       if s.anonymous
-        recent.push(s.as_json(:only => [], :methods => [:time_ago, :location]))
+        recent.push(s.as_json(only: [], methods: [:time_ago, :location]))
       else
-        recent.push(s.as_json(:only => [:first_name, :last_name, :city], :methods => [:time_ago, :location]))
+        recent.push(s.as_json(only: [:first_name, :last_name, :city], methods: [:time_ago, :location]))
       end
     end
     recent
   end
 
   def signatures_by_institution(institution)
-    signatures.includes(:affiliations => :institution)
-      .where(:institutions => {:id => institution})
+    signatures.includes(affiliations: :institution)
+      .where(institutions: { id: institution })
   end
 
   def location_required?
@@ -70,6 +70,7 @@ class Petition < ActiveRecord::Base
   end
 
   private
+
   def set_goal
     if new_record?
       goal = 100

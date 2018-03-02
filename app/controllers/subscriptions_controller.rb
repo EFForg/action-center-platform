@@ -1,4 +1,4 @@
-require 'civicrm'
+require "civicrm"
 class SubscriptionsController < ApplicationController
   def create
     email = params[:subscription][:email]

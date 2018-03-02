@@ -101,6 +101,7 @@ If you want to get fancy, you can modify the embed code to include some of the f
         ac_embed.width = 500; // specify a width manually
         ac_embed.no_css = true; // remove all default styles
         ac_embed.css_content = "#some_elem"; // specify an element which itself contains some styles
+        ac_embed.bioguide_ids = ["ID1", "ID2"...] // bioguide IDs of congress members to target
     </script>
     <script id="some_div" type="text/x-css-content">
         body{
@@ -117,6 +118,11 @@ To run the full test suite, simply run `rake` with no arguments.
 
 Rspec tests are used for unit testing the app, and some integration testing. Cucumber tests are used for testing API keys, javascript tests, and feature tests.
 
+## Linting
+
+`rake` will also run our linting: currently, only [Rubocop](https://github.com/bbatsov/rubocop).
+
+Rubocop checks for consistent style across the Ruby areas of the codebase.  We use a modified version of [Rubocop-Github](https://github.com/github/rubocop-github) to stay consistent with [SEC](https://github.com/EFForg/sec).
 
 ## Acknowledgements
 

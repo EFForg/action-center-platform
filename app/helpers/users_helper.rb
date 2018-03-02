@@ -1,5 +1,4 @@
 module UsersHelper
-
   def icons_for_action_page(action_page)
     icons = []
     icons << "icon ion-ios-telephone" if action_page.enable_call

@@ -6,7 +6,7 @@ class TopicCategory < ActiveRecord::Base
   def as_2d_array
     arr = []
     topic_sets.order(:tier).each do |ts|
-      arr.push ts.topics.map{|t| t.name }
+      arr.push ts.topics.map { |t| t.name }
     end
     arr
   end

@@ -7,8 +7,7 @@ FactoryGirl.define do
     end
   end
 
-  factory :tweet_targeting_senate, :parent => :tweet do
+  factory :tweet_targeting_senate, parent: :tweet do
     target_senate true
   end
-
 end

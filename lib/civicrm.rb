@@ -1,4 +1,4 @@
-require 'rest_client'
+require "rest_client"
 module CiviCRM
   module UserMethods
     def contact_attributes
@@ -8,16 +8,16 @@ module CiviCRM
       )
     end
 
-    def subscribe!(opt_in=false, source='action center')
+    def subscribe!(opt_in = false, source = "action center")
       return nil if CiviCRM.skip_crm?
       res = CiviCRM::subscribe contact_attributes.merge(opt_in: opt_in, source: source)
-      update_attributes(contact_id: res['contact_id']) if (res && res['contact_id'])
+      update_attributes(contact_id: res["contact_id"]) if (res && res["contact_id"])
     end
 
     def contact_id!
       return nil if CiviCRM.skip_crm?
       res = CiviCRM::import_contact contact_attributes
-      update_attributes(contact_id: res['contact_id']) if (res && res['contact_id'])
+      update_attributes(contact_id: res["contact_id"]) if (res && res["contact_id"])
       contact_id
     end
 
@@ -33,7 +33,7 @@ module CiviCRM
   end
 
   def self.skip_crm?
-    Rails.application.secrets.supporters['api_key'].nil?
+    Rails.application.secrets.supporters["api_key"].nil?
   end
 
   def self.subscribe(params)
@@ -44,7 +44,7 @@ module CiviCRM
   def self.import_contact(params)
     return nil if skip_crm?
     post base_params.merge(
-      method: 'import_contact',
+      method: "import_contact",
       data: {
         contact_params: params.slice(:email, :first_name, :last_name).merge(
           source: params[:source] || "action center",
@@ -64,7 +64,7 @@ module CiviCRM
   def self.add_activity(params)
     return nil if skip_crm?
     post base_params.merge(
-      method: 'add_activity',
+      method: "add_activity",
       data: params.slice(:contact_id, :subject, :activity_type_id).to_json
     )
   end
@@ -74,10 +74,11 @@ module CiviCRM
   end
 
   private
+
   def self.post(params)
     begin
       res = JSON.parse RestClient.post(supporters_api_url, params)
-      raise res['error_message'] if res['error']
+      raise res["error_message"] if res["error"]
       return res
     rescue => e
       Rails.logger.error "#{ e } (#{ e.class })!"
@@ -87,7 +88,7 @@ module CiviCRM
 
   def self.send_email_template_data(params)
     base_params.merge(
-      method: 'send_email_template',
+      method: "send_email_template",
       data: params.slice(:contact_id,
                          :message_template_id,
                          :template_data,
@@ -97,12 +98,12 @@ module CiviCRM
 
   def self.find_contact_by_email_data(params)
     base_params.merge(
-      method: 'find_contact_by_email',
-      data: params.slice(:email).merge(method: 'find_contact_by_email').to_json
+      method: "find_contact_by_email",
+      data: params.slice(:email).merge(method: "find_contact_by_email").to_json
     )
   end
 
   def self.base_params
-    { site_key: Rails.application.secrets.supporters['api_key'] }
+    { site_key: Rails.application.secrets.supporters["api_key"] }
   end
 end

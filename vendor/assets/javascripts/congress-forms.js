@@ -454,7 +454,7 @@
           name='$PHONE' \
           class='form-control bfh-phone' \
           data-format='ddd-ddd-dddd' \
-          pattern='^((5\d[123467890])|(5[123467890]\d)|([2346789]\d\d))-\d\d\d-\d\d\d\d$' \
+          pattern='^((5\\d[123467890])|(5[123467890]\\d)|([2346789]\\d\\d))-\\d\\d\\d-\\d\\d\\d\\d$' \
           title='Must be a valid US phone number entered in 555-555-5555 format' \
           required='required'\
         >")

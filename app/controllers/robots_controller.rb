@@ -1,13 +1,13 @@
 class RobotsController < ApplicationController
   def show
-    if Rails.env.development? or Rails.application.secrets.enable_basic_auth == 'true'
+    if Rails.env.development? or Rails.application.secrets.enable_basic_auth == "true"
       render text: "User-agent: *\nDisallow: /"
     else
       render text: ""
     end
   end
 
-  # amazon hits this for monitoring.  This endpoint can potentially be useful 
+  # amazon hits this for monitoring.  This endpoint can potentially be useful
   # for load balancing/ database connection detecting
   def heartbeat
     if User.count >= 0

@@ -21,7 +21,7 @@ describe CallTool do
 
     it "should get call_tool_url/call/create, transforming keyword arguments into params" do
       expect(RestClient).to receive(:get) do |url, opts|
-        base_href = Rails.application.config.call_tool_url.sub(/\/$/, '')
+        base_href = Rails.application.config.call_tool_url.sub(/\/$/, "")
         expect(url).to eq("#{base_href}/call/create")
         expect(opts[:params]).not_to be_nil
         expect(opts[:params][:campaignId]).to eq(campaign.to_param)
@@ -40,38 +40,38 @@ describe CallTool do
     it "should raise ArgumentError if a required param is missing" do
       allow(RestClient).to receive(:get)
 
-      expect{
+      expect {
         CallTool.campaign_call(nil, **keywords)
       }.to raise_error(ArgumentError)
 
-      expect{
-        CallTool.campaign_call(campaign, **keywords.dup.tap{ |x| x[:phone] = nil })
+      expect {
+        CallTool.campaign_call(campaign, **keywords.dup.tap { |x| x[:phone] = nil })
       }.to raise_error(ArgumentError)
 
-      expect{
-        CallTool.campaign_call(campaign, **keywords.dup.tap{ |x| x[:location] = nil })
+      expect {
+        CallTool.campaign_call(campaign, **keywords.dup.tap { |x| x[:location] = nil })
       }.to raise_error(ArgumentError)
 
-      expect{
-        CallTool.campaign_call(campaign, **keywords.dup.tap{ |x| x[:action_id] = nil })
+      expect {
+        CallTool.campaign_call(campaign, **keywords.dup.tap { |x| x[:action_id] = nil })
       }.to raise_error(ArgumentError)
 
-      expect{
-        CallTool.campaign_call(campaign, **keywords.dup.tap{ |x| x[:callback_url] = nil })
+      expect {
+        CallTool.campaign_call(campaign, **keywords.dup.tap { |x| x[:callback_url] = nil })
       }.to raise_error(ArgumentError)
 
-      expect{
-        CallTool.campaign_call(campaign, **keywords.dup.tap{ |x| x[:user_id] = nil })
+      expect {
+        CallTool.campaign_call(campaign, **keywords.dup.tap { |x| x[:user_id] = nil })
       }.not_to raise_error
     end
 
     it "should not raise any errors for twilio 'number invalid' error" do
       exception = RestClient::BadRequest.new
-      expect(exception).to receive(:http_body){ %({"error": "13224: number invalid"}) }
+      expect(exception).to receive(:http_body) { %({"error": "13224: number invalid"}) }
       expect(RestClient).to receive(:get).and_raise(exception)
 
       expect(Raven).not_to receive(:capture_message)
-      expect{ CallTool.campaign_call(campaign, **keywords) }.not_to raise_exception
+      expect { CallTool.campaign_call(campaign, **keywords) }.not_to raise_exception
     end
   end
 
@@ -79,10 +79,10 @@ describe CallTool do
     it "should get call_tool_url/api/campaign/:id with the call tool api key" do
       campaign = 12345
       expect(RestClient).to receive(:get) do |url, opts|
-        base_href = Rails.application.config.call_tool_url.sub(/\/$/, '')
+        base_href = Rails.application.config.call_tool_url.sub(/\/$/, "")
         expect(url).to eq("#{base_href}/api/campaign/#{campaign}")
         expect(opts[:params][:api_key]).to eq(Rails.application.secrets.call_tool_api_key)
-        OpenStruct.new(body: {required_fields: { userLocation: "postal", userPhone: "US" } }.to_json)
+        OpenStruct.new(body: { required_fields: { userLocation: "postal", userPhone: "US" } }.to_json)
       end
 
       CallTool.required_fields_for_campaign(campaign)

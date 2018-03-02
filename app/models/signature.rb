@@ -10,7 +10,7 @@ class Signature < ActiveRecord::Base
   validates_presence_of :first_name, :last_name, :petition_id,
     message: "This can't be blank."
 
-  validates_presence_of :country_code, :if => :location_required?
+  validates_presence_of :country_code, if: :location_required?
 
   validates :email, email: true
   validates :zipcode, length: { maximum: 12 }
@@ -31,7 +31,7 @@ class Signature < ActiveRecord::Base
   include ActionView::Helpers::DateHelper
 
   def self.pretty_count
-    ActiveSupport::NumberHelper::number_to_delimited(self.count, :delimiter => ',')
+    ActiveSupport::NumberHelper::number_to_delimited(self.count, delimiter: ",")
   end
 
   def arbitrary_opinion_of_country_string_validity
@@ -41,14 +41,14 @@ class Signature < ActiveRecord::Base
   end
 
   def name
-    [first_name, last_name].join(' ')
+    [first_name, last_name].join(" ")
   end
 
   def location
     if anonymous
       country_code
     else
-      [city, state, country_code].select(&:present?).join(', ')
+      [city, state, country_code].select(&:present?).join(", ")
     end
   end
 
@@ -56,7 +56,7 @@ class Signature < ActiveRecord::Base
     time_ago_in_words(created_at)
   end
 
-  def to_csv_line()
+  def to_csv_line
     [name, email, city, state_symbol, full_country_name]
   end
 
@@ -77,6 +77,7 @@ class Signature < ActiveRecord::Base
   end
 
   private
+
   def format_zipcode
     zipcode = GoingPostal.format_zipcode(zipcode, country_code) || zipcode
   end

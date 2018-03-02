@@ -1,12 +1,11 @@
 require "rails_helper"
 
 describe Petition do
-
   before(:each) do
     @attr = {
-      :title => "Save Kittens",
-      :description => "Save kittens in great detail",
-      :goal => 10
+      title: "Save Kittens",
+      description: "Save kittens in great detail",
+      goal: 10
     }
   end
 
@@ -26,5 +25,4 @@ describe Petition do
     expect(columns).to eq("full_name,email,city,state,country\n")
     expect(first_record).to eq(expected_first_record)
   end
-
 end

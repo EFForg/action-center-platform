@@ -19,9 +19,9 @@ class Admin::AffiliationTypesController < Admin::ApplicationController
 
     respond_to do |format|
       if @affiliation_type.save
-        format.html { redirect_to [:admin, @actionPage, AffiliationType], notice: 'Affiliation type was successfully created.' }
+        format.html { redirect_to [:admin, @actionPage, AffiliationType], notice: "Affiliation type was successfully created." }
       else
-        format.html { render action: 'new' }
+        format.html { render "new" }
       end
     end
   end
@@ -35,17 +35,18 @@ class Admin::AffiliationTypesController < Admin::ApplicationController
   end
 
   private
-    def set_action_page
-      @actionPage = ActionPage.friendly.find(params[:action_page_id])
-      raise ActiveRecord::RecordNotFound unless @actionPage
-    end
 
-    def set_affiliation_type
-      @affiliation_type = AffiliationType.find(params[:id])
-    end
+  def set_action_page
+    @actionPage = ActionPage.friendly.find(params[:action_page_id])
+    raise ActiveRecord::RecordNotFound unless @actionPage
+  end
 
-    # Never trust parameters from the scary internet, only allow the white list through.
-    def affiliation_type_params
-      params.require(:affiliation_type).permit(:name, :action_page_id)
-    end
+  def set_affiliation_type
+    @affiliation_type = AffiliationType.find(params[:id])
+  end
+
+  # Never trust parameters from the scary internet, only allow the white list through.
+  def affiliation_type_params
+    params.require(:affiliation_type).permit(:name, :action_page_id)
+  end
 end

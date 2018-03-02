@@ -1,6 +1,6 @@
-require 'rest_client'
-class SmartyStreetsController < ApplicationController
+require "rest_client"
 
+class SmartyStreetsController < ApplicationController
   # POST /smarty_streets/street_address
   #
   # Pass in street and zipcode params and this function
@@ -32,17 +32,16 @@ class SmartyStreetsController < ApplicationController
 
   def authorize_query(params)
     params.merge(
-      'auth-id' => Rails.application.secrets.smarty_streets_id,
-      'auth-token' => Rails.application.secrets.smarty_streets_token
+      "auth-id" => Rails.application.secrets.smarty_streets_id,
+      "auth-token" => Rails.application.secrets.smarty_streets_token
     ).to_query
   end
 
   def proxy_request(url)
     begin
-      return RestClient.get url, accept: :json, :'X-Include-Invalid' => 'true'
+      return RestClient.get url, accept: :json, 'X-Include-Invalid': "true"
     rescue => e
       logger.error e
     end
   end
-
 end

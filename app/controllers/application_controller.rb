@@ -23,12 +23,12 @@ class ApplicationController < ActionController::Base
   # `cors_allowed_domains` in application.yml, and if it is, the response gets
   # a header allowing the requesting domain to use this app's CRUD
   def cors
-    if Actioncenter::Application.config.cors_allowed_domains.include? request.env['HTTP_ORIGIN'] or Actioncenter::Application.config.cors_allowed_domains.include? "*"
-      response.headers['Access-Control-Allow-Origin'] = request.env['HTTP_ORIGIN']
+    if Actioncenter::Application.config.cors_allowed_domains.include? request.env["HTTP_ORIGIN"] or Actioncenter::Application.config.cors_allowed_domains.include? "*"
+      response.headers["Access-Control-Allow-Origin"] = request.env["HTTP_ORIGIN"]
     end
   end
 
-  def self.manifest(value=nil)
+  def self.manifest(value = nil)
     if value.nil?
       @manifest
     else
@@ -37,7 +37,7 @@ class ApplicationController < ActionController::Base
   end
 
   def manifest
-    self.class.manifest || 'application'
+    self.class.manifest || "application"
   end
 
   # header disables cache so backbutton post-logout reveals no email address

@@ -19,19 +19,19 @@ class Admin::TopicSetsController < Admin::ApplicationController
     topic_set = topic_category.topic_sets.build(tier: tier)
 
     if topic_set.save
-      render :json => topic_set
+      render json: topic_set
     else
-      render :json => topic_set.errors, :status => 500
-    end    
+      render json: topic_set.errors, status: 500
+    end
   end
 
   def update
     topic_set = TopicSet.find(params[:id])
 
     if topic_set.update_attributes(topic_set_params)
-      render :json => topic_set
+      render json: topic_set
     else
-      render :json => topic_set.errors, :status => 500
+      render json: topic_set.errors, status: 500
     end
   end
 

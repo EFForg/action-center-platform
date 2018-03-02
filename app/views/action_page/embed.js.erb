@@ -72,6 +72,12 @@
 
       if ("non_us_option" in ac_embed && ac_embed.non_us_option == "petition")
         embed_url += "&non_us_option=petition";
+
+      if ("location" in ac_embed)
+        embed_url += "&" + hash_params(ac_embed.location)
+
+      if ("bioguide_ids" in ac_embed)
+        embed_url += array_params("bioguide_ids", ac_embed.bioguide_ids)
     }
 
     iframe_tag.setAttribute("src", embed_url);
@@ -80,6 +86,22 @@
 
     widget.parentNode.insertBefore(iframe_tag, widget);
     widget.remove();
+  }
+
+  function array_params(key, array) {
+    return array.map(x => "&" + key + "[]=" + encodeURIComponent(x))
+                .join("");
+  }
+
+  function hash_params(obj) {
+    var str = "";
+    for (var key in obj) {
+      if (str != "") {
+        str += "&";
+      }
+      str += key + "=" + encodeURIComponent(obj[key]);
+    }
+    return str;
   }
 
   domready(function(){
