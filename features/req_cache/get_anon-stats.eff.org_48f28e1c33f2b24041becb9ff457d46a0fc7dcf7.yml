@@ -1,0 +1,21 @@
+---
+:scope: 
+:url: https://anon-stats.eff.org/js/?idsite=13&rec=1&urlref=&action_name=Sample%20Action%20Page%20%7C%20EFF%20Action%20Center
+:body: ''
+:status: 200
+:method: get
+:headers:
+  Server: nginx
+  Date: Fri, 02 Mar 2018 01:27:06 GMT
+  Content-Type: image/gif
+  Transfer-Encoding: chunked
+  Connection: close
+  Strict-Transport-Security: max-age=63072000; includeSubdomains; preload
+  X-Content-Type-Options: nosniff
+  Content-Security-Policy: default-src 'none'; script-src 'unsafe-eval' 'unsafe-inline'
+    'self'; style-src 'unsafe-inline' 'self'; img-src 'self' data:; font-src 'self';
+    connect-src 'self'
+  X-XSS-Protection: 1; mode=block
+  X-Frame-Options: SAMEORIGIN
+:content: !binary |-
+  R0lGODlhAQABAIAAAAAAAAAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw==
