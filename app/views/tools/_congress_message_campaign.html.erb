@@ -8,7 +8,7 @@
     </div>
 
     <div class="tool-body with-js">
-        <form class="form congress-message-rep-lookup">
+        <%= form_tag("/tools/congress_message_campaign", method: :post, class: "congress_message_campaign-tool") do |form| %>
           <% unless congress_message_campaign.target_bioguide_ids || @target_bioguide_ids %>
             <fieldset id="lookup-address">
               <h3>
@@ -39,7 +39,7 @@
 
           <input type="submit" class="btn btn-default action" value="Submit your message">
           <%= render "tools/loading" -%>
-        </form>
+        <% end %>
 
         <div id="email-signup-container" style="display:none;">
           <%= render "tools/newsletter_signup", email: false, location: false, privacy_notice: false %>

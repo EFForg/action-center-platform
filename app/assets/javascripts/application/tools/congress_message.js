@@ -6,7 +6,7 @@ $(document).on("ready", function() {
     $(".step2-intro").delay(500).slideUp(null, height_changed);
     $(".legislator-label.common-fields").delay(500).slideUp(null, height_changed);
     var action_id = $("[data-action-id]").attr("data-action-id");
-    var url = "/tools/message-congress?action_id=" + action_id;
+    var url = "/tools/congress_message_campaign?action_id=" + action_id;
     $.ajax({
       url: url,
       data: _.extend({
@@ -252,7 +252,7 @@ $(document).on("ready", function() {
     $("input,textarea,button,select").removeAttr("disabled");
   };
 
-  $("form.congress-message-rep-lookup").on("submit", function(ev) {
+  $("form.congress_message_campaign-tool").on("submit", function(ev) {
     var form = $(ev.currentTarget);
     var tool = $(this).parents(".tool-body").find(".congress-message-tool-container");
     var emailValues = tool.data("email-values");
@@ -260,7 +260,7 @@ $(document).on("ready", function() {
     if (tool.data("bioguide-ids").length > 0) {
       emailValues["$MESSAGE"] = form.find(".campaign-message").val();
 
-      $("form.congress-message-rep-lookup").html("");
+      $("form.congress_message_campaign-tool").html("");
 
       var bioguide_ids = tool.data("bioguide-ids").split(",")
         .map(function(x) { return x.trim() });
