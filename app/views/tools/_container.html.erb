@@ -7,8 +7,6 @@
     <% elsif @tool -%>
       <%= render "tools/#{@tool.class.name.underscore}",
             @tool.class.name.underscore.to_sym => @tool %>
-    <% else -%>
-      <%= render "tools/mailing_list" if @no_tools == true %>
     <% end -%>
 
     <div id="share-buttons-wrapper">
@@ -25,7 +23,7 @@
       </div>
     </div>
 
-    <% if Tweet === @tool && !current_user %>
+    <% if (Tweet === @tool || @no_tools) && !current_user %>
       <div class="tool">
         <%= form_for :subscription, url: subscriptions_path, remote: true, html: { class: "newsletter-subscription tool-container" } do |f| %>
           <%= t :sign_up_for_mailings_from %> <b><%= t :organization_abbreviation %></b>?
