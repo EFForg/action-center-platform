@@ -77,21 +77,4 @@
       >why?</a>).<br>
       If you prefer not to use our tweet tool, <a href="https://www.eff.org/congress"  target="_blank">click here</a>.</p>
   <% end -%>
-
-  <% unless current_user %>
-    <%= form_for :subscription, url: subscriptions_path, remote: true, html: { class: "newsletter-subscription" } do |f| %>
-      <hr />
-      <%= t :sign_up_for_mailings_from %> <b><%= t :organization_abbreviation %></b>?
-
-      <fieldset>
-        <%= f.email_field :email, class: "form-control", placeholder: "Email", required: "email", "aria-label": "Email" %>
-      </fieldset>
-
-      <%= render "tools/petition_location", f: f %>
-
-      <%= render "tools/privacy_notice" %>
-
-      <%= f.submit "Sign up", class: "btn btn-primary action" %>
-    <% end %>
-  <% end %>
 </div>

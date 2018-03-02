@@ -24,6 +24,24 @@
         </a>
       </div>
     </div>
+
+    <% if Tweet === @tool && !current_user %>
+      <div class="tool">
+        <%= form_for :subscription, url: subscriptions_path, remote: true, html: { class: "newsletter-subscription tool-container" } do |f| %>
+          <%= t :sign_up_for_mailings_from %> <b><%= t :organization_abbreviation %></b>?
+
+          <fieldset>
+            <%= f.email_field :email, class: "form-control", placeholder: "Email", required: "email", "aria-label": "Email" %>
+          </fieldset>
+
+          <%= render "tools/petition_location", f: f %>
+
+          <%= render "tools/privacy_notice" %>
+
+          <%= f.submit "Sign up", class: "btn btn-primary action" %>
+        <% end %>
+      </div>
+    <% end %>
   </div>
 </div>
 
