@@ -61,68 +61,69 @@
           </b>
         </div>
         <div class='unsigned'>
-          <%= form_for @signature, url: '/tools/petition',
-            html: {class: 'petition-tool'} do |f| -%>
-            <%= f.hidden_field :petition_id -%>
-            <input type="hidden" name="action_id" value="<%= @actionPage.id %>" />
+          <%= form_tag("/tools/petition", method: :post, class: "petition-tool") do %>
+            <%= fields_for :signature, @signature do |f| %>
+              <%= f.hidden_field :petition_id -%>
+              <input type="hidden" name="action_id" value="<%= @actionPage.id %>" />
 
-            <fieldset>
-              <%= f.email_field :email, required: true,
-                class: 'form-control', pattern: '.*\S+.*', title: t('petition_errors.required.email'),
-                'aria-label': 'Email', placeholder: 'Email'
-              -%>
-            </fieldset>
-            <fieldset>
-              <%= f.text_field :first_name, required: true,
-                class: 'form-control', pattern: '.*\S+.*', title: t('petition_errors.required.first_name'),
-                'aria-label': t(:first_name), placeholder: t(:first_name)
-              -%>
-            </fieldset>
-            <fieldset>
-              <%= f.text_field :last_name, required: true,
-                class: 'form-control', pattern: '.*\S+.*', title: t('petition_errors.required.last_name'),
-                'aria-label': t(:last_name), placeholder: t(:last_name)
-              -%>
-            </fieldset>
+              <fieldset>
+                <%= f.email_field :email, required: true,
+                  class: 'form-control', pattern: '.*\S+.*', title: t('petition_errors.required.email'),
+                  'aria-label': 'Email', placeholder: 'Email'
+                -%>
+              </fieldset>
+              <fieldset>
+                <%= f.text_field :first_name, required: true,
+                  class: 'form-control', pattern: '.*\S+.*', title: t('petition_errors.required.first_name'),
+                  'aria-label': t(:first_name), placeholder: t(:first_name)
+                -%>
+              </fieldset>
+              <fieldset>
+                <%= f.text_field :last_name, required: true,
+                  class: 'form-control', pattern: '.*\S+.*', title: t('petition_errors.required.last_name'),
+                  'aria-label': t(:last_name), placeholder: t(:last_name)
+                -%>
+              </fieldset>
 
-            <% if @actionPage.petition.enable_affiliations %>
-              <div id='affiliations'>
-                <%= f.fields_for :affiliations, Affiliation.new do |affiliation| %>
-                  <%= render 'affiliations/affiliation_fields', :f => affiliation %>
-                <% end %>
-                <div class='links text-right with-js'>
-                  <%= link_to_add_association t(:add_another_institution), f, :affiliations, partial: 'affiliations/affiliation_fields' %>
-                </div>
-              </div>
-            <% end %>
-
-            <% if @require_location %>
-              <%= render 'tools/petition_location', f: f %>
-            <% end %>
-
-            <fieldset>
-              <% unless petition.enable_affiliations %>
-                <div class='checkbox small'>
-                  <%= f.label :anonymous do -%>
-                    <%= check_box_tag 'signature[anonymous]' -%>
-                    <%= t :dont_show_my_name -%>
-                  <% end -%>
+              <% if @actionPage.petition.enable_affiliations %>
+                <div id='affiliations'>
+                  <%= f.fields_for :affiliations, Affiliation.new do |affiliation| %>
+                    <%= render 'affiliations/affiliation_fields', :f => affiliation %>
+                  <% end %>
+                  <div class='links text-right with-js'>
+                    <%= link_to_add_association t(:add_another_institution), f, :affiliations, partial: 'affiliations/affiliation_fields' %>
+                  </div>
                 </div>
               <% end %>
 
-              <% unless @require_location %>
+              <% if @require_location %>
                 <%= render 'tools/petition_location', f: f %>
               <% end %>
-              <%= render "tools/newsletter_signup", email: false, location: false, privacy_notice: false %>
-              <%= render 'tools/save_my_info_option', info: t(%w[email name location]) -%>
 
-            </fieldset>
+              <fieldset>
+                <% unless petition.enable_affiliations %>
+                  <div class='checkbox small'>
+                    <%= f.label :anonymous do -%>
+                      <%= check_box_tag 'signature[anonymous]' -%>
+                      <%= t :dont_show_my_name -%>
+                    <% end -%>
+                  </div>
+                <% end %>
 
-            <%= render "tools/privacy_notice" %>
+                <% unless @require_location %>
+                  <%= render 'tools/petition_location', f: f %>
+                <% end %>
+                <%= render "tools/newsletter_signup", email: false, location: false, privacy_notice: false %>
+                <%= render 'tools/save_my_info_option', info: t(%w[email name location]) -%>
 
-            <% button_text = params.include?("button_text") ? params["button_text"].to_sym : t(:speak_out) %>
-            <%= f.submit button_text, class: 'btn action'-%>
-            <%= render 'tools/loading' -%>
+              </fieldset>
+
+              <%= render "tools/privacy_notice" %>
+
+              <% button_text = params.include?("button_text") ? params["button_text"].to_sym : t(:speak_out) %>
+              <%= submit_tag button_text, class: 'btn action'-%>
+              <%= render 'tools/loading' -%>
+            <% end %>
           <% end %>
       </div>
     </div>
