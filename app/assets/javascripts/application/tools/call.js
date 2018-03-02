@@ -8,6 +8,13 @@ $(document).on('ready', function() {
     var $street_address_field = $("#inputStreetAddress");
     var required_location = !!$street_address_field.length;
 
+    if ($('#savedPhone').val().length) {
+      var savedPhone = $('#savedPhone').val()
+          .replace(/[^\d]/, '')
+          .replace(/(\d{3})(?!\d?$)/g, '$1-');
+      $phone_number_field.val(savedPhone);
+    }
+
     $phone_number_field.each(function(){
       $(this).bfhphone($(this).data());
     });
@@ -49,6 +56,7 @@ $(document).on('ready', function() {
       $('.call-body-phone-not-saved').removeClass('hidden');
       $('.call-body-active').addClass('hidden');
     }
+
     function hide_form(){
       $('.tool-title.precall').addClass('hidden');
       $('.tool-title.postcall').removeClass('hidden');
