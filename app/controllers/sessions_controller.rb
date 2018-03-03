@@ -2,8 +2,6 @@ class SessionsController < Devise::SessionsController
   after_filter :set_logged_in, only: :create
   before_filter :unset_logged_in, only: :destroy
 
-  skip_before_filter :verify_authenticity_token, only: [:create]
-
   def set_logged_in
     if (user_signed_in?)
       # Sets a "permanent" cookie (which expires in 20 years from now).
@@ -39,5 +37,9 @@ class SessionsController < Devise::SessionsController
       # Should never end up here
       redirect_to "/", flash: { notice: "You need to be logged in to reset your password!" }
     end
+  end
+
+  def protect_against_forgery?
+    action_name != "create"
   end
 end
