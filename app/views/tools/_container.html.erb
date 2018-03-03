@@ -1,27 +1,29 @@
 <div class="col-xs-12 col-sm-5 col-md-6 col-lg-6 pull-right tools-wrapper">
   <div id="tools" >
-    <% if @actionPage.victory? -%>
-      <%= render "tools/victory"  %>
-    <% elsif @actionPage.archived? -%>
-      <%= render "tools/archived" if @actionPage.archived? %>
-    <% elsif @tool -%>
-      <%= render "tools/#{@tool.class.name.underscore}",
-            @tool.class.name.underscore.to_sym => @tool %>
-    <% end -%>
+    <%= form_tag("/tools/congress_message_campaign", method: :post, class: "congress_message_campaign-tool") do %>
+      <% if @actionPage.victory? -%>
+        <%= render "tools/victory"  %>
+      <% elsif @actionPage.archived? -%>
+        <%= render "tools/archived" if @actionPage.archived? %>
+      <% elsif @tool -%>
+        <%= render "tools/#{@tool.class.name.underscore}",
+              @tool.class.name.underscore.to_sym => @tool %>
+      <% end -%>
 
-    <div id="share-buttons-wrapper">
-      <div id="share-buttons">
-        <a data-network="twitter" href="<%= twitter_share_url(@actionPage) -%>" count="0" target="_blank" class="twitter-button" >
-            <div class="sicon" id="stwit"></div>
-        </a>
-        <a href="<%= facebook_share_url(@actionPage) -%>" data-network="facebook" count="0" target="_blank" class="facebook-button">
-            <div class="sicon" id="sfb"></div>
-        </a>
-        <a count="0" href="<%= google_share_url(@actionPage) -%>" data-network="googleplus" target="_blank" class="google-button">
-          <div class="sicon" id="sgplus"></div>
-        </a>
+      <div id="share-buttons-wrapper">
+        <div id="share-buttons">
+          <a data-network="twitter" href="<%= twitter_share_url(@actionPage) -%>" count="0" target="_blank" class="twitter-button" >
+              <div class="sicon" id="stwit"></div>
+          </a>
+          <a href="<%= facebook_share_url(@actionPage) -%>" data-network="facebook" count="0" target="_blank" class="facebook-button">
+              <div class="sicon" id="sfb"></div>
+          </a>
+          <a count="0" href="<%= google_share_url(@actionPage) -%>" data-network="googleplus" target="_blank" class="google-button">
+            <div class="sicon" id="sgplus"></div>
+          </a>
+        </div>
       </div>
-    </div>
+    <% end %>
 
     <% if (Tweet === @tool || @no_tools) && !current_user %>
       <div class="tool">

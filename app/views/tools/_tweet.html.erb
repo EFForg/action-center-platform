@@ -34,22 +34,21 @@
       <% if tweet.target_congress? %>
         <div class="with-js">
           <h3 class="twitter-tool-label" style="display: none"><em>Your Representatives</em></h3>
-          <%= form_tag("/tools/tweet", method: :post, class: "tweet-tool") do |form| %>
-            <div class="form-group">
-              <label for="street_address">Street address</label>
-              <input class="form-control" type="text" id="street_address" required>
-            </div>
 
-            <div class="form-group">
-              <label for="zipcode">Zip Code</label>
-              <input class="form-control" type="text" name="zipcode" id="zipcode" required>
-            </div>
+          <div class="form-group">
+            <label for="street_address">Street address</label>
+            <input class="form-control" type="text" id="street_address" required>
+          </div>
 
-            <%= render "tools/save_my_info_option", info: %w[address zipcode] -%>
-            <input type="submit" class="btn action" value="Look up your reps">
+          <div class="form-group">
+            <label for="zipcode">Zip Code</label>
+            <input class="form-control" type="text" name="zipcode" id="zipcode" required>
+          </div>
 
-            <%= render "tools/loading" -%>
-          <% end %>
+          <%= render "tools/save_my_info_option", info: %w[address zipcode] -%>
+          <input type="submit" class="btn action" value="Look up your reps">
+
+          <%= render "tools/loading" -%>
         </div>
         <div class="without-js">
           <h4><strong>Our representative lookup tool requires javascript.</strong></h4>

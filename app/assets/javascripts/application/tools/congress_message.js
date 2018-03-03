@@ -254,13 +254,13 @@ $(document).on("ready", function() {
 
   $("form.congress_message_campaign-tool").on("submit", function(ev) {
     var form = $(ev.currentTarget);
-    var tool = $(this).parents(".tool-body").find(".congress-message-tool-container");
+    var tool = $(this).find(".congress-message-tool-container");
     var emailValues = tool.data("email-values");
 
     if (tool.data("bioguide-ids").length > 0) {
       emailValues["$MESSAGE"] = form.find(".campaign-message").val();
 
-      $("form.congress_message_campaign-tool").html("");
+      form.find(".congress-message-target-info").html("");
 
       var bioguide_ids = tool.data("bioguide-ids").split(",")
         .map(function(x) { return x.trim() });
@@ -330,7 +330,7 @@ $(document).on("ready", function() {
 
                     return false;
                   });
-                  form.html("");
+                  form.find(".congress-message-target-info").html("");
 
                   generateCongressForm({
                     reps: data,
