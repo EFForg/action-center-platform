@@ -1,6 +1,8 @@
 class RegistrationsController < Devise::RegistrationsController
-  invisible_captcha only: :create
+  # invisible_captcha only: :create
   after_filter :set_create_notice, only: :create
+
+  skip_before_filter :verify_authenticity_token, only: [:create]
 
   # POST /resource
   def create

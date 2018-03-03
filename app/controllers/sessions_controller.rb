@@ -38,4 +38,8 @@ class SessionsController < Devise::SessionsController
       redirect_to "/", flash: { notice: "You need to be logged in to reset your password!" }
     end
   end
+
+  def protect_against_forgery?
+    action_name != "create"
+  end
 end
