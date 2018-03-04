@@ -13,12 +13,27 @@ require "webmock/cucumber"
 Dir[Rails.root.join("spec/support/**/*.rb")].each { |f| require f }
 
 Capybara.register_driver :poltergeist do |app|
-  Capybara::Poltergeist::Driver.new(app, url_blacklist: ["anon-stats.eff.org"])
+  Capybara::Poltergeist::Driver.new(app,
+                                    url_blacklist: ["anon-stats.eff.org"],
+                                    phantomjs_logger: StringIO.new,
+                                    js_errors: true)
 end
 
 Capybara.javascript_driver = :poltergeist
 
 WebMock.allow_net_connect!
+
+Billy.configure do |c|
+  c.cache = true
+  c.cache_request_headers = false
+  c.ignore_params = ["https//anon-stats.eff.org"]
+  c.persist_cache = true
+  c.cache_path = "features/req_cache/"
+  c.non_whitelisted_requests_disabled = ENV["DISABLE_PUFFING_BILLY_REQUESTS"]
+  c.after_cache_handles_request = proc do |_request, response|
+    response[:headers]["Access-Control-Allow-Origin"] = "*"
+  end
+end
 
 # Don't prevent form fills by bots during the test run
 InvisibleCaptcha.setup do |config|

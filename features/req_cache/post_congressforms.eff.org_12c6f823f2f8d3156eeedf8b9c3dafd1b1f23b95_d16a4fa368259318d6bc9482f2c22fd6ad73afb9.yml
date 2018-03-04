@@ -1,0 +1,41 @@
+---
+:scope: 
+:url: https://congressforms.eff.org/retrieve-form-elements
+:body: bio_ids%5B%5D=P000197&bio_ids%5B%5D=H001075
+:status: 200
+:method: post
+:headers:
+  Server: nginx
+  Date: Fri, 02 Mar 2018 19:11:06 GMT
+  Content-Type: application/json
+  Content-Length: '4485'
+  Connection: close
+  X-Backend-Hostname: d0f5fd0ed6fb
+  X-Content-Type-Options: nosniff
+  Set-Cookie: rack.session=BAh7B0kiDXRyYWNraW5nBjoGRUZ7B0kiFEhUVFBfVVNFUl9BR0VOVAY7AFRJ%0AIi1mOTNmZDk5ZjM5MTkxMTg0ZTQ2YjAwZTE4MzAyYTE2YWNhNGIyYzM5BjsA%0ARkkiGUhUVFBfQUNDRVBUX0xBTkdVQUdFBjsAVEkiLWExY2U5ZjBhYzc5Zjcz%0AYjAxZDU5ZWE1NzBmNjg2MjYxN2M4ZmIxOWEGOwBGSSIPc2Vzc2lvbl9pZAY7%0AAFRJIkUxNWNkM2NmMWZkY2Y4MmQ5ZTgwOTk3YjdhODcwZjhiZmI0YWJjODk4%0ANGQ5NWM0ZWUxYTc4NWMwOGVhNGYzOGQ5BjsARg%3D%3D%0A--949796dccf28c3cec0f5469ddaf7a4d1f276322d;
+    path=/; HttpOnly
+  Vary: Origin
+  Strict-Transport-Security: max-age=63072000; includeSubdomains; preload
+  X-Frame-Options: SAMEORIGIN
+:content: '{"P000197":{"required_actions":[{"value":"$NAME_PREFIX","maxlength":null,"options_hash":["Mr.","Mrs.","Ms.","Mr.
+  and Mrs.","Miss","Dr.","Dr. and Mrs.","Dr. and Mr.","Admiral","Captain","Chief Master
+  Sergeant","Colonel","Commander","Corporal","Father","Lieutenant","Lieutenant Colonel","Master
+  Sergeant","Reverend","Sergeant","Second Lieutenant","Sergeant Major","Sister","Technical
+  Sergeant"]},{"value":"$NAME_FIRST","maxlength":null,"options_hash":null},{"value":"$NAME_LAST","maxlength":null,"options_hash":null},{"value":"$ADDRESS_STREET","maxlength":null,"options_hash":null},{"value":"$ADDRESS_CITY","maxlength":null,"options_hash":null},{"value":"$ADDRESS_ZIP5","maxlength":null,"options_hash":null},{"value":"$EMAIL","maxlength":null,"options_hash":null},{"value":"$SUBJECT","maxlength":null,"options_hash":null},{"value":"$MESSAGE","maxlength":null,"options_hash":null},{"value":"$ADDRESS_STATE_POSTAL_ABBREV","maxlength":null,"options_hash":["AL","AK","AZ","AR","CA","CO","CT","DE","DC","FL","GA","HI","ID","IL","IN","IA","KS","KY","LA","ME","MD","MA","MI","MN","MS","MO","MT","NE","NV","NH","NJ","NM","NY","NC","ND","OH","OK","OR","PA","RI","SC","SD","TN","TX","UT","VT","VA","WA","WV","WI","WY"]},{"value":"$TOPIC","maxlength":null,"options_hash":["Agriculture
+  and Food","Animals","Armed Forces and National Security","Arts, Culture, Religion","Civil
+  Rights and Liberties, Minority Issues","Commerce","Congress","Crime and Law Enforcement","Economics
+  and Public Finance","Education","Emergency Management","Energy","Environmental Protection","Families","Finance
+  and Financial Sector","Foreign Trade and International Finance","Government Operations
+  and Politics","Health","Housing and Community Development","Immigration","International
+  Affairs","Labor and Employment","Law","Native Americans","Public Lands and Natural
+  Resources","Science, Technology, Communications","Social Sciences and History","Social
+  Welfare","Sports and Recreation","Taxation","Transportation and Public Works","Water
+  Resources Development"]}]},"H001075":{"defunct":false,"contact_url":null,"required_actions":[{"value":"$NAME_FIRST","maxlength":null,"options_hash":null},{"value":"$NAME_LAST","maxlength":null,"options_hash":null},{"value":"$ADDRESS_STREET","maxlength":null,"options_hash":null},{"value":"$ADDRESS_CITY","maxlength":null,"options_hash":null},{"value":"$ADDRESS_ZIP5","maxlength":null,"options_hash":null},{"value":"$PHONE","maxlength":null,"options_hash":null},{"value":"$EMAIL","maxlength":null,"options_hash":null},{"value":"$EMAIL","maxlength":null,"options_hash":null},{"value":"$SUBJECT","maxlength":null,"options_hash":null},{"value":"$MESSAGE","maxlength":null,"options_hash":null},{"value":"$NAME_PREFIX","maxlength":null,"options_hash":["Mr.","Mrs.","Ms.","Dr.","Reverend","Sister"]},{"value":"$TOPIC","maxlength":null,"options_hash":{"Abortion":"927F1873-5056-A066-60E9-8B4B12594845","Agriculture":"927F189E-5056-A066-60A6-CD0C9228F78D","Arts/Humanities":"927F18D2-5056-A066-6003-E68078DD47A4","Budget":"927F18FD-5056-A066-60E9-7AECAFA4DC11","Animal
+  Welfare":"927F1927-5056-A066-60A5-1296BDD760E3","Campaign Finance/Election Reform":"927F1953-5056-A066-60F0-D9A3C38EA6B5","Criminal
+  Justice":"927F1981-5056-A066-6064-A887CFC96DBD","Economy/Jobs":"927F19AC-5056-A066-6052-634AEE123621","Civil
+  Rights":"927F19D6-5056-A066-6036-7F299C4BF899","Education":"927F1A01-5056-A066-6035-CFB91C220F49","Gun
+  Safety":"927F1A2C-5056-A066-606F-3BFF80FE8E60","Defense":"927F1A58-5056-A066-60EE-0DD3748FEB5F","Homeland
+  Security/Disaster Response":"927F1A83-5056-A066-6047-076CFD34D6FF","Native American
+  Affairs":"927F1AB1-5056-A066-6055-64216CC3749D","Energy":"927F1ADD-5056-A066-606A-1962A0EEE08F","Science/Technology":"927F1B0A-5056-A066-60EA-1ED0DBB3283F","Environment":"927F1B37-5056-A066-6053-AA870C262051","Telecommunications/FCC":"927F1B63-5056-A066-601E-EFEA24AC5308","Foreign
+  Affairs":"927F1B8F-5056-A066-6025-3FE022989DFB","Health":"927F1BBA-5056-A066-6054-06869F98B4E0","Housing":"927F1C2B-5056-A066-6045-64ACA7CEA9BA","Immigration":"927F1C55-5056-A066-60F7-380E67CAB6BF","Judiciary":"927F1C7E-5056-A066-60EA-E33CDC0B3217","Labor":"927F1CA6-5056-A066-60F5-6F16D7DF2854","Social
+  Security":"927F1CD1-5056-A066-60B7-8188E92E02EF","Taxes":"927F1D12-5056-A066-6049-B310B0FE5384","Trade":"927F1D3F-5056-A066-6056-05560978B6D3","Transportation":"927F1D69-5056-A066-6017-D8F48BB54DE2","Veterans":"927F1D93-5056-A066-6011-096FAD02EC71","Welfare":"927F1DC4-5056-A066-6023-CBB831C6B69B"}}]}}'

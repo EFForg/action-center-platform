@@ -15,3 +15,7 @@ When /^I (save|take) a screenshot$/ do |_|
   page.save_screenshot(path)
   puts("screenshot saved to #{path}")
 end
+
+When(/^I wait (.*?) seconds$/) do |seconds|
+  sleep(seconds.to_i)
+end

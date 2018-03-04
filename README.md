@@ -118,6 +118,8 @@ To run the full test suite, simply run `rake` with no arguments.
 
 Rspec tests are used for unit testing the app, and some integration testing. Cucumber tests are used for testing API keys, javascript tests, and feature tests.
 
+We use [WebMock](https://github.com/bblimke/webmock) to stub backend requests to third party services and [Puffing Billy](https://github.com/oesmith/puffing-billy) to stub frontend (Ajax) requests. Puffing Billy will [cache](https://github.com/oesmith/puffing-billy#caching) unrecognized requests and play them back during future test runs. To prevent Puffing Billy from making any new requests, set `DISABLE_PUFFING_BILLY_REQUESTS=true`.
+
 ## Linting
 
 `rake` will also run our linting: currently, only [Rubocop](https://github.com/bbatsov/rubocop).
