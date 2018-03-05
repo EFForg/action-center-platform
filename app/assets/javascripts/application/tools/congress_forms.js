@@ -33,10 +33,6 @@
 
     // Legislator callbacks are called for each email ajax request
     onLegislatorSubmit: function (legislatorId, legislatorFieldset) {},
-    onLegislatorCaptcha: function (legislatorId, legislatorFieldset) {},
-    onLegislatorCaptchaSubmit: function (legislatorId, legislatorFieldset) {},
-    onLegislatorCaptchaSuccess: function (legislatorId, legislatorFieldset) {},
-    onLegislatorCaptchaError: function (legislatorId, legislatorFieldset) {},
     onLegislatorError: function (legislatorId, legislatorFieldset) {},
 
     onDefunctLegislator: function(legislatorId, contactUrl) {},
@@ -60,26 +56,11 @@
     legislatorCount: 0,
 
     init: function() {
-      _.bindAll(this, 'onCaptchaNeeded');
-      var that = this;
-
       var form = $('<form/>').addClass(this.settings.formClasses);
       this.retrieveFormElements(form);
       $(form).on('submit', this.submitForm.bind(this));
-
-      // Detect click of captcha form
-      $('body').on('click', '.' + pluginName + '-captcha-button', function (ev) {
-        var answerEl = $(ev.currentTarget).parents('.' + pluginName + '-captcha-container').find('.' + pluginName + '-captcha');
-        that.submitCaptchaForm(answerEl);
-      });
-      // Detect enter key on input
-      $('body').on('keypress', '.' + pluginName + '-captcha', function(ev) {
-        if(ev.which == 13) {
-          var answerEl = $(ev.currentTarget);
-          that.submitCaptchaForm(answerEl);
-        }
-      });
     },
+
     // Get's required form fields for the legislators and generates inputs
     retrieveFormElements: function(form) {
       var that = this;
@@ -115,7 +96,6 @@
           var legislatorId = $(legislatorFieldset).attr('data-legislator-id');
           var legislatorData = $(legislatorFieldset).serializeObject();
           var fullData = $.extend({}, commonData, legislatorData);
-          var captcha_uid = that.generateUID();
           that.settings.onLegislatorSubmit(legislatorId, $(legislatorFieldset));
 
           $.ajax({
@@ -132,8 +112,6 @@
             success: function( data ) {
               if(data.status === 'success') {
                 that.settings.onLegislatorSuccess(legislatorId, $(legislatorFieldset));
-              } else if (data.status === 'captcha_needed'){
-                that.onCaptchaNeeded(legislatorId, legislatorFieldset, data.url, data.uid);
               } else {
                 that.settings.onLegislatorError(legislatorId, $(legislatorFieldset));
               }
@@ -144,7 +122,6 @@
       } else {
         // There is only one legislator
         var legislator = that.settings.bioguide_ids[0];
-        var captcha_uid = that.generateUID();
 
         $.ajax({
           url: that.settings.contactCongressServer + '/fill-out-form',
@@ -156,8 +133,6 @@
           success: function( data ) {
             if(data.status === 'success') {
               that.settings.onLegislatorSuccess(legislator, $(commonFieldset));
-            } else if (data.status === 'captcha_needed'){
-              that.onCaptchaNeeded(legislator, commonFieldset, data.url, data.uid);
             } else {
               that.settings.onLegislatorError(legislator, $(commonFieldset));
             }
@@ -168,12 +143,6 @@
       // Disable inputs after we serialize their values otherwise they won't be picked up
       $('input, textarea, select, button' , form).attr('disabled', 'disabled');
       return false;
-    },
-    onCaptchaNeeded: function(legislator, fieldset, url, uid, replace){
-      var captchaForm;
-      captchaForm = this.generateCaptchaForm(url, legislator, uid);
-      $(fieldset).append(captchaForm);
-      this.settings.onLegislatorCaptcha(legislator, $(fieldset));
     },
     generateForm: function(groupedData, form) {
       var that = this;
@@ -211,65 +180,6 @@
 
       $(that.element).append(form);
       that.settings.onRender();
-    },
-    submitCaptchaForm : function (answerEl) {
-      var that = this;
-      var answer = $(answerEl).val();
-      var captchaUID = $(answerEl).attr('data-captcha-uid');
-      var legislatorId = $(answerEl).attr('data-captcha-legislator-id');
-      var legislatorFieldset = $('fieldset[data-legislator-id="'+legislatorId+'"]');
-      that.settings.onLegislatorCaptchaSubmit(legislatorId, $(legislatorFieldset));
-
-      $.ajax({
-        url: that.settings.contactCongressServer + '/fill-out-captcha',
-        type: 'post',
-        xhrFields: {
-          withCredentials: true
-        },
-        data: {
-          uid: captchaUID,
-          answer: answer
-        },
-        success: function( data ) {
-          if(data.status === 'success') {
-            that.settings.onLegislatorCaptchaSuccess(legislatorId, $(legislatorFieldset));
-          } else if (data.status === 'captcha_needed') {
-            that.onCaptchaNeeded(legislatorId, legislatorFieldset, data.url, captchaUID, true);
-          } else {
-            that.settings.onLegislatorCaptchaError(legislatorId, $(legislatorFieldset));
-          }
-        }
-      });
-      return false;
-    },
-    generateCaptchaForm: function (captchaUrl, legislatorId, captchaUID) {
-      var that = this;
-      var formGroup = $('<div/>').addClass(pluginName +'-captcha-container');
-      var label = $('<label/>').text('Type the text in the image to send your message').addClass(pluginName +'-captcha-label');
-      formGroup.append(label);
-      var img = $('<img/>').attr('src', captchaUrl).addClass(pluginName +'-captcha-image');
-      formGroup.append(img);
-      var input = $('<input/>').attr('type', 'text').addClass('form-control ' + pluginName +'-captcha')
-          .attr('data-captcha-legislator-id', legislatorId)
-          .attr('data-captcha-uid', captchaUID);
-      formGroup.append(input);
-      var submitButton = $('<button>').attr('type', 'button').addClass('btn btn-primary ' + pluginName +'-captcha-button').text('Submit Captcha');
-      formGroup.append(submitButton);
-      return formGroup;
-    },
-    deserialize_options: function(serialized){
-      var deserialized = {};
-      _.each(serialized.split(","), function(val){
-        deserialized[Number(val)] = true;
-      });
-      return deserialized;
-    },
-    serialize_options: function(deserialized){
-      return _.filter(
-        _.map(deserialized, function(val, i){
-          if(val && i != 0) return i;
-        })
-      ).join(',');
     },
     generateFormGroup: function(field) {
       var that = this;
@@ -438,9 +348,6 @@
         'maxlength': '20',
         'valid_types': ['text']
       },
-      '$CAPTCHA_SOLUTION': {
-        'valid_types': ['text']
-      },
       '$MESSAGE': {
         'valid_types': ['text']
       }
@@ -572,17 +479,6 @@
           return word.charAt(0).toUpperCase() + word.slice(1).toLowerCase();
         }).join(" ");
       }
-    },
-
-    // Generates UID's for request to congress form server
-    generateUID: function() {
-      var text = "";
-      var possible = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
-
-      for( var i=0; i < 10; i++ )
-          text += possible.charAt(Math.floor(Math.random() * possible.length));
-
-      return text;
     }
   };
 
