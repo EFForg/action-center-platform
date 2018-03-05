@@ -1,41 +1,49 @@
 <% content_for :head do -%>
-  <%= render 'action_page/meta_tags' -%>
-  <%= render 'action_page/background_image' -%>
+  <%= cache(["headers", @actionPage]) do %>
+    <%= render 'action_page/meta_tags' -%>
+    <%= render 'action_page/background_image' -%>
+  <% end %>
 <% end -%>
-<div class="redtop">
-  <div class="container">
-    <div class="row">
-      <div class="col-sm-6 col-lg-6">
-        <h1><%= @actionPage.title -%></h1>
-        <div class='short-description'>
-          <%= markdown @actionPage.summary -%>
+
+<%= cache(["summary", @actionPage, @tool]) do %>
+  <div class="redtop">
+    <div class="container">
+      <div class="row">
+        <div class="col-sm-6 col-lg-6">
+          <h1><%= @actionPage.title -%></h1>
+          <div class='short-description'>
+            <%= markdown @actionPage.summary -%>
+          </div>
         </div>
       </div>
     </div>
-  </div>
 
-  <svg class="triangle" viewBox="0 0 24 23.8" preserveAspectRatio="none">
-    <use xlink:href="#triangle"></use>
-  </svg>
-</div>
+    <svg class="triangle" viewBox="0 0 24 23.8" preserveAspectRatio="none">
+      <use xlink:href="#triangle"></use>
+    </svg>
+  </div>
+<% end %>
+
 <div class="container action-content" id="action-content" data-action-id="<%= @actionPage.id -%>" >
   <div class="row">
     <%= render "tools/container" %>
-    <div class="col-sm-7 col-md-6 col-lg-6">
-      <div class="description" id="description">
-        <%= markdown @actionPage.description -%>
+
+    <%= cache(["misc", @actionPage, @tool, @institution]) do %>
+      <div class="col-sm-7 col-md-6 col-lg-6">
+        <div class="description" id="description">
+          <%= markdown @actionPage.description -%>
+        </div>
+
+        <% if @actionPage.tool(:petition).present? -%>
+          <%= render "action_page/letter", letter: @actionPage.tool(:petition) %>
+        <% end -%>
+
+        <% if @actionPage.tool(:petition).try(:enable_affiliations?) -%>
+          <%= render "tools/affiliation_signatures" %>
+        <% end -%>
+
       </div>
-
-      <% if @actionPage.tool(:petition).present? -%>
-        <%= render "action_page/letter", letter: @actionPage.tool(:petition) %>
-      <% end -%>
-
-      <% if @actionPage.tool(:petition).try(:enable_affiliations?) -%>
-        <%= render "tools/affiliation_signatures" %>
-      <% end -%>
-
-    </div>
-
+    <% end %>
   </div>
 </div>
 
