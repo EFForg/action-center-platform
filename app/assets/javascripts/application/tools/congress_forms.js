@@ -15,8 +15,6 @@
   var pluginName = "congressForms";
   var defaults = {
     labels: true,
-    // Debug, doesn't send emails just triggers error and success callbacks
-    debug: false,
     values: {},
     bioguide_ids: [],
     labelClasses: '',
@@ -119,96 +117,54 @@
           var fullData = $.extend({}, commonData, legislatorData);
           var captcha_uid = that.generateUID();
           that.settings.onLegislatorSubmit(legislatorId, $(legislatorFieldset));
-          if(that.settings.debug) {
-            // Simulate error and success per legislator 50/50 of the time
-            setTimeout(function () {
-              var randomNumber = Math.ceil(Math.random() * 3);
-              switch (randomNumber) {
-                case 1:
-                  that.settings.onLegislatorSuccess(legislatorId, $(legislatorFieldset));
-                  break;
-                case 2:
-                  that.settings.onLegislatorError(legislatorId, $(legislatorFieldset));
-                  break;
-                case 3:
 
-                  var captchaForm = that.generateCaptchaForm('http://i.imgur.com/BG2yMUp.png', legislatorId, captcha_uid);
-                  $(legislatorFieldset).append(captchaForm);
-                  that.settings.onLegislatorCaptcha(legislatorId, $(legislatorFieldset));
-
-                  break;
+          $.ajax({
+            url: that.settings.contactCongressServer + '/fill-out-form',
+            type: 'post',
+            xhrFields: {
+              withCredentials: true
+            },
+            data: {
+              bio_id: legislatorId,
+              campaign_tag: that.settings.campaign_tag,
+              fields: fullData
+            },
+            success: function( data ) {
+              if(data.status === 'success') {
+                that.settings.onLegislatorSuccess(legislatorId, $(legislatorFieldset));
+              } else if (data.status === 'captcha_needed'){
+                that.onCaptchaNeeded(legislatorId, legislatorFieldset, data.url, data.uid);
+              } else {
+                that.settings.onLegislatorError(legislatorId, $(legislatorFieldset));
               }
-            }, 500);
-          } else {
-            $.ajax({
-              url: that.settings.contactCongressServer + '/fill-out-form',
-              type: 'post',
-              xhrFields: {
-                withCredentials: true
-              },
-              data: {
-                bio_id: legislatorId,
-                campaign_tag: that.settings.campaign_tag,
-                fields: fullData
-              },
-              success: function( data ) {
-                if(data.status === 'success') {
-                  that.settings.onLegislatorSuccess(legislatorId, $(legislatorFieldset));
-                } else if (data.status === 'captcha_needed'){
-                  that.onCaptchaNeeded(legislatorId, legislatorFieldset, data.url, data.uid);
-                } else {
-                  that.settings.onLegislatorError(legislatorId, $(legislatorFieldset));
-                }
-              }
-            });
-
-          }
+            }
+          });
 
         });
       } else {
         // There is only one legislator
         var legislator = that.settings.bioguide_ids[0];
-
         var captcha_uid = that.generateUID();
-        if(that.settings.debug) {
-          // Simulate error and success per legislator 50/50 of the time
-          setTimeout(function () {
-            var randomNumber = Math.ceil(Math.random() * 3);
-            switch (randomNumber) {
-              case 1:
-                that.settings.onLegislatorSuccess(legislator, $(commonFieldset));
-                break;
-              case 2:
-                that.settings.onLegislatorError(legislator, $(commonFieldset));
-                break;
-              case 3:
-                var captchaForm = that.generateCaptchaForm('http://i.imgur.com/BG2yMUp.png', legislator, captcha_uid);
-                $(commonFieldset).append(captchaForm);
-                that.settings.onLegislatorCaptcha(legislator, $(commonFieldset));
-                break;
-            }
-          }, 500);
-        } else {
 
-          $.ajax({
-            url: that.settings.contactCongressServer + '/fill-out-form',
-            type: 'post',
-            data: {
-              bio_id: legislator,
-              fields: commonData
-            },
-            success: function( data ) {
-              if(data.status === 'success') {
-                that.settings.onLegislatorSuccess(legislator, $(commonFieldset));
-              } else if (data.status === 'captcha_needed'){
-                that.onCaptchaNeeded(legislator, commonFieldset, data.url, data.uid);
-              } else {
-                that.settings.onLegislatorError(legislator, $(commonFieldset));
-              }
+        $.ajax({
+          url: that.settings.contactCongressServer + '/fill-out-form',
+          type: 'post',
+          data: {
+            bio_id: legislator,
+            fields: commonData
+          },
+          success: function( data ) {
+            if(data.status === 'success') {
+              that.settings.onLegislatorSuccess(legislator, $(commonFieldset));
+            } else if (data.status === 'captcha_needed'){
+              that.onCaptchaNeeded(legislator, commonFieldset, data.url, data.uid);
+            } else {
+              that.settings.onLegislatorError(legislator, $(commonFieldset));
             }
-          });
-        }
+          }
+        });
       }
+
       // Disable inputs after we serialize their values otherwise they won't be picked up
       $('input, textarea, select, button' , form).attr('disabled', 'disabled');
       return false;
@@ -264,40 +220,26 @@
       var legislatorFieldset = $('fieldset[data-legislator-id="'+legislatorId+'"]');
       that.settings.onLegislatorCaptchaSubmit(legislatorId, $(legislatorFieldset));
 
-      if(that.settings.debug) {
-        var randomNumber = Math.ceil(Math.random() * 2);
-        setTimeout(function () {
-        switch (randomNumber) {
-          case 1:
+      $.ajax({
+        url: that.settings.contactCongressServer + '/fill-out-captcha',
+        type: 'post',
+        xhrFields: {
+          withCredentials: true
+        },
+        data: {
+          uid: captchaUID,
+          answer: answer
+        },
+        success: function( data ) {
+          if(data.status === 'success') {
             that.settings.onLegislatorCaptchaSuccess(legislatorId, $(legislatorFieldset));
-            break;
-          case 2:
+          } else if (data.status === 'captcha_needed') {
+            that.onCaptchaNeeded(legislatorId, legislatorFieldset, data.url, captchaUID, true);
+          } else {
             that.settings.onLegislatorCaptchaError(legislatorId, $(legislatorFieldset));
-            break;
-        }
-        }, 1500)
-      } else {
-        $.ajax({
-          url: that.settings.contactCongressServer + '/fill-out-captcha',
-          type: 'post',
-          xhrFields: {
-            withCredentials: true
-          },
-          data: {
-            uid: captchaUID,
-            answer: answer
-          },
-          success: function( data ) {
-            if(data.status === 'success') {
-              that.settings.onLegislatorCaptchaSuccess(legislatorId, $(legislatorFieldset));
-            } else if (data.status === 'captcha_needed') {
-              that.onCaptchaNeeded(legislatorId, legislatorFieldset, data.url, captchaUID, true);
-            } else {
-              that.settings.onLegislatorCaptchaError(legislatorId, $(legislatorFieldset));
-            }
           }
-        });
-      }
+        }
+      });
       return false;
     },
     generateCaptchaForm: function (captchaUrl, legislatorId, captchaUID) {
