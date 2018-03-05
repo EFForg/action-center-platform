@@ -15,6 +15,9 @@ services:
     environment:
       POSTGRES_PASSWORD: mysecrettestpassword
 
+  redis:
+    image: redis
+
   app:
     build: .
 

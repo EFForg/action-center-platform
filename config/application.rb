@@ -51,7 +51,11 @@ module Actioncenter
     config.time_zone = Rails.application.secrets.time_zone || 'Eastern Time (US & Canada)'
     config.active_record.raise_in_transactional_callbacks = true
 
-    config.cache_store = :memory_store
+    if ENV["redis_uri"].present?
+      config.cache_store = :redis_store, ENV["redis_uri"]
+    else
+      config.cache_store = :memory_store
+    end
 
     config.esi_enabled = (ENV["enable_esi"] == "true")
   end

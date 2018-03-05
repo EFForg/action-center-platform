@@ -65,6 +65,10 @@ gem "delayed_job_active_record"
 # Exception monitoring
 gem "sentry-raven", "~> 0.15"
 
+# Redis for caching
+gem "redis", "~> 3.0"
+gem "redis-rails"
+
 # Other
 gem "activerecord-session_store"
 gem "acts_as_paranoid", git: "https://github.com/ActsAsParanoid/acts_as_paranoid.git", ref: "ddcd1"
