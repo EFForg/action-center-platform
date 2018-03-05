@@ -62,7 +62,7 @@
     <input type="hidden" name="action-id" value="<%= @actionPage.id -%>">
   </div>
 
-  <% if tweet.target_congress? && !@reps.present? -%>
+  <% if tweet.target_congress? -%>
     <p class="privacy-notice with-js">
       This tool uses <a href="http://smartystreets.com/legal/privacy-policy" target="_blank">Smarty Streets</a>' API.
     (<a class="privacy-notice-popover" href="#"
