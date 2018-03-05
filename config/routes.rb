@@ -12,7 +12,7 @@ Actioncenter::Application.routes.draw do
   post "tools/petition"
   post "tools/tweet"
   post "tools/email_campaign"
-  post "tools/message-congress"
+  post "tools/congress_message_campaign"
   get "tools/reps"
   get "tools/reps_raw"
   get "tools/social_buttons_count"
