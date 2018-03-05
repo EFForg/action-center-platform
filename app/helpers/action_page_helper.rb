@@ -88,4 +88,25 @@ module ActionPageHelper
   def pretty_count(n)
     ActiveSupport::NumberHelper::number_to_delimited(n, delimiter: ",")
   end
+
+  def should_cache_action_tool?
+    [!user_signed_in?, @target_bioguide_ids.nil?, @location.nil?].all?
+  end
+
+  def cache_key_for_action_tool
+    key = [@actionPage, @tool]
+    key << @topic_category if @topic_category.present?
+
+    key << "thankyou/#{!!params[:thankyou]}"
+    key << "international/#{!!params[:international_only]}"
+    key << "partner/#{params[:partner].inspect}"
+
+    if params[:button_text].present?
+      key << "button_text/#{params[:button_text].underscore}"
+    end
+
+    key << "non_us_option/#{!!params[:non_us_option]}"
+
+    key
+  end
 end

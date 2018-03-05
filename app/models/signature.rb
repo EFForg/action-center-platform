@@ -2,7 +2,7 @@ include GoingPostal
 class Signature < ActiveRecord::Base
   include ApplicationHelper
   belongs_to :user
-  belongs_to :petition
+  belongs_to :petition, touch: true
   has_many :affiliations
 
   before_validation :format_zipcode
