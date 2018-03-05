@@ -9,9 +9,6 @@
  ; // close other statements for safety
 (function($, window, document, undefined) {
 
-  // This code is based off the jquery boilerplate project
-
-  // Create the defaults once
   var pluginName = "congressForms";
   var defaults = {
     labels: true,
@@ -25,6 +22,7 @@
     formGroupClasses: 'form-group',
     legislatorLabelClasses: '',
     submitClasses: 'btn',
+
     // Callbacks
     success: function () {},
     onRender: function () {},
@@ -34,13 +32,10 @@
     // Legislator callbacks are called for each email ajax request
     onLegislatorSubmit: function (legislatorId, legislatorFieldset) {},
     onLegislatorError: function (legislatorId, legislatorFieldset) {},
-
     onDefunctLegislator: function(legislatorId, contactUrl) {},
 
     error: function () {}
   };
-
-  // The actual plugin constructor
 
   function Plugin(element, options) {
     this.element = element;
@@ -51,7 +46,6 @@
   }
 
   Plugin.prototype = {
-
     completedEmails: 0,
     legislatorCount: 0,
 
@@ -80,17 +74,17 @@
               that.settings.onDefunctLegislator(bioguide, legislator.contact_url);
           });
         }
-
       });
-
     },
-    submitForm: function (ev) {
-      var that = this;
 
+    submitForm: function(ev) {
+      var that = this;
       var form = $(ev.currentTarget);
+
       // Select common field set
       var commonFieldset = $('#' + pluginName + '-common-fields', form);
       var commonData = commonFieldset.serializeObject();
+
       if($('.' + pluginName + '-legislator-fields').length > 0 ){
         $.each($('.' + pluginName + '-legislator-fields:not([disabled])'), function(index, legislatorFieldset) {
           var legislatorId = $(legislatorFieldset).attr('data-legislator-id');
@@ -117,8 +111,8 @@
               }
             }
           });
-
         });
+
       } else {
         // There is only one legislator
         var legislator = that.settings.bioguide_ids[0];
@@ -144,10 +138,9 @@
       $('input, textarea, select, button' , form).attr('disabled', 'disabled');
       return false;
     },
+
     generateForm: function(groupedData, form) {
       var that = this;
-
-
       var required_actions = groupedData.common_fields;
 
       // Generate a <fieldset> for common fields
@@ -168,6 +161,7 @@
         });
         form.append(fieldset);
       });
+
       if(that.settings.bioguide_ids.length === 1) {
         var legislator = that.settings.bioguide_ids[0];
         commonFieldsFieldSet.attr('data-legislator-id', legislator).addClass(pluginName + '-legislator-fields').prepend($('<label>').text(legislator).addClass(that.settings.legislatorLabelClasses));
@@ -181,6 +175,7 @@
       $(that.element).append(form);
       that.settings.onRender();
     },
+
     generateFormGroup: function(field) {
       var that = this;
       var label_name = that._format_label(field.value);
@@ -188,7 +183,6 @@
 
       // Create a container for each label and input, defaults to bootstrap classes
       var form_group = $('<div/>').addClass(this.settings.formGroupClasses);
-
 
       // Generate the label
       if (that.settings.labels) {
@@ -223,7 +217,7 @@
           field.options = STATES.ABBREV;
           delete field.options_hash;
         }
-        if(field.value === '$ADDRESS_STATE_FULL') {
+        if (field.value === '$ADDRESS_STATE_FULL') {
           field.options = STATES.FULL;
           delete field.options_hash;
         }
@@ -254,8 +248,8 @@
         }
 
         var final_fuzzymatch;
-        if(field.value === "$TOPIC"){
-          if(field.options.length > 0){
+        if (field.value === "$TOPIC") {
+          if (field.options.length > 0) {
             var fs = FuzzySet(_.map(field.options, function(option){ return option.name; }) || _.values(field.options_hash));
           } else {
             var fs = FuzzySet(_.values(field.options_hash));
@@ -279,6 +273,7 @@
           }
           $input.append(optionEl);
         });
+
         $.each(field.options, function(key, option) {
           var optionEl = $('<option/>')
             .attr('value', option.value)
@@ -289,14 +284,12 @@
           $input.append(optionEl);
         });
 
-
-
       } else if(field_name === '$MESSAGE') {
-
         var $input = $('<textarea />')
           .attr('id', field_name)
           .attr('placeholder', label_name);
         $input.addClass(that.settings.textareaClasses);
+
       } else if(field_name === '$PHONE') {
         var $input = $("<input \
           type='text' \
@@ -314,11 +307,13 @@
           $phone = $(this);
           $phone.bfhphone($phone.data());
         });
+
       } else {
         var $input = $('<input type="text" />')
           .attr('placeholder', label_name);
         $input.addClass(that.settings.textInputClasses);
       }
+
       if(that.settings.values && typeof that.settings.values[field_name] !== 'undefined') {
         $input.val(that.settings.values[field_name]);
       }
@@ -334,6 +329,7 @@
       form_group.append($input);
       return form_group;
     },
+
     fieldData: {
       '$EMAIL': {
         'pattern': "^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)+$",
@@ -352,6 +348,7 @@
         'valid_types': ['text']
       }
     },
+
     fieldsOrder: [
       '$NAME_PREFIX',
       '$NAME_FIRST',
@@ -361,6 +358,7 @@
       '$SUBJECT',
       '$TOPIC'
     ],
+
     groupCommonFields: function(data) {
       // TODO - This needs a refactor, don't think this was done well
       // The following clumsy logic, compiles the groupedData object below
@@ -370,7 +368,7 @@
         individual_fields: {}
       }
 
-      var sort = function(a, b){
+      var sort = function(a, b) {
         return that.fieldsOrder.indexOf(a.value) - that.fieldsOrder.indexOf(b.value);
       };
 
@@ -468,9 +466,8 @@
         '$TOPIC': 'Message topic',
         '$NAME_PREFIX': 'Your prefix (e.g. Mr./Ms.)',
         '$PHONE': 'Your phone number'
-
-
       }
+
       if(typeof manual_labels[string] !== 'undefined') {
           return manual_labels[string];
       } else {
@@ -498,7 +495,6 @@
     });
     return o;
   };
-
 
   // A really lightweight plugin wrapper around the constructor,
   // preventing against multiple instantiations
