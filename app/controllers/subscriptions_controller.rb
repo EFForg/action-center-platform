@@ -1,5 +1,7 @@
 require "civicrm"
 class SubscriptionsController < ApplicationController
+  skip_before_filter :verify_authenticity_token
+
   def create
     email = params[:subscription][:email]
     if EmailValidator.valid?(email)
