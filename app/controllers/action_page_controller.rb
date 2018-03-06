@@ -188,9 +188,13 @@ class ActionPageController < ApplicationController
   end
 
   def esi_wrap
-    unless request.headers.include?("X-Esi-Level")
+    unless params[:esi] == "1"
+      uri = URI(request.original_url)
+      uri.query = (Array(uri.query) + ["esi=1"]).join("&")
+
       render inline:
-        %(<esi:include src="<%= URI(request.original_url).request_uri %>" />)
+        %(<esi:include src="<%= uri.request_uri %>" />),
+        locals: { uri: uri }
     end
   end
 end
