@@ -192,6 +192,8 @@ class ActionPageController < ApplicationController
       uri = URI(request.original_url)
       uri.query = (Array(uri.query) + ["esi=1"]).join("&")
 
+      session[:ensure_loaded] = 1
+
       render inline:
         %(<esi:include src="<%= uri.request_uri %>" />),
         locals: { uri: uri }
