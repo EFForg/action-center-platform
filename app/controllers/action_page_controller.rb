@@ -1,4 +1,6 @@
 class ActionPageController < ApplicationController
+  before_filter :esi_wrap, only: [:show]
+
   before_filter :set_action_page,
                 :protect_unpublished,
                 :redirect_to_specified_url,
@@ -183,5 +185,12 @@ class ActionPageController < ApplicationController
 
   def allow_iframe
     response.headers.except! "X-Frame-Options"
+  end
+
+  def esi_wrap
+    unless request.headers.include?("X-Esi-Level")
+      render inline:
+        %(<esi:include src="<%= URI(request.original_url).request_uri %>" />)
+    end
   end
 end
