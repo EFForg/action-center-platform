@@ -23,9 +23,6 @@ class ActionPageController < ApplicationController
 
     @actionPages = @actionPages.categorized(params[:category]) if params[:category].present?
 
-    response.headers["Cache-Control"] = "public, no-cache"
-    response.headers["Surrogate-Control"] = "max-age=120"
-    response.headers["Access-Control-Allow-Origin"] = "*"
     respond_to do |format|
       format.html
       format.atom
@@ -46,8 +43,6 @@ class ActionPageController < ApplicationController
   end
 
   def signature_count
-    send_cache_disablement_headers
-    response.headers["Access-Control-Allow-Origin"] = "*"
     @actionPage = ActionPage.friendly.find(params[:id])
 
     if petition = @actionPage.petition
@@ -141,9 +136,6 @@ class ActionPageController < ApplicationController
                               zipcode: current_zipcode,
                               country_code: current_country_code,
                               email: current_email }
-
-    response.headers["Cache-Control"] = "public, no-cache"
-    response.headers["Surrogate-Control"] = "max-age=120"
   end
 
   def set_signatures

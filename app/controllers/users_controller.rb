@@ -2,8 +2,6 @@ class UsersController < ApplicationController
   before_filter :authenticate_user!
 
   def show
-    send_cache_disablement_headers
-
     @actionPages = ActionPage.order("id desc")
     @actions_taken = current_user.events.actions.map { |i| i["properties"]["actionPageId"].to_i }
   end

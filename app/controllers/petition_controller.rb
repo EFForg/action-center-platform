@@ -6,9 +6,6 @@ class PetitionController < ApplicationController
     signatories = @petition.recent_signatures(5)
     signatures_total = @petition.signatures.count
 
-    response.headers["Cache-Control"] = "public, no-cache"
-    response.headers["Surrogate-Control"] = "max-age=60"
-
     render json: { signatories: signatories, signatures_total: signatures_total }
   end
 
