@@ -46,6 +46,7 @@ registrations:
 
 sessions:
   new: *dont_cache
+  destroy: *private_dont_cache
 
 users:
   show: *private_dont_cache
