@@ -47,6 +47,10 @@ class ApplicationController < ActionController::Base
     response.headers["Expires"] = "Fri, 01 Jan 1990 00:00:00 GMT"
   end
 
+  def set_no_cache_headers
+    response.headers["Cache-Control"] = "public, no-cache, max-age=0"
+  end
+
   # if the current_user's password is expired, force them to the reset page
   # or lock them out of secure areas
   def lock_users_with_expired_passwords!

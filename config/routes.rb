@@ -31,7 +31,13 @@ Actioncenter::Application.routes.draw do
   devise_for :users, path: '', path_names:  {sign_in:  'login',
                                              sign_out: 'logout',
                                              sign_up:  'register'},
-                               controllers: {sessions: 'sessions', registrations: 'registrations'}
+                               controllers: {
+                                 sessions: 'sessions',
+                                 registrations: 'registrations',
+                                 confirmations: 'confirmations',
+                                 passwords: 'passwords',
+                                 unlocks: 'unlocks'
+                               }
 
   scope :csrf_protection, controller: "csrf_protection" do
     get :meta_tags

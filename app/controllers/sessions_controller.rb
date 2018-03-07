@@ -2,6 +2,8 @@ class SessionsController < Devise::SessionsController
   after_filter :set_logged_in, only: :create
   before_filter :unset_logged_in, only: :destroy
 
+  before_action :set_no_cache_headers, only: :new
+
   def set_logged_in
     if (user_signed_in?)
       # Sets a "permanent" cookie (which expires in 20 years from now).
