@@ -20,6 +20,7 @@ action_page:
     <<: *cors
 
   show: *cache
+
   show_by_institution: *cache
   embed_iframe: *cache
 

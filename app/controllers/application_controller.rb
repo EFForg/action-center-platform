@@ -12,8 +12,6 @@ class ApplicationController < ActionController::Base
   skip_before_action :track_ahoy_visit
   skip_before_action :set_ahoy_request_store
 
-  include HeadersConfig
-
   def user_conditional_logic
     if user_signed_in?
       lock_users_with_expired_passwords! unless user_is_being_told_to_reset_pass_or_is_resetting_pass?
