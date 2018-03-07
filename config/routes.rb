@@ -51,7 +51,7 @@ Actioncenter::Application.routes.draw do
   # override devise's user_root (defaults to site root)
   get 'account', to: 'users#show', as: 'user_root'
 
-  resources :action_page, path: :action do
+  resources :action_page, path: :action, only: [:index, :show] do
     member do
       get :embed_iframe
       get :signature_count
