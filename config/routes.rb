@@ -33,11 +33,6 @@ Actioncenter::Application.routes.draw do
                                              sign_up:  'register'},
                                controllers: {sessions: 'sessions', registrations: 'registrations'}
 
-  scope :csrf_protection, controller: "csrf_protection" do
-    get :meta_tags
-    get :authenticity_token
-  end
-
   devise_scope :user do
     get "/sessions/password_reset" => "sessions#password_reset"
   end
@@ -51,7 +46,7 @@ Actioncenter::Application.routes.draw do
   # override devise's user_root (defaults to site root)
   get 'account', to: 'users#show', as: 'user_root'
 
-  resources :action_page, path: :action do
+  resources :action_page, path: :action, only: [:index, :show] do
     member do
       get :embed_iframe
       get :signature_count

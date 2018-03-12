@@ -340,6 +340,7 @@ GEM
     rails_12factor (0.0.3)
       rails_serve_static_assets
       rails_stdout_logging
+    rails_response_headers (0.1.0)
     rails_serve_static_assets (0.0.5)
     rails_stdout_logging (0.0.5)
     railties (4.2.10)
@@ -535,6 +536,7 @@ DEPENDENCIES
   rails-assets-sweetalert (= 1.0.1)!
   rails-dev-tweaks (~> 1.1)
   rails_12factor
+  rails_response_headers
   rb-fchange
   rb-fsevent
   rb-inotify

@@ -9,7 +9,9 @@ class ToolsController < ApplicationController
   before_filter :create_partner_subscription, only: [:email, :call, :petition, :message_congress]
   after_filter :deliver_thanks_message, only: [:email, :call, :petition, :message_congress]
   skip_after_filter :deliver_thanks_message, if: :signature_has_errors
-  skip_before_filter :verify_authenticity_token, only: :petition
+
+  # See https://github.com/EFForg/action-center-platform/wiki/Deployment-Notes#csrf-protection
+  skip_before_filter :verify_authenticity_token
 
   def call
     ahoy.track "Action",

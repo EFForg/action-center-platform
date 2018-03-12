@@ -126,6 +126,10 @@ We use [WebMock](https://github.com/bblimke/webmock) to stub backend requests to
 
 Rubocop checks for consistent style across the Ruby areas of the codebase.  We use a modified version of [Rubocop-Github](https://github.com/github/rubocop-github) to stay consistent with [SEC](https://github.com/EFForg/sec).
 
+## Deployment
+
+For notes related to deploying Action Center in production, see [the project wiki](https://github.com/EFForg/action-center-platform/wiki/Deployment-Notes).
+
 ## Acknowledgements
 
 This project was created by Lilia Kai, Thomas Davis, and Sina Khanifar. Large portions of the codebase are directly attributable to them, while under the employ or contractorship of the Electronic Frontier Foundation in 2014. Thank you Lilia, Thomas, and Sina! The Action Center is currently maintained by the EFF Engineering and Design team.

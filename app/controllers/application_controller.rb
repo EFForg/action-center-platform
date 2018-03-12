@@ -7,7 +7,6 @@ class ApplicationController < ActionController::Base
   before_filter :configure_permitted_parameters, if: :devise_controller?
   before_filter :set_locale
   before_filter :user_conditional_logic
-  after_filter :set_cache_headers
 
   skip_before_action :set_ahoy_cookies
   skip_before_action :track_ahoy_visit
@@ -40,13 +39,6 @@ class ApplicationController < ActionController::Base
     self.class.manifest || "application"
   end
 
-  # header disables cache so backbutton post-logout reveals no email address
-  def send_cache_disablement_headers
-    response.headers["Cache-Control"] = "private, no-cache, no-store, max-age=0, must-revalidate"
-    response.headers["Pragma"] = "no-cache"
-    response.headers["Expires"] = "Fri, 01 Jan 1990 00:00:00 GMT"
-  end
-
   # if the current_user's password is expired, force them to the reset page
   # or lock them out of secure areas
   def lock_users_with_expired_passwords!
@@ -70,9 +62,5 @@ class ApplicationController < ActionController::Base
 
   def set_locale
     I18n.locale = http_accept_language.compatible_language_from(I18n.available_locales)
-  end
-
-  def set_cache_headers
-    response.headers["Vary"] = "Accept-Encoding, Accept-Language"
   end
 end

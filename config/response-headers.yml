@@ -1,0 +1,56 @@
+cache: &cache
+  Cache-Control: public, no-cache
+  Surrogate-Control: max-age=120
+  Vary: Accept-Encoding, Accept-Language
+
+dont_cache: &dont_cache
+  Cache-Control: public, no-cache, max-age=0
+
+private_dont_cache: &private_dont_cache
+  Cache-Control: private, no-cache, no-store, max-age=0, must-revalidate
+  Pragma: no-cache
+  Expires: Fri, 01 Jan 1990 00:00:00 GMT
+
+cors: &cors
+  Access-Control-Allow-Origin: "*"
+
+action_page:
+  index:
+    <<: *cache
+    <<: *cors
+
+  show: *cache
+
+  show_by_institution: *cache
+  embed_iframe: *cache
+
+  signature_count:
+    <<: *private_dont_cache
+    <<: *cors
+
+devise/confirmations:
+  new: *dont_cache
+
+devise/passwords:
+  new: *dont_cache
+
+devise/unlock:
+  new: *dont_cache
+
+petitions:
+  recent_signatures:
+    <<: *cache
+    Surrogate-Control: max-age=60
+
+registrations:
+  new: *dont_cache
+
+sessions:
+  new: *dont_cache
+  destroy: *private_dont_cache
+
+users:
+  show: *private_dont_cache
+
+welcome:
+  index: *cache
