@@ -1,3 +1,5 @@
+# See https://github.com/EFForg/action-center-platform/wiki/Deployment-Notes#cache-configuration
+
 sub vcl_recv {
 #FASTLY recv
 
