@@ -20,7 +20,7 @@ sub vcl_recv {
 }
 
 sub vcl_fetch {
-  if (req.http.cookie !~ "logged_in" && req.url !~ "^/(login)|(confirmation/new)|(unlock/new)|(password/new)|(ahoy/)") {
+  if (req.http.cookie !~ "logged_in" && req.url !~ "^/(login)|(register)|(confirmation/new)|(unlock/new)|(password/new)|(ahoy/)") {
       unset beresp.http.Set-Cookie;
   }
 
