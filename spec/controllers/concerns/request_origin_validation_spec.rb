@@ -13,8 +13,8 @@ RSpec.describe RequestOriginValidation do
         OpenStruct.new(
           headers: { "origin" => "https://example.com" },
           base_url: "https://example.com",
-          :"get?" => false,
-          :"head?" => false
+          "get?": false,
+          "head?": false
         ).tap do |request|
           allow(controller).to receive(:request){ request }
         end
@@ -39,8 +39,8 @@ RSpec.describe RequestOriginValidation do
         OpenStruct.new(
           headers: { "origin" => "https://example.org" },
           base_url: "https://example.net",
-          :"get?" => false,
-          :"head?" => false
+          "get?": false,
+          "head?": false
         ).tap do |request|
           allow(controller).to receive(:request){ request }
         end
