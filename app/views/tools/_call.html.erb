@@ -102,28 +102,7 @@
             </div>
           </div>
 
-          <div class="vertical-share">
-            <p>Once you're done, help spread the word:</p>
-            <a href="<%= twitter_share_url(@actionPage) -%>" class="twitter twitter-button">
-              <div class="sicon" id="stwit"></div>
-              <div class="share-label">Share on Twitter</div>
-            </a>
-            <a href="<%= facebook_share_url(@actionPage) -%>" class="facebook facebook-button">
-              <div class="sicon" id="sfb"></div>
-              <div class="share-label">Share on Facebook</div>
-            </a>
-            <a href="<%= google_share_url(@actionPage) -%>" class="google google-button">
-              <div class="sicon" id="sgplus"></div>
-              <div class="share-label">Share on Google+</div>
-            </a>
-          </div>
-
-          <p style="text-align: center;">
-            <% if current_user.nil? %>
-            <br />
-            <strong><a href="/register">Sign up</a> for an EFF Action account and save your information for next time.</strong>
-            <% end %>
-          </p>
+          <%= render 'tools/share' -%>
         </div>
 
       </div>
