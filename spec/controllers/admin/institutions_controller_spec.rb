@@ -68,41 +68,47 @@ RSpec.describe Admin::InstitutionsController, type: :controller do
   end
 
   describe "POST #import" do
+    let(:import) do
+      post :import, { action_page_id: @actionPage.id, file: file }
+    end
+
+    let(:import_and_work_off) do
+      import
+      Delayed::Worker.new.work_off
+    end
+
     context "with valid csv" do
-      let(:file) {
-        fixture_file_upload("files/schools.csv")
-      }
+      let(:file) { fixture_file_upload("files/schools.csv") }
 
-      it "does not remove existing institutions from the action" do
-        pending("test delayed job")
-        expect {
-          institution = Institution.create! valid_attributes
-          @actionPage.institutions << institution
-
-          post :import, { action_page_id: @actionPage.id,
-            file: file }
-        }.to change(@actionPage.institutions, :count).by(4)
+      it "queues a job" do
+        expect { import }.to change(Delayed::Job, :count).by(1)
       end
 
-      it "uploads institutions from a csv" do
-        pending("test delayed job")
-        expect {
-          post :import, { action_page_id: @actionPage.id,
-            file: file }
-        }.to change(Institution, :count).by(3)
+      it "uploads institutions" do
+        expect(Institution).to receive(:import).with(
+          ["University of California, Berkeley",
+           "University of California, Davis",
+           "University of California, Santa Cruz"],
+           @actionPage
+        )
+        import_and_work_off
       end
     end
 
     context "with an invalid csv" do
-      let(:file) {
-        fixture_file_upload("files/bad_schools.csv")
-      }
+      let(:file) { fixture_file_upload("files/bad_schools.csv") }
 
-      it "handles formatting errors" do
-        expect {
-          post :import, { action_page_id: @actionPage.id,
-            file: file }
-        }.to change(Institution, :count).by(0)
+      it "does not upload institutions" do
+        expect(Institution).not_to receive(:import)
+        import_and_work_off
+      end
+
+      it "does not queue a job" do
+        expect { import }.not_to change(Delayed::Job, :count)
+      end
+
+      it "flashes an error" do
+        import_and_work_off
         expect(flash[:notice]).to include("Import failed")
       end
     end

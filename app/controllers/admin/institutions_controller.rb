@@ -40,7 +40,7 @@ class Admin::InstitutionsController < Admin::ApplicationController
       names << params["name"]
     end
 
-    Institution.delay.import(names, @actionPage)
+    Institution.delay.import(names, @actionPage) if names.present?
 
     redirect_to [:admin, @actionPage, Institution]
   end
