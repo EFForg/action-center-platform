@@ -10,5 +10,5 @@ if %w(development test).include? Rails.env
   RuboCop::RakeTask.new
 
   task(:default).clear
-  task default: [:rubocop, :spec]
+  task default: [:sass_lint, :rubocop, :spec, :cucumber]
 end
