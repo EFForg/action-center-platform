@@ -180,7 +180,7 @@
       <% if current_user.contact_id! -%>
         <p>Click below to change your EFF newsletter subscriptions.</p>
         <%= link_to "Edit subscriptions",
-          "#{Rails.application.secrets.supporters['host']}/update-preferences?id=#{current_user.contact_id}",
+          edit_subscription_path(current_user),
           :class => 'btn btn-sm btn-red-outline edit-settings' -%>
       <% else -%>
         <form action="https://supporters.eff.org/" method="post" id="eff-supporters-library-account-form" accept-charset="UTF-8" _lpchecked="1">
