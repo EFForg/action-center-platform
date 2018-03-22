@@ -1,4 +1,5 @@
 require "rails_helper"
+require 'lib/civicrm_spec'
 
 describe User do
   let(:attr) { FactoryGirl.attributes_for :user }
@@ -7,6 +8,8 @@ describe User do
   before(:each) do
     stub_civicrm
   end
+
+  it_behaves_like "civicrm_user_methods"
 
   it "creates a new instance given a valid attributes" do
     User.create!(attr)
