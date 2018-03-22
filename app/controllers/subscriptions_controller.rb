@@ -20,6 +20,12 @@ class SubscriptionsController < ApplicationController
   end
 
   def edit
-    redirect_to current_user.manage_subscription_url!
+    civicrm_url = current_user.manage_subscription_url!
+    if civicrm_url
+      redirect_to civicrm_url
+    else
+      flash.now[:error] = "We're unable to generate a subscription management URL. Please try again later."
+      redirect_to "/account"
+    end
   end
 end

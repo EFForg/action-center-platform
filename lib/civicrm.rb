@@ -32,9 +32,11 @@ module CiviCRM
     end
 
     def manage_subscription_url!
+      checksum = CiviCRM::get_checksum(contact_id)
+      return nil unless checksum
       "#{Rails.application.secrets.supporters['host']}/update-your-preferences?" + {
         cid1: contact_id,
-        cs: CiviCRM::get_checksum(contact_id)
+        cs: checksum
       }.to_param
     end
   end
@@ -117,7 +119,7 @@ module CiviCRM
       method: "generate_checksum",
       data: contact_id
     )
-    res["checksum"]
+    res && res["checksum"]
   end
 
   def self.base_params
