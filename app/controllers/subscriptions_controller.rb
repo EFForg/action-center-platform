@@ -24,7 +24,7 @@ class SubscriptionsController < ApplicationController
     if civicrm_url
       redirect_to civicrm_url
     else
-      flash.now[:error] = "We're unable to generate a subscription management URL. Please try again later."
+      flash.now[:error] = I18n.t "subscriptions.edit_error"
       redirect_to "/account"
     end
   end
