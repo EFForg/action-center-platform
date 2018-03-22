@@ -1,5 +1,5 @@
 require "rails_helper"
-require 'lib/civicrm_spec'
+require "lib/civicrm_spec"
 
 describe User do
   let(:attr) { FactoryGirl.attributes_for :user }
