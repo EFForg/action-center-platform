@@ -4,16 +4,39 @@ Given(/^a congress message campaign exists$/) do
 end
 
 When(/^I browse to an embedded action targetting Nancy Pelosi and Kamala Harris$/) do
-  params = "?bioguide_ids[]=P000197&bioguide_ids[]=H001075"
-  visit "/action/#{@action_page.title.downcase.gsub(" ", "-")}/embed_iframe#{params}"
+  visit "/action/#{@action_page.title.downcase.gsub(" ", "-")}/embed_iframe?" + {
+    bioguide_ids: ["P000197", "H001075"],
+    zip4: "7701",
+    zipcode: "94109",
+    street: "815 Eddy Street",
+    city: "San Francisco",
+    state: "CA"
+  }.to_param
 end
 
-When(/^I fill out the required fields for Nancy Pelosi$/) do
+When(/^I fill in the required fields for Nancy Pelosi$/) do
   select("Ms.", from: "$NAME_PREFIX")
   fill_in("$NAME_FIRST", with: "Buffy")
   fill_in("$NAME_LAST", with: "Summers")
   fill_in("$EMAIL", with: "bsummers@ucsunnydale.edu")
   select("Congress", from: "$TOPIC")
+end
+
+When(/^I fill in the required fields for Nancy Pelosi and Kamala Harris$/) do
+  within("#congressForms-common-fields") {
+    fill_in("$NAME_FIRST", with: "Buffy")
+    fill_in("$NAME_LAST", with: "Summers")
+    fill_in("$EMAIL", with: "bsummers@ucsunnydale.edu")
+  }
+  within("[data-legislator-id='P000197']") {
+    select("Ms.", from: "$NAME_PREFIX")
+    select("Congress", from: "$TOPIC")
+  }
+  within("[data-legislator-id='H001075']") {
+    select("Dr.", from: "$NAME_PREFIX")
+    fill_in("$PHONE", with: "415-436-9333")
+    select("Defense", from: "$TOPIC")
+  }
 end
 
 When(/^I sign up for the newsletter of the partner with code "(.*?)"$/) do |code|

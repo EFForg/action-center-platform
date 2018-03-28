@@ -66,7 +66,6 @@ $(document).on("ready", function() {
           }, 800);
 
 
-          $('[id="$CAPTCHA_SOLUTION"]').val("test").hide();
           $("input[name='$EMAIL']").after($("#email-signup-container").show());
           $("#congressForms-common-fields").after($(".update-user-data-container").show());
 
@@ -162,22 +161,15 @@ $(document).on("ready", function() {
           $("#congressForms-common-fields .form-group").slideUp(400, height_changed);
           $(".form-group", legislatorFieldSet).slideUp(400, height_changed);
           $("input[type=submit]").slideUp(400, height_changed);
-          if ($('[id="$CAPTCHA_SOLUTION"]', legislatorFieldSet).length === 0) {
-            setTimeout(function () {
-              emailsSent++;
-              if (emailsSent === rep_ids.length) {
-                allEmailSent();
-              }
-              $("#congressForms-common-fields .form-group").slideUp(400, height_changed);
-              $(".form-group", legislatorFieldSet).slideUp(400, height_changed);
-              legislatorFieldSet.find("span.info-circle").replaceWith('<span class="info-circle success">Sent <i class="icon-ok-circle"></i></span>');
-            }, 2000);
-          } else {
-            if (typeof(sweet_alert_shown) == "undefined"){
-              sweet_alert_shown = true;
-              sweetAlert("Take Heed", "There's a captcha for your member of congress.  Please wait until the captcha appears to ensure delivery of your message.");
+          setTimeout(function () {
+            emailsSent++;
+            if (emailsSent === rep_ids.length) {
+              allEmailSent();
             }
-          }
+            $("#congressForms-common-fields .form-group").slideUp(400, height_changed);
+            $(".form-group", legislatorFieldSet).slideUp(400, height_changed);
+            legislatorFieldSet.find("span.info-circle").replaceWith('<span class="info-circle success">Sent <i class="icon-ok-circle"></i></span>');
+          }, 2000);
         },
         onLegislatorSuccess: function(legislatorId, legislatorFieldSet) {
           // currently no-op
@@ -191,31 +183,6 @@ $(document).on("ready", function() {
           legislatorFieldSet.find("span.info-circle").replaceWith('<span class="info-circle success">Sent <i class="icon-ok-circle"></i></span>');
           // All emails are considered sent, even if the server fails
           //legislatorFieldSet.find('span.info-circle').replaceWith('<span class="info-circle error">Error <i class="icon-error-alt"></i></span>');
-        },
-        onLegislatorCaptcha: function(legislatorId, legislatorFieldSet) {
-          $(".form-group", legislatorFieldSet).slideUp(400, height_changed);
-          legislatorFieldSet.find("span.info-circle").replaceWith('<span class="info-circle warn">Captcha <i class="icon-attention"></i></span>');
-
-          // Collect the attributes in an array
-          var attrs = { };
-          $.each($(legislatorFieldSet).find(".congressForms-captcha")[0].attributes, function(idx, attr) {
-            attrs[attr.nodeName] = attr.nodeValue;
-          });
-        },
-        onLegislatorCaptchaSubmit: function(legislatorId, legislatorFieldSet) {
-          $(".congressForms-captcha-container", legislatorFieldSet).slideUp(400, height_changed);
-          legislatorFieldSet.find("span.info-circle").replaceWith('<span class="info-circle in-progress">Submitting <i class="icon-spin4 animate-spin"></i></span>');
-        },
-        onLegislatorCaptchaSuccess: function(legislatorId, legislatorFieldSet) {
-          emailsSent++;
-          if (emailsSent === rep_ids.length) {
-            allEmailSent();
-          }
-          legislatorFieldSet.find("span.info-circle").replaceWith('<span class="info-circle success">Sent <i class="icon-ok-circle"></i></span>');
-        },
-        onLegislatorCaptchaError: function(legislatorId, legislatorFieldSet) {
-          $(".form-group", legislatorFieldSet).slideUp(400, height_changed);
-          legislatorFieldSet.find("span.info-circle").replaceWith('<span class="info-circle error">Error <i class="icon-error-alt"></i></span>');
         },
         success: function () {
           $("#element").slideUp(null, height_changed);
