@@ -11,7 +11,7 @@ Feature: Submit messages to congress
     And I fill in "street_address" with "815 Eddy Street"
     And I fill in "zipcode" with "94109"
     And I press "Submit your message"
-    And I fill out the required fields for Nancy Pelosi
+    And I fill in the required fields for Nancy Pelosi
     And I sign up for the newsletter of the partner with code "twc"
     And I trigger a click on the element ".btn.action"
     Then I should see "Sent"
@@ -25,6 +25,6 @@ Feature: Submit messages to congress
     When I browse to an embedded action targetting Nancy Pelosi and Kamala Harris
     Then I should not see "Look up your representatives"
     When I press "Submit your message"
-    And I fill out the required fields for Nancy Pelosi and Kamala Harris
+    And I fill in the required fields for Nancy Pelosi and Kamala Harris
     And I trigger a click on the element ".btn.action"
     Then I should see "Sent"
