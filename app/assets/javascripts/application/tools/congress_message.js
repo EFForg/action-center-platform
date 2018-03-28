@@ -161,6 +161,15 @@ $(document).on("ready", function() {
           $("#congressForms-common-fields .form-group").slideUp(400, height_changed);
           $(".form-group", legislatorFieldSet).slideUp(400, height_changed);
           $("input[type=submit]").slideUp(400, height_changed);
+          setTimeout(function () {
+            emailsSent++;
+            if (emailsSent === rep_ids.length) {
+              allEmailSent();
+            }
+            $("#congressForms-common-fields .form-group").slideUp(400, height_changed);
+            $(".form-group", legislatorFieldSet).slideUp(400, height_changed);
+            legislatorFieldSet.find("span.info-circle").replaceWith('<span class="info-circle success">Sent <i class="icon-ok-circle"></i></span>');
+          }, 2000);
         },
         onLegislatorSuccess: function(legislatorId, legislatorFieldSet) {
           // currently no-op
