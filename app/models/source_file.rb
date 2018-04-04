@@ -59,9 +59,9 @@ class SourceFile < ActiveRecord::Base
   def s3_object
     Rails.logger.debug "Trying to get S3 object."
     s3 = Aws::S3::Resource.new(
-      :access_key_id => S3CorsFileupload::Config.access_key_id,
-      :secret_access_key => S3CorsFileupload::Config.secret_access_key,
-      :region => Rails.application.secrets.amazon_region
+      access_key_id: S3CorsFileupload::Config.access_key_id,
+      secret_access_key: S3CorsFileupload::Config.secret_access_key,
+      region: Rails.application.secrets.amazon_region
     )
     @s3_object = s3.bucket(Rails.application.secrets.amazon_bucket).object(key)
   rescue
@@ -72,9 +72,9 @@ class SourceFile < ActiveRecord::Base
   def self.open_aws
     unless @aws_connected
       Aws::S3::Base.establish_connection!(
-        :access_key_id => S3CorsFileupload::Config.access_key_id,
-        :secret_access_key => S3CorsFileupload::Config.secret_access_key,
-        :region => Rails.application.secrets.amazon_region
+        access_key_id: S3CorsFileupload::Config.access_key_id,
+        secret_access_key: S3CorsFileupload::Config.secret_access_key,
+        region: Rails.application.secrets.amazon_region
       )
     end
     @aws_connected ||= Aws::S3::Base.connected?
