@@ -420,6 +420,11 @@ h3.privacy-notice-header {
   font-size: 15px;
   color: $blue;
   margin-top: 1em;
+  span.privacy-notice-popover.action-privacy-notice-popover {
+    height: 20px;
+    width: 20px;
+    line-height: 18px;
+  }
   span.privacy-notice-popover {
     @include transition (all 0.2s ease-in-out);
     display: inline-block;
