@@ -3,8 +3,7 @@ class TweetTarget < ActiveRecord::Base
   require "open-uri"
 
   belongs_to :tweet
-  has_attached_file :image, default_url: ""
-  has_attached_file :image, amazon_credentials.merge(default_url: "")
+  has_attached_file :image, amazon_credentials
   validates_attachment_content_type :image, content_type: /\Aimage\/.*\Z/
   after_save :attach_twitter_image
 
