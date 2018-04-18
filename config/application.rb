@@ -1,6 +1,6 @@
-require File.expand_path('../boot', __FILE__)
+require File.expand_path("../boot", __FILE__)
 
-require 'rails/all'
+require "rails/all"
 
 # Require the gems listed in Gemfile, including any gems
 # you've limited to :test, :development, or :production.
@@ -48,7 +48,12 @@ module Actioncenter
     config.facebook_handle = Rails.application.secrets.facebook_handle
     config.call_tool_url = Rails.application.secrets.call_tool_url
     config.congress_forms_url = Rails.application.secrets.congress_forms_url
-    config.time_zone = Rails.application.secrets.time_zone || 'Eastern Time (US & Canada)'
+    config.time_zone = Rails.application.secrets.time_zone || "Eastern Time (US & Canada)"
     config.active_record.raise_in_transactional_callbacks = true
+
+    # fix file attachment:
+    # https://github.com/EFForg/action-center-platform/pull/408#issuecomment-381269915
+    # https://stackoverflow.com/questions/49176124/error-no-handler-found-with-base64-for-paperclip-5-2
+    Paperclip::HttpUrlProxyAdapter.register
   end
 end
