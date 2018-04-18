@@ -64,8 +64,8 @@ class SourceFile < ActiveRecord::Base
       region: Rails.application.secrets.amazon_region
     )
     @s3_object = s3.bucket(Rails.application.secrets.amazon_bucket).object(key)
-  rescue
-    Rails.logger.debug "Attempt to get S3 object failed."
+  rescue e
+    Rails.logger.debug "Attempt to get S3 object failed: #{e.message}"
     nil
   end
 
