@@ -6,7 +6,7 @@ gem "rails", "~>4.2.6"
 gem "pg", "0.15.1"
 
 # Hosting-related
-gem "aws-sdk", "< 2.0"
+gem "aws-sdk", "~> 2.3"
 gem "dotenv-rails"
 gem "rack-attack"
 gem "rails_12factor", group: :production # Loads "rails_serve_static_assets" and "rails_stdout_logging"
@@ -44,7 +44,7 @@ end
 
 # File upload
 gem "jquery-fileupload-rails"
-gem "paperclip", "~> 4.1"
+gem "paperclip", "~> 5.2"
 gem "s3_cors_fileupload", git: "https://github.com/sinak/s3_cors_fileupload", ref: "d5e14"
 
 # Email preformatting
