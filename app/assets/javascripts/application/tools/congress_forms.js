@@ -24,7 +24,6 @@
     submitClasses: 'btn',
 
     // Callbacks
-    success: function () {},
     onRender: function () {},
     topic_category: null,
     campaign_tag: null,

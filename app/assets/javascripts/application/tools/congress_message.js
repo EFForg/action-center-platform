@@ -184,21 +184,6 @@ $(document).on("ready", function() {
           // All emails are considered sent, even if the server fails
           //legislatorFieldSet.find('span.info-circle').replaceWith('<span class="info-circle error">Error <i class="icon-error-alt"></i></span>');
         },
-        success: function () {
-          $("#element").slideUp(null, height_changed);
-          $(".thank-you").slideDown(null, height_changed);
-          var action_id = $("[data-action-id]").attr("data-action-id");
-
-          var url = "/tools/congress-message?action_id=" + action_id;
-          $.ajax({
-            url: url,
-            type: "POST",
-            success: function(res) {
-              $(".call-tool-body").html('<div class="alert alert-success"><strong>Well done!</strong> You successfully called!</div>')
-            },
-            error: function() {}
-          });
-        },
         onDefunctLegislator: function(bioguide, contact_url) {
           var notice = $("<p>").addClass("defunct-notice")
               .text("Sorry, we can't message this legislator at the moment. We are working to fix the problem.");
