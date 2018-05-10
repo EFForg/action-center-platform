@@ -18,6 +18,7 @@ $(document).on("ready", function() {
         zipcode:	$('[id="$ADDRESS_ZIP5"]').val(),
         city:		$('[id="$ADDRESS_CITY"]').val(),
         update_user_data: $("#update_user_data").prop("checked"),
+        subscribe:      $('#do-subscribe').prop("checked"),
       }, getPartnerSignups()),
       type: "POST",
       success: function(res) {},
