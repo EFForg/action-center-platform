@@ -18,6 +18,7 @@ $(document).on("ready", function() {
         zipcode:	$('[id="$ADDRESS_ZIP5"]').val(),
         city:		$('[id="$ADDRESS_CITY"]').val(),
         update_user_data: $("#update_user_data").prop("checked"),
+        subscribe:      $('#do-subscribe').prop("checked"),
       }, getPartnerSignups()),
       type: "POST",
       success: function(res) {},
@@ -183,21 +184,6 @@ $(document).on("ready", function() {
           legislatorFieldSet.find("span.info-circle").replaceWith('<span class="info-circle success">Sent <i class="icon-ok-circle"></i></span>');
           // All emails are considered sent, even if the server fails
           //legislatorFieldSet.find('span.info-circle').replaceWith('<span class="info-circle error">Error <i class="icon-error-alt"></i></span>');
-        },
-        success: function () {
-          $("#element").slideUp(null, height_changed);
-          $(".thank-you").slideDown(null, height_changed);
-          var action_id = $("[data-action-id]").attr("data-action-id");
-
-          var url = "/tools/congress-message?action_id=" + action_id;
-          $.ajax({
-            url: url,
-            type: "POST",
-            success: function(res) {
-              $(".call-tool-body").html('<div class="alert alert-success"><strong>Well done!</strong> You successfully called!</div>')
-            },
-            error: function() {}
-          });
         },
         onDefunctLegislator: function(bioguide, contact_url) {
           var notice = $("<p>").addClass("defunct-notice")
