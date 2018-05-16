@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180124013711) do
+ActiveRecord::Schema.define(version: 20180516215539) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -379,12 +379,12 @@ ActiveRecord::Schema.define(version: 20180124013711) do
     t.string   "country_code"
     t.string   "zipcode"
     t.string   "phone"
-    t.boolean  "record_activity",        default: true
+    t.boolean  "record_activity",        default: false
     t.string   "confirmation_token"
     t.datetime "confirmed_at"
     t.datetime "confirmation_sent_at"
     t.integer  "contact_id"
-    t.boolean  "subscribe",              default: true
+    t.boolean  "subscribe",              default: false
     t.integer  "partner_id"
     t.string   "unconfirmed_email"
     t.integer  "failed_attempts",        default: 0
