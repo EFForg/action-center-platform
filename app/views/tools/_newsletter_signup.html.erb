@@ -6,17 +6,14 @@
                               "aria-label": "Email #{t(:optional)}" if email %>
 
     <% if current_user.nil? and params[:partner].nil? %>
-      <div class="email-signup text-left">
+      <div class="newsletter-signup text-left">
 
         <%= render "tools/petition_location", f: subscription_fields if location %>
 
-        <div class="signup-radios">
-          <%= t :i -%>
-          <input type="radio" name="subscribe" value="1" <%= "checked" if params[:subscribe] == "1" -%> id="do-subscribe" >
-          <label class="radio-inline" for="do-subscribe"><%= t :want -%></label>
-          <input type="radio" name="subscribe" value="0" <%= "checked" unless params[:subscribe] == "1" -%> id="do-not-subscribe">
-          <label class="radio-inline" for="do-not-subscribe"><%= t :do_not_want -%></label>
-          <%= t :to_sign_up_for_mailings_from -%> <b><%= t :organization_abbreviation -%></b>
+        <div class="signup-checkbox">
+          <input type="checkbox" name="subscribe" value="1" <%= "checked" if params[:subscribe] == "1" -%> id="do-subscribe" >
+          <b><%= t(:sign_up_for_mailings_from_org, name: t(:organization_abbreviation)) -%></b>
+          <%= t(:why_sign_up_for_mailings_from_org, name: t(:organization_abbreviation)) -%>
         </div>
 
         <%= render "tools/privacy_notice" if privacy_notice %>
@@ -25,15 +22,10 @@
     <% end %>
 
     <% visible_partners.each do |partner| %>
-      <div class="email-signup partner signup-radios text-left">
-        <%= t :i -%>
+      <div class="newsletter-signup partner signup-checkbox text-left">
+        <input type="checkbox" name=<%= "#{partner.code}_subscribe" %> value="1" <%= "checked" if params[:subscribe] == "1" -%> id="do-subscribe" >
+        <b><%= t :sign_up_for_mailings_from_org, name: partner.name %></b>
 
-        <%= radio_button_tag "#{partner.code}_subscribe", 1 %>
-        <%= label_tag "#{partner.code}_subscribe_1", t(:want), class: "radio-inline" %>
-        <%= radio_button_tag "#{partner.code}_subscribe", 0, true %>
-        <%= label_tag "#{partner.code}_subscribe_0", t(:do_not_want), class: "radio-inline" %>
-
-        <%= t :to_sign_up_for_mailings_from -%> <b><%= partner.name -%></b>
         (<%= link_to 'privacy policy', partner.privacy_url -%>).
       </div>
     <% end %>

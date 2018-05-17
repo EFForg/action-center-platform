@@ -154,7 +154,7 @@ $(document).on("ready", function() {
         },
         onLegislatorSubmit: function(legislatorId, legislatorFieldSet) {
           // Subscribe the user if checked
-          $(".email-signup").hide();
+          $(".newsletter-signup").hide();
           $(".update-user-data-container").hide();
           $(".legislator-info-popover").hide();
           legislatorFieldSet.children("h3").append('<span class="info-circle in-progress">Submitting <i class="icon-spin4 animate-spin"></i></span>');

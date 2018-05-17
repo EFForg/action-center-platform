@@ -55,6 +55,7 @@ describe User do
   end
 
   describe "track user actions" do
+    let(:user) { FactoryGirl.create(:user, record_activity: true) }
     let(:ahoy) { Ahoy::Tracker.new }
     let(:action_page) { FactoryGirl.create :action_page_with_petition }
 
@@ -73,13 +74,18 @@ describe User do
 end
 
 def record_several_actions
-  FactoryGirl.create(:user)
-  ahoy.authenticate(FactoryGirl.create(:user))
+  # a user with no actions
+  FactoryGirl.create(:user, record_activity: true)
+
+  # a user with three actions
+  ahoy.authenticate(FactoryGirl.create(:user, record_activity: true))
   3.times { track_signature(action_page) }
 
-  ahoy.authenticate(FactoryGirl.create(:user))
+  # a user with 1 action
+  ahoy.authenticate(FactoryGirl.create(:user, record_activity: true))
   1.times { track_signature(action_page) }
 
+  # our friend, with 2 actions
   ahoy.authenticate(user)
   2.times { track_signature(action_page) }
   track_view(action_page)

@@ -439,12 +439,11 @@ end
 
 When(/^I enter the email "(.*?)" and opt for mailings$/) do |email|
   find("input[name=subscription\\[email\\]]").set(email)
-  find("label[for=do-subscribe]").click
+  find("input[name=subscribe]").click
 end
 
 Then(/^I should see an option to sign up for mailings$/) do
-  expect(page).to have_css(".email-signup input[type=radio][name=subscribe][value='0']:checked", visible: false)
-  expect(page).to have_css(".email-signup input[type=radio][name=subscribe][value='1']", visible: false)
+  expect(page).to have_css(".newsletter-signup input[type=checkbox][name=subscribe]")
 end
 
 Then(/^"(.*?)" should be signed up for mailings$/) do |email|

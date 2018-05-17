@@ -57,6 +57,8 @@ class User < ActiveRecord::Base
   end
 
   def percentile_rank
+    return 0 unless record_activity?
+
     user_action_counts = Rails.cache.fetch("user_action_counts", expires_in: 24.hours) {
       User.select("users.id, count(ahoy_events.id) AS events_count")
         .joins("LEFT OUTER JOIN ahoy_events ON ahoy_events.user_id = users.id")
@@ -70,10 +72,14 @@ class User < ActiveRecord::Base
   end
 
   def signed?(petition)
+    return false unless record_activity?
+
     Signature.where(user: self, petition: petition).exists?
   end
 
   def taken_action?(action_page)
+    return false unless record_activity?
+
     actions.on_page(action_page).exists?
   end
 
