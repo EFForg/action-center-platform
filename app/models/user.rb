@@ -70,10 +70,14 @@ class User < ActiveRecord::Base
   end
 
   def signed?(petition)
+    return false unless record_activity?
+
     Signature.where(user: self, petition: petition).exists?
   end
 
   def taken_action?(action_page)
+    return false unless record_activity?
+
     actions.on_page(action_page).exists?
   end
 

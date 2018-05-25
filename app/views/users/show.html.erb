@@ -61,34 +61,35 @@
     </div>
 
     <div class="col-md-4">
-
-      <div class="action-stats">
-        <h3>Stats</h3>
-        <div class="percentile">
-          <p>You are in the <span><%= current_user.percentile_rank.ordinalize %> </span>percentile of users.</p>
+      <% if current_user.record_activity? %>
+        <div class="action-stats">
+          <h3>Stats</h3>
+          <div class="percentile">
+            <p>You are in the <span><%= current_user.percentile_rank.ordinalize %> </span>percentile of users.</p>
+          </div>
+          <p>Actions you've taken so far:</p>
+          <div class="action-grid">
+            <div class="quad-1">
+              <%= pluralize_with_span(current_user.actions.calls.count, 'call') %>
+            </div>
+            <div class="quad-2">
+              <%= pluralize_with_span(current_user.actions.signatures.count, 'petition') %>
+            </div>
+            <div class="quad-3">
+              <%= pluralize_with_span(current_user.actions.emails.count, 'email') %>
+            </div>
+            <div class="quad-4">
+              <%= pluralize_with_span(current_user.actions.tweets.count, 'tweet') %>
+            </div>
+            <div class="total">
+              <span>
+                <%= current_user.actions.count -%>
+              </span>
+              total
+            </div>
+          </div>
         </div>
-        <p>Actions you've taken so far:</p>
-        <div class="action-grid">
-          <div class="quad-1">
-            <%= pluralize_with_span(current_user.actions.calls.count, 'call') %>
-          </div>
-          <div class="quad-2">
-            <%= pluralize_with_span(current_user.actions.signatures.count, 'petition') %>
-          </div>
-          <div class="quad-3">
-            <%= pluralize_with_span(current_user.actions.emails.count, 'email') %>
-          </div>
-          <div class="quad-4">
-            <%= pluralize_with_span(current_user.actions.tweets.count, 'tweet') %>
-          </div>
-          <div class="total">
-            <span>
-              <%= current_user.actions.count -%>
-            </span>
-            total
-          </div>
-        </div>
-      </div>
+      <% end %>
 
       <div class="user-info">
         <h4>

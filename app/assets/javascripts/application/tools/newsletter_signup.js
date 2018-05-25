@@ -13,10 +13,10 @@ $("form.newsletter-subscription").on("ajax:complete", function(xhr, data, status
 
 $("form.newsletter-subscription input").attr("disabled", null);
 
-$(".signup-radios input").on("change", function() {
+$(".signup-checkbox input").on("change", function() {
   // Check if the user is signing up for any newsletter within this form.
   var form = $(this).parents("form");
-  var subscribe = form.find(".signup-radios input[value=1]:checked").length > 0;
+  var subscribe = form.find(".signup-checkbox input[value=1]:checked").length > 0;
   var emailField = form.find("#subscription_email");
   emailField.attr("placeholder", subscribe? "Email" : "Email (optional)");
   emailField.attr("required", subscribe ? "required" : null);
@@ -24,13 +24,13 @@ $(".signup-radios input").on("change", function() {
 
 // Set the initial required state of the email signup form.
 // (We can't do this is the view because of no-js users)
-$(".signup-radios input:checked").trigger("change");
+$(".signup-checkbox input:checked").trigger("change");
 
 // Show a random e-mail signup (ours or an action partner's) on each tool
 $.fn.random = function() {
   return this.eq(Math.floor(Math.random() * this.length));
 }
 $('.tool').each(function() {
-  $(this).find('.email-signup').hide().random().show();
+  $(this).find('.newsletter-signup').hide().random().show();
 });
 

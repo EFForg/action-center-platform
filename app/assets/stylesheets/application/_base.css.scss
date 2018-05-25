@@ -355,7 +355,12 @@ Styles for the alert box
   10%, 90% { opacity: 1; transform: translate(0, 0); }
 }
 
-.signup-radios,
+.signup-checkbox {
+  font-size: 1.3rem;
+  line-height: 1.5rem;
+  margin-bottom: 2rem;
+}
+
 .email-signup {
   font-size: 13px;
   margin-bottom: 10px;

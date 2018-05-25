@@ -40,6 +40,8 @@ en:
   email: email
   save_my_info: Save my %{info} for next time.
   dont_show_my_name: Don't add my name or city to this petition (we'll only list your country).
+  sign_up_for_mailings_from_org: "Yes! I would like to join %{name}'s mailing list"
+  why_sign_up_for_mailings_from_org: for %{name} news, events, campaigns, and ways to support digital freedom.
   i: I
   want: want
   do_not_want: do not want

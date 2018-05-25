@@ -40,7 +40,7 @@ When(/^I fill in the required fields for Nancy Pelosi and Kamala Harris$/) do
 end
 
 When(/^I sign up for the newsletter of the partner with code "(.*?)"$/) do |code|
-  find("label[for='#{code}_subscribe_1']").click
+  find("input[name='#{code}_subscribe']").click
 end
 
 Given(/^"(.*?)" is a partner on the action$/) do |name|
