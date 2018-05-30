@@ -30,6 +30,15 @@ module CiviCRM
         )
       end
     end
+
+    def manage_subscription_url!
+      checksum = CiviCRM::get_checksum(contact_id)
+      return nil unless checksum
+      "#{Rails.application.secrets.supporters['host']}/update-your-preferences?" + {
+        cid1: contact_id,
+        cs: checksum
+      }.to_param
+    end
   end
 
   def self.skip_crm?
@@ -101,6 +110,16 @@ module CiviCRM
       method: "find_contact_by_email",
       data: params.slice(:email).merge(method: "find_contact_by_email").to_json
     )
+  end
+
+  def self.get_checksum(contact_id)
+    return nil if skip_crm?
+    # Valid for 24 hours
+    res = post base_params.merge(
+      method: "generate_checksum",
+      data: contact_id
+    )
+    res && res["checksum"]
   end
 
   def self.base_params
