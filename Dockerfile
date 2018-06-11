@@ -11,7 +11,8 @@ RUN apt-get update && \
     libpq-dev \
     libfontconfig \
     postgresql-client \
-    cron
+    cron \
+    gnupg
 
 RUN set -x; \
   curl -sL https://deb.nodesource.com/setup_6.x -o nodesource_setup.sh \
