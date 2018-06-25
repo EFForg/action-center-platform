@@ -33,6 +33,8 @@ devise/confirmations:
 
 devise/passwords:
   new: *dont_cache
+  edit: *dont_cache
+  update: *dont_cache
 
 devise/unlock:
   new: *dont_cache
