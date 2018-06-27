@@ -31,7 +31,8 @@ Actioncenter::Application.routes.draw do
   devise_for :users, path: '', path_names:  {sign_in:  'login',
                                              sign_out: 'logout',
                                              sign_up:  'register'},
-                               controllers: {sessions: 'sessions', registrations: 'registrations'}
+                               controllers: {sessions: 'sessions', registrations: 'registrations'},
+                               sign_out_via: %i(delete)
 
   devise_scope :user do
     get "/sessions/password_reset" => "sessions#password_reset"

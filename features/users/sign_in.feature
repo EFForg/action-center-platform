@@ -5,7 +5,6 @@ Feature: Sign in
 
   Scenario: Activist logs in and sets up to create some content
     Given I exist as an activist
-      And I am not logged in
     When I sign in with valid credentials
     Then I see a successful sign in message
     When I return to the site

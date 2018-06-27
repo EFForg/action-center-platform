@@ -6,7 +6,6 @@ Feature: Create Content
 
   Background:
     Given I exist as an activist
-      And I am not logged in
 
   Scenario: Activist logs in and sets up to create some content
     When I create a vanilla action
