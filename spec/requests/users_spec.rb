@@ -14,7 +14,7 @@ RSpec.describe "Tests about users", type: :request do
     expect(page).to have_content("Personal information")
 
     # log user out
-    visit "/logout"
+    click_on 'Logout'
 
     #promote user to activist
     @user.admin = true

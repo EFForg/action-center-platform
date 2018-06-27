@@ -65,7 +65,7 @@ Given(/^I exist as an activist$/) do
 end
 
 Given(/^I am not logged in$/) do
-  visit "/logout"
+  click_on "/logout"
 end
 
 When(/^I sign in with valid credentials$/) do
