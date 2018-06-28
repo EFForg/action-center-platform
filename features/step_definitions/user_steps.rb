@@ -151,7 +151,7 @@ When(/^I visit the dashboard$/) do
 end
 
 When(/^I sign out$/) do
-  visit '/'
+  visit "/"
   click_on "Logout"
 end
 
