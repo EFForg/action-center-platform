@@ -65,7 +65,7 @@ Given(/^I exist as an activist$/) do
 end
 
 Given(/^I am not logged in$/) do
-  click_on "/logout"
+  click_on "Logout"
 end
 
 When(/^I sign in with valid credentials$/) do
@@ -151,7 +151,8 @@ When(/^I visit the dashboard$/) do
 end
 
 When(/^I sign out$/) do
-  visit "/logout"
+  visit '/'
+  click_on "Logout"
 end
 
 When(/^I click the back button$/) do

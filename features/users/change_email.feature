@@ -16,7 +16,6 @@ Feature: Change Email
     And the email "Confirmation instructions" should go to "new@example.com"
 
   Scenario: A user had an outstanding password reset token
-    Given I am not logged in
     When I initiate a password reset request
     And I log in
     And I change my email address to "new@example.com"
