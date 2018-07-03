@@ -68,6 +68,7 @@ a:hover {
 }
 
 .nav > li > a {
+  line-height: 10px;
   padding-right: 20px;
   padding-left: 20px;
   @media (max-width: $screen-sm-max) and (min-width: $screen-sm-min) {
@@ -121,6 +122,10 @@ a:hover {
   .icon-eff-action-logo {
     color: #fff;
     font-size: 29px;
+  }
+
+  .navbar-collapse {
+    padding-left: 0;
   }
 }
 
