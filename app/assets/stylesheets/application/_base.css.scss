@@ -200,6 +200,12 @@ a:hover {
   }
 }
 
+.eff-logo {
+  display: inline-block;
+  height: 5rem;
+  width: 20rem;
+  background: asset-url('EFF-logo-lockup-1color.svg') no-repeat;
+}
 
 .avatar-frame {
   border: 2px solid #cc0000;
