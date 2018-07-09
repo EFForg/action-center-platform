@@ -5,11 +5,14 @@ Navbar styles
 .navbar-wrapper {
   background-color: #f8f8f8;
   & > .container {
-    width: 100%;
-    padding: 0;
+    width: auto;
+    padding-left: 15px;
   }
   .icon-eff-action-logo {
     color: $red;
+  }
+  .navbar-brand {
+    background: asset-url('EFF_Monogram-red.svg') no-repeat;
   }
 }
 .navbar-wrapper .navbar-inverse {

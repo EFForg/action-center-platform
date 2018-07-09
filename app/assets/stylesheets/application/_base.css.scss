@@ -68,8 +68,10 @@ a:hover {
 }
 
 .nav > li > a {
+  line-height: 10px;
   padding-right: 20px;
   padding-left: 20px;
+
   @media (max-width: $screen-sm-max) and (min-width: $screen-sm-min) {
     padding-left: 15px;
     padding-right: 15px;
@@ -79,6 +81,12 @@ a:hover {
 .navbar-wrapper {
   background: $red;
 
+  .container {
+    @media(min-width: 1201px) {
+      padding-left: 40px;
+    }
+  }
+
   .navbar-inverse {
     border: 0;
     background-color: #cc0000;
@@ -87,12 +95,9 @@ a:hover {
 
   .navbar {
     font-size: 13px;
+    margin-top: 1.5rem;
     margin-bottom: 0px;
     z-index: 102;
-  }
-
-  .navbar-right {
-    margin-top: 4px;
   }
 
   .horiz-rule {
@@ -101,14 +106,27 @@ a:hover {
   }
 
   .navbar-brand {
-    height: auto;
-    padding-top: 14px;
-    padding-bottom: 10px;
+    display: block;
+    padding: 0;
+    margin-top: 11px;
+    height: 32px;
+    width: 128px;
+
+    @media(min-width: 768px) {
+      margin-top: 0;
+      height: 5rem;
+      width: 20rem;
+    }
+    background: asset-url('EFF_Monogram-white.svg') no-repeat;
   }
 
   .icon-eff-action-logo {
     color: #fff;
     font-size: 29px;
+  }
+
+  .navbar-collapse {
+    padding-left: 0;
   }
 }
 
@@ -183,6 +201,12 @@ a:hover {
   }
 }
 
+.eff-logo {
+  display: inline-block;
+  height: 5rem;
+  width: 20rem;
+  background: asset-url('EFF-logo-lockup-1color.svg') no-repeat;
+}
 
 .avatar-frame {
   border: 2px solid #cc0000;
@@ -239,23 +263,22 @@ a:hover {
 
   .container {
     padding-top: 0;
-    padding-bottom: 18px;
+    padding-bottom: 66px;
     background: #1a1a1a;
     margin-top: -10px;
   }
 
   .logo {
     a {
-      @include transition (color 0.2s ease-in-out);
       display: block;
-      margin-bottom: 10px;
+      height: 4.5rem;
+      background: asset-url('EFF-logo-lockup-1color-white.svg') no-repeat;
     }
   }
 
   .links {
-    text-align: right;
-    padding: 0;
-    line-height: 32px;
+    padding: 0 0 0 15px;
+    line-height: 4.5rem;
     margin: 0;
     color: #cc0000;
     font-size: 13px;

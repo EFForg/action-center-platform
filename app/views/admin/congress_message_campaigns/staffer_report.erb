@@ -1,8 +1,7 @@
-<i class="icon-eff-logo"></i>
 <div class="staffer-report"
      data-bioid="<%= @bioguide_id %>"
      data-legislators_url="<%= congress_index_path(format: :json) %>">
-  <h1>Report for <span class="member_name"></span></h1>
+  <h1><i class="eff-logo pull-right"></i>Report for <span class="member_name"></span></h1>
   <h2>Campaign: <%= @congress_message_campaign.campaign_tag %></h2>
 
   <div class='chart_wrapper'>
