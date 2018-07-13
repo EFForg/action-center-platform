@@ -81,7 +81,7 @@ When(/^I return to the site$/) do
 end
 
 Then(/^I should be signed in$/) do
-  expect(page).to have_content "Logout"
+  expect(page).to have_selector 'input[type="submit"][value="Logout"]'
   expect(page).not_to have_content "Sign up"
   expect(page).not_to have_content "Login"
 end
