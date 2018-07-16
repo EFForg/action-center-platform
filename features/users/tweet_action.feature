@@ -5,7 +5,6 @@ Feature: Do a Tweet Action
 
   Scenario: An activist creates a tweet petition and a supporter uses it
     Given A tweet petition targeting senate exists
-      And I am not logged in
     When I browse to the action page
     Then I see a button to lookup my reps
     When I fill in my tweet petition location info

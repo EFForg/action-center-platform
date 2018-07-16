@@ -65,7 +65,7 @@ Given(/^I exist as an activist$/) do
 end
 
 Given(/^I am not logged in$/) do
-  visit "/logout"
+  click_on "Logout"
 end
 
 When(/^I sign in with valid credentials$/) do
@@ -81,7 +81,7 @@ When(/^I return to the site$/) do
 end
 
 Then(/^I should be signed in$/) do
-  expect(page).to have_content "Logout"
+  expect(page).to have_selector 'input[type="submit"][value="Logout"]'
   expect(page).not_to have_content "Sign up"
   expect(page).not_to have_content "Login"
 end
@@ -151,7 +151,8 @@ When(/^I visit the dashboard$/) do
 end
 
 When(/^I sign out$/) do
-  visit "/logout"
+  visit "/"
+  click_on "Logout"
 end
 
 When(/^I click the back button$/) do

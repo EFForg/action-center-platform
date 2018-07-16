@@ -78,6 +78,24 @@ a:hover {
   }
 }
 
+.nav-form-link {
+  input[type=submit] {
+    background: none;
+    border: none;
+    text-decoration: none;
+    cursor: pointer;
+    color: white;
+    padding: 15px 20px 15px 20px;
+    @media (max-width: $screen-sm-max) and (min-width: $screen-sm-min) {
+      padding-left: 15px;
+      padding-right: 15px;
+    }
+    &:hover {
+      color: #dddddd;
+    }
+  }
+}
+
 .navbar-wrapper {
   background: $red;
 

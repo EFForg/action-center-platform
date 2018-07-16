@@ -71,7 +71,11 @@
                   <% end %>
 
                   <li><%= link_to("Account", "/account") %></li>
-                  <li><%= link_to("Logout", destroy_user_session_path) %></li>
+                  <li>
+                    <%= form_for current_user, url: destroy_user_session_path, method: :delete, html: { class: "nav-form-link" } do |f| %>
+                      <%= f.submit "Logout" %>
+                    <% end %>
+                  </li>
                 <% else %>
                   <li><%= link_to("Register", new_user_registration_path)  %></li>
                   <li><%= link_to("Login", new_user_session_path)  %></li>
