@@ -68,7 +68,7 @@ class ActionPageController < ApplicationController
   private
 
   def set_action_page
-    @actionPage = ActionPage.friendly.find(params[:id])
+    @actionPage = ActionPage.friendly.find(params[:id].strip)
   end
 
   def protect_unpublished
