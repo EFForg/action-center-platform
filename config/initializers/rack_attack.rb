@@ -3,6 +3,10 @@ class Rack::Attack
     original_user(req) if req.path == '/' && req.post?
   end
 
+  throttle('subscriptions', limit: 10, period: 1.day) do |req|
+    original_user(req) if req.path == '/subscriptions' && req.post?
+  end
+
   throttle('password reset', limit: 10, period: 1.day) do |req|
     if req.path == '/password' && req.params['user']
       req.params['user']['email'].presence
