@@ -17,6 +17,13 @@ GIT
       multi_json (~> 1.0)
       rails (>= 3.1, < 5.0)
 
+PATH
+  remote: /home/vivian/dev/eff_matomo
+  specs:
+    eff_matomo (0.1.0)
+      activesupport
+      httparty
+
 GEM
   remote: https://rubygems.org/
   remote: https://rails-assets.org/
@@ -212,6 +219,8 @@ GEM
       domain_name (~> 0.5)
     http_accept_language (2.0.5)
     http_parser.rb (0.6.0)
+    httparty (0.16.2)
+      multi_xml (>= 0.5.2)
     i18n (0.9.5)
       concurrent-ruby (~> 1.0)
     invisible_captcha (0.10.0)
@@ -246,6 +255,7 @@ GEM
     minitest (5.11.3)
     multi_json (1.13.1)
     multi_test (0.1.2)
+    multi_xml (0.6.0)
     multipart-post (2.0.0)
     netrc (0.11.0)
     nokogiri (1.8.2)
@@ -495,6 +505,7 @@ DEPENDENCIES
   descriptive_statistics
   devise (~> 3.5)
   dotenv-rails
+  eff_matomo!
   ejs
   email_validator
   factory_girl_rails
