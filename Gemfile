@@ -57,7 +57,7 @@ gem "sprockets-image_compressor" # Optimizes png/jpg
 # Analytics
 gem "ahoy_matey" # Analytics
 gem "chartkick"
-gem "eff_matomo"
+gem "eff_matomo", require: "matomo"
 gem "groupdate"
 
 # Job queue

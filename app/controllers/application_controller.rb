@@ -1,4 +1,3 @@
-require "matomo"
 class ApplicationController < ActionController::Base
   include ApplicationHelper
   include RequestOriginValidation
