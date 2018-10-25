@@ -101,6 +101,7 @@ Actioncenter::Application.routes.draw do
       get :publish
       get :unpublish
       get :destroy
+      get :views
       post 'update_featured_pages', :on => :collection
       patch :preview
       resources :affiliation_types, only: [:index, :new, :create, :destroy]
