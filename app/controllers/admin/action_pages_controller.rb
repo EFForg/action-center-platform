@@ -134,6 +134,11 @@ class Admin::ActionPagesController < Admin::ApplicationController
     render "action_page/show", layout: "application"
   end
 
+  def views
+    set_date_from_params
+    @views = @actionPage.events.congress_messages.where("time BETWEEN ? AND ?", @date_start, @date_end).group_by_day(:time, format: "%Y-%m-%d 00:00:00 UTC").count
+  end
+
   private
 
   def set_action_page

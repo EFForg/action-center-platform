@@ -1,0 +1,19 @@
+<div class="container">
+  <h3>Action page views for: <i><%= @actionPage.title %></i></h3>
+  <table class="table table-striped" >
+    <thead>
+      <tr>
+        <th>Date</th>
+        <th>Views</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @views.each do |date, view_count| %>
+        <tr>
+          <td><%= date.to_datetime.strftime("%B %-d, %Y") %></td>
+          <td><%= view_count %></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>
