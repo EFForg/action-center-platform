@@ -699,6 +699,15 @@ body.outlook p {
 
   </style>
   <style>
+    .banner-wrapper {
+      padding: 1rem 2.3rem 1rem 1.8rem !important;
+      background-color: #007eff;
+      border-bottom: 5px solid #006fe2;
+    }
+
+    .banner-wrapper img {
+      width: 350px !important;
+    }
 
     table.facebook td {
       background: #3b5998;
@@ -807,12 +816,11 @@ body.outlook p {
 
                       <table class="twelve columns">
                         <tr>
-                          <td>
+                          <td class="banner-wrapper">
 
-                            <img width="580" height="130" src="<%= image_url 'email-top-banner.png' -%>" alt="<%= t :organization_name -%>">
+                            <img width="350" src="<%= image_url 'EFF-logo-lockup-1color-white.png' -%>" alt="<%= t :organization_name -%>">
 
                           </td>
-                          <td class="expander"></td>
                         </tr>
                       </table>
 
