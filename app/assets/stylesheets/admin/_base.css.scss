@@ -18,7 +18,8 @@ Navbar styles
 .navbar-wrapper .navbar-inverse {
   background-color: #f8f8f8;
 }
-.navbar-inverse .navbar-nav > li > a {
+.navbar-inverse .navbar-nav > li > a,
+.navbar-inverse .nav-form-link input[type=submit] {
   color: $red;
   &:hover {
     color: darken($red, 15%);

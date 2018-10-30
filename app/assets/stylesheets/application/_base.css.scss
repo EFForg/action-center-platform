@@ -71,11 +71,6 @@ a:hover {
   line-height: 10px;
   padding-right: 20px;
   padding-left: 20px;
-
-  @media (max-width: $screen-sm-max) and (min-width: $screen-sm-min) {
-    padding-left: 15px;
-    padding-right: 15px;
-  }
 }
 
 .nav-form-link {
@@ -86,9 +81,9 @@ a:hover {
     cursor: pointer;
     color: white;
     padding: 15px 20px 15px 20px;
-    @media (max-width: $screen-sm-max) and (min-width: $screen-sm-min) {
-      padding-left: 15px;
-      padding-right: 15px;
+    line-height: 10px;
+    @media (max-width: $screen-sm-max) {
+      padding: 10px 20px 10px 20px;
     }
     &:hover {
       color: #dddddd;
