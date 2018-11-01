@@ -136,7 +136,17 @@ class Admin::ActionPagesController < Admin::ApplicationController
 
   def views
     set_date_from_params
-    @views = @actionPage.events.congress_messages.where("time BETWEEN ? AND ?", @date_start, @date_end).group_by_day(:time, format: "%Y-%m-%d 00:00:00 UTC").count
+    if @date_start == @date_end
+      @views = @actionPage.events.views.where('time BETWEEN ? AND ?', @date_start, @date_end + 1.day).group_by_hour(:time, format: '%Y-%m-%d %H:%M:00 UTC').count
+    else
+      @views = @actionPage.events.views.where('time BETWEEN ? AND ?', @date_start, @date_end).group_by_day(:time, format: '%Y-%m-%d 00:00:00 UTC').count
+    end
+
+    respond_to do |format|
+      format.json { render json: @views }
+      # format.json { render json: @views.to_a.map{ |e| {x: e[0], y: e[1]} } }
+      format.html
+    end
   end
 
   private

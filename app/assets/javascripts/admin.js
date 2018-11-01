@@ -10,6 +10,7 @@
 //= require admin/congress_message_tabulation
 //= require admin/petitions
 //= require admin/epic_editor_helper
+//= require admin/analytics
 //= require_tree ./admin/action_pages
 //= require s3_cors_fileupload
 //= require bootstrap-sass/bootstrap/tab
@@ -35,31 +36,6 @@ $(document).on('ready', function() {
   $("#epic-email-text").data("editor", editor5);
   $("#epic-victory-message").data("editor", editor);
 
-  $("#date_control_container").each(function() {
-    var date_start = $(this).data("date-start");
-    var date_end = $(this).data("date-end");
-
-    var action = $(".date_submit", this)[0];
-    var base_url = window.location.pathname;
-    action.href = base_url + "?date_start=" + date_start + "&date_end=" + date_end + window.location.hash;
-
-    $("input#date_range", this).daterangepicker({
-      format: "YYYY-MM-DD",
-      startDate: date_start,
-      endDate: date_end
-    });
-
-    $("input#date_range", this).on('apply.daterangepicker', function(ev, picker){
-      date_start = picker.startDate.format("YYYY-MM-DD");
-      date_end = picker.endDate.format("YYYY-MM-DD");
-      action.href = base_url + "?date_start=" + date_start + "&date_end=" + date_end + window.location.hash;
-      $('.daterangepicker').hide();
-    });
-
-    $("input#date_range", this).on('cancel.daterangepicker', function(ev, picker){
-      $('.daterangepicker').hide();
-    });
-  });
 
   $(".edit-action .panel-heading").click(function(){
     setTimeout(function() { editor2 && editor2.reflow() }, 100);

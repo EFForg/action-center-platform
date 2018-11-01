@@ -17,18 +17,8 @@
           target: "_blank" do -%>
           <button type='button' class='btn btn-default'>Table View</button>
         <% end -%>
-        <%= if @date_start == @date_end
-          @data = @actionPage.events.views.where('time BETWEEN ? AND ?', @date_start, @date_end + 1.day).group_by_hour(:time, format: '%Y-%m-%d %H:%M:00 UTC').count
-        else
-          @data = @actionPage.events.views.where('time BETWEEN ? AND ?', @date_start, @date_end).group_by_day(:time, format: '%Y-%m-%d 00:00:00 UTC').count
-        end
-        line_chart(
-          [{
-            name: "Total Page Views",
-            data: @data
-          }],
-          library: {canvasDimensions: {width: 800, height: 300}}
-        ) %>
+        <%= line_chart(admin_action_page_views_path(@actionPage),
+                       id: "views-chart", height: "200px") %>
 
         <% if @actionPage.enable_email? && @actionPage.email_campaign %>
           <h3>Email Tool</h3>
