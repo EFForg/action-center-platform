@@ -17,39 +17,19 @@
           target: "_blank" do -%>
           <button type='button' class='btn btn-default'>Table View</button>
         <% end -%>
-        <%= line_chart(admin_action_page_views_path(@actionPage),
-                       id: "views-chart", height: "200px") %>
+        <%= line_chart(admin_action_page_events_path(@actionPage, type: :views),
+                       height: "200px") %>
 
         <% if @actionPage.enable_email? && @actionPage.email_campaign %>
           <h3>Email Tool</h3>
-          <%= if @date_start == @date_end
-            @data = @actionPage.events.emails.where('time BETWEEN ? AND ?', @date_start, @date_end + 1.day).group_by_hour(:time, format: '%Y-%m-%d %H:%M:00 UTC').count
-          else
-            @data = @actionPage.events.emails.where('time BETWEEN ? AND ?', @date_start, @date_end).group_by_day(:time, format: '%Y-%m-%d 00:00:00 UTC').count
-          end
-          line_chart(
-            [{
-              name: "Total Emails",
-              data: @data
-            }],
-            library: {canvasDimensions: {width: 800, height: 300}}
-          ) %>
+          <%= line_chart(admin_action_page_events_path(@actionPage, type: :emails),
+                         height: "200px") %>
         <% end %>
 
         <% if @actionPage.enable_congress_message? && @actionPage.congress_message_campaign %>
           <h3>Congress Messages Tool</h3>
-          <%= if @date_start == @date_end
-            @data = @actionPage.events.congress_messages.where('time BETWEEN ? AND ?', @date_start, @date_end + 1.day).group_by_hour(:time, format: '%Y-%m-%d %H:%M:00 UTC').count
-          else
-            @data = @actionPage.events.congress_messages.where('time BETWEEN ? AND ?', @date_start, @date_end).group_by_day(:time, format: '%Y-%m-%d 00:00:00 UTC').count
-          end
-          line_chart(
-            [{
-              name: "Total Congress Messages",
-              data: @data
-            }],
-            library: {canvasDimensions: {width: 800, height: 300}}
-          ) %>
+          <%= line_chart(admin_action_page_events_path(@actionPage, type: :congress_messages),
+                         height: "200px") %>
 
           <h3>Congresss Messages Sent</h3>
           <%= link_to date_tabulation_admin_congress_message_campaign_path(@actionPage.congress_message_campaign),
@@ -62,47 +42,25 @@
           <% end -%>
           <%= if @date_start == @date_end
             line_chart(
-              congress_forms_hour_fills_url(@actionPage.congress_message_campaign.campaign_tag, @date_start),
-              library: {canvasDimensions: {width: 800, height: 300}}
+              congress_forms_hour_fills_url(@actionPage.congress_message_campaign.campaign_tag), height: "200px"
             )
           else
             line_chart(
-              congress_forms_date_fills_url(@actionPage.congress_message_campaign.campaign_tag, @date_start, @date_end),
-              library: {canvasDimensions: {width: 800, height: 300}}
+              congress_forms_date_fills_url(@actionPage.congress_message_campaign.campaign_tag), height: "200px"
             )
           end %>
         <% end %>
 
         <% if @actionPage.enable_call? && @actionPage.call_campaign %>
           <h3>Call Tool</h3>
-          <%= if @date_start == @date_end
-            @data = @actionPage.events.calls.where('time BETWEEN ? AND ?', @date_start, @date_end + 1.day).group_by_hour(:time, format: '%Y-%m-%d %H:%M:00 UTC').count
-          else
-            @data = @actionPage.events.calls.where('time BETWEEN ? AND ?', @date_start, @date_end).group_by_day(:time, format: '%Y-%m-%d 00:00:00 UTC').count
-          end
-          line_chart(
-            [{
-              name: "Total Calls",
-              data: @data
-            }],
-            library: {canvasDimensions: {width: 800, height: 300}}
-          ) %>
+          <%= line_chart(admin_action_page_events_path(@actionPage, type: :calls),
+                         height: "200px") %>
         <% end %>
 
         <% if @actionPage.enable_tweet? && @actionPage.tweet %>
           <h3>Tweet Tool</h3>
-          <%= if @date_start == @date_end
-            @data = @actionPage.events.tweets.where('time BETWEEN ? AND ?', @date_start, @date_end + 1.day).group_by_hour(:time, format: '%Y-%m-%d %H:%M:00 UTC').count
-          else
-            @data = @actionPage.events.tweets.where('time BETWEEN ? AND ?', @date_start, @date_end).group_by_day(:time, format: '%Y-%m-%d 00:00:00 UTC').count
-          end
-          line_chart(
-            [{
-              name: "Total Tweets",
-              data: @data
-            }],
-            library: {canvasDimensions: {width: 800, height: 300}}
-          ) %>
+          <%= line_chart(admin_action_page_events_path(@actionPage, type: :tweets),
+                         height: "200px") %>
         <% end %>
 
         <% if @actionPage.enable_petition? && @actionPage.petition && @actionPage.petition.persisted? %>
@@ -117,18 +75,8 @@
           <%= link_to 'View Signatures',
             admin_petition_path(@actionPage.petition),
             class: 'pull-right'-%>
-          <%= if @date_start == @date_end
-            @data = @actionPage.events.signatures.where('time BETWEEN ? AND ?', @date_start, @date_end + 1.day).group_by_hour(:time, format: '%Y-%m-%d %H:%M:00 UTC').count
-          else
-            @data = @actionPage.events.signatures.where('time BETWEEN ? AND ?', @date_start, @date_end).group_by_day(:time, format: '%Y-%m-%d 00:00:00 UTC').count
-          end
-          line_chart(
-            [{
-              name: "Total Signatures",
-              data: @data
-            }],
-            library: {canvasDimensions: {width: 800, height: 300}}
-          ) %>
+          <%= line_chart(admin_action_page_events_path(@actionPage, type: :signatures),
+                         height: "200px") %>
         <% end %>
 
         <div class="clearfix"> </div>
