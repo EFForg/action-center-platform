@@ -238,7 +238,7 @@ GEM
       activesupport (>= 4, < 5.2)
       railties (>= 4, < 5.2)
       request_store (~> 1.0)
-    loofah (2.2.2)
+    loofah (2.2.3)
       crass (~> 1.0.2)
       nokogiri (>= 1.5.9)
     mail (2.7.0)
@@ -254,7 +254,7 @@ GEM
     multi_xml (0.6.0)
     multipart-post (2.0.0)
     netrc (0.11.0)
-    nokogiri (1.8.2)
+    nokogiri (1.8.5)
       mini_portile2 (~> 2.3.0)
     nokogumbo (1.5.0)
       nokogiri
@@ -294,7 +294,7 @@ GEM
       http_parser.rb (~> 0.6.0)
       multi_json
     puma (3.11.0)
-    rack (1.6.10)
+    rack (1.6.11)
     rack-attack (5.0.1)
       rack
     rack-test (0.6.3)
