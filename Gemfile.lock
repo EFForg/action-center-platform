@@ -294,7 +294,7 @@ GEM
       http_parser.rb (~> 0.6.0)
       multi_json
     puma (3.11.0)
-    rack (1.6.10)
+    rack (1.6.11)
     rack-attack (5.0.1)
       rack
     rack-test (0.6.3)
