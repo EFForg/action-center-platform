@@ -1,6 +1,22 @@
 class Admin::UsersController < Admin::ApplicationController
+  include DateRange
+
   def index
-    @users = filtered_users.order(created_at: :desc).paginate(page: params[:page])
+    respond_to do |format|
+      format.json do
+        if start_date == end_date
+          @data = User.where('created_at BETWEEN ? AND ?', start_date, end_date + 1.day)
+            .group_by_hour(:created_at, format: '%Y-%m-%d %H:%M:00 UTC').count
+        else
+          @data = User.where('created_at BETWEEN ? AND ?', start_date, end_date)
+            .group_by_day(:created_at, format: '%Y-%m-%d 00:00:00 UTC').count
+        end
+        render json: @data
+      end
+      format.html do
+        @users = filtered_users.order(created_at: :desc).paginate(page: params[:page])
+      end
+    end
   end
 
   def update

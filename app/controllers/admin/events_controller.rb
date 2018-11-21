@@ -1,9 +1,9 @@
 class Admin::EventsController < Admin::ApplicationController
-  before_action :set_action_page
+  include DateRange
 
   def index
     if %w(views emails congress_messages tweets calls signatures).include? params[:type]
-      @data = @actionPage.events.send(params[:type]).group_in_range(start_date, end_date)
+      @data = events.send(params[:type]).group_in_range(start_date, end_date)
     else
       render nothing: true, status: :bad_request
     end
@@ -14,29 +14,20 @@ class Admin::EventsController < Admin::ApplicationController
   end
 
   def views
+    @actionPage = ActionPage.friendly.find(params[:action_page_id])
     @views = @actionPage.events.views.group_in_range(start_date, end_date)
   end
 
+
   private
 
-  def set_action_page
-    @actionPage = ActionPage.friendly.find(params[:action_page_id])
-    raise ActiveRecord::RecordNotFound unless @actionPage
-  end
-
-  def start_date
-    if params[:date_start]
-      Time.zone.parse(params[:date_start])
+  def events
+    if params[:action_page_id]
+      action_page = ActionPage.friendly.find(params[:action_page_id])
+      raise ActiveRecord::RecordNotFound unless action_page
+      action_page.events
     else
-      (Time.zone.now - 1.month).beginning_of_day
-    end
-  end
-
-  def end_date
-    if params[:date_end]
-      Time.zone.parse(params[:date_end])
-    else
-      Time.zone.now
+      Ahoy::Event
     end
   end
 end

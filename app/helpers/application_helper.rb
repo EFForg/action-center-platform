@@ -396,8 +396,8 @@ module ApplicationHelper
       time_zone: Time.zone.name,
       give_as_utc: true,
       debug_key: Rails.application.secrets.congress_forms_debug_key,
-      date_start: date_start || default_events_start,
-      date_end: date_end || default_events_end
+      date_start: date_start,
+      date_end: date_end
     }
     params.reject! { |_, v| v.to_param.nil? }
     url << "?#{params.to_query}"
@@ -411,7 +411,7 @@ module ApplicationHelper
       time_zone: Time.zone.name,
       give_as_utc: true,
       debug_key: Rails.application.secrets.congress_forms_debug_key,
-      date: date || default_events_start
+      date: date
     }
     params.reject! { |_, v| v.to_param.nil? }
     url << "?#{params.to_query}"

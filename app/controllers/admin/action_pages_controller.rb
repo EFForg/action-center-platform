@@ -1,4 +1,5 @@
 class Admin::ActionPagesController < Admin::ApplicationController
+  include DateRange
   before_filter :set_action_page, except: [:new, :index, :create, :update_featured_pages]
   before_filter :cleanup_congress_message_params, only: [:update]
   skip_before_filter :verify_authenticity_token, only: [:update_featured_pages]
