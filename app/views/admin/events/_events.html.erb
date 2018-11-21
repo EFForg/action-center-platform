@@ -17,8 +17,8 @@
                      height: "200px") %>
 
       <h3>Congress Messages Sent</h3>
-      <%= if @date_start == @date_end
-        line_chart(congress_forms_hour_fills_url(nil, start_date_string, end_date_string), height: "200px")
+      <%= if start_date_string == end_date_string
+        line_chart(congress_forms_hour_fills_url(nil, start_date_string), height: "200px")
       else
         line_chart(congress_forms_date_fills_url(nil, start_date_string, end_date_string), height: "200px")
       end %>
