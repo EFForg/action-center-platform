@@ -24,7 +24,7 @@
         <% end %>
 
         <% if can?(:view_analytics) %>
-          <%= render partial: 'panel_analytics', :locals => {:f => f} %>
+          <%= render partial: 'admin/events/action_page_events', :locals => {:f => f} %>
         <% end %>
       </div><!-- .tab-content -->
 
