@@ -21,11 +21,11 @@ module Ahoy
 
     def self.group_in_range(start_date, end_date)
       if start_date == end_date
-        where('time BETWEEN ? AND ?', start_date, end_date + 1.day)
-          .group_by_hour(:time, format: '%Y-%m-%d %H:%M:00 UTC').count
+        where("time BETWEEN ? AND ?", start_date, end_date + 1.day)
+          .group_by_hour(:time, format: "%Y-%m-%d %H:%M:00 UTC").count
       else
-        where('time BETWEEN ? AND ?', start_date, end_date)
-          .group_by_day(:time, format: '%Y-%m-%d 00:00:00 UTC').count
+        where("time BETWEEN ? AND ?", start_date, end_date)
+          .group_by_day(:time, format: "%Y-%m-%d 00:00:00 UTC").count
       end
     end
 

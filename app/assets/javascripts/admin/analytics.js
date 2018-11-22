@@ -1,8 +1,4 @@
 $(document).ready(function() {
-  $('#tabs a[data-tab="analytics"]').on('click', function(e) {
-    // Lazy loading to come.
-  });
-
   $("#date_range").daterangepicker({ format: 'YYYY-MM-DD' });
 
   $("#date_range").on('apply.daterangepicker', function(ev, picker){

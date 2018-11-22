@@ -7,10 +7,7 @@ class Admin::EventsController < Admin::ApplicationController
     else
       render nothing: true, status: :bad_request
     end
-
-    respond_to do |format|
-      format.json { render json: @data }
-    end
+    render json: @data
   end
 
   def views
