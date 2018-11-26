@@ -16,7 +16,7 @@ module DateRange
       Time.zone.now
     end
   end
-  
+
   def start_date_string
     start_date.strftime("%Y-%m-%d")
   end
