@@ -64,11 +64,8 @@ h2, h3, h4, h5 {
 Chart
 *************+*********/
 
-// Override height of charts
-// This is a hack that I think we can remove once we manage to successfully update Chart.js to something greater than 1.0.1-beta4
-div[id^="chart-"] {
-  height: auto !important;
-  line-height: 1 !important;
+.chartjs-render-monitor {
+  margin-top: 20px;
 }
 
 /**********************

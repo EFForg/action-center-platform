@@ -1,6 +1,6 @@
 class Admin::ActionPagesController < Admin::ApplicationController
+  include DateRange
   before_filter :set_action_page, except: [:new, :index, :create, :update_featured_pages]
-  before_filter :set_date_from_params, only: [:index, :edit, :new]
   before_filter :cleanup_congress_message_params, only: [:update]
   skip_before_filter :verify_authenticity_token, only: [:update_featured_pages]
   after_filter :purge_cache, only: [:update, :publish]
@@ -134,30 +134,10 @@ class Admin::ActionPagesController < Admin::ApplicationController
     render "action_page/show", layout: "application"
   end
 
-  def views
-    set_date_from_params
-    @views = @actionPage.events.congress_messages.where("time BETWEEN ? AND ?", @date_start, @date_end).group_by_day(:time, format: "%Y-%m-%d 00:00:00 UTC").count
-  end
-
   private
 
   def set_action_page
     @actionPage = ActionPage.friendly.find(params[:id] || params[:action_page_id])
-  end
-
-  def set_date_from_params
-    if params[:date_start]
-      @date_start = Time.zone.parse(params[:date_start])
-    else
-      @date_start = (Time.zone.now - 1.month).beginning_of_day
-    end
-
-    if params[:date_end]
-      @date_end = Time.zone.parse(params[:date_end])
-    else
-      @date_end = Time.zone.now
-    end
-    @date_format = "%Y-%m-%d"
   end
 
   def redirect_to_action_page

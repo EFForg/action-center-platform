@@ -1,0 +1,44 @@
+<div class="tab-pane" id="analytics">
+  <div class="clearfix">
+    <div class="pull-right">
+      <%= render 'admin/action_pages/date_range_form' -%>
+    </div>
+  </div>
+  <br>
+  <hr />
+  <div class="row">
+    <div class="col-sm-12 col-lg-12 col-md-12">
+      <h3>Action Page Views</h3>
+      <%= line_chart(admin_events_path(@actionPage, type: :views),
+                     height: "200px") %>
+
+      <h3>Email Tool</h3>
+      <%= line_chart(admin_events_path(@actionPage, type: :emails),
+                     height: "200px") %>
+
+      <h3>Congress Messages Sent</h3>
+      <%= if start_date_string == end_date_string
+        line_chart(congress_forms_hour_fills_url(nil, start_date_string), height: "200px")
+      else
+        line_chart(congress_forms_date_fills_url(nil, start_date_string, end_date_string), height: "200px")
+      end %>
+
+      <h3>Call Tool</h3>
+      <%= line_chart(admin_events_path(@actionPage, type: :calls),
+                     height: "200px") %>
+
+      <h3>Tweet Tool</h3>
+      <%= line_chart(admin_events_path(@actionPage, type: :tweets),
+                     height: "200px") %>
+
+      <h3>Petition Tool</h3>
+      <%= line_chart(admin_events_path(@actionPage, type: :signatures),
+                     height: "200px") %>
+
+      <h3>Users</h3>
+      <%= line_chart(admin_users_path(@actionPage), height: "200px") %>
+
+      <div class="clearfix"> </div>
+    </div>
+  </div>
+</div>

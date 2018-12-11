@@ -101,7 +101,6 @@ Actioncenter::Application.routes.draw do
       get :publish
       get :unpublish
       get :destroy
-      get :views
       post 'update_featured_pages', :on => :collection
       patch :preview
       resources :affiliation_types, only: [:index, :new, :create, :destroy]
@@ -109,11 +108,15 @@ Actioncenter::Application.routes.draw do
         match :import, via: :post, on: :collection
         match :index, via: :delete, on: :collection, action: :destroy_all
       end
+      resources :events, only: [:index]
+      get :views, to: "events#views"
     end
 
     resources :users, only: [:index, :update]
 
     get "images", to: "images#index"
+
+    resources :events, only: [:index]
   end
 
   resources :congress, only: [:index] do

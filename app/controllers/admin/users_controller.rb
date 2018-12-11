@@ -1,6 +1,15 @@
 class Admin::UsersController < Admin::ApplicationController
+  include DateRange
+
   def index
-    @users = filtered_users.order(created_at: :desc).paginate(page: params[:page])
+    respond_to do |format|
+      format.json do
+        render json: User.group_created_in_range(start_date, end_date)
+      end
+      format.html do
+        @users = filtered_users.order(created_at: :desc).paginate(page: params[:page])
+      end
+    end
   end
 
   def update

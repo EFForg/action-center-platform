@@ -22,6 +22,16 @@ class User < ActiveRecord::Base
 
   alias :preferences :user_preferences
 
+  def self.group_created_in_range(start_date, end_date)
+    if start_date == end_date
+      where("created_at BETWEEN ? AND ?", start_date, end_date + 1.day)
+        .group_by_hour(:created_at, format: "%Y-%m-%d %H:%M:00 UTC").count
+    else
+      where("created_at BETWEEN ? AND ?", start_date, end_date)
+        .group_by_day(:created_at, format: "%Y-%m-%d 00:00:00 UTC").count
+    end
+  end
+
   def invalidate_password_reset_tokens
     self.reset_password_token = nil
   end

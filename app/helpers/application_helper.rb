@@ -411,7 +411,7 @@ module ApplicationHelper
       time_zone: Time.zone.name,
       give_as_utc: true,
       debug_key: Rails.application.secrets.congress_forms_debug_key,
-      date: date.strftime("%Y-%m-%d")
+      date: date
     }
     params.reject! { |_, v| v.to_param.nil? }
     url << "?#{params.to_query}"
