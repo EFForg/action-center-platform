@@ -4,6 +4,7 @@ class SubscriptionsController < ApplicationController
   skip_before_filter :verify_authenticity_token, only: :create
   before_filter :verify_request_origin, only: :create
 
+  invisible_captcha only: :create
   before_filter :authenticate_user!, only: :edit
 
   def create
