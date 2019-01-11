@@ -103,6 +103,11 @@ RSpec.configure do |config|
 =end
 end
 
+# Don't prevent form fills by bots during the test run
+InvisibleCaptcha.setup do |config|
+  config.timestamp_enabled = false
+end
+
 # for controller tests
 def login_as_admin
   @request.env["devise.mapping"] = Devise.mappings[:admin]
