@@ -1,6 +1,7 @@
 require "civicrm"
 class SubscriptionsController < ApplicationController
   # See https://github.com/EFForg/action-center-platform/wiki/Deployment-Notes#csrf-protection
+  invisible_captcha only: :create
   skip_before_filter :verify_authenticity_token, only: :create
   before_filter :verify_request_origin, only: :create
 
