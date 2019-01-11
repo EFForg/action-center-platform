@@ -8,14 +8,18 @@ class SubscriptionsController < ApplicationController
 
   def create
     email = params[:subscription][:email]
-    if EmailValidator.valid?(email)
-      params[:subscription][:opt_in] = params[:subscription][:opt_in] || false
-      CiviCRM::subscribe params[:subscription]
+    if !EmailValidator.valid?(email)
+      render json: { message: "Bad news, something went wrong with your email address. Please check it for typos and try again." }, status: 400
+      return
+    end
 
-      update_user_data(email: email)
-      render json: {}
+    update_user_data(email: email)
+    params[:subscription][:opt_in] = params[:subscription][:opt_in] || false
+    subscription = CiviCRM::subscribe params[:subscription]
+    if subscription["error"]
+      render json: { message: subscription["error_message"] }, status: 500
     else
-      render text: "fail, bad email", status: 400
+      render json: {}
     end
   end
 
