@@ -26,7 +26,7 @@ WebMock.allow_net_connect!
 Billy.configure do |c|
   c.cache = true
   c.cache_request_headers = false
-  c.ignore_params = ["https//anon-stats.eff.org"]
+  c.ignore_params = ["https://anon-stats.eff.org/js/"]
   c.persist_cache = true
   c.cache_path = "features/req_cache/"
   c.non_whitelisted_requests_disabled = ENV["DISABLE_PUFFING_BILLY_REQUESTS"]
