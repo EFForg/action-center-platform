@@ -5,6 +5,10 @@ require "json"
 class ToolsController < ApplicationController
   before_filter :set_user
   before_filter :set_action_page
+
+  # Put an invisible captcha on forms are easy to submit programmatically and
+  # create email subscriptions.
+  invisible_captcha only: [:email, :petition]
   before_filter :create_newsletter_subscription, only: [:email, :call]
   before_filter :create_partner_subscription, only: [:email, :call, :petition, :message_congress]
   after_filter :deliver_thanks_message, only: [:email, :call, :petition, :message_congress]

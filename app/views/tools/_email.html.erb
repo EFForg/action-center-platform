@@ -16,6 +16,7 @@
       <%= form_tag '/tools/email', method: 'post', target: '_blank' do |f| -%>
         <input type="hidden" name="action_id" value="<%= @actionPage.id %>" />
         <input type="hidden" name="dnt" value="false" />
+        <%= f.invisible_captcha %>
 
         <%= render "/tools/newsletter_signup", email: true, location: true, privacy_notice: true %>
 
