@@ -104,7 +104,7 @@ group :development do
 end
 
 group :test do
-  gem "puffing-billy", "~> 0.12.0"
+  gem "puffing-billy"
   gem "webmock"
 end
 
