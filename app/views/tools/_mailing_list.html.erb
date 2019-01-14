@@ -8,7 +8,7 @@
     <div class="tool-body">
       <%= form_for :subscription, url: subscriptions_path, remote: true,
                     html: { id: "subscription-form", class: "", role: "form" } do |f| -%>
-        <%= f.invisible_captcha %>
+        <%= invisible_captcha %>
         <%= token_tag(form_authenticity_token) %>
         <%= f.hidden_field :mailing_list, value: "effector" -%>
         <fieldset>
