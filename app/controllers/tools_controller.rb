@@ -188,7 +188,7 @@ class ToolsController < ApplicationController
   end
 
   def create_newsletter_subscription
-    if params[:subscription] && EmailValidator.valid?(params[:subscription][:email])
+    if params[:subscribe] && EmailValidator.valid?(params[:subscription][:email])
       source = "action center #{@action_page.class.name.downcase} :: " + @action_page.title
       params[:subscription][:opt_in] = true
       params[:subscription][:source] = source
