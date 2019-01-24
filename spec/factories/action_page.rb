@@ -4,7 +4,7 @@ FactoryGirl.define do
     summary "not filling in summary"
     description "not filling desc in"
     published true
-    email_text "I'm email text I guess..."
+    email_text "$NAME, thanks for taking action!"
     victory_message "We won"
   end
 
