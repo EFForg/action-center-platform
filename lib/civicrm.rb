@@ -46,12 +46,12 @@ module CiviCRM
   end
 
   def self.subscribe(params)
-    return nil if skip_crm?
+    return {} if skip_crm?
     self.import_contact params.merge(subscribe: true)
   end
 
   def self.import_contact(params)
-    return nil if skip_crm?
+    return {} if skip_crm?
     post base_params.merge(
       method: "import_contact",
       data: {

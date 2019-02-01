@@ -78,6 +78,7 @@
   <% unless current_user %>
     <%= form_for :subscription, url: subscriptions_path, remote: true, html: { class: "newsletter-subscription" } do |f| %>
       <hr />
+      <%= invisible_captcha %>
       <%= t :sign_up_for_mailings_from %> <b><%= t :organization_abbreviation %></b>?
 
       <fieldset>

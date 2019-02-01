@@ -40,6 +40,7 @@
         <div class='unsigned'>
           <%= form_for @signature, url: '/tools/petition',
             html: {class: 'petition-tool'} do |f| -%>
+            <%= invisible_captcha %>
             <%= f.hidden_field :petition_id -%>
             <input type="hidden" name="action_id" value="<%= @actionPage.id %>" />
 

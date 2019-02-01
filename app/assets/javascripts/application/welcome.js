@@ -47,10 +47,14 @@ $(document).ready(function() {
     },
     complete: function(xhr, data, status) {
       $('.progress-striped').hide();
-      if(status === "success")
-        return $(App.Strings.successfulEmailSubmission).insertAfter(this);
+      var message;
+      if (status === "success")
+        message = App.Strings.successfulEmailSubmission;
+      else if (data.responseJSON.message)
+        message = data.responseJSON.message;
       else
-        return $(App.Strings.invalidEmailSubmission).insertAfter(this);
+        message = App.Strings.failedEmailSubmission;
+      return $("<p>").text(message).insertAfter(this);
     }
   };
 
