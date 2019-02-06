@@ -190,6 +190,7 @@ GEM
       railties (>= 3.0.0)
     faraday (0.9.2)
       multipart-post (>= 1.2, < 3)
+    fastly (2.2.0)
     ffi (1.9.25)
     fontello_rails_converter (0.4.4)
       activesupport
@@ -507,6 +508,7 @@ DEPENDENCIES
   ejs
   email_validator
   factory_girl_rails
+  fastly
   fontello_rails_converter
   friendly_id (~> 5.0)
   going_postal
