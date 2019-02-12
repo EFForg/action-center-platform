@@ -133,7 +133,7 @@ class ToolsController < ApplicationController
   end
 
   def email
-    unless (@user and @user.events.emails.find_by_action_page_id(params[:action_id])) or params.include? :dnt
+    unless (@user and @user.events.emails.find_by_action_page_id(params[:action_id])) or params[:dnt] == "true"
       ahoy.track "Action",
         { type: "action", actionType: "email", actionPageId: params[:action_id] },
         action_page: @action_page
