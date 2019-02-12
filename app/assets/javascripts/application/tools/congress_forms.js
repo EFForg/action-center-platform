@@ -79,6 +79,7 @@
     submitForm: function(ev) {
       var that = this;
       var form = $(ev.currentTarget);
+      var test = !!window.location.search.match(/(\?|&)test=/);
 
       // Select common field set
       var commonFieldset = $('#' + pluginName + '-common-fields', form);
@@ -100,7 +101,8 @@
             data: {
               bio_id: legislatorId,
               campaign_tag: that.settings.campaign_tag,
-              fields: fullData
+              fields: fullData,
+              test: test ? '1' : '0'
             },
             success: function( data ) {
               if(data.status === 'success') {
@@ -121,7 +123,8 @@
           type: 'post',
           data: {
             bio_id: legislator,
-            fields: commonData
+            fields: commonData,
+            test: test ? '1' : '0'
           },
           success: function( data ) {
             if(data.status === 'success') {
