@@ -8,7 +8,7 @@ class UserMailer < ActionMailer::Base
     @email = email
     @user = options[:user]
     @actionPage = actionPage
-    @name = options[:name]
+    @name = options[:name].presence || "Friend of Digital Freedom"
     mail(to: email, subject: "Thanks for taking action")
   end
 
