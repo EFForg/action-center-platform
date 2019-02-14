@@ -89,9 +89,10 @@ $(document).on('ready', function() {
             fd.append("zipcode", zip_code);
             fd.append("update_user_data", update_user_data);
 
+            fd.append("subscription[email]", form.find("input[type=email]").val());
+
             if (form.find("input[name=subscribe]:checked").val() == "1") {
               fd.append("subscribe", "1");
-              fd.append("subscription[email]", form.find("input[type=email]").val());
               fd.append("subscription[zipcode]", zip_code);
               form.attr("data-signed-up-for-mailings", "true");
             }
