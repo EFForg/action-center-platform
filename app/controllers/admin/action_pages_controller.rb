@@ -193,12 +193,10 @@ class Admin::ActionPagesController < Admin::ApplicationController
   end
 
   def purge_cache
-    page = action_page_url(@actionPage)
-    uri = URI.parse("https://api.fastly.com/purge/" + page)
-    http = Net::HTTP.new(uri.host, uri.port)
-    http.use_ssl = true
-    request = Net::HTTP::Post.new(uri.path, { "Content-Type" => "application/json" })
-    response = http.request(request)
+    if Rails.application.secrets.fastly_api_key.present?
+      fastly = Fastly.new(api_key: Rails.application.secrets.fastly_api_token)
+      fastly.purge action_page_url(@actionPage)
+    end
   end
 
   def cleanup_congress_message_params

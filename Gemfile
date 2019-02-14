@@ -75,6 +75,7 @@ gem "descriptive_statistics"      # Used for calculating percentiles
 gem "devise", "~> 3.5"
 gem "ejs"                         # Embedded javascript
 gem "email_validator"
+gem "fastly"
 gem "friendly_id", "~> 5.0"       # Slugging/permalink plugins for Active Record
 gem "going_postal"                # Zip code validation
 gem "gravatar-ultimate"
