@@ -10,20 +10,32 @@ RSpec.describe "Admin Action Page Analytics", type: :request do
 
   describe "#index" do
     it "responds with views over time as JSON" do
+      expect(Time.zone).
+        to receive(:now).
+            and_return(Time.utc(2019)).
+            at_least(:once)
+
       get "/admin/action_pages/#{@action_page.slug}/events",
         { type: "views" },
         { "ACCEPT" => "application/json" }
+
       expect(response.code).to eq "200"
-      expect(JSON.parse(response.body).keys.count).to eq(10)
+
+      # Default is to return data for the previous month.
+      expect(JSON.parse(response.body).keys).
+        to include(*(1..31).map{ |i| sprintf('2018-12-%02d', i) })
     end
 
     it "filters by date" do
-      start_date = (Time.now - 6.days).strftime("%Y-%m-%d")
-      end_date = (Time.now - 2.days).strftime("%Y-%m-%d")
+      start_date = Time.utc(2019, 1, 1).strftime("%Y-%m-%d")
+      end_date = Time.utc(2019, 1, 5).strftime("%Y-%m-%d")
       get "/admin/action_pages/#{@action_page.slug}/events",
         { date_start: start_date, date_end: end_date, type: "views" },
         { "ACCEPT" => "application/json" }
-      expect(JSON.parse(response.body).keys.count).to eq(4)
+
+      # Returns one datapoint per day in range.
+      expect(JSON.parse(response.body).keys).
+        to eq(["2019-01-01", "2019-01-02", "2019-01-03", "2019-01-04", "2019-01-05"])
     end
   end
 
