@@ -194,7 +194,7 @@ class Admin::ActionPagesController < Admin::ApplicationController
 
   def purge_cache
     if Rails.application.secrets.fastly_api_key.present?
-      fastly = Fastly.new(api_key: Rails.application.secrets.fastly_api_token)
+      fastly = Fastly.new(api_key: Rails.application.secrets.fastly_api_key)
       fastly.purge action_page_url(@actionPage)
     end
   end
