@@ -23,7 +23,7 @@ RSpec.describe "Admin Action Page Analytics", type: :request do
 
       # Default is to return data for the previous month.
       expect(JSON.parse(response.body).keys).
-        to include(*(1..31).map{ |i| sprintf('2018-12-%02d', i) })
+        to include(*(1..31).map{ |i| sprintf("2018-12-%02d", i) })
     end
 
     it "filters by date" do
