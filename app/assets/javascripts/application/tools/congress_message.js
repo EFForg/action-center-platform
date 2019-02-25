@@ -258,7 +258,7 @@ $(document).on("ready", function() {
               return show_address_error(App.Strings.addressLookupFailed);
 
             var state = smart_data[0].components.state_abbreviation;
-            var city = smart_data[0].metadata.county_name;
+            var city = smart_data[0].components.city_name;
 
             emailValues["$ADDRESS_STREET"] = address;
             emailValues["$ADDRESS_CITY"] = city;
