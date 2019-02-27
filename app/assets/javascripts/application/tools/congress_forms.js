@@ -175,7 +175,7 @@
       form.append(submitButton);
 
       $(that.element).append(form);
-      that.settings.onRender();
+      that.settings.onRender(form);
     },
 
     generateFormGroup: function(field) {

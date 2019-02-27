@@ -17,6 +17,7 @@ $(document).on("ready", function() {
         street_address:	$('[id="$ADDRESS_STREET"]').val(),
         zipcode:	$('[id="$ADDRESS_ZIP5"]').val(),
         city:		$('[id="$ADDRESS_CITY"]').val(),
+        state:		$('[id*="STATE"]').val(),
         update_user_data: $("#update_user_data").prop("checked"),
         subscribe:      $('#do-subscribe').prop("checked"),
       }, getPartnerSignups()),
@@ -60,7 +61,7 @@ $(document).on("ready", function() {
         campaign_tag: options.campaignTag,
         legislatorLabelClasses: "legislator-label",
         submitClasses: "btn action",
-        onRender: function () {
+        onRender: function(form) {
 
           $("html, body").animate({
             scrollTop: $("#congress-message-tool").offset().top
@@ -135,6 +136,12 @@ $(document).on("ready", function() {
               }
             }
           });
+
+          form.append(
+            $('<input id="$ADDRESS_STATE" type="hidden" />').
+              val(emailValues["$STATE"])
+          );
+
           $.each(reps, function(index, rep){
               // Add their names
               $('[data-legislator-id="' + rep.bioguide_id + '"] .legislator-label').html("<em>" + rep.first_name + " " + rep.last_name + " </em>");
