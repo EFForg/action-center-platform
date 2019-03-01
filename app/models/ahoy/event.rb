@@ -20,7 +20,20 @@ module Ahoy
     after_create :record_civicrm
 
     def self.group_in_range(start_date, end_date)
-      group_by_day(:time, format: "%Y-%m-%d", range: start_date..end_date).count
+      zone = Time.zone.now.zone
+      if (end_date - start_date) <= 5.days
+        group_by_hour(
+          :time,
+          format: "%Y-%m-%d %H:00:00 #{zone}",
+          range: start_date..end_date.tomorrow
+        ).count
+      else
+        group_by_day(
+          :time,
+          format: "%Y-%m-%d 00:00:00 #{zone}",
+          range: start_date..end_date.tomorrow
+        ).count
+      end
     end
 
     def user_opt_out
