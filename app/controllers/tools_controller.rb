@@ -187,8 +187,8 @@ class ToolsController < ApplicationController
 
   def deliver_thanks_message
     @action_page ||= ActionPage.find(params[:action_id])
-    @email ||= current_user.try(:email) || params[:email]
-    UserMailer.thanks_message(@email, @action_page, user: @user, name: @name).deliver_now if @email
+    @email ||= current_user.try(:email) || params[:email] || params.dig(:subscription, :email)
+    UserMailer.thanks_message(@email, @action_page, user: @user, name: @name).deliver_now if @email.present?
   end
 
   def create_newsletter_subscription
