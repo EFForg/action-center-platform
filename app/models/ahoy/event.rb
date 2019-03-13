@@ -23,13 +23,13 @@ module Ahoy
       if (end_date - start_date) <= 5.days
         group_by_hour(
           :time,
-          format: "%Y-%m-%d %H:00:00 %Z",
+          format: "%b %-e, %-l%P",
           range: start_date..end_date.tomorrow
         ).count
       else
         group_by_day(
           :time,
-          format: "%Y-%m-%d",
+          format: "%b %-e",
           range: start_date..end_date.tomorrow
         ).count
       end

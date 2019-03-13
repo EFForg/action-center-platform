@@ -8,8 +8,6 @@ RSpec.describe "Admin Action Page Analytics", type: :request do
     @action_page = FactoryGirl.create(:action_page_with_views)
   end
 
-  let(:zone) { Time.zone.now.zone }
-
   describe "#index" do
     it "responds with views over time as JSON" do
       expect(Time.zone).
@@ -25,7 +23,7 @@ RSpec.describe "Admin Action Page Analytics", type: :request do
 
       # Default is to return data for the previous month.
       expect(JSON.parse(response.body).keys).
-        to include(*(1..31).map{ |i| sprintf("2018-12-%02d 00:00:00 #{zone}", i) })
+        to include(*(1..31).map{ |i| sprintf("Dec %d", i) })
     end
 
     it "filters by date" do
@@ -38,14 +36,14 @@ RSpec.describe "Admin Action Page Analytics", type: :request do
       # Returns one datapoint per day in range.
       expect(JSON.parse(response.body).keys).
         to eq([
-                "2019-01-01 00:00:00 #{zone}",
-                "2019-01-02 00:00:00 #{zone}",
-                "2019-01-03 00:00:00 #{zone}",
-                "2019-01-04 00:00:00 #{zone}",
-                "2019-01-05 00:00:00 #{zone}",
-                "2019-01-06 00:00:00 #{zone}",
-                "2019-01-07 00:00:00 #{zone}",
-                "2019-01-08 00:00:00 #{zone}"
+                "Jan 1",
+                "Jan 2",
+                "Jan 3",
+                "Jan 4",
+                "Jan 5",
+                "Jan 6",
+                "Jan 7",
+                "Jan 8"
               ])
     end
   end
