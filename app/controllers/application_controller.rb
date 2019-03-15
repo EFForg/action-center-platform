@@ -58,8 +58,8 @@ class ApplicationController < ActionController::Base
   protected
 
   def configure_permitted_parameters
-    devise_parameter_sanitizer.permit(:sign_up, keys: [:record_activity])
-    devise_parameter_sanitizer.permit(:sign_up, keys: [:subscribe])
+    devise_parameter_sanitizer.permit(:sign_up,
+                                      keys: [:record_activity, :subscribe])
   end
 
   def set_locale

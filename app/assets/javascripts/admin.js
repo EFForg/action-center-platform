@@ -12,7 +12,6 @@
 //= require admin/epic_editor_helper
 //= require admin/analytics
 //= require_tree ./admin/action_pages
-//= require s3_cors_fileupload
 //= require bootstrap-sass/bootstrap/tab
 //= require bootstrap-responsive-tabs
 //= require react
