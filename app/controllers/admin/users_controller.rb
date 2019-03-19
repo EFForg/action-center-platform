@@ -7,6 +7,7 @@ class Admin::UsersController < Admin::ApplicationController
         render json: User.group_created_in_range(start_date, end_date)
       end
       format.html do
+        @add_or_remove_params = params.permit(:query, :page).to_h
         @users = filtered_users.order(created_at: :desc).paginate(page: params[:page])
       end
     end
@@ -27,8 +28,8 @@ class Admin::UsersController < Admin::ApplicationController
 
   def filtered_users
     if params[:query].present?
-      User.where("LOWER(email) LIKE ? OR LOWER(first_name || ' ' || last_name) LIKE ?",
-                 "%#{params[:query]}%", "%#{params[:query]}%")
+      User.where("LOWER(email) LIKE %?% OR LOWER(first_name || ' ' || last_name) LIKE %?%",
+                 params[:query], params[:query])
     else
       User.all
     end
