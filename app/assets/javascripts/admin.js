@@ -2,7 +2,6 @@
 //= require chartkick
 //= require moment
 //= require EpicEditor
-//= require jquery-sortable/jquery-sortable
 //= require bootstrap-daterangepicker
 //= require jquery.fix.clone
 //= require admin/file_uploads

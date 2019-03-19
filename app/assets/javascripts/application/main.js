@@ -21,7 +21,7 @@
   }
 }());
 
-webshims.setOptions('basePath', '/webshims/shims/')
+webshims.setOptions('basePath', '/webshims/1.16.0/shims/')
 webshims.setOptions('forms', {
   //show custom styleable validation bubble
   replaceValidationUI: false,

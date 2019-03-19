@@ -32,7 +32,7 @@ source "https://rails-assets.org" do
   gem "rails-assets-ionicons", "~> 2"
   gem "rails-assets-jquery", "2.1.3"
   gem "rails-assets-jquery-cookie", "~> 1"
-  gem "rails-assets-jquery-sortable", "0.9.12" # note: no bower.json for 0.9.12
+  #gem "rails-assets-jquery-sortable", "0.9.12" # note: no bower.json for 0.9.12
   gem "rails-assets-jquery-timeago", "~> 1"
   gem "rails-assets-jquery-ujs", "1.0.3"
   gem "rails-assets-lodash", "3.7.0"
@@ -110,11 +110,12 @@ group :test do
 end
 
 group :development, :test do
-  gem "capybara", "~> 2.5.0"
+  gem "capybara", "~> 2", ">= 2.5.0"
   gem "cucumber-rails", "1.6.0", require: false
   gem "database_cleaner", "~> 1"
   gem "factory_girl_rails", "~> 4"
   gem "poltergeist", "~> 1"
+  gem "byebug"
   gem "pry", "~> 0"
   gem "rspec-core", "~> 3"
   gem "rspec-rails", "~> 3"
