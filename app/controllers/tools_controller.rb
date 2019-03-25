@@ -214,12 +214,12 @@ class ToolsController < ApplicationController
   end
 
   def partner_signup_params
-    if params[:signature].present?
-      params.require(:signature).permit(:first_name, :last_name, :email)
-    else
-      # Partner signup params might come through the main form or a nested subscription form.
-      params.merge(params[:subscription] || {}).permit(:first_name, :last_name, :email)
+    attributes = %i(first_name last_name email)
+    # Partner signup params might come through the main form or a nested subscription form.
+    %i(signature subscription).each do |model|
+      return params.require(model).permit(*attributes) if params[model].present?
     end
+    params.permit(*attributes)
   end
 
   def signature_params
