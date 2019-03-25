@@ -1,6 +1,6 @@
 class Admin::ApplicationController < ApplicationController
   layout "admin"
-  before_filter :must_be_admin
+  before_action :must_be_admin
 
   def manifest
     self.class.manifest || "admin"
@@ -9,8 +9,8 @@ class Admin::ApplicationController < ApplicationController
   protected
 
   def self.allow_collaborators_to(*actions)
-    skip_before_filter :must_be_admin, only: actions
-    before_filter :must_be_admin_or_collaborator, only: actions
+    skip_before_action :must_be_admin, only: actions
+    before_action :must_be_admin_or_collaborator, only: actions
   end
 
   def must_be_admin

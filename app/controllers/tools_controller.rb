@@ -3,20 +3,20 @@ require "uri"
 require "json"
 
 class ToolsController < ApplicationController
-  before_filter :set_user
-  before_filter :set_action_page
+  before_action :set_user
+  before_action :set_action_page
 
   # Put an invisible captcha on forms are easy to submit programmatically and
   # create email subscriptions.
   invisible_captcha only: [:email, :petition]
-  before_filter :create_newsletter_subscription, only: [:email, :call]
-  before_filter :create_partner_subscription, only: [:email, :call, :petition, :message_congress]
-  after_filter :deliver_thanks_message, only: [:email, :call, :petition, :message_congress]
-  skip_after_filter :deliver_thanks_message, if: :signature_has_errors
+  before_action :create_newsletter_subscription, only: [:email, :call]
+  before_action :create_partner_subscription, only: [:email, :call, :petition, :message_congress]
+  after_action :deliver_thanks_message, only: [:email, :call, :petition, :message_congress]
+  skip_after_action :deliver_thanks_message, if: :signature_has_errors
 
   # See https://github.com/EFForg/action-center-platform/wiki/Deployment-Notes#csrf-protection
-  skip_before_filter :verify_authenticity_token
-  before_filter :verify_request_origin, except: :email
+  skip_before_action :verify_authenticity_token
+  before_action :verify_request_origin, except: :email
 
   def call
     ahoy.track "Action",

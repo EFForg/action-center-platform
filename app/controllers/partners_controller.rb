@@ -1,7 +1,7 @@
 class PartnersController < ApplicationController
   layout "admin"
   before_action :set_partner
-  before_filter :authenticate
+  before_action :authenticate
 
   # GET /partners/1
   # GET /partners/1.json

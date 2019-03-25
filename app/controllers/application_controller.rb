@@ -5,10 +5,10 @@ class ApplicationController < ActionController::Base
   # Prevent CSRF attacks by raising an exception.
   # For APIs, you may want to use :null_session instead.
   protect_from_forgery with: :exception
-  before_filter :cors
-  before_filter :configure_permitted_parameters, if: :devise_controller?
-  before_filter :set_locale
-  before_filter :user_conditional_logic
+  before_action :cors
+  before_action :configure_permitted_parameters, if: :devise_controller?
+  before_action :set_locale
+  before_action :user_conditional_logic
 
   skip_before_action :set_ahoy_cookies
   skip_before_action :track_ahoy_visit

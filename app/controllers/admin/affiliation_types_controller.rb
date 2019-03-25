@@ -1,5 +1,5 @@
 class Admin::AffiliationTypesController < Admin::ApplicationController
-  before_filter :set_action_page
+  before_action :set_action_page
   before_action :set_affiliation_type, only: [:destroy]
 
   # GET /admin/affiliation_types

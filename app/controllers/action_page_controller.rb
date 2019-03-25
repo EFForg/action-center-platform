@@ -1,14 +1,14 @@
 class ActionPageController < ApplicationController
-  before_filter :set_action_page,
+  before_action :set_action_page,
                 :protect_unpublished,
                 :redirect_to_specified_url,
                 :redirect_from_archived_to_active_action,
                 only: [:show, :show_by_institution, :embed_iframe, :signature_count]
-  before_filter :redirect_to_cannonical_slug, only: [:show]
-  before_filter :set_institution, only: [:show_by_institution, :filter]
-  before_filter :set_action_display_variables, only: [:show, :show_by_institution, :embed_iframe, :signature_count]
+  before_action :redirect_to_cannonical_slug, only: [:show]
+  before_action :set_institution, only: [:show_by_institution, :filter]
+  before_action :set_action_display_variables, only: [:show, :show_by_institution, :embed_iframe, :signature_count]
 
-  skip_before_filter :verify_authenticity_token, only: :embed
+  skip_before_action :verify_authenticity_token, only: :embed
 
   after_action :allow_iframe, only: :embed_iframe
 

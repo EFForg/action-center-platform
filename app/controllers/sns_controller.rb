@@ -3,7 +3,7 @@
 # Amazon's SNS notification service, and thus will not work for other services.
 class SnsController < ApplicationController
   protect_from_forgery with: :null_session
-  before_filter :verify_amazon_authorize_key
+  before_action :verify_amazon_authorize_key
   before_action :set_context, :log_request
 
   def bounce
