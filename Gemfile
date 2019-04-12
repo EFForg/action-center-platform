@@ -72,7 +72,7 @@ gem "activerecord-session_store"
 gem "acts_as_paranoid", git: "https://github.com/ActsAsParanoid/acts_as_paranoid.git", ref: "ddcd1"
 gem "cocoon"                      # Dynamically add and remove nested associations from forms
 gem "descriptive_statistics"      # Used for calculating percentiles
-gem "devise", "~> 3.5"
+gem "devise", "~> 4.6"
 gem "ejs"                         # Embedded javascript
 gem "email_validator"
 gem "fastly"
