@@ -1,10 +1,11 @@
-require "aws/s3"
+# TODO: redo this class with new gems :o !!
+# require "aws/s3"
 
 class SourceFile < ActiveRecord::Base
   include Rails.application.routes.url_helpers
 
   # This line can be removed for Rails 4 apps that are using Strong Parameters
-  attr_accessible :bucket, :key if S3CorsFileupload.active_record_protected_attributes?
+  # attr_accessible :bucket, :key if S3CorsFileupload.active_record_protected_attributes?
 
   validates_presence_of :file_name, :file_content_type, :file_size, :key, :bucket
 
