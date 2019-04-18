@@ -122,6 +122,7 @@ group :development, :test do
   gem "rubocop", "0.50.0"
   gem "rubocop-github", "0.5.0"
   gem "selenium-webdriver", "~> 2.49", require: false
+  gem "rails-controller-testing"
 end
 
 group :production do
