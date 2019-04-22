@@ -428,7 +428,7 @@ module ApplicationHelper
   end
 
   def update_user_data(params = {})
-    params = params.with_indifferent_access.slice(*user_session_data_whitelist)
+    params = params.slice(*user_session_data_whitelist)
     if user_signed_in?
       p = params.clone
       p.delete(:email)

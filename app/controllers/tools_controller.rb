@@ -26,7 +26,7 @@ class ToolsController < ApplicationController
     @name = current_user.try :name
 
     if params[:update_user_data] == "yes"
-      update_user_data(call_params.with_indifferent_access)
+      update_user_data(call_params)
     end
 
     CallTool.campaign_call(params[:call_campaign_id],
@@ -77,7 +77,7 @@ class ToolsController < ApplicationController
       end
 
       if params[:update_user_data]
-        update_user_data(signature_params.with_indifferent_access)
+        update_user_data(signature_params)
       end
 
       ahoy.track "Action",

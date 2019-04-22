@@ -2,7 +2,7 @@ require "rest_client"
 module CiviCRM
   module UserMethods
     def contact_attributes
-      attributes.with_indifferent_access.slice(
+      attributes.slice(
         :email, :first_name, :last_name, :city, :state, :street_address,
         :zipcode, :country_code, :phone
       )

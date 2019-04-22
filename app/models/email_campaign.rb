@@ -35,7 +35,7 @@ class EmailCampaign < ActiveRecord::Base
       gmail: "https://mail.google.com/mail/?view=cm&fs=1&#{{ to: email_addresses, body: message, su: subject }.to_query}",
 
       hotmail: "https://outlook.live.com/default.aspx?rru=compose&#{{ to: email_addresses, body: message, subject: subject }.to_query}#page=Compose"
-    }.with_indifferent_access.fetch(service)
+    }.fetch(service.to_sym)
   end
 
   private
