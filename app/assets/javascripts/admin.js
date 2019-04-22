@@ -2,8 +2,9 @@
 //= require chartkick
 //= require moment
 //= require EpicEditor
-//= require bootstrap-daterangepicker
+//= require daterangepicker
 //= require jquery.fix.clone
+//= require jquery-file-upload/js/jquery.uploadfile.min
 //= require admin/file_uploads
 //= require admin/s3_uploads.js
 //= require admin/congress_message_tabulation
@@ -11,7 +12,7 @@
 //= require admin/epic_editor_helper
 //= require admin/analytics
 //= require_tree ./admin/action_pages
-//= require bootstrap-sass/bootstrap/tab
+//= require bootstrap/tab
 //= require bootstrap-responsive-tabs
 //= require react
 //= require react_ujs

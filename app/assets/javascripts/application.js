@@ -14,17 +14,17 @@
 //= require jquery-cookie
 //= require lodash
 //= require jquery-ujs
-//= require bootstrap-sass/bootstrap/transition
+//= require bootstrap/transition
 
 //= require application/select2-utils
 //= require webshims/polyfiller
 //= require respond
 //= require html5shiv
-//= require bootstrap-sass/bootstrap/collapse
-//= require bootstrap-sass/bootstrap/modal
-//= require bootstrap-sass/bootstrap/tooltip
-//= require bootstrap-sass/bootstrap/popover
-//= require bootstrap-sass/bootstrap/alert
+//= require bootstrap/collapse
+//= require bootstrap/modal
+//= require bootstrap/tooltip
+//= require bootstrap/popover
+//= require bootstrap/alert
 //= require application/sticky_tools
 //= require action_page
 //= require_tree ./application

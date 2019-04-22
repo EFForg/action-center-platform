@@ -22,9 +22,9 @@ gem "sass-rails", "~> 5.0"
 gem "select2-rails"               # Autocomplete select menus
 gem "uglifier", ">= 1.3.0"        # compressor for JavaScript assets
 gem "webshims-rails", "~> 1"
+gem "bootstrap-sass", "~> 3.4"
+gem "bootstrap-daterangepicker-rails", "~> 3"
 source "https://rails-assets.org" do
-  gem "rails-assets-bootstrap-daterangepicker", "1.3.21"
-  gem "rails-assets-bootstrap-sass", "3.3.4"
   gem "rails-assets-chartjs", "~> 2"
   gem "rails-assets-congress-images-102x125"
   gem "rails-assets-EpicEditor", "~> 0"
@@ -89,6 +89,7 @@ gem "sanitize", "~> 4"                    # Sanitize user input
 gem "warden", "1.2.4"             # This dep of devise has a bug in 1.2.5 so am avaoiding
 gem "whenever", "~> 0", require: false    # Cron jobs
 gem "will_paginate", "~> 3.0"
+gem 'xmlrpc'
 
 group :doc do
   # bundle exec rake doc:rails generates the API under doc/api
