@@ -20,6 +20,7 @@ module Actioncenter
     # config.i18n.default_locale = :de
 
     config.autoload_paths += %W(#{config.root}/lib)
+    config.assets.paths << Rails.root.join('node_modules')
 
     #config.logger = ActiveSupport::Logger.new(STDOUT)
     config.to_prepare do

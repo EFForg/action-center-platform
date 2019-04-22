@@ -2,6 +2,7 @@
   "name": "action-center",
   "private": true,
   "dependencies": {
+    "jquery-file-upload": "^4.0.11",
     "sass-lint": "^1.12.1"
   }
 }

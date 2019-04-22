@@ -150,46 +150,46 @@ var TopicCategory = React.createClass({
 
   componentDidMount: function() {
     var self = this;
-    if (this.refs.table) {
-      $(this.refs.table).sortable({
-        containerSelector: "table",
-        itemPath: "> tbody",
-        itemSelector: "tr[data-set-id]",
-        placeholder: '<tr class="placeholder"><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td></tr>',
-        onDrop: function($item, container) {
-          $item.removeClass("dragged").removeAttr("style")
-          $("body").removeClass("dragging")
+    // if (this.refs.table) {
+    //   $(this.refs.table).sortable({
+    //     containerSelector: "table",
+    //     itemPath: "> tbody",
+    //     itemSelector: "tr[data-set-id]",
+    //     placeholder: '<tr class="placeholder"><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td></tr>',
+    //     onDrop: function($item, container) {
+    //       $item.removeClass("dragged").removeAttr("style")
+    //       $("body").removeClass("dragging")
 
-          var updates = $.map($("tr[data-set-id]", self.refs.table), function(tr, i) {
-            var id = $(tr).data("set-id");
+    //       var updates = $.map($("tr[data-set-id]", self.refs.table), function(tr, i) {
+    //         var id = $(tr).data("set-id");
 
-            var topicSet = null;
-            self.state.topicSets.forEach(function(set) {
-              if (set.id == id)
-                topicSet = set;
-            });
+    //         var topicSet = null;
+    //         self.state.topicSets.forEach(function(set) {
+    //           if (set.id == id)
+    //             topicSet = set;
+    //         });
 
-            return $.ajax({
-                method: "post",
-                url: "/admin/topic_sets/" + topicSet.id,
-                data: { _method: "patch", "topic_set[tier]": i + 1 },
+    //         return $.ajax({
+    //             method: "post",
+    //             url: "/admin/topic_sets/" + topicSet.id,
+    //             data: { _method: "patch", "topic_set[tier]": i + 1 },
 
-                success: function() {
-                  topicSet.tier = i + 1;
-                },
+    //             success: function() {
+    //               topicSet.tier = i + 1;
+    //             },
 
-                error: function() {
-                  alert("There has been an error updating this tier.");
-                }
-            });
-          });
+    //             error: function() {
+    //               alert("There has been an error updating this tier.");
+    //             }
+    //         });
+    //       });
 
-          $.when.apply($, updates).done(function() {
-            self.setState({ topicSets: self.state.topicSets });
-          });
-        }
-      });
-    }
+    //       $.when.apply($, updates).done(function() {
+    //         self.setState({ topicSets: self.state.topicSets });
+    //       });
+    //     }
+    //   });
+    // }
   },
 
   render: function() {
