@@ -1,13 +1,9 @@
-# TODO: redo this class with new gems :o !!
-# require "aws/s3"
-
 class SourceFile < ActiveRecord::Base
   include Rails.application.routes.url_helpers
 
-  # This line can be removed for Rails 4 apps that are using Strong Parameters
-  # attr_accessible :bucket, :key if S3CorsFileupload.active_record_protected_attributes?
-
   validates_presence_of :file_name, :file_content_type, :file_size, :key, :bucket
+
+  delegate :secrets, to: 'Rails.application'.to_sym
 
   before_validation(on: :create) do
     are_we_testing = pull_down_s3_object_attributes
@@ -57,28 +53,23 @@ class SourceFile < ActiveRecord::Base
   end
 
   #---- start S3 related methods -----
-  def s3_object
-    Rails.logger.debug "Trying to get S3 object."
-    s3 = Aws::S3::Resource.new(
-      access_key_id: S3CorsFileupload::Config.access_key_id,
-      secret_access_key: S3CorsFileupload::Config.secret_access_key,
-      region: Rails.application.secrets.amazon_region
+  def build_s3_client
+    # TODO: memoize?
+    creds = Aws::Credentials.new(
+      access_key_id: secrets.amazon_access_key_id,
+      secret_access_key: secrets.amazon_secret_access_key
     )
-    @s3_object = s3.bucket(Rails.application.secrets.amazon_bucket).object(key)
+    Aws::S3::Client.new(credentials: creds, region: secrets.amazon_region)
+  end
+
+  def s3_object
+    # TODO: memoize?
+    Rails.logger.debug "Trying to get S3 object."
+    s3 = Aws::S3::Resource.new(client: build_s3_client)
+    @s3_object = s3.bucket(secrets.amazon_bucket).object(key)
   rescue e
     Rails.logger.debug "Attempt to get S3 object failed: #{e.message}"
     nil
-  end
-
-  def self.open_aws
-    unless @aws_connected
-      Aws::S3::Base.establish_connection!(
-        access_key_id: S3CorsFileupload::Config.access_key_id,
-        secret_access_key: S3CorsFileupload::Config.secret_access_key,
-        region: Rails.application.secrets.amazon_region
-      )
-    end
-    @aws_connected ||= Aws::S3::Base.connected?
   end
   #---- end S3 related methods -----
 end

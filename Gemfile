@@ -7,6 +7,7 @@ gem "pg", "~> 1.1"
 
 # Hosting-related
 gem "aws-sdk", "~> 2.3"
+gem "aws-sdk-rails", "~> 1"
 gem "dotenv-rails", "~> 2"
 gem "rack-attack", "~> 5"
 gem "rails_12factor", group: :production # Loads "rails_serve_static_assets" and "rails_stdout_logging"
@@ -32,7 +33,6 @@ source "https://rails-assets.org" do
   gem "rails-assets-ionicons", "~> 2"
   gem "rails-assets-jquery", "2.1.3"
   gem "rails-assets-jquery-cookie", "~> 1"
-  #gem "rails-assets-jquery-sortable", "0.9.12" # note: no bower.json for 0.9.12
   gem "rails-assets-jquery-timeago", "~> 1"
   gem "rails-assets-jquery-ujs", "1.0.3"
   gem "rails-assets-lodash", "3.7.0"
@@ -43,9 +43,7 @@ source "https://rails-assets.org" do
 end
 
 # File upload
-#gem "jquery-fileupload-rails", "~> 0"
 gem "paperclip", "~> 5.2"
-#gem "s3_cors_fileupload", git: "https://github.com/sinak/s3_cors_fileupload", ref: "d5e14"
 
 # Email preformatting
 gem "nokogiri", "~> 1"                    # Required for premailer-rails
@@ -84,7 +82,7 @@ gem "invisible_captcha", "~> 0"           # Prevent form submissions by bots
 gem "iso_country_codes", "~> 0"
 gem "jbuilder", "~> 1.2"          # JSON APIs
 gem "oauth", "~> 0"
-gem "rest-client", "~> 1"
+gem "rest-client", "~> 2"
 gem "sanitize", "~> 4"                    # Sanitize user input
 gem "warden", "1.2.4"             # This dep of devise has a bug in 1.2.5 so am avaoiding
 gem "whenever", "~> 0", require: false    # Cron jobs
