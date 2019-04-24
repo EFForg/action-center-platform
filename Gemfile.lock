@@ -543,7 +543,7 @@ DEPENDENCIES
   puffing-billy (~> 1)
   puma (~> 3)
   rack-attack (~> 5)
-  rails (~> 5.0.7.2)
+  rails (~> 5.0)
   rails-assets-EpicEditor (~> 0)!
   rails-assets-chartjs (~> 2)!
   rails-assets-congress-images-102x125!
