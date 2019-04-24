@@ -1,4 +1,4 @@
-FROM ruby:2.3
+FROM ruby:2.5
 
 RUN mkdir /opt/actioncenter
 WORKDIR /opt/actioncenter
@@ -40,12 +40,12 @@ RUN cd / && curl -sLo phantomjs.tar.bz2 https://github.com/Medium/phantomjs/rele
   tar -jxvf phantomjs.tar.bz2 > /dev/null && \
   rm phantomjs.tar.bz2
 
-COPY yarn.lock package.json ./
-RUN yarn install
+COPY package.json package-lock.json ./
+RUN npm install
 
 ADD Gemfile* ./
 
-RUN bundle install
+RUN gem install bundler && bundle install
 
 ADD bin/ ./bin
 ADD config/ ./config
