@@ -29,7 +29,7 @@ require "pry"
 ActiveRecord::Migration.maintain_test_schema!
 
 RSpec.configure do |config|
-  config.include Devise::TestHelpers, type: :controller
+  config.include Devise::Test::ControllerHelpers, type: :controller
   config.include Warden::Test::Helpers, type: :request
 
   # Remove this line if you're not using ActiveRecord or ActiveRecord fixtures
@@ -64,7 +64,7 @@ end
 # for request tests
 def login(user)
   login_path = "/login"
-  post login_path, {
+  post login_path, params: {
     user: {
       email: user.email,
       password: "strong passwords defeat lobsters covering wealth"

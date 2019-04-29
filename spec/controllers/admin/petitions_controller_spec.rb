@@ -1,7 +1,7 @@
 require "rails_helper"
 
 RSpec.describe Admin::PetitionsController, type: :controller do
-  include Devise::TestHelpers
+  include Devise::Test::ControllerHelpers
 
   before(:each) do
     @request.env["devise.mapping"] = Devise.mappings[:admin]
@@ -12,7 +12,7 @@ RSpec.describe Admin::PetitionsController, type: :controller do
     let(:petition) { FactoryGirl.create(:petition) }
 
     it "assigns @signatures" do
-      get :show, id: petition.id
+      get :show, params: { id: petition.id }
       expect(assigns(:signatures)).not_to be_nil
       expect(response.status).to eq(200)
     end
@@ -26,7 +26,7 @@ RSpec.describe Admin::PetitionsController, type: :controller do
         Signature.all
       end
 
-      get :show, id: petition.id, query: query
+      get :show, params: { id: petition.id, query: query }
       expect(response.status).to eq(200)
     end
   end
@@ -50,18 +50,18 @@ RSpec.describe Admin::PetitionsController, type: :controller do
     end
 
     it "should delete signatures from the signature_ids param" do
-      delete :destroy_signatures, id: petition.id, signature_ids: signatures[10..-1].map(&:id)
+      delete :destroy_signatures, params: { id: petition.id, signature_ids: signatures[10..-1].map(&:id) }
       expect(petition.signatures.reload).to contain_exactly(*signatures[0..9])
       expect(response).to redirect_to(admin_petition_path(petition))
     end
 
     it "should redirect back to the same page (or earlier if that page is deleted)" do
       signatures
-      delete :destroy_signatures, id: petition.id, signature_ids: [], query: "", page: 2
+      delete :destroy_signatures, params: { id: petition.id, signature_ids: [], query: "", page: 2 }
       expect(response).to redirect_to(admin_petition_path(petition, query: "", page: 2))
 
       # there is no page 4, so we expect a redirect to page 3
-      delete :destroy_signatures, id: petition.id, signature_ids: [], query: "", page: 4
+      delete :destroy_signatures, params: { id: petition.id, signature_ids: [], query: "", page: 4 }
       expect(response).to redirect_to(admin_petition_path(petition, query: "", page: 3))
     end
   end

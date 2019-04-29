@@ -17,14 +17,14 @@ RSpec.describe SubscriptionsController, type: :controller do
     end
 
     it "can accept an email" do
-      post :create, valid_attributes
+      post :create, params: valid_attributes
 
       expect(response.code).to eq "200"
     end
 
     it "can reject a spammy looking email" do
       invalid_email = valid_attributes.merge(subscription: { email: "meh" })
-      post :create, invalid_email
+      post :create, params: invalid_email
 
       expect(response.code).to eq "400"
     end
@@ -32,7 +32,7 @@ RSpec.describe SubscriptionsController, type: :controller do
 
   describe "#edit" do
     let(:subscription) { FactoryGirl.create(:subscription) }
-    subject { get :edit, { id: subscription } }
+    subject { get :edit, params: { id: subscription } }
 
     it "redirects to supporters" do
       sign_in FactoryGirl.create(:user)

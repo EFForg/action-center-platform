@@ -1,7 +1,7 @@
 require "rails_helper"
 
 RSpec.describe Admin::ActionPagesController, type: :controller do
-  include Devise::TestHelpers
+  include Devise::Test::ControllerHelpers
 
   let(:petition_action_page) { FactoryGirl.create(:action_page_with_petition) }
 
@@ -59,7 +59,7 @@ RSpec.describe Admin::ActionPagesController, type: :controller do
   describe "PATCH #update" do
     let(:page) { FactoryGirl.create(:action_page) }
     let(:image) { Rails.root.join("spec/fixtures/images/eff.png") }
-    let(:update) { put :update, attrs }
+    let(:update) { put :update, params: attrs }
     let(:targets) { "" }
     let(:page_attrs) { {} }
     let(:attrs) do

@@ -48,7 +48,7 @@ RSpec.describe ToolsController, type: :controller do
       call_campaign = FactoryGirl.create(:call_campaign)
 
       expect(CallTool).to receive(:campaign_call)
-      post :call, {
+      post :call, params: {
              phone: "000-000-0000",
              location: "00000",
              call_campaign_id: call_campaign.id,
@@ -64,7 +64,7 @@ RSpec.describe ToolsController, type: :controller do
       service, uri = "gmail", "https://composeurl.example.com"
       expect(ActionPage).to receive(:find_by_id) { email_campaign.action_page }
       expect(email_campaign).to receive(:service_uri).with(service) { uri }
-      get :email, { action_id: email_campaign.action_page.id, service: service }
+      get :email, params: { action_id: email_campaign.action_page.id, service: service }
       expect(response).to redirect_to(uri)
     end
   end
@@ -72,7 +72,7 @@ end
 
 def create_signature_and_have_user_sign
   @petition = FactoryGirl.create(:petition_with_99_signatures_needing_1_more)
-  post :petition, signature: valid_attributes[:signature].merge({ "petition_id" => @petition.id.to_s })
+  post :petition, params: { signature: valid_attributes[:signature].merge({ "petition_id" => @petition.id.to_s }) }
 end
 
 def stub_smarty_streets

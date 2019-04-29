@@ -16,8 +16,8 @@ RSpec.describe "Admin Action Page Analytics", type: :request do
             at_least(:once)
 
       get "/admin/action_pages/#{@action_page.slug}/events",
-        { type: "views" },
-        { "ACCEPT" => "application/json" }
+        params: { type: "views" },
+        headers: { "ACCEPT" => "application/json" }
 
       expect(response.code).to eq "200"
 
@@ -30,8 +30,8 @@ RSpec.describe "Admin Action Page Analytics", type: :request do
       start_date = Time.utc(2019, 1, 1).strftime("%Y-%m-%d")
       end_date = Time.utc(2019, 1, 7).strftime("%Y-%m-%d")
       get "/admin/action_pages/#{@action_page.slug}/events",
-        { date_start: start_date, date_end: end_date, type: "views" },
-        { "ACCEPT" => "application/json" }
+        params: { date_start: start_date, date_end: end_date, type: "views" },
+        headers: { "ACCEPT" => "application/json" }
 
       # Returns one datapoint per day in range.
       expect(JSON.parse(response.body).keys).
