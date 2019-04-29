@@ -53,20 +53,9 @@ class SourceFile < ActiveRecord::Base
   end
 
   #---- start S3 related methods -----
-  def build_s3_client
-    # TODO: memoize?
-    creds = Aws::Credentials.new(
-      access_key_id: secrets.amazon_access_key_id,
-      secret_access_key: secrets.amazon_secret_access_key
-    )
-    Aws::S3::Client.new(credentials: creds, region: secrets.amazon_region)
-  end
-
   def s3_object
-    # TODO: memoize?
     Rails.logger.debug "Trying to get S3 object."
-    s3 = Aws::S3::Resource.new(client: build_s3_client)
-    @s3_object = s3.bucket(secrets.amazon_bucket).object(key)
+    @s3_object = S3_BUCKET.object(key)
   rescue e
     Rails.logger.debug "Attempt to get S3 object failed: #{e.message}"
     nil
