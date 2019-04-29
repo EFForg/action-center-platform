@@ -11,7 +11,7 @@ Given(/^a stubbed phantomdc$/) do
     Proc.new { |params, headers, body| {
       headers: { "Access-Control-Allow-Origin" => "*" },
       json: {
-        "#{body.last(7)}": {
+        :"#{body.last(7)}" => {
           defunct: false,
           contact_url: nil,
           required_actions: [

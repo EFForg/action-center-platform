@@ -143,7 +143,7 @@ class Admin::ActionPagesController < Admin::ApplicationController
 
   def set_s3_post
     @s3_direct_post = S3_BUCKET.presigned_post(key: "uploads/#{SecureRandom.uuid}/${filename}",
-                                               success_action_status: '201', acl: 'public-read')
+                                               success_action_status: "201", acl: "public-read")
   end
 
   def redirect_to_action_page

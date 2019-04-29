@@ -14,17 +14,17 @@ gem "rails_12factor", group: :production # Loads "rails_serve_static_assets" and
 gem "rails_response_headers", "~> 0"
 
 # Frontend/assets
+gem "bootstrap-daterangepicker-rails", "~> 3"
+gem "bootstrap-sass", "~> 3.4"
 gem "bourbon", "~> 3"
-gem "bundler", ">= 1.8.4"         # needed for rails-assets
+gem "bundler", ">= 1.8.4" # needed for rails-assets
 gem "fontello_rails_converter", "~> 0"
 gem "react-rails", "~> 1"
-gem "redcarpet", "~> 3"                    # Markdown
+gem "redcarpet", "~> 3" # Markdown
 gem "sass-rails", "~> 5.0"
 gem "select2-rails"               # Autocomplete select menus
 gem "uglifier", ">= 1.3.0"        # compressor for JavaScript assets
 gem "webshims-rails", "~> 1"
-gem "bootstrap-sass", "~> 3.4"
-gem "bootstrap-daterangepicker-rails", "~> 3"
 source "https://rails-assets.org" do
   gem "rails-assets-chartjs", "~> 2"
   gem "rails-assets-congress-images-102x125"
@@ -74,20 +74,20 @@ gem "devise", "~> 4.6"
 gem "ejs", "~> 1"                         # Embedded javascript
 gem "email_validator", "~> 1"
 gem "fastly", "~> 2"
-gem "friendly_id", "~> 5.0"       # Slugging/permalink plugins for Active Record
+gem "friendly_id", "~> 5.0" # Slugging/permalink plugins for Active Record
 gem "going_postal", "~> 0"                # Zip code validation
 gem "gravatar-ultimate", "~> 2"
 gem "http_accept_language", "~> 2"        # Detect HTTP language header
 gem "invisible_captcha", "~> 0"           # Prevent form submissions by bots
 gem "iso_country_codes", "~> 0"
-gem "jbuilder", "~> 1.2"          # JSON APIs
+gem "jbuilder", "~> 1.2" # JSON APIs
 gem "oauth", "~> 0"
 gem "rest-client", "~> 2"
-gem "sanitize", "~> 4"                    # Sanitize user input
-gem "warden", "1.2.4"             # This dep of devise has a bug in 1.2.5 so am avaoiding
-gem "whenever", "~> 0", require: false    # Cron jobs
+gem "sanitize", "~> 4" # Sanitize user input
+gem "warden", "1.2.4" # This dep of devise has a bug in 1.2.5 so am avaoiding
+gem "whenever", "~> 0", require: false # Cron jobs
 gem "will_paginate", "~> 3.0"
-gem 'xmlrpc'
+gem "xmlrpc"
 
 group :doc do
   # bundle exec rake doc:rails generates the API under doc/api
@@ -109,19 +109,19 @@ group :test do
 end
 
 group :development, :test do
+  gem "byebug"
   gem "capybara", "~> 2", ">= 2.5.0"
   gem "cucumber-rails", "1.6.0", require: false
   gem "database_cleaner", "~> 1"
   gem "factory_girl_rails", "~> 4"
   gem "poltergeist", "~> 1"
-  gem "byebug"
   gem "pry", "~> 0"
+  gem "rails-controller-testing"
   gem "rspec-core", "~> 3"
   gem "rspec-rails", "~> 3"
-  gem "rubocop", "0.50.0"
-  gem "rubocop-github", "0.5.0"
+  gem "rubocop", "0.52.0"
+  gem "rubocop-github", "0.9.0"
   gem "selenium-webdriver", "~> 2.49", require: false
-  gem "rails-controller-testing"
 end
 
 group :production do

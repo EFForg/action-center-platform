@@ -3,7 +3,7 @@ class SourceFile < ActiveRecord::Base
 
   validates_presence_of :file_name, :file_content_type, :file_size, :key, :bucket
 
-  delegate :secrets, to: 'Rails.application'.to_sym
+  delegate :secrets, to: "Rails.application".to_sym
 
   before_validation(on: :create) do
     are_we_testing = pull_down_s3_object_attributes
