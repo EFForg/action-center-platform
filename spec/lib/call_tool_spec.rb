@@ -95,7 +95,7 @@ describe CallTool do
     }
 
     before do
-      stub_request(:get, %r{/api/campaign\?api_key=}).
+      stub_request(:get, %r{/api/campaign\?api_key(.*)?&page=1}).
         to_return(status: 200, body: { "objects" => [calltool_campaign], "page" => 1, "total_pages" => 1 }.to_json)
     end
 
