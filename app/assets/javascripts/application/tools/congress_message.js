@@ -202,6 +202,17 @@ $(document).on("ready", function() {
           }
 
           var fieldset = $("fieldset[data-legislator-id="+bioguide+"]");
+
+          if (!fieldset.length) {
+            fieldset = $('<fieldset>').attr({
+              'data-legislator-id': bioguide,
+              'class': 'congressForms-legislator-fields defunct',
+            });
+
+            $('<label>').addClass('legislator-label').appendTo(fieldset);
+            fieldset.insertBefore('.congress-message-tool-container input[type=submit]');
+          }
+
           fieldset.prop("disabled", true);
           fieldset.find(".form-group").remove();
           fieldset.append(notice);

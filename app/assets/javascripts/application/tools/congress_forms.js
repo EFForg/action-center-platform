@@ -72,6 +72,8 @@
             if (legislator.defunct)
               that.settings.onDefunctLegislator(bioguide, legislator.contact_url);
           });
+
+          that.settings.onRender(form);
         }
       });
     },
@@ -175,7 +177,6 @@
       form.append(submitButton);
 
       $(that.element).append(form);
-      that.settings.onRender(form);
     },
 
     generateFormGroup: function(field) {
