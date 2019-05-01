@@ -145,7 +145,6 @@ $(document).on("ready", function() {
           $.each(reps, function(index, rep){
               // Add their names
               $('[data-legislator-id="' + rep.bioguide_id + '"] .legislator-label').html("<em>" + rep.first_name + " " + rep.last_name + " </em>");
-              $('[data-legislator-id="' + rep.bioguide_id + '"] .legislator-label');
             });
 
           $(".legislator-info-popover").popover();
