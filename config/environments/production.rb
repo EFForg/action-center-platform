@@ -77,6 +77,7 @@ Actioncenter::Application.configure do
   #config.assets.precompile += %w( .svg .eot .woff .ttf )
   config.assets.precompile = config.assets.precompile.map!{ |path| path == /(?:\/|\\|\A)application\.(css|js)$/ ? /(?<!jquery-sortable)(?:\/|\\|\A)application\.(css|js)$/ : path }
   config.assets.precompile += %w( admin/_bootstrap-theme.min.css admin/admin.css admin.js admin-head.js )
+  config.assets.precompile += %w( congress-images-102x125/i/P000197.jpg )
 
   # precompile stylesheets loaded by epiceditor iframes on admin pages
   config.assets.precompile += %w( EpicEditor/epiceditor/themes/base/epiceditor.css EpicEditor/epiceditor/themes/preview/github.css EpicEditor/epiceditor/themes/editor/epic-light.css)
