@@ -145,7 +145,6 @@ $(document).on("ready", function() {
           $.each(reps, function(index, rep){
               // Add their names
               $('[data-legislator-id="' + rep.bioguide_id + '"] .legislator-label').html("<em>" + rep.first_name + " " + rep.last_name + " </em>");
-              $('[data-legislator-id="' + rep.bioguide_id + '"] .legislator-label');
             });
 
           $(".legislator-info-popover").popover();
@@ -202,6 +201,17 @@ $(document).on("ready", function() {
           }
 
           var fieldset = $("fieldset[data-legislator-id="+bioguide+"]");
+
+          if (!fieldset.length) {
+            fieldset = $('<fieldset>').attr({
+              'data-legislator-id': bioguide,
+              'class': 'congressForms-legislator-fields defunct',
+            });
+
+            $('<label>').addClass('legislator-label').appendTo(fieldset);
+            fieldset.insertBefore('.congress-message-tool-container input[type=submit]');
+          }
+
           fieldset.prop("disabled", true);
           fieldset.find(".form-group").remove();
           fieldset.append(notice);
