@@ -1,5 +1,5 @@
 Aws.config.update({
-    region: 'us-east-1',
+    region: Rails.application.secrets.amazon_region,
     credentials: Aws::Credentials.new(Rails.application.secrets.amazon_access_key_id,
                                       Rails.application.secrets.amazon_secret_access_key)
 })

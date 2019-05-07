@@ -72,6 +72,7 @@ RUN bundle exec rake assets:precompile \
   RAILS_ENV=production \
   SECRET_KEY_BASE=noop \
   devise_secret_key=noop \
+  amazon_region=noop \
   DATABASE_URL=postgres://noop
 RUN bundle exec rake webshims:update_public
 
