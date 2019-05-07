@@ -1,6 +1,6 @@
 
-When /^I binding.pry$/ do
-  binding.pry
+When /^I byebug$/ do
+  byebug
 end
 
 When /^I save the page$/ do

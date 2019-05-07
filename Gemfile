@@ -115,7 +115,6 @@ group :development, :test do
   gem "database_cleaner", "~> 1"
   gem "factory_girl_rails", "~> 4"
   gem "poltergeist", "~> 1"
-  gem "pry", "~> 0"
   gem "rails-controller-testing"
   gem "rspec-core", "~> 3"
   gem "rspec-rails", "~> 3"
