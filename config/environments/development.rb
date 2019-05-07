@@ -30,13 +30,6 @@ Actioncenter::Application.configure do
   # Raise an error on page load if there are pending migrations
   config.active_record.migration_error = :page_load
 
-  config.assets.precompile = config.assets.precompile.map!{ |path| path == /(?:\/|\\|\A)application\.(css|js)$/ ? /(?<!jquery-sortable)(?:\/|\\|\A)application\.(css|js)$/ : path }
-  config.assets.precompile += %w( admin/_bootstrap-theme.min.css admin/admin.css admin.js admin-head.js )
-
-  # precompile stylesheets loaded by epiceditor iframes on admin pages
-  #   config.assets.precompile += %w( EpicEditor/epiceditor/themes/base/epiceditor.css EpicEditor/epiceditor/themes/preview/github.css EpicEditor/epiceditor/themes/editor/epic-light.css)
-  #
-
   unless Rails.application.secrets.sentry_dsn.nil?
     config.action_dispatch.show_exceptions = false
     config.consider_all_requests_local = false
