@@ -4,7 +4,8 @@ class TweetTarget < ActiveRecord::Base
 
   belongs_to :tweet
   has_attached_file :image, amazon_credentials
-  validates_attachment_content_type :image, content_type: /\Aimage\/.*\Z/
+  validates_media_type_spoof_detection :image, if: ->() { image_file_name.present? }
+  do_not_validate_attachment_file_type :image
   after_save :attach_twitter_image
 
   def url
