@@ -1,7 +1,7 @@
 require "rails_helper"
 
 RSpec.describe ActionPageController, type: :controller do
-  include Devise::TestHelpers
+  include Devise::Test::ControllerHelpers
 
   let(:action_page) { FactoryGirl.create :action_page }
   let(:admin) { login_as_admin }
@@ -14,13 +14,13 @@ RSpec.describe ActionPageController, type: :controller do
       action_page
       category = FactoryGirl.create(:category, title: "Privacy")
       privacy_action_page = FactoryGirl.create(:action_page, category: category)
-      get :index, { category: "Privacy" }
+      get :index, params: { category: "Privacy" }
       expect(assigns(:actionPages)).to contain_exactly(privacy_action_page)
     end
 
     it "returns json" do
       action_page
-      get :index, { format: "json" }
+      get :index, params: { format: "json" }
       expect(response.content_type).to eq("application/json")
       expect(response.body).to include(action_page.title)
     end
@@ -32,12 +32,12 @@ RSpec.describe ActionPageController, type: :controller do
       action_page.title = "Renamed Sample Action Page"
       action_page.save
 
-      get :show, { id: original_slug }
+      get :show, params: { id: original_slug }
       expect(response).to redirect_to action_page
     end
 
     it "doesn't redirect if the url is already cannonical" do
-      get :show, { id: action_page.slug }
+      get :show, params: { id: action_page.slug }
       expect(response.status).to eq(200)
     end
 
@@ -45,7 +45,7 @@ RSpec.describe ActionPageController, type: :controller do
       action_page = FactoryGirl.create :action_page,
                       enable_redirect: true,
                       redirect_url: "https://example.com"
-      get :show, { id: action_page }
+      get :show, params: { id: action_page }
       expect(response).to redirect_to "https://example.com"
     end
 
@@ -57,13 +57,13 @@ RSpec.describe ActionPageController, type: :controller do
       }
 
       it "redirects archived actions to active actions" do
-        get :show, { id: archived_action_page }
+        get :show, params: { id: archived_action_page }
         expect(response).to redirect_to active_action_page
       end
 
       it "doesn't redirect away from victories" do
         archived_action_page.update_attributes(victory: true)
-        get :show, { id: archived_action_page }
+        get :show, params: { id: archived_action_page }
         expect(response.status).to eq(200)
       end
     end
@@ -73,19 +73,19 @@ RSpec.describe ActionPageController, type: :controller do
 
       it "hides unpublished pages from unprivileged users" do
         expect {
-          get :show, { id: unpublished_action_page }
+          get :show, params: { id: unpublished_action_page }
         }.to raise_error ActiveRecord::RecordNotFound
       end
 
       it "notifies admin users that a page is unpublished" do
         admin
-        get :show, { id: unpublished_action_page }
+        get :show, params: { id: unpublished_action_page }
         expect(flash[:notice]).to include("not published")
       end
 
       it "notifies collaborator users that a page is unpublished" do
         collaborator
-        get :show, { id: unpublished_action_page }
+        get :show, params: { id: unpublished_action_page }
         expect(flash[:notice]).to include("not published")
       end
     end
@@ -116,7 +116,7 @@ RSpec.describe ActionPageController, type: :controller do
 
     context "html" do
       it "assigns signatures filtered by institution" do
-        get :show_by_institution, { id: @actionPage.id,
+        get :show_by_institution, params: { id: @actionPage.id,
           institution_id: @actionPage.institutions.first.id }
         expect(assigns(:institution)).to eq(@actionPage.institutions.first)
 
@@ -132,7 +132,7 @@ RSpec.describe ActionPageController, type: :controller do
     context "csv" do
       render_views
       it "returns a csv with filtered affiliations" do
-        get :show_by_institution, { id: @actionPage.id,
+        get :show_by_institution, params: { id: @actionPage.id,
           institution_id: @actionPage.institutions.first.id,
           format: "csv" }
 
@@ -151,7 +151,7 @@ RSpec.describe ActionPageController, type: :controller do
     it "assigns target bioguide ids" do
       action_page
       bioguide_ids = ["P000197", "H001075"]
-      get :embed_iframe, { id: action_page.id, bioguide_ids: bioguide_ids }
+      get :embed_iframe, params: { id: action_page.id, bioguide_ids: bioguide_ids }
       expect(assigns(:target_bioguide_ids)).to match_array(bioguide_ids)
     end
   end

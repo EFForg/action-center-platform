@@ -1,9 +1,10 @@
 class Admin::ActionPagesController < Admin::ApplicationController
   include DateRange
-  before_filter :set_action_page, except: [:new, :index, :create, :update_featured_pages]
-  before_filter :cleanup_congress_message_params, only: [:update]
-  skip_before_filter :verify_authenticity_token, only: [:update_featured_pages]
-  after_filter :purge_cache, only: [:update, :publish]
+  before_action :set_action_page, except: [:new, :index, :create, :update_featured_pages]
+  before_action :cleanup_congress_message_params, only: [:update]
+  before_action :set_s3_post, only: [:new, :edit, :create, :update]
+  skip_before_action :verify_authenticity_token, only: [:update_featured_pages]
+  after_action :purge_cache, only: [:update, :publish]
 
   allow_collaborators_to :index, :edit
 
@@ -138,6 +139,11 @@ class Admin::ActionPagesController < Admin::ApplicationController
 
   def set_action_page
     @actionPage = ActionPage.friendly.find(params[:id] || params[:action_page_id])
+  end
+
+  def set_s3_post
+    @s3_direct_post = S3_BUCKET.presigned_post(key: "uploads/#{SecureRandom.uuid}/${filename}",
+                                               success_action_status: "201", acl: "public-read")
   end
 
   def redirect_to_action_page

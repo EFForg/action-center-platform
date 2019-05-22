@@ -21,7 +21,7 @@ RSpec.describe "S3 Uploads Spec", type: :request do
 
   it "should deny non-admins" do
     expect {
-      post "/admin/source_files", valid_attributes
+      post "/admin/source_files", params: valid_attributes
     }.to raise_exception(ActiveRecord::RecordNotFound)
   end
 
@@ -30,7 +30,7 @@ RSpec.describe "S3 Uploads Spec", type: :request do
     login @admin
 
     expect {
-      post "/admin/source_files", valid_attributes
+      post "/admin/source_files", params: valid_attributes
     }.to change { SourceFile.count }.by(1)
   end
 end

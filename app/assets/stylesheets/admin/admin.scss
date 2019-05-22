@@ -14,7 +14,7 @@
 
 // Mixins and variables
 @import "bourbon";
-@import "bootstrap-sass/bootstrap/variables";
+@import "bootstrap/variables";
 @import "application/variables";
 
 // Fonts
@@ -37,7 +37,7 @@
 @import "admin/topics";
 @import "admin/users";
 
-@import "bootstrap-daterangepicker/daterangepicker-bs3";
+@import "daterangepicker";
 
 .daterangepicker.dropdown-menu {
   display: none;

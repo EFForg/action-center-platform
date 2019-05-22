@@ -2,7 +2,7 @@ class UserMailer < ActionMailer::Base
   helper ApplicationHelper
   helper ActionPageHelper
   layout "email"
-  after_filter :check_bounces
+  after_action :check_bounces
 
   def thanks_message(email, actionPage, options = {})
     @email = email

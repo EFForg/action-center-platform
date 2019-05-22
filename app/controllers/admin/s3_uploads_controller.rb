@@ -18,8 +18,7 @@ class Admin::S3UploadsController < Admin::ApplicationController
   # POST /admin/source_files
   # POST /admin/source_files.json
   def create
-    # this line allows for compatibility with `ProtectedAttributes` or `StrongParameters`
-    parameters = S3CorsFileupload.active_record_protected_attributes? ? params[:source_file] : params.require(:source_file).permit(:url, :bucket, :key)
+    parameters = params.require(:source_file).permit(:url, :bucket, :key)
     @source_file = SourceFile.new(parameters)
     respond_to do |format|
       if @source_file.save

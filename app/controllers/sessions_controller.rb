@@ -1,6 +1,6 @@
 class SessionsController < Devise::SessionsController
-  after_filter :set_logged_in, only: :create
-  before_filter :unset_logged_in, only: :destroy
+  after_action :set_logged_in, only: :create
+  before_action :unset_logged_in, only: :destroy
 
   def set_logged_in
     if (user_signed_in?)

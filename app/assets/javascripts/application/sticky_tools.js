@@ -1,4 +1,4 @@
-//= require bootstrap-sass/bootstrap/affix
+//= require bootstrap/affix
 
 $(function() {
   var s = $('#tools');

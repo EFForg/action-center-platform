@@ -1,6 +1,6 @@
 class PetitionController < ApplicationController
-  before_filter :set_petition
-  before_filter :ensure_show_all_allowed, only: :signatures
+  before_action :set_petition
+  before_action :ensure_show_all_allowed, only: :signatures
 
   def recent_signatures
     signatories = @petition.recent_signatures(5)

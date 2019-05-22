@@ -5,6 +5,7 @@ class Admin::PetitionsController < Admin::ApplicationController
   allow_collaborators_to :show, :destroy_signatures
 
   def show
+    @search_params = search_params
     @signatures = filtered_signatures
   end
 
@@ -26,7 +27,7 @@ class Admin::PetitionsController < Admin::ApplicationController
       params[:page] = filtered_signatures.total_pages
     end
 
-    redirect_to admin_petition_path(@petition, params.slice(:query, :page, :per_page))
+    redirect_to admin_petition_path(@petition, search_params)
   end
 
   private
@@ -40,5 +41,9 @@ class Admin::PetitionsController < Admin::ApplicationController
       filter(params[:query]).
       order(created_at: :desc).
       paginate(page: params[:page], per_page: params[:per_page] || 10)
+  end
+
+  def search_params
+    params.permit(:query, :page, :per_page).to_h
   end
 end

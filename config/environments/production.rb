@@ -31,7 +31,7 @@ Actioncenter::Application.configure do
   config.serve_static_files = false
 
   # Compress JavaScripts and CSS.
-  config.assets.js_compressor = :uglifier
+  config.assets.js_compressor = Uglifier.new(harmony: true)
   config.assets.css_compressor = :sass
 
   # Do not fallback to assets pipeline if a precompiled asset is missed.
@@ -75,8 +75,6 @@ Actioncenter::Application.configure do
   #config.assets.precompile += %w( welcome.css action_page.css admin/action_page.css )
   #config.assets.paths << Rails.root.join('app', 'assets', 'fonts')
   #config.assets.precompile += %w( .svg .eot .woff .ttf )
-  config.assets.precompile = config.assets.precompile.map!{ |path| path == /(?:\/|\\|\A)application\.(css|js)$/ ? /(?<!jquery-sortable)(?:\/|\\|\A)application\.(css|js)$/ : path }
-  config.assets.precompile += %w( admin/_bootstrap-theme.min.css admin/admin.css admin.js admin-head.js )
 
   # precompile stylesheets loaded by epiceditor iframes on admin pages
   config.assets.precompile += %w( EpicEditor/epiceditor/themes/base/epiceditor.css EpicEditor/epiceditor/themes/preview/github.css EpicEditor/epiceditor/themes/editor/epic-light.css)

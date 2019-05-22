@@ -1,5 +1,5 @@
 class Admin::InstitutionsController < Admin::ApplicationController
-  before_filter :set_action_page
+  before_action :set_action_page
   before_action :set_institution, only: [:destroy]
 
   require "csv"

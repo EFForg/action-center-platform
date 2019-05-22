@@ -1,6 +1,45 @@
-<%= s3_cors_fileupload_form_tag :id => "fileupload",
-  "data-amazon_bucket" => ENV["amazon_bucket"],
-  "data-amazon_region" => ENV["amazon_region"] %>
+<%= form_tag S3_BUCKET.url, id: "fileupload",
+  data: { 'form-data' => @s3_direct_post.fields, 'url' => @s3_direct_post.url, 'host' => URI.parse(@s3_direct_post.url).host } do %>
+  <!-- replicating this from s3 cors fileupload gem that we used to use -->
+  <div class='row fileupload-buttonbar'>
+    <div class='col-lg-7'>
+      <span class='btn btn-success fileinput-button'>
+        <i class='glyphicon glyphicon-plus'></i>
+        <span>Add files...</span>
+        <%= file_field_tag :file, multiple: true %>
+      </span>
+      <button type='submit' class='btn btn-primary start'>
+        <i class='glyphicon glyphicon-upload'></i>
+        <span>Start upload</span>
+      </button>
+      <button type='reset' class='btn btn-warning cancel'>
+        <i class='glyphicon glyphicon-ban-circle'></i>
+        <span>Cancel upload</span>
+      </button>
+      <button type='button' class='btn btn-danger delete'>
+        <i class='glyphicon glyphicon-trash'></i>
+        <span>Delete</span>
+      </button>
+      <input type='checkbox' class='toggle'></input>
+      <!-- The loading indicator is shown during file processing -->
+      <span class='fileupload-loading'></span>
+    </div>
+    <!-- The global progress information -->
+    <div class='col-lg-5 fileupload-progress fade'>
+      <!-- The global progress bar -->
+      <div class='progress progress-striped active' role='progressbar' aria-valuemin='0' aria-valuemax='100'>
+        <div class='progress-bar progress-bar-success' style='width: 0%;'></div>
+      </div>
+      <!-- The extended global progress information -->
+      <div class='progress-extended'>&nbsp;</div>
+    </div>
+  </div>
+  <!-- The table listing the files available for upload/download -->
+  <table role='presentation' class='table table-striped' id='upload_files'>
+    <tbody class='files'></tbody>
+  </table>
+
+<% end %>
 
 <div class="javascript-templates">
   <%= render "template_upload" %>

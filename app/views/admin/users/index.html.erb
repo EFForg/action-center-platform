@@ -30,11 +30,11 @@
                   <% if user.admin? %>
                     <%= button_to "Admin", "#", { "class": "btn btn-sm btn-danger", "disabled": true } %>
                   <% elsif user.collaborator? %>
-                    <%= button_to "Remove as collaborator", admin_user_path(user, params.slice(:query, :page)),
+                    <%= button_to "Remove as collaborator", admin_user_path(user, @add_or_remove_params),
                                   { method: :patch, params: { "user[collaborator]": "0" },
                                     "class": "btn btn-sm btn-primary" } %>
                   <% else %>
-                    <%= button_to "Add as collaborator", admin_user_path(user, params.slice(:query, :page)),
+                    <%= button_to "Add as collaborator", admin_user_path(user, @add_or_remove_params),
                                   { method: :patch, params: { "user[collaborator]": "1" },
                                     "class": "btn btn-sm btn-primary" } %>
                   <% end %>

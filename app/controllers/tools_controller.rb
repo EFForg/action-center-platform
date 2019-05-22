@@ -3,20 +3,20 @@ require "uri"
 require "json"
 
 class ToolsController < ApplicationController
-  before_filter :set_user
-  before_filter :set_action_page
+  before_action :set_user
+  before_action :set_action_page
 
   # Put an invisible captcha on forms are easy to submit programmatically and
   # create email subscriptions.
   invisible_captcha only: [:email, :petition]
-  before_filter :create_newsletter_subscription, only: [:email, :call]
-  before_filter :create_partner_subscription, only: [:email, :call, :petition, :message_congress]
-  after_filter :deliver_thanks_message, only: [:email, :call, :petition, :message_congress]
-  skip_after_filter :deliver_thanks_message, if: :signature_has_errors
+  before_action :create_newsletter_subscription, only: [:email, :call]
+  before_action :create_partner_subscription, only: [:email, :call, :petition, :message_congress]
+  after_action :deliver_thanks_message, only: [:email, :call, :petition, :message_congress]
+  skip_after_action :deliver_thanks_message, if: :signature_has_errors
 
   # See https://github.com/EFForg/action-center-platform/wiki/Deployment-Notes#csrf-protection
-  skip_before_filter :verify_authenticity_token
-  before_filter :verify_request_origin, except: :email
+  skip_before_action :verify_authenticity_token
+  before_action :verify_request_origin, except: :email
 
   def call
     ahoy.track "Action",
@@ -26,7 +26,7 @@ class ToolsController < ApplicationController
     @name = current_user.try :name
 
     if params[:update_user_data] == "yes"
-      update_user_data(call_params.with_indifferent_access)
+      update_user_data(call_params)
     end
 
     CallTool.campaign_call(params[:call_campaign_id],
@@ -77,7 +77,7 @@ class ToolsController < ApplicationController
       end
 
       if params[:update_user_data]
-        update_user_data(signature_params.with_indifferent_access)
+        update_user_data(signature_params)
       end
 
       ahoy.track "Action",
@@ -214,12 +214,12 @@ class ToolsController < ApplicationController
   end
 
   def partner_signup_params
-    if params[:signature].present?
-      params.require(:signature).permit(:first_name, :last_name, :email)
-    else
-      # Partner signup params might come through the main form or a nested subscription form.
-      params.merge(params[:subscription] || {}).permit(:first_name, :last_name, :email)
+    attributes = %i(first_name last_name email)
+    # Partner signup params might come through the main form or a nested subscription form.
+    %i(signature subscription).each do |model|
+      return params.require(model).permit(*attributes) if params[model].present?
     end
+    params.permit(*attributes)
   end
 
   def signature_params

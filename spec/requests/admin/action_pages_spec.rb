@@ -17,7 +17,7 @@ RSpec.describe "Admin Action Pages", type: :request do
   describe "Non-Privileged Users" do
     it "should prevent them creating action pages" do
       expect {
-        post "/admin/action_pages", valid_attributes
+        post "/admin/action_pages", params: valid_attributes
       }.to raise_exception(ActiveRecord::RecordNotFound)
     end
   end
@@ -29,7 +29,7 @@ RSpec.describe "Admin Action Pages", type: :request do
     end
 
     it "should allow them creating action pages with valid attributes" do
-      post "/admin/action_pages", valid_attributes
+      post "/admin/action_pages", params: valid_attributes
 
       expect(response).to redirect_to(assigns(:actionPage))
       follow_redirect!

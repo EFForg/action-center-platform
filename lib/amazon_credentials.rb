@@ -1,4 +1,5 @@
 module AmazonCredentials
+  # This module is primarily for paperclip config
   def amazon_credentials
     bucket_url_options = {}
     bucket_url_options = {
