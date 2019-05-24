@@ -4,6 +4,7 @@ gem "rails", "~> 5.0"
 
 #Database
 gem "pg", "~> 1.1"
+gem "pg_search"
 
 # Hosting-related
 gem "aws-sdk", "~> 2.3"

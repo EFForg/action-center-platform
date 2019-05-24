@@ -281,6 +281,9 @@ GEM
     parser (2.6.3.0)
       ast (~> 2.4.0)
     pg (1.1.4)
+    pg_search (2.1.7)
+      activerecord (>= 4.2)
+      activesupport (>= 4.2)
     poltergeist (1.18.1)
       capybara (>= 2.1, < 4)
       cliver (~> 0.3.1)
@@ -533,6 +536,7 @@ DEPENDENCIES
   oauth (~> 0)
   paperclip (~> 5.2)
   pg (~> 1.1)
+  pg_search
   poltergeist (~> 1)
   premailer-rails (~> 1)
   puffing-billy (~> 1)
