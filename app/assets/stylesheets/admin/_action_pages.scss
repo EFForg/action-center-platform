@@ -155,3 +155,17 @@ body.action_pages-staffer_report {
 #import-institutions-form {
   display: inline-block;
 }
+
+form#filter_action_pages {
+  display: flex;
+  flex-direction: row;
+  margin-bottom: 8px;
+
+  input[type=text] {
+    flex: 1 0;
+  }
+
+  input[type=submit] {
+    margin-left: 8px;
+  }
+}

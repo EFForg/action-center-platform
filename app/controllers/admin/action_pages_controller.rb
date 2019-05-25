@@ -10,6 +10,7 @@ class Admin::ActionPagesController < Admin::ApplicationController
 
   def index
     @actionPages = ActionPage.order(created_at: :desc)
+    @actionPages = @actionPages.search(params[:q]) if params[:q].present?
     @featuredActionPages = FeaturedActionPage.order("weight").
                                               includes(:action_page).
                                               map(&:action_page)

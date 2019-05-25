@@ -1,6 +1,23 @@
 class ActionPage < ActiveRecord::Base
   extend FriendlyId, AmazonCredentials
 
+  include PgSearch
+  pg_search_scope :search,
+                  against: [
+                    :title,
+                    :slug,
+                    :summary,
+                    :description,
+                    :email_text,
+                  ],
+                  associated_against: {
+                    call_campaign: [:title, :message],
+                    congress_message_campaign: [:subject, :message, :campaign_tag],
+                    email_campaign: [:subject, :message],
+                    petition: [:title, :description],
+                    tweet: [:target, :message, :cta]
+                  }
+
   friendly_id :title, use: [:slugged, :history]
   scope :published, -> { where(published: true) }
 
