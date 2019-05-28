@@ -79,4 +79,31 @@ describe ActionPage do
       end
     end
   end
+
+  describe ".type(types)" do
+    let(:call) { FactoryGirl.create(:action_page_with_call) }
+    let(:congress_message) { FactoryGirl.create(:action_page_with_congress_message) }
+    let(:email) { FactoryGirl.create(:action_page_with_email) }
+    let(:petition) { FactoryGirl.create(:action_page_with_petition) }
+    let(:tweet) { FactoryGirl.create(:action_page_with_tweet) }
+
+    before do
+      [call, congress_message, email, petition, tweet]
+    end
+
+    it "returns a scope containing only the given action types" do
+      calls = ActionPage.type("call")
+      expect(calls).to contain_exactly(call)
+
+      calls_and_tweets = ActionPage.type(["call", "tweet"])
+      expect(calls_and_tweets).to contain_exactly(call, tweet)
+
+      all = ActionPage.type("call", "congress_message", "email", "petition", "tweet")
+      expect(all).to contain_exactly(call, congress_message, email, petition, tweet)
+    end
+
+    it "raises an ArgumentError when an invalid type is given" do
+      expect{ ActionPage.type("unknown") }.to raise_error(ArgumentError)
+    end
+  end
 end
