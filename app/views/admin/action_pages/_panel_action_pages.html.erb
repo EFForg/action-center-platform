@@ -1,7 +1,35 @@
 <div class="tab-pane active" id="action-pages">
   <%= form_tag admin_action_pages_path, id: "filter_action_pages", method: :get do %>
-    <%= text_field_tag :q, params[:q], placeholder: "Filter action pages...", autocomplete: "off", class: "form-control input-sm" %>
-    <%= submit_tag "Filter", class: "btn btn-sm btn-default", data: { disable_with: false } %>
+    <fieldset>
+      <%= label_tag do %>
+        <%= check_box_tag "action_type[call]", "1", params.dig(:action_type, :call) %> Calls
+      <% end %>
+
+      <%= label_tag do %>
+        <%= check_box_tag "action_type[congress_message]", "1", params.dig(:action_type, :congress_message) %> Congress Messages
+      <% end %>
+
+      <%= label_tag do %>
+        <%= check_box_tag "action_type[email]", "1", params.dig(:action_type, :email) %> Emails
+      <% end %>
+
+      <%= label_tag do %>
+        <%= check_box_tag "action_type[petition]", "1", params.dig(:action_type, :petition) %> Petitions
+      <% end %>
+
+      <%= label_tag do %>
+        <%= check_box_tag "action_type[redirect]", "1", params.dig(:action_type, :redirect) %> Redirects
+      <% end %>
+
+      <%= label_tag do %>
+        <%= check_box_tag "action_type[tweet]", "1", params.dig(:action_type, :tweet) %> Tweets
+      <% end %>
+    </fieldset>
+
+    <div class="query">
+      <%= text_field_tag :q, params[:q], placeholder: "Filter action pages...", autocomplete: "off", class: "form-control input-sm" %>
+      <%= submit_tag "Filter", class: "btn btn-sm btn-default", data: { disable_with: false } %>
+    </div>
   <% end %>
 
   <table class='table table-simple table-spaced'>

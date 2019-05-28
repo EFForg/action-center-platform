@@ -54,6 +54,24 @@ class ActionPage < ActiveRecord::Base
 
   scope :categorized, ->(category) { joins(:category).where(categories: { title: category }) }
 
+  def self.type(*types)
+    scopes = Array(types).flatten.map do |t|
+      unless %w(call congress_message email petition tweet redirect).include?(t)
+        raise ArgumentError, "unrecognized type #{t}"
+      end
+
+      where(:"enable_#{t}" => true)
+    end
+
+    seed = scopes.shift || all
+
+    if scopes.empty?
+      seed
+    else
+      scopes.inject(seed){ |scope, cond| scope.or(cond) }
+    end
+  end
+
   def should_generate_new_friendly_id?
     # create slugs with FriendlyId and respect our custom slugs
     # set a custom slug with `page.update(slug: new_slug)`

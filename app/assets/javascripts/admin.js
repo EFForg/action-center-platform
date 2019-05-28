@@ -149,9 +149,7 @@ $(document).on('ready', function() {
   $('#filter_action_pages').on('submit', function(e) {
     e.preventDefault();
 
-    var q = $('input[type=text]', e.target).val();
-
-    $.get(e.target.action + '?q=' + encodeURIComponent(q), function(resp) {
+    $.get(e.target.action + '?q=' + $(e.target).serialize(), function(resp) {
       $(e.target).parents('.tab-pane').find('.table-simple')
         .replaceWith($(resp).find('.table-simple'));
     });

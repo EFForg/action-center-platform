@@ -9,8 +9,7 @@ class Admin::ActionPagesController < Admin::ApplicationController
   allow_collaborators_to :index, :edit
 
   def index
-    @actionPages = ActionPage.order(created_at: :desc)
-    @actionPages = @actionPages.search(params[:q]) if params[:q].present?
+    @actionPages = filter_action_pages
     @featuredActionPages = FeaturedActionPage.order("weight").
                                               includes(:action_page).
                                               map(&:action_page)
@@ -217,5 +216,27 @@ class Admin::ActionPagesController < Admin::ApplicationController
       people = params[:action_page][:congress_message_campaign_attributes][:target_bioguide_ids].select(&:present?)
       params[:action_page][:congress_message_campaign_attributes][:target_bioguide_ids] = people.join(", ")
     end
+  end
+
+  def filter_action_pages
+    pages = ActionPage.order(created_at: :desc)
+    pages = pages.search(params[:q]) if params[:q].present?
+
+    default = {
+      call: "1",
+      congress_message: "1",
+      email: "1",
+      petition: "1",
+      redirect: "1",
+      tweet: "1",
+    }
+
+    if params[:action_type].blank?
+      params[:action_type] = default
+    elsif params[:action_type] != default.stringify_keys
+      pages = pages.type(params[:action_type].keys)
+    end
+
+    pages
   end
 end

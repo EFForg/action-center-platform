@@ -157,15 +157,27 @@ body.action_pages-staffer_report {
 }
 
 form#filter_action_pages {
-  display: flex;
-  flex-direction: row;
   margin-bottom: 8px;
 
-  input[type=text] {
-    flex: 1 0;
+  label {
+    display: inline-block;
+    margin-right: 1rem;
   }
 
-  input[type=submit] {
-    margin-left: 8px;
+  input[type=checkbox] {
+    float: none;
+  }
+
+  .query {
+    display: flex;
+    flex-direction: row;
+
+    input[type=text] {
+      flex: 1 0;
+    }
+
+    input[type=submit] {
+      margin-left: 8px;
+    }
   }
 }
