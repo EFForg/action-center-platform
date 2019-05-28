@@ -16,7 +16,8 @@ class ActionPage < ActiveRecord::Base
                     email_campaign: [:subject, :message],
                     petition: [:title, :description],
                     tweet: [:target, :message, :cta]
-                  }
+                  },
+                  using: { tsearch: { prefix: true } }
 
   friendly_id :title, use: [:slugged, :history]
   scope :published, -> { where(published: true) }
