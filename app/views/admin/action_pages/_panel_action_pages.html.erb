@@ -13,7 +13,7 @@
         Calls
       <% end %>
 
-      <%= radio_button_tag "action_type[congress_message]", params[:action_type] == "congress_message" %>
+      <%= radio_button_tag "action_type", "congress_message", params[:action_type] == "congress_message" %>
       <%= label_tag("action_type_congress_message") do %>
         <i class="icon on ion-ios-filing"></i>
         <i class="icon off ion-ios-filing-outline"></i>
