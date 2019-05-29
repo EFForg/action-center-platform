@@ -152,7 +152,7 @@ $(document).on('ready', function() {
 
     var form = $(e.target).closest("form")[0];
 
-    $.get(form.action + '?q=' + $(form).serialize(), function(resp) {
+    $.get(form.action + '?' + $(form).serialize(), function(resp) {
       $(form).parents('.tab-pane').find('.table-simple')
         .replaceWith($(resp).find('.table-simple'));
     });
