@@ -49,7 +49,7 @@
     </fieldset>
 
     <div class="query">
-      <%= text_field_tag :q, params[:q], placeholder: "Filter action pages...", autocomplete: "off", class: "form-control input-sm" %>
+      <%= text_field_tag :q, params[:q], placeholder: "Filter by title, description, action text, etc.", autocomplete: "off", class: "form-control input-sm" %>
       <%= submit_tag "Filter", class: "btn btn-sm btn-default", data: { disable_with: false } %>
     </div>
   <% end %>
