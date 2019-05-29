@@ -157,7 +157,11 @@ body.action_pages-staffer_report {
 }
 
 form#filter_action_pages {
-  margin-bottom: 8px;
+  padding: 0 9px 13px 9px;
+
+  @media (max-width: 767px) {
+    padding-top: 13px;
+  }
 
   fieldset {
     margin-bottom: 0.5rem;
