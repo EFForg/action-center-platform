@@ -65,7 +65,7 @@ RSpec.describe "Admin Action Pages", type: :request do
       expect(response.body).to include("bordertweet")
       expect(response.body).not_to include("privacypetition")
 
-      xhr :get, "/admin/action_pages?q=border+surveil&action_type%5Bpetition%5D=1"
+      xhr :get, "/admin/action_pages?q=border+surveil&action_type=petition"
 
       expect(response.body).to include("borderpetition")
       expect(response.body).not_to include("bordertweet")
