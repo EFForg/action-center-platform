@@ -182,12 +182,9 @@ form#filter_action_pages {
       vertical-align: middle;
     }
 
-    .icon.on {
-      color: $red;
-    }
-
     &:checked + label > .icon.on {
       display: inline-block;
+      color: $red;
     }
 
     &:not(:checked) + label > .icon.off {
