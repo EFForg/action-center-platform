@@ -231,9 +231,7 @@ class Admin::ActionPagesController < Admin::ApplicationController
       tweet: "1",
     }
 
-    if params[:action_type].blank?
-      params[:action_type] = default
-    elsif params[:action_type] != default.stringify_keys
+    if params.key?(:action_type) && params[:action_type] != default.stringify_keys
       pages = pages.type(params[:action_type].keys)
     end
 

@@ -1,28 +1,45 @@
 <div class="tab-pane active" id="action-pages">
   <%= form_tag admin_action_pages_path, id: "filter_action_pages", method: :get do %>
     <fieldset>
-      <%= label_tag do %>
-        <%= check_box_tag "action_type[call]", "1", params.dig(:action_type, :call) %> Calls
+      <%= check_box_tag "action_type[call]", "1", params.dig(:action_type, :call) %>
+      <%= label_tag("action_type_call") do %>
+        <i class="icon on ion-ios-telephone"></i>
+        <i class="icon off ion-ios-telephone-outline"></i>
+        Calls
       <% end %>
 
-      <%= label_tag do %>
-        <%= check_box_tag "action_type[congress_message]", "1", params.dig(:action_type, :congress_message) %> Congress Messages
+      <%= check_box_tag "action_type[congress_message]", "1", params.dig(:action_type, :congress_message) %>
+      <%= label_tag("action_type_congress_message") do %>
+        <i class="icon on ion-ios-filing"></i>
+        <i class="icon off ion-ios-filing-outline"></i>
+        Congress Messages
       <% end %>
 
-      <%= label_tag do %>
-        <%= check_box_tag "action_type[email]", "1", params.dig(:action_type, :email) %> Emails
+      <%= check_box_tag "action_type[email]", "1", params.dig(:action_type, :email) %>
+      <%= label_tag("action_type_email") do %>
+        <i class="icon on ion-ios-email"></i>
+        <i class="icon off ion-ios-email-outline"></i>
+        Emails
       <% end %>
 
-      <%= label_tag do %>
-        <%= check_box_tag "action_type[petition]", "1", params.dig(:action_type, :petition) %> Petitions
+      <%= check_box_tag "action_type[petition]", "1", params.dig(:action_type, :petition) %>
+      <%= label_tag("action_type_petition") do %>
+        <i class="icon on ion-ios-paper"></i>
+        <i class="icon off ion-ios-paper-outline"></i>
+        Petitions
       <% end %>
 
-      <%= label_tag do %>
-        <%= check_box_tag "action_type[redirect]", "1", params.dig(:action_type, :redirect) %> Redirects
+      <%= check_box_tag "action_type[redirect]", "1", params.dig(:action_type, :redirect) %>
+      <%= label_tag("action_type_redirect") do %>
+        <i class="icon on ion-ios-redo"></i>
+        <i class="icon off ion-ios-redo-outline"></i>
+        Redirects
       <% end %>
 
-      <%= label_tag do %>
-        <%= check_box_tag "action_type[tweet]", "1", params.dig(:action_type, :tweet) %> Tweets
+      <%= check_box_tag "action_type[tweet]", "1", params.dig(:action_type, :tweet) %>
+      <%= label_tag("action_type_tweet") do %>
+        <i class="icon on ion-social-twitter"></i>
+        <i class="icon off ion-social-twitter-outline"></i> Tweets
       <% end %>
     </fieldset>
 

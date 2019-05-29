@@ -146,14 +146,20 @@ $(document).on('ready', function() {
     placeholder: "Start typing to search..."
   });
 
-  $('#filter_action_pages').on('submit', function(e) {
-    e.preventDefault();
+  var filterActionPages = function(e) {
+    if (e.target.nodeName == "FORM")
+      e.preventDefault();
 
-    $.get(e.target.action + '?q=' + $(e.target).serialize(), function(resp) {
-      $(e.target).parents('.tab-pane').find('.table-simple')
+    var form = $(e.target).closest("form")[0];
+
+    $.get(form.action + '?q=' + $(form).serialize(), function(resp) {
+      $(form).parents('.tab-pane').find('.table-simple')
         .replaceWith($(resp).find('.table-simple'));
     });
-  });
+  };
+
+  $('#filter_action_pages').on('submit', filterActionPages);
+  $('#filter_action_pages input[type=checkbox]').on('change', filterActionPages);
 });
 
 

@@ -159,13 +159,40 @@ body.action_pages-staffer_report {
 form#filter_action_pages {
   margin-bottom: 8px;
 
-  label {
-    display: inline-block;
-    margin-right: 1rem;
+  fieldset {
+    margin-bottom: 0.5rem;
   }
 
   input[type=checkbox] {
     float: none;
+
+    position: absolute;
+    left: -9999999px;
+
+    + label {
+      display: inline-block;
+      margin-right: 1.5rem;
+
+      cursor: pointer;
+    }
+
+    + label > .icon {
+      display: none;
+      margin-right: 0.3rem;
+      vertical-align: middle;
+    }
+
+    .icon.on {
+      color: $red;
+    }
+
+    &:checked + label > .icon.on {
+      display: inline-block;
+    }
+
+    &:not(:checked) + label > .icon.off {
+      display: inline-block;
+    }
   }
 
   .query {
