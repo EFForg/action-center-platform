@@ -103,7 +103,7 @@ describe ActionPage do
     end
 
     it "raises an ArgumentError when an invalid type is given" do
-      expect{ ActionPage.type("unknown") }.to raise_error(ArgumentError)
+      expect { ActionPage.type("unknown") }.to raise_error(ArgumentError)
     end
   end
 end

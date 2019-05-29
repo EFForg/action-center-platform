@@ -68,7 +68,7 @@ class ActionPage < ActiveRecord::Base
     if scopes.empty?
       seed
     else
-      scopes.inject(seed){ |scope, cond| scope.or(cond) }
+      scopes.inject(seed) { |scope, cond| scope.or(cond) }
     end
   end
 
