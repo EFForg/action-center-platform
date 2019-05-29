@@ -222,17 +222,8 @@ class Admin::ActionPagesController < Admin::ApplicationController
     pages = ActionPage.order(created_at: :desc)
     pages = pages.search(params[:q]) if params[:q].present?
 
-    default = {
-      call: "1",
-      congress_message: "1",
-      email: "1",
-      petition: "1",
-      redirect: "1",
-      tweet: "1",
-    }
-
-    if params.key?(:action_type) && params[:action_type] != default.stringify_keys
-      pages = pages.type(params[:action_type].keys)
+    if params[:action_type].present? && params[:action_type] != "all"
+      pages = pages.type(params[:action_type])
     end
 
     pages

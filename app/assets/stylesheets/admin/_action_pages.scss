@@ -163,7 +163,7 @@ form#filter_action_pages {
     margin-bottom: 0.5rem;
   }
 
-  input[type=checkbox] {
+  input[type=radio] {
     float: none;
 
     position: absolute;
@@ -182,9 +182,12 @@ form#filter_action_pages {
       vertical-align: middle;
     }
 
+    + label > .on, &[value=all]:checked + label {
+      color: $red;
+    }
+
     &:checked + label > .icon.on {
       display: inline-block;
-      color: $red;
     }
 
     &:not(:checked) + label > .icon.off {

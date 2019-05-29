@@ -159,7 +159,7 @@ $(document).on('ready', function() {
   };
 
   $('#filter_action_pages').on('submit', filterActionPages);
-  $('#filter_action_pages input[type=checkbox]').on('change', filterActionPages);
+  $('#filter_action_pages input[type=radio]').on('change', filterActionPages);
 });
 
 
