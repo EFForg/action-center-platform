@@ -2,7 +2,7 @@
 
 <p>Someone tried to create Action Center account with this e-mail address, but an account already exists. If you forgot your password, you can change it with the link below.</p>
 
-<p><%= link_to 'Change my password', edit_password_url(@user, :reset_password_token => @token) %></p>
+<p><%= link_to 'Change my password', new_password_url(@user, :reset_password_token => @token) %></p>
 
 <p>Your password won't change until you access the link above and create a new one.</p>
 <p>This link will expire in 6 hours.</p>
