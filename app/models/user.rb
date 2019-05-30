@@ -125,6 +125,13 @@ class User < ActiveRecord::Base
     self.last.nil? ? 1 : self.last.id + 1
   end
 
+  # We're allowing unconfirmed users to reset their passwords by
+  # re-registering. In that case, they shouldn't get a password reset
+  # notification.
+  def send_password_change_notification?
+    self.confirmed? && super
+  end
+
   protected
 
   def after_confirmation
