@@ -46,11 +46,16 @@
         <i class="icon on ion-social-twitter"></i>
         <i class="icon off ion-social-twitter-outline"></i> Tweets
       <% end %>
+
+      <button type="reset">Clear filters</button>
     </fieldset>
 
     <div class="query">
-      <%= text_field_tag :q, params[:q], placeholder: "Filter by title, description, action text, etc.", autocomplete: "off", class: "form-control input-sm" %>
-      <%= submit_tag "Filter", class: "btn btn-sm btn-default", data: { disable_with: false } %>
+      <%= text_field_tag :q, params[:q],
+                          :"aria-label" => "Search query",
+                          placeholder: "Filter by title, description, action text, etc.",
+                          autocomplete: "off", class: "form-control input-sm" %>
+      <%= submit_tag "Filter", class: "btn btn-sm btn-primary", data: { disable_with: false } %>
     </div>
   <% end %>
 

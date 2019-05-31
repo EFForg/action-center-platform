@@ -31,7 +31,7 @@ td.action-icons {
     padding-top: 0;
   }
 }
-#action-pages .btn-group {
+#action-pages table .btn-group {
   @media (min-width: $screen-md-min) {
     min-width: 343px;
   }
@@ -119,6 +119,12 @@ td.action-icons {
     &:not(:checked) + label > .icon.off {
       display: inline-block;
     }
+  }
+
+  button[type=reset] {
+    border: 0;
+    background: rgba(0, 0, 0, 0);
+    font-size: 11px;
   }
 
   .query {

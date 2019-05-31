@@ -147,18 +147,22 @@ $(document).on('ready', function() {
   });
 
   var filterActionPages = function(e) {
-    if (e.target.nodeName == "FORM")
+    if (e.type == "submit")
       e.preventDefault();
 
     var form = $(e.target).closest("form")[0];
 
-    $.get(form.action + '?' + $(form).serialize(), function(resp) {
-      $(form).parents('.tab-pane').find('.table-simple')
-        .replaceWith($(resp).find('.table-simple'));
-    });
+    // timeout required for this to behave correctly during a form reset
+    setTimeout(function() {
+      $.get(form.action + '?' + $(form).serialize(), function(resp) {
+        $(form).parents('.tab-pane').find('.table-simple')
+          .replaceWith($(resp).find('.table-simple'));
+      });
+    }, 1);
   };
 
   $('#filter_action_pages').on('submit', filterActionPages);
+  $('#filter_action_pages').on('reset', filterActionPages);
   $('#filter_action_pages input[type=radio]').on('change', filterActionPages);
 });
 
