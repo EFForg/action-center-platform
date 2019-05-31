@@ -2,7 +2,6 @@ require "rails_helper"
 
 RSpec.describe LoggedInvisibleCaptcha, type: :controller do
   controller(ApplicationController) do
-    include LoggedInvisibleCaptcha
     invisible_captcha honeypot: :foo, only: :create
 
     def create; end
