@@ -63,13 +63,7 @@ class ActionPage < ActiveRecord::Base
       where(:"enable_#{t}" => true)
     end
 
-    seed = scopes.shift || all
-
-    if scopes.empty?
-      seed
-    else
-      scopes.inject(seed) { |scope, cond| scope.or(cond) }
-    end
+    scopes.inject(:or) || all
   end
 
   def should_generate_new_friendly_id?
