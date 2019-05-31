@@ -155,8 +155,7 @@ $(document).on('ready', function() {
     // timeout required for this to behave correctly during a form reset
     setTimeout(function() {
       $.get(form.action + '?' + $(form).serialize(), function(resp) {
-        $(form).parents('.tab-pane').find('.table-simple')
-          .replaceWith($(resp).find('.table-simple'));
+        $(form).siblings('.table-simple').replaceWith($(resp).find('.table-simple'));
       });
     }, 1);
   };
