@@ -1,22 +1,14 @@
 module LoggedInvisibleCaptcha
   extend ActiveSupport::Concern
 
-  module ClassMethods
-    def logged_invisible_captcha(options = {})
-      options[:on_spam] = :logged_on_spam
-      options[:on_timestamp_spam] = :logged_on_timestamp_spam
-      invisible_captcha options
-    end
+  def on_spam(options = {})
+    log_failure
+    super options
   end
 
-  def logged_on_spam
+  def on_timestamp_spam(options = {})
     log_failure
-    on_spam
-  end
-
-  def logged_on_timestamp_spam
-    log_failure
-    on_timestamp_spam
+    super options
   end
 
   def log_failure
