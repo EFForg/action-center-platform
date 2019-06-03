@@ -1,6 +1,10 @@
 require "civicrm"
 class User < ActiveRecord::Base
   include CiviCRM::UserMethods
+
+  include PgSearch
+  pg_search_scope :search, against: [:email, :first_name, :last_name]
+
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable and :omniauthable
   devise :database_authenticatable, :confirmable, :registerable,

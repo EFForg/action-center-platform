@@ -146,6 +146,23 @@ $(document).on('ready', function() {
     placeholder: "Start typing to search..."
   });
 
+  var filterActionPages = function(e) {
+    if (e.type == "submit")
+      e.preventDefault();
+
+    var form = $(e.target).closest("form")[0];
+
+    // timeout required for this to behave correctly during a form reset
+    setTimeout(function() {
+      $.get(form.action + '?' + $(form).serialize(), function(resp) {
+        $(form).siblings('.table-simple').replaceWith($(resp).find('.table-simple'));
+      });
+    }, 1);
+  };
+
+  $('#filter_action_pages').on('submit', filterActionPages);
+  $('#filter_action_pages').on('reset', filterActionPages);
+  $('#filter_action_pages input[type=radio]').on('change', filterActionPages);
 });
 
 
