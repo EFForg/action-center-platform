@@ -1,20 +1,248 @@
-html {
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-}
-
-* {
+/**
+* Reset some basic elements
+*/
+body, h1, h2, h3, h4, h5, h6,
+p, blockquote, pre, hr,
+dl, dd, ol, ul, figure {
   margin: 0;
+  padding: 0;
 }
 
-html, body {
+/* base styles */
+html {
+  box-sizing: border-box;
+  font-size: 100%;
   height: 100%;
+  min-height: 100%;
+  vertical-align: baseline;
 }
 
+*, *::before, *::after {;
+  box-sizing: inherit;
+}
+
+body {
+  @media screen and (min-width: $md) {
+  font-size: 18px;
+  line-height: 22px;
+  }
+  background: white;
+  color: black;
+  font-size: 16px;
+  font-family: $sans-serif;
+  font-weight: 400;
+  line-height: 18px;
+  height: 100%;
+  min-height: 100%;
+  margin: 0;
+  padding: 0;
+}
 body>.wrapper {
   position: relative;
   min-height: 100%;
 }
+
+article,
+header,
+section {
+  display: block;
+}
+
+a {
+  background-color: transparent;
+  color: black;
+  border-bottom: 2px solid $gray;
+  text-decoration: none;
+  -webkit-text-decoration-skip: objects;
+
+  &:hover {
+    border-bottom: 2px solid black;
+  }
+}
+
+img {
+  border-style: none;
+  display: inline-block;
+  vertical-align: middle;
+  max-width: 100%;
+  height: auto;
+  -ms-interpolation-mode: bicubic;
+}
+
+%clearfix {
+  &:after {
+    content: "";
+    display: table;
+    clear: both;
+  }
+}
+
+h1 {
+  color: black;
+  font-size: 47px;
+  font-style: italic;
+  font-weight: 600;
+  line-height: 60px;
+  padding: 1rem 0;
+}
+h2 {
+  color: black;
+  font-size: 37px;
+  font-style: italic;
+  line-height: 50px;
+  padding: 1.3rem 0 0.3rem 0;
+  text-transform: uppercase;
+}
+h3 {
+  color: black;
+  font-size: 29px;
+  font-weight: 600;
+  line-height: 40px;
+  padding: 1.3rem 0 0.3rem 0;
+}
+h4 {
+  color: black;
+  font-size: 23px;
+  font-weight: 600;
+  line-height: 32px;
+  padding: 1.3rem 0 0.3rem 0;
+}
+h5  {
+  font-size: 18px;
+  font-weight: 600;
+  line-height: 25px;
+  padding: 1rem 0;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5 {
+  @media screen and (max-width: $ph) { // mobile headers
+    transform: scaleX(0.9) scaleY(0.9);
+    line-height: -moz-block-height;
+    padding: 0;
+  }
+  font-family: $sans-serif;
+  font-weight: 600;
+}
+
+p {
+  @media screen and (max-width: $ph) {
+    margin: 0 4% 1rem;
+  }
+  line-height: 1.4;
+  margin-bottom: 1rem;
+  padding: 0;
+}
+
+
+ul {
+  margin: 0 0 1rem 2rem;
+  li {
+    line-height: 26px;
+    margin-bottom: 0.5rem;
+    ul {
+      margin: 0.5rem 0 1rem 1.3rem;
+    }
+  }
+}
+ol {
+  counter-reset: li-counter;
+  list-style-type: none;
+  margin: 0;
+  margin-left: 3em;
+  padding: 0 0 2rem;
+  li {
+    margin-bottom: 1rem;
+    padding: 0.2rem 0 0 0.5rem;
+    position: relative;
+    &:before {
+      color: black;
+      content: counter(li-counter);
+      counter-increment: li-counter;
+      font-size: 1.1rem;
+      font-weight: 400;
+      line-height: 1;
+      position: absolute;
+      top: 0.4rem;
+      left: -0.6rem;
+      text-align: right;
+    }
+  }
+}
+
+ol.ol-decimal {
+  list-style-type: decimal;
+  li {
+    &:before {
+      content: " ";
+    }
+  }
+}
+
+blockquote {
+  border-left: 0.7rem solid $gray-dark;
+  padding-right: 3rem;
+  padding-left: 2rem;
+  margin-bottom: 2.3rem;
+}
+
+.js-no {
+  display: inline-block;
+}
+
+.js-yes {
+  display: none;
+}
+
+.left {
+  float: left;
+}
+.right {
+  float: right;
+}
+
+.centered {
+  margin: 0 auto;
+}
+
+pre {
+  background-color: $gray-light;
+  padding: 0 0.5rem 0.5rem;
+  margin-bottom: 0.5rem;
+}
+
+code {
+  display: inline-block;
+  font-size: 1.1rem;
+  max-width: 100%;
+  white-space: normal;
+  word-break: break-all;
+}
+
+.visually-hidden {
+  // For screen-readers.
+  // https://snook.ca/archives/html_and_css/hiding-content-for-accessibility
+  position: absolute !important;
+  height: 1px; width: 1px;
+  overflow: hidden;
+  // sass-lint:disable no-duplicate-properties
+  clip: rect(1px 1px 1px 1px); /* IE6, IE7 */
+  clip: rect(1px, 1px, 1px, 1px);
+}
+
+.hidden {
+  display: none;
+}
+
+.no-scroll {  // for modals
+  margin: 0;
+  height: 100%;
+  overflow: hidden
+}
+
 
 #content {
   padding-bottom: 240px;
