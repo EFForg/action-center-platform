@@ -1,4 +1,8 @@
-// Custom variables
+$base-font-size:   16px;
+$small-font-size:  $base-font-size * 0.875;
+$base-line-height: 1.5;
+
+/* colors */
 $red: #cc0000;
 $darkred: #950002;
 $darkgrey: #353535;
@@ -6,8 +10,20 @@ $lightgrey: #ddd;
 $mediumgrey: #636363;
 $blue: #0f6499;
 $green: #7dcc00;
+
+/* fonts */
 $sans-serif: 'Roboto';
 
+
+/* breakpoints */
+$xs: 12em;
+$sm: 23em;
+$ph: 34em;
+$md: 48em;
+$lg: 66em;
+$xl: 80em;
+
+// at 16px, that is 192, 268, 544, 768, 1056, and 1280px respectively
 // Bootstrap variables
 $navbar-inverse-bg: #cc0000;
 $navbar-inverse-link-color: #fff;
@@ -21,24 +37,3 @@ $brand-primary: #cc0000;
 $link-color: #cc0000;
 $link-hover-color: darken($link-color, 15%);
 $headings-font-weight: bold;
-
-// Mixins
-
-// Make sure to give parent element the style position:relative
-@mixin vertical-center {
-  display: block;
-  overflow: auto;
-  margin: auto;
-  position: absolute;
-  top: 0; left: 0; bottom: 0; right: 0;
-}
-
-//This is an alternative to bourbon's "placeholder" mixin. That one conflicts with bootstrap, so instead we define placeholders
-@mixin placeholders {
-  $placeholders: ":-webkit-input" ":-moz" "-moz" "-ms-input";
-  @each $placeholder in $placeholders {
-    &:#{$placeholder}-placeholder {
-      @content;
-    }
-  }
-}
