@@ -4,17 +4,17 @@
     <thead>
       <tr>
         <th>Date</th>
-        <% @data.keys.each do |type| %>
-          <th><%= type.to_s.humanize %></th>
+        <% @data.first[1].keys.each do |type| %>
+          <th><%= type.to_s.humanize.pluralize %></th>
         <% end %>
       </tr>
     </thead>
     <tbody>
-      <% @data.values.first.keys.each do |date| %>
+      <% @data.keys.each do |date| %>
         <tr>
           <td><%= date.to_datetime.strftime("%B %-d, %Y") %></td>
-          <% @data.values.each do |counts| %>
-            <td><%= counts[date] %></td>
+          <% @data[date].each do |action, count| %>
+            <td><%= count || 0 %></td>
           <% end %>
         </tr>
       <% end %>

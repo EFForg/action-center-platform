@@ -3,10 +3,8 @@ class Admin::EventsController < Admin::ApplicationController
 
   def index
     if params[:type].blank?
-      @data = events.each_type(action_page) do |t|
-        t.group_in_range(start_date, end_date)
-      end
-    elsif Ahoy::Event.types.include? params[:type].to_sym
+      @data = events.group_by_type_in_range(start_date, end_date)
+    elsif Ahoy::Event.EVENTS.include? params[:type].to_sym
       @data = events.send(params[:type]).group_in_range(start_date, end_date)
     else
       render nothing: true, status: :bad_request

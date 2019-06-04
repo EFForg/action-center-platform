@@ -21,22 +21,25 @@ module Ahoy
 
     TYPES = %i(views emails congress_messages tweets calls signatures).freeze
 
-    def self.types(action_page = nil)
-      result = TYPES.dup
-      if action_page
-        result.delete(:calls) if !action_page.enable_call
-        result.delete(:congress_messages) if !action_page.enable_congress_message
-        result.delete(:emails) if !action_page.enable_email
-        result.delete(:signatures) if !action_page.enable_petition
-        result.delete(:tweets) if !action_page.enable_tweet
+    # Returns a hash of the following format:
+    # {
+    #   "June 1": {
+    #     "views": 10
+    #     "signatures": 5
+    #   }
+    # }
+    def self.group_by_type_in_range(start_date, end_date)
+      r = {}
+      group("properties ->> 'actionType'").group_in_range(start_date, end_date).each do |row|
+        pair, count = row
+        action, date = pair
+        # Views of an action page are recorded with the controller action (show) as actionType
+        action = "view" if action == "show"
+        action.pluralize
+        r[date] = {} unless r[date]
+        r[date][action] = count
       end
-      result
-    end
-
-    def self.each_type(action_page = nil)
-      types(action_page).map{ |t|
-        [t, yield(send(t))]
-      }.to_h
+      r
     end
 
     def self.group_in_range(start_date, end_date)
