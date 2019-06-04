@@ -248,43 +248,6 @@ code {
   padding-bottom: 240px;
 }
 
-.radio, .checkbox {
-  padding-left: 20px;
-}
-
-.checkbox.small {
-  color: $darkgrey;
-}
-
-.radio label, .checkbox label {
-  padding-left: 0;
-  display: inline;
-}
-
-.radio-inline {
-  color: $darkgrey;
-}
-
-label {
-  font-weight: normal;
-}
-
-ul li {
-  margin-bottom: 10px;
-}
-
-.link-button {
-  background: none;
-  border: none;
-  color: $red;
-  text-decoration: none;
-  padding: 0;
-  cursor: pointer;
-  &:hover {
-    @extend a:hover;
-  }
-}
-
 .push { height: 100px;}
 
 a:hover {
@@ -320,7 +283,7 @@ a:hover {
 }
 
 .navbar-wrapper {
-  background: $red;
+  background: $eff-red;
 
   .container {
     @media(min-width: 1201px) {
@@ -330,7 +293,7 @@ a:hover {
 
   .navbar-inverse {
     border: 0;
-    background-color: #cc0000;
+    background-color: $eff-red;
     background-image: none;
   }
 
@@ -377,70 +340,14 @@ a:hover {
   }
 }
 
-.redtop {
-  background-color: $red;
-  color: #fff;
-  .ws-po-box {
-    color: $darkgrey;
-  }
-}
 
-.triangle {
+.triangle {  // TODO: remove
   height: 57px;
   width: 100%;
   fill: #fff;
   display: block;
 }
 
-.btn-red {
-  @include transition (background-color 0.3s ease-in-out, color 0.3s ease-in-out);
-  font-weight: bold;
-  text-transform: uppercase;
-  background-color: $red;
-  color: #fff;
-  letter-spacing: 1px;
-  font-size: 16px;
-  padding: 18px 40px 15px 40px;
-  -webkit-font-smoothing: antialiased;
-
-  &:hover {
-    background-color: $darkred;
-    color: #fff;
-  }
-
-  &:focus {
-    color: #fff;
-  }
-}
-
-.btn-red-outline {
-  @include transition (all 0.2s ease-in-out);
-  background-color: #fff;
-  color: $red;
-  font-size: 14px;
-  font-family: $sans-serif;
-  border: 1px solid #cc0000;
-  border-radius: 8px;
-  -webkit-font-smoothing: antialiased;
-
-  &:hover {
-    color: #fff;
-    border-color: $red;
-    background-color: $red;
-  }
-
-  &.btn-sm {
-    margin-top: -1px;
-    padding: 3px 9px;
-    margin-bottom: 10px;
-    border-radius: 3px;
-    text-transform: uppercase;
-    font-weight: bold;
-    letter-spacing: 1px;
-    font-size: 11px;
-    line-height: 1.1;
-  }
-}
 
 .eff-logo {
   display: inline-block;
