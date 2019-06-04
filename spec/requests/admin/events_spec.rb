@@ -43,6 +43,14 @@ RSpec.describe "Admin Action Page Analytics", type: :request do
                   "Jan 8"
                 ])
       end
+
+      it "responds to invalid type with 400" do
+        get "/admin/action_pages/#{action_page.slug}/events",
+          params: { type: "pasta" },
+          headers: { "ACCEPT" => "application/json" }
+        expect(response.code).to eq "400"
+        expect(response.body).to be_empty
+      end
     end
 
     context "without type param" do

@@ -9,10 +9,13 @@ class Admin::EventsController < Admin::ApplicationController
     elsif Ahoy::Event.types.include? params[:type].to_sym
       @data = events.send(params[:type]).group_in_range(start_date, end_date)
     else
-      # @TODO fix double render error
       render nothing: true, status: :bad_request
+      return
     end
-    render json: @data
+    respond_to do |format|
+      format.html { render 'table' }
+      format.json { render json: @data }
+    end
   end
 
   def views

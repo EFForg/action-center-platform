@@ -1,0 +1,23 @@
+<div class="container">
+  <h3>Action page views for: <i><%= @actionPage.title %></i></h3>
+  <table class="table table-striped" >
+    <thead>
+      <tr>
+        <th>Date</th>
+        <% @data.keys.each do |type| %>
+          <th><%= type.to_s.humanize %></th>
+        <% end %>
+      </tr>
+    </thead>
+    <tbody>
+      <% @data.values.first.keys.each do |date| %>
+        <tr>
+          <td><%= date.to_datetime.strftime("%B %-d, %Y") %></td>
+          <% @data.values.each do |counts| %>
+            <td><%= counts[date] %></td>
+          <% end %>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>
