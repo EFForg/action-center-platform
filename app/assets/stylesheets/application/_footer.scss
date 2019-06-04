@@ -11,7 +11,8 @@
     color: #fff;
     border-bottom: none;
     &:hover {
-      color: #cc0000;
+      color: $eff-red;
+      border-bottom: 2px solid $eff-red;
     }
   }
 
@@ -38,6 +39,9 @@
       display: block;
       height: 4.5rem;
       background: asset-url('EFF-logo-lockup-1color-white.svg') no-repeat;
+      &:hover {
+        border: none;
+      }
     }
   }
 
