@@ -149,10 +149,10 @@ select {
 
 // Buttons
 .eff-button {
-  background: $eff-red;
+  background: $light-blue;
   border: none;
-  border-bottom: 0.3rem solid $dark-red;
-  color: #fff;
+  border-bottom: 0.3rem solid $slate;
+  color: $medium-blue;
   font-size: 1.1rem;
   font-weight: 700;
   padding: 0.3rem 2rem;
@@ -169,11 +169,28 @@ select {
   }
 
   &:link, &:visited, a:link, a:visited {
+    color: $medium-blue;
+  }
+
+  &:hover {
+    background: rgba($light-blue, 0.8) !important;
+    border-bottom: 4px solid rgba($slate, 0.8);
+  }
+}
+
+.eff-red-button {
+  @extend .eff-button;
+  background: $eff-red;
+  border-bottom: 0.3rem solid $dark-red;
+  color: white;
+  &:link, &:visited, a:link, a:visited {
     color: #ffffff;
   }
 
   &:hover {
     background: rgba($eff-red, 0.8) !important;
+    border-bottom: 4px solid rgba($eff-red, 0.8);
+
   }
 }
 

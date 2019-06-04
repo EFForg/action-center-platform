@@ -27,7 +27,7 @@
             </h2>
             <%= markdown @featuredActionPage.summary -%>
 
-            <span class='btn btn-lg btn-red'><%= t(:take_action) %></span>
+            <span class='eff-red-button'><%= t(:take_action) %></span>
           <% end %>
         </div>
       </div>
@@ -58,7 +58,7 @@
       <% end %>
     </div>
 
-    <p class="seemore"><a href="/action"><%= I18n.t(:see_all_campaigns) -%></a></p>
+    <div><a class="eff-button" href="/action"><%= I18n.t(:see_all_campaigns) -%></a></div>
 
   </div>
 
