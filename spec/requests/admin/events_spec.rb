@@ -55,13 +55,22 @@ RSpec.describe "Admin Action Page Analytics", type: :request do
 
     context "without type param" do
       it "returns daily counts for all event types" do
+        allow(Time.zone).to receive(:now).and_return(Time.local(2019))
         action_page.update_attribute(:enable_petition, true)
+        FactoryGirl.create(:ahoy_signature,
+                           action_page: action_page,
+                           time: Time.zone.now
+                          )
+
         get "/admin/action_pages/#{action_page.slug}/events",
           headers: { "ACCEPT" => "application/json" }
 
         expect(response.code).to eq "200"
-        expect(JSON.parse(response.body).keys).
-          to eq(["views", "signatures"])
+        json = JSON.parse(response.body)
+        expect(json["Dec 25"]).to eq({
+          "views" => 1,
+          "signatures" => 0
+        })
         puts response
       end
     end

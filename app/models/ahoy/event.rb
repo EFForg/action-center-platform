@@ -19,9 +19,11 @@ module Ahoy
     before_save :anonymize_views
     after_create :record_civicrm
 
-    TYPES = %i(views emails congress_messages tweets calls signatures).freeze
+    def self.types
+      %i(views emails congress_messages tweets calls signatures)
+    end
 
-    # Returns a hash of the following format:
+    # Returns a hash with the following format:
     # {
     #   "June 1": {
     #     "views": 10
@@ -29,17 +31,19 @@ module Ahoy
     #   }
     # }
     def self.group_by_type_in_range(start_date, end_date)
-      r = {}
-      group("properties ->> 'actionType'").group_in_range(start_date, end_date).each do |row|
+      group("properties ->> 'actionType'").group_in_range(start_date, end_date).reduce({}) do |r, row|
         pair, count = row
         action, date = pair
-        # Views of an action page are recorded with the controller action (show) as actionType
-        action = "view" if action == "show"
-        action.pluralize
         r[date] = {} unless r[date]
-        r[date][action] = count
+        # Views of an action page are recorded with the controller action (show) as actionType
+        action = "view" if action == "embedded_view" || action == "show"
+        if action.present?
+          action = action.pluralize
+          r[date][action] = 0 unless r[date][action]
+          r[date][action] += count
+        end
+        r
       end
-      r
     end
 
     def self.group_in_range(start_date, end_date)

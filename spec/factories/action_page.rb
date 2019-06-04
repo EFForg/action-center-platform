@@ -38,7 +38,9 @@ FactoryGirl.define do
   factory :action_page_with_views, parent: :action_page do
     after(:build) do |action_page, evaluator|
       10.times do |n|
-        FactoryGirl.create(:ahoy_view, action_page: action_page, time: Time.now - n.days)
+        FactoryGirl.create(:ahoy_view,
+                           action_page: action_page,
+                           time: Time.zone.now - n.days)
       end
     end
   end
