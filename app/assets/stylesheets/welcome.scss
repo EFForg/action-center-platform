@@ -3,20 +3,10 @@
  */
 
 
-.redtop.home {
-  text-align: center;
-  padding: 110px 0 0 0;
-
-  @media (max-width: $screen-xs-max) {
-    padding-top: 70px;
-  }
-
-  .container {
-    margin-bottom: 100px;
-
-    @media (max-width: $screen-xs-max) {
-      margin-bottom: 50px;
-    }
+.home {
+  h1 {
+    font-size: 35px;
+    font-weight: 400;
   }
   .email-signup {
     max-width: 460px;
