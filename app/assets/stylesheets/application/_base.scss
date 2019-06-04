@@ -339,15 +339,6 @@ a:hover {
   }
 }
 
-
-.triangle {  // TODO: remove
-  height: 57px;
-  width: 100%;
-  fill: #fff;
-  display: block;
-}
-
-
 .eff-logo {
   display: inline-block;
   height: 5rem;
@@ -399,13 +390,6 @@ a:hover {
     i {
       font-size: 25px;
     }
-  }
-
-  .triangle {
-    fill: #1a1a1a;
-    z-index: 10;
-    position: relative;
-    transform: translate(0, -57px);
   }
 
   .container {

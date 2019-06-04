@@ -94,9 +94,7 @@ section.featured-action {
       max-height: 300px;
     }
   }
-  .triangle {
-    fill: #eaf0f3;
-  }
+
   h2 {
     font-size: 26px;
     margin-bottom: 16px;
@@ -220,12 +218,6 @@ section.mobile-apps {
   }
 }
 
-.welcome-index .more-actions .triangle {
-  fill: #eaf0f3;
-}
-.welcome-index .footer .triangle, .welcome-index .push {
-  background-color: #eaf0f3;
-}
 
 /* Link a whole div as per https://stackoverflow.com/questions/796087/make-a-div-into-a-link */
 span.link-div {
