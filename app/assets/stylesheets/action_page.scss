@@ -3,12 +3,7 @@
  * listed below.
  */
 
-.redtop {
-  padding: 2em 0 0;
-}
-.action_page-show .redtop {
-  padding-bottom: 0;
-}
+
 #progress-bar {
   .progress {
     margin-bottom: 1.2em;
@@ -1030,7 +1025,7 @@ html.js {
 }
 
 @media (min-width: 1200px) {
-  .redtop .container, .action-content.container {
+  .action-content.container {
     padding-left: 40px;
   }
   #tools {
