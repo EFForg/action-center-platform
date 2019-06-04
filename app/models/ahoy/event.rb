@@ -33,6 +33,12 @@ module Ahoy
       result
     end
 
+    def self.each_type(action_page = nil)
+      types(action_page).map{ |t|
+        [t, yield(send(t))]
+      }.to_h
+    end
+
     def self.group_in_range(start_date, end_date)
       if (end_date - start_date) <= 5.days
         group_by_hour(

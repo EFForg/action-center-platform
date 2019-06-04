@@ -3,11 +3,10 @@ class Admin::EventsController < Admin::ApplicationController
 
   def index
     if params[:type].blank?
-      # @TODO each_type helper?
-      @data = Ahoy::Event.types(action_page).map{ |t|
-        [t, events.send(t).group_in_range(start_date, end_date)]
-      }.to_h
-    elsif events.types.include? params[:type].to_sym
+      @data = events.each_type(action_page) do |t|
+        t.group_in_range(start_date, end_date)
+      end
+    elsif Ahoy::Event.types.include? params[:type].to_sym
       @data = events.send(params[:type]).group_in_range(start_date, end_date)
     else
       # @TODO fix double render error
