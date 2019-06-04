@@ -47,11 +47,7 @@
     @media (max-width: $screen-xs-max) {
       margin-top: 40px;
     }
-    input, button {
-      border-radius: 4px;
-      height: 55px;
-      border: 0;
-    }
+
     input {
       @include placeholders {
         color: #aaa;
@@ -77,9 +73,6 @@
       padding: 0px 20px;
       border-radius: 8px;
       -webkit-font-smoothing: antialiased;
-    }
-    .btn:hover {
-      background-color: $darkred;
     }
   }
 }
@@ -177,9 +170,6 @@ section.more-actions {
   .col-md-4 {
     position: relative;
     &:hover {
-      @media (min-width: 767px) {
-        color: $darkred;
-      }
       h3 {
         color: $red;
       }
@@ -215,7 +205,6 @@ section.more-actions {
       }
       &:hover .arrow {
         @include transform(rotate(90deg));
-        fill: $darkred;
       }
     }
   }
