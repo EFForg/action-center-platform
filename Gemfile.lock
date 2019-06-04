@@ -173,7 +173,7 @@ GEM
     dotenv-rails (2.7.2)
       dotenv (= 2.7.2)
       railties (>= 3.2, < 6.1)
-    eff_matomo (0.2.3)
+    eff_matomo (0.2.4)
       activesupport
       httparty
     ejs (1.1.1)
@@ -517,7 +517,7 @@ DEPENDENCIES
   descriptive_statistics (~> 2)
   devise (~> 4.6)
   dotenv-rails (~> 2)
-  eff_matomo (~> 0.2.2)
+  eff_matomo (~> 0.2.4)
   ejs (~> 1)
   email_validator (~> 1)
   factory_girl_rails (~> 4)
