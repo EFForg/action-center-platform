@@ -18,11 +18,6 @@ class Admin::EventsController < Admin::ApplicationController
     end
   end
 
-  def views
-    @actionPage = ActionPage.friendly.find(params[:action_page_id])
-    @views = @actionPage.events.views.group_in_range(start_date, end_date)
-  end
-
   private
 
   def action_page

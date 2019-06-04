@@ -67,10 +67,4 @@ RSpec.describe "Admin Action Page Analytics", type: :request do
     end
   end
 
-  describe "#views" do
-    it "displays views in a table" do
-      get "/admin/action_pages/#{action_page.slug}/views"
-      expect(response.code).to eq "200"
-    end
-  end
 end
