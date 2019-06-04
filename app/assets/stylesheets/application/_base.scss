@@ -365,7 +365,7 @@ a:hover {
 }
 
 .footer {
-  background: #1a1a1a;
+  background: black;
   position: absolute;
   left: 0;
   right: 0;
@@ -393,10 +393,9 @@ a:hover {
   }
 
   .container {
-    padding-top: 0;
-    padding-bottom: 66px;
-    background: #1a1a1a;
-    margin-top: -10px;
+    padding-top: 2rem;
+    padding-bottom: 5rem;
+    background: black;
   }
 
   .logo {
