@@ -19,6 +19,20 @@ module Ahoy
     before_save :anonymize_views
     after_create :record_civicrm
 
+    TYPES = %i(views emails congress_messages tweets calls signatures).freeze
+
+    def self.types(action_page = nil)
+      result = TYPES.dup
+      if action_page
+        result.delete(:calls) if !action_page.enable_call
+        result.delete(:congress_messages) if !action_page.enable_congress_message
+        result.delete(:emails) if !action_page.enable_email
+        result.delete(:signatures) if !action_page.enable_petition
+        result.delete(:tweets) if !action_page.enable_tweet
+      end
+      result
+    end
+
     def self.group_in_range(start_date, end_date)
       if (end_date - start_date) <= 5.days
         group_by_hour(
