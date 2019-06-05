@@ -32,10 +32,6 @@
                          height: "200px", discrete: true) %>
 
           <h3>Congresss Messages Sent</h3>
-          <%= link_to date_tabulation_admin_congress_message_campaign_path(@actionPage.congress_message_campaign),
-            target: "_blank" do -%>
-            <button type='button' class='btn btn-default'>Table View</button>
-          <% end -%>
           <%= link_to congress_tabulation_admin_congress_message_campaign_path(@actionPage.congress_message_campaign),
             target: "_blank" do -%>
             <button type='button' class='btn btn-default'>Congressional Breakdown</button>
