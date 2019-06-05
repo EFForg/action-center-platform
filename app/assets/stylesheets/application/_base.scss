@@ -23,11 +23,11 @@ html {
 
 body {
   @media screen and (min-width: $md) {
-  font-size: 18px;
-  line-height: 22px;
+    font-size: 18px;
+    line-height: 22px;
   }
-  background: white;
-  color: black;
+  background: $charcoal;
+  color: $off-white;
   font-size: 16px;
   font-family: $sans-serif;
   font-weight: 400;
@@ -50,7 +50,7 @@ section {
 
 a {
   background-color: transparent;
-  color: black;
+  color: $off-white;
   border-bottom: 2px solid $gray;
   text-decoration: none;
   -webkit-text-decoration-skip: objects;
@@ -78,14 +78,14 @@ img {
 }
 
 h1 {
-  color: black;
+  color: $off-white;
   font-size: 47px;
   font-weight: 600;
   line-height: 60px;
   padding: 1rem 0;
 }
 h2 {
-  color: black;
+  color: $off-white;
   font-size: 37px;
   font-weight: 600;
   line-height: 50px;
@@ -93,20 +93,21 @@ h2 {
   text-transform: uppercase;
 }
 h3 {
-  color: black;
+  color: $off-white;
   font-size: 29px;
   font-weight: 600;
   line-height: 40px;
   padding: 1.3rem 0 0.3rem 0;
 }
 h4 {
-  color: black;
+  color: $off-white;
   font-size: 23px;
   font-weight: 600;
   line-height: 32px;
   padding: 1.3rem 0 0.3rem 0;
 }
 h5  {
+  color: $off-white;
   font-size: 18px;
   font-weight: 600;
   line-height: 25px;
@@ -158,7 +159,7 @@ ol {
     padding: 0.2rem 0 0 0.5rem;
     position: relative;
     &:before {
-      color: black;
+      color: $off-white;
       content: counter(li-counter);
       counter-increment: li-counter;
       font-size: 1.1rem;
