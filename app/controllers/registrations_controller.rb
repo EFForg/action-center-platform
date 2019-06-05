@@ -24,7 +24,13 @@ class RegistrationsController < Devise::RegistrationsController
     resource.errors.delete(:email)
 
     if resource.errors.empty?
-      User.find_by_email(resource.email).send_email_taken_notice
+      existing = User.find_by_email(resource.email)
+      existing.send_email_taken_notice
+
+      # Allow unconfirmed users to set a new password by re-registering.
+      if !existing.confirmed?
+        existing.update_attributes(sign_up_params)
+      end
 
       if resource.persisted?
         resource.update_attribute(:unconfirmed_email, account_update_params[:email])
