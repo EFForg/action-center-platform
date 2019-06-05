@@ -12,7 +12,7 @@ class Admin::EventsController < Admin::ApplicationController
       return
     end
     respond_to do |format|
-      format.html { render 'table' }
+      format.html { render "table" }
       format.json { render json: @data }
     end
   end

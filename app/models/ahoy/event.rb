@@ -45,7 +45,6 @@ module Ahoy
         pair, count = row
         action, date = pair
         r[date] = {} unless r[date]
-        # Views of an action page are recorded with the controller action (show) as actionType
         action = "view" if action == "embedded_view" || action == "show"
         if action.present?
           action = action.pluralize.to_sym
