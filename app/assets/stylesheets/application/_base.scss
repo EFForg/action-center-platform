@@ -56,7 +56,8 @@ a {
   -webkit-text-decoration-skip: objects;
 
   &:hover {
-    border-bottom: 2px solid black;
+    color: $gray;
+    border-bottom: 2px solid $gray;
   }
 }
 
