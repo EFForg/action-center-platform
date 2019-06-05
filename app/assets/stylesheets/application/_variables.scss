@@ -6,11 +6,10 @@ $base-line-height: 1.5;
 $eff-red: #ec1e1e;
 $red: #FF0000;
 $dark-red: #b80101;
-$darkgrey: #353535;
-$lightgrey: #ddd;
-$mediumgrey: #636363;
+
 $blue: #0f6499;
 $green: #7dcc00;
+$off-white: #EAEAEA;
 
 $dark-blue: #254B66;
 $medium-blue: #4B6A88;
@@ -19,10 +18,9 @@ $light-blue: #CAD5D8;
 $lightest-blue: #E5EBEC;
 
 $gray-light: #edf1f4;
-$gray: #969696;
-$gray-dark: #aeb6c1;
-$gray-extra-dark: #666666;
-$charcoal: #2b2b2b;
+$gray: #BABABA;
+$gray-dark: #999999; // footer text
+$charcoal: #2D2D2D; // background
 
 /* fonts */
 $sans-serif: 'Montserrat', Arial, sans-serif;
@@ -41,7 +39,7 @@ $xl: 80em;
 // Bootstrap variables
 $navbar-inverse-bg: #cc0000;
 $navbar-inverse-link-color: #fff;
-$navbar-inverse-link-hover-color: $lightgrey;
+$navbar-inverse-link-hover-color: $gray-light;
 $font-family-sans-serif: $sans-serif, Helvetica, Arial, sans-serif;
 $font-family-base: $font-family-sans-serif;
 $navbar-height: 55px;

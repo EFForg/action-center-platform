@@ -37,7 +37,7 @@ Simple header
 *************+*********/
 
 .simple-header {
-  border-bottom: 1px solid $lightgrey;
+  border-bottom: 1px solid $gray-light;
   padding-bottom: 15px;
 
   h1.page-title {
@@ -226,7 +226,7 @@ Left-aligned tabs
     min-width: 74px;
     margin-right: 0;
     margin-bottom: 3px;
-    color: $mediumgrey;
+    color: $gray;
 
     &:hover {
       color: $red;
@@ -251,9 +251,6 @@ Left-aligned tabs
   .tabs-left > .nav-tabs > li > a {
     @include transition( padding 0.3s ease-in-out );
     margin-right: -1px;
-    -webkit-border-radius: 4px 0 0 4px;
-    -moz-border-radius: 4px 0 0 4px;
-    border-radius: 4px 0 0 4px;
     &:hover {
       padding-left: 30px;
     }

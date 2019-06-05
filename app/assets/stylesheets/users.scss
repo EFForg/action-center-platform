@@ -1,6 +1,5 @@
 .grey-box {
   border: 1px solid #eee;
-  border-radius: 10px;
   padding: 20px;
 }
 
@@ -99,7 +98,7 @@
 .users-show .activity-stream {
   .age {
     font-size: 13px;
-    color: $mediumgrey;
+    color: $gray;
     margin-left: 4px;
   }
   table {
@@ -115,7 +114,6 @@
     }
   }
   .btn-red {
-    border-radius: 8px;
     text-transform: none;
     font-style: italic;
     font-weight: 300;
@@ -134,7 +132,6 @@
 
 span.green-rect {
   line-height: 35px;
-  border-radius: 8px;
   border: 1px solid $green;
   color: $green;
   padding: 8px 18px;
@@ -161,12 +158,11 @@ span.green-rect {
 .confirmations-show,
 .unlocks-new {
   .wrapper {
-    background-color: $red;
+    //background-color: $red;
   }
 
   input.form-control {
     border: 2px solid #fff;
-    border-radius: 7px;
   }
   .extra-links {
     font-size: 15px;
@@ -175,11 +171,9 @@ span.green-rect {
     background-color: #fff;
     color: #323232;
     padding: 12px;
-    border-radius: 8px;
   }
   .error_explanation {
     background-color: transparent;
-    border-radius: 7px;
     margin-bottom: 15px;
     -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 8px rgba(50, 90, 115, 0.3);
     box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 8px rgba(50, 90, 115, 0.3);
@@ -189,7 +183,6 @@ span.green-rect {
     &> .panel-heading {
       background-color: #323232;
       padding: 5px 10px;
-      border-radius: 7px 7px 0 0;
       color: #fff;
       h3.panel-title {
         text-transform: uppercase;
@@ -216,7 +209,6 @@ span.green-rect {
     height: 55px;
     padding: 0px 30px;
     margin-top: 10px;
-    border-radius: 8px;
     -webkit-font-smoothing: antialiased;
     -webkit-transition: background-color 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
     -o-transition: background-color 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
