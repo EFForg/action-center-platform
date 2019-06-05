@@ -4,7 +4,7 @@ class Admin::EventsController < Admin::ApplicationController
   def index
     if params[:type].blank?
       @data = events.group_by_type_in_range(start_date, end_date)
-      @headers = @data.first[1].keys if @data.any?
+      @columns = Ahoy::Event.action_types(action_page)
     elsif Ahoy::Event.types.include? params[:type].to_sym
       @data = events.send(params[:type]).group_in_range(start_date, end_date)
     else

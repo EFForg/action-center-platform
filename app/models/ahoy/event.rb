@@ -19,8 +19,18 @@ module Ahoy
     before_save :anonymize_views
     after_create :record_civicrm
 
-    def self.types
-      %i(views emails congress_messages tweets calls signatures)
+    TYPES = %i(views emails congress_messages tweets calls signatures).freeze
+
+    def self.action_types(action_page = nil)
+      TYPES.dup.tap do |t|
+        if action_page.present?
+          t.delete(:calls) if !action_page.enable_call
+          t.delete(:congress_messages) if !action_page.enable_congress_message
+          t.delete(:emails) if !action_page.enable_email
+          t.delete(:signatures) if !action_page.enable_petition
+          t.delete(:tweets) if !action_page.enable_tweet
+        end
+      end
     end
 
     # Returns a hash with the following format:
@@ -38,7 +48,7 @@ module Ahoy
         # Views of an action page are recorded with the controller action (show) as actionType
         action = "view" if action == "embedded_view" || action == "show"
         if action.present?
-          action = action.pluralize
+          action = action.pluralize.to_sym
           r[date][action] = 0 unless r[date][action]
           r[date][action] += count
         end
