@@ -1,0 +1,14 @@
+.events-index {
+  table {
+    border-style: hidden;
+
+    colgroup {
+      border: 1px solid $lightgrey;
+    }
+
+    .subheader {
+      font-weight: normal;
+      font-style: italic;
+    }
+  }
+}

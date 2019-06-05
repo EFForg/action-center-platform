@@ -54,14 +54,15 @@ RSpec.describe "Admin Action Page Analytics", type: :request do
     end
 
     context "without type param" do
-      it "returns daily counts for all event types" do
+      before do
         allow(Time.zone).to receive(:now).and_return(Time.local(2019))
         action_page.update_attribute(:enable_petition, true)
         FactoryGirl.create(:ahoy_signature,
                            action_page: action_page,
-                           time: Time.zone.now
-                          )
+                           time: Time.zone.now)
+      end
 
+      it "returns daily counts for all event types" do
         get "/admin/action_pages/#{action_page.slug}/events",
           headers: { "ACCEPT" => "application/json" }
 
@@ -71,7 +72,11 @@ RSpec.describe "Admin Action Page Analytics", type: :request do
           "views" => 1,
           "signatures" => 0
         })
-        puts response
+      end
+
+      it "renders html" do
+        get "/admin/action_pages/#{action_page.slug}/events"
+        expect(response.code).to eq "200"
       end
     end
   end

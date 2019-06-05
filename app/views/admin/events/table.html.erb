@@ -1,27 +1,36 @@
 <div class="container">
   <h3>Action page analytics for: <i><%= @actionPage.title %></i></h3>
-  <% if @data.empty? %>
-    <div>There's not data to display yet.</div>
-  <% else %>
-    <table class="table table-striped" >
-      <thead>
+  <table class="table table-striped" >
+    <col>
+    <% @columns.each do |_| %>
+      <colgroup span="2">
+    <% end %>
+    <thead>
+      <tr>
+        <td></td>
+        <% @columns.each do |c| %>
+          <th colspan="2"><%= c.to_s.humanize %></th>
+        <% end %>
+      </tr>
+      <tr>
+        <th>Date</th>
+        <% @columns.each do |_| %>
+          <th class="subheader">Daily</th>
+          <th class="subheader">Total</th>
+        <% end %>
+      </tr>
+    </thead>
+    <tbody>
+      <% @totals = Hash.new(0) %>
+      <% @data.each do |date, counts| %>
         <tr>
-          <th>Date</th>
+          <td><%= date.to_datetime.strftime("%B %-d, %Y") %></td>
           <% @columns.each do |c| %>
-            <th><%= c.to_s.humanize %></th>
+            <td><%= counts[c] || 0 %></td>
+            <td><%= @totals[c] += counts[c] || 0 %></td>
           <% end %>
         </tr>
-      </thead>
-      <tbody>
-        <% @data.each do |date, counts| %>
-          <tr>
-            <td><%= date.to_datetime.strftime("%B %-d, %Y") %></td>
-            <% @columns.each do |c| %>
-              <td><%= counts[c] || 0 %></td>
-            <% end %>
-          </tr>
-        <% end %>
-      </tbody>
-    </table>
-  <% end %>
+      <% end %>
+    </tbody>
+  </table>
 </div>
