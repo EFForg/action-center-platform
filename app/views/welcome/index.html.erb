@@ -4,15 +4,12 @@
 <div class="redtop home">
   <div class="container">
     <h1><%= t :front_page_header_html -%></h1>
-    <h2><%= t :summary -%></h2>
     <% unless user_signed_in? -%>
       <%= render 'subscriptions/form' -%>
     <% end -%>
   </div>
 
-  <svg class="triangle" viewBox="0 0 24 23.8" preserveAspectRatio="none">
-    <use xlink:href="#triangle"></use>
-  </svg>
+
 </div>
 
 
@@ -36,9 +33,7 @@
       </div>
     </div>
   <% end %>
-  <svg class="triangle" viewBox="0 0 24 23.8" preserveAspectRatio="none">
-    <use xlink:href="#triangle"></use>
-  </svg>
+
 </section>
 
 <section class="more-actions">
@@ -56,20 +51,16 @@
                 <span class="link-div hidden-xs"></span>
             <% end %>
         <%= link_to t(:take_action), action_page_path(actionPage),
-          class: 'btn btn-lg btn-red visible-xs' -%>
+          class: 'eff-red-button' -%>
           </div>
         </div>
       <% end %>
     </div>
 
-    <p class="seemore"><a href="/action"><%= I18n.t(:see_all_campaigns) -%></a></p>
+    <div><a class="eff-button" href="/action"><%= I18n.t(:see_all_campaigns) -%></a></div>
 
   </div>
-<!--
-  <svg class="triangle" viewBox="0 0 24 23.8" preserveAspectRatio="none">
-    <use xlink:href="#triangle"></use>
-  </svg>
- -->
+
 </section>
 <!--
 <section class="mobile-apps">
