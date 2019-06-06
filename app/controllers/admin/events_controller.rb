@@ -22,8 +22,6 @@ class Admin::EventsController < Admin::ApplicationController
   def action_page
     if params[:action_page_id]
       @actionPage ||= ActionPage.friendly.find(params[:action_page_id])
-      raise ActiveRecord::RecordNotFound unless @actionPage
-      @actionPage
     end
   end
 
