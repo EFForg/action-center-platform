@@ -47,7 +47,7 @@
     letter-spacing: -2px;
   }
   .quad-1, .quad-2, .quad-3, .quad-4, .total {
-    @extend .col-xs-6;
+    //@extend .col-xs-6;
   }
   .quad-1 {
     border-right: 1px solid #e0e0e0;

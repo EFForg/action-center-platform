@@ -13,3 +13,13 @@
     background-color: darken($red, 15%);
   }
 }
+
+@mixin griddy { // class for css-grid parent
+  display: grid;
+  grid-template-columns: 45% 45%;
+  grid-template-rows: auto;
+  grid-column-gap: 10%;
+  grid-row-gap: 2rem;
+  margin-top: 2rem;
+  width: 100%;
+}

@@ -93,6 +93,9 @@ section.featured-action {
       margin-top: 50px;
       margin-bottom: 30px;
     }
+    .row {
+      @include griddy;
+    }
   }
   .image {
     text-align: center;
@@ -134,16 +137,11 @@ section.more-actions {
   background-color: #eaf0f3;
   padding-top: 40px;
   padding-bottom: 60px;
-  .row > div:first-child {
-    @media (min-width: 992px) {
-      border-right: 1px solid lighten($darkgrey, 60%);
-    }
+  .row {
+    @include griddy;
+    grid-template-columns: 25% 25% 25%;
   }
-  .row > div:last-child {
-    @media (min-width: 992px) {
-      border-left: 1px solid lighten($darkgrey, 60%);
-    }
-  }
+
   .image {
     overflow: hidden;
     position: relative;
@@ -151,10 +149,7 @@ section.more-actions {
       max-width: 100%;
     }
   }
-  .btn-red {
-    margin: 12px 0 44px 0;
-    max-width: 200px;
-  }
+
   .text {
     h3 {
       @include transition (color 0.3s ease-in-out);

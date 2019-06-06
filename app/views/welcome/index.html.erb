@@ -20,17 +20,17 @@
   <% if @featuredActionPage -%>
     <div class="container">
       <div class="row">
-        <div class="image col-sm-6 col-md-5 col-md-offset-1">
+        <div class="image">
           <%= link_to image_tag(@featuredActionPage.featured_image.url) , action_page_path(@featuredActionPage) -%>
         </div>
-        <div class="col-sm-6 col-md-5">
+        <div>
           <%= link_to action_page_path(@featuredActionPage) do %>
             <h2>
               <%= @featuredActionPage.title -%>
             </h2>
             <%= markdown @featuredActionPage.summary -%>
 
-            <span class='btn btn-lg btn-red'><%= t(:take_action) %></span>
+            <span class='eff-red-button'><%= t(:take_action) %></span>
           <% end %>
         </div>
       </div>
@@ -43,10 +43,9 @@
 
 <section class="more-actions">
   <div class="container">
-
-    <div class="row">
+    <div class="row griddy">
       <%- @actionPages.each do |actionPage| -%>
-        <div class="col-sm-4">
+        <div>
           <div class="image">
           <%= link_to image_tag(actionPage.featured_image.url), action_page_path(actionPage) %>
           </div>
