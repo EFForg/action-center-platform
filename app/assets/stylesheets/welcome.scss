@@ -54,6 +54,10 @@ section.featured-action {
     }
     .row {
       @include flex-this;
+      div {
+        @include flex-item;
+        width: 50%;
+      }
     }
     .flexbox-item {
       width: 50%;

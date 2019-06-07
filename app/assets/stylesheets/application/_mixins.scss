@@ -25,7 +25,7 @@
 }
 
 // flexbox
-.flex-this { // class for flexbox parent
+@mixin flex-this { // class for flexbox parent
   display: flex;
   justify-content: space-around;
   padding: 0;
@@ -38,7 +38,7 @@
   }
 }
 
-.flex-item { // flexbox child
+@mixin flex-item { // flexbox child
   height: auto;
   margin: auto;
   text-align: center;
