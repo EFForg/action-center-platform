@@ -1,7 +1,7 @@
 /*
- * This is a manifest file that'll be compiled into action_page.css, which will include all the files
- * listed below.
- */
+* This is a manifest file that'll be compiled into action_page.css, which will include all the files
+* listed below.
+*/
 
 
 #progress-bar {
@@ -45,15 +45,13 @@
   text-align: center;
   right: 20px;
   top: 0px;
-  @media (max-width: $screen-sm-max) and (min-width: $screen-sm-min) {
+  display: none;
+  @media screen and (min-width: $md) {
     position: relative;
     right: 0;
     #share-buttons a {
       display: inline-block !important;
     }
-  }
-  @media (max-width: $screen-xs-max) {
-    display: none;
   }
 }
 
@@ -181,17 +179,17 @@
           color: $blue;
           border-color: #bce8f1;
           background-color: #d9edf7;
-          }
+        }
         &.success {
           color: #3c763d;
           border-color: #d6e9c6;
           background-color: #dff0d8;
-          }
+        }
         &.error {
           color: #a94442;
           border-color: #ebccd1;
           background-color: #f2dede;
-          }
+        }
         &.warn {
           color: #8a6d3b;
           border-color: #faebcc;
@@ -348,17 +346,12 @@
   margin-top: 15px;
   margin-bottom: 15px;
 }
-@media (min-width: 992px) {
+@media screen and (min-width: $md) {
   .description img.full-width {
     max-width: 109%;
   }
 }
-@media (min-width: 1200px) {
-  .description img.full-width {
-    max-width: 120%;
-    margin-left: -10%;
-  }
-}
+
 
 .description h3, h3.privacy-notice-header,
 h3.header, #tools #email-tool h3, #tools #congress-message-tool h3 {
@@ -371,11 +364,9 @@ h3.header, #tools #email-tool h3, #tools #congress-message-tool h3 {
   em {
     background-color: #ffffff;
     padding-right: 0.3em;
+    font-size: 15px;
     font-style: normal;
     position: relative;
-    @media (max-width: $screen-xs-max) {
-      font-size: 15px;
-    }
   }
   &:before {
     content: '';
@@ -531,12 +522,6 @@ h3.privacy-notice-header {
   }
 }
 
-
-@media (max-width: 768px) {
-  #letter .body {
-    padding: 3em 2em 4em;
-  }
-}
 
 #tools #call-tool {
   padding-bottom: 0;
@@ -994,7 +979,7 @@ html.js {
   }
 }
 
-@media (min-width: 992px) {
+@media screen and (min-width: $md) {
   #tools {
     width: 390px;
     margin-left: 20px;
@@ -1005,7 +990,7 @@ html.js {
   }
 }
 
-@media (min-width: 992px) {
+@media screen and (min-width: $md) {
   #share-buttons {
     position: absolute;
     right: -70px;
@@ -1079,8 +1064,8 @@ html.js {
 }
 
 /**
- * Select menu autocomplete
- */
+* Select menu autocomplete
+*/
 #affiliations,
 #signatures {
   .select2-selection,
@@ -1122,8 +1107,8 @@ html.js #affiliations {
 }
 
 /**
- * Signatures by institution
- */
+* Signatures by institution
+*/
 #signatures-filter {
   font-size: 17px;
   text-transform: none;

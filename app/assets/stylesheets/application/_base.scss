@@ -290,11 +290,6 @@ a:hover {
 .navbar-wrapper {
   background: $eff-red;
 
-  .container {
-    @media(min-width: 1201px) {
-      padding-left: 40px;
-    }
-  }
 
   .navbar-inverse {
     border: 0;
@@ -322,7 +317,7 @@ a:hover {
     height: 32px;
     width: 128px;
 
-    @media(min-width: 768px) {
+    @media screen and (min-width: $md) {
       margin-top: 0;
       height: 5rem;
       width: 20rem;
@@ -340,7 +335,7 @@ a:hover {
   }
 }
 
-@media (min-width: 768px) {
+@media screen and (min-width: $md) {
   .navbar-nav.navbar-right:last-child {
     margin-right: 0;
   }

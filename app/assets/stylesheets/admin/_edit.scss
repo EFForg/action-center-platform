@@ -354,7 +354,7 @@ File upload/gallery
 }
 
 // Fix Gallery button position on non-mobile devices
-@media (min-width: 798px) {
+@media screen and (min-width: $md) {
   .tabs-left .open-gallery {
     float: none !important;
   }
