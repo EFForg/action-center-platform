@@ -1,0 +1,225 @@
+form {
+  background: $gray-dark;
+  padding: 2rem;
+  margin: 0 auto;
+
+  label {
+    font-size: 1rem;
+    line-height: 1.7rem;
+    text-transform: uppercase;
+  }
+
+  input[type=text],
+  input[type=email],
+  textarea {
+    border: none;
+    color: $charcoal;
+    font-weight: 300;
+    padding: 0.5rem;
+    width: 100%;
+
+    &::placeholder {
+      color: #2D2D2D;
+    }
+
+  }
+
+  input[type=file] {
+    appearance: none;
+    color: $charcoal;
+    font-size: 0.8rem;
+    text-transform: uppercase;
+  }
+}
+
+input[type=submit],
+.button,
+a.button {
+  //@include eff-red-button;
+}
+
+// Checkbox
+[type="checkbox"]:not(:checked),
+[type="checkbox"]:checked {
+  position: absolute;
+  left: -9999px;
+}
+[type="checkbox"]:not(:checked) + label,
+[type="checkbox"]:checked + label {
+  position: relative;
+  padding-left: 1.95em;
+  cursor: pointer;
+}
+
+/* checkbox aspect */
+[type="checkbox"]:not(:checked) + label:before,
+[type="checkbox"]:checked + label:before {
+  content: '';
+  background: #fff;
+  border: 1px solid $charcoal;
+  box-shadow: none;
+  display: block;
+  left: 0;
+  top: 0;
+  position: absolute;
+  height: 1.25em;
+  width: 1.25em;
+}
+/* checked mark aspect */
+[type="checkbox"]:not(:checked) + label:after,
+[type="checkbox"]:checked + label:after {
+  border: 1px solid $gray-dark;
+  background-image: url("images/check.svg");
+  background-position: center;
+  background-size: 31px;
+  content: '';
+  width: 1.25em;
+  height: 1.25em;
+  position: absolute;
+  top: 0;
+  left: 0;
+  transition: background-color 0.1s linear;
+}
+/* checked mark aspect changes */
+[type="checkbox"]:not(:checked) + label:after {
+  opacity: 0;
+  transform: scale(0);
+}
+[type="checkbox"]:checked + label:after {
+  opacity: 1;
+  transform: scale(1);
+}
+/* disabled checkbox */
+[type="checkbox"]:disabled:not(:checked) + label:before,
+[type="checkbox"]:disabled:checked + label:before {
+  box-shadow: none;
+  border-color: #bbb;
+  background-color: #ddd;
+}
+[type="checkbox"]:disabled:checked + label:after {
+  color: #999;
+}
+[type="checkbox"]:disabled + label {
+  color: #aaa;
+}
+
+// radio buttons
+input[type="radio"] {
+  display: none;
+}
+
+input[type="radio"] + label span {
+  display: inline-block;
+  width: 19px;
+  height: 19px;
+  margin: -1px 4px 0 0;
+  vertical-align: middle;
+  cursor: pointer;
+  border-radius:  50%;
+}
+
+input[type="radio"] + label span {
+  background-color: white;
+}
+
+input[type="radio"]:checked + label span {
+  background: $charcoal;
+  border: 4px solid #fff;
+}
+
+input[type="radio"] + label span,
+input[type="radio"]:checked + label span {
+  transition: background-color 0.1s linear;
+}
+
+// Selectmenu
+// jquery ui
+.ui-widget {
+  font-size: 1em;
+}
+
+// This gets picked up by ui.selectmenu.
+select {
+  width: 20em;
+}
+
+//selectmenu is in selectmenu.scss
+
+
+// Buttons
+.eff-button {
+  background: $light-blue;
+  border: none;
+  border-bottom: 0.3rem solid $slate;
+  color: $medium-blue;
+  font-size: 1.1rem;
+  font-weight: 700;
+  padding: 0.3rem 2rem;
+  text-transform: uppercase;
+  text-decoration: none;
+  cursor: pointer;
+
+  -moz-appearance: none;
+  -webkit-appearance: none;
+  border-radius: 0;
+
+  a {
+    text-decoration: none;
+  }
+
+  &:link, &:visited, a:link, a:visited {
+    color: $medium-blue;
+  }
+
+  &:hover {
+    background: rgba($light-blue, 0.8) !important;
+    border-bottom: 4px solid rgba($slate, 0.8);
+  }
+}
+
+.eff-red-button {
+  @extend .eff-button;
+  background: $eff-red;
+  border-bottom: 0.3rem solid $dark-red;
+  color: white;
+  &:link, &:visited, a:link, a:visited {
+    color: #ffffff;
+  }
+
+  &:hover {
+    background: rgba($eff-red, 0.8) !important;
+    border-bottom: 4px solid rgba($eff-red, 0.8);
+
+  }
+}
+
+.button-style {
+  background: $gray;
+  border: 2px solid $gray;
+  clear: both;
+  color: black;
+  cursor: pointer;
+  display: inline-block;
+  font-size: 1rem;
+  font-weight: 700;
+  margin: 1rem auto;
+  max-width: 23rem;
+  padding: 0.3rem 1rem;
+  text-align: center;
+  text-decoration: none;
+  transition: all 0.2s;
+  &:hover {
+    background: black;
+    border: 2px solid black;
+    color: white;
+    text-decoration: none;
+  }
+
+  &:disabled {
+    border-color: $gray-dark;
+    background: url("../images/spinner.gif") bottom right no-repeat;
+    background-color: $gray-dark;
+    background-size: contain;
+    cursor: auto;
+  }
+}

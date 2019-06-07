@@ -13,3 +13,22 @@
     background-color: darken($red, 15%);
   }
 }
+
+// Make sure to give parent element the style position:relative
+@mixin vertical-center {
+  display: block;
+  overflow: auto;
+  margin: auto;
+  position: absolute;
+  top: 0; left: 0; bottom: 0; right: 0;
+}
+
+//This is an alternative to bourbon's "placeholder" mixin. That one conflicts with bootstrap, so instead we define placeholders
+@mixin placeholders {
+  $placeholders: ":-webkit-input" ":-moz" "-moz" "-ms-input";
+  @each $placeholder in $placeholders {
+    &:#{$placeholder}-placeholder {
+      @content;
+    }
+  }
+}
