@@ -1,6 +1,7 @@
 class ApplicationController < ActionController::Base
   include ApplicationHelper
   include RequestOriginValidation
+  include LoggedInvisibleCaptcha
 
   # Prevent CSRF attacks by raising an exception.
   # For APIs, you may want to use :null_session instead.

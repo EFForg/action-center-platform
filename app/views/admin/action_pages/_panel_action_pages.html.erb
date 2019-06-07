@@ -1,4 +1,64 @@
 <div class="tab-pane active" id="action-pages">
+  <%= form_tag admin_action_pages_path, id: "filter_action_pages", method: :get do %>
+    <fieldset>
+      <%= radio_button_tag "action_type", "all", params[:action_type].blank? %>
+      <%= label_tag("action_type_all") do %>
+        All
+      <% end %>
+
+      <%= radio_button_tag "action_type", "call", params[:action_type] == "call" %>
+      <%= label_tag("action_type_call") do %>
+        <i class="icon on ion-ios-telephone"></i>
+        <i class="icon off ion-ios-telephone-outline"></i>
+        Calls
+      <% end %>
+
+      <%= radio_button_tag "action_type", "congress_message", params[:action_type] == "congress_message" %>
+      <%= label_tag("action_type_congress_message") do %>
+        <i class="icon on ion-ios-filing"></i>
+        <i class="icon off ion-ios-filing-outline"></i>
+        Congress Messages
+      <% end %>
+
+      <%= radio_button_tag "action_type", "email", params[:action_type] == "email" %>
+      <%= label_tag("action_type_email") do %>
+        <i class="icon on ion-ios-email"></i>
+        <i class="icon off ion-ios-email-outline"></i>
+        Emails
+      <% end %>
+
+      <%= radio_button_tag "action_type", "petition", params[:action_type] == "petition" %>
+      <%= label_tag("action_type_petition") do %>
+        <i class="icon on ion-ios-paper"></i>
+        <i class="icon off ion-ios-paper-outline"></i>
+        Petitions
+      <% end %>
+
+      <%= radio_button_tag "action_type", "redirect", params[:action_type] == "redirect" %>
+      <%= label_tag("action_type_redirect") do %>
+        <i class="icon on ion-ios-redo"></i>
+        <i class="icon off ion-ios-redo-outline"></i>
+        Redirects
+      <% end %>
+
+      <%= radio_button_tag "action_type", "tweet", params[:action_type] == "tweet" %>
+      <%= label_tag("action_type_tweet") do %>
+        <i class="icon on ion-social-twitter"></i>
+        <i class="icon off ion-social-twitter-outline"></i> Tweets
+      <% end %>
+
+      <button type="reset">Clear filters</button>
+    </fieldset>
+
+    <div class="query">
+      <%= text_field_tag :q, params[:q],
+                          :"aria-label" => "Search query",
+                          placeholder: "Filter by title, description, action text, etc.",
+                          autocomplete: "off", class: "form-control input-sm" %>
+      <%= submit_tag "Filter", class: "btn btn-sm btn-primary", data: { disable_with: false } %>
+    </div>
+  <% end %>
+
   <table class='table table-simple table-spaced'>
     <% @actionPages.each do |action_page| -%>
       <tr>

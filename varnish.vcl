@@ -12,6 +12,10 @@ sub vcl_recv {
       return(pass);
   }
 
+  if (req.http.cookie ~ "^sweetAlert") {
+      return(pass);
+  }
+
   if (req.url !~ "^/(ahoy)/") {
       unset req.http.Cookie;
   }
@@ -20,7 +24,7 @@ sub vcl_recv {
 }
 
 sub vcl_fetch {
-  if (req.http.cookie !~ "logged_in" && req.url !~ "^/(login)|(register)|(confirmation/new)|(unlock/new)|(password/new)|(password/edit)|(ahoy/)") {
+  if (req.http.cookie !~ "logged_in" && beresp.http.Set-Cookie !~ "^sweetAlert" && req.url !~ "^/(login)|(register)|(confirmation/new)|(unlock/new)|(password/new)|(password/edit)|(ahoy/)") {
       unset beresp.http.Set-Cookie;
   }
 

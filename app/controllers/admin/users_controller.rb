@@ -28,8 +28,7 @@ class Admin::UsersController < Admin::ApplicationController
 
   def filtered_users
     if params[:query].present?
-      User.where("LOWER(email) LIKE %?% OR LOWER(first_name || ' ' || last_name) LIKE %?%",
-                 params[:query], params[:query])
+      User.search(params[:query])
     else
       User.all
     end

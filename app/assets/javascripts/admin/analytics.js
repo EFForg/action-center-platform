@@ -1,5 +1,7 @@
 $(document).ready(function() {
-  $("#date_range").daterangepicker({ format: 'YYYY-MM-DD' });
+  $("#date_range").daterangepicker({
+    locale: { format: 'YYYY-MM-DD' }
+  });
 
   $("#date_range").on('apply.daterangepicker', function(ev, picker){
     Chartkick.eachChart( function(chart) {

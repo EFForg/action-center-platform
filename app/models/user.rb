@@ -1,6 +1,10 @@
 require "civicrm"
 class User < ActiveRecord::Base
   include CiviCRM::UserMethods
+
+  include PgSearch
+  pg_search_scope :search, against: [:email, :first_name, :last_name]
+
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable and :omniauthable
   devise :database_authenticatable, :confirmable, :registerable,
@@ -123,6 +127,13 @@ class User < ActiveRecord::Base
   # This is here for collission avoidance when generating new user names in tests
   def self.next_id
     self.last.nil? ? 1 : self.last.id + 1
+  end
+
+  # We're allowing unconfirmed users to reset their passwords by
+  # re-registering. In that case, they shouldn't get a password reset
+  # notification.
+  def send_password_change_notification?
+    self.confirmed? && super
   end
 
   protected

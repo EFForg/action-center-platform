@@ -3,42 +3,10 @@
  */
 
 
-.redtop.home {
-  text-align: center;
-  padding: 110px 0 0 0;
-
-  @media (max-width: $screen-xs-max) {
-    padding-top: 70px;
-  }
-  h1, h2 {
-    text-align: center;
-    margin: 0;
-  }
+.home {
   h1 {
-    font-weight: 200;
-    font-size: 38px;
-    text-shadow: 0px 0px 5px rgba(0, 0, 0, 0.25);
-    letter-spacing: -2px;
-    line-height: 1.1;
-
-    @media (max-width: $screen-xs-max) {
-      font-size: 34px;
-    }
-    strong {
-      letter-spacing: 0;
-    }
-  }
-  h2 {
-    font-size: 22px;
-    margin-top: 5px;
+    font-size: 35px;
     font-weight: 400;
-  }
-  .container {
-    margin-bottom: 100px;
-
-    @media (max-width: $screen-xs-max) {
-      margin-bottom: 50px;
-    }
   }
   .email-signup {
     max-width: 460px;
@@ -47,17 +15,12 @@
     @media (max-width: $screen-xs-max) {
       margin-top: 40px;
     }
-    input, button {
-      border-radius: 4px;
-      height: 55px;
-      border: 0;
-    }
+
     input {
       @include placeholders {
         color: #aaa;
         -webkit-font-smoothing: antialiased;
       }
-      font-size: 20px;
       margin: 0 4px 0 0;
 
       @media (max-width: $screen-xs-max) {
@@ -75,11 +38,7 @@
       background-color: $red;
       border: 3px solid #fff;
       padding: 0px 20px;
-      border-radius: 8px;
       -webkit-font-smoothing: antialiased;
-    }
-    .btn:hover {
-      background-color: $darkred;
     }
   }
 }
@@ -104,9 +63,7 @@ section.featured-action {
       max-height: 300px;
     }
   }
-  .triangle {
-    fill: #eaf0f3;
-  }
+
   h2 {
     font-size: 26px;
     margin-bottom: 16px;
@@ -126,7 +83,7 @@ section.featured-action {
 
   a, a:hover, a:focus {
     h2, p {
-      color: black;
+      color: $off-white;
       text-decoration: none;
     }
   }
@@ -172,9 +129,6 @@ section.more-actions {
   .col-md-4 {
     position: relative;
     &:hover {
-      @media (min-width: 767px) {
-        color: $darkred;
-      }
       h3 {
         color: $red;
       }
@@ -210,7 +164,6 @@ section.more-actions {
       }
       &:hover .arrow {
         @include transform(rotate(90deg));
-        fill: $darkred;
       }
     }
   }
@@ -226,12 +179,6 @@ section.mobile-apps {
   }
 }
 
-.welcome-index .more-actions .triangle {
-  fill: #eaf0f3;
-}
-.welcome-index .footer .triangle, .welcome-index .push {
-  background-color: #eaf0f3;
-}
 
 /* Link a whole div as per https://stackoverflow.com/questions/796087/make-a-div-into-a-link */
 span.link-div {
