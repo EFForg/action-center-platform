@@ -95,8 +95,7 @@ section.more-actions {
   margin: 0;
   padding: 0 0 0 5%;
   .row {
-    @include griddy;
-    grid-template-columns: 25% 25% 25%;
+    @include flex-this;
   }
 
   .image {
