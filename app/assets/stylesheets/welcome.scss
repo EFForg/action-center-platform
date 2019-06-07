@@ -94,7 +94,7 @@ section.featured-action {
       margin-bottom: 30px;
     }
     .row {
-      @include griddy;
+      @include flex-this;
     }
   }
   .image {

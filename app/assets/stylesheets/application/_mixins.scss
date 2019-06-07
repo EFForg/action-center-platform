@@ -23,3 +23,24 @@
   margin-top: 2rem;
   width: 100%;
 }
+
+// flexbox
+@mixin flex-this { // class for flexbox parent
+ display: flex;
+ justify-content: space-around;
+ padding: 0;
+ margin: 0;
+ flex-direction: row;
+ flex-wrap: wrap;
+ width: 100%;
+ @media screen and (max-width: $md) {
+  flex-direction: column;
+ }
+}
+
+@mixin flex-item { // flexbox child
+ height: auto;
+ margin: auto;
+ text-align: center;
+ width: 30%;
+}
