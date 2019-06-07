@@ -1,6 +1,6 @@
 /*
- * This is a manifest file that'll be compiled into welcome.css
- */
+* This is a manifest file that'll be compiled into welcome.css
+*/
 
 
 .home {
@@ -98,13 +98,15 @@ section.featured-action {
 
 
 section.more-actions {
-  background-color: #eaf0f3;
   margin: 0;
   padding: 0 0 0 5%;
   .row {
     @include flex-this;
+    > div {
+      @include flex-item;
+    }
   }
-
+    
   .image {
     overflow: hidden;
     position: relative;
@@ -196,6 +198,6 @@ span.link-div {
   z-index: 1;
 
   /* Fixes overlap error in IE7/8,
-   make sure you have an empty gif */
+  make sure you have an empty gif */
   background-image: image-url('empty.gif');
 }

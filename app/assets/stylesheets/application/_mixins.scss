@@ -35,6 +35,7 @@
   width: 100%;
   @media screen and (max-width: $md) {
     flex-direction: column;
+    width: 100%;
   }
 }
 
@@ -43,6 +44,9 @@
   margin: auto;
   text-align: center;
   width: 30%;
+  @media screen and (max-width: $md) {
+    width: 100%;
+  }
 }
 // Make sure to give parent element the style position:relative
 @mixin vertical-center {
