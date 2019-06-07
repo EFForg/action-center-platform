@@ -87,8 +87,8 @@
 
 section.featured-action {
   .container {
-    margin-top: 100px;
-    margin-bottom: 100px;
+    margin: 0;
+    padding: 0 0 0 5%;
     @media (max-width: 991px) {
       margin-top: 50px;
       margin-bottom: 30px;
@@ -135,8 +135,8 @@ section.featured-action {
 
 section.more-actions {
   background-color: #eaf0f3;
-  padding-top: 40px;
-  padding-bottom: 60px;
+  margin: 0;
+  padding: 0 0 0 5%;
   .row {
     @include griddy;
     grid-template-columns: 25% 25% 25%;
