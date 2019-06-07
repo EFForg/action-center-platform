@@ -31,7 +31,7 @@ td.action-icons {
     padding-top: 0;
   }
 }
-#action-pages .btn-group {
+#action-pages table .btn-group {
   @media (min-width: $screen-md-min) {
     min-width: 343px;
   }
@@ -78,6 +78,68 @@ td.action-icons {
   float: none !important;
 }
 
+#filter_action_pages {
+  padding: 0 9px 13px 9px;
+
+  @media (max-width: 767px) {
+    padding-top: 13px;
+  }
+
+  fieldset {
+    margin-bottom: 0.5rem;
+  }
+
+  input[type=radio] {
+    float: none;
+
+    position: absolute;
+    left: -9999999px;
+
+    + label {
+      display: inline-block;
+      margin-right: 1.5rem;
+
+      cursor: pointer;
+    }
+
+    + label > .icon {
+      display: none;
+      margin-right: 0.3rem;
+      vertical-align: middle;
+    }
+
+    + label > .on, &[value=all]:checked + label {
+      color: $red;
+    }
+
+    &:checked + label > .icon.on {
+      display: inline-block;
+    }
+
+    &:not(:checked) + label > .icon.off {
+      display: inline-block;
+    }
+  }
+
+  button[type=reset] {
+    border: 0;
+    background: rgba(0, 0, 0, 0);
+    font-size: 11px;
+  }
+
+  .query {
+    display: flex;
+    flex-direction: row;
+
+    input[type=text] {
+      flex: 1 0;
+    }
+
+    input[type=submit] {
+      margin-left: 8px;
+    }
+  }
+}
 
 /**********************
 Homepage tab

@@ -4,6 +4,7 @@ gem "rails", "~> 5.0"
 
 #Database
 gem "pg", "~> 1.1"
+gem "pg_search"
 
 # Hosting-related
 gem "aws-sdk", "~> 2.3"
@@ -55,7 +56,7 @@ gem "sprockets-image_compressor", "~> 0" # Optimizes png/jpg
 # Analytics
 gem "ahoy_matey", "~> 1.6" # Analytics
 gem "chartkick", "~> 3"
-gem "eff_matomo", "~> 0.2.2", require: "matomo"
+gem "eff_matomo", "~> 0.2.4", require: "matomo"
 gem "groupdate", "~> 2"
 
 # Job queue

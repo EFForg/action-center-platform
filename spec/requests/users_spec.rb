@@ -3,7 +3,6 @@ require "rails_helper"
 RSpec.describe "Tests about users", type: :request do
   before(:each) do
     stub_civicrm
-    @action_page = FactoryGirl.create(:petition_with_99_signatures_needing_1_more).action_page
     @user = FactoryGirl.create(:user)
   end
 

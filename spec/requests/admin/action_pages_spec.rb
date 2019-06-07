@@ -37,5 +37,39 @@ RSpec.describe "Admin Action Pages", type: :request do
       expect(response.code).to eq "200"
       expect(ActionPage.count).to eq 1
     end
+
+    it "should allow them to search action pages" do
+      border = FactoryGirl.create(
+        :action_page_with_petition,
+        title: "borderpetition",
+        petition_attributes: {
+          description: "border surveillance petition"
+        }
+      )
+
+      privacy = FactoryGirl.create(
+        :action_page_with_petition,
+        title: "privacypetition",
+        petition_attributes: { description: "online privacy" }
+      )
+
+      tweet = FactoryGirl.create(
+        :action_page_with_tweet,
+        title: "bordertweet",
+        tweet_attributes: { message: "border surveillance tweet" }
+      )
+
+      xhr :get, "/admin/action_pages?q=border+surveil"
+
+      expect(response.body).to include("borderpetition")
+      expect(response.body).to include("bordertweet")
+      expect(response.body).not_to include("privacypetition")
+
+      xhr :get, "/admin/action_pages?q=border+surveil&action_type=petition"
+
+      expect(response.body).to include("borderpetition")
+      expect(response.body).not_to include("bordertweet")
+      expect(response.body).not_to include("privacypetition")
+    end
   end
 end

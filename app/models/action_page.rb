@@ -1,6 +1,24 @@
 class ActionPage < ActiveRecord::Base
   extend FriendlyId, AmazonCredentials
 
+  include PgSearch
+  pg_search_scope :search,
+                  against: [
+                    :title,
+                    :slug,
+                    :summary,
+                    :description,
+                    :email_text,
+                  ],
+                  associated_against: {
+                    call_campaign: [:title, :message],
+                    congress_message_campaign: [:subject, :message, :campaign_tag],
+                    email_campaign: [:subject, :message],
+                    petition: [:title, :description],
+                    tweet: [:target, :message, :cta]
+                  },
+                  using: { tsearch: { prefix: true } }
+
   friendly_id :title, use: [:slugged, :history]
   scope :published, -> { where(published: true) }
 
@@ -35,6 +53,18 @@ class ActionPage < ActiveRecord::Base
   after_save :no_drafts_on_homepage
 
   scope :categorized, ->(category) { joins(:category).where(categories: { title: category }) }
+
+  def self.type(*types)
+    scopes = Array(types).flatten.map do |t|
+      unless %w(call congress_message email petition tweet redirect).include?(t)
+        raise ArgumentError, "unrecognized type #{t}"
+      end
+
+      where(:"enable_#{t}" => true)
+    end
+
+    scopes.inject(:or) || all
+  end
 
   def should_generate_new_friendly_id?
     # create slugs with FriendlyId and respect our custom slugs
