@@ -1,6 +1,6 @@
 /*
- * This is a manifest file that'll be compiled into welcome.css
- */
+* This is a manifest file that'll be compiled into welcome.css
+*/
 
 
 .home {
@@ -46,11 +46,21 @@
 
 section.featured-action {
   .container {
-    margin-top: 100px;
-    margin-bottom: 100px;
+    margin: 0;
+    padding: 0 0 0 5%;
     @media (max-width: 991px) {
       margin-top: 50px;
       margin-bottom: 30px;
+    }
+    .row {
+      @include flex-this;
+      div {
+        @include flex-item;
+        width: 50%;
+      }
+    }
+    .flexbox-item {
+      width: 50%;
     }
   }
   .image {
@@ -88,18 +98,15 @@ section.featured-action {
 
 
 section.more-actions {
-  padding-top: 40px;
-  padding-bottom: 60px;
-  .row > div:first-child {
-    @media (min-width: 992px) {
-      border-right: 1px solid lighten($gray-dark, 60%);
+  margin: 0;
+  padding: 0 0 0 5%;
+  .row {
+    @include flex-this;
+    > div {
+      @include flex-item;
     }
   }
-  .row > div:last-child {
-    @media (min-width: 992px) {
-      border-left: 1px solid lighten($gray-dark, 60%);
-    }
-  }
+    
   .image {
     overflow: hidden;
     position: relative;
@@ -107,10 +114,7 @@ section.more-actions {
       max-width: 100%;
     }
   }
-  .btn-red {
-    margin: 12px 0 44px 0;
-    max-width: 200px;
-  }
+
   .text {
     h3 {
       @include transition (color 0.3s ease-in-out);
@@ -194,6 +198,6 @@ span.link-div {
   z-index: 1;
 
   /* Fixes overlap error in IE7/8,
-   make sure you have an empty gif */
+  make sure you have an empty gif */
   background-image: image-url('empty.gif');
 }

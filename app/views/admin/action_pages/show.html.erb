@@ -1,16 +1,16 @@
 <div class='container' id="admin-action-page">
   <h2>Action page #<%= @actionPage.id -%></h2>
   <div class='row'>
-    <label class='col-xs-2'>Title</label> <span class='col-xs-10'><%= @actionPage.title -%></span>
+    <label>Title</label> <span><%= @actionPage.title -%></span>
   </div>
   <div class='row'>
-    <label class='col-xs-2'>Published</label> <span class='col-xs-10'><%= @actionPage.published -%></span>
+    <label>Published</label> <span><%= @actionPage.published -%></span>
   </div>
   <div class='row'>
-    <label class='col-xs-2'>Created</label> <span class='col-xs-10'><%= @actionPage.created_at -%></span>
+    <label>Created</label> <span><%= @actionPage.created_at -%></span>
   </div>
   <div class='row'>
-    <label class='col-xs-2'>Updated</label> <span class='col-xs-10'><%= @actionPage.updated_at -%></span>
+    <label>Updated</label> <span><%= @actionPage.updated_at -%></span>
   </div>
   <div class='btn-bar'>
     <%= link_to 'Edit', edit_admin_action_page_path(@actionPage), class: 'btn btn-primary' -%>

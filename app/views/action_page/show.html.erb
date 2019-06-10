@@ -5,7 +5,7 @@
 <div class="redtop">
   <div class="container">
     <div class="row">
-      <div class="col-sm-6 col-lg-6">
+      <div>
         <h1><%= @actionPage.title -%></h1>
         <div class='short-description'>
           <%= markdown @actionPage.summary -%>
@@ -18,7 +18,7 @@
 <div class="container action-content" id="action-content" data-action-id="<%= @actionPage.id -%>" >
   <div class="row">
     <%= render "tools/container" %>
-    <div class="col-sm-7 col-md-6 col-lg-6">
+    <div>
       <div class="description" id="description">
         <%= markdown @actionPage.description -%>
       </div>

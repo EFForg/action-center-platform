@@ -40,6 +40,8 @@ body {
 body>.wrapper {
   position: relative;
   min-height: 100%;
+  margin: 0 auto;
+  max-width: 1280px;
 }
 
 article,
@@ -241,7 +243,7 @@ code {
 .no-scroll {  // for modals
   margin: 0;
   height: 100%;
-  overflow: hidden
+  overflow: hidden;
 }
 
 
@@ -278,9 +280,6 @@ a:hover {
     color: white;
     padding: 15px 20px 15px 20px;
     line-height: 10px;
-    @media (max-width: $screen-sm-max) {
-      padding: 10px 20px 10px 20px;
-    }
     &:hover {
       color: #dddddd;
     }
@@ -289,12 +288,7 @@ a:hover {
 
 .navbar-wrapper {
   background: $eff-red;
-
-  .container {
-    @media(min-width: 1201px) {
-      padding-left: 40px;
-    }
-  }
+  padding: 1rem 1rem 0 1rem;
 
   .navbar-inverse {
     border: 0;
@@ -304,7 +298,6 @@ a:hover {
 
   .navbar {
     font-size: 13px;
-    margin-top: 1.5rem;
     margin-bottom: 0px;
     z-index: 102;
   }
@@ -322,7 +315,7 @@ a:hover {
     height: 32px;
     width: 128px;
 
-    @media(min-width: 768px) {
+    @media screen and (min-width: $md) {
       margin-top: 0;
       height: 5rem;
       width: 20rem;
@@ -340,7 +333,7 @@ a:hover {
   }
 }
 
-@media (min-width: 768px) {
+@media screen and (min-width: $md) {
   .navbar-nav.navbar-right:last-child {
     margin-right: 0;
   }
@@ -416,11 +409,6 @@ Styles for the alert box
   height: auto;
   max-width: 500px;
 
-  @media (max-width: $screen-xs-max) {
-    left: 20px;
-    right: 20px;
-  }
-
   .close {
     position: absolute;
     right: 10px;
@@ -430,12 +418,6 @@ Styles for the alert box
     height: 16px;
     width: 16px;
     cursor: pointer;
-  }
-}
-
-@media (max-width: 991px) {
-  alert.alert-info, .alert.alert-error {
-    font-size: 14px;
   }
 }
 

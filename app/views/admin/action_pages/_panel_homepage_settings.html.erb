@@ -1,6 +1,6 @@
 <div class="tab-pane" id="homepage-settings">
   <div class="row">
-    <div class="col-sm-12 col-md-10">
+    <div>
       <div class='panel panel-default select-featured'>
         <div class="panel-heading">
           <div class="panel-title">Featured actions:</div>
@@ -10,8 +10,8 @@
             <% 4.times do |i| -%>
               <% label = "fp#{i+1}" -%>
               <div class="form-group">
-                <%= label_tag label, (i.zero? ? 'Main Item' : "Featured #{i}"), class: 'col-sm-3 control-label' -%>
-                <div class="col-sm-9">
+                <%= label_tag label, (i.zero? ? 'Main Item' : "Featured #{i}"), class: 'control-label' -%>
+                <div>
                   <%= collection_select :action_page, :id, ActionPage.all.order(:title), :id, :title,
                     {prompt: 'Select a campaign', object: @featuredActionPages[i]},
                     {class: 'form-control', id: label, name: label} -%>
