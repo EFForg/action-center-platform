@@ -5,6 +5,9 @@ class Admin::EventsController < Admin::ApplicationController
     if params[:type].blank?
       @data = events.group_by_type_in_range(start_date, end_date)
       @columns = Ahoy::Event.action_types(action_page)
+      if action_page.present? && action_page.congress_message_campaign.present?
+        @fills = action_page.congress_message_campaign.date_fills(start_date, end_date)
+      end
     elsif Ahoy::Event.action_types.include? params[:type].to_sym
       @data = events.send(params[:type]).group_in_range(start_date, end_date)
     else

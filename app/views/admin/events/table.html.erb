@@ -9,12 +9,25 @@
       <tr>
         <td></td>
         <% @columns.each do |c| %>
-          <th colspan="2"><%= c.to_s.humanize %></th>
+          <th colspan="2">
+            <% if c == :views %>
+              <%= c.to_s.humanize %></th>
+            <% else %>
+              <%= c.to_s.humanize.singularize %> actions
+            <% end %>
+          </th>
+        <% end %>
+        <% if @fills.present? %>
+          <th colspan="2">Congress messages submitted</th>
         <% end %>
       </tr>
       <tr>
         <th>Date</th>
         <% @columns.each do |_| %>
+          <th class="subheader">Daily</th>
+          <th class="subheader">Total</th>
+        <% end %>
+        <% if @fills.present? %>
           <th class="subheader">Daily</th>
           <th class="subheader">Total</th>
         <% end %>
@@ -28,6 +41,10 @@
           <% @columns.each do |c| %>
             <td><%= counts[c] || 0 %></td>
             <td><%= @totals[c] += counts[c] || 0 %></td>
+          <% end %>
+          <% if @fills.present? %>
+            <td><%= @fills[date] || 0 %></td>
+            <td><%= @totals[:fills] += @fills[date] || 0 %></td>
           <% end %>
         </tr>
       <% end %>
