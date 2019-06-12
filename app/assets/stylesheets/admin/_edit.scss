@@ -278,10 +278,16 @@ Analytics
   .times-notification {
     display: inline-block;
   }
+  .table-view-link button {
+    font-size: 14px;
+    margin-top: -3px;
+    margin-left: 10px;
+  }
 }
 
 div#date_control_container {
-  margin-top: 10px;
+  margin: 10px 0;
+  display: inline-block;
 
   input[type='text'].text-inline, button.submit-inline {
     display: inline;

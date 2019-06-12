@@ -7,16 +7,16 @@
       </div>
       <div class="col-sm-6 text-right">
         <%= render 'admin/action_pages/date_range_form' -%>
+        <%= link_to admin_action_page_events_path(@actionPage),
+          class: "table-view-link", target: "_blank" do -%>
+          <button type='button' class='btn btn-default btn-sm'>Table View</button>
+        <% end -%>
       </div>
     </div>
     <hr />
     <div class="row">
       <div class="col-sm-12">
         <h3>Action Page Views</h3>
-        <%= link_to admin_action_page_views_path(@actionPage),
-          target: "_blank" do -%>
-          <button type='button' class='btn btn-default'>Table View</button>
-        <% end -%>
         <%= line_chart(admin_action_page_events_path(@actionPage, type: :views),
                        height: "200px", discrete: true) %>
 
