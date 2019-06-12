@@ -19,7 +19,7 @@ module Ahoy
     before_save :anonymize_views
     after_create :record_civicrm
 
-    TYPES = %i(views emails congress_messages tweets calls signatures).freeze
+    TYPES = %i(views emails tweets calls signatures congress_messages).freeze
 
     def self.action_types(action_page = nil)
       TYPES.dup.tap do |t|
