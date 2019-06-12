@@ -19,7 +19,6 @@ module ActionPageHelper
   end
 
   def tweet_url(target, message)
-    target = "@#{target}" unless target.starts_with? "@"
     message = [target, message].compact.join(" ")
     related = Rails.application.config.twitter_related.to_a.join(",")
     "https://twitter.com/intent/tweet?status=.#{u message}&related=#{related}"
