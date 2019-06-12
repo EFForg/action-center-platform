@@ -36,15 +36,8 @@
             target: "_blank" do -%>
             <button type='button' class='btn btn-default'>Congressional Breakdown</button>
           <% end -%>
-          <%= if start_date_string == end_date_string
-            line_chart(
-              congress_forms_hour_fills_url(@actionPage.congress_message_campaign.campaign_tag, start_date_string), height: "200px"
-            )
-          else
-            line_chart(
-              congress_forms_date_fills_url(@actionPage.congress_message_campaign.campaign_tag, start_date_string, end_date_string), height: "200px"
-            )
-          end %>
+          <%= line_chart(@actionPage.congress_message_campaign.date_fills_url(start_date_string, end_date_string),
+                         height: "200px") %>
         <% end %>
 
         <% if @actionPage.enable_call? && @actionPage.call_campaign %>

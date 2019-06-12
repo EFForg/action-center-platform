@@ -1,3 +1,4 @@
+require "rest_client"
 class CongressMessageCampaign < ActiveRecord::Base
   belongs_to :topic_category
   has_one :action_page
@@ -30,6 +31,25 @@ class CongressMessageCampaign < ActiveRecord::Base
     !(target_house || target_senate)
   end
 
+  def date_fills(start_date = nil, end_date = nil)
+    begin
+      r = RestClient.get(date_fills_url(start_date, end_date))
+      JSON.parse r
+    rescue RestClient::ExceptionWithResponse => e
+      Rails.logger.error e
+      return {}
+    end
+  end
+
+  def date_fills_url(start_date = nil, end_date = nil, bioguide_id = nil)
+    params = {
+      date_start: start_date,
+      date_end: end_date,
+      campaign_tag: campaign_tag
+    }.compact
+    CongressMessageCampaign.url("/successful-fills-by-date/", params, bioguide_id)
+  end
+
   private
 
   def target_bioguide_text_or_default(custom_text, default)
@@ -47,5 +67,13 @@ class CongressMessageCampaign < ActiveRecord::Base
     self.alt_text_extra_fields_explain = nil if alt_text_extra_fields_explain.blank?
     self.alt_text_look_up_helper = nil if alt_text_look_up_helper.blank?
     self.alt_text_customize_message_helper = nil if alt_text_customize_message_helper.blank?
+  end
+
+  def self.url(path = "/", params = {}, bioguide_id = nil)
+    url = Rails.application.config.congress_forms_url + path
+    url += bioguide_id unless bioguide_id.nil?
+    url += "?" + {
+      debug_key: Rails.application.secrets.congress_forms_debug_key,
+    }.merge(params).to_query
   end
 end
