@@ -10,12 +10,7 @@
     <div class="col-sm-12 col-lg-12 col-md-12">
 
       <% Ahoy::Event.action_types.each do |type| %>
-        <% if type == :views %>
-          <h3>Action Page Views</h3>
-        <% else %>
-          <h3><%= type.to_s.humanize.capitalize %></h3>
-        <% end %>
-
+        <h3><%= humanize_event_type(type) %></h3>
         <%= line_chart(admin_events_path(@actionPage, type: type),
                        height: "200px", discrete: true) %>
       <% end %>

@@ -17,11 +17,7 @@
     <div class="row">
       <div class="col-sm-12">
         <% Ahoy::Event.action_types(@actionPage).each do |type| %>
-          <% if type == :views %>
-            <h3>Action Page Views</h3>
-          <% else %>
-            <h3><%= type.to_s.humanize.capitalize %></h3>
-          <% end %>
+          <h3><%= humanize_event_type(type) %></h3>
 
           <% if type == :signatures %>
             <%= link_to "Download CSV",
