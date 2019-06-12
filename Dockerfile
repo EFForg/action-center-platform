@@ -1,4 +1,4 @@
-FROM ruby:2.5
+FROM ruby:2.5-slim
 
 RUN mkdir /opt/actioncenter
 WORKDIR /opt/actioncenter
