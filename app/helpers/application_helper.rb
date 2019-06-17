@@ -388,45 +388,6 @@ module ApplicationHelper
     current_user_data(:country_code)
   end
 
-  def congress_forms_date_fills_url(campaign_tag = nil, date_start = nil, date_end = nil, bioguide_id = nil)
-    url = Rails.application.config.congress_forms_url + "/successful-fills-by-date/"
-    url = url + bioguide_id unless bioguide_id.nil?
-    params = {
-      campaign_tag: campaign_tag,
-      time_zone: Time.zone.name,
-      give_as_utc: true,
-      debug_key: Rails.application.secrets.congress_forms_debug_key,
-      date_start: date_start,
-      date_end: date_end
-    }
-    params.reject! { |_, v| v.to_param.nil? }
-    url << "?#{params.to_query}"
-  end
-
-  def congress_forms_hour_fills_url(campaign_tag = nil, date = nil, bioguide_id = nil)
-    url = Rails.application.config.congress_forms_url + "/successful-fills-by-hour/"
-    url = url + bioguide_id unless bioguide_id.nil?
-    params = {
-      campaign_tag: campaign_tag,
-      time_zone: Time.zone.name,
-      give_as_utc: true,
-      debug_key: Rails.application.secrets.congress_forms_debug_key,
-      date: date
-    }
-    params.reject! { |_, v| v.to_param.nil? }
-    url << "?#{params.to_query}"
-  end
-
-  def congress_forms_member_fills_url(campaign_tag = nil)
-    url = Rails.application.config.congress_forms_url + "/successful-fills-by-member/"
-    params = {
-      campaign_tag: campaign_tag,
-      debug_key: Rails.application.secrets.congress_forms_debug_key
-    }
-    params.reject! { |_, v| v.to_param.nil? }
-    url << "?#{params.to_query}"
-  end
-
   def update_user_data(params = {})
     params = params.slice(*user_session_data_whitelist)
     if user_signed_in?
