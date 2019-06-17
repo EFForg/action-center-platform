@@ -1,6 +1,6 @@
-$nav-height: 60px;
-$nav-color:  $gray;
-$nav-font-color: $gray;
+$nav-height: 100px;
+$nav-color:  black;
+$nav-font-color: white;
 $nav-font-size: 1.1rem;
 $nav-text-transform: uppercase;
 
@@ -21,7 +21,7 @@ nav {
 
   a {
     border: none;
-    color: $gray;
+    color: white;
     display: inline-block;
     text-decoration: none;
     &:hover {
@@ -35,22 +35,21 @@ nav {
     @media screen and (min-width: $md) {
       display: none;
     }
-    color: $gray;
+    color: white;
     display: inline-block;
     margin-top: 0.45em;
   }
 
   ul {
     @media screen and (min-width: $md) {
-      max-width: 1024px;
+      max-width: 1280px;
     }
     display: flex;
     font-size: 0.75rem;
-    height: 2rem;
     justify-content: space-around;
     list-style: none;
     line-height: 1rem;
-    margin: 0.5rem auto 0;
+    margin: 1.5rem auto 0;
     padding: 0;
     width: 100%;
     &:after {
@@ -67,12 +66,12 @@ nav {
       a {
         color: white;
         &.active {
-          color: $gray;
+          color: white;
         }
         &:hover {
           &:not(.donate),
           &:not(.menu-logo) {
-            color: $gray;
+            color: white;
           }
         }
       }
@@ -88,41 +87,10 @@ nav {
         margin: 0;
         text-align: left;
       }
-      &.donate {
-        @media screen and (min-width: $md) {
-          margin: 0.8rem 0 0 2rem;
-          width: 3.5rem;
-        }
-        display: inline-block;
-        margin: 0 auto;
-        a {
-          background: black;
-          margin: 0 auto 0 6%;
-          padding: 0.5rem 0;
-          width: 11rem;
-          span.donate-mobile {
-            display: inline-block;
-          }
-          &:hover {
-            background: white;
-            color: black;
-          }
-          @media screen and (min-width: $md) {
-            background: black;
-            padding: 0;
-            position: relative;
-            top: 0;
-            width: 5rem;
-            span.donate-mobile {
-              display: none;
-            }
-          }
-        }
-      }
     }
     .menu-logo {
       @media screen and (min-width: $md) {
-        height: auto;
+        height: 57px;
         width: 300px;
         left: 0;
         margin-top: 0;
@@ -135,11 +103,11 @@ nav {
       height: 40px;
       left: 0.5rem;
       position: absolute;
-      top: 1rem;
+      top: 0;
       transition: all 0.2s;
       width: 40px;
       &:hover {
-        background-image: url("images/eff-monogram-red-hover.svg");
+        background-image: asset-url('EFF-logo-lockup-black.svg');
         border: none;
       }
     }
