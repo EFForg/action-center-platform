@@ -35,7 +35,7 @@
     </defs>
   </svg>
 
-  <div id="top" class="wrapper">
+  <div class="wrapper">
     <div id="off-canvas" class="off-canvas" role="navigation" aria-label="mobile-navigaton">
       <ul>
         <li class="logo-li scrolly"><a href="#top" class="menu-logo" alt="Site logo">&nbsp;</a></li>
@@ -70,7 +70,7 @@
     <div >
       <nav role="navigation" aria-label="desktop-navigation">
         <ul>
-          <li class="logo-li scrolly"><a href="#top" class="menu-logo" alt="Site logo">&nbsp;</a></li>
+          <li class="logo-li scrolly"><a href="/" class="menu-logo" alt="Site logo">&nbsp;</a></li>
           <li><a class="scrolly" href="/">Home</a></li>
           <% if user_signed_in? %>
           <% if can?(:administer_actions) && controller_name == "action_page" && @actionPage -%>
