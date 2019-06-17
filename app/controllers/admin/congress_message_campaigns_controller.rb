@@ -1,10 +1,7 @@
 class Admin::CongressMessageCampaignsController < Admin::ApplicationController
   before_action :set_congress_message_campaign
 
-  allow_collaborators_to :date_tabulation, :congress_tabulation, :staffer_report
-
-  def date_tabulation
-  end
+  allow_collaborators_to :congress_tabulation, :staffer_report
 
   def congress_tabulation
   end

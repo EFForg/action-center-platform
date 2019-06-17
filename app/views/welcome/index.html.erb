@@ -14,10 +14,10 @@
   <% if @featuredActionPage -%>
     <div class="container">
       <div class="row">
-        <div class="image col-sm-6 col-md-5 col-md-offset-1">
+        <div class="image>
           <%= link_to image_tag(@featuredActionPage.featured_image.url) , action_page_path(@featuredActionPage) -%>
         </div>
-        <div class="col-sm-6 col-md-5">
+        <div>
           <%= link_to action_page_path(@featuredActionPage) do %>
             <h2>
               <%= @featuredActionPage.title -%>
@@ -35,10 +35,9 @@
 
 <section class="more-actions">
   <div class="container">
-
-    <div class="row">
+    <div class="row flex-this">
       <%- @actionPages.each do |actionPage| -%>
-        <div class="col-sm-4">
+        <div>
           <div class="image">
           <%= link_to image_tag(actionPage.featured_image.url), action_page_path(actionPage) %>
           </div>

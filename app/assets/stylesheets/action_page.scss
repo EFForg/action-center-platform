@@ -956,7 +956,7 @@ html.js {
 
 /* Tools div media queries */
 
-@media (min-width: 768px) {
+@media screen and (min-width: $md) {
   #tools {
     position: fixed;
     width: 312px;

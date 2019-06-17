@@ -1,13 +1,13 @@
 <!-- BEGIN EMAIL SETTINGS TAB -->
 <div class="tab-pane" id="email-settings">
-  <div class="col-sm-8">
+  <div>
     <div class="form-group">
       <%= f.label :email_text, 'Email text' -%>
       <div class="epiceditor" id="epic-email-text"></div>
       <%= f.text_area :email_text, :id => 'email-text', :style => 'display: none;' -%>
     </div>
   </div>
-  <div class="col-sm-4">
+  <div>
     <h3>How it works</h3>
     <p>This email is only sent when a user takes an Email or Petition action, or if we have the user's email saved in their account.</p>
     <p>Special strings shown below are automatically replaced with generated content.</p>

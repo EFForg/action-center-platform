@@ -1,0 +1,49 @@
+<div class="container">
+  <h3>Action page analytics for: <em><%= @actionPage.title %></em></h3>
+  <table class="table table-striped" >
+    <col>
+    <% @columns.each do |_| %>
+      <colgroup span="2">
+    <% end %>
+    <thead>
+      <tr>
+        <td></td>
+        <% @columns.each do |c| %>
+          <th colspan="2">
+            <%= t(c, scope: :ahoy) %>
+          </th>
+        <% end %>
+        <% if @fills.present? %>
+          <th colspan="2">Congress Messages Submitted</th>
+        <% end %>
+      </tr>
+      <tr>
+        <th>Date</th>
+        <% @columns.each do |_| %>
+          <th class="subheader">Daily</th>
+          <th class="subheader">Total</th>
+        <% end %>
+        <% if @fills.present? %>
+          <th class="subheader">Daily</th>
+          <th class="subheader">Total</th>
+        <% end %>
+      </tr>
+    </thead>
+    <tbody>
+      <% @totals = Hash.new(0) %>
+      <% @data.each do |date, counts| %>
+        <tr>
+          <td><%= date.to_datetime.strftime("%B %-d, %Y") %></td>
+          <% @columns.each do |c| %>
+            <td><%= counts[c] || 0 %></td>
+            <td><%= @totals[c] += counts[c] || 0 %></td>
+          <% end %>
+          <% if @fills.present? %>
+            <td><%= @fills[date] || 0 %></td>
+            <td><%= @totals[:fills] += @fills[date] || 0 %></td>
+          <% end %>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>

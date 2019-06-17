@@ -8,32 +8,12 @@
   <hr />
   <div class="row">
     <div class="col-sm-12 col-lg-12 col-md-12">
-      <h3>Action Page Views</h3>
-      <%= line_chart(admin_events_path(@actionPage, type: :views),
-                     height: "200px", discrete: true) %>
 
-      <h3>Email Tool</h3>
-      <%= line_chart(admin_events_path(@actionPage, type: :emails),
-                     height: "200px", discrete: true) %>
-
-      <h3>Congress Messages Sent</h3>
-      <%= if start_date_string == end_date_string
-        line_chart(congress_forms_hour_fills_url(nil, start_date_string), height: "200px")
-      else
-        line_chart(congress_forms_date_fills_url(nil, start_date_string, end_date_string))
-      end %>
-
-      <h3>Call Tool</h3>
-      <%= line_chart(admin_events_path(@actionPage, type: :calls),
-                     height: "200px", discrete: true) %>
-
-      <h3>Tweet Tool</h3>
-      <%= line_chart(admin_events_path(@actionPage, type: :tweets),
-                     height: "200px", discrete: true) %>
-
-      <h3>Petition Tool</h3>
-      <%= line_chart(admin_events_path(@actionPage, type: :signatures),
-                     height: "200px", discrete: true) %>
+      <% Ahoy::Event.action_types.each do |type| %>
+        <h3><%= t(type, scope: :ahoy) %></h3>
+        <%= line_chart(admin_events_path(@actionPage, type: type),
+                       height: "200px", discrete: true) %>
+      <% end %>
 
       <h3>Users</h3>
       <%= line_chart(admin_users_path(@actionPage), height: "200px", discrete: true) %>

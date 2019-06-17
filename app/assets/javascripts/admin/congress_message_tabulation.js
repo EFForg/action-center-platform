@@ -1,21 +1,4 @@
 $(document).ready(function() {
-  $("table#congress_message_tabulation_by_date").each(function() {
-    $.ajax({
-      url: this.dataset.fills_url,
-      success: function(data) {
-        var tbody = $("<tbody>");
-        var totalCount = 0;
-        _.each(data, function(count, date){
-          totalCount += count;
-          date = moment(date, "YYYY-MM-DD").format("YYYY-MM-DD")
-          tbody.append("<tr><td>"+date+"</td><td>"+count+"</td></tr>");
-        });
-        tbody.append("<tr><td>Total</td><td><b>" + totalCount + "</b></td></tr>");
-        $("#congress_message_tabulation_by_date tbody").replaceWith(tbody);
-      }
-    });
-  });
-
   $("table#congress_message_tabulation_by_congress").each(function(){
     var table = this;
     Step(

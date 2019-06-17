@@ -2,85 +2,48 @@
 <% if @actionPage.id -%>
   <div class="tab-pane" id="analytics">
     <div class="row">
-      <div class="col-sm-6">
+      <div>
         <span class='alert alert-warning times-notification'><i class="icon-attention"></i> All dates and times are given in <%= Time.zone.name %></span>
       </div>
-      <div class="col-sm-6 text-right">
+      <div class="text-right">
         <%= render 'admin/action_pages/date_range_form' -%>
+        <%= link_to admin_action_page_events_path(@actionPage),
+          class: "table-view-link", target: "_blank" do -%>
+          <button type='button' class='btn btn-default btn-sm'>Table View</button>
+        <% end -%>
       </div>
     </div>
     <hr />
     <div class="row">
       <div class="col-sm-12">
-        <h3>Action Page Views</h3>
-        <%= link_to admin_action_page_views_path(@actionPage),
-          target: "_blank" do -%>
-          <button type='button' class='btn btn-default'>Table View</button>
-        <% end -%>
-        <%= line_chart(admin_action_page_events_path(@actionPage, type: :views),
-                       height: "200px", discrete: true) %>
+        <% Ahoy::Event.action_types(@actionPage).each do |type| %>
+          <h3><%= t(type, scope: :ahoy) %></h3>
 
-        <% if @actionPage.enable_email? && @actionPage.email_campaign %>
-          <h3>Email Tool</h3>
-          <%= line_chart(admin_action_page_events_path(@actionPage, type: :emails),
+          <% if type == :signatures %>
+            <%= link_to "Download CSV",
+                        csv_admin_petition_path(@actionPage.petition),
+                        class: "btn btn-default btn-sm pull-right"-%>
+            <%= link_to 'View Signatures',
+                        admin_petition_path(@actionPage.petition),
+                        class: "btn btn-default btn-sm pull-right"-%>
+          <% end %>
+
+          <%= line_chart(admin_action_page_events_path(@actionPage, type: type),
                          height: "200px", discrete: true) %>
         <% end %>
 
-        <% if @actionPage.enable_congress_message? && @actionPage.congress_message_campaign %>
-          <h3>Congress Messages Tool</h3>
-          <%= line_chart(admin_action_page_events_path(@actionPage, type: :congress_messages),
-                         height: "200px", discrete: true) %>
-
+        <% if @actionPage.enable_congress_message? %>
           <h3>Congresss Messages Sent</h3>
-          <%= link_to date_tabulation_admin_congress_message_campaign_path(@actionPage.congress_message_campaign),
-            target: "_blank" do -%>
-            <button type='button' class='btn btn-default'>Table View</button>
-          <% end -%>
           <%= link_to congress_tabulation_admin_congress_message_campaign_path(@actionPage.congress_message_campaign),
             target: "_blank" do -%>
             <button type='button' class='btn btn-default'>Congressional Breakdown</button>
           <% end -%>
-          <%= if start_date_string == end_date_string
-            line_chart(
-              congress_forms_hour_fills_url(@actionPage.congress_message_campaign.campaign_tag, start_date_string), height: "200px"
-            )
-          else
-            line_chart(
-              congress_forms_date_fills_url(@actionPage.congress_message_campaign.campaign_tag, start_date_string, end_date_string), height: "200px"
-            )
-          end %>
-        <% end %>
-
-        <% if @actionPage.enable_call? && @actionPage.call_campaign %>
-          <h3>Call Tool</h3>
-          <%= line_chart(admin_action_page_events_path(@actionPage, type: :calls),
-                         height: "200px", discrete: true) %>
-        <% end %>
-
-        <% if @actionPage.enable_tweet? && @actionPage.tweet %>
-          <h3>Tweet Tool</h3>
-          <%= line_chart(admin_action_page_events_path(@actionPage, type: :tweets),
-                         height: "200px", discrete: true) %>
-        <% end %>
-
-        <% if @actionPage.enable_petition? && @actionPage.petition && @actionPage.petition.persisted? %>
-          <h3 class=clearfix>
-            Petition Tool
-            <% if can?(:export_signatures) %>
-              <%= link_to 'Download CSV',
-                          csv_admin_petition_path(@actionPage.petition),
-                          class: 'btn btn-default btn-sm pull-right'-%>
-            <% end %>
-          </h3>
-          <%= link_to 'View Signatures',
-            admin_petition_path(@actionPage.petition),
-            class: 'pull-right'-%>
-          <%= line_chart(admin_action_page_events_path(@actionPage, type: :signatures),
-                         height: "200px", discrete: true) %>
+          <%= line_chart(@actionPage.congress_message_campaign.date_fills_url(start_date_string, end_date_string),
+                         height: "200px") %>
         <% end %>
 
         <div class="clearfix"> </div>
-      </div><!-- .col-sm-12 -->
+      </div>
     </div><!-- .row -->
   </div><!-- .tab-pane -->
 <% end -%>
