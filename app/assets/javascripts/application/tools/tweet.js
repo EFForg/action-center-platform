@@ -67,7 +67,7 @@ $(document).on('ready', function() {
     var msg = $('#tweet-message-wrapper textarea');
     if (msg.length > 0) {
       btn.attr('href', "https://twitter.com/intent/tweet?related=eff&text=" +
-        "@" + btn.data('twitter-id') + "%20" + encodeURIComponent(msg.val()));
+               btn.data('twitter-id') + "%20" + encodeURIComponent(msg.val()));
     }
     Twitter.handleIntent(e);
   });

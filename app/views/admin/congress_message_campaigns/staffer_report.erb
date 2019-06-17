@@ -7,7 +7,7 @@
   <div class='chart_wrapper'>
     <label>Messages sent to your office:</label>
     <%= line_chart(
-      congress_forms_date_fills_url(@congress_message_campaign.campaign_tag, nil, nil, @bioguide_id),
+      @congress_message_campaign.date_fills_url(nil, nil, @bioguide_id),
       height: "250px",
       library: {canvasDimensions: {width: 600, height: 250}}
     ) %>
@@ -16,7 +16,7 @@
   <div class='chart_wrapper'>
     <label>Messages sent to Congress:</label>
     <%= line_chart(
-      congress_forms_date_fills_url(@congress_message_campaign.campaign_tag),
+      @congress_message_campaign.date_fills_url,
       height: "250px",
       library: {canvasDimensions: {width: 600, height: 250}}
     ) %>

@@ -7,16 +7,16 @@
       </div>
       <div class="text-right">
         <%= render 'admin/action_pages/date_range_form' -%>
+        <%= link_to admin_action_page_events_path(@actionPage),
+          class: "table-view-link", target: "_blank" do -%>
+          <button type='button' class='btn btn-default btn-sm'>Table View</button>
+        <% end -%>
       </div>
     </div>
     <hr />
     <div class="row">
       <div>
         <h3>Action Page Views</h3>
-        <%= link_to admin_action_page_views_path(@actionPage),
-          target: "_blank" do -%>
-          <button type='button' class='btn btn-default'>Table View</button>
-        <% end -%>
         <%= line_chart(admin_action_page_events_path(@actionPage, type: :views),
                        height: "200px", discrete: true) %>
 
@@ -32,23 +32,12 @@
                          height: "200px", discrete: true) %>
 
           <h3>Congresss Messages Sent</h3>
-          <%= link_to date_tabulation_admin_congress_message_campaign_path(@actionPage.congress_message_campaign),
-            target: "_blank" do -%>
-            <button type='button' class='btn btn-default'>Table View</button>
-          <% end -%>
           <%= link_to congress_tabulation_admin_congress_message_campaign_path(@actionPage.congress_message_campaign),
             target: "_blank" do -%>
             <button type='button' class='btn btn-default'>Congressional Breakdown</button>
           <% end -%>
-          <%= if start_date_string == end_date_string
-            line_chart(
-              congress_forms_hour_fills_url(@actionPage.congress_message_campaign.campaign_tag, start_date_string), height: "200px"
-            )
-          else
-            line_chart(
-              congress_forms_date_fills_url(@actionPage.congress_message_campaign.campaign_tag, start_date_string, end_date_string), height: "200px"
-            )
-          end %>
+          <%= line_chart(@actionPage.congress_message_campaign.date_fills_url(start_date_string, end_date_string),
+                         height: "200px") %>
         <% end %>
 
         <% if @actionPage.enable_call? && @actionPage.call_campaign %>
