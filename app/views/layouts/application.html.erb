@@ -38,12 +38,32 @@
   <div id="top" class="wrapper">
     <div id="off-canvas" class="off-canvas" role="navigation" aria-label="mobile-navigaton">
       <ul>
-        <li><a href="#base-styles">Base Styles</a></li>
-        <li><a href="#grids">Grids & Tables</a></li>
-        <li><a href="#forms">Form Elements</a></li>
-        <li><a href="#navigation">Navigation</a></li>
-        <li><a href="#accordion">Accordions, Dropdowns, Modals</a></li>
-        <li><a href="#access">Accessibility</a></li>
+        <li class="logo-li scrolly"><a href="#top" class="menu-logo" alt="Site logo">&nbsp;</a></li>
+        <li><a class="scrolly" href="/">Home</a></li>
+        <% if user_signed_in? %>
+        <% if can?(:administer_actions) && controller_name == "action_page" && @actionPage -%>
+        <li><%= link_to "Edit this page", edit_admin_action_page_path(@actionPage) -%></li>
+        <% end %>
+
+        <% if current_user.privileged_role? %>
+        <li><%= link_to("Admin", "/admin/action_pages") %></li>
+        <% end %>
+
+        <% if current_user.partner? %>
+        <li><%= link_to "Partner Dashboard", current_user.partner -%></li>
+        <% end %>
+
+        <li><%= link_to("Account", "/account") %></li>
+        <li>
+          <%= form_for current_user, url: destroy_user_session_path, method: :delete, html: { class: "nav-form-link" } do |f| %>
+          <%= f.submit "Logout" %>
+          <% end %>
+        </li>
+        <% else %>
+        <li><%= link_to("Register", new_user_registration_path)  %></li>
+        <li><%= link_to("Login", new_user_session_path)  %></li>
+        <% end %>
+
       </ul>
       <div class="close-menu"><a href="#">&times;</a></div>
     </div>
@@ -51,7 +71,7 @@
       <nav role="navigation" aria-label="desktop-navigation">
         <ul>
           <li class="logo-li scrolly"><a href="#top" class="menu-logo" alt="Site logo">&nbsp;</a></li>
-          <li><a class="scrolly" href=/">Home</a></li>
+          <li><a class="scrolly" href="/">Home</a></li>
           <% if user_signed_in? %>
           <% if can?(:administer_actions) && controller_name == "action_page" && @actionPage -%>
           <li><%= link_to "Edit this page", edit_admin_action_page_path(@actionPage) -%></li>

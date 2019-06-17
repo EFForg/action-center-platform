@@ -11,14 +11,16 @@ body {
 nav {
   background-color: $eff-red;
   display: block;
-  height: $nav-height;
+  height: 70px;
   position: fixed;
   left: 0;
   top: 0;
   text-align: center;
   width: 100%;
   z-index: 10;
-
+  @media screen and (min-width: $md) {
+    height: $nav-height;
+  }
   a {
     border: none;
     color: white;
@@ -102,12 +104,13 @@ nav {
       display: inline-block;
       height: 40px;
       left: 0.5rem;
+      margin-top: 1rem;
       position: absolute;
       top: 0;
-      transition: all 0.2s;
-      width: 40px;
+      //transition: all 0.2s;
+      width: 200px;
       &:hover {
-        background-image: asset-url('EFF-logo-lockup-black.svg');
+        //background-image: asset-url('EFF-logo-lockup-black.svg');
         border: none;
       }
     }
