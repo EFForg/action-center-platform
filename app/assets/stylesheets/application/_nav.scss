@@ -50,7 +50,7 @@ nav {
     list-style: none;
     line-height: 1rem;
     margin: 1.5rem auto 0;
-    padding: 0;
+    padding: 0 0 0 1rem;
     width: 100%;
     &:after {
       content: "";
@@ -69,8 +69,8 @@ nav {
           color: white;
         }
         &:hover {
-          &:not(.donate),
           &:not(.menu-logo) {
+            border-bottom: 2px solid white;
             color: white;
           }
         }
