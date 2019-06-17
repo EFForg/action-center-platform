@@ -5,7 +5,9 @@
   <div class="container">
     <h1><%= t :front_page_header_html -%></h1>
   </div>
-
+  <% unless user_signed_in? -%>
+    <%= render 'subscriptions/form' -%>
+  <% end -%>
 
 </div>
 
