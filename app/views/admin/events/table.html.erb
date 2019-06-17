@@ -10,15 +10,11 @@
         <td></td>
         <% @columns.each do |c| %>
           <th colspan="2">
-            <% if c == :views %>
-              <%= c.to_s.humanize %></th>
-            <% else %>
-              <%= c.to_s.humanize.singularize %> actions
-            <% end %>
+            <%= t(c, scope: :ahoy) %>
           </th>
         <% end %>
         <% if @fills.present? %>
-          <th colspan="2">Congress messages submitted</th>
+          <th colspan="2">Congress Messages Submitted</th>
         <% end %>
       </tr>
       <tr>
