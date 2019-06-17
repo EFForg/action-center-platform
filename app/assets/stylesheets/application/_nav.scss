@@ -122,13 +122,13 @@ nav {
     }
     .menu-logo {
       @media screen and (min-width: $md) {
-        height: 45px;
-        width: 45px;
+        height: auto;
+        width: 300px;
         left: 0;
         margin-top: 0;
         position: relative;
       }
-      background-image: url("images/eff-monogram-red.svg");
+      background: asset-url('EFF-logo-lockup-black.svg') no-repeat;
       background-repeat: no-repeat;
       background-size: contain;
       display: inline-block;
