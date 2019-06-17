@@ -10,7 +10,7 @@
     <div class="col-sm-12 col-lg-12 col-md-12">
 
       <% Ahoy::Event.action_types.each do |type| %>
-        <h3><%= humanize_event_type(type) %></h3>
+        <h3><%= t(type, scope: :ahoy) %></h3>
         <%= line_chart(admin_events_path(@actionPage, type: type),
                        height: "200px", discrete: true) %>
       <% end %>
