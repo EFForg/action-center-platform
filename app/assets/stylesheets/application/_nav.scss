@@ -1,0 +1,150 @@
+$nav-height: 60px;
+$nav-color:  $gray;
+$nav-font-color: $gray;
+$nav-font-size: 1.1rem;
+$nav-text-transform: uppercase;
+
+body {
+  margin-top: $nav-height;
+}
+
+nav {
+  background-color: $eff-red;
+  display: block;
+  height: $nav-height;
+  position: fixed;
+  left: 0;
+  top: 0;
+  text-align: center;
+  width: 100%;
+  z-index: 10;
+
+  a {
+    border: none;
+    color: $gray;
+    display: inline-block;
+    text-decoration: none;
+    &:hover {
+      text-decoration: none;
+    }
+    &:visited {
+      color: inherit;
+    }
+  }
+  a.open-menu {
+    @media screen and (min-width: $md) {
+      display: none;
+    }
+    color: $gray;
+    display: inline-block;
+    margin-top: 0.45em;
+  }
+
+  ul {
+    @media screen and (min-width: $md) {
+      max-width: 1024px;
+    }
+    display: flex;
+    font-size: 0.75rem;
+    height: 2rem;
+    justify-content: space-around;
+    list-style: none;
+    line-height: 1rem;
+    margin: 0.5rem auto 0;
+    padding: 0;
+    width: 100%;
+    &:after {
+      content: "";
+    }
+
+    li {
+      display: none;
+      text-align: center;
+      text-transform: $nav-text-transform;
+      font-size: $nav-font-size;
+      font-weight: 700;
+      color: white;
+      a {
+        color: white;
+        &.active {
+          color: $gray;
+        }
+        &:hover {
+          &:not(.donate),
+          &:not(.menu-logo) {
+            color: $gray;
+          }
+        }
+      }
+      @media screen and (min-width: $md) {
+        display: inline-block;
+        font-size: 1rem;
+        margin: 0.9rem auto 0;
+        text-align: center;
+        flex-grow: 1;
+      }
+      &.logo-li {
+        display: inline-block;
+        margin: 0;
+        text-align: left;
+      }
+      &.donate {
+        @media screen and (min-width: $md) {
+          margin: 0.8rem 0 0 2rem;
+          width: 3.5rem;
+        }
+        display: inline-block;
+        margin: 0 auto;
+        a {
+          background: black;
+          margin: 0 auto 0 6%;
+          padding: 0.5rem 0;
+          width: 11rem;
+          span.donate-mobile {
+            display: inline-block;
+          }
+          &:hover {
+            background: white;
+            color: black;
+          }
+          @media screen and (min-width: $md) {
+            background: black;
+            padding: 0;
+            position: relative;
+            top: 0;
+            width: 5rem;
+            span.donate-mobile {
+              display: none;
+            }
+          }
+        }
+      }
+    }
+    .menu-logo {
+      @media screen and (min-width: $md) {
+        height: 45px;
+        width: 45px;
+        left: 0;
+        margin-top: 0;
+        position: relative;
+      }
+      background-image: url("images/eff-monogram-red.svg");
+      background-repeat: no-repeat;
+      background-size: contain;
+      display: inline-block;
+      height: 40px;
+      left: 0.5rem;
+      position: absolute;
+      top: 1rem;
+      transition: all 0.2s;
+      width: 40px;
+      &:hover {
+        background-image: url("images/eff-monogram-red-hover.svg");
+        border: none;
+      }
+    }
+    li.close-menu {
+      display: none !important;
+    }
+  }
+}

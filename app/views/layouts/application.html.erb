@@ -3,130 +3,117 @@
 <!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
 <!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
 <!--[if gt IE 8]><!--> <html class="no-js"> <!--<![endif]-->
-  <head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="icon" type="image/x-icon" href="<%= asset_path('favicon.ico') -%>">
-    <meta http-equiv="Content-Type" content="text/xml; charset=UTF-8" />
-    <link rel="alternate" type="application/atom+xml" title="<%= t :site_title -%>" href="/action.atom" />
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="icon" type="image/x-icon" href="<%= asset_path('favicon.ico') -%>">
+  <meta http-equiv="Content-Type" content="text/xml; charset=UTF-8" />
+  <link rel="alternate" type="application/atom+xml" title="<%= t :site_title -%>" href="/action.atom" />
 
-    <title><%= page_title -%></title>
-    <%= stylesheet_link_tag "application", media: "all" %>
-    <%= yield(:head) if content_for?(:head) -%>
-    <%= csrf_meta_tags %>
+  <title><%= page_title -%></title>
+  <%= stylesheet_link_tag "application", media: "all" %>
+  <%= yield(:head) if content_for?(:head) -%>
+  <%= csrf_meta_tags %>
 
-    <script type="text/javascript">
-      // Remove the no-js class from <html> if js is loading
-        document.documentElement.className = document.documentElement.className.replace("no-js", "js");
-    </script>
-  </head>
+  <script type="text/javascript">
+    // Remove the no-js class from <html> if js is loading
+    document.documentElement.className = document.documentElement.className.replace("no-js", "js");
+  </script>
+</head>
 
-  <body class="<%= current_user ? 'logged-in' : '' %> <%= controller.controller_name  + "-" +action_name %>">
+<body class="<%= current_user ? 'logged-in' : '' %> <%= controller.controller_name  + "-" +action_name %>">
 
-    <!--[if lt IE 7]>
-        <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
-    <![endif]-->
+  <!--[if lt IE 7]>
+  <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
+  <![endif]-->
 
-    <!-- Define our SVG shapes -->
-    <svg style="display: none;">
-      <defs>
-        <polygon id="arrow" points="0,0 0,10 8,5 "/>
-      </defs>
-    </svg>
+  <!-- Define our SVG shapes -->
+  <svg style="display: none;">
+    <defs>
+      <polygon id="arrow" points="0,0 0,10 8,5 "/>
+    </defs>
+  </svg>
 
-    <div class="wrapper">
-      <div class="navbar-wrapper">
-        <div class="container">
-          <div class="navbar navbar-inverse" role="navigation">
-            <div class="navbar-header">
-              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-                <span class="sr-only">Toggle navigation</span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-              </button>
-                <a class="navbar-brand" href="/"><span class="sr-only">EFF Action Center</span></a>
-            </div>
-            <div class="navbar-collapse collapse">
-              <ul class="nav navbar-nav navbar-right">
-                <li>
-                  <a href="/">Home</a>
-                </li>
-                <li>
-                  <a href="https://eff.org">EFF.org</a>
-                </li>
-                <% if user_signed_in? %>
-                  <% if can?(:administer_actions) && controller_name == "action_page" && @actionPage -%>
-                    <li><%= link_to "Edit this page", edit_admin_action_page_path(@actionPage) -%></li>
-                  <% end %>
+  <div class="wrapper">
+    <div id="off-canvas" class="off-canvas" role="navigation" aria-label="mobile-navigaton">
+      <ul>
+        <li><a href="#base-styles">Base Styles</a></li>
+        <li><a href="#grids">Grids & Tables</a></li>
+        <li><a href="#forms">Form Elements</a></li>
+        <li><a href="#navigation">Navigation</a></li>
+        <li><a href="#accordion">Accordions, Dropdowns, Modals</a></li>
+        <li><a href="#access">Accessibility</a></li>
+      </ul>
+      <div class="close-menu"><a href="#">&times;</a></div>
+    </div>
+    <div class="navbar-wrapper">
+      <a class="navbar-brand" href="/"><span class="sr-only">EFF Action Center</span></a>
+      <nav role="navigation" aria-label="desktop-navigation">
+        <ul>
+          <li class="logo-li scrolly"><a href="#top" class="menu-logo" alt="Site logo">&nbsp;</a></li>
+          <li><a class="scrolly" href=/">Home</a></li>
+          <% if user_signed_in? %>
+          <% if can?(:administer_actions) && controller_name == "action_page" && @actionPage -%>
+          <li><%= link_to "Edit this page", edit_admin_action_page_path(@actionPage) -%></li>
+          <% end %>
 
-                  <% if current_user.privileged_role? %>
-                    <li><%= link_to("Admin", "/admin/action_pages") %></li>
-                  <% end %>
+          <% if current_user.privileged_role? %>
+          <li><%= link_to("Admin", "/admin/action_pages") %></li>
+          <% end %>
 
-                  <% if current_user.partner? %>
-                    <li><%= link_to "Partner Dashboard", current_user.partner -%></li>
-                  <% end %>
+          <% if current_user.partner? %>
+          <li><%= link_to "Partner Dashboard", current_user.partner -%></li>
+          <% end %>
 
-                  <li><%= link_to("Account", "/account") %></li>
-                  <li>
-                    <%= form_for current_user, url: destroy_user_session_path, method: :delete, html: { class: "nav-form-link" } do |f| %>
-                      <%= f.submit "Logout" %>
-                    <% end %>
-                  </li>
-                <% else %>
-                  <li><%= link_to("Register", new_user_registration_path)  %></li>
-                  <li><%= link_to("Login", new_user_session_path)  %></li>
-                <% end %>
-              </ul>
-            </div><!--/.navbar-collapse -->
-          </div>
-          <div class="horiz-rule"></div>
-          <div class="alert-container">
-            <%- if !devise_error_messages? -%>
-              <%- if flash.notice -%>
-                <div class="alert alert-info"><%= flash.notice %><a class="close" data-dismiss="alert">[close]</a></div>
-              <% end -%>
-              <%- if flash.alert -%>
-                <div class="alert alert-error"><%= flash.alert %><a class="close" data-dismiss="alert">[close]</a></div>
-              <% end -%>
-            <% end -%>
+          <li><%= link_to("Account", "/account") %></li>
+          <li>
+            <%= form_for current_user, url: destroy_user_session_path, method: :delete, html: { class: "nav-form-link" } do |f| %>
+            <%= f.submit "Logout" %>
+            <% end %>
+          </li>
+          <% else %>
+          <li><%= link_to("Register", new_user_registration_path)  %></li>
+          <li><%= link_to("Login", new_user_session_path)  %></li>
+          <% end %>
+
+        </ul>
+        <a href="#off-canvas" class="open-menu">&#x2261;</a>
+      </nav>
+
+    </div>
+
+    <div id="content">
+      <% if content_for?(:content) -%>
+      <%= yield(:content) -%>
+      <% else -%>
+      <%= yield %>
+      <% end -%>
+    </div>
+
+    <div class="footer">
+      <div class="container">
+        <div class="col-sm-4 logo">
+          <div>
+            <a href="https://www.eff.org"><span class="sr-only">Electronic Frontier Foundation</span></a>
           </div>
         </div>
-      </div>
-
-      <div id="content">
-        <% if content_for?(:content) -%>
-          <%= yield(:content) -%>
-        <% else -%>
-          <%= yield %>
-        <% end -%>
-      </div>
-
-      <div class="footer">
-        <div class="container">
-          <div class="col-sm-4 logo">
-            <div>
-              <a href="https://www.eff.org"><span class="sr-only">Electronic Frontier Foundation</span></a>
-            </div>
-          </div>
-          <div class="col-sm-8 links">
-            <a target="_blank" href="https://www.eff.org/thanks" class="hidden-xs">Thanks</a>
-            <a target="_blank" href="https://www.eff.org/rss">RSS Feeds</a>
-            <a target="_blank" href="https://www.eff.org/copyright" class="hidden-xs">Copyright Policy</a>
-            <a target="_blank" href="https://www.eff.org/policy">Privacy Policy</a>
-            <a target="_blank" href="https://github.com/EFForg/action-center-platform" class="hidden-xs">Open Source</a>
-            <a target="_blank" href="https://www.eff.org/about/contact">Contact</a>
-          </div>
+        <div class="col-sm-8 links">
+          <a target="_blank" href="https://www.eff.org/thanks" class="hidden-xs">Thanks</a>
+          <a target="_blank" href="https://www.eff.org/rss">RSS Feeds</a>
+          <a target="_blank" href="https://www.eff.org/copyright" class="hidden-xs">Copyright Policy</a>
+          <a target="_blank" href="https://www.eff.org/policy">Privacy Policy</a>
+          <a target="_blank" href="https://github.com/EFForg/action-center-platform" class="hidden-xs">Open Source</a>
+          <a target="_blank" href="https://www.eff.org/about/contact">Contact</a>
         </div>
       </div>
     </div>
+  </div>
 
-    <%= javascript_include_tag "application" %>
+  <%= javascript_include_tag "application" %>
 
-    <%= matomo_tracking_embed %>
+  <%= matomo_tracking_embed %>
 
-    <%= yield(:body) if content_for?(:body) -%>
-  </body>
+  <%= yield(:body) if content_for?(:body) -%>
+</body>
 </html>
