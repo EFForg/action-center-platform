@@ -78,3 +78,7 @@ en:
   privacy_notice: EFF uses the information you provide to defend digital rights, including improving our campaigns and sharing information about them, and to contact decisionmakers on your behalf. For details, see our privacy policy at eff.org/policy.
   subscriptions:
     edit_error: We're unable to generate a subscription management URL. Please try again later.
+  ahoy:
+    views: Action Page Views
+    emails: Email Actions
+    congress_messages: Congress Message Actions

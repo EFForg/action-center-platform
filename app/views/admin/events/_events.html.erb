@@ -8,29 +8,12 @@
   <hr />
   <div class="row">
     <div class="col-sm-12 col-lg-12 col-md-12">
-      <h3>Action Page Views</h3>
-      <%= line_chart(admin_events_path(@actionPage, type: :views),
-                     height: "200px", discrete: true) %>
 
-      <h3>Email Tool</h3>
-      <%= line_chart(admin_events_path(@actionPage, type: :emails),
-                     height: "200px", discrete: true) %>
-
-      <h3>Congress Message Tool</h3>
-      <%= line_chart(admin_events_path(@actionPage, type: :congress_messages),
-                     height: "200px", discrete: true) %>
-
-      <h3>Call Tool</h3>
-      <%= line_chart(admin_events_path(@actionPage, type: :calls),
-                     height: "200px", discrete: true) %>
-
-      <h3>Tweet Tool</h3>
-      <%= line_chart(admin_events_path(@actionPage, type: :tweets),
-                     height: "200px", discrete: true) %>
-
-      <h3>Petition Tool</h3>
-      <%= line_chart(admin_events_path(@actionPage, type: :signatures),
-                     height: "200px", discrete: true) %>
+      <% Ahoy::Event.action_types.each do |type| %>
+        <h3><%= t(type, scope: :ahoy) %></h3>
+        <%= line_chart(admin_events_path(@actionPage, type: type),
+                       height: "200px", discrete: true) %>
+      <% end %>
 
       <h3>Users</h3>
       <%= line_chart(admin_users_path(@actionPage), height: "200px", discrete: true) %>
