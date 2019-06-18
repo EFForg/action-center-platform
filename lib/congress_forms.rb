@@ -2,35 +2,39 @@ require "rest_client"
 
 module CongressForms
   class Form
-    attr_accessor :fields
+    attr_accessor :fields, :bioguide_id
+
+    EXTRA_INPUTS = %w($MESSAGE).freeze
 
     def self.find(bioguide_ids)
       raw_forms = CongressForms.post("/retrieve-form-elements/", {
         bio_ids: bioguide_ids
       })
-      raw_forms.values.map { |raw| Form.new(raw["required_actions"]) }
+      raw_forms.map { |id, raw| Form.new(id, raw["required_actions"]) }
     end
 
-    def self.group_common_fields(fields_list)
+    def self.group_common_fields(forms)
     end
 
-    def initialize(fields)
+    def initialize(bioguide_id, fields)
+      @bioguide_id = bioguide_id
       @fields = fields.map{ |f| Field.new(f) }
     end
 
-    def validate(data)
+    def validate(input)
       @fields.each do |f|
-        return false unless f.validate(data[f.value])
+        return false unless f.validate(input[f.value])
       end
       true
     end
 
-    def fill(message)
-      params = {}
-      @fields.each do |f|
-        params[f.value] = f.get_input(data)
-      end
-      CongressMessage.post("/fill-out-form/", params)
+    def fill(input)
+      field_vals = @fields.map{ |f| f.value } + EXTRA_INPUTS
+      params = {
+        bioguide_id: @bioguide_id,
+        fields: input.select{ |k, v| field_vals.include?(k) }
+      }
+      CongressForms.post("/fill-out-form/", params)
     end
   end
 
@@ -66,7 +70,8 @@ module CongressForms
 
   def self.post(path = "/", params = {})
     begin
-      JSON.parse RestClient.post(base_url + path, params)
+      JSON.parse RestClient.post(base_url + path, params.to_json,
+                                 {content_type: :json, accept: :json})
     rescue RestClient::ExceptionWithResponse => e
       Rails.logger.error e
       return {}
