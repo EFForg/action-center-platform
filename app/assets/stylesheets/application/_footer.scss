@@ -1,31 +1,22 @@
 .footer {
-  color: $off-white;
   background: black;
+  color: $gray;
   left: 0;
   right: 0;
   bottom: 0;
   padding: 1rem 1rem 0 1rem;
   position: absolute;
+  text-transform: uppercase;
   z-index: 10;
 
   a {
-    color: $gray-light;
+    color: $gray;
     border-bottom: none;
+    font-size: 1.1rem;
+    font-weight: 300;
     &:hover {
-      color: $eff-red;
-      border-bottom: 2px solid $eff-red;
-    }
-  }
-
-  .icon-eff-logo {
-    font-size: 30px;
-    line-height: 1;
-  }
-
-  .cc-notice {
-    font-size: 11px;
-    i {
-      font-size: 25px;
+      color: white;
+      border-bottom: 2px solid white;
     }
   }
 
@@ -37,9 +28,10 @@
 
   .logo {
     a {
+      background: asset-url('EFF-logo-lockup-1color-gray.svg') no-repeat;
       display: block;
       height: 4.5rem;
-      background: asset-url('EFF-logo-lockup-1color-gray.svg') no-repeat;
+      margin-bottom: 2rem;
       &:hover {
         border: none;
       }
@@ -47,15 +39,14 @@
   }
 
   .links {
-    padding: 0 0 0 15px;
-    line-height: 4.5rem;
+    @include flex-this;
+    justify-content: space-between;
+    color: $gray;
+    padding: 0;
     margin: 0;
-    color: #cc0000;
-    font-size: 13px;
-
+    max-width: 80%;
     a {
       @include transition (color 0.2s ease-in-out);
-      margin-right: 13px;
     }
   }
 }
