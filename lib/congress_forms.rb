@@ -12,7 +12,6 @@ module CongressForms
     end
 
     def self.group_common_fields(fields_list)
-
     end
 
     def initialize(fields)
@@ -47,8 +46,8 @@ module CongressForms
     def validate(input)
       return false if input.nil?
       return false if @max_length && input.length > @max_length
-      # @TODO this can be an array or hash - currently checking hash key.
-      return false if @options_hash && !@options_hash.include?(input)
+      return false if @options_hash.is_a?(Array) && !@options_hash.include?(input)
+      return false if @options_hash.is_a?(Hash) && !@options_hash.values.include?(input)
       true
     end
   end

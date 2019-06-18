@@ -7,22 +7,17 @@ class CongressMessageController < ApplicationController
   end
 
   def create
-    # @TODO cache b/t requests? store locally?
+    # @TODO avoid repeating this request?
     forms = CongressForms::Form.find(params[bioguide_ids])
     forms.each do |f|
-      unless f.validate(congress_message_params)
+      unless f.validate(params)
         # Re-render form and return
       end
     end
     forms.each do |f|
-      unless f.submit(congress_message_params)
+      unless f.submit(params)
         # re-render form and return
       end
     end
-  end
-
-  private
-
-  def congress_message_params
   end
 end
