@@ -13,7 +13,9 @@ module CongressForms
       raw_forms.map { |id, raw| Form.new(id, raw["required_actions"]) }
     end
 
-    def self.group_common_fields(forms)
+    def self.common_fields(forms)
+      all_fields = forms.reduce([]){ |a, b| a + b.fields }
+      all_fields.select{ |e| all_fields.count(e) > 1 }.uniq
     end
 
     def initialize(bioguide_id, fields)
@@ -53,6 +55,20 @@ module CongressForms
       return false if @options_hash.is_a?(Array) && !@options_hash.include?(input)
       return false if @options_hash.is_a?(Hash) && !@options_hash.values.include?(input)
       true
+    end
+
+    def ==(other)
+      self.max_length == other.max_length &&
+        self.value == other.value &&
+        self.options_hash == other.options_hash
+    end
+
+    def eql?(other)
+      self == other
+    end
+
+    def hash
+      [@max_length, @value, @options_hash].hash
     end
   end
 

@@ -37,6 +37,31 @@ describe CongressForms do
       end
     end
 
+    describe "::common_fields" do
+      let(:form2) {
+        CongressForms::Form.new("C000881", [
+          {"value" => "$ADDRESS_CITY"},
+          {"value" => "$ADDRESS_STATE", "options_hash" => {
+              "CALIFORNIA" => "CA",
+              "NEW YORK" => "NY"
+            }
+          }
+        ])
+      }
+
+      it "groups matching opt_hashes" do
+        common = CongressForms::Form.common_fields([form, form2]).uniq
+        expect(common.length).to eq 1
+        byebug
+      end
+
+      it "doesn't group mismatched opt_hashes" do
+        form2.fields.last.options_hash["TEXAS"] = "TX"
+        common = CongressForms::Form.common_fields([form, form2])
+        expect(common.length).to eq 0
+      end
+    end
+
     describe "#validate" do
       it "returns true with valid input" do
         expect(form.validate(input)).to be true

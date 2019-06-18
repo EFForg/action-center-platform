@@ -2,7 +2,7 @@ class CongressMessageController < ApplicationController
   def lookup
     @members = CongressMember.lookup(params[street], params[zipcode])
     @forms = CongressForms::Form.find(@members.pluck(:bioguide_id))
-    # @forms = CongressForms::Form.group_common_fields(forms)
+    @common = CongressForms::Form.common_fields(@forms)
     # @TODO address, message to template vars for form render, possibly hidden fields
   end
 
