@@ -1,11 +1,11 @@
 .footer {
   background: black;
   color: $gray;
+  display: block;
   left: 0;
   right: 0;
   bottom: 0;
   padding: 2rem 1rem 5rem 1rem;
-  position: absolute;
   text-transform: uppercase;
   z-index: 10;
   .container {
