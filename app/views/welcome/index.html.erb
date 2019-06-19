@@ -1,17 +1,6 @@
 <% content_for :head do -%>
   <%= render 'welcome/meta_tags' -%>
 <% end -%>
-<div class="redtop home">
-  <div class="container">
-    <h1><%= t :front_page_header_html -%></h1>
-    <% unless user_signed_in? -%>
-      <%= render 'subscriptions/form' -%>
-    <% end -%>
-  </div>
-
-
-</div>
-
 
 <section class="featured-action">
   <% if @featuredActionPage -%>
@@ -57,7 +46,11 @@
       <% end %>
     </div>
 
-    <div><a class="eff-button" href="/action"><%= I18n.t(:see_all_campaigns) -%></a></div>
+    <div class="see-all">
+      <div>
+        <a href="/action"><%= I18n.t(:see_all_campaigns) -%></a>
+      </div>
+    </div>
 
   </div>
 

@@ -100,13 +100,21 @@ section.featured-action {
 section.more-actions {
   margin: 0;
   padding: 0 0 0 5%;
-  .row {
+  .row,
+  .see-all {
     @include flex-this;
     > div {
       @include flex-item;
     }
   }
-    
+
+  .see-all {
+    margin-top: 8rem;
+    a {
+      text-transform: uppercase;
+    }
+  }
+
   .image {
     overflow: hidden;
     position: relative;
