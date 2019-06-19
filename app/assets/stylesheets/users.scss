@@ -157,9 +157,6 @@ span.green-rect {
 .confirmations-create,
 .confirmations-show,
 .unlocks-new {
-  .wrapper {
-
-  }
 
   input.form-control {
     border: 2px solid #fff;
@@ -217,6 +214,13 @@ span.green-rect {
     }
   }
 }
+
+.registrations-new,
+.sessions-new {
+  .container {
+    padding-bottom: 5rem;
+  }
+}
 .users-show, .users-edit, .registrations-edit {
   #settings, .edit {
     margin-bottom: 50px;
@@ -253,7 +257,6 @@ span.green-rect {
 }
 
 .input-note {
-  float: right;
-  font-size: 0.8em;
+  font-size: 0.8rem;
   line-height: 2em;
 }
