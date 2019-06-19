@@ -346,6 +346,10 @@ a:hover {
   background: asset-url('EFF-logo-lockup-1color.svg') no-repeat;
 }
 
+#content .container {
+  padding-bottom: 5rem;
+}
+
 .avatar-frame {
   border: 2px solid #cc0000;
 }
@@ -530,11 +534,4 @@ div#email_target_text {
   color: #FFF;
   border-color: #C00;
   background-color: #C00;
-}
-
-/* ======================
-Base font overrides
-========================*/
-h4 {
-  line-height: 25px;
 }

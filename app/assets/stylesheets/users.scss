@@ -166,7 +166,7 @@ span.green-rect {
   }
   .email-signup {
     background-color: #fff;
-    color: #323232;
+    color: $charcoal;
     padding: 12px;
   }
   .error_explanation {
@@ -192,36 +192,12 @@ span.green-rect {
       margin-bottom: 3px;
     }
   }
-  input.btn {
-    font-size: 14px;
-    font-weight: bold;
-    color: #fff;
-    letter-spacing: 0.04em;
-    text-transform: uppercase;
-    background-color: #cc0000;
-    border: 3px solid #fff;
-    height: 55px;
-    padding: 0px 30px;
-    margin-top: 10px;
-    -webkit-font-smoothing: antialiased;
-    -webkit-transition: background-color 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
-    -o-transition: background-color 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
-    transition: background-color 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
-    &:hover {
-      background-color: #950002;
-      outline: 0;
-      box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 8px rgba(102, 175, 233, 0.6);
-    }
-  }
 }
 
-.registrations-new,
-.sessions-new {
-  .container {
-    padding-bottom: 5rem;
-  }
-}
-.users-show, .users-edit, .registrations-edit {
+
+.users-show,
+.users-edit,
+.registrations-edit {
   #settings, .edit {
     margin-bottom: 50px;
     margin-top: 20px;
@@ -235,26 +211,6 @@ span.green-rect {
 
 }
 
-.table.table-simple {
-  td {
-    border: 0;
-    vertical-align: baseline;
-    border-bottom: 1px solid #eee;
-    font-size: 0.9em;
-    padding: 6px;
-  }
-  td:first-child {
-    text-align: left;
-    text-transform: uppercase;
-    font-size: 0.8em;
-  }
-  td:last-child {
-    text-align: right;
-  }
-  tr:last-child td {
-    border-bottom: 0;
-  }
-}
 
 .input-note {
   font-size: 0.8rem;
