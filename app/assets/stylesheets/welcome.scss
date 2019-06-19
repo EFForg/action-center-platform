@@ -56,19 +56,15 @@ section.featured-action {
       @include flex-this;
       div {
         @include flex-item;
-        width: 50%;
+        text-align: left;
+        width: 33%;
       }
     }
     .flexbox-item {
-      width: 50%;
+      width: 66%;
     }
   }
   .image {
-    text-align: center;
-    img {
-      max-width: 100%;
-      max-height: 300px;
-    }
   }
 
   h2 {
@@ -100,18 +96,11 @@ section.featured-action {
 section.more-actions {
   margin: 0;
   padding: 0 0 0 5%;
-  .row,
-  .see-all {
+  .row {
     @include flex-this;
     > div {
       @include flex-item;
-    }
-  }
-
-  .see-all {
-    margin-top: 8rem;
-    a {
-      text-transform: uppercase;
+      text-align: left;
     }
   }
 
