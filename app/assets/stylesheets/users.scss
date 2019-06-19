@@ -158,7 +158,7 @@ span.green-rect {
 .confirmations-show,
 .unlocks-new {
   .wrapper {
-    //background-color: $red;
+
   }
 
   input.form-control {
@@ -174,25 +174,22 @@ span.green-rect {
   }
   .error_explanation {
     background-color: transparent;
-    margin-bottom: 15px;
-    -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 8px rgba(50, 90, 115, 0.3);
-    box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 8px rgba(50, 90, 115, 0.3);
+    border: 2px solid $gray-dark;
+    margin-bottom: 1rem;
     font-size: 0.85em;
     line-height: 1.3;
 
     &> .panel-heading {
-      background-color: #323232;
-      padding: 5px 10px;
-      color: #fff;
+      background-color: transparent;
+      padding: 1rem;
+      color: $off-white;
       h3.panel-title {
+        font-size: 1.5rem;
         text-transform: uppercase;
-        font-size: 11px;
-        letter-spacing: 1px;
-        margin-top: 1px;
       }
     }
     &> .panel-body {
-      padding: 12px 15px 10px 15px;
+      padding: 1rem;
     }
     p {
       margin-bottom: 3px;

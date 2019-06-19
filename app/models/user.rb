@@ -133,12 +133,12 @@ class User < ActiveRecord::Base
   # re-registering. In that case, they shouldn't get a password reset
   # notification.
   def send_password_change_notification?
-    self.confirmed? && super
+    false
   end
 
   protected
 
   def after_confirmation
-    subscribe!(opt_in = true) if self.subscribe?
+    false
   end
 end
