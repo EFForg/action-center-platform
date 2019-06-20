@@ -125,53 +125,14 @@ section.more-actions {
         text-align: left;
       }
     }
-    a {
-    }
-
-  }
-  .col-md-4 {
-    position: relative;
-    &:hover {
-      h3 {
-        color: $red;
-      }
-    }
-    &:last-child {
-      @media (max-width: 991px) {
-        margin-bottom: 0px;
-      }
-    }
-    @media (max-width: 991px) {
-      margin-bottom: 70px;
-    }
-
-  }
-  p.seemore {
-    text-align: center;
-    color: $red;
-    text-transform: uppercase;
-    font-weight: bold;
-    letter-spacing: 1px;
-    font-size: 14px;
-    margin-top: 25px;
-    margin-bottom: 0;
-    a {
-      @include transition (all 0.3s ease-in-out);
-
-      .arrow {
-        @include transition (all 0.3s ease-in-out);
-        fill: $red;
-        width: 10px;
-        height: 10px;
-        margin-left: 5px;
-      }
-      &:hover .arrow {
-        @include transform(rotate(90deg));
-      }
-    }
   }
 }
 
+.see-all {
+  @include flex-this;
+  margin: 8rem auto 3rem;
+  text-transform: uppercase;
+}
 section.mobile-apps {
   margin-top: 70px;
   .image {
