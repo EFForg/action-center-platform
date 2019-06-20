@@ -10,7 +10,13 @@
       @include flex-item;
       margin-left: 0;
       text-align: left;
-      width: 75%;
+      width: 100%;
+      @media screen and (min-width: $md) {
+        width: 50%;
+      }
+      @media screen and (min-width: $lg) {
+        width: 75%;
+      }
     }
   }
 }
@@ -40,48 +46,23 @@
   }
 }
 
-.tools-wrapper {
-  z-index: 10;
-}
-
 .form-control {
   border-radius: 0;
   padding: 0 0.5em;
   font-size: 0.8em;
 }
 
-#share-buttons-wrapper {
-  position: absolute;
-  text-align: center;
-  right: 20px;
-  top: 0px;
-  @media (max-width: $screen-sm-max) and (min-width: $screen-sm-min) {
-    position: relative;
-    right: 0;
-    #share-buttons a {
-      display: inline-block !important;
-    }
-  }
-  @media (max-width: $screen-xs-max) {
-    display: none;
-  }
-}
-
 #tools {
-
   .tool {
-    background-color: #ffffff;
+    background-color: $gray;
+    color: $off-white;
     margin-bottom: 20px;
-    border: solid 1px #cc0000;
-    -webkit-box-shadow: 0 0 5px 5px rgba(0, 0, 0, 0.1); // iOS <4.3 & Android <4.1
-    box-shadow: 0 0 2px 2px rgba(0, 0, 0, 0.1);
-
     .tool-container {
       padding: 1em 0.4em 0 0.4em;
     }
 
     .tool-heading {
-      color: #cc0000;
+      color: $off-white;
       text-transform: uppercase;
       text-align: center;
 
@@ -378,15 +359,7 @@ h3.header, #tools #email-tool h3, #tools #congress-message-tool h3 {
   text-align: left;
   font-size: 15px;
 
-  em {
-    background-color: #ffffff;
-    padding-right: 0.3em;
-    font-style: normal;
-    position: relative;
-    @media (max-width: $screen-xs-max) {
-      font-size: 15px;
-    }
-  }
+
   &:before {
     content: '';
     height: 1px;
@@ -985,8 +958,10 @@ html.js {
   #tools {
     position: fixed;
     width: 312px;
-    padding-right: 25px;
-    top: 100px;
+    right: 0;
+    top: 175px;
+    margin-top: 32px;
+    margin-bottom: 30px;
   }
   .tools-wrapper.fixed {
     position: static;
@@ -995,40 +970,22 @@ html.js {
     position: absolute;
     top: 97px;
   }
-  .congressForms-legislator-fields .col-xs-9 {
-    padding-left: 0;
-    padding-right: 0;
-  }
+
   #tools .tool select {
     max-width: auto;
   }
+  .action-content {
+    margin-bottom: 40px;
+  }
 }
-
-@media (min-width: 992px) {
+@media screen and (min-width: $lg) {
   #tools {
     width: 390px;
     margin-left: 20px;
   }
-  .congressForms-legislator-fields .col-xs-9 {
-    padding-left: 15px;
-    padding-right: 15px;
-  }
 }
 
-@media (min-width: 992px) {
-  #share-buttons {
-    position: absolute;
-    right: -70px;
-
-    .social-count {
-      display: block;
-      float: none;
-      margin-bottom: 50px;
-    }
-  }
-}
-
-@media (min-width: 1200px) {
+@media (min-width: $xl ) {
   .action-content.container {
     padding-left: 40px;
   }
@@ -1038,17 +995,9 @@ html.js {
   }
 }
 
-@media (max-width: 767px) {
-  #tools {
-    margin-top: 32px;
-    margin-bottom: 30px;
-  }
-  .action-content {
-    margin-bottom: 40px;
-  }
-}
 
-@media (min-width: 768px) and (max-width: 991px) {
+
+@media (min-width: $md) and (max-width: $lg) {
   #tools .tool .tool-heading .tool-title {
     font-size: 1.35em;
   }
@@ -1075,11 +1024,11 @@ html.js {
   padding: 1px 0;
 
   a {
-    color: #fff;
+    color: $off-white;
     text-decoration: underline;
 
     &:hover {
-      color: $red;
+      color: $gray-light;
     }
   }
 }
