@@ -98,7 +98,7 @@ section.featured-action {
 
 
 section.more-actions {
-  margin: 0;
+  margin: 0 0 150px 0; 
   padding: 0 0 0 5%;
   .row {
     @include flex-this;
@@ -106,7 +106,7 @@ section.more-actions {
       @include flex-item;
     }
   }
-    
+
   .image {
     overflow: hidden;
     position: relative;

@@ -40,9 +40,7 @@ body {
 body>.wrapper {
   min-height: 100%;
   margin: 0 auto;
-  max-width: 1280px;
-  padding: 0 1rem;
-  position: relative;
+  max-width: $max-width;
 }
 
 article,

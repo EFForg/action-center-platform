@@ -104,30 +104,29 @@
 
     <div id="content">
       <% if content_for?(:content) -%>
-      <%= yield(:content) -%>
+        <%= yield(:content) -%>
       <% else -%>
-      <%= yield %>
+        <%= yield %>
       <% end -%>
     </div>
+  </div>
 
-    <div class="footer">
-      <div class="container">
-        <div class="col-sm-4 logo">
-          <div>
-            <a href="https://www.eff.org"><span class="sr-only">Electronic Frontier Foundation</span></a>
-          </div>
-        </div>
-        <div class="col-sm-8 links">
-          <a target="_blank" href="https://www.eff.org/thanks" class="hidden-xs">Thanks</a>
-          <a target="_blank" href="https://www.eff.org/rss">RSS Feeds</a>
-          <a target="_blank" href="https://www.eff.org/copyright" class="hidden-xs">Copyright Policy</a>
-          <a target="_blank" href="https://www.eff.org/policy">Privacy Policy</a>
-          <a target="_blank" href="https://github.com/EFForg/action-center-platform" class="hidden-xs">Open Source</a>
-          <a target="_blank" href="https://www.eff.org/about/contact">Contact</a>
+  <div class="footer">
+    <div class="container">
+      <div class="logo">
+          <a href="https://www.eff.org"><span class="sr-only">Electronic Frontier Foundation</span></a>
+      </div>
+      <div class="footer-nav">
+        <a class="flex-item" target="_blank" href="https://www.eff.org/thanks" class="hidden-xs">Thanks</a>
+        <a class="flex-item"target="_blank" href="https://www.eff.org/rss">RSS Feeds</a>
+        <a class="flex-item"target="_blank" href="https://www.eff.org/copyright" class="hidden-xs">Copyright Policy</a>
+        <a class="flex-item"target="_blank" href="https://www.eff.org/policy">Privacy Policy</a>
+        <a class="flex-item"target="_blank" href="https://github.com/EFForg/action-center-platform" class="hidden-xs">Open Source</a>
+        <a class="flex-item"target="_blank" href="https://www.eff.org/about/contact">Contact</a>
         </div>
       </div>
     </div>
-  </div>
+
 
   <%= javascript_include_tag "application" %>
 
