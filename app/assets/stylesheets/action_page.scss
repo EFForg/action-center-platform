@@ -5,7 +5,13 @@
 
 .action_page-show {
   .row {
-    @include griddy;
+    @include flex-this;
+    > div {
+      @include flex-item;
+      margin-left: 0;
+      text-align: left;
+      width: 75%;
+    }
   }
 }
 #progress-bar {
