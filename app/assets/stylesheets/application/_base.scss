@@ -38,7 +38,6 @@ body {
   padding: 0;
 }
 body>.wrapper {
-  position: relative;
   min-height: 100%;
   margin: 0 auto;
   max-width: $max-width;
@@ -320,7 +319,7 @@ a:hover {
       height: 5rem;
       width: 20rem;
     }
-    background: asset-url('EFF-logo-lockup-black.svg') no-repeat;
+
   }
 
   .icon-eff-action-logo {
