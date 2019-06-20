@@ -1,7 +1,7 @@
 <div id="congress-message-tool" class="tool" data-action-id="<%= @actionPage.id %>">
   <div class="tool-container">
     <div class="tool-heading">
-      <h2 class="tool-title"><%= @congress_message_campaign.email_your_rep_text "Email your representatives" %></h2>
+      <h2 class="tool-title"><%= @congress_message_campaign.email_your_rep_text "Take Action" %></h2>
       <% if params.include?("non_us_option") and params["non_us_option"] == "petition" %>
         <h3 id="non-us-option">Not in the U.S.?</h3>
       <% end %>
