@@ -12,18 +12,6 @@
       <%= render "tools/tweet" if @actionPage.enable_tweet? && @actionPage.tweet %>
       <%= render "tools/mailing_list" if @no_tools == true %>
     <% end -%>
-    <div id='share-buttons-wrapper'>
-      <div id="share-buttons">
-        <a data-network="twitter" href="<%= twitter_share_url(@actionPage) -%>" count="0" target="_blank" class="twitter-button" >
-            <div class="sicon" id="stwit"></div>
-        </a>
-        <a href="<%= facebook_share_url(@actionPage) -%>" data-network="facebook" count="0" target="_blank" class="facebook-button">
-            <div class="sicon" id="sfb"></div>
-        </a>
-        <a count="0" href="<%= google_share_url(@actionPage) -%>" data-network="googleplus" target="_blank" class="google-button">
-          <div class="sicon" id="sgplus"></div>
-        </a>
-      </div>
-    </div>
+
   </div>
 </div>

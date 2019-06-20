@@ -978,9 +978,8 @@ html.js {
 @media screen and (min-width: $md) {
   #tools {
     position: fixed;
-    width: 312px;
-    padding-right: 25px;
-    top: 100px;
+    width: 30%;
+    top: 175px;
     right: 10%;
   }
   .tools-wrapper.fixed {
@@ -1001,8 +1000,8 @@ html.js {
 
 @media (min-width: 992px) {
   #tools {
-    width: 390px;
-    margin-left: 20px;
+  //  width: 390px;
+  //  margin-left: 20px;
   }
   .congressForms-legislator-fields .col-xs-9 {
     padding-left: 15px;
@@ -1011,16 +1010,7 @@ html.js {
 }
 
 @media (min-width: 992px) {
-  #share-buttons {
-    position: absolute;
-    right: -70px;
 
-    .social-count {
-      display: block;
-      float: none;
-      margin-bottom: 50px;
-    }
-  }
 }
 
 @media (min-width: 1200px) {
@@ -1028,8 +1018,8 @@ html.js {
     padding-left: 40px;
   }
   #tools {
-    width: 390px;
-    margin-left: 55px;
+    //width: 390px;
+    //margin-left: 55px;
   }
 }
 
