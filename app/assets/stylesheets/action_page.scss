@@ -11,11 +11,11 @@
       margin-left: 0;
       text-align: left;
       width: 100%;
-      @media screen and (min-width: $md) {
+      @media screen and (min-width: $ph) {
         width: 50%;
       }
-      @media screen and (min-width: $lg) {
-        width: 75%;
+      @media screen and (min-width: $xl) {
+        width: 60%;
       }
     }
   }
@@ -339,7 +339,7 @@
   margin-top: 15px;
   margin-bottom: 15px;
 }
-@media (min-width: 992px) {
+@media (min-width: $lg) {
   .description img.full-width {
     max-width: 109%;
   }
@@ -958,8 +958,8 @@ html.js {
   #tools {
     position: fixed;
     width: 312px;
-    right: 0;
     top: 175px;
+    margin-left: 500px;
     margin-top: 32px;
     margin-bottom: 30px;
   }
@@ -980,18 +980,15 @@ html.js {
 }
 @media screen and (min-width: $lg) {
   #tools {
+    margin-left: 700px;
     width: 390px;
-    margin-left: 20px;
   }
 }
 
 @media (min-width: $xl ) {
-  .action-content.container {
-    padding-left: 40px;
-  }
   #tools {
+    margin-left: 850px;
     width: 390px;
-    margin-left: 55px;
   }
 }
 
