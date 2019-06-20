@@ -3,7 +3,11 @@
  * listed below.
  */
 
-
+.action_page-show {
+  .row {
+    @include griddy;
+  }
+}
 #progress-bar {
   .progress {
     margin-bottom: 1.2em;
