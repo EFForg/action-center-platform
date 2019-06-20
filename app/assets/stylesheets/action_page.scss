@@ -1,7 +1,7 @@
 /*
- * This is a manifest file that'll be compiled into action_page.css, which will include all the files
- * listed below.
- */
+* This is a manifest file that'll be compiled into action_page.css, which will include all the files
+* listed below.
+*/
 
 .action_page-show {
   .row {
@@ -49,23 +49,26 @@
 
 #tools {
   .tool {
-    background-color: $gray;
-    color: $off-white;
+    background-color: $gray-dark;
+    color: black;
     margin-bottom: 20px;
     .tool-container {
       padding: 1em 0.4em 0 0.4em;
     }
 
     .tool-heading {
-      color: $off-white;
+      color: white;
       text-transform: uppercase;
       text-align: center;
 
       .tool-title {
-        text-transform: none;
-        font-size: 3rem;
+        color: white;
+        font-family: $league;
+        font-size: 4rem;
+        font-weight: 200;
         padding: 5px 0 0 0;
         margin: 0;
+        text-transform: uppercase;
 
         .glyphicon {
           font-size: 0.8em;
@@ -79,6 +82,17 @@
 
     .tool-body {
       padding: 10px;
+      a {
+        color: black;
+        border-bottom: 2px solid black;
+        &:hover {
+          color: $charcoal;
+          border-bottom: 2px solid $charcoal;
+        }
+      }
+      form input[type="text"], form input[type="email"], form textarea {
+        font-style: italic;
+      }
     }
     .tool-notice {
       padding-bottom: 5px;
@@ -103,7 +117,7 @@
       margin-bottom: 0.5em;
     }
     input[type=submit].action, button[type=submit].action {
-      @include speak-out-button
+      @include speak-out-button;
     }
     label.checkbox.small {
       font-size: 70%;
@@ -167,17 +181,17 @@
           color: $blue;
           border-color: #bce8f1;
           background-color: #d9edf7;
-          }
+        }
         &.success {
           color: #3c763d;
           border-color: #d6e9c6;
           background-color: #dff0d8;
-          }
+        }
         &.error {
           color: #a94442;
           border-color: #ebccd1;
           background-color: #f2dede;
-          }
+        }
         &.warn {
           color: #8a6d3b;
           border-color: #faebcc;
@@ -346,8 +360,6 @@
 h3.header, #tools #email-tool h3, #tools #congress-message-tool h3 {
   position: relative;
   margin-bottom: 1em;
-  font-style: normal;
-  font-weight: normal;
   text-align: left;
   em {
     font-style: normal;
@@ -360,7 +372,7 @@ h3.header, #tools #email-tool h3, #tools #congress-message-tool h3 {
 
 h3.privacy-notice-header {
   font-size: 15px;
-  color: $off-white;
+  color: white;
   margin-top: 1em;
   span.privacy-notice-popover {
     @include transition (all 0.2s ease-in-out);
@@ -600,7 +612,6 @@ h3.privacy-notice-header {
     margin-bottom: 5px;
   }
   h3 {
-    font-size: 17px;
     color: $charcoal;
     margin-top: 0;
   }
@@ -618,6 +629,10 @@ h3.privacy-notice-header {
     line-height: 1.3;
     font-size: 13px;
     padding: 6px;
+  }
+
+  form {
+    padding-top: 0;
   }
   .form-group {
     margin-bottom: 7px;
@@ -669,8 +684,10 @@ h3.privacy-notice-header {
       margin-bottom: 15px;
     }
   }
-  &.congress-message-rep-lookup fieldset:last-of-type {
-    margin-bottom: 0;
+  &.congress-message-rep-lookup {
+    fieldset:last-of-type {
+      margin-bottom: 0;
+    }
   }
   .rep-photo {
     padding: 0;
@@ -1018,8 +1035,8 @@ html.js {
 }
 
 /**
- * Select menu autocomplete
- */
+* Select menu autocomplete
+*/
 #affiliations,
 #signatures {
   .select2-selection,
@@ -1061,8 +1078,8 @@ html.js #affiliations {
 }
 
 /**
- * Signatures by institution
- */
+* Signatures by institution
+*/
 #signatures-filter {
   font-size: 17px;
   text-transform: none;
