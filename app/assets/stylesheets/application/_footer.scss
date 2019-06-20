@@ -1,60 +1,53 @@
 .footer {
-  color: $off-white;
   background: black;
+  color: $gray;
+  display: block;
   left: 0;
   right: 0;
   bottom: 0;
-  padding: 1rem 1rem 0 1rem;
-  position: absolute;
-
-  a {
-    color: $gray-light;
-    border-bottom: none;
-    &:hover {
-      color: $eff-red;
-      border-bottom: 2px solid $eff-red;
-    }
-  }
-
-  .icon-eff-logo {
-    font-size: 30px;
-    line-height: 1;
-  }
-
-  .cc-notice {
-    font-size: 11px;
-    i {
-      font-size: 25px;
-    }
-  }
-
+  padding: 2rem 1rem 5rem 1rem;
+  text-transform: uppercase;
+  z-index: 10;
   .container {
-    padding-top: 2rem;
-    padding-bottom: 5rem;
-    background: black;
-  }
-
-  .logo {
-    a {
-      display: block;
-      height: 4.5rem;
-      background: asset-url('EFF-logo-lockup-1color-gray.svg') no-repeat;
-      &:hover {
-        border: none;
+    max-width: $max-width;
+    margin: 0 auto;
+    .footer-nav {
+      @include flex-this;
+      flex-direction: column;
+      color: $gray;
+      padding: 0;
+      margin: 0;
+      width: 100%;
+      @media screen and (min-width: $lg) {
+        flex-direction: row;
+        justify-content: space-between;
+        width: 80%;
+      }
+      a {
+        color: $gray;
+        border-bottom: 1px solid black;
+        font-size: 1.1rem;
+        font-weight: 300;
+        &:hover {
+          @include transition (all 0.2s ease-in-out);
+          color: white;
+          border-bottom: 1px solid white;
+        }
       }
     }
-  }
 
-  .links {
-    padding: 0 0 0 15px;
-    line-height: 4.5rem;
-    margin: 0;
-    color: #cc0000;
-    font-size: 13px;
 
-    a {
-      @include transition (color 0.2s ease-in-out);
-      margin-right: 13px;
+    .logo {
+      a {
+        background: asset-url('EFF-logo-lockup-1color-gray.svg') no-repeat;
+        border: none;
+        display: block;
+        height: 4.5rem;
+        margin-bottom: 2rem;
+        &:hover {
+          background: asset-url('EFF-logo-lockup-1color-white.svg') no-repeat;
+        }
+      }
     }
   }
 }
