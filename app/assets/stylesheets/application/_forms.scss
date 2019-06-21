@@ -30,6 +30,11 @@ form {
     font-size: 0.8rem;
     text-transform: uppercase;
   }
+
+  fieldset {
+    border: none;
+    padding: 0;
+  }
 }
 
 input[type=submit],
@@ -68,8 +73,7 @@ a.button {
   width: 1.25em;
 }
 /* checked mark aspect */
-.checkbox:not(:checked) label:after,
-.checkbox:checked label:after,
+.checkbox label:after,
 [type="checkbox"]:not(:checked) + label:after,
 [type="checkbox"]:checked + label:after {
   border: 1px solid $gray-dark;
@@ -79,24 +83,26 @@ a.button {
   content: '';
   width: 1.25em;
   height: 1.25em;
+  opacity: 1;
   position: absolute;
   top: 0;
   left: 0;
+  transform: scale(1);
   transition: background-color 0.1s linear;
 }
 /* checked mark aspect changes */
-[type="checkbox"]:not(:checked) + label:after {
-  opacity: 0;
-  transform: scale(0);
-}
-[type="checkbox"]:not(:checked) + label:after {
-  opacity: 0;
-  transform: scale(0);
-}
+.checkbox + label:after,
+input[type=checkbox]:checked + label:after,
 [type="checkbox"]:checked + label:after {
   opacity: 1;
   transform: scale(1);
 }
+.checkbox:not(:checked) + label:after,
+[type="checkbox"]:not(:checked) + label:after {
+  opacity: 0;
+  transform: scale(0);
+}
+
 /* disabled checkbox */
 [type="checkbox"]:disabled:not(:checked) + label:before,
 [type="checkbox"]:disabled:checked + label:before {
