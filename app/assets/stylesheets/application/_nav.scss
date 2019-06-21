@@ -118,4 +118,17 @@ nav {
       display: none !important;
     }
   }
+  form { // the logout element
+    background: transparent;
+    margin-top: -8px;
+    padding: 0;
+    input[type="submit"] {
+      background: none;
+      border: none;
+      text-decoration: none;
+      text-transform: uppercase;
+      cursor: pointer;
+      color: white;
+    }
+  }
 }

@@ -1,38 +1,5 @@
 
 /**********************
-Navbar styles
-*************+*********/
-.navbar-wrapper {
-  background-color: #f8f8f8;
-  & > .container {
-    width: auto;
-    padding-left: 15px;
-  }
-  .icon-eff-action-logo {
-    color: $red;
-  }
-  .navbar-brand {
-    background: asset-url('EFF_Monogram-red.svg') no-repeat;
-    border: none;
-  }
-}
-.navbar-wrapper .navbar-inverse {
-  background-color: #f8f8f8;
-}
-.navbar-inverse .navbar-nav > li > a,
-.navbar-inverse .nav-form-link input[type=submit] {
-  color: $red;
-  &:hover {
-    color: darken($red, 15%);
-  }
-}
-.navbar-inverse .navbar-toggle .icon-bar {
-  background-color: $red;
-}
-.navbar-inverse .navbar-toggle .icon-bar {
-  border-color: $red;
-}
-/**********************
 Simple header
 *************+*********/
 
