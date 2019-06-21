@@ -479,9 +479,14 @@ div#email_target_text {
   background-color: #C00;
 }
 
-/* ======================
-Base font overrides
-========================*/
-h4 {
-  line-height: 25px;
+// screen readers only
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  border: 0;
 }
