@@ -80,12 +80,11 @@
 
             <fieldset>
               <% unless @petition.enable_affiliations %>
-                <div class='checkbox small'>
-                  <%= f.label :anonymous do -%>
+
+
                     <%= check_box_tag 'signature[anonymous]' -%>
-                    <%= t :dont_show_my_name -%>
-                  <% end -%>
-                </div>
+                    <%= f.label :anonymous, 'Don\'t add my name or city to this petition (we\'ll only list your country).'  -%>
+
               <% end %>
 
               <% unless @require_location %>
