@@ -1,0 +1,98 @@
+$menu-width: 260px;
+$sidebar-color: $gray-dark;
+
+#off-canvas {
+  background-color: black;
+  display: block;
+  font-weight: 400;
+  height: 100%;
+  overflow: hidden;
+  position: fixed;
+  right: 0;
+  top: 0;
+  transition: width 0.3s ease;
+  width: 0;
+  z-index: 100;
+  ul {
+    margin-top: 2.5em;
+    margin-left: 2.5em;
+    list-style-type: none;
+    li {
+      margin-bottom: 0.5em;
+    }
+    li.menu-logo {
+      display: none;
+    }
+  }
+  a {
+    border: 0;
+    color: white;
+    &:hover {
+      color: $gray;
+    }
+  }
+  a.open-menu {
+    display: none;
+  }
+  .close-menu a {
+    text-decoration: none;
+  }
+  .social-media {
+    margin-left: 2.5rem;
+    img {
+      height: auto;
+      width: 30px;
+      margin-right: 0.7em;
+    }
+  }
+}
+
+#off-canvas:target {
+  width: $menu-width;
+}
+#off-canvas:target + .page-wrapper {
+  margin-top: -60px;
+  position: relative;
+  right: $menu-width;
+  a.open-menu {
+    display: none;
+  }
+  .close-menu {
+    display: block;
+  }
+
+  .main-nav {
+    position: relative;
+  }
+}
+
+#off-canvas:not(:target) + .page-wrapper {
+  right: 0;
+}
+
+.open-menu {
+  color: black;
+  display: none;
+  font-size: 32px;
+  position: absolute;
+  right: 9px;
+  top: 0px;
+  z-index: 1000;
+  &:hover {
+    cursor: pointer;
+  }
+  @media screen and (min-width: $md) {
+    display: inline-block;
+  }
+}
+
+.close-menu {
+  position: absolute;
+  right: 9px;
+  top: 14px;
+  color: rgba(255, 255, 255, 0.9);
+  font-size: 32px;
+  &:hover {
+    cursor: pointer;
+  }
+}

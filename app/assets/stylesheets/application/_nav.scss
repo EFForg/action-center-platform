@@ -1,0 +1,121 @@
+$nav-height: 100px;
+$nav-color:  black;
+$nav-font-color: white;
+$nav-font-size: 1.1rem;
+$nav-text-transform: uppercase;
+
+body {
+  margin-top: $nav-height;
+}
+
+nav {
+  background-color: $eff-red;
+  display: block;
+  height: 70px;
+  position: fixed;
+  left: 0;
+  top: 0;
+  text-align: center;
+  width: 100%;
+  z-index: 10;
+  @media screen and (min-width: $md) {
+    height: $nav-height;
+  }
+  a {
+    border: none;
+    color: white;
+    display: inline-block;
+    text-decoration: none;
+    &:hover {
+      text-decoration: none;
+    }
+    &:visited {
+      color: inherit;
+    }
+  }
+  a.open-menu {
+    @media screen and (min-width: $md) {
+      display: none;
+    }
+    color: white;
+    display: inline-block;
+    margin-top: 1.1em;
+  }
+
+  ul {
+    @media screen and (min-width: $md) {
+      max-width: 1280px;
+    }
+    display: flex;
+    font-size: 0.75rem;
+    justify-content: space-around;
+    list-style: none;
+    line-height: 1rem;
+    margin: 1.5rem auto 0;
+    padding: 0 0 0 1rem;
+    width: 100%;
+    &:after {
+      content: "";
+    }
+
+    li {
+      display: none;
+      text-align: center;
+      text-transform: $nav-text-transform;
+      font-size: $nav-font-size;
+      font-weight: 700;
+      color: white;
+      a {
+        color: white;
+        &.active {
+          color: white;
+        }
+        &:hover {
+          &:not(.menu-logo) {
+            border-bottom: 2px solid white;
+            color: white;
+          }
+        }
+      }
+      @media screen and (min-width: $md) {
+        display: inline-block;
+        font-size: 1rem;
+        margin: 0.9rem auto 0;
+        text-align: center;
+        flex-grow: 1;
+      }
+      &.logo-li {
+        display: inline-block;
+        margin: 0;
+        text-align: left;
+      }
+    }
+    .menu-logo {
+      @media screen and (min-width: $md) {
+        height: 57px;
+        width: 300px;
+        left: 0;
+        margin-top: 0;
+        position: relative;
+      }
+      background: asset-url('EFF-logo-lockup-black.svg') no-repeat;
+      background-repeat: no-repeat;
+      background-size: contain;
+      display: inline-block;
+      height: 40px;
+      left: 0.5rem;
+      margin-top: 1rem;
+      position: absolute;
+      top: 0;
+      //transition: all 0.2s;
+      width: 200px;
+      &:hover {
+        //background-image: asset-url('EFF-logo-lockup-black.svg');
+        border: none;
+      }
+    }
+    li.close-menu {
+      display: none !important;
+    }
+  }
+}

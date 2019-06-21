@@ -26,6 +26,8 @@ $charcoal: #2D2D2D; // background
 $sans-serif: 'Montserrat', Arial, sans-serif;
 $serif: 'Merriweather', serif;
 
+/* max site width */
+$max-width: 1280px;
 
 /* breakpoints */
 $xs: 12em;
@@ -37,15 +39,9 @@ $xl: 80em;
 
 // at 16px, that is 192, 268, 544, 768, 1056, and 1280px respectively
 // Bootstrap variables
-$navbar-inverse-bg: #cc0000;
-$navbar-inverse-link-color: #fff;
-$navbar-inverse-link-hover-color: $gray-light;
+
 $font-family-sans-serif: $sans-serif, Helvetica, Arial, sans-serif;
 $font-family-base: $font-family-sans-serif;
 $navbar-height: 55px;
 $font-size-base: 17px;
 $line-height-base: 1.53;
-$brand-primary: #cc0000;
-$link-color: #cc0000;
-$link-hover-color: darken($link-color, 15%);
-$headings-font-weight: bold;

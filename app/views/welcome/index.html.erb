@@ -1,10 +1,14 @@
 <% content_for :head do -%>
   <%= render 'welcome/meta_tags' -%>
 <% end -%>
-<div class="redtop home">
+<div class="home">
   <div class="container">
     <h1><%= t :front_page_header_html -%></h1>
   </div>
+  <% unless user_signed_in? -%>
+    <%= render 'subscriptions/form' -%>
+  <% end -%>
+
 </div>
 
 <section class="featured-action">
