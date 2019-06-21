@@ -52,6 +52,14 @@
     background-color: $gray-dark;
     color: black;
     margin-bottom: 20px;
+
+    a {
+      color: black;
+      border-bottom: 2px solid black;
+      &:hover {
+        border-bottom: 2px solid $charcoal;
+      }
+    }
     .tool-container {
       padding: 2em 0.4em 0 0.4em;
     }
@@ -813,13 +821,12 @@ h3.privacy-notice-header {
     letter-spacing: 0.02em;
   }
   .small {
-    padding-top: 0;
+    padding-top: 5px;
     margin-bottom: 5px;
     text-transform: uppercase;
     font-size: 11px;
     font-weight: bold;
     letter-spacing: 0.05em;
-    color: $gray;
   }
 }
 
