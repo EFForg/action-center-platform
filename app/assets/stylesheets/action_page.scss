@@ -260,14 +260,8 @@
   .newsletter-subscription {
     margin: 0 15px;
 
-    input[type=submit] {
-      margin-bottom: 0;
-    }
   }
 
-  input[type=submit] {
-    margin-top: 0;
-  }
 
   img.individual {
     display: block;
@@ -330,7 +324,6 @@
   }
   h3.twitter-tool-label::before {
     margin-bottom: -0.6em;
-    border-bottom: 1px solid #eee;
     content: "";
     display: block;
   }
@@ -366,6 +359,7 @@
 
 .description h3, h3.privacy-notice-header,
 h3.header, #tools #email-tool h3, #tools #congress-message-tool h3 {
+  color: black;
   position: relative;
   margin-bottom: 1em;
   text-align: left;
@@ -380,7 +374,6 @@ h3.header, #tools #email-tool h3, #tools #congress-message-tool h3 {
 
 h3.privacy-notice-header {
   font-size: 15px;
-  color: white;
   margin-top: 1em;
   span.privacy-notice-popover {
     @include transition (all 0.2s ease-in-out);
