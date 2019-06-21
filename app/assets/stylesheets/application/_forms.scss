@@ -30,11 +30,11 @@ form {
     font-size: 0.8rem;
     text-transform: uppercase;
   }
+}
 
-  fieldset {
-    border: none;
-    padding: 0;
-  }
+fieldset {
+  border: none;
+  padding: 0;
 }
 
 input[type=submit],
@@ -196,6 +196,7 @@ select {
   background: $eff-red;
   border-bottom: 0.3rem solid $dark-red;
   color: white;
+  width: 100%;
   &:link, &:visited, a:link, a:visited {
     color: #ffffff;
   }
@@ -236,4 +237,38 @@ select {
     background-size: contain;
     cursor: auto;
   }
+}
+
+
+.signup-checkbox {
+  margin: 2rem auto;
+}
+
+.email-signup {
+  font-size: 13px;
+  margin-bottom: 10px;
+  margin-top: 20px;
+  line-height: 1.5;
+
+  label.radio-inline {
+    margin-top: -3px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding-left: 23px;
+    padding-right: 6px;
+    line-height: 1.68;
+    input[type=radio] {
+      margin-top: 4px;
+      cursor: pointer;
+      margin-left: -18px;
+    }
+    &:first-child {
+      margin-right: 1px;
+    }
+    &:last-child {
+      margin-right: 2px;
+    }
+  }
+
+
 }
