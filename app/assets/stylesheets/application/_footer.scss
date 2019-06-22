@@ -7,25 +7,32 @@
   padding: 1rem 1rem 0 1rem;
   position: absolute;
   z-index: 10;
-
-  a {
-    color: $gray-light;
-    border-bottom: none;
-    &:hover {
-      color: $eff-red;
-      border-bottom: 2px solid $eff-red;
+  .container {
+    max-width: $max-width;
+    margin: 0 auto;
+    a {
+      color: $gray;
+      border-bottom: 1px solid black;
+      font-size: 1.1rem;
+      font-weight: 300;
+      &:hover {
+        @include transition (all 0.2s ease-in-out);
+        color: white;
+        border-bottom: 1px solid white;
+      }
     }
-  }
-
-  .icon-eff-logo {
-    font-size: 30px;
-    line-height: 1;
-  }
-
-  .cc-notice {
-    font-size: 11px;
-    i {
-      font-size: 25px;
+    .footer-nav {
+      @include flex-this;
+      flex-direction: column;
+      color: $gray;
+      padding: 0;
+      margin: 0;
+      width: 100%;
+      @media screen and (min-width: $lg) {
+        flex-direction: row;
+        justify-content: space-between;
+        width: 80%;
+      }
     }
   }
 
