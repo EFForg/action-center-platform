@@ -11,6 +11,17 @@
   .container {
     max-width: $max-width;
     margin: 0 auto;
+    a {
+      color: $gray;
+      border-bottom: 1px solid black;
+      font-size: 1.1rem;
+      font-weight: 300;
+      &:hover {
+        @include transition (all 0.2s ease-in-out);
+        color: white;
+        border-bottom: 1px solid white;
+      }
+    }
     .footer-nav {
       @include flex-this;
       flex-direction: column;
@@ -22,17 +33,6 @@
         flex-direction: row;
         justify-content: space-between;
         width: 80%;
-      }
-      a {
-        color: $gray;
-        border-bottom: 1px solid black;
-        font-size: 1.1rem;
-        font-weight: 300;
-        &:hover {
-          @include transition (all 0.2s ease-in-out);
-          color: white;
-          border-bottom: 1px solid white;
-        }
       }
     }
 
