@@ -177,7 +177,6 @@
         font-size: 13px;
         font-style: normal;
         padding: 0px 6px;
-        line-height: 20px;
         background-color: #fff;
         color: $red;
 
@@ -300,7 +299,6 @@
 
   .btn-tweet {
     margin: 0em auto 1.5em;
-    line-height: 19px;
     padding: 5px 10px 5px 5px;
     i {
       color: #04ADEE;
@@ -475,42 +473,6 @@ h3.privacy-notice-header {
   }
 }
 
-.vertical-share {
-  line-height: 54px;
-  text-align: center;
-  a {
-    display: block;
-    margin: 0 auto 1em;
-    color: #ffffff;
-    max-width: 276px;
-
-    &.twitter {
-      @include transition (background-color 0.5s ease-in-out);
-      background-color: #51c5f4;
-    }
-    &.facebook {
-      @include transition (background-color 0.5s ease-in-out);
-      background-color: #3f75bd;
-    }
-    &.google {
-      @include transition (background-color 0.5s ease-in-out);
-      background-color: #df5138;
-    }
-    div.share-label {
-      text-align: center;
-    }
-  }
-
-  a:hover {
-    color: #fbfbfb;
-
-    &.twitter { background-color: #28aae1 !important; }
-    &.facebook { background-color: #1e4389 !important; }
-    &.google { background-color: #d5492c !important; }
-  }
-}
-
-
 @media (max-width: 768px) {
   #letter .body {
     padding: 3em 2em 4em;
@@ -565,11 +527,6 @@ h3.privacy-notice-header {
   }
   .call-body-active .advisory {
     margin-bottom: 0.8em;
-    line-height: 1.2;
-  }
-  .vertical-share p {
-    line-height: 1.5;
-    margin-bottom: 15px;
   }
   .form-errors {
     margin-bottom: 1rem;
@@ -595,8 +552,6 @@ h3.privacy-notice-header {
     margin-bottom: 10px;
   }
   textarea {
-    line-height: 1.3;
-    font-size: 13px;
     padding: 6px;
   }
   form {
@@ -627,8 +582,6 @@ h3.privacy-notice-header {
     margin-bottom: 10px;
   }
   textarea {
-    line-height: 1.3;
-    font-size: 13px;
     padding: 6px;
   }
 
@@ -667,7 +620,6 @@ h3.privacy-notice-header {
     margin-top: 4px;
   }
   .update-user-data-container .checkbox {
-    line-height: 1.3;
     margin-top: 3px;
     padding-bottom: 5px;
   }
@@ -754,9 +706,7 @@ h3.privacy-notice-header {
   }
 
   .defunct-notice {
-    font-size: 13px;
     margin-bottom: 10px;
-    line-height: 1.5;
   }
 }
 
@@ -791,10 +741,8 @@ h3.privacy-notice-header {
     margin-left: 0;
   }
   i.icon-mail {
-    font-size: 19px;
     position: relative;
     top: 1px;
-    line-height: 19px;
   }
   i.icon-google {
     position: relative;
@@ -895,8 +843,6 @@ h3.privacy-notice-header {
   }
 }
 input[type="file"] {
-  font-size: 12px;
-  line-height: 1;
   margin-bottom: 10px;
 }
 
@@ -934,12 +880,6 @@ html.no-js {
       form {
         margin-top: 20px;
       }
-      h4 {
-        font-size: 16px;
-      }
-      p {
-        line-height: 1.3;
-      }
     }
   }
 }
@@ -956,12 +896,12 @@ html.js {
 
 @media screen and (min-width: $md) {
   #tools {
-    position: fixed;
-    width: 312px;
-    top: 100px;
-    margin-left: 500px;
     margin-top: 32px;
     margin-bottom: 30px;
+    position: fixed;
+    right: 5%;
+    top: 100px;
+    width: 312px;
   }
   .tools-wrapper.fixed {
     position: static;
@@ -978,38 +918,14 @@ html.js {
     margin-bottom: 40px;
   }
 }
-@media screen and (min-width: $lg) {
-  #tools {
-    margin-left: 700px;
-    width: 390px;
-  }
-}
 
 @media (min-width: $xl ) {
   #tools {
-    margin-left: 850px;
+    right: 11%;
     width: 390px;
   }
 }
 
-
-
-@media (min-width: $md) and (max-width: $lg) {
-  #tools .tool .tool-heading .tool-title {
-    font-size: 1.35em;
-  }
-  #tools #tweet-tool .rep img {
-    margin-right: 0.3em;
-  }
-  #tools #tweet-tool .privacy-notice, #tools .tool .privacy-notice {
-    font-size: 9px;
-    padding-bottom: 0px;
-    margin-bottom: 0;
-  }
-  #tools #email-tool form input[type=submit] {
-    font-size: 0.9em;
-  }
-}
 
 .no-js .plain-date {
   display: block !important;
