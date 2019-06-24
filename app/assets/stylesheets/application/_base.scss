@@ -38,10 +38,9 @@ body {
   padding: 0;
 }
 body>.wrapper {
-  position: relative;
   min-height: 100%;
   margin: 0 auto;
-  max-width: 1280px;
+  max-width: $max-width;
 }
 
 article,
