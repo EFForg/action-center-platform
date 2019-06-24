@@ -1,5 +1,3 @@
-//= require bootstrap/affix
-
 $(function() {
   var s = $('#tools');
   var t = $('.redtop .row');
