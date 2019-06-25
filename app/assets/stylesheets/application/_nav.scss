@@ -116,4 +116,23 @@ nav {
       display: none !important;
     }
   }
+  form {
+    background: transparent;
+    margin: 0;
+    padding: 0;
+  }
+  .nav-form-link {
+    input[type=submit] {
+      background: none;
+      border: none;
+      cursor: pointer;
+      color: white;
+      margin: 0;
+      text-decoration: none;
+      text-transform: uppercase;
+      &:hover {
+        border-bottom: 2px solid white;
+      }
+    }
+  }
 }
