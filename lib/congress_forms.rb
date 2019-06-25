@@ -14,13 +14,13 @@ module CongressForms
     end
 
     def self.common_fields(forms)
-      all_fields = forms.reduce([]){ |a, b| a + b.fields }
-      all_fields.select{ |e| all_fields.count(e) > 1 }.uniq
+      all_fields = forms.reduce([]) { |a, b| a + b.fields }
+      all_fields.select { |e| all_fields.count(e) > 1 }.uniq
     end
 
     def initialize(bioguide_id, fields)
       @bioguide_id = bioguide_id
-      @fields = fields.map{ |f| Field.new(f) }
+      @fields = fields.map { |f| Field.new(f) }
     end
 
     def validate(input)
@@ -31,10 +31,10 @@ module CongressForms
     end
 
     def fill(input)
-      field_vals = @fields.map{ |f| f.value } + EXTRA_INPUTS
+      field_vals = @fields.map { |f| f.value } + EXTRA_INPUTS
       params = {
         bioguide_id: @bioguide_id,
-        fields: input.select{ |k, v| field_vals.include?(k) }
+        fields: input.select { |k, v| field_vals.include?(k) }
       }
       CongressForms.post("/fill-out-form/", params)
     end
@@ -87,7 +87,7 @@ module CongressForms
   def self.post(path = "/", params = {})
     begin
       JSON.parse RestClient.post(base_url + path, params.to_json,
-                                 {content_type: :json, accept: :json})
+                                 { content_type: :json, accept: :json })
     rescue RestClient::ExceptionWithResponse => e
       Rails.logger.error e
       return {}

@@ -10,8 +10,8 @@ RSpec.describe "Congress Messages", type: :request do
     allow(CongressMember).to receive(:lookup).and_return(members)
 
     stub_request(:post, /retrieve-form-elements/).
-      with(:body => {"bio_ids"=>["C000880", "A000360"]}).
-      and_return(status: 200, body: file_fixture('retrieve-form-elements.json'))
+      with(body: { "bio_ids" => ["C000880", "A000360"] }).
+      and_return(status: 200, body: file_fixture("retrieve-form-elements.json"))
   end
 
   describe "new" do

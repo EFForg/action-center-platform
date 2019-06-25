@@ -4,13 +4,12 @@ describe CongressForms do
   describe CongressForms::Form do
     let(:form) {
       CongressForms::Form.new("C000880", [
-        {"value" => "$NAME_FIRST"},
-        {"value" => "$NAME_LAST"},
-        {"value" => "$ADDRESS_STATE", "options_hash" => {
+        { "value" => "$NAME_FIRST" },
+        { "value" => "$NAME_LAST" },
+        { "value" => "$ADDRESS_STATE", "options_hash" => {
             "CALIFORNIA" => "CA",
             "NEW YORK" => "NY"
-          }
-        }
+        } }
       ])
     }
 
@@ -24,8 +23,8 @@ describe CongressForms do
     describe "::find" do
       before do
         stub_request(:post, /retrieve-form-elements/).
-          with(:body => {"bio_ids"=>["C000880", "A000360"]}).
-          and_return(status: 200, body: file_fixture('retrieve-form-elements.json'))
+          with(body: { "bio_ids" => ["C000880", "A000360"] }).
+          and_return(status: 200, body: file_fixture("retrieve-form-elements.json"))
       end
 
       it "retrieves a Form for each bioguide_id" do
@@ -40,12 +39,11 @@ describe CongressForms do
     describe "::common_fields" do
       let(:form2) {
         CongressForms::Form.new("C000881", [
-          {"value" => "$ADDRESS_CITY"},
-          {"value" => "$ADDRESS_STATE", "options_hash" => {
+          { "value" => "$ADDRESS_CITY" },
+          { "value" => "$ADDRESS_STATE", "options_hash" => {
               "CALIFORNIA" => "CA",
               "NEW YORK" => "NY"
-            }
-          }
+          } }
         ])
       }
 
@@ -80,13 +78,12 @@ describe CongressForms do
     describe "#fill" do
       it "posts only required fields to the congress forms API" do
         stub_request(:post, /fill-out-form/).
-          with(:body => {"bioguide_id"=>"C000880", "fields"=>input}).
+          with(body: { "bioguide_id" => "C000880", "fields" => input }).
           and_return(status: 200, body: "{}")
-        form.fill(input.merge({ "EXTRA" => "Should be omitted"}))
+        form.fill(input.merge({ "EXTRA" => "Should be omitted" }))
         expect(WebMock).to have_requested(:post, /fill-out-form/).
-          with(:body => {"bioguide_id"=>"C000880", "fields"=>input})
+          with(body: { "bioguide_id" => "C000880", "fields" => input })
       end
     end
   end
 end
-
