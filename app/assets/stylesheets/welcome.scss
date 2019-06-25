@@ -170,6 +170,12 @@ section.more-actions {
       }
     }
   }
+  .see-all {
+    @include flex-this;
+    margin: 8rem auto 3rem;
+    text-transform: uppercase;
+  }
+  
 }
 
 section.mobile-apps {
