@@ -6,7 +6,6 @@
   right: 0;
   bottom: 0;
   padding: 2rem 1rem 5rem 1rem;
-  text-transform: uppercase;
   z-index: 10;
   .container {
     max-width: $max-width;
@@ -33,6 +32,18 @@
         flex-direction: row;
         justify-content: space-between;
         width: 80%;
+      }
+      a {
+        color: $gray;
+        border-bottom: 1px solid black;
+        font-size: 1.1rem;
+        font-weight: 300;
+        text-transform: uppercase;
+        &:hover {
+          @include transition (all 0.2s ease-in-out);
+          color: white;
+          border-bottom: 1px solid white;
+        }
       }
     }
     .logo {
