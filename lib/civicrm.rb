@@ -90,6 +90,7 @@ module CiviCRM
       raise res["error_message"] if res["error"]
       return res
     rescue => e
+      Raven.capture_exception(e)
       Rails.logger.error "#{ e } (#{ e.class })!"
       return false
     end
