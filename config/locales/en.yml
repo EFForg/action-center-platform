@@ -82,3 +82,10 @@ en:
     views: Action Page Views
     emails: Email Actions
     congress_messages: Congress Message Actions
+  congress_forms:
+    $NAME_LAST: Your last name
+    $NAME_FIRST: Your first name
+    $EMAIL: Your email
+    $TOPIC: Message topic
+    $NAME_PREFIX: Your prefix (e.g. Mr./Ms.)
+    $PHONE: Your phone number

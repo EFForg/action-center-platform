@@ -24,4 +24,32 @@ module CongressMessageHelper
       "$STATE": location[:state]
     }
   end
+
+  def congress_message_field(field)
+    if field.value == "$PHONE"
+      telephone_field_tag field.value, nil, congress_message_field_defaults(field)
+        .merge({
+          class: "form-control bfh-phone",
+          :"data-format" => 'ddd-ddd-dddd',
+          pattern: "^((5\\d[123467890])|(5[123467890]\\d)|([2346789]\\d\\d))-\\d\\d\\d-\\d\\d\\d\\d$",
+          title: "Must be a valid US phone number entered in 555-555-5555 format"
+        })
+    elsif field.value == "$EMAIL"
+      email_field_tag field.value, nil, congress_message_field_defaults(field)
+    elsif field.is_select?
+      # @TODO set default if field.value == "$TOPIC"
+      # aria-label
+      select_tag field.value, options_for_select(field.options_hash)
+    else
+      text_field_tag field.value, nil, congress_message_field_defaults(field)
+    end
+  end
+
+  def congress_message_field_defaults(field)
+    { class: "form-control",
+      placeholder: field.label,
+      :"aria-label" => field.label,
+      maxlength: field.max_length,
+      required: true }
+  end
 end

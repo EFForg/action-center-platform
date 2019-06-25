@@ -1,0 +1,43 @@
+<form class="form">
+  <p class="step2-intro">
+    <%= @campaign.extra_fields_explain_text("We send your comments to your representatives by automatically filling out their online contact forms. Because each representative's form is a little different, we need your help filling out a few extra fields before we can send your message:") %>
+  </p>
+  <% if @common.any? %>
+    <h3 class="legislator-label common-fields">
+      <em>Common fields</em>
+    </h3>
+
+    <fieldset id="congressForms-common-fields">
+      <% @common.each do |field| %>
+        <div class="form-group">
+          <%= congress_message_field(field) %>
+        </div>
+      <% end %>
+    </fieldset>
+
+    Save my info checkbox?
+  <% end %>
+
+  <% @forms.each do |form| %>
+    <fieldset class="congressForms-legislator-fields">
+      <h3 class="legislator-label">
+        <%= form.bioguide_id %>
+      </h3>
+      <% form.fields.reject{ |x| @common.include?(x) }.each do |field| %>
+        <div class="form-group">
+          <%= congress_message_field(field) %>
+        </div>
+      <% end %>
+    </fieldset>
+  <% end %>
+
+  <%= hidden_field_tag :bioguide_ids, @members.pluck(:bioguide_id) %>
+  <%# <%= hidden_field_tag "$ADDRESS_STREET", @address.street %>
+  <%# <%= hidden_field_tag "$ADDRESS_CITY", @address.city %>
+  <%# <%= hidden_field_tag "$ADDRESS_ZIP4", @address.zip4 %>
+  <%# <%= hidden_field_tag "$ADDRESS_ZIP5", @address.zip5 %>
+  <%# <%= hidden_field_tag "$ADDRESS_STATE", @address.state %>
+  <%= hidden_field_tag "$MESSAGE", @message %>
+
+  <input type="submit" class="btn action">
+</form>

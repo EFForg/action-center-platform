@@ -41,7 +41,8 @@ module CongressForms
   end
 
   class Field
-    attr_accessor :max_length, :value, :options_hash
+    attr_accessor :max_length, :value
+    attr_writer :options_hash
 
     def initialize(opts)
       @max_length = opts["max_length"]
@@ -51,16 +52,24 @@ module CongressForms
 
     def validate(input)
       return false if input.nil?
-      return false if @max_length && input.length > @max_length
-      return false if @options_hash.is_a?(Array) && !@options_hash.include?(input)
-      return false if @options_hash.is_a?(Hash) && !@options_hash.values.include?(input)
+      return false if max_length && input.length > max_length
+      return false if options_hash.is_a?(Array) && !options_hash.include?(input)
+      return false if options_hash.is_a?(Hash) && !options_hash.values.include?(input)
       true
     end
 
+    def label
+      I18n.t value, scope: :congress_forms, default: value.sub("$", "").humanize
+    end
+
+    def is_select?
+      options_hash != nil
+    end
+
     def ==(other)
-      self.max_length == other.max_length &&
-        self.value == other.value &&
-        self.options_hash == other.options_hash
+      max_length == other.max_length &&
+        value == other.value &&
+        options_hash == other.options_hash
     end
 
     def eql?(other)
@@ -68,7 +77,20 @@ module CongressForms
     end
 
     def hash
-      [@max_length, @value, @options_hash].hash
+      [max_length, value, options_hash].hash
+    end
+
+    def options_hash
+      # Replicated this functionality from the javascript for now.
+      # @TODO - why do provide custom state options instead of taking them from
+      # the options hash?
+      if @value == "$ADDRESS_STATE_POSTAL_ABBREV"
+        States.abbreviated
+      elsif @value == "$ADDRESS_STATE_FULL"
+        States.full
+      else
+        @options_hash
+      end
     end
   end
 

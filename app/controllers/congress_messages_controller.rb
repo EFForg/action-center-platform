@@ -1,10 +1,17 @@
 class CongressMessagesController < ApplicationController
   def new
-    @members = CongressMember.lookup(street: params["street_adress"],
+    @campaign = CongressMessageCampaign.find(params["congress_message_campaign_id"])
+
+    # @address =
+    @message = params["message"] # validate presence
+
+    @members = CongressMember.lookup(street: params["street_address"],
                                      zipcode: params["zipcode"])
     @forms = CongressForms::Form.find(@members.pluck(:bioguide_id))
     @common = CongressForms::Form.common_fields(@forms)
-    # @TODO address, message to template vars for form render, possibly hidden fields
+    # Data prep
+    #  - Filter out common
+    #  - Sort all groups
     render partial: "form"
   end
 
