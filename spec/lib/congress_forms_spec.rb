@@ -52,7 +52,6 @@ describe CongressForms do
       it "groups matching opt_hashes" do
         common = CongressForms::Form.common_fields([form, form2]).uniq
         expect(common.length).to eq 1
-        byebug
       end
 
       it "doesn't group mismatched opt_hashes" do

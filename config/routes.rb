@@ -13,6 +13,7 @@ Actioncenter::Application.routes.draw do
   post "tools/tweet"
   post "tools/email"
   post "tools/message-congress"
+  resources :congress_messages, only: [:new, :create]
   get "tools/reps"
   get "tools/reps_raw"
   get "tools/social_buttons_count"
