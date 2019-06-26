@@ -530,9 +530,7 @@ div#email_target_text {
   background-color: #C00;
 }
 
-/* ======================
-Base font overrides
-========================*/
-h4 {
-  line-height: 25px;
+// row default
+.row {
+  margin: 1rem 0;
 }
