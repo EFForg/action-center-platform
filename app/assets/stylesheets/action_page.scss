@@ -10,7 +10,7 @@
 .short-description {
   font-size: 1.1em;
   margin-top: 2em;
-  input:checked + label + div {
+  input:not(:checked) + label + div {
     display: none;
   };
 
