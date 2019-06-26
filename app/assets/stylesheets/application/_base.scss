@@ -277,8 +277,10 @@ a:hover {
 }
 
 
-#content .container {
-  padding-bottom: 5rem;
+#content {
+  .top-section {
+    display: inline-block;
+  }
 }
 
 .avatar-frame {
