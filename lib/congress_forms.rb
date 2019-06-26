@@ -72,36 +72,56 @@ module CongressForms
     end
   end
 
-  def self.base_url
-    Rails.application.config.congress_forms_url
+  def self.member_fills_url(campaign_tag)
+    base_url + data_path("/successful-fills-by-member/", { campaign_tag: campaign_tag })
   end
 
-  def self.url(path = "/", params = {}, bioguide_id = nil)
-    url = base_url + path
-    url += bioguide_id unless bioguide_id.nil?
-    url += "?" + {
+  def self.date_fills_path(campaign_tag = nil, start_date = nil, end_date = nil, bioguide_id = nil)
+    params = {
+      date_start: start_date,
+      date_end: end_date,
+      campaign_tag: campaign_tag,
+    }.compact
+    data_path("/successful-fills-by-date/", params, bioguide_id)
+  end
+
+  def self.date_fills_url(*args)
+    base_url + date_fills_path(*args)
+  end
+
+  def self.date_fills(*args)
+    get date_fills_path(*args)
+  end
+
+  def self.data_path(base_path, params = {}, bioguide_id = nil)
+    base_path += bioguide_id unless bioguide_id.nil?
+    base_path += "?" + {
       debug_key: Rails.application.secrets.congress_forms_debug_key,
     }.merge(params).to_query
   end
 
-  def self.post(path = "/", params = {})
+  def self.get(path)
     begin
-      JSON.parse RestClient.post(base_url + path, params.to_json,
-                                 { content_type: :json, accept: :json })
-    rescue RestClient::ExceptionWithResponse => e
-      Rails.logger.error e
-      return {}
-    end
-  end
-
-  # @TODO fix stats calls, refactor
-  def self.get(path = "/", params = {}, bioguide_id = nil)
-    begin
-      JSON.parse RestClient.get(url(path, params, bioguide_id))
+      JSON.parse RestClient.get(base_url + path)
     rescue RestClient::ExceptionWithResponse => e
       Raven.capture_exception(e)
       Rails.logger.error e
       return {}
     end
+  end
+
+  def self.post(path, body = {})
+    begin
+      JSON.parse RestClient.post(base_url + path, body.to_json,
+                                 { content_type: :json, accept: :json })
+    rescue RestClient::ExceptionWithResponse => e
+      Raven.capture_exception(e)
+      Rails.logger.error e
+      return {}
+    end
+  end
+
+  def self.base_url
+    Rails.application.config.congress_forms_url
   end
 end

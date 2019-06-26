@@ -30,26 +30,16 @@ class CongressMessageCampaign < ActiveRecord::Base
     !(target_house || target_senate)
   end
 
-  def date_fills(start_date = nil, end_date = nil, bioguide_id = nil)
-    params = {
-      date_start: start_date,
-      date_end: end_date,
-      campaign_tag: campaign_tag
-    }.compact
-    CongressForms.post("/successful-fills-by-date/", params, bioguide_id)
+  def date_fills(*args)
+    CongressForms.date_fills(campaign_tag, *args)
   end
 
-  def date_fills_url(start_date = nil, end_date = nil, bioguide_id = nil)
-    params = {
-      date_start: start_date,
-      date_end: end_date,
-      campaign_tag: campaign_tag
-    }.compact
-    CongressForms.url("/successful-fills-by-date/", params, bioguide_id)
+  def date_fills_url(*args)
+    CongressForms.date_fills_url(campaign_tag, *args)
   end
 
   def member_fills_url
-    CongressForms.url("/successful-fills-by-member/", { campaign_tag: campaign_tag })
+    CongressForms.member_fills_url(campaign_tag)
   end
 
   private
