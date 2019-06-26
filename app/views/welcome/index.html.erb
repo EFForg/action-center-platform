@@ -5,12 +5,7 @@
   <div class="container">
     <h1><%= t :front_page_header_html -%></h1>
   </div>
-  <% unless user_signed_in? -%>
-    <%= render 'subscriptions/form' -%>
-  <% end -%>
-
 </div>
-
 
 <section class="featured-action">
   <% if @featuredActionPage -%>
@@ -24,8 +19,6 @@
             <h2>
               <%= @featuredActionPage.title -%>
             </h2>
-            <%= markdown @featuredActionPage.summary -%>
-
             <span class='eff-red-button'><%= t(:take_action) %></span>
           <% end %>
         </div>
@@ -44,19 +37,21 @@
           <%= link_to image_tag(actionPage.featured_image.url), action_page_path(actionPage) %>
           </div>
           <div class="text">
-            <h3><%= actionPage.title -%></h3>
-            <%= markdown actionPage.summary -%>
             <%= link_to action_page_path(actionPage) do%>
-                <span class="link-div hidden-xs"></span>
+            <h3><%= actionPage.title -%></h3>
             <% end %>
-        <%= link_to t(:take_action), action_page_path(actionPage),
-          class: 'eff-red-button' -%>
+            <%= link_to t(:take_action), action_page_path(actionPage),
+            class: 'eff-red-button' -%>
           </div>
         </div>
       <% end %>
     </div>
 
-    <div><a class="eff-button" href="/action"><%= I18n.t(:see_all_campaigns) -%></a></div>
+    <div class="see-all">
+      <div>
+        <a href="/action"><%= I18n.t(:see_all_campaigns) -%></a>
+      </div>
+    </div>
 
   </div>
 

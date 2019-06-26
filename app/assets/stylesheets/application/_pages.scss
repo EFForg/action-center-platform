@@ -1,5 +1,7 @@
+.confirmations-new,
 .registrations-new,
-.sessions-new {
+.sessions-new,
+.unlocks-new {
   .redtop .container .row {
     @include griddy;
     grid-template-columns: 100%;

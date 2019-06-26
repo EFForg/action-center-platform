@@ -169,58 +169,38 @@ span.green-rect {
   }
   .email-signup {
     background-color: #fff;
-    color: #323232;
+    color: $charcoal;
     padding: 12px;
   }
   .error_explanation {
     background-color: transparent;
-    margin-bottom: 15px;
-    -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 8px rgba(50, 90, 115, 0.3);
-    box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 8px rgba(50, 90, 115, 0.3);
+    border: 2px solid $gray-dark;
+    margin-bottom: 1rem;
     font-size: 0.85em;
     line-height: 1.3;
 
     &> .panel-heading {
-      background-color: #323232;
-      padding: 5px 10px;
-      color: #fff;
+      background-color: transparent;
+      padding: 1rem;
+      color: $off-white;
       h3.panel-title {
+        font-size: 1.5rem;
         text-transform: uppercase;
-        font-size: 11px;
-        letter-spacing: 1px;
-        margin-top: 1px;
       }
     }
     &> .panel-body {
-      padding: 12px 15px 10px 15px;
+      padding: 1rem;
     }
     p {
       margin-bottom: 3px;
     }
   }
-  input.btn {
-    font-size: 14px;
-    font-weight: bold;
-    color: #fff;
-    letter-spacing: 0.04em;
-    text-transform: uppercase;
-    background-color: #cc0000;
-    border: 3px solid #fff;
-    height: 55px;
-    padding: 0px 30px;
-    margin-top: 10px;
-    -webkit-font-smoothing: antialiased;
-    -webkit-transition: background-color 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
-    -o-transition: background-color 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
-    transition: background-color 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
-    &:hover {
-      background-color: #950002;
-      outline: 0;
-      box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 8px rgba(102, 175, 233, 0.6);
-    }
-  }
 }
-.users-show, .users-edit, .registrations-edit {
+
+
+.users-show,
+.users-edit,
+.registrations-edit {
   #settings, .edit {
     margin-bottom: 50px;
     margin-top: 20px;
@@ -234,7 +214,7 @@ span.green-rect {
 
 }
 
-.table.table-simple {
+table.table-simple {
   td {
     border: 0;
     vertical-align: baseline;
@@ -256,7 +236,6 @@ span.green-rect {
 }
 
 .input-note {
-  float: right;
-  font-size: 0.8em;
+  font-size: 0.8rem;
   line-height: 2em;
 }

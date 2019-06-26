@@ -92,30 +92,47 @@ nav {
     }
     .menu-logo {
       @media screen and (min-width: $md) {
-        height: 57px;
-        width: 300px;
+        height: 90px;
+        width: 500px;
         left: 0;
         margin-top: 0;
         position: relative;
       }
-      background: asset-url('EFF-logo-lockup-black.svg') no-repeat;
+      background: asset-url('EFF-logo-action.svg') no-repeat;
       background-repeat: no-repeat;
       background-size: contain;
+      border: none;
       display: inline-block;
-      height: 40px;
+      height: 50px;
       left: 0.5rem;
       margin-top: 1rem;
       position: absolute;
       top: 0;
       //transition: all 0.2s;
-      width: 200px;
-      &:hover {
-        //background-image: asset-url('EFF-logo-lockup-black.svg');
-        border: none;
-      }
+      width: 250px;
+
     }
     li.close-menu {
       display: none !important;
+    }
+  }
+  form {
+    background: transparent;
+    margin: 0;
+    padding: 0;
+  }
+  .nav-form-link {
+    input[type=submit] {
+      background: none;
+      border: none;
+      cursor: pointer;
+      color: white;
+      margin: 0;
+      text-decoration: none;
+      text-transform: uppercase;
+      &:hover {
+        border-bottom: 2px solid white;
+      }
     }
   }
 }
