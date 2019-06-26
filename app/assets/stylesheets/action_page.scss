@@ -10,6 +10,19 @@
 .short-description {
   font-size: 1.1em;
   margin-top: 2em;
+  input:checked + label + div {
+    display: none;
+  };
+
+  [type="checkbox"]:not(:checked) + label,
+  [type="checkbox"]:checked + label {
+    margin-left: 0;
+    padding-left: 0;
+    &:before,
+    &:after {
+      display: none;
+    }
+  }
 }
 
 #description {

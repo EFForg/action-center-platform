@@ -1,14 +1,17 @@
 <% content_for :head do -%>
   <%= render 'action_page/meta_tags' -%>
-  
+
 <% end -%>
 <div class="top-section">
   <div class="container">
     <div class="row">
-      <div>
-        <h1><%= @actionPage.title -%></h1>
-        <div class='short-description'>
-          <%= markdown @actionPage.summary -%>
+      <h1><%= @actionPage.title -%></h1>
+      <div class='short-description'>
+        <%= markdown @actionPage.summary -%>
+        <input type='checkbox' style='display: none' id="learn-more">
+        <label for="learn-more">Learn More</label>
+        <div class="description" id="description">
+          <%= markdown @actionPage.description -%>
         </div>
       </div>
     </div>
@@ -19,9 +22,6 @@
   <div class="row">
     <%= render "tools/container" %>
     <div>
-      <div class="description" id="description">
-        <%= markdown @actionPage.description -%>
-      </div>
       <% if @actionPage.enable_petition? && @petition && @petition.description.present? && !@actionPage.description.include?('``` letter') -%>
         <%= render(partial: "action_page/letter", layout: false) %>
       <% end -%>
