@@ -82,7 +82,7 @@ h1 {
   color: $off-white;
   font-size: 47px;
   font-weight: 600;
-  line-height: 60px;
+  line-height: 57px;
   padding: 1rem 0;
 }
 h2 {
@@ -245,10 +245,6 @@ code {
 }
 
 
-#content {
-  padding-bottom: 240px;
-}
-
 .push { height: 100px;}
 
 a:hover {
@@ -273,75 +269,16 @@ a:hover {
   input[type=submit] {
     background: none;
     border: none;
-    text-decoration: none;
     cursor: pointer;
     color: white;
-    padding: 15px 20px 15px 20px;
-    line-height: 10px;
-    &:hover {
-      color: #dddddd;
-    }
+    margin: 0;
+    text-decoration: none;
   }
 }
 
-.navbar-wrapper {
-  background: $eff-red;
-  padding: 1rem 1rem 0 1rem;
 
-  .navbar-inverse {
-    border: 0;
-    background-color: $eff-red;
-    background-image: none;
-  }
-
-  .navbar {
-    font-size: 13px;
-    margin-bottom: 0px;
-    z-index: 102;
-  }
-
-  .horiz-rule {
-    background-color: #C40B02;
-    height: 1px;
-  }
-
-  .navbar-brand {
-    border: none;
-    display: block;
-    padding: 0;
-    margin-top: 11px;
-    height: 32px;
-    width: 128px;
-
-    @media screen and (min-width: $md) {
-      margin-top: 0;
-      height: 5rem;
-      width: 20rem;
-    }
-
-  }
-
-  .icon-eff-action-logo {
-    color: #fff;
-    font-size: 29px;
-  }
-
-  .navbar-collapse {
-    padding-left: 0;
-  }
-}
-
-@media screen and (min-width: $md) {
-  .navbar-nav.navbar-right:last-child {
-    margin-right: 0;
-  }
-}
-
-.eff-logo {
-  display: inline-block;
-  height: 5rem;
-  width: 20rem;
-  background: asset-url('EFF-logo-lockup-1color.svg') no-repeat;
+#content .container {
+  padding-bottom: 5rem;
 }
 
 .avatar-frame {
@@ -528,11 +465,4 @@ div#email_target_text {
   color: #FFF;
   border-color: #C00;
   background-color: #C00;
-}
-
-/* ======================
-Base font overrides
-========================*/
-h4 {
-  line-height: 25px;
 }
