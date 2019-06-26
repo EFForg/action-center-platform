@@ -41,6 +41,7 @@ input[type=submit],
 .button,
 a.button {
   //@include eff-red-button;
+  margin: 1rem 0;
 }
 
 // Checkbox
@@ -165,19 +166,17 @@ select {
   background: $light-blue;
   border: none;
   border-bottom: 0.3rem solid $slate;
+  border-radius: 0;
   color: $medium-blue;
+  cursor: pointer;
   font-size: 1.1rem;
   font-weight: 700;
   margin: 0.4rem 0;
   padding: 0.3rem 2rem;
   text-transform: uppercase;
   text-decoration: none;
-  cursor: pointer;
-
   -moz-appearance: none;
   -webkit-appearance: none;
-  border-radius: 0;
-
   a {
     text-decoration: none;
   }
@@ -201,10 +200,9 @@ select {
   &:link, &:visited, a:link, a:visited {
     color: #ffffff;
   }
-
   &:hover {
     background: rgba($eff-red, 0.8) !important;
-    border-bottom: 4px solid rgba($eff-red, 0.8);
+    border-bottom: 4px solid rgba($dark-red, 0.8);
 
   }
 }

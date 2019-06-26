@@ -47,23 +47,18 @@ section.featured-action {
       @include flex-this;
       div {
         @include flex-item;
-        width: 50%;
+        text-align: left;
+        width: 33%;
       }
     }
     .flexbox-item {
-      width: 50%;
+      width: 66%;
     }
   }
   .image {
-    text-align: center;
-    img {
-      max-width: 100%;
-      max-height: 300px;
-    }
   }
 
   h2 {
-    font-size: 26px;
     margin-bottom: 16px;
     @media (max-width: $screen-md-max) and (min-width: $screen-sm-min) {
       margin-top: 0px;
@@ -95,6 +90,7 @@ section.more-actions {
     @include flex-this;
     > div {
       @include flex-item;
+      text-align: left;
     }
   }
 
@@ -110,7 +106,6 @@ section.more-actions {
     h3 {
       @include transition (color 0.3s ease-in-out);
       text-align: left;
-      font-size: 20px;
     }
     p {
       @include transition (color 0.3s ease-in-out);
@@ -166,6 +161,12 @@ section.more-actions {
       }
     }
   }
+  .see-all {
+    @include flex-this;
+    margin: 8rem auto 3rem;
+    text-transform: uppercase;
+  }
+  
 }
 
 section.mobile-apps {
