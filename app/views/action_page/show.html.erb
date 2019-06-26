@@ -1,12 +1,17 @@
 <% content_for :head do -%>
   <%= render 'action_page/meta_tags' -%>
-  
+
 <% end -%>
 <div class="top-section">
   <div class="container">
     <div class="row">
       <div>
+        <h5>Keyword</h5>
         <h1><%= @actionPage.title -%></h1>
+        <div class="image">
+          <img src="https://s3-us-west-1.amazonaws.com/actioncenter/action_pages/featured_images/000/000/358/original/OG-neutrality-banner.png?1554906353">
+          <img src="<%= @actionPage.background_image.url -%>">
+        </div>
         <div class='short-description'>
           <%= markdown @actionPage.summary -%>
         </div>
