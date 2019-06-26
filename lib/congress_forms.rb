@@ -13,6 +13,7 @@ module CongressForms
     begin
       JSON.parse RestClient.get(url(path, params, bioguide_id))
     rescue RestClient::ExceptionWithResponse => e
+      Raven.capture_exception(e)
       Rails.logger.error e
       return {}
     end

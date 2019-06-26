@@ -25,6 +25,7 @@ module SmartyStreets
       res = JSON.parse RestClient.get("#{url}?#{params.to_query}")
       return res
     rescue => e
+      Raven.capture_exception(e)
       Rails.logger.error "#{ e } (#{ e.class })!"
       return false
     end
