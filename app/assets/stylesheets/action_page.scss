@@ -1,3 +1,6 @@
+.action_page-show {
+  min-height: 1000px;
+}
 #progress-bar {
   .progress {
     margin-bottom: 1.2em;
@@ -952,13 +955,21 @@ html.js {
 
 @media screen and (min-width: $md) {
   #tools {
-    position: fixed;
     width: 312px;
     padding-right: 25px;
     top: 100px;
   }
-  .tools-wrapper.fixed {
+  .tools-wrapper  {
+
+  }
+  .tools-wrapper.floating {
+    background-color: red;
     position: static;
+  }
+  .tools-wrapper.fixed {
+    background-color: green;
+    position: fixed;
+    top: 100px;
   }
   .tools-wrapper.tools #tools {
     position: absolute;
