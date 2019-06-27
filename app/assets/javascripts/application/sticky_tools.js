@@ -1,5 +1,5 @@
 $(window).scroll(function(){
-    if( ($(window).scrollTop() >= '30') && ($(window).scrollTop() <= '500')){
+    if( ($(window).scrollTop() >= '30')){
         $('.tools-wrapper').removeClass('floating');
         $('.tools-wrapper').addClass('fixed');
     }
