@@ -42,7 +42,6 @@
 @mixin flex-item { // flexbox child
   height: auto;
   margin: auto;
-  text-align: center;
   width: 30%;
   @media screen and (max-width: $md) {
     width: 100%;

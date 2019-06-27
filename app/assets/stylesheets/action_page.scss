@@ -1,5 +1,14 @@
 .action_page-show {
   min-height: 1000px;
+  .row {
+    @include flex-this;
+    &:first-child { // description of action
+      @include flex-item;
+      margin-left: 3px;
+      text-align: left;
+      width: 60%;
+    }
+  }
 }
 #progress-bar {
   .progress {
@@ -42,7 +51,7 @@
       }
     }
     .tool-container {
-      padding: 2em 0.4em 0 0.4em;
+      padding: 2em 0 0;
     }
 
     .tool-heading {
@@ -341,7 +350,6 @@
 h3.header, #tools #email-tool h3, #tools #congress-message-tool h3 {
   color: black;
   position: relative;
-  margin-bottom: 1em;
   text-align: left;
   em {
     font-style: normal;
@@ -371,6 +379,7 @@ h3.privacy-notice-header {
     font-weight: bold;
     background-color: #fff;
     color: #cc0000;
+    margin-top: -3px;
     &:hover {
       background-color: #cc0000;
       color: #fff;
@@ -530,9 +539,7 @@ h3.privacy-notice-header {
     padding-top: 0;
     padding-bottom: 10px;
   }
-  .tool-title {
-    margin-bottom: 10px;
-  }
+
   textarea {
     padding: 6px;
   }
@@ -560,9 +567,7 @@ h3.privacy-notice-header {
     padding-top: 0;
     padding-bottom: 10px;
   }
-  .tool-title {
-    margin-bottom: 10px;
-  }
+
   textarea {
     padding: 6px;
   }
@@ -628,7 +633,8 @@ h3.privacy-notice-header {
     padding: 0;
   }
   h3 {
-    font-size: 17px;
+    font-size: 16px;
+    line-height: 16px;
     color: $charcoal;
     margin-top: 0;
 
@@ -657,10 +663,10 @@ h3.privacy-notice-header {
       font-weight: bold;
       background-color: #fff;
       color: #cc0000;
-
+      margin-top: -3px;
       &:hover {
         background-color: #cc0000;
-        color: #fff;
+        color: $charcoal;
       }
     }
     span.legislator-info-popover {
@@ -680,6 +686,7 @@ h3.privacy-notice-header {
       background-color: #fff;
       color: #cc0000;
       font-size: 12px;
+      margin-top: -3px;
       &:hover {
         background-color: #cc0000;
         color: #fff;
@@ -763,8 +770,10 @@ h3.privacy-notice-header {
   }
 }
 .popover {
+  color: $charcoal;
   font-size: 13px;
 }
+
 
 .popover-legislator-image {
   width: 50px;
@@ -878,7 +887,6 @@ html.js {
 
 @media screen and (min-width: $md) {
   #tools {
-    padding-right: 25px;
     position: absolute;
     top: 125px;
     width: 312px;
