@@ -2,7 +2,7 @@ class CongressMessagesController < ApplicationController
   def new
     location = SmartyStreets.get_location(params["street_address"], params["zipcode"])
     unless location.success
-      # prebably redirect
+      render plain: I18n.t(:address_lookup_failed, scope: :congress_forms), status: :bad_request
       return
     end
     @message_attributes = message_attributes(location, params["message"])
@@ -10,7 +10,8 @@ class CongressMessagesController < ApplicationController
 
     members = CongressMember.for_district(location.state, location.district)
     if members.empty?
-      # prebably redirect
+      # Notify Sentry?
+      render plain: I18n.t(:reps_lookup_failed, scope: :congress_forms), status: :bad_request
       return
     end
     @forms = CongressForms::Form.find(members.pluck(:bioguide_id))

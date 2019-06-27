@@ -30,11 +30,10 @@ RSpec.describe "Congress Messages", type: :request do
 
   describe "new" do
     subject {
-      get("/congress_messages/new", params: {
-          congress_message_campaign_id: action_page.congress_message_campaign_id,
-          street_address: location.street,
-          zipcode: location.zipcode
-        })
+      campaign_id = action_page.congress_message_campaign_id
+      get("/congress_message_campaigns/#{campaign_id}/congress_messages/new",
+          params: { street_address: location.street,
+                    zipcode: location.zipcode })
     }
 
     it "renders the congress message form" do
@@ -51,20 +50,24 @@ RSpec.describe "Congress Messages", type: :request do
       expect(response.body).to include '<input type="hidden" name="$ADDRESS_STREET"'
     end
 
+    it "prepopulates field values from the current user" do
+      pending
+      subject
+      expect(response.body).to include 'value="Buffy Summers"'
+    end
+
     it "displays an error when address lookup fails" do
-      pending("error handling")
       allow(SmartyStreets).to receive(:get_location)
         .and_return(OpenStruct.new(success: false))
       subject
-      expect(response.body).to include "address lookup failed"
+      expect(response.body).to include "unable to find a congressional district"
     end
 
     it "displays an error when congress member lookup fails" do
-      pending("error handling")
       location.state = "OR"
       allow(SmartyStreets).to receive(:get_location).and_return(location)
       subject
-      expect(response.body).to include "couldn't find any members"
+      expect(response.body).to include "unable to find congressional representatives"
     end
   end
 end

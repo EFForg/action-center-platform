@@ -13,7 +13,6 @@ Actioncenter::Application.routes.draw do
   post "tools/tweet"
   post "tools/email"
   post "tools/message-congress"
-  resources :congress_messages, only: [:new, :create]
   get "tools/reps"
   get "tools/reps_raw"
   get "tools/social_buttons_count"
@@ -68,6 +67,10 @@ Actioncenter::Application.routes.draw do
       post 'users' => 'partners#add_user', as: :add_user
       delete 'users/:user_id' => 'partners#remove_user', as: :remove_user
     end
+  end
+
+  resources :congress_message_campaigns, only: :none do
+    resources :congress_messages, only: [:new, :create], controller: :congress_messages
   end
 
   namespace :admin do
