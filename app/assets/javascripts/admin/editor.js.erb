@@ -1,0 +1,22 @@
+//= require EpicEditor
+
+$(document).on('ready', function() {
+  $('.epiceditor').each(function() {
+    var editor = new EpicEditor({
+      container: this,
+      textarea: $('textarea', this)[0],
+      basePath: '',
+      clientSideStorage: false,
+      theme: {
+        base: "<%= asset_path "EpicEditor/epiceditor/themes/base/epiceditor.css" %>",
+        preview: "<%= asset_path "EpicEditor/epiceditor/themes/preview/github.css" %>",
+        editor: "<%= asset_path "EpicEditor/epiceditor/themes/editor/epic-light.css" %>"
+      },
+      autogrow: true,
+    }).load(function() {
+      this._textareaElement.style.display = 'none';
+    });
+
+    $(this).data('editor', editor);
+  });
+});

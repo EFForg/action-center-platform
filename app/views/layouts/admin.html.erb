@@ -1,11 +1,28 @@
-<% content_for :head do %>
- <%= stylesheet_link_tag 'admin/admin' %>
- <%= javascript_include_tag 'admin-head' %>
-<% end %>
+<!DOCTYPE html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="icon" type="image/x-icon" href="<%= asset_path('favicon.ico') -%>">
 
-<% content_for :body do %>
-  <%= javascript_include_tag "admin"  %>
-  <%= yield :charts_js %>
-<% end %>
+    <title><%= page_title -%></title>
+    <%= stylesheet_link_tag "admin", media: "all" %>
+    <%= yield(:head) if content_for?(:head) -%>
+    <%= csrf_meta_tags %>
+  </head>
 
-<%= render template: 'layouts/application' -%>
+  <body class="<%= controller.controller_name  + "-" +action_name %>">
+    <header>
+      <div class="logo">
+        <%= image_tag "EFF_Monogram-red.png" %>
+      </div>
+
+      <h1><%= page_title %></h1>
+    </header>
+
+    <div id="page">
+      <%= yield %>
+    </div>
+
+    <%= javascript_include_tag "admin" %>
+  </body>
+</html>

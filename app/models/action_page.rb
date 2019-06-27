@@ -44,9 +44,12 @@ class ActionPage < ActiveRecord::Base
   has_attached_file :featured_image, amazon_credentials.merge(default_url: "missing.png")
   has_attached_file :background_image, amazon_credentials
   has_attached_file :og_image, amazon_credentials
-  validates_media_type_spoof_detection :featured_image, if: ->() { featured_image_file_name.present? }
-  validates_media_type_spoof_detection :background_image, if: ->() { background_image_file_name.present? }
-  validates_media_type_spoof_detection :og_image, if: ->() { og_image_file_name.present? }
+  validates_media_type_spoof_detection :featured_image,
+    if: ->{ featured_image_file_name_came_from_user? }
+  validates_media_type_spoof_detection :background_image,
+    if: ->{ background_image_file_name_came_from_user? }
+  validates_media_type_spoof_detection :og_image,
+    if: ->{ og_image_file_name_came_from_user? }
   do_not_validate_attachment_file_type [:featured_image, :background_image, :og_image]
 
   #validates_length_of :og_title, maximum: 65
@@ -64,6 +67,26 @@ class ActionPage < ActiveRecord::Base
     end
 
     scopes.inject(:or) || all
+  end
+
+  def action_type
+    %w(call congress_message email petition tweet redirect).each do |type|
+      return type.titleize if self[:"enable_#{type}"]
+    end
+
+    nil
+  end
+
+  def status
+    if archived?
+      "Archive"
+    elsif victory?
+      "Victory"
+    elsif published?
+      "Live"
+    else
+      "Draft"
+    end
   end
 
   def should_generate_new_friendly_id?

@@ -1,0 +1,25 @@
+<h2>Sharing</h2>
+
+<div class="form-item">
+  <%= f.label :og_title do %>
+    Open Graph Title
+    <span class="hint">(FB = 100chars, TWTR = 70chars)</span>
+  <% end %>
+  <%= f.text_field :og_title %>
+</div>
+
+<div class="form-item">
+  <%= f.label :share_message do %>
+    Tweet Text
+    <span class="hint">(URL is automatically added to the end)</span>
+  <% end %>
+  <%= f.text_field :share_message %>
+</div>
+
+<div class="form-item">
+  <%= f.label :og_image do %>
+    Open Graph Image
+    <span class="hint">(Should be 1200px x 630px)</span>
+  <% end %>
+  <%= f.file_field :og_image %>
+</div>

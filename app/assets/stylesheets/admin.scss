@@ -1,0 +1,264 @@
+.epiceditor {
+  margin-bottom: 4rem;
+}
+
+.epiceditor iframe {
+  border: 1px solid #ccc;
+}
+
+$light-blue: #e5ebec;
+$border-gray: #aaa;
+
+@mixin small {
+  @media (max-width: 990px) {
+    @content;
+  }
+}
+
+@mixin medium {
+  @media (min-width: 990px) {
+    @content;
+  }
+}
+
+@mixin large {
+  @media (min-width: 1400px) {
+    @content;
+  }
+}
+
+@mixin button {
+  display: inline-block;
+  border: 0;
+  border-radius: 5px;
+  padding: 1em 2.5em;
+  background: $light-blue;
+  box-shadow: 3px 3px 2px #ddd;
+  cursor: pointer;
+  font-weight: bold;
+  text-decoration: none;
+  color: #000;
+}
+
+body {
+  font-family: Arial;
+}
+
+header {
+  padding-bottom: 1rem;
+  border-bottom: 1px solid $light-blue;
+  margin: 0 2rem 2rem 2rem;
+
+  @include medium {
+    margin: 3rem 3vw 0 3vw;
+  }
+
+  .logo, h1 {
+    display: inline-block;
+  }
+
+  .logo {
+    width: 8rem;
+  }
+
+  @include medium {
+    .logo {
+      width: 11.875rem;
+    }
+  }
+
+  .logo img {
+    width: 100%;
+  }
+
+  h1 {
+    margin-bottom: 0;
+    margin-left: 1.5rem;
+  }
+}
+
+#page {
+  margin: 0 2rem 2rem 2rem;
+
+  @include medium {
+    display: flex;
+    flex-direction: row;
+    margin: 0 3vw 2rem 3vw;
+
+    #nav {
+      align-self: flex-start;
+      position: sticky;
+      top: 1rem;
+      padding-right: 1rem;
+      padding-top: 2rem;
+      max-width: 11.875rem;
+      width: 20%;
+    }
+
+    #content {
+      flex: 1;
+      padding-top: 2rem;
+      padding-left: 1.5rem;
+      border-left: 1px solid $light-blue;
+    }
+  }
+}
+
+#nav {
+  margin: 0 0 2rem 0;
+  padding: 0;
+
+  list-style-type: none;
+
+  ul {
+    padding-left: 1rem;
+
+    @include medium {
+      padding-left: 2rem;
+    }
+
+    margin-top: 0.5rem;
+    list-style-type: none;
+  }
+
+  font-size: 1.1rem;
+
+  li {
+    padding-top: 0.5rem;
+    padding-bottom: 0.5rem;
+  }
+
+  > li:first-child {
+    padding-top: 0;
+    font-size: 1.1em;
+  }
+
+  li a {
+    text-decoration: none;
+    color: #888;
+
+    &.active {
+      font-weight: bold;
+    }
+
+    &.active, &:hover {
+      color: #000;
+    }
+  }
+
+  @include small {
+    li li {
+      display: inline-block;
+    }
+  }
+}
+
+#page .table {
+  td, th {
+    text-align: left;
+  }
+}
+
+#page .table {
+  border-collapse: collapse;
+
+  thead tr {
+    margin-top: 0;
+    margin-bottom: 0.3rem;
+    border-bottom: 1px solid $border-gray;
+
+    th {
+      vertical-align: bottom;
+      padding-bottom: 0.4rem;
+    }
+  }
+
+  tbody td {
+    padding-top: 1.4rem;
+    padding-bottom: 1.4rem;
+  }
+
+  td, th {
+    padding-left: 1rem;
+    padding-right: 1rem;
+  }
+
+  tbody tr:nth-child(2n) {
+    background: $light-blue;
+  }
+}
+
+.button {
+  @include button;
+}
+
+.nowrap {
+  white-space: nowrap;
+}
+
+#content {
+  h2:first-child {
+    margin-top: 0;
+  }
+}
+
+#content #filters {
+  float: right;
+  margin-left: 2rem;
+
+  form {
+    width: 200px;
+    padding: 1rem;
+    border: 1px solid $border-gray;
+  }
+
+  .form-item:first-of-type {
+    margin-top: 0;
+  }
+
+  display: none;
+
+  @include large {
+    display: block;
+  }
+}
+
+form {
+  .form-item, .form-actions, aside {
+    margin-top: 2em;
+
+    @include medium {
+      width: 70%;
+    }
+  }
+
+  .form-item > label {
+    display: block;
+    font-size: 1.2em;
+    margin-bottom: 0.4em;
+  }
+
+  .form-item > label .hint {
+    font-size: 0.7em;
+    opacity: 0.8;
+  }
+
+  .form-item > input, .form-item > textarea {
+    width: 100%;
+    padding: 0.4em;
+  }
+
+  .form-item > textarea {
+    min-height: 7em;
+  }
+
+  button, input[type=button], input[type=submit] {
+    @include button;
+  }
+}
+
+#content form .page {
+  &:not(:first-of-type) {
+    display: none;
+  }
+}

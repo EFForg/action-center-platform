@@ -10,12 +10,9 @@ class Admin::ActionPagesController < Admin::ApplicationController
 
   def index
     @actionPages = filter_action_pages
-    @featuredActionPages = FeaturedActionPage.order("weight").
-                                              includes(:action_page).
-                                              map(&:action_page)
 
     if request.xhr?
-      render partial: "admin/action_pages/panel_action_pages"
+      render partial: "admin/action_pages/index"
     end
   end
 
