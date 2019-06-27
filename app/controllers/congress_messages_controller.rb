@@ -1,16 +1,21 @@
 class CongressMessagesController < ApplicationController
   def new
+    location = SmartyStreets.get_location(params["street_address"], params["zipcode"])
+    unless location.success
+      # prebably redirect
+      return
+    end
+    @message_attributes = message_attributes(location, params["message"])
     @campaign = CongressMessageCampaign.find(params["congress_message_campaign_id"])
 
-    # @address =
-    @message = params["message"] # validate presence
-
-    @members = CongressMember.lookup(street: params["street_address"],
-                                     zipcode: params["zipcode"])
-    @forms = CongressForms::Form.find(@members.pluck(:bioguide_id))
+    members = CongressMember.for_district(location.state, location.district)
+    if members.empty?
+      # prebably redirect
+      return
+    end
+    @forms = CongressForms::Form.find(members.pluck(:bioguide_id))
     @common = CongressForms::Form.common_fields(@forms)
     # Data prep
-    #  - Filter out common
     #  - Sort all groups
     render partial: "form"
   end
@@ -28,5 +33,19 @@ class CongressMessagesController < ApplicationController
         # re-render form and return
       end
     end
+  end
+
+  # @TODO move to lib/congress_forms.rb?
+  # @TODO no longer need to CSS hide these fields
+  def message_attributes(location, message)
+    {
+      "$ADDRESS_STREET" => location.street,
+      "$ADDRESS_CITY" => location.city,
+      "$ADDRESS_ZIP4" => location.zip4,
+      "$ADDRESS_ZIP5" => location.zipcode,
+      # @TODO abbreviation expected here? what forms can the state field take?
+      "$STATE" => location.state,
+      "$MESSAGE" => message
+    }
   end
 end

@@ -10,7 +10,7 @@
     <fieldset id="congressForms-common-fields">
       <% @common.each do |field| %>
         <div class="form-group">
-          <%= congress_message_field(field) %>
+          <%= congress_forms_field(field, @campaign, @message_attributes) %>
         </div>
       <% end %>
     </fieldset>
@@ -25,19 +25,13 @@
       </h3>
       <% form.fields.reject{ |x| @common.include?(x) }.each do |field| %>
         <div class="form-group">
-          <%= congress_message_field(field) %>
+          <%= congress_forms_field(field, @campaign, @message_attributes) %>
         </div>
       <% end %>
     </fieldset>
   <% end %>
 
-  <%= hidden_field_tag :bioguide_ids, @members.pluck(:bioguide_id) %>
-  <%# <%= hidden_field_tag "$ADDRESS_STREET", @address.street %>
-  <%# <%= hidden_field_tag "$ADDRESS_CITY", @address.city %>
-  <%# <%= hidden_field_tag "$ADDRESS_ZIP4", @address.zip4 %>
-  <%# <%= hidden_field_tag "$ADDRESS_ZIP5", @address.zip5 %>
-  <%# <%= hidden_field_tag "$ADDRESS_STATE", @address.state %>
-  <%= hidden_field_tag "$MESSAGE", @message %>
+  <%= hidden_field_tag :bioguide_ids, @forms.map(&:bioguide_id) %>
 
   <input type="submit" class="btn action">
 </form>

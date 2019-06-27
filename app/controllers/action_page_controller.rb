@@ -172,6 +172,7 @@ class ActionPageController < ApplicationController
 
 
   def location_params
+    # @TODO keep?
     params.permit(:zip4, :zipcode, :street, :city, :state)
   end
 

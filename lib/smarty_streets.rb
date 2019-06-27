@@ -8,14 +8,29 @@ module SmartyStreets
     end
   end
 
-  def self.get_congressional_district(street, zipcode)
+  def self.get_location(street, zipcode)
     url = "https://api.smartystreets.com/street-address"
     res = post(url, base_params.merge(street: street, zipcode: zipcode))
-    if res && res.first
-      district = res.first.dig("metadata", "congressional_district")
-      district = "0" if district == "AL"
-      [res.first["components"]["state_abbreviation"], district]
+
+    location = OpenStruct.new
+    location.street_address = street
+    location.zipcode = zipcode
+    if !res || res.empty?
+      location.success = false
+    else
+      location.success = true
+      location.city = res[0]["components"]["city_name"]
+      location.zip4 = res[0]["components"]["plus4_code"]
+      location.state = res[0]["components"]["state_abbreviation"]
+      location.district = res[0]["metadata"]["congressional_district"]
+      location.district = "0" if location.district == "AL"
     end
+    return location
+  end
+
+  def self.get_congressional_district(street, zipcode)
+    location = get_location(street, zipcode)
+    [location.state, location.district]
   end
 
   private
