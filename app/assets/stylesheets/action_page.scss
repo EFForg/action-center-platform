@@ -1,30 +1,3 @@
-/*
- * This is a manifest file that'll be compiled into action_page.css, which will include all the files
- * listed below.
- */
-
-.redtop {
-  padding: 2em 0 0;
-  h1 {
-    font-size: 2.5em;
-    font-weight: normal;
-    line-height: 1.2;
-    margin-top: 0;
-  }
-
-  a {
-    color: #fff;
-    text-decoration: underline;
-    &:hover {
-      color: #D5D5D5;
-    }
-  }
-}
-.action_page-show .redtop {
-  padding-bottom: 0;
-  svg.triangle {
-  }
-}
 #progress-bar {
   .progress {
     margin-bottom: 1.2em;
@@ -66,15 +39,13 @@
   text-align: center;
   right: 20px;
   top: 0px;
-  @media (max-width: $screen-sm-max) and (min-width: $screen-sm-min) {
+  display: none;
+  @media screen and (min-width: $md) {
     position: relative;
     right: 0;
     #share-buttons a {
       display: inline-block !important;
     }
-  }
-  @media (max-width: $screen-xs-max) {
-    display: none;
   }
 }
 
@@ -84,7 +55,6 @@
     background-color: #ffffff;
     margin-bottom: 20px;
     border: solid 1px #cc0000;
-    border-radius: 4px;
     -webkit-box-shadow: 0 0 5px 5px rgba(0, 0, 0, 0.1); // iOS <4.3 & Android <4.1
     box-shadow: 0 0 2px 2px rgba(0, 0, 0, 0.1);
 
@@ -163,11 +133,9 @@
     fieldset {
       margin: 0.5em 0 0.8em;
       &.has-error {
-        border: solid 1px #faebcc;
         background-color: #fcf8e3;
         padding: 4px;
         margin: 0.5em -5px 0.8em;
-        border-radius: 4px;
       }
       &#lookup-address {
         margin: 0;
@@ -205,17 +173,17 @@
           color: $blue;
           border-color: #bce8f1;
           background-color: #d9edf7;
-          }
+        }
         &.success {
           color: #3c763d;
           border-color: #d6e9c6;
           background-color: #dff0d8;
-          }
+        }
         &.error {
           color: #a94442;
           border-color: #ebccd1;
           background-color: #f2dede;
-          }
+        }
         &.warn {
           color: #8a6d3b;
           border-color: #faebcc;
@@ -372,17 +340,12 @@
   margin-top: 15px;
   margin-bottom: 15px;
 }
-@media (min-width: 992px) {
+@media screen and (min-width: $md) {
   .description img.full-width {
     max-width: 109%;
   }
 }
-@media (min-width: 1200px) {
-  .description img.full-width {
-    max-width: 120%;
-    margin-left: -10%;
-  }
-}
+
 
 .description h3, h3.privacy-notice-header,
 h3.header, #tools #email-tool h3, #tools #congress-message-tool h3 {
@@ -395,11 +358,9 @@ h3.header, #tools #email-tool h3, #tools #congress-message-tool h3 {
   em {
     background-color: #ffffff;
     padding-right: 0.3em;
+    font-size: 15px;
     font-style: normal;
     position: relative;
-    @media (max-width: $screen-xs-max) {
-      font-size: 15px;
-    }
   }
   &:before {
     content: '';
@@ -428,7 +389,6 @@ h3.privacy-notice-header {
     height: 20px;
     width: 20px;
     text-align: center;
-    border-radius: 10px;
     font-style: normal;
     line-height: 18px;
     padding-top: 0px;
@@ -556,12 +516,6 @@ h3.privacy-notice-header {
   }
 }
 
-
-@media (max-width: 768px) {
-  #letter .body {
-    padding: 3em 2em 4em;
-  }
-}
 
 #tools #call-tool {
   padding-bottom: 0;
@@ -755,7 +709,7 @@ h3.privacy-notice-header {
       height: 20px;
       width: 20px;
       text-align: center;
-      border-radius: 10px;
+
       font-style: normal;
       line-height: 18px;
       padding-top: 0px;
@@ -778,7 +732,6 @@ h3.privacy-notice-header {
       height: 20px;
       width: 20px;
       text-align: center;
-      border-radius: 10px;
       font-style: normal;
       line-height: 18px;
       padding-top: 0px;
@@ -862,7 +815,7 @@ h3.privacy-notice-header {
     font-size: 11px;
     font-weight: bold;
     letter-spacing: 0.05em;
-    color: $mediumgrey;
+    color: $gray;
   }
 }
 
@@ -919,17 +872,7 @@ h3.privacy-notice-header {
 // "All Campaigns" page
 
 .action_page-index {
-  .redtop {
-    padding: 1em 0 0 0;
-    .container {
-      padding: 0 25px;
-    }
-    h1 {
-      margin-bottom: 0;
-    }
-  }
   section.more-actions {
-    background-color: #fff;
     padding-top: 100px;
     .row > div:first-child {
       border: 0;
@@ -1007,7 +950,7 @@ html.js {
 
 /* Tools div media queries */
 
-@media (min-width: 768px) {
+@media screen and (min-width: $md) {
   #tools {
     position: fixed;
     width: 312px;
@@ -1030,7 +973,7 @@ html.js {
   }
 }
 
-@media (min-width: 992px) {
+@media screen and (min-width: $md) {
   #tools {
     width: 390px;
     margin-left: 20px;
@@ -1041,7 +984,7 @@ html.js {
   }
 }
 
-@media (min-width: 992px) {
+@media screen and (min-width: $md) {
   #share-buttons {
     position: absolute;
     right: -70px;
@@ -1055,7 +998,7 @@ html.js {
 }
 
 @media (min-width: 1200px) {
-  .redtop .container, .action-content.container {
+  .action-content.container {
     padding-left: 40px;
   }
   #tools {
@@ -1115,8 +1058,8 @@ html.js {
 }
 
 /**
- * Select menu autocomplete
- */
+* Select menu autocomplete
+*/
 #affiliations,
 #signatures {
   .select2-selection,
@@ -1158,8 +1101,8 @@ html.js #affiliations {
 }
 
 /**
- * Signatures by institution
- */
+* Signatures by institution
+*/
 #signatures-filter {
   font-size: 17px;
   text-transform: none;
@@ -1192,7 +1135,7 @@ html.js #affiliations {
   }
 
   .content {
-    border: 1px solid $lightgrey;
+    border: 1px solid $gray-light;
     padding: 15px;
 
     table {

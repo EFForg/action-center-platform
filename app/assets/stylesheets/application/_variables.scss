@@ -1,44 +1,47 @@
-// Custom variables
-$red: #cc0000;
-$darkred: #950002;
-$darkgrey: #353535;
-$lightgrey: #ddd;
-$mediumgrey: #636363;
+$base-font-size:   16px;
+$small-font-size:  $base-font-size * 0.875;
+$base-line-height: 1.5;
+
+/* colors */
+$eff-red: #ec1e1e;
+$red: #FF0000;
+$dark-red: #b80101;
+
 $blue: #0f6499;
 $green: #7dcc00;
-$sans-serif: 'Roboto';
+$off-white: #EAEAEA;
 
+$dark-blue: #254B66;
+$medium-blue: #4B6A88;
+$slate: #9AAFBC;
+$light-blue: #CAD5D8;
+$lightest-blue: #E5EBEC;
+
+$gray-light: #edf1f4;
+$gray: #BABABA;
+$gray-dark: #999999; // footer text
+$charcoal: #2D2D2D; // background
+
+/* fonts */
+$sans-serif: 'Montserrat', Arial, sans-serif;
+$serif: 'Merriweather', serif;
+
+/* max site width */
+$max-width: 1280px;
+
+/* breakpoints */
+$xs: 12em;
+$sm: 23em;
+$ph: 34em;
+$md: 48em;
+$lg: 66em;
+$xl: 80em;
+
+// at 16px, that is 192, 268, 544, 768, 1056, and 1280px respectively
 // Bootstrap variables
-$navbar-inverse-bg: #cc0000;
-$navbar-inverse-link-color: #fff;
-$navbar-inverse-link-hover-color: $lightgrey;
+
 $font-family-sans-serif: $sans-serif, Helvetica, Arial, sans-serif;
 $font-family-base: $font-family-sans-serif;
 $navbar-height: 55px;
 $font-size-base: 17px;
 $line-height-base: 1.53;
-$brand-primary: #cc0000;
-$link-color: #cc0000;
-$link-hover-color: darken($link-color, 15%);
-$headings-font-weight: bold;
-
-// Mixins
-
-// Make sure to give parent element the style position:relative
-@mixin vertical-center {
-  display: block;
-  overflow: auto;
-  margin: auto;
-  position: absolute;
-  top: 0; left: 0; bottom: 0; right: 0;
-}
-
-//This is an alternative to bourbon's "placeholder" mixin. That one conflicts with bootstrap, so instead we define placeholders
-@mixin placeholders {
-  $placeholders: ":-webkit-input" ":-moz" "-moz" "-ms-input";
-  @each $placeholder in $placeholders {
-    &:#{$placeholder}-placeholder {
-      @content;
-    }
-  }
-}

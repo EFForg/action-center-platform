@@ -1,0 +1,62 @@
+.footer {
+  background: black;
+  color: $gray;
+  display: block;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  padding: 2rem 1rem 5rem 1rem;
+  z-index: 10;
+  .container {
+    max-width: $max-width;
+    margin: 0 auto;
+    a {
+      color: $gray;
+      border-bottom: 1px solid black;
+      font-size: 1.1rem;
+      font-weight: 300;
+      &:hover {
+        @include transition (all 0.2s ease-in-out);
+        color: white;
+        border-bottom: 1px solid white;
+      }
+    }
+    .footer-nav {
+      @include flex-this;
+      flex-direction: column;
+      color: $gray;
+      padding: 0;
+      margin: 0;
+      width: 100%;
+      @media screen and (min-width: $lg) {
+        flex-direction: row;
+        justify-content: space-between;
+        width: 80%;
+      }
+      a {
+        color: $gray;
+        border-bottom: 1px solid black;
+        font-size: 1.1rem;
+        font-weight: 300;
+        text-transform: uppercase;
+        &:hover {
+          @include transition (all 0.2s ease-in-out);
+          color: white;
+          border-bottom: 1px solid white;
+        }
+      }
+    }
+    .logo {
+      a {
+        background: asset-url('EFF-logo-lockup-1color-gray.svg') no-repeat;
+        border: none;
+        display: block;
+        height: 4.5rem;
+        margin-bottom: 2rem;
+        &:hover {
+          background: asset-url('EFF-logo-lockup-1color-white.svg') no-repeat;
+        }
+      }
+    }
+  }
+}

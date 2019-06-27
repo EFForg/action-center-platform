@@ -1,10 +1,7 @@
-<div class="redtop">
+<div class="top-section">
   <div class="container">
     <h1><%= t :organization_abbreviation -%> Campaigns</h1>
   </div>
-  <svg class="triangle" viewBox="0 0 24 23.8" preserveAspectRatio="none">
-    <use xlink:href="#triangle"></use>
-  </svg>
 </div>
 
 <section class="more-actions">
@@ -12,7 +9,7 @@
     <% @actionPages.each_slice(3) do |array_of_3_actions| %>
       <div class="row">
         <% array_of_3_actions.each do |actionPage|%>
-            <div class="col-sm-4">
+            <div>
               <div class="image">
                   <%= image_tag(actionPage.featured_image) %>
               </div>

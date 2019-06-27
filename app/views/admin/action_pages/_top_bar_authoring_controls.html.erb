@@ -2,14 +2,14 @@
 <div class="simple-header update-action-bar" data-spy="affix" data-offset-top="70" >
   <div class="container-fluid">
     <div class="row" >
-      <div class="col-sm-3 col-md-4 hidden-xs">
+      <div class="hidden-xs">
           <%- unless @actionPage.new_record? -%>
             <h1 class="page-title">Edit Action</h1>
           <% else %>
             <h1 class="page-title">Create Action</h1>
           <% end -%>
       </div>
-      <div class="col-sm-9 col-md-8 text-right pull-right">
+      <div class="text-right pull-right">
         <div class="form-inline published-container <%= "is-published" if @actionPage.published? %>">
           <div class="form-group published-checkbox">
             <%= f.label :published do -%>

@@ -1,76 +1,60 @@
 <% content_for :head do -%>
   <%= render 'welcome/meta_tags' -%>
 <% end -%>
-<div class="redtop home">
+<div class="home">
   <div class="container">
     <h1><%= t :front_page_header_html -%></h1>
-    <h2><%= t :summary -%></h2>
-    <% unless user_signed_in? -%>
-      <%= render 'subscriptions/form' -%>
-    <% end -%>
   </div>
-
-  <svg class="triangle" viewBox="0 0 24 23.8" preserveAspectRatio="none">
-    <use xlink:href="#triangle"></use>
-  </svg>
 </div>
-
 
 <section class="featured-action">
   <% if @featuredActionPage -%>
     <div class="container">
       <div class="row">
-        <div class="image col-sm-6 col-md-5 col-md-offset-1">
+        <div class="image>
           <%= link_to image_tag(@featuredActionPage.featured_image.url) , action_page_path(@featuredActionPage) -%>
         </div>
-        <div class="col-sm-6 col-md-5">
+        <div>
           <%= link_to action_page_path(@featuredActionPage) do %>
             <h2>
               <%= @featuredActionPage.title -%>
             </h2>
-            <%= markdown @featuredActionPage.summary -%>
-
-            <span class='btn btn-lg btn-red'><%= t(:take_action) %></span>
+            <span class='eff-red-button'><%= t(:take_action) %></span>
           <% end %>
         </div>
       </div>
     </div>
   <% end %>
-  <svg class="triangle" viewBox="0 0 24 23.8" preserveAspectRatio="none">
-    <use xlink:href="#triangle"></use>
-  </svg>
+
 </section>
 
 <section class="more-actions">
   <div class="container">
-
-    <div class="row">
+    <div class="row flex-this">
       <%- @actionPages.each do |actionPage| -%>
-        <div class="col-sm-4">
+        <div>
           <div class="image">
           <%= link_to image_tag(actionPage.featured_image.url), action_page_path(actionPage) %>
           </div>
           <div class="text">
-            <h3><%= actionPage.title -%></h3>
-            <%= markdown actionPage.summary -%>
             <%= link_to action_page_path(actionPage) do%>
-                <span class="link-div hidden-xs"></span>
+            <h3><%= actionPage.title -%></h3>
             <% end %>
-        <%= link_to t(:take_action), action_page_path(actionPage),
-          class: 'btn btn-lg btn-red visible-xs' -%>
+            <%= link_to t(:take_action), action_page_path(actionPage),
+            class: 'eff-red-button' -%>
           </div>
         </div>
       <% end %>
     </div>
 
-    <p class="seemore"><a href="/action"><%= I18n.t(:see_all_campaigns) -%></a></p>
+    <div class="see-all">
+      <div>
+        <a href="/action"><%= I18n.t(:see_all_campaigns) -%></a>
+      </div>
+    </div>
 
   </div>
-<!--
-  <svg class="triangle" viewBox="0 0 24 23.8" preserveAspectRatio="none">
-    <use xlink:href="#triangle"></use>
-  </svg>
- -->
+
 </section>
 <!--
 <section class="mobile-apps">

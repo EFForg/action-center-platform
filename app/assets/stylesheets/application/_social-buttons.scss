@@ -55,7 +55,6 @@
 .social-count:after {
   background: #fff;
   border: 1px solid #efefef;
-  border-radius: 2px;
   top: -40px;
   color: #444;
   content: attr(count);
@@ -91,7 +90,6 @@
   .social-count:after {
     background: #fff;
     border: 1px solid #efefef;
-    border-radius: 2px;
     top: -40px;
     color: #444;
     content: attr(count);

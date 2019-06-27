@@ -2,10 +2,10 @@
 <% if @actionPage.id -%>
   <div class="tab-pane" id="analytics">
     <div class="row">
-      <div class="col-sm-6">
+      <div>
         <span class='alert alert-warning times-notification'><i class="icon-attention"></i> All dates and times are given in <%= Time.zone.name %></span>
       </div>
-      <div class="col-sm-6 text-right">
+      <div class="text-right">
         <%= render 'admin/action_pages/date_range_form' -%>
         <%= link_to admin_action_page_events_path(@actionPage),
           class: "table-view-link", target: "_blank" do -%>
@@ -43,7 +43,7 @@
         <% end %>
 
         <div class="clearfix"> </div>
-      </div><!-- .col-sm-12 -->
+      </div>
     </div><!-- .row -->
   </div><!-- .tab-pane -->
 <% end -%>

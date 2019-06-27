@@ -1,10 +1,8 @@
-//= require bootstrap/affix
-
 $(function() {
   var s = $('#tools');
-  var t = $('.redtop .row');
+  var t = $('.top-section .row');
   if (s.length > 0 && t.length > 0) {
-    var originalTop = $('.redtop .row').offset().top,
+    var originalTop = $('.top-section .row').offset().top,
         currentTop = originalTop,
         topSpacing = 10,
         bottomSpacing = 200,

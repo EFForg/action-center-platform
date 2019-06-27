@@ -1,7 +1,7 @@
-<div class="redtop">
+<div class="top-section">
   <div class="container">
     <div class="row">
-      <div class="col-lg-4 col-lg-offset-4 col-sm-6 col-sm-offset-3">
+      <div>
         <h1>Sign up</h1>
 
         <%= form_for(resource, :as => resource_name, :url => registration_path(resource_name)) do |f| %>
@@ -42,7 +42,7 @@
 
             EFF to keep a record of actions I take on the site, to be used for features like leaderboards or to give out prizes to the most active action-takers.
           </div>
-          <div><%= f.submit "Sign up", :class => 'btn btn-default' %></div>
+          <div><%= f.submit "Sign up", :class => 'eff-red-button' %></div>
         <% end %>
         <%= render "devise/shared/links" %>
       </div>
