@@ -2,7 +2,8 @@
   min-height: 1000px;
   .row {
     @include flex-this;
-    &:first-child { // description of action
+    &:first-child,
+    .description { // description of action
       @include flex-item;
       margin-left: 3px;
       text-align: left;
