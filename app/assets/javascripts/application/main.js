@@ -20,12 +20,3 @@
     }
   }
 }());
-
-webshims.setOptions('basePath', '/webshims/shims/')
-webshims.setOptions('forms', {
-  //show custom styleable validation bubble
-  replaceValidationUI: false,
-  lazyCustomMessages: true
-});
-//start polyfilling
-webshims.polyfill('forms');
