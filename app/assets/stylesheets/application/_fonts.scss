@@ -26,7 +26,11 @@
   font-family: 'Montserrat';
   font-style: normal;
   font-weight: 900;
-  src: local("Montserrat Black"), local("Montserrat-Black"), url('fonts/Montserrat-Black.woff') format('woff'); }
+  src: local("Montserrat Black"), local("Montserrat-Black"), url('fonts/Montserrat-Black.woff') format('woff'); }@font-face {
+  font-family: 'LeagueGothic';
+  font-style: normal;
+  font-weight: 200;
+  src: local("LeagueGothic"), local("LeagueGothic"), url('fonts/LeagueGothic-regular.woff') format('woff'); }
 
 @font-face {
   font-family: 'Merriweather';

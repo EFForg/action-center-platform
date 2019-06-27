@@ -29,16 +29,7 @@
       }
     }
     .btn {
-      @include transition (all 0.3s ease-in-out);
-      font-size: 14px;
-      font-weight: bold;
-      color: #fff;
-      letter-spacing: 0.04em;
-      text-transform: uppercase;
-      background-color: $red;
-      border: 3px solid #fff;
-      padding: 0px 20px;
-      -webkit-font-smoothing: antialiased;
+      @extend .eff-red-button;
     }
   }
 }
