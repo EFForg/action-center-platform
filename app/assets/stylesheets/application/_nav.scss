@@ -17,7 +17,7 @@ nav {
   top: 0;
   text-align: center;
   width: 100%;
-  z-index: 10;
+  z-index: 0;
   @media screen and (min-width: $md) {
     height: $nav-height;
   }
