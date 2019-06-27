@@ -17,18 +17,9 @@
 
 #description {
   margin-top: 3em;
-  h3 {
-    color: #0a639b;
-    line-height: 1.3;
-    * { background-color: #fff; }
-  }
   p, li {
     margin-bottom: 1em;
   }
-}
-
-.tools-wrapper {
-  z-index: 10;
 }
 
 .form-control {
@@ -37,44 +28,37 @@
   font-size: 0.8em;
 }
 
-#share-buttons-wrapper {
-  position: absolute;
-  text-align: center;
-  right: 20px;
-  top: 0px;
-  display: none;
-  @media screen and (min-width: $md) {
-    position: relative;
-    right: 0;
-    #share-buttons a {
-      display: inline-block !important;
-    }
-  }
-}
-
 #tools {
-
   .tool {
-    background-color: #ffffff;
+    background-color: $gray-darker;
+    color: black;
     margin-bottom: 20px;
-    border: solid 1px #cc0000;
-    -webkit-box-shadow: 0 0 5px 5px rgba(0, 0, 0, 0.1); // iOS <4.3 & Android <4.1
-    box-shadow: 0 0 2px 2px rgba(0, 0, 0, 0.1);
 
+    a {
+      color: black;
+      border-bottom: 2px solid black;
+      &:hover {
+        border-bottom: 2px solid $charcoal;
+      }
+    }
     .tool-container {
-      padding: 1em 0.4em 0 0.4em;
+      padding: 2em 0.4em 0 0.4em;
     }
 
     .tool-heading {
-      color: #cc0000;
+      color: white;
       text-transform: uppercase;
       text-align: center;
 
       .tool-title {
-        text-transform: none;
-        font-size: 1.2em;
+        color: white;
+        font-family: $league;
+        font-size: 4rem;
+        font-weight: 200;
+        line-height: 4rem;
         padding: 5px 0 0 0;
         margin: 0;
+        text-transform: uppercase;
 
         .glyphicon {
           font-size: 0.8em;
@@ -88,6 +72,17 @@
 
     .tool-body {
       padding: 10px;
+      a {
+        color: black;
+        border-bottom: 2px solid black;
+        &:hover {
+          color: $charcoal;
+          border-bottom: 2px solid $charcoal;
+        }
+      }
+      form input[type="text"], form input[type="email"], form textarea {
+        font-style: italic;
+      }
     }
     .tool-notice {
       padding-bottom: 5px;
@@ -112,7 +107,7 @@
       margin-bottom: 0.5em;
     }
     input[type=submit].action, button[type=submit].action {
-      @include speak-out-button
+      @include speak-out-button;
     }
     label.checkbox.small {
       font-size: 70%;
@@ -164,7 +159,6 @@
         font-size: 13px;
         font-style: normal;
         padding: 0px 6px;
-        line-height: 20px;
         background-color: #fff;
         color: $red;
 
@@ -247,14 +241,8 @@
   .newsletter-subscription {
     margin: 0 15px;
 
-    input[type=submit] {
-      margin-bottom: 0;
-    }
   }
 
-  input[type=submit] {
-    margin-top: 0;
-  }
 
   img.individual {
     display: block;
@@ -293,7 +281,6 @@
 
   .btn-tweet {
     margin: 0em auto 1.5em;
-    line-height: 19px;
     padding: 5px 10px 5px 5px;
     i {
       color: #04ADEE;
@@ -312,16 +299,11 @@
     margin-top: 40px;
   }
   h3.twitter-tool-label em {
-    font-size: 17px;
-    color: #0A639B;
     font-style: normal;
     font-weight: normal;
-    background-color: white;
-    padding-right: 0.3em;
   }
   h3.twitter-tool-label::before {
     margin-bottom: -0.6em;
-    border-bottom: 1px solid #eee;
     content: "";
     display: block;
   }
@@ -343,36 +325,26 @@
   margin-top: 15px;
   margin-bottom: 15px;
 }
-@media screen and (min-width: $md) {
+@media (min-width: $lg) {
   .description img.full-width {
     max-width: 109%;
   }
 }
-
+@media (min-width: 1200px) {
+  .description img.full-width {
+    max-width: 120%;
+    margin-left: -10%;
+  }
+}
 
 .description h3, h3.privacy-notice-header,
 h3.header, #tools #email-tool h3, #tools #congress-message-tool h3 {
+  color: black;
   position: relative;
   margin-bottom: 1em;
-  font-weight: normal;
   text-align: left;
-  font-size: 15px;
-
   em {
-    background-color: #ffffff;
-    padding-right: 0.3em;
-    font-size: 15px;
     font-style: normal;
-    position: relative;
-  }
-  &:before {
-    content: '';
-    height: 1px;
-    display: block;
-    border-bottom: solid 1px #eee;
-    width: 100%;
-    position: absolute;
-    top: 8px;
   }
 }
 
@@ -382,7 +354,6 @@ h3.header, #tools #email-tool h3, #tools #congress-message-tool h3 {
 
 h3.privacy-notice-header {
   font-size: 15px;
-  color: $blue;
   margin-top: 1em;
   span.privacy-notice-popover {
     @include transition (all 0.2s ease-in-out);
@@ -484,41 +455,11 @@ h3.privacy-notice-header {
   }
 }
 
-.vertical-share {
-  line-height: 54px;
-  text-align: center;
-  a {
-    display: block;
-    margin: 0 auto 1em;
-    color: #ffffff;
-    max-width: 276px;
-
-    &.twitter {
-      @include transition (background-color 0.5s ease-in-out);
-      background-color: #51c5f4;
-    }
-    &.facebook {
-      @include transition (background-color 0.5s ease-in-out);
-      background-color: #3f75bd;
-    }
-    &.google {
-      @include transition (background-color 0.5s ease-in-out);
-      background-color: #df5138;
-    }
-    div.share-label {
-      text-align: center;
-    }
-  }
-
-  a:hover {
-    color: #fbfbfb;
-
-    &.twitter { background-color: #28aae1 !important; }
-    &.facebook { background-color: #1e4389 !important; }
-    &.google { background-color: #d5492c !important; }
+@media (max-width: 768px) {
+  #letter .body {
+    padding: 3em 2em 4em;
   }
 }
-
 
 #tools #call-tool {
   padding-bottom: 0;
@@ -552,7 +493,7 @@ h3.privacy-notice-header {
     margin-bottom: 0.3em;
     margin-top: 0.4em;
     letter-spacing: 0.06em;
-    color: #0a639b;
+    color: $charcoal;
     font-size: 0.8em;
     font-weight: bold;
   }
@@ -568,11 +509,6 @@ h3.privacy-notice-header {
   }
   .call-body-active .advisory {
     margin-bottom: 0.8em;
-    line-height: 1.2;
-  }
-  .vertical-share p {
-    line-height: 1.5;
-    margin-bottom: 15px;
   }
   .form-errors {
     margin-bottom: 1rem;
@@ -598,8 +534,6 @@ h3.privacy-notice-header {
     margin-bottom: 10px;
   }
   textarea {
-    line-height: 1.3;
-    font-size: 13px;
     padding: 6px;
   }
   form {
@@ -616,8 +550,7 @@ h3.privacy-notice-header {
     margin-bottom: 5px;
   }
   h3 {
-    font-size: 17px;
-    color: $blue;
+    color: $charcoal;
     margin-top: 0;
   }
 }
@@ -631,9 +564,11 @@ h3.privacy-notice-header {
     margin-bottom: 10px;
   }
   textarea {
-    line-height: 1.3;
-    font-size: 13px;
     padding: 6px;
+  }
+
+  form {
+    padding-top: 0;
   }
   .form-group {
     margin-bottom: 7px;
@@ -667,7 +602,6 @@ h3.privacy-notice-header {
     margin-top: 4px;
   }
   .update-user-data-container .checkbox {
-    line-height: 1.3;
     margin-top: 3px;
     padding-bottom: 5px;
   }
@@ -685,15 +619,17 @@ h3.privacy-notice-header {
       margin-bottom: 15px;
     }
   }
-  &.congress-message-rep-lookup fieldset:last-of-type {
-    margin-bottom: 0;
+  &.congress-message-rep-lookup {
+    fieldset:last-of-type {
+      margin-bottom: 0;
+    }
   }
   .rep-photo {
     padding: 0;
   }
   h3 {
     font-size: 17px;
-    color: $blue;
+    color: $charcoal;
     margin-top: 0;
 
     &.legislator-label {
@@ -752,9 +688,7 @@ h3.privacy-notice-header {
   }
 
   .defunct-notice {
-    font-size: 13px;
     margin-bottom: 10px;
-    line-height: 1.5;
   }
 }
 
@@ -789,10 +723,8 @@ h3.privacy-notice-header {
     margin-left: 0;
   }
   i.icon-mail {
-    font-size: 19px;
     position: relative;
     top: 1px;
-    line-height: 19px;
   }
   i.icon-google {
     position: relative;
@@ -812,13 +744,12 @@ h3.privacy-notice-header {
     letter-spacing: 0.02em;
   }
   .small {
-    padding-top: 0;
+    padding-top: 5px;
     margin-bottom: 5px;
     text-transform: uppercase;
     font-size: 11px;
     font-weight: bold;
     letter-spacing: 0.05em;
-    color: $gray;
   }
 }
 
@@ -894,8 +825,6 @@ h3.privacy-notice-header {
   }
 }
 input[type="file"] {
-  font-size: 12px;
-  line-height: 1;
   margin-bottom: 10px;
 }
 
@@ -933,12 +862,6 @@ html.no-js {
       form {
         margin-top: 20px;
       }
-      h4 {
-        font-size: 16px;
-      }
-      p {
-        line-height: 1.3;
-      }
     }
   }
 }
@@ -955,95 +878,41 @@ html.js {
 
 @media screen and (min-width: $md) {
   #tools {
-    width: 312px;
     padding-right: 25px;
-    top: 100px;
-  }
-  .tools-wrapper  {
-
+    position: absolute;
+    top: 125px;
+    width: 312px;
   }
   .tools-wrapper.floating {
-    background-color: red;
     position: static;
+    transition: all 0.2s;
   }
   .tools-wrapper.fixed {
-    background-color: green;
     position: fixed;
-    top: 100px;
+    top: 0;
+    right: 11%;
+    transition: all 0.2s;
   }
   .tools-wrapper.tools #tools {
     position: absolute;
     top: 97px;
   }
-  .congressForms-legislator-fields .col-xs-9 {
-    padding-left: 0;
-    padding-right: 0;
-  }
+
   #tools .tool select {
     max-width: auto;
-  }
-}
-
-@media screen and (min-width: $md) {
-  #tools {
-    width: 390px;
-    margin-left: 20px;
-  }
-  .congressForms-legislator-fields .col-xs-9 {
-    padding-left: 15px;
-    padding-right: 15px;
-  }
-}
-
-@media screen and (min-width: $md) {
-  #share-buttons {
-    position: absolute;
-    right: -70px;
-
-    .social-count {
-      display: block;
-      float: none;
-      margin-bottom: 50px;
-    }
-  }
-}
-
-@media (min-width: 1200px) {
-  .action-content.container {
-    padding-left: 40px;
-  }
-  #tools {
-    width: 390px;
-    margin-left: 55px;
-  }
-}
-
-@media (max-width: 767px) {
-  #tools {
-    margin-top: 32px;
-    margin-bottom: 30px;
   }
   .action-content {
     margin-bottom: 40px;
   }
 }
 
-@media (min-width: 768px) and (max-width: 991px) {
-  #tools .tool .tool-heading .tool-title {
-    font-size: 1.35em;
-  }
-  #tools #tweet-tool .rep img {
-    margin-right: 0.3em;
-  }
-  #tools #tweet-tool .privacy-notice, #tools .tool .privacy-notice {
-    font-size: 9px;
-    padding-bottom: 0px;
-    margin-bottom: 0;
-  }
-  #tools #email-tool form input[type=submit] {
-    font-size: 0.9em;
+@media (min-width: $xl ) {
+  #tools {
+    right: 11%;
+    width: 390px;
   }
 }
+
 
 .no-js .plain-date {
   display: block !important;
@@ -1055,11 +924,11 @@ html.js {
   padding: 1px 0;
 
   a {
-    color: #fff;
+    color: $off-white;
     text-decoration: underline;
 
     &:hover {
-      color: $red;
+      color: $gray-light;
     }
   }
 }

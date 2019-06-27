@@ -23,7 +23,7 @@
         <%= button_tag type: 'submit',
                        name: 'service',
                        value: 'default',
-                       class: 'btn btn-red email-action' do -%>
+                       class: 'eff-red-button' do -%>
           Open using default mail client
         <% end %>
         <p class="small">Or send using:</p>
@@ -31,14 +31,14 @@
         <%= button_tag type: 'submit',
                        name: 'service',
                        value: 'gmail',
-                       class: 'btn btn-sm btn-red-outline email-action' do -%>
+                       class: 'eff-button' do -%>
           <i class="icon-google"></i> Gmail
         <% end %>
 
         <%= button_tag type: 'submit',
                        name: 'service',
                        value: 'hotmail',
-                       class: 'btn btn-sm btn-red-outline email-action' do -%>
+                       class: 'eff-button' do -%>
           <i class="icon-windows"></i> Outlook
         <% end %>
         <br>
@@ -54,7 +54,7 @@
                          :trigger => 'click',
                        },
                        id: 'copy-email-action',
-                       class: 'btn btn-sm btn-red-outline email-action' do -%>
+                       class: 'eff-button' do -%>
           <i class="icon-copy"></i> Copy to Clipboard
         <% end %>
 
@@ -74,8 +74,7 @@
 
 <div class="update-user-data-container" style="display: none;">
   <% if current_user %>
-  <div class="checkbox small">
-      <label for="update_user_data">    <input checked="checked" id="update_user_data" name="update_user_data" type="checkbox" value="yes">    Save my name and address for next time.</label>
-  </div>
+    <input checked="checked" id="update_user_data" name="update_user_data" type="checkbox" value="yes">
+    <label for="update_user_data", value="Save my name and address for next time."></label>
   <% end %>
 </div>
