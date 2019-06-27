@@ -1,5 +1,4 @@
-$nav-height: 100px;
-$nav-color:  black;
+$nav-height: 80px;
 $nav-font-color: white;
 $nav-font-size: 1.1rem;
 $nav-text-transform: uppercase;
@@ -11,16 +10,13 @@ body {
 nav {
   background-color: $eff-red;
   display: block;
-  height: 70px;
+  height: $nav-height;
   position: fixed;
   left: 0;
   top: 0;
-  text-align: center;
   width: 100%;
   z-index: 10;
-  @media screen and (min-width: $md) {
-    height: $nav-height;
-  }
+
   a {
     border: none;
     color: white;
@@ -33,38 +29,44 @@ nav {
       color: inherit;
     }
   }
-  a.open-menu {
-    @media screen and (min-width: $md) {
-      display: none;
-    }
-    color: white;
-    display: inline-block;
-    margin-top: 1.1em;
-  }
 
-  ul {
+  .menu-logo {
     @media screen and (min-width: $md) {
-      max-width: 1280px;
+      height: 90px;
+      width: 500px;
+      left: 0;
+      margin-top: 0;
+      position: relative;
     }
-    display: flex;
+    background: asset-url('EFF-logo-action.svg') no-repeat;
+    background-repeat: no-repeat;
+    background-size: contain;
+    border: none;
+    display: inline-block;
+    height: 50px;
+    left: 0.5rem;
+    margin-top: 1rem;
+    position: absolute;
+    top: 0;
+    transition: all 0.2s;
+    width: 250px;
+  }
+  ul {
+    display: inline-block;
     font-size: 0.75rem;
-    justify-content: space-around;
     list-style: none;
     line-height: 1rem;
-    margin: 1.5rem auto 0;
+    margin: 0.5rem auto 0;
     padding: 0 0 0 1rem;
-    width: 100%;
-    &:after {
-      content: "";
-    }
 
     li {
-      display: none;
-      text-align: center;
-      text-transform: $nav-text-transform;
+      color: white;
+      display: block;
       font-size: $nav-font-size;
       font-weight: 700;
-      color: white;
+      margin: 0.9rem auto 0;
+      text-align: left;
+      text-transform: $nav-text-transform;
       a {
         color: white;
         &.active {
@@ -77,62 +79,58 @@ nav {
           }
         }
       }
-      @media screen and (min-width: $md) {
-        display: inline-block;
-        font-size: 1rem;
-        margin: 0.9rem auto 0;
-        text-align: center;
-        flex-grow: 1;
-      }
-      &.logo-li {
-        display: inline-block;
-        margin: 0;
-        text-align: left;
-      }
     }
-    .menu-logo {
-      @media screen and (min-width: $md) {
-        height: 90px;
-        width: 500px;
-        left: 0;
-        margin-top: 0;
-        position: relative;
-      }
-      background: asset-url('EFF-logo-action.svg') no-repeat;
-      background-repeat: no-repeat;
-      background-size: contain;
-      border: none;
-      display: inline-block;
-      height: 50px;
-      left: 0.5rem;
-      margin-top: 1rem;
-      position: absolute;
-      top: 0;
-      //transition: all 0.2s;
-      width: 250px;
+  }
 
-    }
-    li.close-menu {
-      display: none !important;
-    }
-  }
-  form {
-    background: transparent;
-    margin: 0;
-    padding: 0;
-  }
-  .nav-form-link {
-    input[type=submit] {
-      background: none;
-      border: none;
-      cursor: pointer;
-      color: white;
-      margin: 0;
-      text-decoration: none;
-      text-transform: uppercase;
+  #nav-menu {
+    background-color: $gray;
+    color: black;
+    display: inline-block;
+    right: 11%;
+    top: 4rem;
+    position: absolute;
+    transition: all 0.3s ease;
+    width: 300px;
+    z-index: 100;
+    a {
+      border: 0;
+      color: black;
       &:hover {
-        border-bottom: 2px solid white;
+        border-bottom: 2px solid black;
       }
+    }
+    form {
+      background: transparent;
+      margin: 0;
+      padding: 0;
+    }
+    .nav-form-link {
+      input[type=submit] {
+        background: none;
+        border: none;
+        color: black;
+        cursor: pointer;
+        margin: 0;
+        text-decoration: none;
+        text-transform: uppercase;
+        &:hover {
+          border-bottom: 2px solid black;
+        }
+      }
+    }
+  }
+
+  a.open-menu {
+    color: white;
+    display: inline-block;
+    font-size: 5rem;
+    top: 1.8rem;
+    position: absolute;
+    right: 11%;
+    z-index: 1000;
+    &:hover {
+      border-bottom: none;
+      cursor: pointer;
     }
   }
 }
