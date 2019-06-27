@@ -120,14 +120,18 @@ nav {
     }
   }
 
-  a.open-menu {
+  .open-menu {
     color: white;
     display: inline-block;
     font-size: 5rem;
     top: 1.8rem;
-    position: absolute;
+    position: absolute !important;
     right: 11%;
     z-index: 1000;
+    &:before,
+    &:after {
+      display: none;
+    }
     &:hover {
       border-bottom: none;
       cursor: pointer;

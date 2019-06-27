@@ -39,10 +39,9 @@
       <nav role="navigation" aria-label="desktop-navigation">
         <div><a href="/" class="menu-logo" alt="Site logo">&nbsp;</a>
         </div>
-        <div>
-          <a href="#off-canvas" class="open-menu">&#x2261;</a>
-        </div>
-        <div id="nav-menu" class="off-canvas" role="navigation" aria-label="navigaton">
+        <input type='checkbox' class="open-menu" style='display: none' id="the-menu">
+        <label class="open-menu" for="the-menu">&#x2261;</label>
+        <div id="nav-menu" role="navigation" aria-label="navigaton">
           <ul>
             <% if user_signed_in? %>
             <% if can?(:administer_actions) && controller_name == "action_page" && @actionPage -%>
