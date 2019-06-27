@@ -97,7 +97,7 @@ h3 {
   color: $off-white;
   font-size: 29px;
   font-weight: 600;
-  line-height: 40px;
+  line-height: 29px;
   padding: 1.3rem 0 0.3rem 0;
 }
 h4 {
@@ -277,8 +277,10 @@ a:hover {
 }
 
 
-#content .container {
-  padding-bottom: 5rem;
+#content {
+  .top-section {
+    display: inline-block;
+  }
 }
 
 .avatar-frame {
@@ -376,58 +378,6 @@ Styles for the alert box
   10%, 90% { opacity: 1; transform: translate(0, 0); }
 }
 
-.signup-checkbox {
-  font-size: 1.3rem;
-  line-height: 1.5rem;
-  margin-bottom: 2rem;
-}
-
-.email-signup {
-  font-size: 13px;
-  margin-bottom: 10px;
-  margin-top: 20px;
-  line-height: 1.5;
-
-  label.radio-inline {
-    margin-top: -3px;
-    border: 1px solid #ddd;
-    border-radius: 8px;
-    padding-left: 23px;
-    padding-right: 6px;
-    line-height: 1.68;
-    input[type=radio] {
-      margin-top: 4px;
-      cursor: pointer;
-      margin-left: -18px;
-    }
-    &:first-child {
-      margin-right: 1px;
-    }
-    &:last-child {
-      margin-right: 2px;
-    }
-  }
-
-  // Using a dummy selector to check for browser support for ":checked".
-  // The rest of the rule will be thrown out if that fails.
-  #dummy:checked::before,
-  input[type="radio"] {
-    position: absolute;
-    clip: rect(0, 0, 0, 0);
-  }
-
-  #dummy:checked,
-  input[type="radio"] + label::before {
-    content: asset-data-url('radio-unchecked.png');
-    top: 3px;
-    left: 4px;
-    position: absolute;
-  }
-
-  input[type="radio"]:checked + label::before {
-    content: asset-data-url('radio-checked.png');
-  }
-}
 
 /* ======================
 No-js styles
@@ -465,4 +415,16 @@ div#email_target_text {
   color: #FFF;
   border-color: #C00;
   background-color: #C00;
+}
+
+// screen readers only
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  border: 0;
 }
