@@ -1,34 +1,27 @@
 <% content_for :head do -%>
   <%= render 'action_page/meta_tags' -%>
+
 <% end -%>
 <div class="top-section">
   <div class="container">
     <div class="row">
-      <div>
-        <h5 class="category">Category Placeholder</h5>
-        <h1><%= @actionPage.title -%></h1>
-        <div class="image">
-           <%= image_tag @actionPage.background_image -%>
+      <h1><%= @actionPage.title -%></h1>
+      <div class='short-description'>
+        <%= markdown @actionPage.summary -%>
+        <input type='checkbox' style='display: none' id="learn-more">
+        <label for="learn-more">Learn More</label>
+        <div class="description" id="description">
+          <%= markdown @actionPage.description -%>
         </div>
-        <div class='short-description'>
-          <%= markdown @actionPage.summary -%>
-        </div>
-      </div>
-    </div>
-    <div class="row">
-      <div class="description" id="description">
-        <%= markdown @actionPage.description -%>
       </div>
     </div>
   </div>
 
 </div>
-
 <div class="container action-content" id="action-content" data-action-id="<%= @actionPage.id -%>" >
   <div class="row">
     <%= render "tools/container" %>
     <div>
-
       <% if @actionPage.enable_petition? && @petition && @petition.description.present? && !@actionPage.description.include?('``` letter') -%>
         <%= render(partial: "action_page/letter", layout: false) %>
       <% end -%>
