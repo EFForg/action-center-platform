@@ -27,13 +27,13 @@ module CongressMessageHelper
 
   def congress_forms_prefills(campaign)
     {
-      "$NAME_FIRST": current_first_name,
-      "$NAME_LAST": current_last_name,
-      "$EMAIL": current_email,
-      "$PHONE": current_user.try(:phone),
-      "$ADDRESS_STREET": current_street_address,
-      "$ADDRESS_CITY": current_city,
-      "$SUBJECT": campaign.subject,
+      "$NAME_FIRST" => current_first_name,
+      "$NAME_LAST" => current_last_name,
+      "$EMAIL" => current_email,
+      "$PHONE" => current_user.try(:phone),
+      "$ADDRESS_STREET" => current_street_address,
+      "$ADDRESS_CITY" => current_city,
+      "$SUBJECT" => campaign.subject,
       # @TODO fuzzy match for "$TOPIC"?
       # "$TOPIC": campaign.topic.name
     }

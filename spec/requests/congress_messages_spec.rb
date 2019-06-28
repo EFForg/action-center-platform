@@ -50,12 +50,6 @@ RSpec.describe "Congress Messages", type: :request do
       expect(response.body).to include '<input type="hidden" name="$ADDRESS_STREET"'
     end
 
-    it "prepopulates field values from the current user" do
-      pending
-      subject
-      expect(response.body).to include 'value="Buffy Summers"'
-    end
-
     it "displays an error when address lookup fails" do
       allow(SmartyStreets).to receive(:get_location)
         .and_return(OpenStruct.new(success: false))

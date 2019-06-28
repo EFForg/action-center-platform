@@ -2,15 +2,15 @@
   <p class="step2-intro">
     <%= @campaign.extra_fields_explain_text("We send your comments to your representatives by automatically filling out their online contact forms. Because each representative's form is a little different, we need your help filling out a few extra fields before we can send your message:") %>
   </p>
-  <% if @common.any? %>
+  <% if @message.common_fields.any? %>
     <h3 class="legislator-label common-fields">
       <em>Common fields</em>
     </h3>
 
     <fieldset id="congressForms-common-fields">
-      <% @common.each do |field| %>
+      <% @message.common_fields.each do |field| %>
         <div class="form-group">
-          <%= congress_forms_field(field, @campaign, @message_attributes) %>
+          <%= congress_forms_field(field, @campaign, @message.inputs) %>
         </div>
       <% end %>
     </fieldset>
@@ -18,20 +18,20 @@
     Save my info checkbox?
   <% end %>
 
-  <% @forms.each do |form| %>
+  <% @message.forms_minus_common_fields.each do |form| %>
     <fieldset class="congressForms-legislator-fields">
       <h3 class="legislator-label">
         <%= form.bioguide_id %>
       </h3>
-      <% form.fields.reject{ |x| @common.include?(x) }.each do |field| %>
+      <% form.fields.each do |field| %>
         <div class="form-group">
-          <%= congress_forms_field(field, @campaign, @message_attributes) %>
+          <%= congress_forms_field(field, @campaign, @message.inputs) %>
         </div>
       <% end %>
     </fieldset>
   <% end %>
 
-  <%= hidden_field_tag :bioguide_ids, @forms.map(&:bioguide_id) %>
+  <%= hidden_field_tag :bioguide_ids, @message.targets %>
 
   <input type="submit" class="btn action">
 </form>

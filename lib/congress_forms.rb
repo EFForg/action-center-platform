@@ -4,7 +4,10 @@ module CongressForms
   class Form
     attr_accessor :fields, :bioguide_id
 
+    # @TODO not needed
     EXTRA_INPUTS = %w($MESSAGE).freeze
+
+    # @TODO sort fields
 
     def self.find(bioguide_ids)
       raw_forms = CongressForms.post("/retrieve-form-elements/", {
@@ -13,21 +16,9 @@ module CongressForms
       raw_forms.map { |id, raw| Form.new(id, raw["required_actions"]) }
     end
 
-    def self.common_fields(forms)
-      all_fields = forms.reduce([]) { |a, b| a + b.fields }
-      all_fields.select { |e| all_fields.count(e) > 1 }.uniq
-    end
-
     def initialize(bioguide_id, fields)
       @bioguide_id = bioguide_id
       @fields = fields.map { |f| Field.new(f) }
-    end
-
-    def validate(input)
-      @fields.each do |f|
-        return false unless f.validate(input[f.value])
-      end
-      true
     end
 
     def fill(input)
