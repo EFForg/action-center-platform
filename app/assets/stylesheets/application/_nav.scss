@@ -30,128 +30,147 @@ nav {
     }
   }
 
-  .menu-logo {
-    @media screen and (min-width: $md) {
-      height: 90px;
-      width: 500px;
-      left: 0;
-      margin-top: 0;
-      position: relative;
+  .nav-wrapper {
+    margin: 0 auto;
+    max-width: $max-width;
+    position: relative;
+    .menu-logo {
+      @media screen and (min-width: $md) {
+        height: 90px;
+        width: 500px;
+        left: 0;
+        margin-top: 0;
+        position: relative;
+      }
+      background: asset-url('EFF-logo-action.svg') no-repeat;
+      background-repeat: no-repeat;
+      background-size: contain;
+      border: none;
+      display: inline-block;
+      height: 50px;
+      left: 0.5rem;
+      margin-top: 1rem;
+      position: absolute;
+      top: 0;
+      transition: all 0.2s;
+      width: 250px;
     }
-    background: asset-url('EFF-logo-action.svg') no-repeat;
-    background-repeat: no-repeat;
-    background-size: contain;
-    border: none;
-    display: inline-block;
-    height: 50px;
-    left: 0.5rem;
-    margin-top: 1rem;
-    position: absolute;
-    top: 0;
-    transition: all 0.2s;
-    width: 250px;
-  }
-  ul {
-    display: inline-block;
-    font-size: 0.75rem;
-    list-style: none;
-    line-height: 1rem;
-    margin: 0.5rem auto 0;
-    padding: 0 0 0 1rem;
+    ul {
+      display: inline-block;
+      font-size: 0.75rem;
+      list-style: none;
+      line-height: 1rem;
+      margin: 0.5rem auto 0;
+      padding: 0 0 0 1rem;
 
-    li {
-      color: white;
-      display: block;
-      font-size: $nav-font-size;
-      font-weight: 700;
-      margin: 0.9rem auto 0;
-      text-align: left;
-      text-transform: $nav-text-transform;
-      a {
+      li {
         color: white;
-        &.active {
+        display: block;
+        font-size: $nav-font-size;
+        font-weight: 700;
+        margin: 0.9rem auto 0;
+        text-align: left;
+        text-transform: $nav-text-transform;
+        a {
           color: white;
-        }
-        &:hover {
-          &:not(.menu-logo) {
-            border-bottom: 2px solid white;
+          &.active {
             color: white;
+          }
+          &:hover {
+            &:not(.menu-logo) {
+              border-bottom: 2px solid white;
+              color: white;
+            }
           }
         }
       }
     }
-  }
 
-  input:checked + label + div {
-    display: inline-block !important;
-  };
-  input:not(checked) + label + div {
-    display: none !important;
-  };
+    input:checked + label + div {
+      display: inline-block !important;
+    };
+    input:not(checked) + label + div {
+      display: none !important;
+    };
 
-  [type="checkbox"]:not(:checked) + label,
-  [type="checkbox"]:checked + label {
-    margin-left: 0;
-    padding-left: 0;
-    &:before,
-    &:after {
-      display: none;
-    }
-  }
-
-  #nav-menu {
-    background-color: $gray;
-    color: black;
-    display: none;
-    right: 11%;
-    top: 4rem;
-    position: absolute;
-    transition: all 0.3s ease;
-    width: 300px;
-    z-index: 100;
-    a {
-      border: 0;
-      color: black;
-      &:hover {
-        border-bottom: 2px solid black;
+    [type="checkbox"]:not(:checked) + label,
+    [type="checkbox"]:checked + label {
+      margin-left: 0;
+      padding-left: 0;
+      &:before,
+      &:after {
+        display: none;
       }
     }
-    form {
-      background: transparent;
-      margin: 0;
-      padding: 0;
-    }
-    .nav-form-link {
-      input[type=submit] {
-        background: none;
-        border: none;
+
+    #nav-menu {  // drop-down menu
+      @media screen and (min-width: $md) {
+        width: 250px;
+      }
+      background-color: $gray;
+      color: black;
+      display: none;
+      padding-bottom: 1rem;
+      position: absolute;
+      right: 0;
+      top: 4rem;
+      transition: all 0.3s ease;
+      width: 200px;
+      z-index: 100;
+      a {
+        border-bottom: 2px solid $gray;
         color: black;
-        cursor: pointer;
-        margin: 0;
-        text-decoration: none;
-        text-transform: uppercase;
         &:hover {
           border-bottom: 2px solid black;
         }
       }
+      form {  // login/logout
+        background: transparent;
+        margin: 0;
+        padding: 0;
+      }
+      .nav-form-link {
+        input[type=submit] {
+          background: none;
+          border: none;
+          color: black;
+          cursor: pointer;
+          margin: 0;
+          padding: 0;
+          text-decoration: none;
+          text-transform: uppercase;
+          &:hover {
+            border-bottom: 2px solid black;
+          }
+        }
+      }
     }
-  }
 
-  .open-menu {
-    color: white;
-    display: inline-block;
-    font-size: 5rem;
-    top: 1.8rem;
-    position: absolute !important;
-    right: 11%;
-    z-index: 1000;
-    &:before,
-    &:after {
-      display: none;
-    }
-    &:hover {
-      border-bottom: none;
-      cursor: pointer;
+    .open-menu {
+      @media screen and (min-width: $md) {
+        font-size: 4rem;
+        top: 1.8rem;
+        //right: 4%;
+      }
+      @media screen and (min-width: $lg) {
+        font-size: 5rem;
+        right: 0;
+      }
+      color: white;
+      display: inline-block;
+      font-size: 3rem;
+      top: 1.4rem;
+      right: 2%;
+      position: absolute !important;
+      z-index: 1000;
+      &:before,
+      &:after {
+        display: none;
+      }
+      &:hover {
+        border-bottom: none;
+        cursor: pointer;
+      }
     }
   }
 }
