@@ -83,10 +83,10 @@ nav {
   }
 
   input:checked + label + div {
-    display: inline-block;
+    display: inline-block !important;
   };
   input:not(checked) + label + div {
-    display: none;
+    display: none !important;
   };
 
   [type="checkbox"]:not(:checked) + label,
@@ -102,6 +102,7 @@ nav {
   #nav-menu {
     background-color: $gray;
     color: black;
+    display: none;
     right: 11%;
     top: 4rem;
     position: absolute;
