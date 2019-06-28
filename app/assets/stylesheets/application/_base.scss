@@ -417,6 +417,11 @@ div#email_target_text {
   background-color: #C00;
 }
 
+
+// row default
+.row {
+  margin: 1rem 0;
+}
 // screen readers only
 .sr-only {
   position: absolute;
@@ -427,4 +432,5 @@ div#email_target_text {
   overflow: hidden;
   clip: rect(0, 0, 0, 0);
   border: 0;
+
 }

@@ -42,6 +42,13 @@
   }
 }
 
+h5.category {
+  color: $gray;
+  margin-bottom: 0;
+  padding-bottom: 0;
+  text-transform: uppercase;
+}
+
 #description {
   margin-top: 3em;
   p, li {
