@@ -3,7 +3,7 @@
     $('#content form .page:visible').fadeOut(100, function() {
       $('#nav .active').removeClass('active');
       $('#nav a[href=' + id +']').addClass('active');
-      $('#content form .page' + id).fadeIn(100);
+      $('#content form .page' + id).fadeIn(100, reflowEpicEditor);
 
       $('#content form .page' + id).find('input[type=text],textarea').first().focus();
       window.scrollTo(0, 0);

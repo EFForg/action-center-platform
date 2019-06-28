@@ -1,3 +1,20 @@
 <h2>Action</h2>
 
-<p>Configure the action tool here.</p>
+<fieldset class="form-item">
+  <legend>Type of Action</legend>
+
+  <% %w(call congress_message email petition tweet).each do |type| %>
+    <%= f.hidden_field :"enable_#{type}" %>
+
+    <label for="action_type_<%= type %>">
+      <%= radio_button_tag "action_type", type, @actionPage[:"enable_#{type}"] %>
+      <%= type.titleize %>
+    </label>
+  <% end %>
+</fieldset>
+
+<% %w(call congress_message email petition tweet).each do |type| %>
+  <fieldset class="action-fields <%= 'active' if @actionPage[:"enable_#{type}"] %>" data-action_type="<%= type %>">
+    <%= render "#{type}_fields", f: f %>
+  </fieldset>
+<% end %>

@@ -1,0 +1,18 @@
+.epiceditor {
+  margin-bottom: 4rem;
+}
+
+.epiceditor iframe {
+  border: 1px solid #ccc;
+}
+
+.action-fields:not(.active) {
+  display: none;
+}
+
+.page#action {
+  fieldset label {
+    display: inline-block;
+    margin-right: 1em;
+  }
+}

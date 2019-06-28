@@ -1,0 +1,31 @@
+<%= f.fields_for(@actionPage.congress_message_campaign) do |sf| %>
+  <div class="form-item">
+    <%= sf.label :subject %>
+    <%= sf.text_field :subject %>
+  </div>
+
+  <div class="form-item">
+    <%= sf.label :message %>
+    <%= sf.text_area :message %>
+  </div>
+
+  <div class="form-item">
+    <%= sf.label :target_house do %>
+      <%= sf.check_box :target_house %> Target House
+    <% end %>
+
+    <%= sf.label :target_senate do %>
+      <%= sf.check_box :target_senate %> Target Senate
+    <% end %>
+  </div>
+
+  <div class="form-item">
+    <%= sf.label :target_bioguide_ids, "Specific legislators" %>
+    <%= sf.text_field :target_bioguide_ids %>
+  </div>
+
+  <div class="form-item">
+    <%= sf.label :campaign_tag %>
+    <%= sf.text_field :campaign_tag %>
+  </div>
+<% end %>

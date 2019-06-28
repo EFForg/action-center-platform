@@ -1,0 +1,22 @@
+<%= f.fields_for(@actionPage.tweet) do |sf| %>
+  <div class="form-item">
+    <%= sf.label :message %>
+    <%= sf.text_area :message %>
+  </div>
+
+  <div class="form-item">
+    <%= sf.label :target_house do %>
+      <%= sf.check_box :target_house %> Target House
+    <% end %>
+
+    <%= sf.label :target_senate do %>
+      <%= sf.check_box :target_senate %> Target Senate
+    <% end %>
+  </div>
+
+  <div class="form-item">
+    <label for="add_targets">Add individual targets <span class="hint">one per line, without the '@'</span>:</label>
+
+    <textarea name="add_targets" id="add_targets"></textarea>
+  </div>
+<% end %>

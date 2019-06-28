@@ -2,9 +2,11 @@
 
 $(document).on('ready', function() {
   $('.epiceditor').each(function() {
+    var textarea = $('textarea', this).first();
+    var container = $('<div>').insertAfter(textarea);
     var editor = new EpicEditor({
-      container: this,
-      textarea: $('textarea', this)[0],
+      container: container[0],
+      textarea: textarea[0],
       basePath: '',
       clientSideStorage: false,
       theme: {
@@ -20,3 +22,9 @@ $(document).on('ready', function() {
     $(this).data('editor', editor);
   });
 });
+
+function reflowEpicEditor() {
+  $('.epiceditor:visible').each(function() {
+    $(this).data('editor').reflow();
+  });
+}
