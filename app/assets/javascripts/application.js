@@ -17,7 +17,7 @@
 //= require bootstrap/transition
 
 //= require application/select2-utils
-//= require webshims/polyfiller
+
 //= require respond
 //= require html5shiv
 //= require bootstrap/collapse
