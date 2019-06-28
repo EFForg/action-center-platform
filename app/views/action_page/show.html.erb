@@ -5,7 +5,11 @@
   <div class="container">
     <div class="row">
       <div>
+        <h5 class="category">Category Placeholder</h5>
         <h1><%= @actionPage.title -%></h1>
+        <div class="image">
+           <%= image_tag @actionPage.background_image -%>
+        </div>
         <div class='short-description'>
           <%= markdown @actionPage.summary -%>
         </div>
