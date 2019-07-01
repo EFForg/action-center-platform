@@ -128,7 +128,7 @@
 
         <h4>
           <%= link_to 'Edit', edit_user_registration_path,
-            class: 'edit-settings btn btn-sm btn-red-outline' -%>
+            class: 'eff-button' -%>
           Email and password
         </h4>
 
@@ -144,7 +144,7 @@
       <h4 id="activity">
         <%= button_to "Clear my activity", clear_activity_user_path, method: :delete,
           data: { confirm: "Are you sure you want to delete your activity records?" },
-          class: 'btn btn-red-outline btn-sm edit-settings' %>
+          class: 'eff-button' %>
           Activity
       </h4>
       <%= form_for(current_user, :remote => true,
@@ -152,9 +152,9 @@
         <div class="email-signup">
           I
           <%= f.radio_button :record_activity, 'true', id: 'do-record' -%>
-          <label class="radio-inline" for="do-record">want</label>
+          <label class="radio-inline" for="do-record"><span></span>want</label>
           <%= f.radio_button :record_activity, 'false', id: 'do-not-record' -%>
-          <label class="radio-inline" for="do-not-record">do not want</label>
+          <label class="radio-inline" for="do-not-record"><span></span>do not want</label>
           <%= t :organization_abbreviation -%> to keep a record of actions I take
           on the site, to be used for features like leaderboards or to give out
           prizes to the most active action-takers.
@@ -168,7 +168,7 @@
 
       <%= button_to "Delete my account", registration_path(current_user),
         data: { confirm: 'Are you sure you want to permanently delete your account?' },
-        method: :delete, class: 'btn btn-sm btn-red-outline edit-settings' %>
+        method: :delete, class: 'eff-button' %>
 
       <p class="small" style="margin-top: 12px">Please note that this does not affect your newsletter subscriptions or <%= t :organization_abbreviation -%> membership.</p>
 
@@ -178,7 +178,7 @@
         <p>Click below to change your EFF newsletter subscriptions.</p>
         <%= link_to "Edit subscriptions",
           edit_subscription_path(current_user),
-          :class => 'btn btn-sm btn-red-outline edit-settings' -%>
+          :class => 'eff-button' -%>
       <% else -%>
         <form action="https://supporters.eff.org/" method="post" id="eff-supporters-library-account-form" accept-charset="UTF-8" _lpchecked="1">
           <p>Want to change your EFF newsletter subscriptions? Click below and we'll email <%= current_user.email %> with instructions.</p>
@@ -186,7 +186,7 @@
             <label for="edit-email" class="sr-only">Email Address </label>
             <input type="hidden" name="email" value="<%= current_user.email %>">
           </div>
-          <input type="submit" id="edit-submit" name="op" value="Send me a link" class="btn btn-sm btn-red-outline">
+          <input type="submit" id="edit-submit" name="op" value="Send me a link" class="eff-button">
           <input type="hidden" name="form_build_id" value="form-w4OjonMGPm3-u3bgN5jbX43pS-archmsJkVORQvdPZ4">
           <input type="hidden" name="form_id" value="eff_supporters_library_account_form" >
         </form>
