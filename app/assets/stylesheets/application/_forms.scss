@@ -202,13 +202,9 @@ a.eff-red-button {
   &:focus {
     background: rgba($eff-red, 0.8) !important;
     border-bottom: 4px solid rgba($dark-red, 0.8);
-
   }
 }
 
-a.eff-red-button {
-  @extend .eff-red-button;
-}
 .button-style {
   background: $gray;
   border: 2px solid $gray;
