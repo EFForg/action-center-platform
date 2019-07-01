@@ -1,16 +1,11 @@
 .grey-box {
-  border: 1px solid #eee;
-  padding: 20px;
+  border: 1px solid $gray-dark;
+  padding: 1.5rem;
 }
 
 #settings {
-  i.action-type {
-    font-size: 22px;
-    line-height: 1.1;
-  }
   .user-info {
     @extend .grey-box;
-    font-size: 15px;
     margin-top: 20px;
     float: left;
   }
@@ -18,16 +13,10 @@
     margin-top: 5px;
   }
   .edit-settings {
-    font-size: 11px;
-    line-height: 1.1;
     padding-bottom: 1px;
     border: 0;
     margin-bottom: 0;
     margin-top: 0;
-    .btn-red-outline {
-      font-size: 11px;
-      line-height: 1.1;
-    }
   }
   h4 .edit-settings {
     float: right;
@@ -35,36 +24,18 @@
 }
 
 .action-grid {
-  font-size: 14px;
+  color: $off-white;
   float: left;
 
   span {
-    font-size: 36px;
-    color: $blue;
-    font-weight: bold;
-    margin-right: 5px;
-    letter-spacing: -2px;
+    color: white;
+    font-weight: 800;
   }
-  .quad-1, .quad-2, .quad-3, .quad-4, .total {
-    //@extend .col-xs-6;
-  }
-  .quad-1 {
-    border-right: 1px solid #e0e0e0;
-    border-bottom: 1px solid #e0e0e0;
-  }
-  .quad-2 {
-    border-bottom: 1px solid #e0e0e0;
-  }
-  .quad-3 {
-    border-right: 1px solid #e0e0e0;
-    border-bottom: 1px solid #e0e0e0;
-  }
+
   .quad-4 {
-    border-bottom: 1px solid #e0e0e0;
+    border-bottom: 1px solid $gray;
   }
-  .total {
-    float: right;
-  }
+
 }
 
 .table-condensed {
@@ -84,25 +55,32 @@
   .percentile {
     clear: both;
     span {
-      font-weight: bold;
-      color: $red;
-      letter-spacing: -1px;
-      font-size: 36px;
-    }
-    p {
-      line-height: 1.1;
+      font-weight: 800;
+      color: white;
     }
   }
 }
 
 .users-show .activity-stream {
   .age {
-    font-size: 13px;
     color: $gray;
     margin-left: 4px;
   }
+  a {
+    border-bottom: 2px solid $off-white;
+    color: $off-white;
+    &:hover,
+    &:focus {
+      color: $gray;
+      border-bottom: 2px solid $gray;
+    }
+  }
+
+  a.eff-red-button {
+    border-bottom: 2px solid $dark-red;
+  }
+
   table {
-    font-size: 15px;
     .icon {
       padding-right: 0;
       width: 28px;
@@ -113,21 +91,11 @@
       border: 0;
     }
   }
-  .btn-red {
-    text-transform: none;
-    font-style: italic;
-    font-weight: 300;
-    padding: 7px 12px;
-    font-size: 14px;
-    letter-spacing: 0px;
-  }
   td.btn-col {
     text-align: right;
-    min-width: 127px;
+    min-width: 14rem;
   }
-  h3 {
-    margin-top: 40px;
-  }
+
 }
 
 span.green-rect {
@@ -157,9 +125,7 @@ span.green-rect {
 .confirmations-create,
 .confirmations-show,
 .unlocks-new {
-  .wrapper {
-    //background-color: $red;
-  }
+
 
   input.form-control {
     border: 2px solid #fff;
