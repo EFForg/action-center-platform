@@ -3,6 +3,9 @@ $(document).on('change', 'input[name=action_type]', function(e) {
     .filter('[data-action_type=' + e.target.value +']')
     .addClass('active');
 
+  $('[id^=action_page_enable_').attr('value', 'false');
+  $('#action_page_enable_' + e.target.value).attr('value', 'true');
+
   reflowEpicEditor();
 });
 
