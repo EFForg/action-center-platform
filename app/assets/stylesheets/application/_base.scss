@@ -56,8 +56,10 @@ a {
   text-decoration: none;
   -webkit-text-decoration-skip: objects;
 
-  &:hover {
-    border-bottom: 2px solid black;
+  &:hover,
+  &:focus {
+    color: $gray;
+    border-bottom: 2px solid $gray-dark;
   }
 }
 
@@ -91,13 +93,12 @@ h2 {
   font-weight: 600;
   line-height: 50px;
   padding: 1.3rem 0 0.3rem 0;
-  text-transform: uppercase;
 }
 h3 {
   color: $off-white;
   font-size: 29px;
   font-weight: 600;
-  line-height: 29px;
+  line-height: 39px;
   padding: 1.3rem 0 0.3rem 0;
 }
 h4 {
