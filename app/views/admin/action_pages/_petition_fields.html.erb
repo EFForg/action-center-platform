@@ -1,4 +1,4 @@
-<%= f.fields_for(@actionPage.petition) do |sf| %>
+<%= f.fields_for(:petition) do |sf| %>
   <div class="form-item epiceditor">
     <%= sf.label :description %>
     <%= sf.text_area :description %>

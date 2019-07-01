@@ -1,4 +1,4 @@
-<%= f.fields_for(@actionPage.email_campaign) do |sf| %>
+<%= f.fields_for(:email_campaign) do |sf| %>
   <div class="form-item">
     <%= sf.label :subject %>
     <%= sf.text_field :subject %>

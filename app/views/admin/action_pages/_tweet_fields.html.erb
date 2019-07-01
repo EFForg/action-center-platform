@@ -1,4 +1,4 @@
-<%= f.fields_for(@actionPage.tweet) do |sf| %>
+<%= f.fields_for(:tweet) do |sf| %>
   <div class="form-item">
     <%= sf.label :message %>
     <%= sf.text_area :message %>
