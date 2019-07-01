@@ -13,6 +13,19 @@
 .page#action {
   fieldset label {
     display: inline-block;
-    margin-right: 1em;
+
+    &:not(.prepend-input) {
+      margin-right: 1em;
+    }
+  }
+
+  fieldset ul {
+    list-style-type: none;
+    padding: 0 0 0 1em;
+    margin: 0;
+
+    li {
+      padding: 0.5em 0 0.5em 0;
+    }
   }
 }

@@ -32,6 +32,10 @@ $border-gray: #aaa;
   color: #000;
 }
 
+@mixin button-sm {
+  padding: 0.4em 1em;
+}
+
 @mixin label {
   display: block;
   font-size: 1.2em;

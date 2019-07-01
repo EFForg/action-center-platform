@@ -207,7 +207,7 @@ form {
     @include label;
   }
 
-  .form-item > input, .form-item > textarea {
+  .form-item input[type=text], .form-item textarea {
     width: 100%;
     padding: 0.4em;
   }
@@ -216,8 +216,27 @@ form {
     min-height: 7em;
   }
 
+  .form-item .prepend-input {
+    display: inline-block;
+    margin: 0;
+    padding: 0.27em 0.4em 0.3em 0.5em;
+    border-top-left-radius: 5px;
+    border-bottom-left-radius: 5px;
+    border: 1px solid $border-gray;
+    border-right: 0;
+    background-color: $light-blue;
+
+    + input {
+      width: auto;
+    }
+  }
+
   button, input[type=button], input[type=submit] {
     @include button;
+
+    &.sm {
+      @include button-sm;
+    }
   }
 }
 

@@ -44,7 +44,6 @@ class Admin::ActionPagesController < Admin::ApplicationController
   def create
     @actionPage = ActionPage.new(action_page_params)
     if @actionPage.save
-      add_twitter_targets
       redirect_to_action_page
     else
       render "new"
@@ -69,8 +68,6 @@ class Admin::ActionPagesController < Admin::ApplicationController
     @actionPage.og_image         = nil if params[:destroy_og_image]
 
     @actionPage.update_attributes(action_page_params)
-
-    add_twitter_targets
 
     redirect_to({ action: "edit", anchor: params[:anchor] }, notice: "Action Page was successfully updated.")
   end
@@ -149,13 +146,6 @@ class Admin::ActionPagesController < Admin::ApplicationController
 
   def redirect_to_action_page
     redirect_to action_page_path(@actionPage)
-  end
-
-  def add_twitter_targets
-    tweet_params["add_targets"].each_line do |t|
-      target = TweetTarget.find_or_create_by twitter_id: t.strip, tweet_id: @actionPage.tweet.id
-      @actionPage.tweet.tweet_targets.push(target)
-    end
   end
 
   def default_values
