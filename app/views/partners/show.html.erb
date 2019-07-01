@@ -53,7 +53,7 @@
         <tr>
           <td>Add new user:</td>
           <td>
-            <%= form_tag [:add_user, @partner], class: 'form-inline' do -%>
+            <%= form_tag [:add_user, @partner], class: '' do -%>
               <%= text_field_tag :email, nil, class: 'form-control input-sm' -%>
               <%= submit_tag 'Add', class: 'btn btn-sm btn-success',
                 data: {confirm: "Allow this user to access private content for #{@partner.name}?"} -%>
