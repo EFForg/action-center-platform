@@ -11,10 +11,11 @@
   <% if @featuredActionPage -%>
     <div class="container">
       <div class="row">
-        <div class="image>
+        <div class="featured-image">
           <%= link_to image_tag(@featuredActionPage.featured_image.url) , action_page_path(@featuredActionPage) -%>
         </div>
-        <div>
+        <div class="featured-text">
+          <h5>Category placeholder</h5>
           <%= link_to action_page_path(@featuredActionPage) do %>
             <h2>
               <%= @featuredActionPage.title -%>

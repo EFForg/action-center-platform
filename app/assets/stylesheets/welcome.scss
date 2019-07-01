@@ -37,7 +37,7 @@
 
 section.featured-action {
   .container {
-    margin: 0;
+    margin: 3rem 0 7rem;
     padding: 0 0 0 5%;
     @media (max-width: 991px) {
       margin-top: 50px;
@@ -48,15 +48,18 @@ section.featured-action {
       div {
         @include flex-item;
         text-align: left;
-        width: 33%;
+        &:first-child {
+          padding: 0 2rem 0 0;
+          width: 66%;
+        }
+        &:last-child {
+          margin-top: 0;
+          width: 33%;
+        }
       }
     }
-    .flexbox-item {
-      width: 66%;
-    }
   }
-  .image {
-  }
+
 
   h2 {
     margin-bottom: 16px;
