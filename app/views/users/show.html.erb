@@ -23,7 +23,7 @@
           </div>
         <% end -%>
 
-        <table class="table table-striped">
+        <table class="table">
           <tbody>
             <% @actionPages.each do |action_page| -%>
               <% if !action_page.archived && action_page.published || action_page.archived  && action_page.published && @actions_taken.include?( action_page.id) -%>
