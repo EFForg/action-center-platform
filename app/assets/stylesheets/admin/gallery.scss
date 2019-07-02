@@ -1,0 +1,56 @@
+.gallery {
+  .images {
+    padding: 1em;
+    border: 1px solid $border-gray;
+
+    ul {
+      list-style-type: none;
+      padding: 0;
+      margin: 0;
+    }
+
+    ul li {
+      display: inline-block;
+      margin: 0 0.5em 0.5em 0;
+    }
+  }
+
+  .images input[type=search] {
+    display: block;
+    font-size: 1.1em;
+    margin-bottom: 1em;
+    padding: 0.5em;
+  }
+
+  .image {
+    position: relative;
+    display: inline-block;
+    cursor: pointer;
+
+    img {
+      width: 16em;
+      height: 8em;
+      opacity: 0.6;
+    }
+
+    &.selected img, &:hover img {
+      opacity: 1;
+    }
+
+    &.selected span {
+      background-color: rgba(0, 255, 0, 1);
+    }
+
+    span {
+      display: inline-block;
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      padding: 0.5em 0;
+      background-color: rgba(255, 255, 255, 0.8);
+      color: blue;
+      text-align: center;
+    }
+  }
+}

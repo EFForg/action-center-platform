@@ -1,0 +1,21 @@
+<div class="gallery">
+  <h3>Gallery</h3>
+
+  <%= f.send :hidden_field, field %>
+  <label>Current image:</label>
+  <div class="image"><%= image_tag f.object.send(field) %></div>
+
+  <div class="images">
+    <input type="search" placeholder="Search" />
+
+    <%= render "admin/s3_uploads/list", source_files: @source_files %>
+  </div>
+
+  <div class="form-item">
+    <label for="fileupload">Upload new image</label>
+    <input id="fileupload" type="file"
+           data-url="<%= S3_BUCKET.url %>"
+           data-s3_fields="<%= s3_presigned_post_fields %>"
+           name="file" />
+  </div>
+</div>

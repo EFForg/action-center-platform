@@ -39,6 +39,7 @@ class Admin::ActionPagesController < Admin::ApplicationController
     @categories = Category.all.order :title
     @topic_categories = TopicCategory.all.order :name
     @actionPage.email_text = Rails.application.config.action_pages_email_text
+    @source_files = SourceFile.order(created_at: :desc).limit(12)
   end
 
   def create
@@ -60,6 +61,7 @@ class Admin::ActionPagesController < Admin::ApplicationController
 
     @categories = Category.all.order :title
     @topic_categories = TopicCategory.all.order :name
+    @source_files = SourceFile.order(created_at: :desc).limit(12)
   end
 
   def update
