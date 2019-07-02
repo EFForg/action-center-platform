@@ -85,7 +85,7 @@ h2,
 h3,
 h4,
 h5 {
-  @media screen and (max-width: $ph) { // mobile headers
+  @media screen and (max-width: $lg) { // mobile headers
     transform: scaleX(0.8) scaleY(0.8);
     line-height: -moz-block-height;
     padding: 0;
