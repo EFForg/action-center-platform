@@ -114,6 +114,7 @@ h5  {
   font-weight: 600;
   line-height: 25px;
   padding: 1rem 0;
+  text-transform: uppercase;
 }
 
 h1,
@@ -434,4 +435,9 @@ div#email_target_text {
   clip: rect(0, 0, 0, 0);
   border: 0;
 
+}
+
+.container {  //overriding bootstrap
+  max-width: 1280px !important;
+  width: 100% !important;
 }

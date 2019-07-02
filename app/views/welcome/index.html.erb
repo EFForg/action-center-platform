@@ -33,16 +33,14 @@
   <div class="container">
     <div class="row flex-this">
       <%- @actionPages.each do |actionPage| -%>
-        <div>
-          <div class="image">
+        <div class="flex-item">
+          <div class="more-actions-image">
           <%= link_to image_tag(actionPage.featured_image.url), action_page_path(actionPage) %>
           </div>
-          <div class="text">
+          <div class="more-actions-text">
             <%= link_to action_page_path(actionPage) do%>
             <h3><%= actionPage.title -%></h3>
             <% end %>
-            <%= link_to t(:take_action), action_page_path(actionPage),
-            class: 'eff-red-button' -%>
           </div>
         </div>
       <% end %>

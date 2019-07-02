@@ -4,33 +4,9 @@
 
 
 .home {
-  h1 {
+  h1 {  // tagline
     font-size: 35px;
     font-weight: 400;
-  }
-  .email-signup {
-    max-width: 460px;
-    margin-top: 60px;
-
-    @media (max-width: $screen-xs-max) {
-      margin-top: 40px;
-    }
-
-    input {
-      @include placeholders {
-        color: #aaa;
-        -webkit-font-smoothing: antialiased;
-      }
-      margin: 0 4px 0 0;
-
-      @media (max-width: $screen-xs-max) {
-        max-width: 80%;
-        margin: 0 auto;
-      }
-    }
-    .btn {
-      @extend .eff-red-button;
-    }
   }
 }
 
@@ -48,13 +24,16 @@ section.featured-action {
       div {
         @include flex-item;
         text-align: left;
-        &:first-child {
-          padding: 0 2rem 0 0;
-          width: 66%;
-        }
-        &:last-child {
-          margin-top: 0;
-          width: 33%;
+      }
+      div:first-child { // featured image
+        padding: 5px 2rem 0 0;
+        width: 66%;
+      }
+      div:last-child { // featured text
+        margin-top: 0;
+        width: 33%;
+        h5 {
+          padding-top: 0;
         }
       }
     }
@@ -63,9 +42,7 @@ section.featured-action {
 
   h2 {
     margin-bottom: 16px;
-    @media (max-width: $screen-md-max) and (min-width: $screen-sm-min) {
-      margin-top: 0px;
-    }
+
     span {
       font-style: italic;
       font-weight: 100;
@@ -73,31 +50,22 @@ section.featured-action {
       font-size: 22px;
     }
   }
-  .btn {
-    margin-top: 13px;
-  }
-
-  a, a:hover, a:focus {
-    h2, p {
-      color: $off-white;
-      text-decoration: none;
-    }
-  }
 }
 
 
 section.more-actions {
-  margin: 0 0 150px 0;
-  padding: 0 0 0 5%;
+  margin: 0;
+  padding: 0;
   .row {
     @include flex-this;
     > div {
       @include flex-item;
+      margin-top: 0;
       text-align: left;
     }
   }
 
-  .image {
+  .more-actions-image {
     overflow: hidden;
     position: relative;
     img {
@@ -105,68 +73,12 @@ section.more-actions {
     }
   }
 
-  .text {
-    h3 {
-      @include transition (color 0.3s ease-in-out);
-      text-align: left;
-    }
-    p {
-      @include transition (color 0.3s ease-in-out);
-      text-align: left;
-      font-size: 14px;
-
-      @media (max-width: 991px) {
-        text-align: left;
-      }
-    }
-    a {
-    }
-
+  .more-actions-text {
   }
-  .col-md-4 {
-    position: relative;
-    &:hover {
-      h3 {
-        color: $red;
-      }
-    }
-    &:last-child {
-      @media (max-width: 991px) {
-        margin-bottom: 0px;
-      }
-    }
-    @media (max-width: 991px) {
-      margin-bottom: 70px;
-    }
 
-  }
-  p.seemore {
-    text-align: center;
-    color: $red;
-    text-transform: uppercase;
-    font-weight: bold;
-    letter-spacing: 1px;
-    font-size: 14px;
-    margin-top: 25px;
-    margin-bottom: 0;
-    a {
-      @include transition (all 0.3s ease-in-out);
-
-      .arrow {
-        @include transition (all 0.3s ease-in-out);
-        fill: $red;
-        width: 10px;
-        height: 10px;
-        margin-left: 5px;
-      }
-      &:hover .arrow {
-        @include transform(rotate(90deg));
-      }
-    }
-  }
   .see-all {
     @include flex-this;
-    margin: 8rem auto 3rem;
+    margin: 10rem auto 5rem;
     text-transform: uppercase;
   }
 }
