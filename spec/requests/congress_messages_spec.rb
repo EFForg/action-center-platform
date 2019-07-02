@@ -28,13 +28,13 @@ RSpec.describe "Congress Messages", type: :request do
       and_return(status: 200, body: file_fixture("retrieve-form-elements.json"))
   end
 
-  describe "new" do
-    subject {
+  describe "#new" do
+    subject do
       campaign_id = action_page.congress_message_campaign_id
       get("/congress_message_campaigns/#{campaign_id}/congress_messages/new",
           params: { street_address: location.street,
                     zipcode: location.zipcode })
-    }
+    end
 
     it "renders the congress message form" do
       subject
@@ -62,6 +62,68 @@ RSpec.describe "Congress Messages", type: :request do
       allow(SmartyStreets).to receive(:get_location).and_return(location)
       subject
       expect(response.body).to include "unable to find congressional representatives"
+    end
+  end
+
+  describe "#create" do
+    let(:message_attributes) do
+      {
+        common_attributes: {
+          "$NAME_FIRST" => "Joyce",
+          "$NAME_LAST" => "Summers",
+          "$ADDRESS_STREET" => "1630 Ravello Drive",
+          "$ADDRESS_CITY" => "Sunnydale",
+          "$ADDRESS_STATE" => "CA",
+          "$ADDRESS_ZIP5" => "94109",
+          "$EMAIL" => "jsummers@altavista.com",
+          "$SUBJECT" => "Take Action",
+          "$NAME_PREFIX" => "Mrs.",
+          # @TODO auto-fill single options?
+          "$ADDRESS_STATE_POSTAL_ABBREV" => "US_STATES_AND_TERRITORIES",
+          "$MESSAGE" => "Impeach Mayor Richard Wilkins III"
+        },
+        member_attributes: {
+          "C000880" => {
+            "$TOPIC" => "JU",
+          },
+          "A000360" => {
+            "$TOPIC" => "Special_Requests"
+          }
+        },
+        bioguide_ids: ["C000880", "A000360"]
+      }
+    end
+
+    subject do
+      campaign_id = action_page.congress_message_campaign_id
+      post("/congress_message_campaigns/#{campaign_id}/congress_messages",
+           params: message_attributes )
+    end
+
+    before do
+      stub_request(:post, /fill-out-form/).
+        and_return(status: 200, body: "{}")
+    end
+
+    it "successfully submits good input" do
+      subject
+      expect(WebMock).to have_requested(:post, /fill-out-form/).
+        with(body: {
+        "bioguide_id":"C000880",
+        "fields": {
+          "$NAME_FIRST":"Joyce",
+          "$NAME_LAST":"Summers",
+          "$ADDRESS_STREET":"1630 Ravello Drive",
+          "$ADDRESS_CITY":"Sunnydale",
+          "$ADDRESS_ZIP5":"94109",
+          "$EMAIL":"jsummers@altavista.com",
+          "$SUBJECT":"Take Action",
+          "$NAME_PREFIX":"Mrs.",
+          "$ADDRESS_STATE_POSTAL_ABBREV":"US_STATES_AND_TERRITORIES",
+          "$MESSAGE":"Impeach Mayor Richard Wilkins III",
+          "$TOPIC":"JU"
+        }
+      })
     end
   end
 end

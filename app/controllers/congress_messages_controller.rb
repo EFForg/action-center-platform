@@ -21,8 +21,8 @@ class CongressMessagesController < ApplicationController
   end
 
   def create
-    @message = CongressMessage.new({ inputs: params })
-    @message.forms = CongressForms::Form.find(params[bioguide_ids])
+    @message = CongressMessage.new(congress_message_params)
+    @message.forms = CongressForms::Form.find(params["bioguide_ids"])
     if @message.submit
       # success!
     else
@@ -34,5 +34,13 @@ class CongressMessagesController < ApplicationController
 
   def set_congress_message_campaign
     @campaign = CongressMessageCampaign.find(params["congress_message_campaign_id"])
+  end
+
+  def congress_message_params
+    # In Rails 5.1 we can do params.permit(common_attributes: {}, member_attributes: {})
+    params.permit.tap do |p|
+      p[:common_attributes] = params[:common_attributes].permit!
+      p[:member_attributes] = params[:member_attributes].permit!
+    end
   end
 end

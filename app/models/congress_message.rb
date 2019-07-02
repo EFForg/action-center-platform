@@ -1,19 +1,21 @@
 class CongressMessage
   include ActiveModel::Model
-  validate :attributes_satisfy_forms
+  validate :inputs_satisfy_forms
 
-  attr_accessor :forms, :inputs
+  attr_accessor :forms, :common_attributes, :member_attributes
 
   # @TODO no longer need to CSS hide these fields
   def self.new_from_lookup(location, message, forms)
-    new({ inputs: { "$ADDRESS_STREET" => location.street,
-                    "$ADDRESS_CITY" => location.city,
-                    "$ADDRESS_ZIP4" => location.zip4,
-                    "$ADDRESS_ZIP5" => location.zipcode,
-                    # @TODO abbreviation expected here?
-                    # WHat forms can the state field take?
-                    "$STATE" => location.state,
-                    "$MESSAGE" => message },
+    new({ common_attributes: {
+            "$ADDRESS_STREET" => location.street,
+            "$ADDRESS_CITY" => location.city,
+            "$ADDRESS_ZIP4" => location.zip4,
+            "$ADDRESS_ZIP5" => location.zipcode,
+            # @TODO abbreviation expected here?
+            # WHat forms can the state field take?
+            "$STATE" => location.state,
+            "$MESSAGE" => message
+          },
           forms: forms })
   end
 
@@ -39,10 +41,15 @@ class CongressMessage
     forms.map(&:bioguide_id)
   end
 
+  def inputs_for(bioguide_id)
+    common_attributes.merge(member_attributes[bioguide_id])
+  end
+
   def inputs_satisfy_forms
     @forms.each do |form|
+      inputs_for_form = inputs_for(form.bioguide_id)
       form.fields.each do |field|
-        field.validate(inputs[field.value])
+        field.validate(inputs_for_form[field.value])
       end
     end
   end
@@ -50,7 +57,7 @@ class CongressMessage
   def submit
     if valid?
       # Check for success after each
-      @forms.each { |f| f.fill(self) }
+      @forms.each { |f| f.fill(inputs_for(f.bioguide_id)) }
     end
   end
 end

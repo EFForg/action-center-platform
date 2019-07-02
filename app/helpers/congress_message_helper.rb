@@ -39,15 +39,21 @@ module CongressMessageHelper
     }
   end
 
-  def congress_forms_field(field, campaign, message_attributes)
+  def congress_forms_field(field, campaign, message_attributes, bioguide_id = nil)
+    if bioguide_id
+      name = "member_attributes[#{bioguide_id}][#{field.value}]"
+    else
+      name = "common_attributes[#{field.value}]"
+    end
+
     # Try to guess the input based on saved info abou the campaign + user.
     prefill = congress_forms_prefills(campaign)[field.value]
 
     if message_attributes[field.value]
       # If the user has already provided this info in step 1, render it in a hidden field.
-      hidden_field_tag field.value, message_attributes[field.value]
+      hidden_field_tag name, message_attributes[field.value]
     elsif field.value == "$PHONE"
-      telephone_field_tag field.value, prefill, congress_forms_field_defaults(field)
+      telephone_field_tag name, prefill, congress_forms_field_defaults(field)
         .merge({
           class: "form-control bfh-phone",
           "data-format": "ddd-ddd-dddd",
@@ -55,12 +61,12 @@ module CongressMessageHelper
           title: "Must be a valid US phone number entered in 555-555-5555 format"
         })
     elsif field.value == "$EMAIL"
-      email_field_tag field.value, prefill, congress_forms_field_defaults(field)
+      email_field_tag name, prefill, congress_forms_field_defaults(field)
     elsif field.is_select?
       # @TODO aria-label
-      select_tag field.value, options_for_select(field.options_hash)
+      select_tag name, options_for_select(field.options_hash)
     else
-      text_field_tag field.value, prefill, congress_forms_field_defaults(field)
+      text_field_tag name, prefill, congress_forms_field_defaults(field)
     end
   end
 
