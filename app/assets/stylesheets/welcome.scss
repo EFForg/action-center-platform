@@ -23,13 +23,18 @@ section.featured-action {
     padding: 0;
     @media screen and (min-width: $md) {
       margin: 3rem 0 7rem;
-      padding: 0 0 0 5%;
     }
     .row {
       @include flex-this;
       div {
         @include flex-item;
         text-align: left;
+      }
+      h2 {
+        padding-top: 0;
+        @media screen and  (min-width: $md) {
+          padding-top: 1.3rem;
+        }
       }
       div:first-child { // featured image
         padding: 0;
@@ -39,32 +44,33 @@ section.featured-action {
           width: 66%;
         }
       }
+      span.eff-red-button {
+        display: block;
+        margin: 0 auto;
+        width: 180px;
+        text-align: center;
+        @media screen and  (min-width: $md) {
+          margin: 0;
+        }
+      }
       div:last-child { // featured text
+        margin-bottom: 4rem;
         width: 100%;
         @media screen and  (min-width: $md) {
+          margin-bottom: 0;
           margin-top: 0;
           width: 33%;
         }
         h5 {
-          padding-top: 0;
+          padding-top: 1rem;
+          @media screen and  (min-width: $md) {
+            padding-top: 0;
+          }
         }
       }
     }
   }
-
-
-  h2 {
-    margin-bottom: 16px;
-
-    span {
-      font-style: italic;
-      font-weight: 100;
-      text-transform: uppercase;
-      font-size: 22px;
-    }
-  }
 }
-
 
 section.more-actions {
   margin: 0;
@@ -74,7 +80,18 @@ section.more-actions {
     > div {
       @include flex-item;
       margin-top: 0;
+      padding: 0;
       text-align: left;
+      width: 33%;
+      @media screen and (min-width: $md) {
+        padding: 0 3rem 0 0;
+      }
+    }
+    h3 {
+      padding: 0 0 5rem;
+      @media screen and (min-width: $md) {
+        padding-bottom: 1.3rem 0 0.3rem;
+      }
     }
   }
 
@@ -86,37 +103,14 @@ section.more-actions {
     }
   }
 
-  .more-actions-text {
-  }
-
   .see-all {
-    @include flex-this;
-    margin: 10rem auto 5rem;
-    text-transform: uppercase;
-  }
-}
-
-section.mobile-apps {
-  margin-top: 70px;
-  .image {
-    text-align: right;
-    img {
-      margin-right: 10px;
+    @media screen and (min-width: $md) {
+      margin: 10rem auto 5rem;
     }
+    display: inline-block;
+    margin: 1rem auto 3rem;
+    text-align: center;
+    text-transform: uppercase;
+    width: inherit;
   }
-}
-
-
-/* Link a whole div as per https://stackoverflow.com/questions/796087/make-a-div-into-a-link */
-span.link-div {
-  position: absolute;
-  width: 100%;
-  height: 100%;
-  top: 0;
-  left: 0;
-  z-index: 1;
-
-  /* Fixes overlap error in IE7/8,
-  make sure you have an empty gif */
-  background-image: image-url('empty.gif');
 }
