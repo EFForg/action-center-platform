@@ -10,7 +10,7 @@
     <fieldset id="congressForms-common-fields">
       <% @message.common_fields.each do |field| %>
         <div class="form-group">
-          <%= congress_forms_field(field, @campaign, @message.inputs) %>
+          <%= congress_forms_field(field, @campaign, @message.common_attributes) %>
         </div>
       <% end %>
     </fieldset>
@@ -25,7 +25,9 @@
       </h3>
       <% form.fields.each do |field| %>
         <div class="form-group">
-          <%= congress_forms_field(field, @campaign, @message.inputs, form.bioguide_id) %>
+          <%= congress_forms_field(field, @campaign,
+                                   @message.attributes_for(form.bioguide_id),
+                                   form.bioguide_id) %>
         </div>
       <% end %>
     </fieldset>

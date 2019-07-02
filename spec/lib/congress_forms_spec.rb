@@ -36,31 +36,12 @@ describe CongressForms do
       end
     end
 
-    describe "#validate" do
-      it "returns true with valid input" do
-        pending
-        expect(form.validate(input)).to be true
-      end
-
-      it "returns false with a missing field" do
-        pending
-        input.delete("$NAME_FIRST")
-        expect(form.validate(input)).to be false
-      end
-
-      it "returns false with an invalid option" do
-        pending
-        input["$ADDRESS_STATE"] = "THE HELL MOUTH"
-        expect(form.validate(input)).to be false
-      end
-    end
-
     describe "#fill" do
-      it "posts only required fields to the congress forms API" do
+      it "posts to the congress forms API" do
         stub_request(:post, /fill-out-form/).
           with(body: { "bioguide_id" => "C000880", "fields" => input }).
           and_return(status: 200, body: "{}")
-        form.fill(input.merge({ "EXTRA" => "Should be omitted" }))
+        form.fill(input)
         expect(WebMock).to have_requested(:post, /fill-out-form/).
           with(body: { "bioguide_id" => "C000880", "fields" => input })
       end

@@ -24,9 +24,10 @@ class CongressMessagesController < ApplicationController
     @message = CongressMessage.new(congress_message_params)
     @message.forms = CongressForms::Form.find(params["bioguide_ids"])
     if @message.submit
-      # success!
+      @actionPage = @campaign.action_page
+      render partial: "tools/share"
     else
-      # boo
+      render plain: I18n.t(:submission_failed, scope: :congress_forms), status: :bad_request
     end
   end
 

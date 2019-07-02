@@ -4,9 +4,6 @@ module CongressForms
   class Form
     attr_accessor :fields, :bioguide_id
 
-    # @TODO not needed
-    EXTRA_INPUTS = %w($MESSAGE).freeze
-
     # @TODO sort fields
 
     def self.find(bioguide_ids)
@@ -22,10 +19,9 @@ module CongressForms
     end
 
     def fill(input)
-      field_vals = @fields.map { |f| f.value } + EXTRA_INPUTS
       params = {
         bioguide_id: @bioguide_id,
-        fields: input.select { |k, v| field_vals.include?(k) }
+        fields: input
       }
       CongressForms.post("/fill-out-form/", params)
     end
@@ -72,9 +68,6 @@ module CongressForms
     end
 
     def options_hash
-      # Replicated this functionality from the javascript for now.
-      # @TODO - why do provide custom state options instead of taking them from
-      # the options hash?
       if @value == "$ADDRESS_STATE_POSTAL_ABBREV"
         States.abbreviated
       elsif @value == "$ADDRESS_STATE_FULL"

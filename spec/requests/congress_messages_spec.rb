@@ -38,7 +38,7 @@ RSpec.describe "Congress Messages", type: :request do
 
     it "renders the congress message form" do
       subject
-      expect(response.body).to include '<input type="text" name="$NAME_FIRST" id="_NAME_FIRST" class="form-control" placeholder="Your first name" aria-label="Your first name" required="required" />'
+      expect(response.body).to include '<input type="text" name="common_attributes[$NAME_FIRST]" id="common_attributes__NAME_FIRST" class="form-control" placeholder="Your first name" aria-label="Your first name" required="required" />'
       # Select from array
       expect(response.body).to include '<option value="Animal_Rights">Animal_Rights</option>'
       # Select from hash
@@ -47,7 +47,7 @@ RSpec.describe "Congress Messages", type: :request do
 
     it "renders address fields as hidden" do
       subject
-      expect(response.body).to include '<input type="hidden" name="$ADDRESS_STREET"'
+      expect(response.body).to include '<input type="hidden" name="common_attributes[$ADDRESS_STREET]"'
     end
 
     it "displays an error when address lookup fails" do
@@ -73,20 +73,19 @@ RSpec.describe "Congress Messages", type: :request do
           "$NAME_LAST" => "Summers",
           "$ADDRESS_STREET" => "1630 Ravello Drive",
           "$ADDRESS_CITY" => "Sunnydale",
-          "$ADDRESS_STATE" => "CA",
           "$ADDRESS_ZIP5" => "94109",
           "$EMAIL" => "jsummers@altavista.com",
-          "$SUBJECT" => "Take Action",
           "$NAME_PREFIX" => "Mrs.",
-          # @TODO auto-fill single options?
-          "$ADDRESS_STATE_POSTAL_ABBREV" => "US_STATES_AND_TERRITORIES",
           "$MESSAGE" => "Impeach Mayor Richard Wilkins III"
         },
         member_attributes: {
           "C000880" => {
+            "$SUBJECT" => "Take Action",
+            "$ADDRESS_STATE_POSTAL_ABBREV" => "CA",
             "$TOPIC" => "JU",
           },
           "A000360" => {
+            "$ADDRESS_STATE" => "CA",
             "$TOPIC" => "Special_Requests"
           }
         },
@@ -119,11 +118,17 @@ RSpec.describe "Congress Messages", type: :request do
           "$EMAIL":"jsummers@altavista.com",
           "$SUBJECT":"Take Action",
           "$NAME_PREFIX":"Mrs.",
-          "$ADDRESS_STATE_POSTAL_ABBREV":"US_STATES_AND_TERRITORIES",
+          "$ADDRESS_STATE_POSTAL_ABBREV":"CA",
           "$MESSAGE":"Impeach Mayor Richard Wilkins III",
           "$TOPIC":"JU"
         }
       })
+    end
+
+    it "returns an error when validation fails" do
+      message_attributes[:common_attributes].delete("$NAME_FIRST")
+      subject
+      expect(WebMock).not_to have_requested(:post, /fill-out-form/)
     end
   end
 end

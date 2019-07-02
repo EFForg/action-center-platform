@@ -1,6 +1,6 @@
 class CongressMessage
   include ActiveModel::Model
-  validate :inputs_satisfy_forms
+  validate :attributes_satisfy_forms
 
   attr_accessor :forms, :common_attributes, :member_attributes
 
@@ -41,23 +41,25 @@ class CongressMessage
     forms.map(&:bioguide_id)
   end
 
-  def inputs_for(bioguide_id)
+  def attributes_for(bioguide_id)
+    return common_attributes unless member_attributes && member_attributes[bioguide_id]
     common_attributes.merge(member_attributes[bioguide_id])
   end
 
-  def inputs_satisfy_forms
+  def attributes_satisfy_forms
     @forms.each do |form|
-      inputs_for_form = inputs_for(form.bioguide_id)
+      attributes = attributes_for(form.bioguide_id)
       form.fields.each do |field|
-        field.validate(inputs_for_form[field.value])
+        if !field.validate(attributes[field.value])
+          errors.add(:base, "Invalid input for #{field.value}")
+        end
       end
     end
   end
 
   def submit
     if valid?
-      # Check for success after each
-      @forms.each { |f| f.fill(inputs_for(f.bioguide_id)) }
+      @forms.each { |f| f.fill(attributes_for(f.bioguide_id)) }
     end
   end
 end
