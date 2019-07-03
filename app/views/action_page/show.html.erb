@@ -5,8 +5,9 @@
 <div class="top-section">
   <div class="container">
     <div class="row">
-      <h1><%= @actionPage.title -%></h1>
+
       <div class='short-description'>
+        <h1><%= @actionPage.title -%></h1>
         <%= markdown @actionPage.summary -%>
         <input type='checkbox' style='display: none' id="learn-more">
         <label for="learn-more">Learn More</label>

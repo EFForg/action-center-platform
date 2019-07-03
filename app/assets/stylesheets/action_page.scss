@@ -25,8 +25,11 @@
 }
 
 .short-description {
-  font-size: 1.1em;
   margin-top: 2em;
+  > p {
+    font-size: $base-font-size * 1.2;
+    line-height: $base-line-height * 1.2;
+  }
   input:not(:checked) + label + div {
     display: none;
   };
