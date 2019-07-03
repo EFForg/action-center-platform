@@ -1,30 +1,4 @@
 module CongressMessageHelper
-  def bioguide_ids(campaign, target_bioguide_ids)
-    if campaign.target_bioguide_ids.present?
-      campaign.target_bioguide_ids
-    elsif target_bioguide_ids.present?
-      target_bioguide_ids.join(", ")
-    else
-      ""
-    end
-  end
-
-  def congress_forms_email_values(campaign, location)
-    location ||= {}
-    {
-      "$NAME_FIRST": current_first_name,
-      "$NAME_LAST": current_last_name,
-      "$EMAIL": current_email,
-      "$PHONE": current_user.try(:phone),
-      "$SUBJECT": campaign.subject,
-      "$ADDRESS_STREET": location[:street] || current_street_address,
-      "$ADDRESS_CITY": location[:city] || current_city,
-      "$ADDRESS_ZIP4": location[:zip4],
-      "$ADDRESS_ZIP5": location[:zipcode],
-      "$STATE": location[:state]
-    }
-  end
-
   def congress_forms_prefills(campaign)
     {
       "$NAME_FIRST" => current_first_name,
@@ -46,7 +20,7 @@ module CongressMessageHelper
       name = "common_attributes[#{field.value}]"
     end
 
-    # Try to guess the input based on saved info abou the campaign + user.
+    # Try to guess the input based on saved info about the campaign + user.
     prefill = congress_forms_prefills(campaign)[field.value]
 
     if message_attributes[field.value]

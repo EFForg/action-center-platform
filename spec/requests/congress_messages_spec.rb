@@ -42,7 +42,7 @@ RSpec.describe "Congress Messages", type: :request do
       # Select from array
       expect(response.body).to include '<option value="Animal_Rights">Animal_Rights</option>'
       # Select from hash
-      expect(response.body).to include '<option value="AK">ALASKA</option>'
+      expect(response.body).to include '<option value="EN">Energy</option>'
     end
 
     it "renders address fields as hidden" do
@@ -62,6 +62,33 @@ RSpec.describe "Congress Messages", type: :request do
       allow(SmartyStreets).to receive(:get_location).and_return(location)
       subject
       expect(response.body).to include "unable to find congressional representatives"
+    end
+
+    describe "it filters targets" do
+      before do
+        forms_body = JSON.parse(file_fixture("retrieve-form-elements.json").read)
+        forms_body.delete("A000360")
+        stub_request(:post, /retrieve-form-elements/).
+          with(body: { "bio_ids" => ["C000880"] }).
+          and_return(status: 200, body: forms_body.to_json)
+      end
+
+      it "to target bioguide_ids" do
+        campaign = FactoryGirl.create(:congress_message_campaign, :targeting_bioguide_ids)
+        action_page.update_attribute(:congress_message_campaign, campaign)
+        subject
+        expect(response.body).to include("C000880")
+        expect(response.body).not_to include("A000360")
+      end
+
+      it "to target a single chamber" do
+        members.last.update_attributes(chamber: "house", district: 10)
+        campaign = FactoryGirl.create(:congress_message_campaign, :targeting_senate)
+        action_page.update_attribute(:congress_message_campaign, campaign)
+        subject
+        expect(response.body).to include("C000880")
+        expect(response.body).not_to include("A000360")
+      end
     end
   end
 

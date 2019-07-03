@@ -30,6 +30,18 @@ class CongressMessageCampaign < ActiveRecord::Base
     !(target_house || target_senate)
   end
 
+  def targets
+    if target_bioguide_ids
+      CongressMember.find(target_bioguide_ids.split)
+    elsif target_house && target_senate
+      CongressMember.all
+    elsif target_house
+      CongressMember.where(chamber: "house")
+    elsif target_senate
+      CongressMember.where(chamber: "senate")
+    end
+  end
+
   def date_fills(*args)
     CongressForms.date_fills(campaign_tag, *args)
   end

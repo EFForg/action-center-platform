@@ -11,7 +11,7 @@
       <%= form_tag(new_congress_message_campaign_congress_message_path(@congress_message_campaign),
                    method: :get, remote: true,
                    class: "form congress-message-rep-lookup") do %>
-          <% unless @congress_message_campaign.target_bioguide_ids || @target_bioguide_ids %>
+          <% unless @congress_message_campaign.target_bioguide_ids.present? %>
             <fieldset id="lookup-address">
               <h3>
                 <span class="customize-message-popover" data-container="body" data-toggle="popover" data-trigger="hover" data-placement="auto bottom" data-content="<%= @congress_message_campaign.look_up_helper_text "We'll use your address to look up your congressional district and find your representatives." %>">?</span>
@@ -25,8 +25,8 @@
                                    "aria-label": "Street Address",
                                    required: true,
                                    class: "form-control" %>
-
               </div>
+
               <div class="form-group">
                 <%= text_field_tag :zipcode,
                                    (current_user && current_user.zipcode),
@@ -88,7 +88,9 @@
 <div class="update-user-data-container" style="display: none;">
   <% if current_user %>
   <div class="checkbox small">
-      <label for="update_user_data">    <input checked="checked" id="update_user_data" name="update_user_data" type="checkbox" value="yes">    Save my name and address for next time.</label>
+    <label for="update_user_data">
+      <input checked="checked" id="update_user_data" name="update_user_data" type="checkbox" value="yes">    Save my name and address for next time.
+    </label>
   </div>
   <% end %>
 </div>

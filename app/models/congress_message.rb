@@ -6,18 +6,22 @@ class CongressMessage
 
   # @TODO no longer need to CSS hide these fields
   def self.new_from_lookup(location, message, campaign, forms)
-    new({ common_attributes: {
-            "$ADDRESS_STREET" => location.street,
-            "$ADDRESS_CITY" => location.city,
-            "$ADDRESS_ZIP4" => location.zip4,
-            "$ADDRESS_ZIP5" => location.zipcode,
-            "$STATE" => location.state,
-            "$ADDRESS_STATE_POSTAL_ABBREV" => location.state,
-            "$STATE" => location.state,
-            "$MESSAGE" => message,
-            "$SUBJECT" => campaign.subject
-          },
-          forms: forms })
+    common_attributes = {
+      "$MESSAGE" => message,
+      "$SUBJECT" => campaign.subject
+    }
+    if location
+      common_attributes.merge!({
+        "$ADDRESS_STREET" => location.street,
+        "$ADDRESS_CITY" => location.city,
+        "$ADDRESS_ZIP4" => location.zip4,
+        "$ADDRESS_ZIP5" => location.zipcode,
+        "$STATE" => location.state,
+        "$ADDRESS_STATE_POSTAL_ABBREV" => location.state,
+        "$STATE" => location.state,
+      })
+    end
+    new({ common_attributes: common_attributes, forms: forms })
   end
 
   def common_fields

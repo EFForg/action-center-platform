@@ -2,20 +2,24 @@ class CongressMessagesController < ApplicationController
   before_action :set_congress_message_campaign
 
   def new
-    location = SmartyStreets.get_location(params["street_address"], params["zipcode"])
-    unless location.success
-      render plain: I18n.t(:address_lookup_failed, scope: :congress_forms), status: :bad_request
-      return
+    if @campaign.target_bioguide_ids.present?
+      bioguide_ids  = @campaign.target_bioguide_ids.split
+    else
+      location = SmartyStreets.get_location(params["street_address"], params["zipcode"])
+      unless location.success
+        render plain: I18n.t(:address_lookup_failed, scope: :congress_forms), status: :bad_request
+        return
+      end
+      members = @campaign.targets.for_district(location.state, location.district)
+      bioguide_ids = members.pluck(:bioguide_id)
     end
 
-    members = CongressMember.for_district(location.state, location.district)
-    if members.empty?
-      # Notify Sentry?
+    if bioguide_ids.empty?
       render plain: I18n.t(:reps_lookup_failed, scope: :congress_forms), status: :bad_request
       return
     end
 
-    forms = CongressForms::Form.find(members.pluck(:bioguide_id))
+    forms = CongressForms::Form.find(bioguide_ids)
     @message = CongressMessage.new_from_lookup(location, params[:message], @campaign, forms)
     render partial: "form"
   end
