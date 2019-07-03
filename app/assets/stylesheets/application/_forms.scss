@@ -1,13 +1,9 @@
 form {
   background: $gray-darker;
+  color: black;
   padding: 2rem;
   margin: 0 auto;
 
-  label {
-    font-size: 1rem;
-    line-height: 1.7rem;
-    text-transform: uppercase;
-  }
 
   input[type=text],
   input[type=email],
@@ -245,30 +241,7 @@ select {
 }
 
 .email-signup {
-  font-size: 13px;
-  margin-bottom: 10px;
-  margin-top: 20px;
-  line-height: 1.5;
-
-  label.radio-inline {
-    margin-top: -3px;
-    border: 1px solid #ddd;
-    border-radius: 8px;
-    padding-left: 23px;
-    padding-right: 6px;
-    line-height: 1.68;
-    input[type=radio] {
-      margin-top: 4px;
-      cursor: pointer;
-      margin-left: -18px;
-    }
-    &:first-child {
-      margin-right: 1px;
-    }
-    &:last-child {
-      margin-right: 2px;
-    }
-  }
-
-
+  font-size: $base-font-size * 0.8;
+  margin-bottom: 0.8rem;
+  margin-top: 1.2rem;
 }
