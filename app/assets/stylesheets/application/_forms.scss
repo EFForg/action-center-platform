@@ -192,6 +192,7 @@ select {
   background-color: $eff-red;
   border-bottom: 0.3rem solid $dark-red;
   color: white;
+  max-width: 300px;
   width: 100%;
   &:link, &:visited, a:link, a:visited {
     color: $off-white;
