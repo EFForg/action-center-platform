@@ -2,7 +2,7 @@
 //= require blueimp-file-upload/js/jquery.fileupload
 
 $(function() {
-  $('.gallery').on('click', '.image', function(e) {
+  $('.gallery').on('click', 'figure', function(e) {
     if (!e.altKey && !e.ctrlKey && !e.metaKey && !e.shiftKey) {
       e.preventDefault();
 
@@ -11,11 +11,15 @@ $(function() {
       if ($(this).hasClass('selected')) {
         $(this).removeClass('selected');
         gallery.find('input[type=hidden]').removeAttr('value');
+        gallery.find('.change img').removeAttr('src');
+        gallery.find('.current').removeClass('changed');
       } else {
-        gallery.find('.selected').removeClass('selected');
+        gallery.find('.images .selected').removeClass('selected');
         $(this).addClass('selected');
 
-        gallery.find('input[type=hidden]').attr('value', this.href);
+        gallery.find('input[type=hidden]').attr('value', $('img', this).attr('src'));
+        gallery.find('.change img').attr('src', $('img', this).attr('src'));
+        gallery.find('.current').addClass('changed');
       }
     }
   });
