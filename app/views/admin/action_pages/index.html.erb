@@ -1,30 +1,27 @@
-<%= render "collection_nav" %>
+<div id="filters">
+  <h2>Filters</h2>
+  <%= form_tag admin_action_pages_path, id: "filter_action_pages", method: :get do %>
+    <div class="form-item">
+      <%= label_tag "Type" %>
+      <%= select_tag :action_type, options_for_select(%w(all call congress_message email petition tweet)) %>
+    </div>
 
-<div id="content">
-  <div id="filters">
-    <h2>Filters</h2>
-    <%= form_tag admin_action_pages_path, id: "filter_action_pages", method: :get do %>
-      <div class="form-item">
-        <%= label_tag "Type" %>
-        <%= select_tag :action_type, options_for_select(%w(all call congress_message email petition tweet)) %>
-      </div>
+    <div class="form-actions">
+      <button type="reset">Clear filters</button>
+    </div>
 
-      <div class="form-actions">
-        <button type="reset">Clear filters</button>
-      </div>
+    <div class="form-item">
+      <%= text_field_tag :q, params[:q],
+            :"aria-label" => "Search query",
+            placeholder: "Filter by title, description, action text, etc.",
+            autocomplete: "off", class: "form-control input-sm" %>
+    </div>
 
-      <div class="form-item">
-        <%= text_field_tag :q, params[:q],
-              :"aria-label" => "Search query",
-              placeholder: "Filter by title, description, action text, etc.",
-              autocomplete: "off", class: "form-control input-sm" %>
-      </div>
-
-      <div class="form-actions">
-        <%= submit_tag "Filter", class: "btn btn-sm btn-primary", data: { disable_with: false } %>
-      </div>
-    <% end %>
-  </div>
-
-  <%= render "index" %>
+    <div class="form-actions">
+      <%= submit_tag "Filter", class: "btn btn-sm btn-primary", data: { disable_with: false } %>
+    </div>
+  <% end %>
 </div>
+
+<%= render "index" %>
+

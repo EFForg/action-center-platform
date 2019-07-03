@@ -1,37 +1,16 @@
-<ul id="nav">
-  <li>
-    <%= link_to "#{action_name.titleize} Action", admin_action_pages_path %>
+<%= form_for([:admin, @actionPage]) do |f| %>
+  <% pages = %w(basics action images sharing partners thank_you) %>
+  <% pages.each_with_index do |page, i| %>
+    <div id="<%= page.sub('_', '-') %>" class="page">
+      <%= render "edit_#{page}", f: f %>
 
-    <ul>
-      <li><%= link_to "Basics", "#basics", class: "active" %></li>
-      <li><%= link_to "Action", "#action" %></li>
-      <li><%= link_to "Images", "#images" %></li>
-      <li><%= link_to "Sharing", "#sharing" %></li>
-      <li><%= link_to "Partners", "#partners" %></li>
-      <li><%= link_to "Thank You", "#thank-you" %></li>
-    </ul>
-  </li>
-
-  <li><%= link_to "Preview", "#" %></li>
-  <li><%= link_to "Analytics", "#" %></li>
-  <li><%= link_to "Change Status", "#" %></li>
-</ul>
-
-<div id="content">
-  <%= form_for([:admin, @actionPage]) do |f| %>
-    <% pages = %w(basics action images sharing partners thank_you) %>
-    <% pages.each_with_index do |page, i| %>
-      <div id="<%= page.sub('_', '-') %>" class="page">
-        <%= render "edit_#{page}", f: f %>
-
-        <div class="form-actions">
-          <% if pages[i+1] %>
-            <%= link_to "Next", "##{pages[i+1].sub('_', '-')}", class: "button"  %>
-          <% else %>
-            <%= f.submit "Save" %>
-          <% end %>
-        </div>
+      <div class="form-actions">
+        <% if pages[i+1] %>
+          <%= link_to "Next", "##{pages[i+1].sub('_', '-')}", class: "button"  %>
+        <% else %>
+          <%= f.submit "Save" %>
+        <% end %>
       </div>
-    <% end %>
+    </div>
   <% end %>
-</div>
+<% end %>

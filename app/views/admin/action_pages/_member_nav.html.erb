@@ -1,0 +1,18 @@
+<ul id="nav">
+  <li>
+    <%= link_to "#{action_name.titleize} Action", admin_action_pages_path %>
+
+    <ul>
+      <li><%= link_to "Basics", "#basics", class: "active" %></li>
+      <li><%= link_to "Action", "#action" %></li>
+      <li><%= link_to "Images", "#images" %></li>
+      <li><%= link_to "Sharing", "#sharing" %></li>
+      <li><%= link_to "Partners", "#partners" %></li>
+      <li><%= link_to "Thank You", "#thank-you" %></li>
+    </ul>
+  </li>
+
+  <li><%= nav_link_to "Preview", "#" %></li>
+  <li><%= nav_link_to "Analytics", "#" %></li>
+  <li><%= nav_link_to "Change Status", "#" %></li>
+</ul>

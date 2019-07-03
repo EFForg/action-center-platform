@@ -20,7 +20,15 @@
     </header>
 
     <div id="page">
-      <%= yield %>
+      <% if %w(new create).include?(action_name) || request.path_parameters.include?(:id) %>
+        <%= render "member_nav" %>
+      <% else %>
+        <%= render "collection_nav" %>
+      <% end %>
+
+      <div id="content">
+        <%= yield %>
+      </div>
     </div>
 
     <%= javascript_include_tag "admin" %>
