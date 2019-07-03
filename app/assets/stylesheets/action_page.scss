@@ -26,6 +26,10 @@
 
 .short-description {
   margin-top: 2em;
+  h5 {
+    margin-bottom: 0;
+    padding-bottom: 0;
+  }
   > p {
     font-size: $base-font-size * 1.2;
     line-height: $base-line-height * 1.2;
@@ -48,19 +52,13 @@
   }
 }
 
-h5.category {
-  color: $gray;
-  margin-bottom: 0;
-  padding-bottom: 0;
-  text-transform: uppercase;
-}
-
 #description {
   margin-top: 3em;
   p, li {
     margin-bottom: 1em;
   }
 }
+
 
 .form-control {
   border-radius: 0;
@@ -667,6 +665,7 @@ h3.privacy-notice-header {
   .rep-photo {
     padding: 0;
   }
+
   h3 {
     font-size: 17px;
     color: $charcoal;
@@ -682,27 +681,26 @@ h3.privacy-notice-header {
     }
     span.customize-message-popover {
       @include transition (all 0.2s ease-in-out);
-      display: inline-block;
-      float: right;
-      border: 1px solid #cc0000;
-      height: 20px;
-      width: 20px;
-      text-align: center;
-
-      font-style: normal;
-      line-height: 18px;
-      padding-top: 0px;
+      background-color: white;
+      border: 1px solid $eff-red;
+      color: $eff-red;
       cursor: pointer;
-      position: relative;
+      display: inline-block;
+      font-style: normal;
       font-weight: bold;
-      background-color: #fff;
-      color: #cc0000;
-
+      float: right;
+      line-height: 18px;
+      height: 20px;
+      padding-top: 0px;
+      position: relative;
+      text-align: center;
+      width: 20px;
       &:hover {
-        background-color: #cc0000;
-        color: #fff;
+        background-color: $eff-red;
+        color: white;
       }
     }
+
     span.legislator-info-popover {
       @include transition (all 0.2s ease-in-out);
       display: inline-block;
