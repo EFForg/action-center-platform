@@ -286,6 +286,10 @@ form {
       @include button-sm;
     }
   }
+
+  select {
+    max-width: 100%;
+  }
 }
 
 #content form .page {

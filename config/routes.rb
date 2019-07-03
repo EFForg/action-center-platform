@@ -110,6 +110,11 @@ Actioncenter::Application.routes.draw do
       end
       resources :events, only: [:index]
       get :views, to: "events#views"
+
+      collection do
+        get :homepage
+        post :homepage, to: "action_pages#update_featured_action_pages"
+      end
     end
 
     resources :users, only: [:index, :update]

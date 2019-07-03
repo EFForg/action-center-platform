@@ -1,0 +1,22 @@
+<%= render "collection_nav" %>
+
+<div id="content">
+  <h2>Homepage</h2>
+
+  <%= form_tag homepage_admin_action_pages_path, method: :post do %>
+    <% @featured_action_pages.each_with_index do |featured_action_page, i| %>
+      <%= fields_for "featured_action_pages[#{i}]", featured_action_page do |f| %>
+        <div class="form-item">
+          <%= f.hidden_field :weight %>
+          <%= f.label :action_page_id, i.zero? ? "Main Item" : "Featured #{i}" %>
+          <%= f.collection_select :action_page_id, ActionPage.all.order(:title), :id, :title,
+                { prompt: "Select a campaign", object: f.object.action_page } %>
+        </div>
+      <% end %>
+    <% end %>
+
+    <div class="form-actions">
+      <%= submit_tag "Save" %>
+    </div>
+  <% end %>
+</div>

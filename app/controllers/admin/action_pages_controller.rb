@@ -1,9 +1,9 @@
 class Admin::ActionPagesController < Admin::ApplicationController
   include DateRange
-  before_action :set_action_page, except: [:new, :index, :create, :update_featured_pages]
+  before_action :set_action_page, except: [:new, :index, :create, :homepage, :update_featured_action_pages]
   before_action :cleanup_congress_message_params, only: [:update]
   before_action :set_s3_post, only: [:new, :edit, :create, :update]
-  skip_before_action :verify_authenticity_token, only: [:update_featured_pages]
+  skip_before_action :verify_authenticity_token, only: [:update_featured_action_pages]
   after_action :purge_cache, only: [:update, :publish]
 
   allow_collaborators_to :index, :edit
@@ -14,18 +14,6 @@ class Admin::ActionPagesController < Admin::ApplicationController
     if request.xhr?
       render partial: "admin/action_pages/index"
     end
-  end
-
-  def update_featured_pages
-    FeaturedActionPage.destroy_all
-    featuredPages = Array.new
-    featuredPages << { action_page_id: featured_page_params[:fp4], weight: 4 }
-    featuredPages << { action_page_id: featured_page_params[:fp3], weight: 3 }
-    featuredPages << { action_page_id: featured_page_params[:fp2], weight: 2 }
-    featuredPages << { action_page_id: featured_page_params[:fp1], weight: 1 }
-    FeaturedActionPage.create(featuredPages)
-    #render :json => {success: true}, :status => 200
-    redirect_to({ action: "index" }, notice: "Featured pages updated")
   end
 
   def new
@@ -133,6 +121,20 @@ class Admin::ActionPagesController < Admin::ApplicationController
                               email: current_email }
 
     render "action_page/show", layout: "application"
+  end
+
+  def homepage
+    @featured_action_pages = FeaturedActionPage.order(:weight).preload(:action_page)
+  end
+
+  def update_featured_action_pages
+    @featured_action_pages = FeaturedActionPage.order(:weight)
+
+    params[:featured_action_pages].each do |i, featured_page_params|
+      @featured_action_pages[i.to_i].update(featured_page_params.permit(:weight, :action_page_id))
+    end
+
+    redirect_to({ action: "homepage" }, notice: "Featured pages updated")
   end
 
   private
