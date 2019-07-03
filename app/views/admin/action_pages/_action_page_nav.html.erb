@@ -1,18 +1,26 @@
 <ul id="nav">
   <li>
-    <%= link_to "#{action_name.titleize} Action", admin_action_pages_path %>
+    <% if action_name == "new" %>
+      New Action
+    <% else %>
+      <%= link_to "Edit Action", edit_admin_action_page_path(@actionPage) %>
+    <% end %>
 
-    <ul>
-      <li><%= link_to "Basics", "#basics" %></li>
-      <li><%= link_to "Action", "#action" %></li>
-      <li><%= link_to "Images", "#images" %></li>
-      <li><%= link_to "Sharing", "#sharing" %></li>
-      <li><%= link_to "Partners", "#partners" %></li>
-      <li><%= link_to "Thank You", "#thank-you" %></li>
-    </ul>
+    <% if %w(new edit update create).include?(action_name) %>
+      <ul>
+        <li><%= link_to "Basics", "#basics" %></li>
+        <li><%= link_to "Action", "#action" %></li>
+        <li><%= link_to "Images", "#images" %></li>
+        <li><%= link_to "Sharing", "#sharing" %></li>
+        <li><%= link_to "Partners", "#partners" %></li>
+        <li><%= link_to "Thank You", "#thank-you" %></li>
+      </ul>
+    <% end %>
   </li>
 
-  <li><%= nav_link_to "Preview", "#" %></li>
-  <li><%= nav_link_to "Analytics", admin_action_page_events_path(@actionPage) %></li>
-  <li><%= nav_link_to "Change Status", "#" %></li>
+  <% if @actionPage.persisted? %>
+    <li><%= nav_link_to "Preview", "#" %></li>
+    <li><%= nav_link_to "Analytics", admin_action_page_events_path(@actionPage) %></li>
+    <li><%= nav_link_to "Change Status", "#" %></li>
+  <% end %>
 </ul>
