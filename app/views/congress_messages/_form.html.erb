@@ -1,4 +1,5 @@
-<form class="form">
+<%= form_tag(congress_message_campaign_congress_messages_path(@campaign),
+             remote: true, id: "congress-message-create") do %>
   <p class="step2-intro">
     <%= @campaign.extra_fields_explain_text("We send your comments to your representatives by automatically filling out their online contact forms. Because each representative's form is a little different, we need your help filling out a few extra fields before we can send your message:") %>
   </p>
@@ -36,4 +37,4 @@
   <%= hidden_field_tag :bioguide_ids, @message.targets %>
 
   <input type="submit" class="btn action">
-</form>
+<% end %>

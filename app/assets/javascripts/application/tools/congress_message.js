@@ -13,7 +13,15 @@ $(document).on("ready", function() {
     } else {
       show_lookup_error("Something went wrong. Please try again later.", $form);
     }
-    height_changed();
+  });
+
+  $(document).on("ajax:complete", function(xhr, data, status) {
+    if (xhr.target.id == "congress-message-create") {
+      if (status == "success") {
+        $("#congress-message-create").hide();
+        $(".email-tool-success-share").html(data.responseText).show();
+      }
+    }
   });
 
   function submit_in_progress(form) {
