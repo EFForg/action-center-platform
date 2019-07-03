@@ -241,6 +241,13 @@ table.table-simple {
 }
 
 .input-note {
+  color: $charcoal;
   font-size: 0.8rem;
   line-height: 2em;
+  border-bottom: 2px solid $charcoal;
+  &:hover,
+  &:focus {
+    color: black;
+    border-bottom: 2px solid black;
+  }
 }
