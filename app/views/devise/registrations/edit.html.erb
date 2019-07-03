@@ -1,12 +1,11 @@
 <div class="top-section">
-  <div class="container">
-    <h1>Edit your information</h1>
-  </div>
-</div>
+
 
 <div class="container edit">
   <div class="row">
-    <div class="col-md-9 col-md-offset-1">
+
+    <div>
+        <h1>Edit your information</h1>
       <%= form_for(resource, as: resource_name,
             url: registration_path(resource_name),
             html: { :method => :put, :class => 'form-horizontal personal-info' }) do |f| %>
@@ -50,4 +49,5 @@
         <% end %>
     </div>
   </div>
+</div>
 </div>
