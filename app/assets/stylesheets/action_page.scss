@@ -858,8 +858,15 @@ h3.privacy-notice-header {
   }
   .pagination {
     text-align: center;
-    margin-top: 60px;
-    margin-bottom: 80px;
+    margin-top: 4rem;
+    margin-bottom: 8rem;
+    a {
+      border: none;
+    }
+    .current {
+      border: 1px solid $off-white;
+      padding: 1px 4px 1px 1px;
+    }
   }
 }
 input[type="file"] {
