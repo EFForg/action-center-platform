@@ -19,4 +19,3 @@
       goto(window.location.hash);
   });
 })();
-

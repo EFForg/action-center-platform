@@ -1,3 +1,5 @@
+<% content_for(:nav) { render "index_nav" } %>
+
 <div id="filters">
   <h2>Filters</h2>
   <%= form_tag admin_action_pages_path, id: "filter_action_pages", method: :get do %>

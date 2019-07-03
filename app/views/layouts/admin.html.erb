@@ -20,11 +20,7 @@
     </header>
 
     <div id="page">
-      <% if %w(new create).include?(action_name) || request.path_parameters.include?(:id) %>
-        <%= render "member_nav" if lookup_context.exists?("member_nav", [controller_path], true) %>
-      <% else %>
-        <%= render "collection_nav" if lookup_context.exists?("collection_nav", [controller_path], true) %>
-      <% end %>
+      <%= yield :nav %>
 
       <div id="content">
         <%= yield %>
