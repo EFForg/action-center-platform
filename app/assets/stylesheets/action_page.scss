@@ -30,7 +30,10 @@
     font-size: $base-font-size * 1.2;
     line-height: $base-line-height * 1.2;
   }
-  input:not(:checked) + label + div {
+  img {
+    margin-bottom: 3rem;
+  }
+  input:not(:checked) + label + div {  // for Learn more
     display: none;
   };
 
