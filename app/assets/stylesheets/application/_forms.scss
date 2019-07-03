@@ -182,14 +182,14 @@ select {
   }
 
   &:hover {
-    background: rgba($light-blue, 0.8) !important;
+    background: rgba($light-blue, 0.8);
     border-bottom: 4px solid rgba($slate, 0.8);
   }
 }
 
 .eff-red-button {
   @extend .eff-button;
-  background: $eff-red;
+  background-color: $eff-red;
   border-bottom: 0.3rem solid $dark-red;
   color: white;
   width: 100%;
@@ -197,8 +197,9 @@ select {
     color: $off-white;
   }
   &:hover {
-    background: rgba($eff-red, 0.8) !important;
-    border-bottom: 4px solid rgba($dark-red, 0.8);
+    background-color: $dark-red;
+    border-bottom: 0.3rem solid $eff-red;
+    color: $gray;
 
   }
 }
