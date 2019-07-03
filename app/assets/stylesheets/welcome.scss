@@ -84,9 +84,11 @@ section.more-actions {
       margin-top: 0;
       padding: 0;
       width: 33%;
+      @media screen and (min-width: $ph) {
+        width: 100%;
+      }
       @media screen and (min-width: $md) {
         padding: 0 3rem 0 0;
-        width: 100%;
       }
     }
     h3 {
