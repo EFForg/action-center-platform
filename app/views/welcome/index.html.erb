@@ -31,9 +31,9 @@
 
 <section class="more-actions">
   <div class="container">
-    <div class="row flex-this">
+    <div class="row">
       <%- @actionPages.each do |actionPage| -%>
-        <div class="flex-item">
+        <div class="the-actions">
           <div class="more-actions-image">
           <%= link_to image_tag(actionPage.featured_image.url), action_page_path(actionPage) %>
           </div>
