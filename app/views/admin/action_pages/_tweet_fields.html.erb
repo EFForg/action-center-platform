@@ -8,11 +8,13 @@
     <legend>Targets</legend>
 
     <%= sf.label :target_house do %>
-      <%= sf.check_box :target_house %> House
+      <%= sf.check_box :target_house, class: "fancy" %> <span class="ui"></span>
+      House
     <% end %>
 
     <%= sf.label :target_senate do %>
-      <%= sf.check_box :target_senate %> Senate
+      <%= sf.check_box :target_senate, class: "fancy" %> <span class="ui"></span>
+      Senate
     <% end %>
 
     <fieldset class="form-item" id="individual-targets">

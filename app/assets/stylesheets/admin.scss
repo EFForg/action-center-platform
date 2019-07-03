@@ -232,6 +232,53 @@ form {
     }
   }
 
+  .form-item input[type=radio].fancy {
+    position: absolute;
+    width: 0;
+    height: 0;
+
+    + .ui {
+      position: relative;
+      display: inline-block;
+      border-radius: 50%;
+      width: 1em;
+      height: 1em;
+      margin-right: 0.2em;
+      vertical-align: top;
+      text-align: center;
+      line-height: 0.9em;
+      border: 1px solid $border-gray;
+      box-shadow: 1px 1px 3px #999;
+    }
+
+    &:checked + .ui {
+      background: radial-gradient(circle, #aaa 0.3em, #fff 0.4em);
+    }
+  }
+
+  .form-item input[type=checkbox].fancy {
+    position: absolute;
+    width: 0;
+    height: 0;
+
+    + .ui {
+      position: relative;
+      display: inline-block;
+      width: 1em;
+      height: 1em;
+      margin-right: 0.2em;
+      vertical-align: top;
+      text-align: center;
+      line-height: 0.9em;
+      border: 1px solid $border-gray;
+      box-shadow: 2px 2px 2px #999;
+    }
+
+    &:checked + .ui {
+      background: repeating-linear-gradient(-45deg, #aaa, #fff 0.25em);
+    }
+  }
+
   button, input[type=button], input[type=submit] {
     @include button;
 

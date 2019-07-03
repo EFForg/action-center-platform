@@ -7,7 +7,7 @@
     <%= f.hidden_field :"enable_#{type}" %>
 
     <label for="action_type_<%= type %>">
-      <%= radio_button_tag "action_type", type, @actionPage[:"enable_#{type}"] %>
+      <%= radio_button_tag "action_type", type, @actionPage[:"enable_#{type}"], class: "fancy" %> <span class="ui"></span>
       <%= type.titleize %>
     </label>
   <% end %>
