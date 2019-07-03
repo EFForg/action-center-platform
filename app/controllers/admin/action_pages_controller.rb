@@ -123,6 +123,24 @@ class Admin::ActionPagesController < Admin::ApplicationController
     render "action_page/show", layout: "application"
   end
 
+  def events
+    respond_to do |format|
+      format.html
+      format.json do
+        # Ahoy::Event.action_types.include? params[:type].to_sym
+        render json: @actionPage.events.send(params[:type]).group_in_range(start_date, end_date)
+      end
+    end
+  end
+
+  def events_table
+    @data = @actionPage.events.group_by_type_in_range(start_date, end_date)
+    @columns = Ahoy::Event.action_types(@actionPage)
+    if @actionPage.enable_congress_message?
+      @fills = @actionPage.congress_message_campaign.date_fills(start_date, end_date)
+    end
+  end
+
   def homepage
     @featured_action_pages = FeaturedActionPage.order(:weight).preload(:action_page)
   end

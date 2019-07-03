@@ -14,8 +14,9 @@ class Admin::EventsController < Admin::ApplicationController
       render nothing: true, status: :bad_request
       return
     end
+
     respond_to do |format|
-      format.html { render "table" }
+      format.html
       format.json { render json: @data }
     end
   end

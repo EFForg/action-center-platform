@@ -3,6 +3,7 @@
 //= require admin/editor
 //= require admin/gallery
 //= require admin/action_pages
+//= require admin/analytics
 
 function debounce(fn, time) {
   var timeout;
