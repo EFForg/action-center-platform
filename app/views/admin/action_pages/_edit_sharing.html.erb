@@ -1,8 +1,10 @@
 <h2>Sharing</h2>
 
+<p>Customize how the link to the action appears on social media below.</p>
+
 <div class="form-item">
   <%= f.label :og_title do %>
-    Open Graph Title
+    Title
     <span class="hint">(FB = 100chars, TWTR = 70chars)</span>
   <% end %>
   <%= f.text_field :og_title %>
@@ -10,7 +12,7 @@
 
 <div class="form-item">
   <%= f.label :share_message do %>
-    Tweet Text
+    Share Message
     <span class="hint">(URL is automatically added to the end)</span>
   <% end %>
   <%= f.text_field :share_message %>
