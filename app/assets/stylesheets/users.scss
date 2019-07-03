@@ -150,7 +150,8 @@ span.green-rect {
 .registrations-edit,
 .confirmations-create,
 .confirmations-show,
-.unlocks-new {
+.unlocks-new,
+.users-edit {
   .top-section {
     width: 100%;
     .container {
@@ -164,19 +165,24 @@ span.green-rect {
           width: 100%;
         }
       }
+      &:first-child {
+        margin-left: 0;
+        text-align: right;
+      }
+      &:last-child {
+        margin-left: 0;
+        width: 66%;
+      }
     }
   }
 
-  input.form-control {
-    border: 2px solid $off-white;
-  }
   .extra-links {
-    font-size: 15px;
+    font-size: $base-font-size * 0.9;
   }
   .email-signup {
     background-color: $off-white;
     color: $charcoal;
-    padding: 12px;
+    padding: 1rem;
   }
   .error_explanation {
     background-color: transparent;
@@ -203,21 +209,16 @@ span.green-rect {
   }
 }
 
-
-.users-show,
-.users-edit,
-.registrations-edit {
-  #settings, .edit {
-    margin-bottom: 50px;
-    margin-top: 20px;
+.users-edit .top-section .row:last-child {
+  width: 100%;
+  input,
+  select {
+    margin: 5px 0 1.5rem;
   }
-  .form-horizontal .control-label {
-    padding-top: 5px;
+  .eff-red-button {
+    display: block;
+    margin: 5px auto;
   }
-  .personal-info {
-    margin-top: 20px;
-  }
-
 }
 
 table.table-simple {
