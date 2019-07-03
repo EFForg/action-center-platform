@@ -1,120 +1,16 @@
 @import "daterangepicker";
 
 @import "admin/mixins";
+@import "admin/fonts";
+@import "admin/base";
+@import "admin/layout";
 @import "admin/gallery";
 @import "admin/action_pages";
 
 body {
-  font-family: Arial;
-}
-
-header {
-  padding-bottom: 1rem;
-  border-bottom: 1px solid $light-blue;
-  margin: 0 2rem 2rem 2rem;
-
-  @include medium {
-    margin: 3rem 3vw 0 3vw;
-  }
-
-  .logo, h1 {
-    display: inline-block;
-  }
-
-  .logo {
-    width: 8rem;
-  }
-
-  @include medium {
-    .logo {
-      width: 11.875rem;
-    }
-  }
-
-  .logo img {
-    width: 100%;
-  }
-
-  h1 {
-    margin-bottom: 0;
-    margin-left: 1.5rem;
-  }
-}
-
-#page {
-  margin: 0 2rem 2rem 2rem;
-
-  @include medium {
-    display: flex;
-    flex-direction: row;
-    margin: 0 3vw 2rem 3vw;
-
-    #nav {
-      align-self: flex-start;
-      position: sticky;
-      top: 1rem;
-      padding-right: 1rem;
-      padding-top: 2rem;
-      max-width: 11.875rem;
-      width: 20%;
-    }
-
-    #content {
-      flex: 1;
-      padding-top: 2rem;
-      padding-left: 1.5rem;
-      border-left: 1px solid $light-blue;
-    }
-  }
-}
-
-#nav {
-  margin: 0 0 2rem 0;
-  padding: 0;
-
-  list-style-type: none;
-
-  ul {
-    padding-left: 1rem;
-
-    @include medium {
-      padding-left: 2rem;
-    }
-
-    margin-top: 0.5rem;
-    list-style-type: none;
-  }
-
-  font-size: 1.1rem;
-
-  li {
-    padding-top: 0.5rem;
-    padding-bottom: 0.5rem;
-  }
-
-  > li:first-child {
-    padding-top: 0;
-    font-size: 1.1em;
-  }
-
-  li a {
-    text-decoration: none;
-    color: #888;
-
-    &.active {
-      font-weight: bold;
-    }
-
-    &.active, &:hover {
-      color: #000;
-    }
-  }
-
-  @include small {
-    li li {
-      display: inline-block;
-    }
-  }
+  font-family: $sans-serif;
+  font-size: 16px;
+  font-weight: 300;
 }
 
 #page .table {
@@ -162,7 +58,7 @@ fieldset {
   }
 }
 
-.button {
+.btn {
   @include button;
 }
 
@@ -283,10 +179,6 @@ form {
 
   button, input[type=button], input[type=submit] {
     @include button;
-
-    &.sm {
-      @include button-sm;
-    }
   }
 
   select {

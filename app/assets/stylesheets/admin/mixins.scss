@@ -1,6 +1,8 @@
 $light-blue: #e5ebec;
 $border-gray: #aaa;
 
+$sans-serif: "Montserrat", sans-serif;
+
 @mixin small {
   @media (max-width: 990px) {
     @content;
@@ -29,7 +31,19 @@ $border-gray: #aaa;
   cursor: pointer;
   font-weight: bold;
   text-decoration: none;
+
   color: #000;
+
+  &:link,
+  &:visited,
+  &:focus,
+  &:active {
+    color: #000;
+  }
+
+  &.sm {
+    @include button-sm;
+  }
 }
 
 @mixin button-sm {

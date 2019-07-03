@@ -9,18 +9,18 @@
     </div>
 
     <div class="form-actions">
-      <button type="reset">Clear filters</button>
+      <button type="reset" class="sm">Clear filters</button>
     </div>
 
     <div class="form-item">
       <%= text_field_tag :q, params[:q],
             :"aria-label" => "Search query",
-            placeholder: "Filter by title, description, action text, etc.",
+            placeholder: "Search by title, description, action text, etc.",
             autocomplete: "off", class: "form-control input-sm" %>
     </div>
 
     <div class="form-actions">
-      <%= submit_tag "Filter", class: "btn btn-sm btn-primary", data: { disable_with: false } %>
+      <%= submit_tag "Search", class: "sm", data: { disable_with: false } %>
     </div>
   <% end %>
 </div>
