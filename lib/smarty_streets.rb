@@ -13,7 +13,7 @@ module SmartyStreets
     res = post(url, base_params.merge(street: street, zipcode: zipcode))
 
     location = OpenStruct.new
-    location.street_address = street
+    location.street = street
     location.zipcode = zipcode
     if !res || res.empty?
       location.success = false

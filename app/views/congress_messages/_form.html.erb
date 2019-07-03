@@ -22,7 +22,7 @@
   <% @message.forms_minus_common_fields.each do |form| %>
     <fieldset class="congressForms-legislator-fields">
       <h3 class="legislator-label">
-        <%= form.bioguide_id %>
+        <em><%= CongressMember.find_by(bioguide_id: form.bioguide_id).full_name %></em>
       </h3>
       <% form.fields.each do |field| %>
         <div class="form-group">

@@ -16,7 +16,7 @@ class CongressMessagesController < ApplicationController
     end
 
     forms = CongressForms::Form.find(members.pluck(:bioguide_id))
-    @message = CongressMessage.new_from_lookup(location, params[:message], forms)
+    @message = CongressMessage.new_from_lookup(location, params[:message], @campaign, forms)
     render partial: "form"
   end
 

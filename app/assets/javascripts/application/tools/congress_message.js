@@ -8,6 +8,9 @@ $(document).on("ready", function() {
     if (status == "success") {
       $form.hide();
       $(".congress-message-tool-container").html(data.responseText);
+      // Trigger phone field formatting.
+      $phone = $(".bfh-phone")
+      $phone.bfhphone($phone.data());
     } else if (data.responseText) {
       show_lookup_error(data.responseText, $form);
     } else {

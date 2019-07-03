@@ -5,16 +5,17 @@ class CongressMessage
   attr_accessor :forms, :common_attributes, :member_attributes
 
   # @TODO no longer need to CSS hide these fields
-  def self.new_from_lookup(location, message, forms)
+  def self.new_from_lookup(location, message, campaign, forms)
     new({ common_attributes: {
             "$ADDRESS_STREET" => location.street,
             "$ADDRESS_CITY" => location.city,
             "$ADDRESS_ZIP4" => location.zip4,
             "$ADDRESS_ZIP5" => location.zipcode,
-            # @TODO abbreviation expected here?
-            # WHat forms can the state field take?
             "$STATE" => location.state,
-            "$MESSAGE" => message
+            "$ADDRESS_STATE_POSTAL_ABBREV" => location.state,
+            "$STATE" => location.state,
+            "$MESSAGE" => message,
+            "$SUBJECT" => campaign.subject
           },
           forms: forms })
   end

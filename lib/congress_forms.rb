@@ -4,8 +4,6 @@ module CongressForms
   class Form
     attr_accessor :fields, :bioguide_id
 
-    # @TODO sort fields
-
     def self.find(bioguide_ids)
       raw_forms = CongressForms.post("/retrieve-form-elements/", {
         bio_ids: bioguide_ids
@@ -16,6 +14,12 @@ module CongressForms
     def initialize(bioguide_id, fields)
       @bioguide_id = bioguide_id
       @fields = fields.map { |f| Field.new(f) }
+      order_fields
+    end
+
+    def order_fields
+      order = %w($NAME_PREFIX $NAME_FIRST $NAME_LAST $PHONE $EMAIL $SUBJECT $TOPIC)
+      @fields = @fields.sort_by { |f| order.index(f.value) || Float::INFINITY }
     end
 
     def fill(input)

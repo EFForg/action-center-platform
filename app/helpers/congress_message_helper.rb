@@ -30,7 +30,7 @@ module CongressMessageHelper
       "$NAME_FIRST" => current_first_name,
       "$NAME_LAST" => current_last_name,
       "$EMAIL" => current_email,
-      "$PHONE" => current_user.try(:phone),
+      "$PHONE" => number_to_phone(current_user.try(:phone)),
       "$ADDRESS_STREET" => current_street_address,
       "$ADDRESS_CITY" => current_city,
       "$SUBJECT" => campaign.subject,
@@ -63,8 +63,8 @@ module CongressMessageHelper
     elsif field.value == "$EMAIL"
       email_field_tag name, prefill, congress_forms_field_defaults(field)
     elsif field.is_select?
-      # @TODO aria-label
-      select_tag name, options_for_select(field.options_hash)
+      select_tag name, options_for_select(field.options_hash, prefill),
+        class: "form-control", "aria-label": field.label, include_blank: field.label
     else
       text_field_tag name, prefill, congress_forms_field_defaults(field)
     end
