@@ -425,11 +425,15 @@ div#email_target_text {
 
 }
 
-.container {  //overriding bootstrap
+.container {  // overriding bootstrap
   max-width: 750px !important;
   padding: 0;
   width: 100% !important;
   @media screen and (min-width: $lg) {
     max-width: 1280px !important;
   }
+}
+
+.popover {  // overridng bootstrap
+  color: $charcoal;
 }
