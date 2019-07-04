@@ -108,7 +108,9 @@ Actioncenter::Application.routes.draw do
         match :import, via: :post, on: :collection
         match :index, via: :delete, on: :collection, action: :destroy_all
       end
-      resources :events, only: [:index]
+
+      get :events
+      get :"events-table"
       get :views, to: "events#views"
 
       collection do
