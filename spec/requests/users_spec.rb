@@ -38,11 +38,3 @@ RSpec.describe "Tests about users", type: :request do
     expect(page).to have_content("Personal information")
   end
 end
-
-# requires capybara
-def sign_in_user(user)
-  visit "/login"
-  fill_in "Email", with: user.email
-  fill_in "Password", with: user.password
-  click_button "Sign in"
-end

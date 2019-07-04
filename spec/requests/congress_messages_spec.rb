@@ -157,5 +157,11 @@ RSpec.describe "Congress Messages", type: :request do
       subject
       expect(WebMock).not_to have_requested(:post, /fill-out-form/)
     end
+
+    it "lets logged in users update their name and address" do
+    end
+
+    it "lets anonymous users to join the mailing list" do
+    end
   end
 end

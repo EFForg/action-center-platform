@@ -16,7 +16,9 @@
       <% end %>
     </fieldset>
 
-    Save my info checkbox?
+    <%= render "tools/newsletter_signup",
+               email: false, location: false, privacy_notice: false %>
+    <%= render "tools/save_my_info_option", info: %w(name address) %>
   <% end %>
 
   <% @message.forms_minus_common_fields.each do |form| %>
@@ -36,5 +38,5 @@
 
   <%= hidden_field_tag :bioguide_ids, @message.targets %>
 
-  <input type="submit" class="btn action">
+  <input type="submit" value="Submit" class="btn action">
 <% end %>

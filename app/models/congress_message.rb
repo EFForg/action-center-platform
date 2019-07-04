@@ -16,9 +16,8 @@ class CongressMessage
         "$ADDRESS_CITY" => location.city,
         "$ADDRESS_ZIP4" => location.zip4,
         "$ADDRESS_ZIP5" => location.zipcode,
-        "$STATE" => location.state,
-        "$ADDRESS_STATE_POSTAL_ABBREV" => location.state,
-        "$STATE" => location.state,
+        "$ADDRESS_STATE" => location.state,
+        "$ADDRESS_STATE_POSTAL_ABBREV" => location.state
       })
     end
     new({ common_attributes: common_attributes, forms: forms })

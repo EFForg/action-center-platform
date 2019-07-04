@@ -32,7 +32,7 @@ describe CongressForms do
         expect(forms.length).to eq 2
         lamar = forms.first
         expect(lamar.fields.length).to eq 11
-        expect(lamar.fields.first.value).to eq "$NAME_FIRST"
+        expect(lamar.fields.first.value).to eq "$NAME_PREFIX"
       end
     end
 
