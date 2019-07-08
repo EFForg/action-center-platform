@@ -11,6 +11,7 @@ $(document).on("ready", function() {
       // Trigger phone field formatting.
       $phone = $(".bfh-phone")
       $phone.bfhphone($phone.data());
+      // @TODO auto-set similar fields, eg name prefix, when the first is set.
     } else if (data.responseText) {
       show_lookup_error(data.responseText, $form);
     } else {

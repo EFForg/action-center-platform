@@ -39,6 +39,6 @@ class CongressMember < ActiveRecord::Base
   end
 
   def self.for_district(state, district)
-    where(state: state).where("chamber = ? OR district = ?", "senate", district)
+    current.where(state: state).where("chamber = ? OR district = ?", "senate", district)
   end
 end

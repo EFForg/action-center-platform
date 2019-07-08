@@ -44,8 +44,7 @@ module CongressForms
     def validate(input)
       return false if input.nil?
       return false if max_length && input.length > max_length
-      return false if options_hash.is_a?(Array) && !options_hash.include?(input)
-      return false if options_hash.is_a?(Hash) && !options_hash.values.include?(input)
+      return false unless options.include? input
       true
     end
 
@@ -79,6 +78,11 @@ module CongressForms
       else
         @options_hash
       end
+    end
+
+    def options
+      return options_hash.values if options_hash.is_a?(Hash)
+      options_hash
     end
   end
 

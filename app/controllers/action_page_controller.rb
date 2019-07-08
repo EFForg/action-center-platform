@@ -120,6 +120,7 @@ class ActionPageController < ApplicationController
     if @email_campaign and !@email_campaign.topic_category.nil?
       @topic_category = @email_campaign.topic_category.as_2d_array
     end
+    # @TODO remove
     if @congress_message_campaign.try(:topic_category).present?
       @topic_category = @congress_message_campaign.topic_category.as_2d_array
     end

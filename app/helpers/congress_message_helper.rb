@@ -1,5 +1,6 @@
 module CongressMessageHelper
-  def congress_forms_prefills(campaign)
+  def congress_forms_prefills(campaign, field)
+    return campaign.topic_category.best_match(field.options) if field.value == "$TOPIC"
     {
       "$NAME_FIRST" => current_first_name,
       "$NAME_LAST" => current_last_name,
@@ -8,9 +9,7 @@ module CongressMessageHelper
       "$ADDRESS_STREET" => current_street_address,
       "$ADDRESS_CITY" => current_city,
       "$SUBJECT" => campaign.subject,
-      # @TODO fuzzy match for "$TOPIC"?
-      # "$TOPIC": campaign.topic.name
-    }
+    }[field.value]
   end
 
   def congress_forms_field(field, campaign, message_attributes, bioguide_id = nil)
@@ -21,7 +20,7 @@ module CongressMessageHelper
     end
 
     # Try to guess the input based on saved info about the campaign + user.
-    prefill = congress_forms_prefills(campaign)[field.value]
+    prefill = congress_forms_prefills(campaign, field)
 
     if message_attributes[field.value]
       # If the user has already provided this info in step 1, render it in a hidden field.
