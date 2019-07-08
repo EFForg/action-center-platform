@@ -1,4 +1,5 @@
-.action_page-show {
+.action_page-show,
+.action_pages-preview {
   .row {
     @include flex-this;
     > div {
@@ -337,9 +338,7 @@
     text-align: left;
     margin-top: 40px;
   }
-  h3.twitter-tool-label em {
-    font-style: normal;
-  }
+
   h3.twitter-tool-label::before {
     margin-bottom: -0.6em;
     content: "";
@@ -380,9 +379,6 @@ h3.header, #tools #email-tool h3, #tools #congress-message-tool h3 {
   position: relative;
   margin-bottom: 1em;
   text-align: left;
-  em {
-    font-style: normal;
-  }
 }
 
 .call-script-box h3:before {
