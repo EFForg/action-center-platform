@@ -29,7 +29,7 @@
         <fieldset id="customize-message">
           <h3>
             <span class="customize-message-popover" data-container="body" data-toggle="popover" data-trigger="hover" data-placement="auto bottom" data-content="<%= @congress_message_campaign.customize_message_helper_text "Add a personal note about why this matters to you. Members of Congress value a customized message much higher than a form letter." %>">?</span>
-            <em>Customize your message</em>
+            Customize your message
           </h3>
           <div class="form-group">
             <textarea class="campaign-message form-control" rows="11"><%= @congress_message_campaign.message -%></textarea>
@@ -70,7 +70,7 @@
       <h4><strong>Our email tool requires javascript.</strong></h4>
       <p>If your browser doesn't support javascript or you prefer not to enable javascript on this site, you can find your legislator's contact forms via the <a target="_blank" href="http://www.house.gov/representatives/find/">House</a> and <a target="_blank" href="https://www.senate.gov/general/contact_information/senators_cfm.cfm">Senate</a> websites.</p>
       <form>
-        <h3><em>Sample message:</em></h3>
+        <h3>Sample message:</h3>
         <textarea class="samplemessage"><%= @congress_message_campaign.message -%></textarea>
       </form>
     </div>
