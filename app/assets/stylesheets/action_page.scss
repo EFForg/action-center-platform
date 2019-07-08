@@ -41,7 +41,10 @@
 
   [type="checkbox"]:not(:checked) + label,
   [type="checkbox"]:checked + label {
-    margin-left: 0;
+    margin-left: 1rem;
+    @media screen and (min-width: $ph) {
+      margin-left: 0;
+    }
     padding-left: 0;
     &:before,
     &:after {

@@ -96,7 +96,7 @@ h5 {
 
 h1 {
   @media screen and (max-width: $lg) { // mobile headers
-    font-size: 47px * 0.8;
+    font-size: 47px * 0.7;
   }
   font-size: 47px;
   line-height: 1.3;
@@ -104,21 +104,21 @@ h1 {
 }
 h2 {
   @media screen and (max-width: $lg) {
-    font-size: 37px * 0.8;
+    font-size: 37px * 0.7;
   }
   font-size: 37px;
   padding: 1.3rem 0 0.3rem 0;
 }
 h3 {
   @media screen and (max-width: $lg) { // mobile headers
-    font-size: 29px * 0.8;
+    font-size: 29px * 0.7;
   }
   font-size: 29px;
   padding: 1.3rem 0 0.3rem 0;
 }
 h4 {
   @media screen and (max-width: $lg) { // mobile headers
-    font-size: 23px * 0.8;
+    font-size: 23px * 0.7;
   }
   font-size: 23px;
   padding: 1.3rem 0 0.3rem 0;
