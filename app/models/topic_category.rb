@@ -12,7 +12,7 @@ class TopicCategory < ActiveRecord::Base
   end
 
   def best_match(options)
-    alphanum = options.map{ |x| x.downcase.gsub(/\W/, "") }
+    alphanum = options.map { |x| x.downcase.gsub(/\W/, "") }
     topics = topic_sets.order(:tier).reduce([]) do |arr, ts|
       arr += ts.topics.map { |t| t.name.downcase.gsub(/\W/, "") }
     end

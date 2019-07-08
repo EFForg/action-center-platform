@@ -5,9 +5,8 @@ module CongressForms
     attr_accessor :fields, :bioguide_id
 
     def self.find(bioguide_ids)
-      raw_forms = CongressForms.post("/retrieve-form-elements/", {
-        bio_ids: bioguide_ids
-      })
+      raw_forms = CongressForms.post("/retrieve-form-elements/", { bio_ids: bioguide_ids })
+      raise CongressForms::RequestFailed if raw_forms.empty?
       raw_forms.map { |id, raw| Form.new(id, raw["required_actions"]) }
     end
 
@@ -23,10 +22,7 @@ module CongressForms
     end
 
     def fill(input)
-      params = {
-        bioguide_id: @bioguide_id,
-        fields: input
-      }
+      params = { bioguide_id: @bioguide_id, fields: input }
       CongressForms.post("/fill-out-form/", params)
     end
   end
@@ -44,7 +40,7 @@ module CongressForms
     def validate(input)
       return false if input.nil?
       return false if max_length && input.length > max_length
-      return false unless options.include? input
+      return false unless options.nil? || options.include?(input)
       true
     end
 
@@ -131,11 +127,13 @@ module CongressForms
     rescue RestClient::ExceptionWithResponse => e
       Raven.capture_exception(e)
       Rails.logger.error e
-      return {}
+      raise RequestFailed
     end
   end
 
   def self.base_url
     Rails.application.config.congress_forms_url
   end
+
+  class RequestFailed < RestClient::ExceptionWithResponse; end
 end

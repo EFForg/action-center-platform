@@ -11,20 +11,16 @@ module SmartyStreets
   def self.get_location(street, zipcode)
     url = "https://api.smartystreets.com/street-address"
     res = post(url, base_params.merge(street: street, zipcode: zipcode))
+    raise AddressNotFound if !res || res.empty?
 
     location = OpenStruct.new
     location.street = street
     location.zipcode = zipcode
-    if !res || res.empty?
-      location.success = false
-    else
-      location.success = true
-      location.city = res[0]["components"]["city_name"]
-      location.zip4 = res[0]["components"]["plus4_code"]
-      location.state = res[0]["components"]["state_abbreviation"]
-      location.district = res[0]["metadata"]["congressional_district"]
-      location.district = "0" if location.district == "AL"
-    end
+    location.city = res[0]["components"]["city_name"]
+    location.zip4 = res[0]["components"]["plus4_code"]
+    location.state = res[0]["components"]["state_abbreviation"]
+    location.district = res[0]["metadata"]["congressional_district"]
+    location.district = "0" if location.district == "AL"
     return location
   end
 
@@ -32,6 +28,8 @@ module SmartyStreets
     location = get_location(street, zipcode)
     [location.state, location.district]
   end
+
+  class AddressNotFound < StandardError; end
 
   private
 

@@ -51,17 +51,9 @@ RSpec.describe "Congress Messages", type: :request do
     end
 
     it "displays an error when address lookup fails" do
-      allow(SmartyStreets).to receive(:get_location)
-        .and_return(OpenStruct.new(success: false))
+      allow(SmartyStreets).to receive(:get_location).and_raise SmartyStreets::AddressNotFound
       subject
       expect(response.body).to include "unable to find a congressional district"
-    end
-
-    it "displays an error when congress member lookup fails" do
-      location.state = "OR"
-      allow(SmartyStreets).to receive(:get_location).and_return(location)
-      subject
-      expect(response.body).to include "unable to find congressional representatives"
     end
 
     describe "it filters targets" do
@@ -116,7 +108,7 @@ RSpec.describe "Congress Messages", type: :request do
             "$TOPIC" => "Special_Requests"
           }
         },
-        bioguide_ids: ["C000880", "A000360"]
+        bioguide_ids: "C000880 A000360"
       }
     end
 

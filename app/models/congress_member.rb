@@ -33,8 +33,11 @@ class CongressMember < ActiveRecord::Base
   end
 
   def self.lookup(street:, zipcode:)
-    state, district = SmartyStreets.get_congressional_district(street, zipcode)
-    return none unless state && district
+    begin
+      state, district = SmartyStreets.get_congressional_district(street, zipcode)
+    rescue SmartyStreets::AddressNotFound
+      return none
+    end
     for_district(state, district)
   end
 

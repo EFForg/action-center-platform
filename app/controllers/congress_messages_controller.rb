@@ -5,22 +5,16 @@ class CongressMessagesController < ApplicationController
   before_action :update_user, only: :create
   before_action :subscribe_user, only: :create
 
+  rescue_from SmartyStreets::AddressNotFound, with: :address_not_found
+  rescue_from CongressForms::RequestFailed, with: :congress_forms_request_failed
+
   def new
     if @campaign.target_bioguide_ids.present?
       bioguide_ids = @campaign.target_bioguide_ids.split
     else
       location = SmartyStreets.get_location(params["street_address"], params["zipcode"])
-      unless location.success
-        render plain: I18n.t(:address_lookup_failed, scope: :congress_forms), status: :bad_request
-        return
-      end
       members = @campaign.targets.for_district(location.state, location.district)
       bioguide_ids = members.pluck(:bioguide_id)
-    end
-
-    if bioguide_ids.empty?
-      render plain: I18n.t(:reps_lookup_failed, scope: :congress_forms), status: :bad_request
-      return
     end
 
     forms = CongressForms::Form.find(bioguide_ids)
@@ -42,22 +36,6 @@ class CongressMessagesController < ApplicationController
   end
 
   private
-
-  def update_user
-    if params[:update_user_data] == "yes"
-      current_user.update(user_params.except(:email))
-    end
-  end
-
-  def subscribe_user
-    if params[:subscribe] == "1"
-      source = "action center congress message :: " + @action_page.title
-      user = User.find_or_initialize_by(email: user_params[:email])
-      user.attributes = user_params
-      user.subscribe!(opt_in = true, source = source)
-    end
-    create_partner_subscription
-  end
 
   def set_congress_message_campaign
     @campaign = CongressMessageCampaign.find(params["congress_message_campaign_id"])
@@ -90,9 +68,33 @@ class CongressMessagesController < ApplicationController
     user_params.permit(:first_name, :last_name, :email)
   end
 
+  def update_user
+    if params[:update_user_data] == "yes"
+      current_user.update(user_params.except(:email))
+    end
+  end
+
+  def subscribe_user
+    if params[:subscribe] == "1"
+      source = "action center congress message :: " + @action_page.title
+      user = User.find_or_initialize_by(email: user_params[:email])
+      user.attributes = user_params
+      user.subscribe!(opt_in = true, source = source)
+    end
+    create_partner_subscription
+  end
+
   def track_action
     ahoy.track "Action",
       { type: "action", actionType: "congress_message", actionPageId: params[:action_id] },
       action_page: @action_page
+  end
+
+  def address_not_found
+    render plain: I18n.t(:address_lookup_failed, scope: :congress_forms), status: :bad_request
+  end
+
+  def congress_forms_request_failed
+    render plain: I18n.t(:request_failed, scope: :congress_forms), status: :internal_server_error
   end
 end
