@@ -49,9 +49,10 @@ a.button {
 .checkbox label,
 [type="checkbox"]:not(:checked) + label,
 [type="checkbox"]:checked + label {
-  position: relative;
-  padding-left: 1.95em;
   cursor: pointer;
+  font-size: $base-font-size * 0.8;
+  padding-left: 1.95em;
+  position: relative;
 }
 
 /* checkbox aspect */
