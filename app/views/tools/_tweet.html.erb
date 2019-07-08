@@ -11,7 +11,7 @@
 
       <% if @tweet.targets.present? %>
         <div id="tweet-tool-container"<%= %( style="display: none").html_safe if @tweet.target_congress? %>>
-          <h3 class="twitter-tool-label"><em>Individuals</em></h3>
+          <h3 class="twitter-tool-label">Individuals</h3>
           <% initial_targets = @tweet.targets.sample(3) %>
           <% @tweet.targets.each do |target| %>
             <div class="tweet-individual"<%= %( style="display: none").html_safe unless initial_targets.include?(target) %>>
@@ -26,14 +26,14 @@
           <% end %>
 
           <% if @tweet.targets.size > 3 %>
-            <button class="btn btn-success btn-sm tweet-refresh"><i class="icon-loop"></i> Display another 3</button>
+            <button class="eff-button"><i class="icon-loop"></i> Display another 3</button>
           <% end %>
         </div>
       <% end %>
 
       <% if @tweet.target_congress? %>
         <div class="with-js">
-          <h3 class="twitter-tool-label" style="display: none"><em>Your Representatives</em></h3>
+          <h3 class="twitter-tool-label" style="display: none">Your Representatives</h3>
           <form class="tweet-tool validate" action="">
             <div class="form-group">
               <label for="street_address">Street address</label>
@@ -58,22 +58,24 @@
     </div>
 
     <input type="hidden" name="action-id" value="<%= @actionPage.id -%>">
+
+    <% if @tweet.target_congress? && !@reps.present? -%>
+      <p class="privacy-notice with-js">
+        This tool uses <a href="http://smartystreets.com/legal/privacy-policy" target="_blank">Smarty Streets</a>' API.
+      (<a class="privacy-notice-popover" href="#"
+        data-container="body"
+        data-toggle="popover"
+        data-title="Tweet Tool APIs"
+        data-html="true"
+        data-trigger="hover"
+        data-placement="auto"
+        data-content="<p>Our &quot;Tweet Your Representatives&quot; tool uses Smarty Streets' API to convert your street address and zip code to a congressional district.</p><p>This information isn't stored unless you're logged in.</p>"
+        >why?</a>).<br>
+        If you prefer not to use our tweet tool, <a href="https://www.eff.org/congress"  target="_blank">click here</a>.</p>
+    <% end -%>
   </div>
 
-  <% if @tweet.target_congress? && !@reps.present? -%>
-    <p class="privacy-notice with-js">
-      This tool uses <a href="http://smartystreets.com/legal/privacy-policy" target="_blank">Smarty Streets</a>' API.
-    (<a class="privacy-notice-popover" href="#"
-      data-container="body"
-      data-toggle="popover"
-      data-title="Tweet Tool APIs"
-      data-html="true"
-      data-trigger="hover"
-      data-placement="auto"
-      data-content="<p>Our &quot;Tweet Your Representatives&quot; tool uses Smarty Streets' API to convert your street address and zip code to a congressional district.</p><p>This information isn't stored unless you're logged in.</p>"
-      >why?</a>).<br>
-      If you prefer not to use our tweet tool, <a href="https://www.eff.org/congress"  target="_blank">click here</a>.</p>
-  <% end -%>
+
 
   <% unless current_user %>
     <%= form_for :subscription, url: subscriptions_path, remote: true, html: { class: "newsletter-subscription" } do |f| %>
