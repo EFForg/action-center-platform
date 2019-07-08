@@ -7,7 +7,7 @@ class CongressMessagesController < ApplicationController
 
   def new
     if @campaign.target_bioguide_ids.present?
-      bioguide_ids  = @campaign.target_bioguide_ids.split
+      bioguide_ids = @campaign.target_bioguide_ids.split
     else
       location = SmartyStreets.get_location(params["street_address"], params["zipcode"])
       unless location.success

@@ -123,7 +123,7 @@ RSpec.describe "Congress Messages", type: :request do
     subject do
       campaign_id = action_page.congress_message_campaign_id
       post("/congress_message_campaigns/#{campaign_id}/congress_messages",
-           params: message_attributes )
+           params: message_attributes)
     end
 
     before do
@@ -135,19 +135,19 @@ RSpec.describe "Congress Messages", type: :request do
       subject
       expect(WebMock).to have_requested(:post, /fill-out-form/).
         with(body: {
-        "bioguide_id":"C000880",
+        "bioguide_id": "C000880",
         "fields": {
-          "$NAME_FIRST":"Joyce",
-          "$NAME_LAST":"Summers",
-          "$ADDRESS_STREET":"1630 Ravello Drive",
-          "$ADDRESS_CITY":"Sunnydale",
-          "$ADDRESS_ZIP5":"94109",
-          "$EMAIL":"jsummers@altavista.com",
-          "$SUBJECT":"Take Action",
-          "$NAME_PREFIX":"Mrs.",
-          "$ADDRESS_STATE_POSTAL_ABBREV":"CA",
-          "$MESSAGE":"Impeach Mayor Richard Wilkins III",
-          "$TOPIC":"JU"
+          "$NAME_FIRST": "Joyce",
+          "$NAME_LAST": "Summers",
+          "$ADDRESS_STREET": "1630 Ravello Drive",
+          "$ADDRESS_CITY": "Sunnydale",
+          "$ADDRESS_ZIP5": "94109",
+          "$EMAIL": "jsummers@altavista.com",
+          "$SUBJECT": "Take Action",
+          "$NAME_PREFIX": "Mrs.",
+          "$ADDRESS_STATE_POSTAL_ABBREV": "CA",
+          "$MESSAGE": "Impeach Mayor Richard Wilkins III",
+          "$TOPIC": "JU"
         }
       })
     end

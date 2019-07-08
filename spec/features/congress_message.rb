@@ -1,6 +1,6 @@
 require "rails_helper"
 
-RSpec.feature "Submit congress message", :type => :feature do
+RSpec.feature "Submit congress message", type: :feature do
   let(:action_page) { FactoryGirl.create(:action_page_with_congress_message, :with_partner) }
 
   let(:partner) { action_page.partners.first }
