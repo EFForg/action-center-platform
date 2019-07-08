@@ -3,7 +3,7 @@
      data-tweet-message="<%= @tweet.message %>"
      data-tweet-related="<%= Rails.application.config.twitter_related.to_a.join(",") %>">
   <div class="tool-container">
-    <div class="tool-heading"><h3 class="tool-title"><%= @tweet.cta -%></h3></div>
+    <div class="tool-heading"><h3 class="tool-title">Take Action</h3></div>
     <div class="tool-body">
       <div id="tweet-message-wrapper"<%= %( style="display: none").html_safe if @tweet.target_congress? %>>
         <textarea class="form-control"><%= @tweet.message.html_safe -%></textarea>
