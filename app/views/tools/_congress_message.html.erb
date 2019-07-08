@@ -56,15 +56,6 @@
         "bioguide-ids": bioguide_ids(@congress_message_campaign, @target_bioguide_ids),
         "topic-category": @topic_category.to_json
       }) %>
-
-      <div class="thank-you" style="display: none;">
-        <div class="alert alert-success">Thank you for the email</div>
-      </div>
-
-      <div class="email-tool-success-share" style="display: none;">
-        <%= render "tools/share" -%>
-      </div>
-
     </div>
     <div class="tool-body without-js">
       <h4><strong>Our email tool requires javascript.</strong></h4>

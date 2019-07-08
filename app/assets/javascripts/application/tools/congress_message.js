@@ -2,9 +2,10 @@ $(document).on("ready", function() {
 
   var emailsSent = 0;
   var allEmailSent = function () {
-    $(".email-tool-success-share").delay(500).slideDown(600, height_changed);
     $(".step2-intro").delay(500).slideUp(null, height_changed);
     $(".legislator-label.common-fields").delay(500).slideUp(null, height_changed);
+    $('#congress-message-tool').hide();
+    $('#thank-you').show();
     var action_id = $("[data-action-id]").attr("data-action-id");
     var url = "/tools/message-congress?action_id=" + action_id;
     $.ajax({

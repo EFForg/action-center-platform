@@ -12,6 +12,6 @@
       <%= render "tools/tweet" if @actionPage.enable_tweet? && @actionPage.tweet %>
       <%= render "tools/mailing_list" if @no_tools == true %>
     <% end -%>
-
+    <%= render "tools/thank_you" unless @actionPage.enable_call? && @actionPage.call_campaign %>
   </div>
 </div>
