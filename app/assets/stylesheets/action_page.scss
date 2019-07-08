@@ -16,11 +16,8 @@
   }
 }
 #progress-bar {
-  .progress {
-    margin-bottom: 1.2em;
-  }
   .count, .goal {
-    font-size: 0.85em;
+    font-size: $base-font-size * 0.7;
   }
 }
 
@@ -71,7 +68,13 @@
     background-color: $gray-darker;
     color: black;
     margin-bottom: 1.5rem;
-
+    text-align: center;
+    h3 {
+      color: black;
+      font-size: $base-font-size;
+      line-height: $base-line-height;
+      margin-top: 0;
+    }
     a {
       color: black;
       border-bottom: 2px solid black;
@@ -227,6 +230,7 @@
   }
   .progress {
     height: 41px;
+    margin-bottom: 0;
   }
 }
 
@@ -374,7 +378,6 @@
 
 .description h3, h3.privacy-notice-header,
 h3.header, #tools #email-tool h3, #tools #congress-message-tool h3 {
-  color: black;
   position: relative;
   margin-bottom: 1em;
   text-align: left;
@@ -388,8 +391,6 @@ h3.header, #tools #email-tool h3, #tools #congress-message-tool h3 {
 }
 
 h3.privacy-notice-header {
-  font-size: 15px;
-  margin-top: 1em;
   span.privacy-notice-popover {
     @include transition (all 0.2s ease-in-out);
     display: inline-block;
@@ -571,10 +572,6 @@ h3.privacy-notice-header {
     margin-top: 0.1em;
     margin-bottom: 5px;
   }
-  h3 {
-    color: $charcoal;
-    margin-top: 0;
-  }
 }
 
 #tools #congress-message-tool {
@@ -647,10 +644,6 @@ h3.privacy-notice-header {
   }
 
   h3 {
-    font-size: $base-font-size;
-    color: $charcoal;
-    margin-top: 0;
-
     &.legislator-label {
       margin-top: 0px;
       margin-bottom: 10px;
