@@ -18,19 +18,18 @@ class Admin::ActionPagesController < Admin::ApplicationController
 
   def new
     @actionPage = ActionPage.new
-    @petition = @actionPage.petition = Petition.new
-    @tweet    = @actionPage.tweet    = Tweet.new
-    @call_campaign = @actionPage.call_campaign = CallCampaign.new
-    @email_campaign = @actionPage.email_campaign = EmailCampaign.new
-    @congress_message_campaign = @actionPage.congress_message_campaign = CongressMessageCampaign.new
-    @categories = Category.all.order :title
-    @topic_categories = TopicCategory.all.order :name
+    @actionPage.petition = Petition.new
+    @actionPage.tweet = Tweet.new
+    @actionPage.call_campaign = CallCampaign.new
+    @actionPage.email_campaign = EmailCampaign.new
+    @actionPage.congress_message_campaign = CongressMessageCampaign.new
     @actionPage.email_text = Rails.application.config.action_pages_email_text
     @source_files = SourceFile.order(created_at: :desc).limit(12)
   end
 
   def create
     @actionPage = ActionPage.new(action_page_params)
+
     if @actionPage.save
       redirect_to_action_page
     else
@@ -46,8 +45,6 @@ class Admin::ActionPagesController < Admin::ApplicationController
     @actionPage.email_campaign ||= EmailCampaign.new
     @actionPage.congress_message_campaign ||= CongressMessageCampaign.new
 
-    @categories = Category.all.order :title
-    @topic_categories = TopicCategory.all.order :name
     @source_files = SourceFile.order(created_at: :desc).limit(12)
   end
 
