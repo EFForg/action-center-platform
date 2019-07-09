@@ -4,7 +4,7 @@
      data-tweet-related="<%= Rails.application.config.twitter_related.to_a.join(",") %>">
   <div class="tool-container">
     <div class="tool-heading"><h3 class="tool-title">Take Action</h3></div>
-    <div class="tool-body">
+    <form >
       <div id="tweet-message-wrapper"<%= %( style="display: none").html_safe if @tweet.target_congress? %>>
         <textarea class="form-control"><%= @tweet.message.html_safe -%></textarea>
       </div>
@@ -46,6 +46,20 @@
             <%= render "tools/save_my_info_option", info: %w[address zipcode] -%>
             <input type=submit class="eff-red-button" value="Look up your reps">
             <%= render "tools/loading" -%>
+            <% if @tweet.target_congress? && !@reps.present? -%>
+              <p class="privacy-notice with-js">
+                This tool uses <a href="http://smartystreets.com/legal/privacy-policy" target="_blank">Smarty Streets</a>' API.
+              (<a class="privacy-notice-popover" href="#"
+                data-container="body"
+                data-toggle="popover"
+                data-title="Tweet Tool APIs"
+                data-html="true"
+                data-trigger="hover"
+                data-placement="auto"
+                data-content="<p>Our &quot;Tweet Your Representatives&quot; tool uses Smarty Streets' API to convert your street address and zip code to a congressional district.</p><p>This information isn't stored unless you're logged in.</p>"
+                >why?</a>).<br>
+                If you prefer not to use our tweet tool, <a href="https://www.eff.org/congress"  target="_blank">click here</a>.</p>
+            <% end -%>
           </form>
         </div>
         <div class="without-js">
@@ -55,24 +69,11 @@
           <textarea class="form-control"><%= @tweet.message.html_safe -%></textarea>
         </div>
       <% end -%>
-    </div>
+    </form>
 
     <input type="hidden" name="action-id" value="<%= @actionPage.id -%>">
 
-    <% if @tweet.target_congress? && !@reps.present? -%>
-      <p class="privacy-notice with-js">
-        This tool uses <a href="http://smartystreets.com/legal/privacy-policy" target="_blank">Smarty Streets</a>' API.
-      (<a class="privacy-notice-popover" href="#"
-        data-container="body"
-        data-toggle="popover"
-        data-title="Tweet Tool APIs"
-        data-html="true"
-        data-trigger="hover"
-        data-placement="auto"
-        data-content="<p>Our &quot;Tweet Your Representatives&quot; tool uses Smarty Streets' API to convert your street address and zip code to a congressional district.</p><p>This information isn't stored unless you're logged in.</p>"
-        >why?</a>).<br>
-        If you prefer not to use our tweet tool, <a href="https://www.eff.org/congress"  target="_blank">click here</a>.</p>
-    <% end -%>
+
   </div>
 
 
