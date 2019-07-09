@@ -41,7 +41,7 @@
 
   [type="checkbox"]:not(:checked) + label,
   [type="checkbox"]:checked + label {
-    margin-left: 1rem;
+    @extend p;
     @media screen and (min-width: $ph) {
       margin-left: 0;
     }
@@ -54,7 +54,6 @@
 }
 
 #description {
-  margin-top: 3em;
   p, li {
     margin-bottom: 1em;
   }
@@ -723,9 +722,7 @@ h3.privacy-notice-header {
   fieldset[disabled] textarea.form-control {
     cursor: default;
   }
-  .btn-red-outline {
-    margin-bottom: 1rem;
-  }
+
   i {
     margin-right: 5px;
     margin-left: 0;
@@ -739,25 +736,11 @@ h3.privacy-notice-header {
     top: 1px;
     margin-right: 0;
   }
-  .btn-sm {
-    margin-bottom: 7px;
-    padding-left: 5px;
-    letter-spacing: 0.03em;
-  }
-  .btn-red {
-    font-size: 14px;
-    text-transform: none;
-    padding: 10px 20px;
-    margin-bottom: 10px;
-    letter-spacing: 0.02em;
-  }
   .small {
-    padding-top: 5px;
-    margin-bottom: 5px;
+    margin: 1rem 0;
     text-transform: uppercase;
     font-size: $base-font-size * 0.7;
     font-weight: bold;
-    letter-spacing: 0.05em;
   }
 }
 
