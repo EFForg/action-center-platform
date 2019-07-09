@@ -1,7 +1,15 @@
 class Admin::ActionPagesController < Admin::ApplicationController
   include DateRange
 
-  before_action :set_action_page, except: [:new, :index, :create, :homepage, :update_featured_action_pages]
+  before_action :set_action_page, only: [
+    :edit,
+    :update,
+    :destroy,
+    :events,
+    :events_table,
+    :preview
+  ]
+
   before_action :set_s3_post, only: [:new, :edit, :create, :update]
 
   after_action :purge_cache, only: [:update, :publish]
@@ -31,7 +39,7 @@ class Admin::ActionPagesController < Admin::ApplicationController
     @actionPage = ActionPage.new(action_page_params)
 
     if @actionPage.save
-      redirect_to_action_page
+      redirect_to action_page_path(@actionPage)
     else
       render "new"
     end
@@ -66,19 +74,6 @@ class Admin::ActionPagesController < Admin::ApplicationController
     redirect_to admin_action_pages_path, notice: "Deleted action page: #{@actionPage.title}"
   end
 
-  def show
-    render json: @actionPage
-  end
-
-  def publish
-    @actionPage.update(published: true)
-    redirect_to admin_action_pages_path, notice: "Published page: #{@actionPage.title}"
-  end
-
-  def unpublish
-    @actionPage.update(published: false)
-    redirect_to admin_action_pages_path, notice: "Unpublished page: #{@actionPage.title}"
-  end
 
   def preview
     @actionPage.attributes = action_page_params
@@ -165,14 +160,6 @@ class Admin::ActionPagesController < Admin::ApplicationController
                                                success_action_status: "201", acl: "public-read")
   end
 
-  def redirect_to_action_page
-    redirect_to action_page_path(@actionPage)
-  end
-
-  def default_values
-    self.email_text ||= "default value"
-  end
-
   def action_page_params
     params.require(:action_page).permit(
       :title, :summary, :description, :category_id, :featured_image, :background_image,
@@ -200,14 +187,6 @@ class Admin::ActionPagesController < Admin::ApplicationController
         :alt_text_customize_message_helper, :campaign_tag
       ]
     )
-  end
-
-  def tweet_params
-    params.permit(:add_targets)
-  end
-
-  def featured_page_params
-    params.permit(:fp1, :fp2, :fp3, :fp4)
   end
 
   def purge_cache
