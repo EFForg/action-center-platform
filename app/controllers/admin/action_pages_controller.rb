@@ -1,9 +1,9 @@
 class Admin::ActionPagesController < Admin::ApplicationController
   include DateRange
+
   before_action :set_action_page, except: [:new, :index, :create, :homepage, :update_featured_action_pages]
-  before_action :cleanup_congress_message_params, only: [:update]
   before_action :set_s3_post, only: [:new, :edit, :create, :update]
-  skip_before_action :verify_authenticity_token, only: [:update_featured_action_pages]
+
   after_action :purge_cache, only: [:update, :publish]
 
   allow_collaborators_to :index, :edit
@@ -21,7 +21,6 @@ class Admin::ActionPagesController < Admin::ApplicationController
     @petition = @actionPage.petition = Petition.new
     @tweet    = @actionPage.tweet    = Tweet.new
     @call_campaign = @actionPage.call_campaign = CallCampaign.new
-    # Todo - Gotta convert email campaigns to singular - Thomas
     @email_campaign = @actionPage.email_campaign = EmailCampaign.new
     @congress_message_campaign = @actionPage.congress_message_campaign = CongressMessageCampaign.new
     @categories = Category.all.order :title
@@ -218,15 +217,6 @@ class Admin::ActionPagesController < Admin::ApplicationController
     if Rails.application.secrets.fastly_api_key.present?
       fastly = Fastly.new(api_key: Rails.application.secrets.fastly_api_key)
       fastly.purge action_page_url(@actionPage)
-    end
-  end
-
-  def cleanup_congress_message_params
-    if params[:action_page][:congress_message_campaign_attributes][:target_specific_legislators] != "1"
-      params[:action_page][:congress_message_campaign_attributes][:target_bioguide_ids] = nil
-    else
-      people = params[:action_page][:congress_message_campaign_attributes][:target_bioguide_ids].select(&:present?)
-      params[:action_page][:congress_message_campaign_attributes][:target_bioguide_ids] = people.join(", ")
     end
   end
 
