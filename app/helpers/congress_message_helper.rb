@@ -39,7 +39,7 @@ module CongressMessageHelper
       email_field_tag name, prefill, congress_forms_field_defaults(field)
     elsif field.is_select?
       select_tag name, options_for_select(field.options_hash, prefill),
-        class: "form-control", "aria-label": field.label, include_blank: field.label
+        class: "form-control", "aria-label": field.label, include_blank: field.label, required: true
     else
       text_field_tag name, prefill, congress_forms_field_defaults(field)
     end

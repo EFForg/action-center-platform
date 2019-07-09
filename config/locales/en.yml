@@ -86,7 +86,7 @@ en:
     $NAME_LAST: Your last name
     $NAME_FIRST: Your first name
     $EMAIL: Your email
-    $TOPIC: Message topic
+    $TOPIC: Choose a topic
     $NAME_PREFIX: Your prefix
     $PHONE: Your phone number
     address_lookup_failed: We were unable to find a congressional district for the address you entered. Make sure you *only* entered your street address (without your city and state). Please check and try again.
