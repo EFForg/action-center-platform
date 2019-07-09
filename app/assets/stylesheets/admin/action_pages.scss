@@ -29,3 +29,51 @@
     }
   }
 }
+
+.action_pages-status .edit_action_page {
+  .grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    column-gap: 2em;
+    row-gap: 2em;
+  }
+
+  .grid input[type=radio] {
+    position: absolute;
+    width: 0;
+    height: 0;
+  }
+
+  .grid input[type=radio] + label {
+    display: block;
+    padding: 1em 2em;
+    border: 2px solid $border-gray;
+    cursor: pointer;
+
+    strong {
+      display: block;
+    }
+  }
+
+  .grid input[type=radio]:checked {
+    + label {
+      border: 2px dashed #00f;
+    }
+
+    &[value=live] + label {
+      background: #bbeabb;
+    }
+
+    &[value=archived] + label {
+      background: #eaeaea;
+    }
+
+    &[value=draft] + label {
+      background: #eaeaea;
+    }
+
+    &[value=victory] + label {
+      background: rgba(gold, 0.6);
+    }
+  }
+}

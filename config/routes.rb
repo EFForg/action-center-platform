@@ -109,6 +109,8 @@ Actioncenter::Application.routes.draw do
         match :index, via: :delete, on: :collection, action: :destroy_all
       end
 
+      get :status
+
       get :events
       get :"events-table"
       get :views, to: "events#views"

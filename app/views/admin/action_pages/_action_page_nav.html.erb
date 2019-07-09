@@ -21,6 +21,6 @@
   <% if @actionPage.persisted? %>
     <li><%= nav_link_to "Preview", "#" %></li>
     <li><%= nav_link_to "Analytics", admin_action_page_events_path(@actionPage) %></li>
-    <li><%= nav_link_to "Change Status", "#" %></li>
+    <li><%= nav_link_to "Change Status", admin_action_page_status_path(@actionPage) %></li>
   <% end %>
 </ul>

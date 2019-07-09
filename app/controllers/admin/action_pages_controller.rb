@@ -52,6 +52,9 @@ class Admin::ActionPagesController < Admin::ApplicationController
     @source_files = SourceFile.order(created_at: :desc).limit(12)
   end
 
+  def status
+  end
+
   def update
     @actionPage.background_image = nil if params[:destroy_background_image]
     @actionPage.featured_image   = nil if params[:destroy_featured_image]
@@ -180,7 +183,7 @@ class Admin::ActionPagesController < Admin::ApplicationController
       :enable_call, :enable_petition, :enable_email, :enable_tweet,
       :enable_congress_message, :og_title, :og_image, :share_message, :published,
       :call_campaign_id, :what_to_say, :redirect_url, :email_text, :enable_redirect,
-      :victory, :victory_message, :archived_redirect_action_page_id, :archived,
+      :victory, :victory_message, :archived_redirect_action_page_id, :archived, :status,
       partner_ids: [], action_page_images_attributes: [:id, :action_page_image],
       call_campaign_attributes: [:id, :title, :message, :call_campaign_id],
       petition_attributes: [:id, :title, :description, :goal, :enable_affiliations],

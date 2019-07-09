@@ -77,18 +77,6 @@ class ActionPage < ActiveRecord::Base
     nil
   end
 
-  def status
-    if archived?
-      "Archive"
-    elsif victory?
-      "Victory"
-    elsif published?
-      "Live"
-    else
-      "Draft"
-    end
-  end
-
   def should_generate_new_friendly_id?
     # create slugs with FriendlyId and respect our custom slugs
     # set a custom slug with `page.update(slug: new_slug)`
@@ -138,6 +126,42 @@ class ActionPage < ActiveRecord::Base
 
   def image
     og_image || background_image || featured_image
+  end
+
+  def status
+    if archived?
+      "archived"
+    elsif victory?
+      "victory"
+    elsif published?
+      "live"
+    else
+      "draft"
+    end
+  end
+
+  def status=(status)
+    case status
+    when "live"
+      self.published = true
+      self.archived = false
+      self.victory = false
+
+    when "archived"
+      self.published = false
+      self.archived = true
+      self.victory = false
+
+    when "victory"
+      self.published = false
+      self.archived = false
+      self.victory = true
+
+    when "draft"
+      self.published = false
+      self.archived = false
+      self.victory = false
+    end
   end
 
   def no_drafts_on_homepage

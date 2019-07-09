@@ -1,0 +1,40 @@
+<% content_for(:nav) { render "action_page_nav" } %>
+
+<h2><%= @actionPage.title %></h2>
+<em class="author-info">Created on <%= @actionPage.created_at.strftime('%m/%d/%Y') %></em>
+
+<%= form_for([:admin, @actionPage]) do |f| %>
+  <fieldset class="form-item">
+    <legend>Status</legend>
+
+    <div class="grid">
+      <%= f.radio_button :status, "live" %>
+      <label for="action_page_status_live">
+        <strong>Live</strong>
+        Live actions are visible to all users. Users can contribute to campaigns via emails, Tweets, etc.
+      </label>
+
+      <%= f.radio_button :status, "archived" %>
+      <label for="action_page_status_archived">
+        <strong>Archive</strong>
+        Archive actions are NOT visible to users. This status is applied when a campaign no longer needs contributions.
+      </label>
+
+      <%= f.radio_button :status, "draft" %>
+      <label for="action_page_status_draft">
+        <strong>Draft</strong>
+        Unpublished and not visible to users, but available to admins.
+      </label>
+
+      <%= f.radio_button :status, "victory" %>
+      <label for="action_page_status_victory">
+        <strong>Victory</strong>
+        Victory actions are visible to users and include a message about the outcome.
+      </label>
+    </div>
+  </fieldset>
+
+  <div class="form-actions">
+    <%= f.submit "Update" %>
+  </div>
+<% end %>
