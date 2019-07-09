@@ -10,8 +10,6 @@ class Admin::ActionPagesController < Admin::ApplicationController
     :preview
   ]
 
-  before_action :set_s3_post, only: [:new, :edit, :create, :update]
-
   after_action :purge_cache, only: [:update, :publish]
 
   allow_collaborators_to :index, :edit
@@ -153,11 +151,6 @@ class Admin::ActionPagesController < Admin::ApplicationController
 
   def set_action_page
     @actionPage = ActionPage.friendly.find(params[:id] || params[:action_page_id])
-  end
-
-  def set_s3_post
-    @s3_direct_post = S3_BUCKET.presigned_post(key: "uploads/#{SecureRandom.uuid}/${filename}",
-                                               success_action_status: "201", acl: "public-read")
   end
 
   def action_page_params
