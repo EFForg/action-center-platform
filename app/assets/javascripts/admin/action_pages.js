@@ -1,4 +1,24 @@
-$(document).on('change', 'input[name=action_type]', function(e) {
+(function() {
+  var filterActionPages = function(e) {
+    if (e.type == "submit")
+      e.preventDefault();
+
+    var form = $(e.target).closest("form")[0];
+
+    // timeout required for this to behave correctly during a form reset
+    setTimeout(function() {
+      $.get(form.action + '?' + $(form).serialize(), function(resp) {
+        $('#content .table').replaceWith(resp);
+      });
+    }, 1);
+  };
+
+  $('#filter_action_pages').on('submit', filterActionPages);
+  $('#filter_action_pages').on('reset', filterActionPages);
+  $('#filter_action_pages select').on('change', filterActionPages);
+})();
+
+$('.action_pages-edit, .action_pages-new').on('change', 'input[name=action_type]', function(e) {
   $('.action-fields').removeClass('active')
     .filter('[data-action_type=' + e.target.value +']')
     .addClass('active');
