@@ -69,7 +69,7 @@ RSpec.describe "Congress Messages", type: :request do
 
     describe "it filters targets" do
       before do
-        stub_congress_forms_find_with_single_rep
+        stub_congress_forms_find_with_one_rep
       end
 
       it "to target bioguide_ids" do
@@ -134,7 +134,7 @@ RSpec.describe "Congress Messages", type: :request do
       subject
       expect(WebMock).to have_requested(:post, /fill-out-form/).
         with(body: {
-        "bioguide_id": "C000880",
+        "bio_id": "C000880",
         "fields": {
           "$NAME_FIRST": "Joyce",
           "$NAME_LAST": "Summers",
@@ -147,7 +147,8 @@ RSpec.describe "Congress Messages", type: :request do
           "$ADDRESS_STATE_POSTAL_ABBREV": "CA",
           "$MESSAGE": "Impeach Mayor Richard Wilkins III",
           "$TOPIC": "JU"
-        }
+        },
+        campaign_tag: "a campaign tag"
       })
     end
 

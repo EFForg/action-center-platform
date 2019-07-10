@@ -21,8 +21,8 @@ module CongressForms
       @fields = @fields.sort_by { |f| order.index(f.value) || Float::INFINITY }
     end
 
-    def fill(input)
-      params = { bioguide_id: @bioguide_id, fields: input }
+    def fill(input, campaign_tag)
+      params = { bio_id: @bioguide_id, campaign_tag: campaign_tag, fields: input }
       CongressForms.post("/fill-out-form/", params)
     end
   end

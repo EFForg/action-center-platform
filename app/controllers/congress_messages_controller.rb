@@ -23,8 +23,9 @@ class CongressMessagesController < ApplicationController
   end
 
   def create
-    @message = CongressMessage.new(congress_message_params)
+    @message = CongressMessage.new(congress_message_params.merge(campaign: @campaign))
     @message.forms = CongressForms::Form.find(params["bioguide_ids"].split)
+
     if @message.submit
       @name = user_params[:first_name] # for deliver_thanks_message
       track_action
@@ -40,7 +41,7 @@ class CongressMessagesController < ApplicationController
   def set_congress_message_campaign
     @campaign = CongressMessageCampaign.find(params["congress_message_campaign_id"])
     @actionPage = @campaign.action_page
-    @action_page = @actionPage # Account for inconsistent naming in views + concerns.
+    @action_page = @actionPage # Account for inconsistent naming in views.
   end
 
   def congress_message_params

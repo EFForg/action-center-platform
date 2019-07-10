@@ -39,11 +39,13 @@ describe CongressForms do
     describe "#fill" do
       it "posts to the congress forms API" do
         stub_request(:post, /fill-out-form/).
-          with(body: { "bioguide_id" => "C000880", "fields" => input }).
+          # with(body: { "bioguide_id" => "C000880", "fields" => input }).
           and_return(status: 200, body: "{}")
-        form.fill(input)
+        campaign = FactoryGirl.build(:congress_message_campaign)
+        form.fill(input, campaign.campaign_tag)
         expect(WebMock).to have_requested(:post, /fill-out-form/).
-          with(body: { "bioguide_id" => "C000880", "fields" => input })
+          with(body: { bio_id: "C000880", fields: input,
+                       campaign_tag: campaign.campaign_tag })
       end
     end
   end

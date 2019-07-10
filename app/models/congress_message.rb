@@ -2,8 +2,7 @@ class CongressMessage
   include ActiveModel::Model
   validate :attributes_satisfy_forms
 
-  attr_accessor :forms
-
+  attr_accessor :forms, :campaign
   attr_writer :common_attributes, :member_attributes
   def common_attributes() @common_attributes || {}; end
   def member_attributes() @member_attributes || {}; end
@@ -24,7 +23,7 @@ class CongressMessage
         "$ADDRESS_STATE_POSTAL_ABBREV" => location.state
       })
     end
-    new({ common_attributes: common_attributes, forms: forms })
+    new({ common_attributes: common_attributes, forms: forms , campaign: campaign })
   end
 
   def common_fields
@@ -67,7 +66,7 @@ class CongressMessage
 
   def submit
     if valid?
-      @forms.each { |f| f.fill(attributes_for(f.bioguide_id)) }
+      @forms.each { |f| f.fill(attributes_for(f.bioguide_id), campaign.campaign_tag) }
     end
   end
 end
