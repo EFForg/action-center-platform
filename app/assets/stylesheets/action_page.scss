@@ -494,16 +494,10 @@ h3.privacy-notice-header {
 }
 
 #tools #call-tool {
-  padding-bottom: 0;
-  .tool-body {
-    padding-bottom: 0;
-  }
   .tool-container {
     padding-bottom: 0.5em;
   }
-  .form-group:last-child {
-    margin-bottom: 0;
-  }
+
   .privacy-notice {
     margin-bottom: 0px;
     text-align: center;
@@ -525,7 +519,8 @@ h3.privacy-notice-header {
     margin-top: 1rem;
   }
   .call-script {
-    padding: 0px;
+    background: $off-white;
+    padding: 1rem;
     font-size: $base-font-size * 0.9;
   }
   .call-body-active .advisory {
@@ -533,6 +528,10 @@ h3.privacy-notice-header {
   }
   .form-errors {
     margin-bottom: 1rem;
+  }
+
+  .call-body-phone-saved p.privacy-notice {
+    padding: 2rem;
   }
 }
 

@@ -2,7 +2,7 @@
   <div id="call-tool" class="tool">
     <div class="tool-container">
       <div class="tool-heading">
-        <h2 class="tool-title precall "><%= @actionPage.call_tool_title %></h2>
+        <h2 class="tool-title precall ">Take Action</h2>
         <h2 class="tool-title postcall hidden">Calling you now</h2>
       </div>
 
@@ -48,7 +48,7 @@
               <div class="form-errors info-circle error hidden"></div>
 
               <div class="form-group">
-                <button type="submit" class="eff-red-button call-tool-submit action">Call Now</button>
+                <button type="submit" class="eff-red-button">Call Now</button>
               </div>
             </fieldset>
               <p class="privacy-notice">Uses <a href="http://smartystreets.com/legal/privacy-policy" target="_blank">Smarty Streets</a>' and <a href="https://www.twilio.com/legal/privacy" target="_blank">Twilio</a>'s APIs (<a class="privacy-notice-popover" href="#"
@@ -78,7 +78,7 @@
             </div>
             <p class="small">Press the button below and we'll call you at <strong><%= current_user.try :phone -%></strong> and connect you to your representatives. <p>
             <p class="smalltext"><a class="call-tool-different-number" href="#">Need to use a different number?</a></p>
-            <button type="submit" class="eff-red-button call-tool-submit action">Call now</button>
+            <button type="submit" class="eff-red-button">Call now</button>
           </form>
               <p class="privacy-notice">Uses <a href="http://smartystreets.com/legal/privacy-policy" target="_blank">Smarty Streets</a>' and <a href="https://www.twilio.com/legal/privacy" target="_blank">Twilio</a>'s APIs (<a class="privacy-notice-popover" href="#"
             data-container="body"
