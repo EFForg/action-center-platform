@@ -17,6 +17,7 @@
                 <span class="customize-message-popover" data-container="body" data-toggle="popover" data-trigger="hover" data-placement="auto bottom" data-content="<%= @congress_message_campaign.look_up_helper_text "We'll use your address to look up your congressional district and find your representatives." %>">?</span>
                 <em><%= @congress_message_campaign.look_up_your_rep_text "Look up your representatives" %></em>
               </h3>
+              <div id="errors"></div>
 
               <div class="form-group">
                 <%= text_field_tag :street_address,

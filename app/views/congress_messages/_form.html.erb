@@ -3,6 +3,7 @@
   <p class="step2-intro">
     <%= @campaign.extra_fields_explain_text("We send your comments to your representatives by automatically filling out their online contact forms. Because each representative's form is a little different, we need your help filling out a few extra fields before we can send your message:") %>
   </p>
+  <div id="errors"></div>
   <% if @message.common_fields.any? %>
     <h3 class="legislator-label common-fields">
       <em>Common fields</em>
