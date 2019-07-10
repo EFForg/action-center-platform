@@ -2,7 +2,11 @@ class CongressMessage
   include ActiveModel::Model
   validate :attributes_satisfy_forms
 
-  attr_accessor :forms, :common_attributes, :member_attributes
+  attr_accessor :forms
+
+  attr_writer :common_attributes, :member_attributes
+  def common_attributes() @common_attributes || {}; end
+  def member_attributes() @member_attributes || {}; end
 
   # @TODO no longer need to CSS hide these fields
   def self.new_from_lookup(location, message, campaign, forms)
@@ -46,7 +50,7 @@ class CongressMessage
   end
 
   def attributes_for(bioguide_id)
-    return common_attributes unless member_attributes && member_attributes[bioguide_id]
+    return common_attributes unless member_attributes[bioguide_id]
     common_attributes.merge(member_attributes[bioguide_id])
   end
 

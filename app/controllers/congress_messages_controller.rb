@@ -46,8 +46,8 @@ class CongressMessagesController < ApplicationController
   def congress_message_params
     # In Rails 5.1 we can do params.permit(common_attributes: {}, member_attributes: {})
     params.permit.tap do |p|
-      p[:common_attributes] = params[:common_attributes].permit!
-      p[:member_attributes] = params[:member_attributes].permit!
+      p[:common_attributes] = params[:common_attributes] && params[:common_attributes].permit!
+      p[:member_attributes] = params[:member_attributes] && params[:member_attributes].permit!
     end
   end
 
