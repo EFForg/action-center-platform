@@ -1,6 +1,5 @@
 <div id="petition-tool" class="tool <%= 'un' unless current_user.try(:signed?, @actionPage.petition) || params[:thankyou] -%>signed" data-petition-id="<%= @actionPage.petition.id %>">
   <div class="tool-container">
-
     <div class="tool-heading">
       <h2 class="tool-title signed">
         <span class='glyphicon glyphicon-ok'></span>Signed
@@ -35,7 +34,7 @@
       <% end -%>
 
         <div class='signed'>
-          <%= render 'tools/share' -%>
+          <%= render 'tools/thank_you' -%>
         </div>
         <div class='unsigned'>
           <%= form_for @signature, url: '/tools/petition',
@@ -104,11 +103,3 @@
       </div>
     </div>
   </div>
-</div>
-
-<% if !@petition.enable_affiliations? -%>
-<div id='signatures' class="hidden-xs ajax-update">
-  <h4 class='header'><em><%= t :recent_signatories -%></em></h4>
-  <%= render(partial: "tools/signatures", layout: false) %>
-</div>
-<% end -%>

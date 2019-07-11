@@ -102,6 +102,11 @@ h5.category {
           color: #14618b;
         }
       }
+
+      img {
+        width: 100px;
+        height: 100px;
+      }
     }
 
     .tool-body {
@@ -227,8 +232,21 @@ h5.category {
   .progress {
     height: 41px;
   }
+
 }
 
+#thank-you.tool {
+  display: none;
+  .social-button {
+    display: inline-block;
+  }
+  #tweet-back {
+    text-decoration: underline;
+    &:hover {
+      cursor: pointer;
+    }
+  }
+}
 .js {
   .tool {
     .email-signup + .email-signup {
