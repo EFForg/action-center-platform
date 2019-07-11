@@ -85,7 +85,7 @@
     clear: both;
     span {
       font-weight: bold;
-      color: $red;
+      color: $eff-red;
       letter-spacing: -1px;
       font-size: 36px;
     }
@@ -157,9 +157,6 @@ span.green-rect {
 .confirmations-create,
 .confirmations-show,
 .unlocks-new {
-  .wrapper {
-    //background-color: $red;
-  }
 
   input.form-control {
     border: 2px solid #fff;
