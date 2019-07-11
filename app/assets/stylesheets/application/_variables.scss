@@ -3,29 +3,32 @@ $small-font-size:  $base-font-size * 0.875;
 $base-line-height: 1.5;
 
 /* colors */
-$eff-red: #ec1e1e;
-$red: #FF0000;
+$eff-red: #ec1e1e;  // navbar bg
+$red: #FF0000; // old red, still used in admin
 $dark-red: #b80101;
 
-$blue: #0f6499;
+$blue: #0f6499;  // alerts
 $green: #7dcc00;
-$off-white: #EAEAEA;
 
-$dark-blue: #254B66;
-$medium-blue: #4B6A88;
+$off-white: #EAEAEA; // font-color
+
+$medium-blue: #4B6A88;  // button colors
 $slate: #9AAFBC;
 $light-blue: #CAD5D8;
-$lightest-blue: #E5EBEC;
 
 $gray-light: #edf1f4;
 $gray: #BABABA;
-$gray-dark: #999999; // footer text
+$gray-dark: #999999;
 $gray-darker: #949494; // tool bg
-$charcoal: #2D2D2D; // background
+$charcoal: #2D2D2D; // site background
+
+/* semantic color names */
+$site-bg: #2D2D2D; // charcoal
+$tool-bg: #949494; // gray-darker
+$font-color: #EAEAEA; // off-white
 
 /* fonts */
 $sans-serif: 'Montserrat', Arial, sans-serif;
-$serif: 'Merriweather', serif;
 $league: 'LeagueGothic', Arial, serif;
 
 /* max site width */
@@ -41,9 +44,3 @@ $xl: 80em;
 
 // at 16px, that is 192, 268, 544, 768, 1056, and 1280px respectively
 // Bootstrap variables
-
-$font-family-sans-serif: $sans-serif, Helvetica, Arial, sans-serif;
-$font-family-base: $font-family-sans-serif;
-$navbar-height: 55px;
-$font-size-base: 17px;
-$line-height-base: 1.53;

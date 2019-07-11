@@ -3,13 +3,14 @@ $nav-color:  black;
 $nav-font-color: white;
 $nav-font-size: 1.1rem;
 $nav-text-transform: uppercase;
+$nav-bg: #ec1e1e; // eff-red
 
 body {
   margin-top: $nav-height;
 }
 
 nav {
-  background-color: $eff-red;
+  background-color: $nav-bg;
   display: block;
   height: $nav-height;
   position: fixed;
@@ -23,7 +24,7 @@ nav {
   }
   a {
     border: none;
-    color: white;
+    color: $nav-font-color;
     display: inline-block;
     text-decoration: none;
     &:hover {
@@ -37,7 +38,7 @@ nav {
     @media screen and (min-width: $md) {
       display: none;
     }
-    color: white;
+    color: $nav-font-color;
     display: inline-block;
     margin-top: 1.1em;
   }
@@ -64,16 +65,16 @@ nav {
       text-transform: $nav-text-transform;
       font-size: $nav-font-size;
       font-weight: 700;
-      color: white;
+      color: $nav-font-color;
       a {
-        color: white;
+        color: $nav-font-color;
         &.active {
-          color: white;
+          color: $nav-font-color;
         }
         &:hover {
           &:not(.menu-logo) {
-            border-bottom: 2px solid white;
-            color: white;
+            border-bottom: 2px solid $nav-font-color;
+            color: $nav-font-color;
           }
         }
       }
@@ -126,12 +127,12 @@ nav {
       background: none;
       border: none;
       cursor: pointer;
-      color: white;
+      color: $nav-font-color;
       margin: 0;
       text-decoration: none;
       text-transform: uppercase;
       &:hover {
-        border-bottom: 2px solid white;
+        border-bottom: 2px solid $nav-font-color;
       }
     }
   }
