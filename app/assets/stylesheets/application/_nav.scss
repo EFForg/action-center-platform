@@ -11,7 +11,7 @@ body {
 nav {
   background-color: $eff-red;
   display: block;
-  height: 70px;
+  height: $nav-height;
   position: fixed;
   left: 0;
   top: 0;
