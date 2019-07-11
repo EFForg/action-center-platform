@@ -120,23 +120,7 @@ section.more-actions {
     }
 
   }
-  .col-md-4 {
-    position: relative;
-    &:hover {
-      h3 {
-        color: $red;
-      }
-    }
-    &:last-child {
-      @media (max-width: 991px) {
-        margin-bottom: 0px;
-      }
-    }
-    @media (max-width: 991px) {
-      margin-bottom: 70px;
-    }
 
-  }
   p.seemore {
     text-align: center;
     color: $red;
