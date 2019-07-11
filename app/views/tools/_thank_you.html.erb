@@ -1,30 +1,28 @@
-<div class="tool" id="thank-you">
-  <div class="tool-container">
-    <div class="tool-heading">
-      <%= image_tag 'thankyou-circle.png', alt: 'Illustration of a woman with green hair using a laptop' %>
-      <h3 class="tool-title">Thank You!</h3>
-    </div>
-    <div class="tool-body">
-      <hr>
-      <h4>Spread the word:</h4>
-      <a data-network="twitter" href="<%= twitter_share_url(@actionPage) -%>" count="0" target="_blank" class="social-button" >
-        <div class="sicon" id="stwit"></div>
-      </a>
-      <a href="<%= facebook_share_url(@actionPage) -%>" data-network="facebook" count="0" target="_blank" class="social-button">
-        <div class="sicon" id="sfb"></div>
-      </a>
-      <a href="<%= email_friends_url(@actionPage) -%>" count="0" target="_blank" class="social-button">
-        <div class="sicon" id="semail"></div>
-      </a>
-      <hr>
-      <p> EFF is supported by donations from folks like you. We appreciate anything you can give! </p>
-      <a href="https://supporters.eff.org/donate">Donate</a>
-      <hr>
-      <% if @actionPage.enable_tweet && @actionPage.tweet %>
-        <% if @actionPage.tweet.targets.present? && (@actionPage.tweet.targets.size > 1) %>
-          <span id="tweet-back">Want to tweet at others? Go back</span>
-        <% end %>
+<div class="tool-container">
+  <div class="tool-heading">
+    <%= image_tag 'thankyou-circle.png', alt: 'Illustration of a woman with green hair using a laptop' %>
+    <h3 class="tool-title">Thank You!</h3>
+  </div>
+  <div class="tool-body">
+    <hr>
+    <h4>Spread the word:</h4>
+    <a data-network="twitter" href="<%= twitter_share_url(@actionPage) -%>" count="0" target="_blank" class="social-button" >
+      <div class="sicon" id="stwit"></div>
+    </a>
+    <a href="<%= facebook_share_url(@actionPage) -%>" data-network="facebook" count="0" target="_blank" class="social-button">
+      <div class="sicon" id="sfb"></div>
+    </a>
+    <a href="<%= email_friends_url(@actionPage) -%>" count="0" target="_blank" class="social-button">
+      <div class="sicon" id="semail"></div>
+    </a>
+    <hr>
+    <p> EFF is supported by donations from folks like you. We appreciate anything you can give! </p>
+    <a href="https://supporters.eff.org/donate">Donate</a>
+    <hr>
+    <% if @actionPage.enable_tweet && @actionPage.tweet %>
+      <% if @actionPage.tweet.targets.present? && (@actionPage.tweet.targets.size > 1) %>
+        <span id="tweet-back">Want to tweet at others? Go back</span>
       <% end %>
-    </div>
+    <% end %>
   </div>
 </div>
