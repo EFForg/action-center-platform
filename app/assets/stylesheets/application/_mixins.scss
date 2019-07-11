@@ -1,19 +1,3 @@
-@mixin speak-out-button {
-  @include transition (background-color 0.2s ease-in-out);
-  width: 100%;
-  border: none;
-  font-size: 0.9em;
-  padding: 10px 0;
-  background-color: $red;
-  color: #fff;
-  text-transform: uppercase;
-  margin-top: 1em;
-  letter-spacing: 0.06em;
-  &:hover {
-    background-color: darken($red, 15%);
-  }
-}
-
 @mixin griddy { // class for css-grid parent
   display: grid;
   grid-template-columns: 45% 45%;
