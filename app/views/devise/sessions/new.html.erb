@@ -1,7 +1,7 @@
 <div class="top-section">
   <div class="container">
     <div class="row">
-      <div class="col-lg-4 col-lg-offset-4 col-sm-6 col-sm-offset-3">
+      <div>
         <h1>Sign in</h1>
         <%= devise_error_messages! %>
         <%= form_for(resource, :as => resource_name, :url => session_path(resource_name)) do |f| %>
@@ -20,7 +20,7 @@
             <% end -%>
           </div>
 
-          <div><%= f.submit "Sign in", :class => 'btn btn-default' %></div>
+          <div><%= f.submit "Sign in", :class => 'eff-red-button' %></div>
         <% end %>
         <%= render "devise/shared/links" %>
       </div>

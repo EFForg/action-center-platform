@@ -8,7 +8,7 @@
     </div>
 
     <div class="tool-body" id="target-email">
-      <p>Send this email:</p>
+      <h3>Send this email:</h3>
 
       <fieldset disabled>
         <textarea class="form-control" rows="14"><%= @email_campaign.message %></textarea>
@@ -24,7 +24,7 @@
                        name: 'service',
                        value: 'default',
                        class: 'eff-red-button' do -%>
-          Open using default mail client
+          Use default mail client
         <% end %>
         <p class="small">Or send using:</p>
 
@@ -59,14 +59,6 @@
         <% end %>
 
         <div id='email_target_text'><%= render 'tools/email_target_text' %></div>
-
-        <div class="thank-you" style="display: none;">
-          <div class="alert alert-success">Thank you for the email</div>
-        </div>
-
-        <div class="email-tool-success-share" style="display: none;">
-          <%= render 'tools/share' -%>
-        </div>
       <% end %>
     </div>
   </div>

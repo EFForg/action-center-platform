@@ -1,14 +1,11 @@
 form {
   background: $gray-darker;
-  padding: 2rem;
+  color: black;
+  padding: 2rem 0;
   margin: 0 auto;
-
-  label {
-    font-size: 1rem;
-    line-height: 1.7rem;
-    text-transform: uppercase;
+  @media screen and (min-width: $md) {
+    padding: 2rem;
   }
-
   input[type=text],
   input[type=email],
   textarea {
@@ -53,9 +50,10 @@ a.button {
 .checkbox label,
 [type="checkbox"]:not(:checked) + label,
 [type="checkbox"]:checked + label {
-  position: relative;
-  padding-left: 1.95em;
   cursor: pointer;
+  font-size: $base-font-size * 0.8;
+  padding-left: 1.95em;
+  position: relative;
 }
 
 /* checkbox aspect */
@@ -186,7 +184,7 @@ select {
   }
 
   &:hover {
-    background: rgba($light-blue, 0.8) !important;
+    background: rgba($light-blue, 0.8);
     border-bottom: 4px solid rgba($slate, 0.8);
   }
 }
@@ -194,9 +192,10 @@ select {
 .eff-red-button,
 a.eff-red-button {
   @extend .eff-button;
-  background: $eff-red;
+  background-color: $eff-red;
   border-bottom: 0.3rem solid $dark-red;
   color: white;
+  max-width: 300px;
   width: 100%;
   &:link, &:visited, a:link, a:visited {
     color: $off-white;
@@ -241,9 +240,10 @@ a.eff-red-button {
 
 
 .email-signup {
-  font-size: 13px;
-  margin-bottom: 10px;
-  margin-top: 20px;
+
+  font-size: $base-font-size * 0.8;
+  margin-bottom: 0.8rem;
+  margin-top: 1.2rem;
   line-height: 1.5;
 
   label.radio-inline {
@@ -265,4 +265,5 @@ a.eff-red-button {
       margin-right: 2px;
     }
   }
+
 }
