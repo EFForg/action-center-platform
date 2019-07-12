@@ -11,12 +11,7 @@
         <!-- If we don't have phone -->
         <div class="call-body-phone-not-saved <%= 'hidden' if current_user.try(:phone) -%>">
 
-          <div class="call-script-box">
-            <h3 class="header">What to say</h3>
-            <div class="call-script">
-              <%= markdown @actionPage.message_rendered %>
-            </div>
-          </div>
+          <%= render "tools/call_script" %>
           <p class="small">Enter your phone number below and we'll connect you (US numbers only).</p>
           <%= form_for(:call_campaign, html: { class: "form call-tool", "data-call-campaign-id": @actionPage.call_campaign.call_campaign_id }) do |f| %>
             <input type="hidden" name="call_campaign_id" value="<%= @actionPage.call_campaign.call_campaign_id %>" />
@@ -70,12 +65,7 @@
             <input type="hidden" name="call_campaign_id" value="<%= @actionPage.call_campaign.call_campaign_id %>" />
             <input type="hidden" name="action-id" value="<%= @actionPage.id %>" />
             <input type="hidden" name="phone" id="inputPhone" value="<%= current_user.try :phone -%>" />
-            <div class="call-script-box">
-              <h3 class="header">What to say</h3>
-              <div class="call-script">
-                <%= markdown @actionPage.message_rendered %>
-              </div>
-            </div>
+            <%= render "tools/call_script" %>
             <p class="small">Press the button below and we'll call you at <strong><%= current_user.try :phone -%></strong> and connect you to your representatives. <p>
             <p class="smalltext"><a class="call-tool-different-number" href="#">Need to use a different number?</a></p>
             <button type="submit" class="eff-red-button">Call now</button>
@@ -99,10 +89,11 @@
             <h3 class="header">What to say</h3>
             <div class="call-script">
               <%= markdown @actionPage.message_rendered %>
+              <%= render "tools/call_script" %>
             </div>
           </div>
 
-          <%= render 'tools/share' -%>
+          <%= render 'tools/thank_you' -%>
         </div>
 
       </div>

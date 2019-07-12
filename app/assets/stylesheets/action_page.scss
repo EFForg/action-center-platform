@@ -109,6 +109,11 @@
           padding-right: 0.2em;
         }
       }
+
+      img {
+        width: 100px;
+        height: 100px;
+      }
     }
 
     .tool-body {
@@ -235,8 +240,21 @@
     height: 41px;
     margin-bottom: 0;
   }
+
 }
 
+#thank-you.tool {
+  display: none;
+  .social-button {
+    display: inline-block;
+  }
+  #tweet-back {
+    text-decoration: underline;
+    &:hover {
+      cursor: pointer;
+    }
+  }
+}
 .js {
   .tool {
     .email-signup + .email-signup {

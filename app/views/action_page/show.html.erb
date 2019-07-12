@@ -22,9 +22,14 @@
 </div>
 <div class="container action-content" id="action-content" data-action-id="<%= @actionPage.id -%>" >
   <div class="row">
-    <%= render "tools/container" %>
     <div>
       <% if @actionPage.enable_petition? && @petition && @petition.description.present? && !@actionPage.description.include?('``` letter') -%>
+        <% if !@petition.enable_affiliations? -%>
+          <div id='signatures' class="hidden-xs ajax-update">
+            <h4 class='header'><em><%= t :recent_signatories -%></em></h4>
+            <%= render(partial: "tools/signatures", layout: false) %>
+          </div>
+        <% end -%>
         <%= render(partial: "action_page/letter", layout: false) %>
       <% end -%>
 
@@ -33,7 +38,7 @@
       <% end -%>
 
     </div>
-
+    <%= render "tools/container" %>
   </div>
 </div>
 
