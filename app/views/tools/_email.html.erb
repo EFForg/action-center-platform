@@ -8,7 +8,7 @@
     </div>
 
     <div class="tool-body" id="target-email">
-      <p>Send this email:</p>
+      <h3>Send this email:</h3>
 
       <fieldset disabled>
         <textarea class="form-control" rows="14"><%= @email_campaign.message %></textarea>
@@ -24,7 +24,7 @@
                        name: 'service',
                        value: 'default',
                        class: 'eff-red-button' do -%>
-          Open using default mail client
+          Use default mail client
         <% end %>
         <p class="small">Or send using:</p>
 

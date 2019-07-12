@@ -45,9 +45,7 @@
     margin-right: 5px;
     letter-spacing: -2px;
   }
-  .quad-1, .quad-2, .quad-3, .quad-4, .total {
-    //@extend .col-xs-6;
-  }
+
   .quad-1 {
     border-right: 1px solid #e0e0e0;
     border-bottom: 1px solid #e0e0e0;
@@ -113,14 +111,7 @@
       border: 0;
     }
   }
-  .btn-red {
-    text-transform: none;
-    font-style: italic;
-    font-weight: 300;
-    padding: 7px 12px;
-    font-size: 14px;
-    letter-spacing: 0px;
-  }
+
   td.btn-col {
     text-align: right;
     min-width: 127px;
@@ -154,23 +145,38 @@ span.green-rect {
 .sessions-new,
 .registrations-new,
 .registrations-create,
+.registrations-edit,
 .confirmations-create,
 .confirmations-show,
-.unlocks-new {
-  .wrapper {
-    //background-color: $red;
+.unlocks-new,
+.users-edit {
+  .top-section {
+    width: 100%;
+    .container {
+      padding: 0 3%;
+    }
+    .row {
+      @include flex-this;
+      > div {
+        @include flex-item;
+        @media screen and (max-width: $lg) {
+          width: 100%;
+        }
+      }
+      &:first-child {
+        margin-left: 0;
+        text-align: right;
+      }
+    }
   }
 
-  input.form-control {
-    border: 2px solid #fff;
-  }
   .extra-links {
-    font-size: 15px;
+    font-size: $base-font-size * 0.9;
   }
   .email-signup {
-    background-color: #fff;
+    background-color: $off-white;
     color: $charcoal;
-    padding: 12px;
+    padding: 1rem;
   }
   .error_explanation {
     background-color: transparent;
@@ -197,21 +203,16 @@ span.green-rect {
   }
 }
 
-
-.users-show,
-.users-edit,
-.registrations-edit {
-  #settings, .edit {
-    margin-bottom: 50px;
-    margin-top: 20px;
+.users-edit .top-section .row:last-child {
+  width: 100%;
+  input,
+  select {
+    margin: 5px 0 1.5rem;
   }
-  .form-horizontal .control-label {
-    padding-top: 5px;
+  .eff-red-button {
+    display: block;
+    margin: 5px auto;
   }
-  .personal-info {
-    margin-top: 20px;
-  }
-
 }
 
 table.table-simple {
@@ -236,6 +237,13 @@ table.table-simple {
 }
 
 .input-note {
+  color: $charcoal;
   font-size: 0.8rem;
   line-height: 2em;
+  border-bottom: 2px solid $charcoal;
+  &:hover,
+  &:focus {
+    color: black;
+    border-bottom: 2px solid black;
+  }
 }

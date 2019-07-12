@@ -105,7 +105,7 @@
         <div id='tweet-fields' class='panel-body collapse <%= 'in' if @actionPage.enable_tweet? -%>'>
           <%= f.fields_for :tweet do |t| %>
             <div class="form-group">
-              <%= t.label :cta, "Call to Action" %>
+              <%= t.label :cta, "Take Action" %>
               <%= t.text_field :cta %>
             </div>
             <div class="form-group">
