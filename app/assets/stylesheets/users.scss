@@ -6,8 +6,15 @@
 #settings {
   .user-info {
     @extend .grey-box;
-    margin-top: 20px;
     float: left;
+    margin: 0 0 1rem;
+    padding-bottom: 3rem;
+    width: 100%;
+    form {
+      background: transparent;
+      color: $off-white;
+      padding: 0;
+    }
   }
   h4:first-child {
     margin-top: 5px;
