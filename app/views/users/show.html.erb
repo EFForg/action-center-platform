@@ -116,9 +116,11 @@
 
           </tbody>
         </table>
+
         <%= link_to 'Edit', edit_user_path,
           class: 'eff-button' -%>
-
+        </div>
+        <div class="user-info">
         <h4>
           Email and password
         </h4>
@@ -133,12 +135,13 @@
         </table>
         <%= link_to 'Edit', edit_user_registration_path,
           class: 'eff-button' -%>
-
+      </div>
+      <div class="user-info">
       <h4 id="activity">
+        Activity
         <%= button_to "Clear my activity", clear_activity_user_path, method: :delete,
           data: { confirm: "Are you sure you want to delete your activity records?" },
           class: 'eff-button' %>
-          Activity
       </h4>
       <%= form_for(current_user, :remote => true,
                    :html => { :method => :put , :class => 'record_activity' }) do |f| %>
@@ -155,7 +158,8 @@
         </div>
         <%= submit_tag "Save", class: 'shown-if-no-js btn btn-sm btn-red-outline' %>
       <% end -%>
-
+</div>
+<div class="user-info">
       <h4>Delete your account</h4>
       <p>Click below to permanently delete your action center account.</p>
 
@@ -164,7 +168,8 @@
         method: :delete, class: 'eff-button' %>
 
       <p class="small" style="margin-top: 12px">Please note that this does not affect your newsletter subscriptions or <%= t :organization_abbreviation -%> membership.</p>
-
+</div>
+<div class="user-info">
 
       <h4>Change your email preferences</h4>
       <% if current_user.contact_id! -%>
@@ -184,6 +189,7 @@
           <input type="hidden" name="form_id" value="eff_supporters_library_account_form" >
         </form>
       <% end -%>
+      </div>
       </div>
     </div>
   </div>
