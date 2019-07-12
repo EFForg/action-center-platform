@@ -82,8 +82,6 @@
 
       <div class="user-info">
         <h4>
-          <%= link_to 'Edit', edit_user_path,
-            class: 'edit-settings btn btn-sm btn-red-outline' -%>
           Personal information
         </h4>
         <table class="table table-simple">
@@ -118,10 +116,10 @@
 
           </tbody>
         </table>
+        <%= link_to 'Edit', edit_user_path,
+          class: 'eff-button' -%>
 
         <h4>
-          <%= link_to 'Edit', edit_user_registration_path,
-            class: 'eff-button' -%>
           Email and password
         </h4>
 
@@ -133,6 +131,8 @@
               <td>Password</td><td>********</td></tr>
           </tbody>
         </table>
+        <%= link_to 'Edit', edit_user_registration_path,
+          class: 'eff-button' -%>
 
       <h4 id="activity">
         <%= button_to "Clear my activity", clear_activity_user_path, method: :delete,
