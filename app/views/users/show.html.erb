@@ -1,8 +1,7 @@
 <div class="container" id="settings">
+  <h1><%= t :your_account -%></h1>
   <div class="row">
-    <h1><%= t :your_account -%></h1>
-    <div class="col-md-8 ">
-
+    <div>
       <div class="activity-stream">
         <h3>Take action</h3>
 
@@ -35,9 +34,9 @@
                   </td>
                   <td class="btn-col">
                     <% if @actions_taken.include? action_page.id -%>
-                      <span class="green-rect has-icon">
-                        <i class="icon-ok-circle"></i> Done
-                      </span>
+                      <button class="eff-red-button">
+                        Action Taken
+                      </button>
                     <% else -%>
                       <%= link_to "Take action", action_page_path(action_page), class:"eff-red-button" -%>
                     <% end -%>
@@ -50,7 +49,7 @@
       </div>
     </div>
 
-    <div class="col-md-4">
+    <div>
       <% if current_user.record_activity? %>
         <div class="action-stats">
           <h3>Stats</h3>
