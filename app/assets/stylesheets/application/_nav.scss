@@ -38,8 +38,8 @@ nav {
       @media screen and (min-width: $md) {
         height: 90px;
         width: 500px;
-        left: 0;
-        margin-top: 0;
+        left: 1.5%;
+        margin-top: 1rem;
         position: relative;
       }
       background: asset-url('EFF-logo-action.svg') no-repeat;
@@ -94,12 +94,16 @@ nav {
     };
 
     [type="checkbox"]:not(:checked) + label,
-    [type="checkbox"]:checked + label {
+    [type="checkbox"]:checked + label {  // open-menu (hamburger)
+      font-size: 2rem;
       margin-left: 0;
       padding-left: 0;
       &:before,
       &:after {
         display: none;
+      }
+      @media screen and (min-width: $md) {
+        font-size: 4rem;
       }
     }
 
@@ -147,19 +151,9 @@ nav {
     }
 
     .open-menu {
-      @media screen and (min-width: $md) {
-        font-size: 4rem;
-        top: 1.8rem;
-        //right: 4%;
-      }
-      @media screen and (min-width: $lg) {
-        font-size: 4rem;
-        right: 0;
-      }
       color: white;
       display: inline-block;
-      font-size: 3rem;
-      top: 1.4rem;
+      top: 0;
       right: 2%;
       position: absolute !important;
       z-index: 1000;
