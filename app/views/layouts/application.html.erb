@@ -34,9 +34,11 @@
           <div>
             <a href="/" class="menu-logo" alt="Site logo">&nbsp;</a>
           </div>
+
+
           <input type='checkbox' class="open-menu" style='display: none' id="the-menu">
-          <label class="open-menu" for="the-menu">&#x2261;</label>
-          <div id="nav-menu" role="navigation" aria-label="navigaton">
+          <!--label class="open-menu" for="the-menu">&#x2261;</label-->
+          <!--div id="nav-menu" role="navigation" aria-label="navigaton">
             <ul>
               <% if user_signed_in? %>
               <% if can?(:administer_actions) && controller_name == "action_page" && @actionPage -%>
@@ -63,6 +65,42 @@
               <% end %>
 
             </ul>
+          </div-->
+          <div class="modal-container">
+            <input id="modal-toggle" type="checkbox">
+            <button>&#x2261;</button>
+            <div class="modal-backdrop">
+              <div class="modal-content">
+                <div id="nav-menu" role="navigation" aria-label="navigaton">
+                  <ul>
+                    <% if user_signed_in? %>
+                    <% if can?(:administer_actions) && controller_name == "action_page" && @actionPage -%>
+                    <li><%= link_to "Edit this page", edit_admin_action_page_path(@actionPage) -%></li>
+                    <% end %>
+
+                    <% if current_user.privileged_role? %>
+                    <li><%= link_to("Admin", "/admin/action_pages") %></li>
+                    <% end %>
+
+                    <% if current_user.partner? %>
+                    <li><%= link_to "Partner Dashboard", current_user.partner -%></li>
+                    <% end %>
+
+                    <li><%= link_to("Account", "/account") %></li>
+                    <li>
+                      <%= form_for current_user, url: destroy_user_session_path, method:  :delete, html: { class: "nav-form-link" } do |f| %>
+                      <%= f.submit "Logout" %>
+                      <% end %>
+                    </li>
+                    <% else %>
+                    <li><%= link_to("Register", new_user_registration_path)  %></li>
+                    <li><%= link_to("Login", new_user_session_path)  %></li>
+                    <% end %>
+
+                  </ul>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </nav>

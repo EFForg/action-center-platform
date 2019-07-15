@@ -166,5 +166,78 @@ nav {
         cursor: pointer;
       }
     }
+    // modal test
+
+
+.modal-container button {
+  display: block;
+  margin: 0 auto;
+  width: 160px;
+  height: 50px;
+  transition: background 0.3s ease-in;
+}
+
+.modal-container .modal-backdrop {
+  height: 0;
+  width: 0;
+  opacity: 0;
+  overflow: hidden;
+  transition: opacity 0.2s ease-in;
+}
+
+.modal-container #modal-toggle {
+  position: absolute;
+  left: 0;
+  top: 0;
+  height: 100%;
+  width: 100%;
+  margin: 0;
+  opacity: 0;
+  cursor: pointer;
+}
+
+
+.modal-container #modal-toggle:checked {
+  width: 100vw;
+  height: 100vh;
+  position: fixed;
+  left: 0;
+  top: 0;
+  z-index: 9;
+  opacity: 0;
+}
+
+.modal-container #modal-toggle:checked ~ .modal-backdrop {
+  width: 100vw;
+  height: 100vh;
+  position: fixed;
+  left: 0;
+  top: 0;
+  z-index: 9;
+  pointer-events: none;
+  opacity: 1;
+}
+
+.modal-container #modal-toggle:checked ~ .modal-backdrop .modal-content {
+  z-index: 999;
+  pointer-events: auto;
+  cursor: auto;
+}
+
+
+.modal-container #modal-toggle:checked ~ .modal-backdrop .modal-content .modal-close {
+  position: absolute;
+  width: 25px;
+  height: 28px;
+  cursor: pointer;
+}
+
+.modal-container #modal-toggle:checked ~ .modal-backdrop .modal-content .modal-close.button {
+  top: initial;
+  bottom: 20px;
+  right: 20px;
+  width: 50px;
+}
+
   }
 }
