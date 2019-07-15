@@ -1,4 +1,4 @@
-.grey-box {
+.gray-box {
   border: 1px solid $gray-dark;
   padding: 1.5rem;
 }
@@ -24,7 +24,7 @@
     }
   }
   .user-info {
-    @extend .grey-box;
+    @extend .gray-box;
     float: left;
     margin: 0 0 1rem;
     padding-bottom: 3rem;
@@ -69,7 +69,7 @@
 }
 
 .users-show .action-stats {
-  @extend .grey-box;
+  @extend .gray-box;
   float: left;
   margin-bottom: 20px;
   margin-top: 30px;
