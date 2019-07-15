@@ -11,10 +11,11 @@
   <% if @featuredActionPage -%>
     <div class="container">
       <div class="row">
-        <div class="image>
+        <div class="featured-image">
           <%= link_to image_tag(@featuredActionPage.featured_image.url) , action_page_path(@featuredActionPage) -%>
         </div>
-        <div>
+        <div class="featured-text">
+          <h5>Category placeholder</h5>
           <%= link_to action_page_path(@featuredActionPage) do %>
             <h2>
               <%= @featuredActionPage.title -%>
@@ -30,27 +31,23 @@
 
 <section class="more-actions">
   <div class="container">
-    <div class="row flex-this">
+    <div class="row">
       <%- @actionPages.each do |actionPage| -%>
-        <div>
-          <div class="image">
+        <div class="the-actions">
+          <div class="more-actions-image">
           <%= link_to image_tag(actionPage.featured_image.url), action_page_path(actionPage) %>
           </div>
-          <div class="text">
+          <div class="more-actions-text">
             <%= link_to action_page_path(actionPage) do%>
             <h3><%= actionPage.title -%></h3>
             <% end %>
-            <%= link_to t(:take_action), action_page_path(actionPage),
-            class: 'eff-red-button' -%>
           </div>
         </div>
       <% end %>
     </div>
 
     <div class="see-all">
-      <div>
-        <a href="/action"><%= I18n.t(:see_all_campaigns) -%></a>
-      </div>
+      <a href="/action"><%= I18n.t(:see_all_campaigns) -%></a>
     </div>
 
   </div>

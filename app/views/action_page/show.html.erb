@@ -1,31 +1,35 @@
 <% content_for :head do -%>
   <%= render 'action_page/meta_tags' -%>
+
 <% end -%>
 <div class="top-section">
   <div class="container">
     <div class="row">
-      <div>
+      <div class='short-description'>
+        <h5>Category placeholder</h5>
         <h1><%= @actionPage.title -%></h1>
-        <div class='short-description'>
-          <%= markdown @actionPage.summary -%>
+        <%= image_tag(@actionPage.featured_image) %>
+        <%= markdown @actionPage.summary -%>
+        <input type='checkbox' style='display: none' id="learn-more">
+        <label for="learn-more">Learn More</label>
+        <div class="description" id="description">
+          <%= markdown @actionPage.description -%>
         </div>
-      </div>
-    </div>
-    <div class="row">
-      <div class="description" id="description">
-        <%= markdown @actionPage.description -%>
       </div>
     </div>
   </div>
 
 </div>
-
 <div class="container action-content" id="action-content" data-action-id="<%= @actionPage.id -%>" >
   <div class="row">
-    <%= render "tools/container" %>
     <div>
-
       <% if @actionPage.enable_petition? && @petition && @petition.description.present? && !@actionPage.description.include?('``` letter') -%>
+        <% if !@petition.enable_affiliations? -%>
+          <div id='signatures' class="hidden-xs ajax-update">
+            <h4 class='header'><em><%= t :recent_signatories -%></em></h4>
+            <%= render(partial: "tools/signatures", layout: false) %>
+          </div>
+        <% end -%>
         <%= render(partial: "action_page/letter", layout: false) %>
       <% end -%>
 
@@ -34,7 +38,7 @@
       <% end -%>
 
     </div>
-
+    <%= render "tools/container" %>
   </div>
 </div>
 
