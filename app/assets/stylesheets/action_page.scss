@@ -1,4 +1,5 @@
-.action_page-show {
+.action_page-show,
+.action_pages-preview {
   .row {
     @include flex-this;
     > div {
@@ -16,24 +17,34 @@
   }
 }
 #progress-bar {
-  .progress {
-    margin-bottom: 1.2em;
-  }
   .count, .goal {
-    font-size: 0.85em;
+    font-size: $base-font-size * 0.7;
   }
 }
 
 .short-description {
-  font-size: 1.1em;
   margin-top: 2em;
-  input:not(:checked) + label + div {
+  h5 {
+    margin-bottom: 0;
+    padding-bottom: 0;
+  }
+  > p {
+    font-size: $base-font-size * 1.2;
+    line-height: $base-line-height * 1.2;
+  }
+  img {
+    margin-bottom: 3rem;
+  }
+  input:not(:checked) + label + div {  // for Learn more
     display: none;
   };
 
   [type="checkbox"]:not(:checked) + label,
   [type="checkbox"]:checked + label {
-    margin-left: 0;
+    @extend p;
+    @media screen and (min-width: $ph) {
+      margin-left: 0;
+    }
     padding-left: 0;
     &:before,
     &:after {
@@ -42,19 +53,12 @@
   }
 }
 
-h5.category {
-  color: $gray;
-  margin-bottom: 0;
-  padding-bottom: 0;
-  text-transform: uppercase;
-}
-
 #description {
-  margin-top: 3em;
   p, li {
     margin-bottom: 1em;
   }
 }
+
 
 .form-control {
   border-radius: 0;
@@ -66,8 +70,14 @@ h5.category {
   .tool {
     background-color: $gray-darker;
     color: black;
-    margin-bottom: 20px;
-
+    margin-bottom: 1.5rem;
+    text-align: center;
+    h3 {
+      color: black;
+      font-size: $base-font-size;
+      line-height: $base-line-height;
+      margin-top: 0;
+    }
     a {
       color: black;
       border-bottom: 2px solid black;
@@ -80,12 +90,12 @@ h5.category {
     }
 
     .tool-heading {
-      color: white;
+      color: $off-white;
       text-transform: uppercase;
       text-align: center;
 
       .tool-title {
-        color: white;
+        color: $off-white;
         font-family: $league;
         font-size: 4rem;
         font-weight: 200;
@@ -98,9 +108,11 @@ h5.category {
           font-size: 0.8em;
           padding-right: 0.2em;
         }
-        &.signed {
-          color: #14618b;
-        }
+      }
+
+      img {
+        width: 100px;
+        height: 100px;
       }
     }
 
@@ -119,26 +131,26 @@ h5.category {
       }
     }
     .tool-notice {
-      padding-bottom: 5px;
+      padding-bottom: 0.5rem;
     }
     .btn-default[disabled="disabled"] {
       opacity: 0.7;
     }
     .add_fields {
-      font-size: 0.8em;
+      font-size: 0.8rem;
     }
     form {
       text-align: left;
     }
     select {
       max-width: 60%;
-      margin-bottom: 0.5em;
+      margin-bottom: 0.5rem;
     }
     #affiliations select {
       max-width: 100%;
     }
     .input-pair {
-      margin-bottom: 0.5em;
+      margin-bottom: 0.5rem;
     }
     input[type=submit].action, button[type=submit].action {
       @extend .eff-red-button;
@@ -152,20 +164,20 @@ h5.category {
       margin: 10px 0px 10px 0px;
     }
     .privacy-notice {
-      font-size: 11px;
-      padding: 5px 0;
+      font-size: 0.8rem;
+      padding: 0.5rem 0;
     }
     p.step2-intro {
-      font-size: 14px;
+      font-size: 1rem;
     }
     p.donate {
       text-align: center;
-      margin-bottom: 20px;
+      margin-bottom: 1.2rem;
     }
     fieldset {
-      margin: 0.5em 0 0.8em;
+      margin: 0.5rem 0 0.8rem;
       &.has-error {
-        background-color: #fcf8e3;
+        background-color: $eff-red;
         padding: 4px;
         margin: 0.5em -5px 0.8em;
       }
@@ -193,15 +205,14 @@ h5.category {
         font-size: 13px;
         font-style: normal;
         padding: 0px 6px;
-        background-color: #fff;
+        background-color: $off-white;
         color: $eff-red;
-
         i {
-          font-size: 14px;
+          font-size: $base-font-size * 0.8;
           margin-right: -3px;
         }
         &.in-progress {
-          color: $blue;
+          color: $gray;
           border-color: #bce8f1;
           background-color: #d9edf7;
         }
@@ -226,9 +237,23 @@ h5.category {
   }
   .progress {
     height: 41px;
+    margin-bottom: 0;
   }
+
 }
 
+#thank-you.tool {
+  display: none;
+  .social-button {
+    display: inline-block;
+  }
+  #tweet-back {
+    text-decoration: underline;
+    &:hover {
+      cursor: pointer;
+    }
+  }
+}
 .js {
   .tool {
     .email-signup + .email-signup {
@@ -261,20 +286,19 @@ h5.category {
 }
 
 #tools #tweet-tool {
-  text-align: center;
-  padding-bottom: 15px;
-
   .tool-body {
-    padding-bottom: 0px;
+    @extend form;
   }
-
   .privacy-notice {
     font-size: 12px;
   }
 
+  .form-group input {
+    font-style: italic;
+  }
+
   .newsletter-subscription {
     margin: 0 15px;
-
   }
 
 
@@ -332,10 +356,7 @@ h5.category {
     text-align: left;
     margin-top: 40px;
   }
-  h3.twitter-tool-label em {
-    font-style: normal;
-    font-weight: normal;
-  }
+
   h3.twitter-tool-label::before {
     margin-bottom: -0.6em;
     content: "";
@@ -364,7 +385,7 @@ h5.category {
     max-width: 109%;
   }
 }
-@media (min-width: 1200px) {
+@media (min-width: $xl) {
   .description img.full-width {
     max-width: 120%;
     margin-left: -10%;
@@ -373,13 +394,9 @@ h5.category {
 
 .description h3, h3.privacy-notice-header,
 h3.header, #tools #email-tool h3, #tools #congress-message-tool h3 {
-  color: black;
   position: relative;
   margin-bottom: 1em;
   text-align: left;
-  em {
-    font-style: normal;
-  }
 }
 
 .call-script-box h3:before {
@@ -387,8 +404,6 @@ h3.header, #tools #email-tool h3, #tools #congress-message-tool h3 {
 }
 
 h3.privacy-notice-header {
-  font-size: 15px;
-  margin-top: 1em;
   span.privacy-notice-popover {
     @include transition (all 0.2s ease-in-out);
     display: inline-block;
@@ -416,7 +431,7 @@ h3.privacy-notice-header {
   font-size: 0.7em;
   text-transform: capitalize;
   .header {
-    color: #666;
+    color: $gray-darker;
     margin: 2em 0 1em;
   }
   td { border: none; }
@@ -474,7 +489,7 @@ h3.privacy-notice-header {
       font-family: serif;
     }
     .signed {
-      color: #999;
+      color: $gray-light;
       text-transform: uppercase;
       font-size: 0.85em;
       font-style: italic;
@@ -496,19 +511,10 @@ h3.privacy-notice-header {
 }
 
 #tools #call-tool {
-  padding-bottom: 0;
-  .checkbox {
-    margin-top: -5px;
-  }
-  .tool-body {
-    padding-bottom: 0;
-  }
   .tool-container {
     padding-bottom: 0.5em;
   }
-  .form-group:last-child {
-    margin-bottom: 0;
-  }
+
   .privacy-notice {
     margin-bottom: 0px;
     text-align: center;
@@ -519,33 +525,30 @@ h3.privacy-notice-header {
     margin-bottom: 0.3em;
   }
   .smalltext {
-    font-size: 13px;
+    font-size: $base-font-size * 0.8;
   }
   h3.header {
-    position: relative;
     text-transform: uppercase;
-    margin-bottom: 0.3em;
-    margin-top: 0.4em;
-    letter-spacing: 0.06em;
-    color: $charcoal;
-    font-size: 0.8em;
-    font-weight: bold;
   }
   .call-script-box {
     padding: 6px 12px 2px 12px;
-    background-color: #eee;
-    margin-bottom: 1.0em;
-    margin-top: 0.3em;
+    margin-bottom: 1rem;
+    margin-top: 1rem;
   }
   .call-script {
-    padding: 0px;
-    font-size: 14px;
+    background: $off-white;
+    padding: 1rem;
+    font-size: $base-font-size * 0.9;
   }
   .call-body-active .advisory {
-    margin-bottom: 0.8em;
+    margin-bottom: 1rem;
   }
   .form-errors {
     margin-bottom: 1rem;
+  }
+
+  .call-body-phone-saved p.privacy-notice {
+    padding: 2rem;
   }
 }
 
@@ -570,9 +573,7 @@ h3.privacy-notice-header {
   textarea {
     padding: 6px;
   }
-  form {
-    text-align: center;
-  }
+
   .form-group {
     margin-bottom: 7px;
   }
@@ -583,32 +584,23 @@ h3.privacy-notice-header {
     margin-top: 0.1em;
     margin-bottom: 5px;
   }
-  h3 {
-    color: $charcoal;
-    margin-top: 0;
-  }
 }
 
 #tools #congress-message-tool {
   .tool-body {
     padding-top: 0;
-    padding-bottom: 10px;
+    padding-bottom: 1rem;
   }
   .tool-title {
-    margin-bottom: 10px;
-  }
-  textarea {
-    padding: 6px;
+    margin-bottom: 1rem;
   }
 
   form {
     padding-top: 0;
   }
-  .form-group {
-    margin-bottom: 7px;
-  }
-  .privacy-notice {
-    margin-bottom: 5px;
+
+  label {
+    font-size:  $base-font-size * 0.8;
   }
   #customize-message {
     margin-top: 0;
@@ -619,17 +611,17 @@ h3.privacy-notice-header {
     margin-bottom: 5px;
   }
   .progress {
-    margin-top: 15px;
+    margin-top: 1rem;
   }
   .congress-message-tool-container {
-    margin-top: 20px;
+    margin-top: 1rem;
   }
   #congressForms-common-fields div.signup-checkbox:first-child {
     display: block;
   }
   .captcha-form {
-    margin-top: 10px;
-    margin-bottom: 15px;
+    margin-top: 1rem;
+    margin-bottom: 1rem;
   }
   #congressForms-common-fields {
     margin-bottom: 0;
@@ -661,11 +653,8 @@ h3.privacy-notice-header {
   .rep-photo {
     padding: 0;
   }
-  h3 {
-    font-size: 17px;
-    color: $charcoal;
-    margin-top: 0;
 
+  h3 {
     &.legislator-label {
       margin-top: 0px;
       margin-bottom: 10px;
@@ -676,27 +665,26 @@ h3.privacy-notice-header {
     }
     span.customize-message-popover {
       @include transition (all 0.2s ease-in-out);
-      display: inline-block;
-      float: right;
-      border: 1px solid #cc0000;
-      height: 20px;
-      width: 20px;
-      text-align: center;
-
-      font-style: normal;
-      line-height: 18px;
-      padding-top: 0px;
+      background-color: white;
+      border: 1px solid $eff-red;
+      color: $eff-red;
       cursor: pointer;
-      position: relative;
+      display: inline-block;
+      font-style: normal;
       font-weight: bold;
-      background-color: #fff;
-      color: #cc0000;
-
+      float: right;
+      line-height: 18px;
+      height: 20px;
+      padding-top: 0px;
+      position: relative;
+      text-align: center;
+      width: 20px;
       &:hover {
-        background-color: #cc0000;
-        color: #fff;
+        background-color: $eff-red;
+        color: white;
       }
     }
+
     span.legislator-info-popover {
       @include transition (all 0.2s ease-in-out);
       display: inline-block;
@@ -744,14 +732,11 @@ h3.privacy-notice-header {
 
 // These styles only apply if you are targeting specific email addresses rather than MoC.
 #target-email {
-  padding-bottom: 10px;
-  text-align: center;
+  padding-bottom: 1rem;
   fieldset[disabled] textarea.form-control {
     cursor: default;
   }
-  .btn-red-outline {
-    margin-bottom: 15px;
-  }
+
   i {
     margin-right: 5px;
     margin-left: 0;
@@ -765,25 +750,11 @@ h3.privacy-notice-header {
     top: 1px;
     margin-right: 0;
   }
-  .btn-sm {
-    margin-bottom: 7px;
-    padding-left: 5px;
-    letter-spacing: 0.03em;
-  }
-  .btn-red {
-    font-size: 14px;
-    text-transform: none;
-    padding: 10px 20px;
-    margin-bottom: 10px;
-    letter-spacing: 0.02em;
-  }
   .small {
-    padding-top: 5px;
-    margin-bottom: 5px;
+    margin: 1rem 0;
     text-transform: uppercase;
-    font-size: 11px;
+    font-size: $base-font-size * 0.7;
     font-weight: bold;
-    letter-spacing: 0.05em;
   }
 }
 
@@ -797,7 +768,11 @@ h3.privacy-notice-header {
   }
 }
 .popover {
+  color: $charcoal;
   font-size: 13px;
+  h3 {
+    color: $charcoal;
+  }
 }
 
 .popover-legislator-image {
@@ -854,8 +829,15 @@ h3.privacy-notice-header {
   }
   .pagination {
     text-align: center;
-    margin-top: 60px;
-    margin-bottom: 80px;
+    margin-top: 4rem;
+    margin-bottom: 8rem;
+    a {
+      border: none;
+    }
+    .current {
+      border: 1px solid $off-white;
+      padding: 1px 4px 1px 1px;
+    }
   }
 }
 input[type="file"] {

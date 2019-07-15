@@ -7,7 +7,9 @@ $(document).on('ready', function() {
       if (!dnt) { $('input[name="dnt"]').val('true'); }
       dnt = true;
     }, 0);
-
-    $('.email-tool-success-share').delay(5000).slideDown(600, height_changed);
+  });
+  $('#target-email button').on('click', function() {
+    $('#thank-you').show();
+    $('#email-tool').hide();
   });
 });

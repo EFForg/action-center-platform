@@ -70,6 +70,13 @@ $(document).on('ready', function() {
                btn.data('twitter-id') + "%20" + encodeURIComponent(msg.val()));
     }
     Twitter.handleIntent(e);
+    $('#tweet-tool').hide();
+    $('#thank-you').show();
+  });
+
+  $('#tweet-back').on('click', function(){
+    $('#tweet-tool').show();
+    $('#thank-you').hide();
   });
 
   var related = $("#tweet-tool").data("tweet-related");

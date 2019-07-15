@@ -1,7 +1,7 @@
 <div class="top-section">
   <div class="container">
     <div class="row">
-      <div class="col-lg-4 col-lg-offset-4 col-sm-6 col-sm-offset-3">
+      <div>
         <h1>Resend unlock instructions</h1>
 
         <%= form_for(resource, as: resource_name, url: unlock_path(resource_name), html: { method: :post }) do |f| %>
@@ -13,7 +13,7 @@
           </div>
 
           <div>
-            <%= f.submit "Resend unlock instructions", class: 'btn btn-default' %>
+            <%= f.submit "Resend", class: 'eff-red-button' %>
           </div>
         <% end %>
 
