@@ -84,39 +84,43 @@
         <h4>
           Personal information
         </h4>
-        <table class="table table-simple">
-          <tbody>
+        <div class="user-box">
                 <% if current_user.name.present? %>
-                  <tr><td>Name</td><td><%= current_user.name %></td></tr>
+                  <div>Name</div>
+                  <div><%= current_user.name %></div>
                 <% end %>
 
                 <% if current_user.street_address.present? %>
-                <tr><td>Street Address</td><td><%= current_user.street_address %></td></tr>
+                <div>Street Address</div>
+                <div><%= current_user.street_address %></div>
                 <% end %>
 
                 <% if current_user.city.present? %>
-                <tr><td>City</td><td><%= current_user.city %></td></tr>
+                <div>City</div>
+                <div><%= current_user.city %></div>
                 <% end %>
 
                 <% if current_user.zipcode.present? %>
-                <tr><td>Zipcode</td><td><%= current_user.zipcode %></td></tr>
+                <div>Zipcode</div>
+                <div><%= current_user.zipcode %></div>
                 <% end %>
 
                 <% if current_user.state.present? %>
-                <tr><td>State</td><td><%= current_user.state %></td></tr>
+                <div>State</div>
+                <div><%= current_user.state %></div>
                 <% end %>
 
                 <% if current_user.country_code.present? %>
-                <tr><td>Country</td><td><%= current_user.country_code %></td></tr>
+                <div>Country</div>
+                <div><%= current_user.country_code %></div>
                 <% end %>
 
                 <% if current_user.phone.present? %>
-                <tr><td>Phone</td><td><%= current_user.phone %></td></tr>
+                <div>Phone</div>
+                <div><%= current_user.phone %></div>
                 <% end %>
 
-          </tbody>
-        </table>
-
+           </div>
         <%= link_to 'Edit', edit_user_path,
           class: 'eff-button' -%>
         </div>
