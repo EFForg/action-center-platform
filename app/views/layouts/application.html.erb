@@ -70,8 +70,7 @@
             <input id="modal-toggle" type="checkbox">
             <button>&#x2261;</button>
             <div class="modal-backdrop">
-              <div class="modal-content">
-                <div id="nav-menu" role="navigation" aria-label="navigaton">
+              <div  class="modal-content" id="nav-menu" role="navigation" aria-label="navigaton">
                   <ul>
                     <% if user_signed_in? %>
                     <% if can?(:administer_actions) && controller_name == "action_page" && @actionPage -%>
@@ -98,7 +97,6 @@
                     <% end %>
 
                   </ul>
-                </div>
               </div>
             </div>
           </div>

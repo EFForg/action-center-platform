@@ -170,10 +170,11 @@ nav {
 
 
 .modal-container button {
+  background: $eff-red;
+  border: none;
   display: block;
+  font-size: 4rem;
   margin: 0 auto;
-  width: 160px;
-  height: 50px;
   transition: background 0.3s ease-in;
 }
 
@@ -208,6 +209,7 @@ nav {
 }
 
 .modal-container #modal-toggle:checked ~ .modal-backdrop {
+  background-color: transparent;
   width: 100vw;
   height: 100vh;
   position: fixed;
