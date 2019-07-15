@@ -125,14 +125,12 @@
           Email and password
         </h4>
 
-        <table class="table table-simple">
-          <tbody>
-            <tr>
-              <td>Email</td><td><%= current_user.email %></td></tr>
-            <tr>
-              <td>Password</td><td>********</td></tr>
-          </tbody>
-        </table>
+        <div class="user-box">
+            <div>Email</div>
+            <div><%= current_user.email %></div>
+            <div>Password</div>
+            <div>********</div>
+        </div>
         <%= link_to 'Edit', edit_user_registration_path,
           class: 'eff-button' -%>
       </div>

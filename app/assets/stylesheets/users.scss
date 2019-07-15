@@ -4,6 +4,25 @@
 }
 
 #settings {
+  .user-box {
+    @include flex-this;
+    flex-wrap: wrap;
+    > div {
+      @include flex-item;
+      margin: 1rem 0 0;
+      text-align: left;
+      width: 100%;
+      &:nth-child(even) {
+        border-bottom: 2px solid $off-white;
+        margin-bottom: 1rem;
+      }
+      @media screen and (min-width: $ph) {
+        border-bottom: 2px solid $off-white;
+        margin: 1rem 0 2rem;
+        width: 50%;
+      }
+    }
+  }
   .user-info {
     @extend .grey-box;
     float: left;
