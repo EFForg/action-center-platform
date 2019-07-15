@@ -211,9 +211,9 @@ Then(/^I am prevented from using the app until I supply a strong password$/) do
   sign_in
 
   # check app is locked down for this user
-  expect(page).to have_content("Current Password")
+  expect(page).to have_content("CURRENT PASSWORD")
   visit "/admin/action_pages"
-  expect(page).to have_content("Current Password")
+  expect(page).to have_content("CURRENT PASSWORD")
 
   # submit strong password
   submit_a_strong_password
