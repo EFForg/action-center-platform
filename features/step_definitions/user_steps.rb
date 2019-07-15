@@ -72,8 +72,8 @@ When(/^I sign in with valid credentials$/) do
   sign_in
 end
 
-Then(/^I see a successful sign in message$/) do
-  expect(page.html).to include("Hi! You&#39;re signed in!")
+Then(/^I see my account info$/) do
+  expect(page.html).to include("Your EFF Action Account")
 end
 
 When(/^I return to the site$/) do
