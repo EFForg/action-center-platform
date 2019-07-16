@@ -16,10 +16,11 @@ class ActionCloner
 
   attr_accessor :attrs
 
+
   def clean_attributes
     unpublish
     unarchive
-    remove_dates
+    remove_attrs
   end
 
   def unpublish
@@ -30,8 +31,9 @@ class ActionCloner
     attrs[:archived] = false
   end
 
-  def remove_dates
+  def remove_attrs
     attrs.delete :created_at
     attrs.delete :updated_at
+    attrs.delete :slug
   end
 end
