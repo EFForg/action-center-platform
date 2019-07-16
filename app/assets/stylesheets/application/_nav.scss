@@ -64,46 +64,12 @@ nav {
       padding: 0 0 0 1rem;
 
       li {
-        color: white;
         display: block;
         font-size: $nav-font-size;
         font-weight: 700;
         margin: 0.9rem auto 0;
         text-align: left;
         text-transform: $nav-text-transform;
-        a {
-          color: white;
-          &.active {
-            color: white;
-          }
-          &:hover {
-            &:not(.menu-logo) {
-              border-bottom: 2px solid white;
-              color: white;
-            }
-          }
-        }
-      }
-    }
-
-    input:checked + label + div {
-      display: inline-block !important;
-    };
-    input:not(checked) + label + div {
-      display: none !important;
-    };
-
-    [type="checkbox"]:not(:checked) + label,
-    [type="checkbox"]:checked + label {  // open-menu (hamburger)
-      font-size: 2rem;
-      margin-left: 0;
-      padding-left: 0;
-      &:before,
-      &:after {
-        display: none;
-      }
-      @media screen and (min-width: $md) {
-        font-size: 4rem;
       }
     }
 
@@ -161,7 +127,7 @@ nav {
       transition: background 0.3s ease-in;
       @media screen and (min-width: $md) {
         font-size: 4rem;
-        margin: -7rem 0 0;
+        margin: -6.7rem 0 0;
       }
     }
     .nav-modal-container .nav-modal-backdrop {
