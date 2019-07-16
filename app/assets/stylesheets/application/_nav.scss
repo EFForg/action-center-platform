@@ -159,7 +159,7 @@ nav {
       height: 0;
       margin: -0.65rem 0 0;
       transition: background 0.3s ease-in;
-      @media screen and (min-width: $ph) {
+      @media screen and (min-width: $md) {
         font-size: 4rem;
         margin: -7rem 0 0;
       }
