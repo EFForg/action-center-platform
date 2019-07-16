@@ -169,7 +169,7 @@ nav {
     // modal test
 
 
-.modal-container button {
+.modal-container button { // hamburger
   background: $eff-red;
   border: none;
   display: block;
@@ -227,19 +227,6 @@ nav {
 }
 
 
-.modal-container #modal-toggle:checked ~ .modal-backdrop .modal-content .modal-close {
-  position: absolute;
-  width: 25px;
-  height: 28px;
-  cursor: pointer;
-}
-
-.modal-container #modal-toggle:checked ~ .modal-backdrop .modal-content .modal-close.button {
-  top: initial;
-  bottom: 20px;
-  right: 20px;
-  width: 50px;
-}
 
   }
 }
