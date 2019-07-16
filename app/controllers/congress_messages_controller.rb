@@ -32,7 +32,7 @@ class CongressMessagesController < ApplicationController
       deliver_thanks_message
       render partial: "tools/share"
     else
-      render plain: I18n.t(:submission_failed, scope: :congress_forms), status: :bad_request
+      render plain: I18n.t(:invalid_submission, scope: :congress_forms), status: :bad_request
     end
   end
 

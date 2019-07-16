@@ -40,7 +40,7 @@ RSpec.describe "Congress Messages", type: :request do
   end
 
   describe "#new" do
-    subject do
+    def get_congress_message_form
       campaign_id = action_page.congress_message_campaign_id
       get("/congress_message_campaigns/#{campaign_id}/congress_messages/new",
           params: { street_address: location.street,
@@ -48,7 +48,7 @@ RSpec.describe "Congress Messages", type: :request do
     end
 
     it "renders the congress message form" do
-      subject
+      get_congress_message_form
       expect(response.body).to include '<input type="text" name="common_attributes[$NAME_FIRST]" id="common_attributes__NAME_FIRST" class="form-control" placeholder="Your first name" aria-label="Your first name" required="required" />'
       # Select from array
       expect(response.body).to include '<option value="Animal_Rights">Animal_Rights</option>'
@@ -57,13 +57,13 @@ RSpec.describe "Congress Messages", type: :request do
     end
 
     it "renders address fields as hidden" do
-      subject
+      get_congress_message_form
       expect(response.body).to include '<input type="hidden" name="common_attributes[$ADDRESS_STREET]"'
     end
 
     it "displays an error when address lookup fails" do
       allow(SmartyStreets).to receive(:get_location).and_raise SmartyStreets::AddressNotFound
-      subject
+      get_congress_message_form
       expect(response.body).to include "unable to find a congressional district"
     end
 
@@ -75,7 +75,7 @@ RSpec.describe "Congress Messages", type: :request do
       it "to target bioguide_ids" do
         campaign = FactoryGirl.create(:congress_message_campaign, :targeting_bioguide_ids)
         action_page.update_attribute(:congress_message_campaign, campaign)
-        subject
+        get_congress_message_form
         expect(response.body).to include("C000880")
         expect(response.body).not_to include("A000360")
       end
@@ -84,7 +84,7 @@ RSpec.describe "Congress Messages", type: :request do
         members.last.update_attributes(chamber: "house", district: 10)
         campaign = FactoryGirl.create(:congress_message_campaign, :targeting_senate)
         action_page.update_attribute(:congress_message_campaign, campaign)
-        subject
+        get_congress_message_form
         expect(response.body).to include("C000880")
         expect(response.body).not_to include("A000360")
       end
@@ -119,7 +119,7 @@ RSpec.describe "Congress Messages", type: :request do
       }
     end
 
-    subject do
+    def submit_congress_message
       campaign_id = action_page.congress_message_campaign_id
       post("/congress_message_campaigns/#{campaign_id}/congress_messages",
            params: message_attributes)
@@ -131,7 +131,7 @@ RSpec.describe "Congress Messages", type: :request do
     end
 
     it "successfully submits good input" do
-      subject
+      submit_congress_message
       expect(WebMock).to have_requested(:post, /fill-out-form/).
         with(body: {
         "bio_id": "C000880",
@@ -154,7 +154,8 @@ RSpec.describe "Congress Messages", type: :request do
 
     it "returns an error when validation fails" do
       message_attributes[:common_attributes].delete("$NAME_FIRST")
-      subject
+      submit_congress_message
+      expect(response.body).to include "Please check"
       expect(WebMock).not_to have_requested(:post, /fill-out-form/)
     end
 
@@ -178,7 +179,7 @@ RSpec.describe "Congress Messages", type: :request do
         },
         bioguide_ids: "C000880"
       }
-      subject
+      submit_congress_message
       expect(response.status).to eq 200
     end
   end

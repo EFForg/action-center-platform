@@ -64,7 +64,7 @@ RSpec.feature "Submit congress message", type: :feature do
                                email: "mrgiles@sunnydale.edu")
     sign_in_user(giles)
 
-    visit "/action/#{action_page.title.downcase.gsub(" ", "-")}?partner=#{partner.code}"
+    visit "/action/#{action_page.title.downcase.gsub(" ", "-")}"
     click_button "Submit your message"
 
     fill_in "common_attributes__NAME_FIRST", with: "Ripper"

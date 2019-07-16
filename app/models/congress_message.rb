@@ -1,3 +1,5 @@
+# CongressMessage describes a submission to the Congress Message tool.
+# It isn't backed by the database.
 class CongressMessage
   include ActiveModel::Model
   validate :attributes_satisfy_forms
@@ -23,7 +25,7 @@ class CongressMessage
         "$ADDRESS_STATE_POSTAL_ABBREV" => location.state
       })
     end
-    new({ common_attributes: common_attributes, forms: forms , campaign: campaign })
+    new({ common_attributes: common_attributes, forms: forms, campaign: campaign })
   end
 
   def common_fields
