@@ -40,7 +40,7 @@ describe ActionCloner do
   end
 
   def filter_attrs(attrs)
-    attrs_not_cloned = %w(published archived created_at updated_at)
+    attrs_not_cloned = %w(published archived created_at updated_at slug)
     attrs.tap do |hash|
       attrs_not_cloned.each { |a| hash.delete a }
     end
