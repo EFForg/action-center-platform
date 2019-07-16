@@ -36,7 +36,7 @@
           </div>
 
 
-          <input type='checkbox' class="open-menu" style='display: none' id="the-menu">
+          <!--input type='checkbox' class="open-menu" style='display: none' id="the-menu"-->
           <!--label class="open-menu" for="the-menu">&#x2261;</label-->
           <!--div id="nav-menu" role="navigation" aria-label="navigaton">
             <ul>
@@ -66,11 +66,11 @@
 
             </ul>
           </div-->
-          <div class="modal-container">
-            <input id="modal-toggle" type="checkbox">
+          <div class="nav-modal-container">
+            <input id="nav-modal-toggle" type="checkbox">
             <button>&#x2261;</button>
-            <div class="modal-backdrop">
-              <div  class="modal-content" id="nav-menu" role="navigation" aria-label="navigaton">
+            <div class="nav-modal-backdrop">
+              <div  class="nav-modal-content" id="nav-menu" role="navigation" aria-label="navigaton">
                   <ul>
                     <% if user_signed_in? %>
                     <% if can?(:administer_actions) && controller_name == "action_page" && @actionPage -%>

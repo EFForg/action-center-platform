@@ -117,7 +117,7 @@ nav {
       padding-bottom: 1rem;
       position: absolute;
       right: 0;
-      top: 4rem;
+      top: 6rem;
       transition: all 0.3s ease;
       width: 200px;
       z-index: 100;
@@ -150,83 +150,67 @@ nav {
       }
     }
 
-    .open-menu {
-      color: white;
+    .nav-modal-container button { // hamburger
+      background: $eff-red;
+      border: none;
       display: inline-block;
-      top: 0;
-      right: 2%;
-      position: absolute !important;
-      z-index: 1000;
-      &:before,
-      &:after {
-        display: none;
-      }
-      &:hover {
-        border-bottom: none;
-        cursor: pointer;
+      float: right;
+      font-size: 3em;
+      height: 0;
+      margin: -0.65rem 0 0;
+      transition: background 0.3s ease-in;
+      @media screen and (min-width: $ph) {
+        font-size: 4rem;
+        margin: -7rem 0 0;
       }
     }
-    // modal test
+    .nav-modal-container .nav-modal-backdrop {
+      height: 0;
+      width: 0;
+      opacity: 0;
+      overflow: hidden;
+      transition: opacity 0.2s ease-in;
+    }
 
+    .nav-modal-container #nav-modal-toggle {
+      position: absolute;
+      left: 90%;
+      top: 0;
+      height: 6rem;
+      width: 6rem;
+      margin: 0;
+      opacity: 0;
+      cursor: pointer;
+      @media screen and (min-width: $ph) {
+        left: 95%;
+      }
+    }
 
-.modal-container button { // hamburger
-  background: $eff-red;
-  border: none;
-  display: block;
-  font-size: 4rem;
-  margin: 0 auto;
-  transition: background 0.3s ease-in;
-}
+    .nav-modal-container #nav-modal-toggle:checked {
+      width: 100vw;
+      height: 100vh;
+      position: fixed;
+      left: 0;
+      top: 0;
+      z-index: 9;
+      opacity: 0;
+    }
 
-.modal-container .modal-backdrop {
-  height: 0;
-  width: 0;
-  opacity: 0;
-  overflow: hidden;
-  transition: opacity 0.2s ease-in;
-}
-
-.modal-container #modal-toggle {
-  position: absolute;
-  left: 0;
-  top: 0;
-  height: 100%;
-  width: 100%;
-  margin: 0;
-  opacity: 0;
-  cursor: pointer;
-}
-
-
-.modal-container #modal-toggle:checked {
-  width: 100vw;
-  height: 100vh;
-  position: fixed;
-  left: 0;
-  top: 0;
-  z-index: 9;
-  opacity: 0;
-}
-
-.modal-container #modal-toggle:checked ~ .modal-backdrop {
-  background-color: transparent;
-  width: 100vw;
-  height: 100vh;
-  position: fixed;
-  left: 0;
-  top: 0;
-  z-index: 9;
-  pointer-events: none;
-  opacity: 1;
-}
-
-.modal-container #modal-toggle:checked ~ .modal-backdrop .modal-content {
-  z-index: 999;
-  pointer-events: auto;
-  cursor: auto;
-}
-
-
-
+    .nav-modal-container #nav-modal-toggle:checked ~ .nav-modal-backdrop {
+      background-color: transparent;
+      width: 100vw;
+      height: 100vh;
+      position: fixed;
+      left: 0;
+      top: 0;
+      z-index: 9;
+      pointer-events: none;
+      opacity: 1;
+    }
+    .nav-modal-container #nav-modal-toggle:checked ~ .nav-modal-backdrop .nav-modal-content {
+      z-index: 999;
+      pointer-events: auto;
+      cursor: auto;
+    }
   }
 }
