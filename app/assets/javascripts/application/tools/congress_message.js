@@ -4,12 +4,12 @@ $(document).on("ready", function() {
   });
 
   $(".congress-message-rep-lookup").on("ajax:complete", function(xhr, data, status) {
-    $form = $(this);
+    var $form = $(this);
     if (status == "success") {
       $form.remove();
       $(".congress-message-tool-container").html(data.responseText);
       // Trigger phone field formatting.
-      $phone = $(".bfh-phone")
+      var $phone = $(".bfh-phone")
       $phone.bfhphone($phone.data());
       // @TODO auto-set similar fields, eg name prefix, when the first is set.
     } else if (data.responseText) {
