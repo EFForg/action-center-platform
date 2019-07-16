@@ -13,6 +13,9 @@ $sidebar-color: $gray-dark;
   transition: width 0.3s ease;
   width: 0;
   z-index: 100;
+  @media screen and (min-width: $md) {
+    display: none;
+  }
   ul {
     margin-top: 2.5em;
     margin-left: 2.5em;

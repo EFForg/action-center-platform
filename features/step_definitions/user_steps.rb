@@ -72,8 +72,8 @@ When(/^I sign in with valid credentials$/) do
   sign_in
 end
 
-Then(/^I see a successful sign in message$/) do
-  expect(page.html).to include("Hi! You&#39;re signed in!")
+Then(/^I see my account info$/) do
+  expect(page.html).to include("Your EFF Action Account")
 end
 
 When(/^I return to the site$/) do
@@ -211,9 +211,9 @@ Then(/^I am prevented from using the app until I supply a strong password$/) do
   sign_in
 
   # check app is locked down for this user
-  expect(page).to have_content("Current Password")
+  expect(page).to have_content("CURRENT PASSWORD")
   visit "/admin/action_pages"
-  expect(page).to have_content("Current Password")
+  expect(page).to have_content("CURRENT PASSWORD")
 
   # submit strong password
   submit_a_strong_password
