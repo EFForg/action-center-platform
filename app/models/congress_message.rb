@@ -53,6 +53,14 @@ class CongressMessage
     common_attributes.merge(member_attributes[bioguide_id])
   end
 
+  def submit
+    if valid?
+      @forms.each { |f| f.fill(attributes_for(f.bioguide_id), campaign.campaign_tag) }
+    end
+  end
+
+  private
+
   def attributes_satisfy_forms
     @forms.each do |form|
       attributes = attributes_for(form.bioguide_id)
@@ -61,12 +69,6 @@ class CongressMessage
           errors.add(:base, "Invalid input for #{field.value}")
         end
       end
-    end
-  end
-
-  def submit
-    if valid?
-      @forms.each { |f| f.fill(attributes_for(f.bioguide_id), campaign.campaign_tag) }
     end
   end
 end

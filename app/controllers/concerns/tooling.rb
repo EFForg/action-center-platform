@@ -1,6 +1,8 @@
 module Tooling
   extend ActiveSupport::Concern
 
+  private
+
   def create_partner_subscription
     return unless @action_page
     @action_page.partners.each do |partner|

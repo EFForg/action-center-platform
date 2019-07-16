@@ -28,7 +28,7 @@ module CongressForms
   end
 
   class Field
-    attr_accessor :max_length, :value
+    attr_reader :max_length, :value
     attr_writer :options_hash
 
     def initialize(opts)

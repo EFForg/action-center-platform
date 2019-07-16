@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module States
   def self.abbreviated
     { "ALABAMA" => "AL",
@@ -58,7 +60,7 @@ module States
       "WASHINGTON" => "WA",
       "WEST VIRGINIA" => "WV",
       "WISCONSIN" => "WI",
-      "WYOMING" => "WY" }
+      "WYOMING" => "WY" }.freeze
   end
 
   def self.full
@@ -120,6 +122,6 @@ module States
       "WASHINGTON" => "Washington",
       "WEST VIRGINIA" => "West Virginia",
       "WISCONSIN" => "Wisconsin",
-      "WYOMING" => "Wyoming" }
+      "WYOMING" => "Wyoming" }.freeze
   end
 end
