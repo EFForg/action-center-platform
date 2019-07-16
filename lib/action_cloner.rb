@@ -32,6 +32,7 @@ class ActionCloner
   end
 
   def remove_attrs
+    attrs.delete :id
     attrs.delete :created_at
     attrs.delete :updated_at
     attrs.delete :slug
