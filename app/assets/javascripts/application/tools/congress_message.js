@@ -3,6 +3,13 @@ $(document).on("ready", function() {
   var emailsSent = 0;
   var allEmailSent = function () {
     $(".step2-intro").delay(500).slideUp(null, height_changed);
+    if ($('.step2-intro').length ) {
+      console.log('Found with Length');
+      $("#tools.page1").css('background-color', white);
+      $("#tools.page2").css('background-color', red);
+    } else {
+      console.log('Not found');
+    }
     $(".legislator-label.common-fields").delay(500).slideUp(null, height_changed);
     $('#congress-message-tool').hide();
     $('#thank-you').show();
@@ -79,7 +86,13 @@ $(document).on("ready", function() {
           }
 
           $("#congressForms-common-fields").before('<p class="step2-intro">' + options.extraFieldsExplain + "</p>" + common_fields_label);
-
+          if ($('.step2-intro').length ) {
+            console.log('Found with Length');
+            $("#tools .page-indicator div.page1").css('background-color', '#FFFFFF');
+            $("#tools .page-indicator div.page2").css('background-color', '#FF0000');
+          } else {
+            console.log('Not found');
+          }
           // Replace the <label>s with <h3>s
           $(".legislator-label").replaceWith(function () {
               var attrs = { };

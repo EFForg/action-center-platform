@@ -69,12 +69,12 @@
 #tools {
   .page-indicator {
     @include griddy;
-    background: $off-white;
+    background-color: $off-white;
     > div {
       border-left: 4px solid $gray-darker;
     }
     div.page1 {
-      background: $eff-red;
+      background-color: $eff-red;
       border-left: none;
     }
   }

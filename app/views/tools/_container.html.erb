@@ -1,5 +1,10 @@
 <div class="pull-right tools-wrapper">
   <div id="tools" >
+    <div class="page-indicator">
+      <div class="page1"></div>
+      <div class="page2"></div>
+      <div class="page3"></div>
+    </div>
     <% if @actionPage.victory? -%>
       <%= render "tools/victory"  %>
     <% elsif @actionPage.archived? -%>
