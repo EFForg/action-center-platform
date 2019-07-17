@@ -55,9 +55,9 @@ class CongressMessage
     common_attributes.merge(member_attributes[bioguide_id])
   end
 
-  def submit
+  def background_submit
     if valid?
-      @forms.each { |f| f.fill(attributes_for(f.bioguide_id), campaign.campaign_tag) }
+      @forms.each { |f| f.delay.fill(attributes_for(f.bioguide_id), campaign.campaign_tag) }
     end
   end
 

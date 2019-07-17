@@ -123,6 +123,7 @@ RSpec.describe "Congress Messages", type: :request do
       campaign_id = action_page.congress_message_campaign_id
       post("/congress_message_campaigns/#{campaign_id}/congress_messages",
            params: message_attributes)
+      Delayed::Worker.new.work_off
     end
 
     before do
