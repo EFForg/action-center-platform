@@ -15,7 +15,7 @@ describe TopicCategory do
     end
 
     after do
-      FactoryGirl.reload
+      FactoryGirl.reload # Reset sequence numbers
     end
   end
 end
