@@ -4,15 +4,16 @@ $(document).on("ready", function() {
   var allEmailSent = function () {
     $(".step2-intro").delay(500).slideUp(null, height_changed);
     if ($('.step2-intro').length ) {
-      console.log('Found with Length');
-      $("#tools.page1").css('background-color', white);
-      $("#tools.page2").css('background-color', red);
-    } else {
-      console.log('Not found');
+      $("#tools .page-indicator div.page1").css('background-color', '#EAEAEA');
+      $("#tools .page-indicator div.page2").css('background-color', '#ec1e1e');
     }
     $(".legislator-label.common-fields").delay(500).slideUp(null, height_changed);
     $('#congress-message-tool').hide();
     $('#thank-you').show();
+    if ($('#thank-you').length ) {
+      $("#tools .page-indicator div.page2").css('background-color', '#EAEAEA');
+      $("#tools .page-indicator div.page3").css('background-color', '#ec1e1e');
+    }
     var action_id = $("[data-action-id]").attr("data-action-id");
     var url = "/tools/message-congress?action_id=" + action_id;
     $.ajax({
@@ -87,11 +88,8 @@ $(document).on("ready", function() {
 
           $("#congressForms-common-fields").before('<p class="step2-intro">' + options.extraFieldsExplain + "</p>" + common_fields_label);
           if ($('.step2-intro').length ) {
-            console.log('Found with Length');
-            $("#tools .page-indicator div.page1").css('background-color', '#FFFFFF');
-            $("#tools .page-indicator div.page2").css('background-color', '#FF0000');
-          } else {
-            console.log('Not found');
+            $("#tools .page-indicator div.page1").css('background-color', '#EAEAEA');
+            $("#tools .page-indicator div.page2").css('background-color', '#ec1e1e');
           }
           // Replace the <label>s with <h3>s
           $(".legislator-label").replaceWith(function () {
