@@ -2,14 +2,13 @@ $nav-height: 80px;
 $nav-font-color: white;
 $nav-font-size: 1.1rem;
 $nav-text-transform: uppercase;
-$nav-bg: #ec1e1e; // eff-red
 
 body {
   margin-top: $nav-height;
 }
 
 nav {
-  background-color: $nav-bg;
+  background-color: $eff-red;
   display: block;
   height: $nav-height;
   position: fixed;
@@ -20,7 +19,7 @@ nav {
 
   a {
     border: none;
-    color: $nav-font-color;
+    color: white;
     display: inline-block;
     text-decoration: none;
     &:hover {
