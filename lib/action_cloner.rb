@@ -1,26 +1,28 @@
 class ActionCloner
-  def self.clone(*args)
-    new(*args).clone
+  def self.run(*args)
+    new(*args).run
   end
 
   def initialize(action_page)
     @attrs = action_page.attributes.symbolize_keys
+    @page = action_page
   end
 
-  def clone
+  def run
     clean_attributes
-    ActionPage.new(attrs)
+    @clone = ActionPage.new(attrs)
+    clone_campaign
+    clone
   end
 
   private
 
-  attr_accessor :attrs
-
+  attr_reader :attrs, :clone, :page
 
   def clean_attributes
     unpublish
     unarchive
-    remove_attrs
+    @attrs = remove_attrs(@attrs)
   end
 
   def unpublish
@@ -31,10 +33,26 @@ class ActionCloner
     attrs[:archived] = false
   end
 
-  def remove_attrs
-    attrs.delete :id
-    attrs.delete :created_at
-    attrs.delete :updated_at
-    attrs.delete :slug
+  def remove_attrs(hash)
+    to_remove = %i(id created_at updated_at slug tweet_id email_campaign_id
+                   call_campaign_id petition_id congress_message_campaign_id)
+    to_remove.each { |a| hash.delete a }
+    hash
+  end
+
+  def clone_campaign
+    campaign_sym, model = determine_campaign
+    return unless campaign_sym && model
+    campaign = page.send(campaign_sym)
+    campaign_attrs = remove_attrs(campaign.attributes.symbolize_keys)
+    clone.send("#{campaign_sym}=", model.new(campaign_attrs))
+  end
+
+  def determine_campaign
+    return [:tweet, Tweet] if page.enable_tweet?
+    return [:email_campaign, EmailCampaign] if page.enable_email?
+    return [:petition, Petition] if page.enable_petition?
+    return [:congress_message_campaign, CongressMessageCampaign] if page.enable_congress_message?
+    return [:call_campaign, CallCampaign] if page.enable_call?
   end
 end
