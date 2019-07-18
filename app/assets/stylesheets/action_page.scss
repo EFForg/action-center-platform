@@ -153,7 +153,7 @@
       margin-bottom: 0.5rem;
     }
     input[type=submit].action, button[type=submit].action {
-      @include speak-out-button;
+      @extend .eff-red-button;
     }
     label.checkbox.small {
       font-size: 70%;
@@ -206,8 +206,7 @@
         font-style: normal;
         padding: 0px 6px;
         background-color: $off-white;
-        color: $red;
-
+        color: $eff-red;
         i {
           font-size: $base-font-size * 0.8;
           margin-right: -3px;
@@ -1006,7 +1005,7 @@ html.js #affiliations {
   }
 
   input[type=submit] {
-    @include speak-out-button;
+    @extend .eff-red-button;
     float: right;
     width: 26%;
     font-size: 0.7em;
@@ -1023,7 +1022,7 @@ html.js #affiliations {
 #signatures.affiliation-signatures {
 
   .header {
-    color: $red;
+    color: $eff-red;
   }
 
   .content {

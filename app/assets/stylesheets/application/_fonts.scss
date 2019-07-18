@@ -26,56 +26,10 @@
   font-family: 'Montserrat';
   font-style: normal;
   font-weight: 900;
-  src: local("Montserrat Black"), local("Montserrat-Black"), url('fonts/Montserrat-Black.woff') format('woff'); }@font-face {
+  src: local("Montserrat Black"), local("Montserrat-Black"), url('fonts/Montserrat-Black.woff') format('woff'); }
+
+@font-face {
   font-family: 'LeagueGothic';
   font-style: normal;
   font-weight: 200;
   src: local("LeagueGothic"), local("LeagueGothic"), url('fonts/LeagueGothic-regular.woff') format('woff'); }
-
-@font-face {
-  font-family: 'Merriweather';
-  font-style: normal;
-  font-weight: 300;
-  src: local("Merriweather Light"), local("Merriweather-Light"), url('fonts/Merriweather-Light.woff') format('woff'); }
-
-@font-face {
-  font-family: 'Merriweather';
-  font-style: normal;
-  font-weight: 400;
-  src: local("Merriweather"), local("Merriweather-Regular"), url('fonts/Merriweather-Regular.woff') format('woff'); }
-
-@font-face {
-  font-family: 'Merriweather';
-  font-style: normal;
-  font-weight: 700;
-  src: local("Merriweather Bold"), local("Merriweather-Bold"), url('fonts/Merriweather-Bold.woff') format('woff'); }
-
-@font-face {
-  font-family: 'Merriweather';
-  font-style: normal;
-  font-weight: 900;
-  src: local("Merriweather Black"), local("Merriweather-Black"), url('fonts/Merriweather-Black.woff') format('woff'); }
-
-@font-face {
-  font-family: 'Merriweather';
-  font-style: italic;
-  font-weight: 300;
-  src: local("Merriweather Light Italic"), local("Merriweather-LightItalic"), url('fonts/Merriweather-LightItalic.woff') format('woff'); }
-
-@font-face {
-  font-family: 'Merriweather';
-  font-style: italic;
-  font-weight: 400;
-  src: local("Merriweather Italic"), local("Merriweather-Italic"), url('fonts/Merriweather-Italic.woff') format('woff'); }
-
-@font-face {
-  font-family: 'Merriweather';
-  font-style: italic;
-  font-weight: 700;
-  src: local("Merriweather Bold Italic"), local("Merriweather-BoldItalic"), url('fonts/Merriweather-BoldItalic.woff') format('woff'); }
-
-@font-face {
-  font-family: 'Merriweather';
-  font-style: italic;
-  font-weight: 900;
-  src: local("Merriweather Black Italic"), local("Merriweather-BlackItalic"), url('fonts/Merriweather-BlackItalic.woff') format('woff'); }
