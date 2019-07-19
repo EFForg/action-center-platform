@@ -26,7 +26,7 @@ describe ActionCloner do
   end
 
   it "does not return a victory page" do
-    page = FactoryGirl.build(:action_page)
+    page = FactoryGirl.build(:action_page, victory: true)
     clone = described_class.run(page)
     expect(clone).not_to be_victory
   end
@@ -43,7 +43,7 @@ describe ActionCloner do
                          model => FactoryGirl.create(model))
     end
     let(:clone) { described_class.run(page) }
-    it "does not persist"  do
+    it "does not persist" do
       expect(clone.send("#{model}_id")).to be_nil
       expect(clone.send(model)).not_to be_persisted
       expect(filter_attrs(clone.send(model).attributes)).to \
