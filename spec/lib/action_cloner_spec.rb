@@ -31,6 +31,12 @@ describe ActionCloner do
     expect(clone).not_to be_victory
   end
 
+  it "retains its category" do
+    page = FactoryGirl.create(:action_page, category: FactoryGirl.build(:category))
+    clone = described_class.run(page)
+    expect(clone.category.title).to eq(page.category.title)
+  end
+
   it "can be persisted" do
     page = FactoryGirl.create(:action_page)
     clone = described_class.run(page)
