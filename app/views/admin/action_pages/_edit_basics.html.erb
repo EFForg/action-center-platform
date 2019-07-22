@@ -26,6 +26,11 @@
 </aside>
 
 <div class="form-item inline">
+  <%= f.label :category %>
+  <%= f.select :category_id, options_from_collection_for_select(Category.all, :id, :title, f.object.category_id), include_blank: true %>
+</div>
+
+<div class="form-item inline">
   <%= f.label :related_content_url, "Related Content" %>
   <%= f.text_field :related_content_url, placeholder: "Paste URL here" %>
 </div>

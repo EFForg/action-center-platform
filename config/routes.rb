@@ -126,6 +126,8 @@ Actioncenter::Application.routes.draw do
     get "images", to: "images#index"
 
     resources :events, only: [:index]
+
+    resources :categories, only: [:index, :create, :destroy]
   end
 
   resources :congress, only: [:index] do
