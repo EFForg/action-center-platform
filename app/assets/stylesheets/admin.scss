@@ -67,6 +67,26 @@ fieldset {
   white-space: nowrap;
 }
 
+.flash {
+  padding: 1rem;
+  border: 1px solid black;
+  backgroud: #eee;
+
+  @include medium {
+    width: 70%;
+  }
+
+  &.success, &.message, &.notice {
+    border: 0;
+    background: rgba(0, 255, 0, 0.2);
+  }
+
+  &.error {
+    border: 0;
+    background: rgba(255, 0, 0, 0.2);
+  }
+}
+
 #content {
   h2:first-child {
     margin-top: 0;
@@ -151,7 +171,7 @@ form {
     }
 
     &:checked + .ui {
-      background: radial-gradient(circle, #aaa 0.3em, #fff 0.4em);
+      background: radial-gradient(circle, #22e 0.3em, #fff 0.4em);
     }
   }
 
@@ -174,7 +194,7 @@ form {
     }
 
     &:checked + .ui {
-      background: repeating-linear-gradient(-45deg, #aaa, #fff 0.25em);
+      background: repeating-linear-gradient(-45deg, #22e, #fff 0.25em);
     }
   }
 

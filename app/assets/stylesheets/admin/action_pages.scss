@@ -10,6 +10,16 @@
   display: none;
 }
 
+.action_pages-index .table {
+  a:link,
+  a:visited,
+  a:focus,
+  a:active {
+    color: #000;
+    text-decoration: none;
+  }
+}
+
 .page#action {
   fieldset label {
     display: inline-block;

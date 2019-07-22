@@ -13,7 +13,7 @@
   <body class="<%= controller.controller_name  + "-" +action_name %>">
     <header>
       <div class="logo">
-        <%= image_tag "EFF_Monogram-red.png" %>
+        <%= link_to admin_action_pages_path do %><%= image_tag "EFF_Monogram-red.png" %><% end %>
       </div>
 
       <h1><%= page_title %></h1>
