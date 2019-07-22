@@ -29,6 +29,13 @@ $('.action_pages-edit, .action_pages-new').on('change', 'input[name=action_type]
   reflowEpicEditor();
 });
 
+$('.action_pages-edit, .action_pages-new').on('change', 'input[name=action_type]', function(e) {
+  if (e.target.value == 'redirect')
+    $('#nav li[data-hide-for-redirect]').slideUp(100);
+  else
+    $('#nav li[data-hide-for-redirect]').slideDown();
+});
+
 $(document).on('click', '#individual-targets #add', function(e) {
   e.preventDefault();
 
