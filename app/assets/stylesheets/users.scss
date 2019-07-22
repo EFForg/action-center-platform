@@ -181,14 +181,14 @@
 .users-edit,
 .registrations-edit {
   #settings, .edit {
-    margin-bottom: 50px;
-    margin-top: 20px;
+    display: inline-block;
+    margin: 3rem 0 4rem;
   }
   .form-horizontal .control-label {
-    padding-top: 5px;
+    padding-top: 0.5rem;
   }
   .personal-info {
-    margin-top: 20px;
+    margin-top: 1rem;
   }
 }
 
