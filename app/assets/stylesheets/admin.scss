@@ -144,6 +144,7 @@ form {
   .form-item input[type=text], .form-item textarea {
     width: 100%;
     padding: 0.4em;
+    box-sizing: border-box;
   }
 
   .form-item > textarea {
@@ -216,8 +217,16 @@ form {
     @include button;
   }
 
-  select {
+  select, .select2 {
     max-width: 100%;
+    min-width: 10em;
+    width: 100%;
+  }
+}
+
+#filters form {
+  .form-item {
+    width: 100%;
   }
 }
 

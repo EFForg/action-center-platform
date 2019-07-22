@@ -22,4 +22,4 @@ function debounce(fn, time) {
   };
 }
 
-$(document).on('ready', function() { $('select').select2(); });
+$(document).on('ready', function() { $('select').select2({ 'width': '100%' }); });
