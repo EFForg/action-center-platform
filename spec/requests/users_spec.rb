@@ -13,7 +13,7 @@ RSpec.describe "Tests about users", type: :request do
     expect(page).to have_content("Personal information")
 
     # log user out
-    click_on "Logout"
+    find("input[value='Logout']", match: :first).click
 
     #promote user to activist
     @user.admin = true
