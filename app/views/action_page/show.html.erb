@@ -16,13 +16,8 @@
           <%= markdown @actionPage.description -%>
         </div>
       </div>
-    </div>
-  </div>
+      <div class=" action-content" id="action-content" data-action-id="<%= @actionPage.id -%>" >
 
-</div>
-<div class="container action-content" id="action-content" data-action-id="<%= @actionPage.id -%>" >
-  <div class="row">
-    <div>
       <% if @actionPage.enable_petition? && @petition && @petition.description.present? && !@actionPage.description.include?('``` letter') -%>
         <% if !@petition.enable_affiliations? -%>
           <div id='signatures' class="hidden-xs ajax-update">
@@ -37,9 +32,9 @@
         <%= render(partial: "tools/affiliation_signatures", layout: false) %>
       <% end -%>
 
-    </div>
     <%= render "tools/container" %>
   </div>
 </div>
-
+</div>
+</div>
 <%= ahoy_track_tag("show", @actionPage.id) %>

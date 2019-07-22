@@ -2,19 +2,31 @@
 .action_pages-preview {
   .row {
     @include flex-this;
+    flex-direction: column;
+    margin: 0;
+    @media screen and (min-width: $lg) {
+      flex-direction: row;
+      margin: 0 1rem;
+    }
     > div {
       @include flex-item;
-      margin-left: 0;
+      margin: 0 auto;
       text-align: left;
       width: 100%;
-      @media screen and (min-width: $ph) {
-        width: 50%;
+    }
+    @media screen and (min-width: $lg) {
+      > div:first-child {
+        margin: 2rem 3rem 1rem;
+        width: 65%;
       }
-      @media screen and (min-width: $xl) {
-        width: 60%;
+      > div:last-child {
+        margin-top: 3rem;
+        width: 35%;
       }
     }
+
   }
+
 }
 #progress-bar {
   .count, .goal {
@@ -23,7 +35,6 @@
 }
 
 .short-description {
-  margin-top: 2em;
   h5 {
     margin-bottom: 0;
     padding-bottom: 0;
@@ -33,7 +44,11 @@
     line-height: $base-line-height * 1.2;
   }
   img {
-    margin-bottom: 3rem;
+    padding-right: 1rem;
+    @media screen and (min-width: $md) {
+      margin-bottom: 3rem;
+      padding-right: 2rem;
+    }
   }
   input:not(:checked) + label + div {  // for Learn more
     display: none;
@@ -57,6 +72,11 @@
   p, li {
     margin-bottom: 1em;
   }
+  > p,
+  > li {
+    font-size: $base-font-size * 1.2;
+    line-height: $base-line-height * 1.2;
+  }
 }
 
 
@@ -65,6 +85,7 @@
   padding: 0 0.5em;
   font-size: 0.8em;
 }
+
 
 #tools {
   .tool {
@@ -891,20 +912,9 @@ html.js {
 
 @media screen and (min-width: $md) {
   #tools {
-    margin-top: 32px;
-    margin-bottom: 30px;
-    position: fixed;
-    right: 5%;
-    top: 100px;
-    width: 312px;
+
   }
-  .tools-wrapper.fixed {
-    position: static;
-  }
-  .tools-wrapper.tools #tools {
-    position: absolute;
-    top: 97px;
-  }
+
 
   #tools .tool select {
     max-width: auto;
@@ -913,14 +923,6 @@ html.js {
     margin-bottom: 40px;
   }
 }
-
-@media (min-width: $xl ) {
-  #tools {
-    right: 11%;
-    width: 390px;
-  }
-}
-
 
 .no-js .plain-date {
   display: block !important;
