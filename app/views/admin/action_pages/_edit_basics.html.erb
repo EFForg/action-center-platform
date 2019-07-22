@@ -1,17 +1,23 @@
 <h2>Basics</h2>
 
+<p>Enter the top-level information about your action below.</p>
+
 <div class="form-item">
   <%= f.label :title %>
   <%= f.text_field :title %>
 </div>
 
 <div class="form-item epiceditor">
-  <%= f.label :summary %>
+  <%= f.label :summary do %>
+    Summary <span class="hint">(this text appears next to the thumbnail image, short and sweet</span>
+  <% end %>
   <%= f.text_area :summary %>
 </div>
 
 <div class="form-item epiceditor">
-  <%= f.label :description %>
+  <%= f.label :description do %>
+    Description <span class="hint">(detailed synopsis of the issue, appears when user clicks “Learn More”)</span>
+  <% end %>
   <%= f.text_area :description %>
 </div>
 
