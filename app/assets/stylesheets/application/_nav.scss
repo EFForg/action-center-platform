@@ -31,7 +31,17 @@ nav {
 
   .nav-wrapper {
     margin: 0 auto;
-    max-width: $max-width;
+    padding: 0;
+    width: 100% !important;
+    @media screen and (min-width: $ph) {
+      padding-left: 0.2rem;
+    }
+    @media screen and (min-width: $lg) {
+      max-width: $max-width;
+    }
+    @media screen and (min-width: $xl) {
+      padding-left: 0;
+    }
     position: relative;
     .menu-logo {
       @media screen and (min-width: $md) {
