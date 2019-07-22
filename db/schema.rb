@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180516215539) do
+ActiveRecord::Schema.define(version: 20190722182458) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -71,6 +71,7 @@ ActiveRecord::Schema.define(version: 20180516215539) do
     t.integer  "category_id"
     t.boolean  "enable_congress_message",          default: false, null: false
     t.integer  "congress_message_campaign_id"
+    t.string   "related_content_url"
   end
 
   add_index "action_pages", ["archived"], name: "index_action_pages_on_archived", using: :btree

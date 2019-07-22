@@ -123,6 +123,16 @@ form {
     }
   }
 
+  .form-item.inline {
+    display: inline-block;
+    width: auto;
+    margin-right: 2em;
+  }
+
+  .form-item.inline input[type=text] {
+    min-width: 20em;
+  }
+
   .form-item > label {
     @include label;
   }
