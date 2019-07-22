@@ -1,4 +1,5 @@
 //= require jquery
+//= require select2
 //= require admin/tabs
 //= require admin/editor
 //= require admin/gallery
@@ -20,3 +21,5 @@ function debounce(fn, time) {
     }, time);
   };
 }
+
+$(document).on('ready', function() { $('select').select2(); });
