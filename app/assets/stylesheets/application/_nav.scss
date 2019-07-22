@@ -74,15 +74,22 @@ nav {
 
     #nav-menu {  // drop-down menu
       @media screen and (min-width: $md) {
+        right: 5%;
         width: 250px;
+      }
+      @media screen and (min-width: $xl) {
+        right: 9%;
+      }
+      @media screen and (min-width: 1800px) { //very wide screens
+        right: 15%;
       }
       background-color: $gray;
       color: black;
       display: inline-block;
       padding-bottom: 1rem;
       position: absolute;
-      right: 0;
-      top: 6rem;
+      right: 5%;
+      top: 5.3rem;
       transition: all 0.3s ease;
       width: 200px;
       z-index: 100;
@@ -157,7 +164,7 @@ nav {
           z-index: 9;
           opacity: 0;
           ~ .nav-modal-backdrop {
-            width: 100vw;
+            width: 100%;
             height: 100vh;
             left: 0;
             top: 0;
