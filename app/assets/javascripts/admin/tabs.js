@@ -1,5 +1,7 @@
 (function() {
   var goto = function(id) {
+    if (!id) return;
+
     $('#content form .page:visible').fadeOut(100, function() {
       $('#nav .active').removeClass('active');
       $('#nav a[href=' + id +']').addClass('active');
@@ -17,5 +19,7 @@
   $(document).on('ready', function() {
     if (window.location.hash.length)
       goto(window.location.hash);
+    else
+      goto($('#nav a[href^=#]').first().attr('href'));
   });
 })();
