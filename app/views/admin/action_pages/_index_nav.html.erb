@@ -1,17 +1,28 @@
 <ul id="nav">
   <li>
-    <%= nav_link_to "Action Pages", admin_action_pages_path %>
-  </li>
-
-  <li>
     <%= nav_link_to "Create new action", new_admin_action_page_path %>
   </li>
 
   <li>
-    <%= nav_link_to "Homepage", homepage_admin_action_pages_path %>
+    <%= nav_link_to "All Actions", admin_action_pages_path %>
   </li>
 
   <li>
-    <%= nav_link_to "Analytics", admin_events_path %>
+    <%= nav_link_to "Featured", homepage_admin_action_pages_path %>
+  </li>
+
+  <li>
+    <%= nav_link_to "Site Analytics", admin_events_path %>
+  </li>
+
+  <li>
+    <a>Advanced Config</a>
+
+    <ul>
+      <li><%= nav_link_to "Partners Admin", "#" %></li>
+      <li><%= nav_link_to "Congress Topics", "#" %></li>
+      <li><%= nav_link_to "Users", admin_users_path %></li>
+      <li><%= nav_link_to "Image Gallery", admin_source_files_path %></li>
+    </ul>
   </li>
 </ul>
