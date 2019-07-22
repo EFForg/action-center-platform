@@ -70,13 +70,13 @@
         </div>
       </nav>
 
-    <div id="content">
+
       <% if content_for?(:content) -%>
         <%= yield(:content) -%>
       <% else -%>
         <%= yield %>
       <% end -%>
-    </div>
+
   </div>
 
   <div class="footer">
