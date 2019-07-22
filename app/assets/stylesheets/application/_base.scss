@@ -41,6 +41,10 @@ body>.wrapper {
   min-height: 100%;
   margin: 0 auto;
   max-width: $max-width;
+  padding: 0 3%;
+  @media screen and (min-width: $md) {
+    padding: 0;
+  }
 }
 
 article,
