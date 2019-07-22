@@ -424,6 +424,7 @@ div#email_target_text {
 }
 
 .container {  // overriding bootstrap
+  padding: 0;
   max-width: 750px !important;
   width: 100% !important;
   @media screen and (min-width: $lg) {

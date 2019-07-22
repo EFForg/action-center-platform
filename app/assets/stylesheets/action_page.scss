@@ -6,7 +6,6 @@
     margin: 0;
     @media screen and (min-width: $lg) {
       flex-direction: row;
-      margin: 0 1rem;
     }
     > div {
       @include flex-item;
@@ -16,11 +15,11 @@
     }
     @media screen and (min-width: $lg) {
       > div:first-child {
-        margin: 2rem 3rem 1rem;
+        margin: 2rem 3rem 1rem 0;
         width: 65%;
       }
       > div:last-child {
-        margin-top: 3rem;
+        margin: 3rem 0.5rem 0 0;
         width: 35%;
       }
     }
