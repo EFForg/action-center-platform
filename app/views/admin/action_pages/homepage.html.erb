@@ -2,6 +2,8 @@
 
 <h2>Homepage</h2>
 
+<%= messages %>
+
 <%= form_tag homepage_admin_action_pages_path, method: :post do %>
   <% @featured_action_pages.each_with_index do |featured_action_page, i| %>
     <%= fields_for "featured_action_pages[#{i}]", featured_action_page do |f| %>

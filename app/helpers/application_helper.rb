@@ -423,6 +423,14 @@ module ApplicationHelper
     content_tag(:span, count) + " #{noun}"
   end
 
+  def messages
+    messages = flash.collect do |type, content|
+      content_tag :p, content, class: "flash #{type}"
+    end
+
+    safe_join(messages)
+  end
+
   private
 
   def user_session_data_whitelist
