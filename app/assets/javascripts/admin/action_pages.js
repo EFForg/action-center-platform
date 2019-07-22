@@ -36,6 +36,11 @@ $('.action_pages-edit, .action_pages-new').on('change', 'input[name=action_type]
     $('#nav li[data-hide-for-redirect]').slideDown();
 });
 
+$('.action_pages-edit, .action_pages-new').on('click', '#nav a[href=#save]', function(e) {
+  e.preventDefault();
+  $('form', '#content').first().submit();
+});
+
 $(document).on('click', '#individual-targets #add', function(e) {
   e.preventDefault();
 
