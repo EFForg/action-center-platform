@@ -1,6 +1,7 @@
 module ApplicationHelper
   def page_title
-    [@title, I18n.t("site_title")].compact.join(" | ")
+    t("page_title", scope: [controller_path.gsub("/", "_"), action_name],
+      default: [@title, I18n.t("site_title")].compact.join(" | "))
   end
 
   def escape_page_title

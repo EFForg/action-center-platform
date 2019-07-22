@@ -82,3 +82,22 @@ en:
     views: Action Page Views
     emails: Email Actions
     congress_messages: Congress Message Actions
+
+  admin_action_pages:
+    new:
+      page_title: Create New Action
+
+    edit:
+      page_title: Edit Action
+
+  admin_events:
+    index:
+      page_title: Site Analytics
+
+  admin_users:
+    index:
+      page_title: Users
+
+  admin_source_files:
+    index:
+      page_title: Image Gallery
