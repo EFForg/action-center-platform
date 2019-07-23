@@ -52,12 +52,16 @@ class CongressMessageCampaign < ActiveRecord::Base
     CongressForms.url("/successful-fills-by-member/", { campaign_tag: campaign_tag })
   end
 
-  def target_bioguide_ids=(x)
-    if x.is_a?(Array)
-      super(x.map(&:presence).compact.join(","))
-    else
-      super(x)
-    end
+  def target_bioguide_list=(x)
+    self.target_bioguide_ids = x.map(&:presence).compact.join(",")
+  end
+
+  def target_bioguide_list
+    Array(target_bioguide_ids.try(:split, ","))
+  end
+
+  def target_specific_legislators
+    target_bioguide_ids.present?
   end
 
   private

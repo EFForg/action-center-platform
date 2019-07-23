@@ -62,3 +62,15 @@ $(document).on('click', '#individual-targets #add', function(e) {
 
   input.val('').focus();
 });
+
+$('.action_pages-edit, .action_pages-new').on('change', '[type=checkbox][name*=target_]', function(e) {
+  if (e.target.name.match(/target_house|target_senate/) && e.target.checked) {
+    $(this).closest('fieldset').find('[name*=target_specific_legislators]').prop('checked', false);
+    $(this).closest('fieldset').find('.select2').slideUp(40);
+  } else if (e.target.checked) {
+    $(this).closest('fieldset').find('[name*=target_house],[name*=target_senate]').prop('checked', false);
+    $(this).closest('fieldset').find('.select2').slideDown(40, function() {
+      $(this).siblings('select').focus();
+    });
+  }
+});

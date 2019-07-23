@@ -9,23 +9,27 @@
     <%= sf.text_area :message %>
   </div>
 
-  <div class="form-item">
+  <fieldset class="form-item">
+    <legend>Targets</legend>
+
     <%= sf.label :target_house do %>
       <%= sf.check_box :target_house, class: "fancy" %><span class="ui"></span>
-      Target House
+      House
     <% end %>
 
     <%= sf.label :target_senate do %>
       <%= sf.check_box :target_senate, class: "fancy" %><span class="ui"></span>
-      Target Senate
+      Senate
     <% end %>
-  </div>
 
-  <div class="form-item">
-    <%= sf.label :target_bioguide_ids, "Specific legislators" %>
-    <%= sf.select :target_bioguide_ids, options_from_collection_for_select(CongressMember.order(:full_name), :id, :full_name, sf.object.target_bioguide_ids.split(",")),
+    <%= sf.label :target_specific_legislators, "Specific legislators" do %>
+      <%= sf.check_box :target_specific_legislators, class: "fancy", name: "target_specific_legislators" %><span class="ui"></span>
+      Specific Legislators
+    <% end %>
+
+    <%= sf.select :target_bioguide_list, options_from_collection_for_select(CongressMember.order(:full_name), :id, :full_name, sf.object.target_bioguide_list),
         {}, multiple: true, "data-placeholder" => "Start typing to search" %>
-  </div>
+  </fieldset>
 
   <div class="form-item">
     <%= sf.label :campaign_tag %>
