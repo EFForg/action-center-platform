@@ -12,6 +12,9 @@
       margin: 0 auto;
       text-align: left;
       width: 100%;
+      @media screen and (min-width: $md) {
+        margin: 2rem auto;
+      }
     }
     @media screen and (min-width: $lg) {
       > div:first-child {
