@@ -436,8 +436,12 @@ h3.privacy-notice-header {
 }
 
 #signatures {
-  font-size: 0.7em;
+  margin-left: 1rem;
   text-transform: capitalize;
+  width: 100%;
+  @media screen and (min-width: $md) {
+    width: 50%;
+  }
   .header {
     color: $gray-darker;
     margin: 2em 0 1em;
