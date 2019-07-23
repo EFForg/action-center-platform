@@ -52,6 +52,14 @@ class CongressMessageCampaign < ActiveRecord::Base
     CongressForms.url("/successful-fills-by-member/", { campaign_tag: campaign_tag })
   end
 
+  def target_bioguide_ids=(x)
+    if x.is_a?(Array)
+      super(x.map(&:presence).compact.join(","))
+    else
+      super(x)
+    end
+  end
+
   private
 
   def target_bioguide_text_or_default(custom_text, default)

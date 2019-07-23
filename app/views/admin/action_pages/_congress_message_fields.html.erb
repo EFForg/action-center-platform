@@ -23,7 +23,8 @@
 
   <div class="form-item">
     <%= sf.label :target_bioguide_ids, "Specific legislators" %>
-    <%= sf.text_field :target_bioguide_ids %>
+    <%= sf.select :target_bioguide_ids, options_from_collection_for_select(CongressMember.order(:full_name), :id, :full_name, sf.object.target_bioguide_ids.split(",")),
+        {}, multiple: true, "data-placeholder" => "Start typing to search" %>
   </div>
 
   <div class="form-item">

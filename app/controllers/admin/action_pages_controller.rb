@@ -174,7 +174,7 @@ class Admin::ActionPagesController < Admin::ApplicationController
         :alt_text_look_up_helper, :alt_text_customize_message_helper, :campaign_tag
       ],
       congress_message_campaign_attributes: [
-        :id, :message, :subject, :target_house, :target_senate, :target_bioguide_ids,
+        :id, :message, :subject, :target_house, :target_senate, { target_bioguide_ids: [] },
         :topic_category_id, :alt_text_email_your_rep, :alt_text_look_up_your_rep,
         :alt_text_extra_fields_explain, :alt_text_look_up_helper,
         :alt_text_customize_message_helper, :campaign_tag
