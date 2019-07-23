@@ -1,7 +1,7 @@
 #tools .tool .tool-body {
   .share {
     @include griddy;
-    grid-template-columns: 33% 34% 33%;
+    grid-template-columns: 18% 18% 18% 18%;
     margin-top: 0;
     a,
     a:hover {
@@ -10,44 +10,44 @@
     }
   }
   a.eff-red-button {
+    border-bottom: 0.3rem solid $dark-red;
     color: $off-white;
+    display: inline-block;
+    margin-bottom: 3rem;
     &:hover {
       border: none;
-  }
+      border-bottom: 0.3rem solid $eff-red;
+    }
   }
   .sicon {
     float: left;
     width: 54px;
     height: 54px;
     background-color: black;
-    background-image: image-url("social-icons.png");
+
   }
 
   #share-buttons .sicon {
-    // margin-top: 2px;  // changed when tweet count was disabled
     margin-top: 20px;
+    &:hover {
+      opacity: 0.8;
+    }
   }
 
   #sfb {
-    background-position: 70% 0;
-  }
-
-  #sfb:hover {
-    opacity: 0.8;
+    background-image: image-url("social-facebook.svg");
   }
 
   #stwit {
-    background-position: 50% 0;
-  }
-
-  #stwit:hover {
-    opacity: 0.8;
+    background-image: image-url("social-twitter.svg");
   }
 
   #semail {
-    background-position: 40% 0;
+    background-image: image-url("social-email.svg");
   }
-  #semail:hover {
-    opacity: 0.8;
+
+  #slink {
+    background-image: image-url("social-link.svg");
   }
+
 }
