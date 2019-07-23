@@ -1,4 +1,4 @@
-<% content_for(:nav) { render "admin/action_pages/index_nav" } %>
+<% content_for(:nav) { render "admin/nav" } %>
 
 <%= form_tag homepage_admin_action_pages_path, method: :post do %>
   <% @featured_action_pages.each_with_index do |featured_action_page, i| %>
