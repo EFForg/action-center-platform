@@ -86,37 +86,37 @@
         </h4>
         <div class="user-box">
                 <% if current_user.name.present? %>
-                  <div>Name</div>
+                  <div>Name:</div>
                   <div><%= current_user.name %></div>
                 <% end %>
 
                 <% if current_user.street_address.present? %>
-                <div>Street Address</div>
+                <div>Street Address:</div>
                 <div><%= current_user.street_address %></div>
                 <% end %>
 
                 <% if current_user.city.present? %>
-                <div>City</div>
+                <div>City:</div>
                 <div><%= current_user.city %></div>
                 <% end %>
 
                 <% if current_user.zipcode.present? %>
-                <div>Zipcode</div>
+                <div>Zipcode:</div>
                 <div><%= current_user.zipcode %></div>
                 <% end %>
 
                 <% if current_user.state.present? %>
-                <div>State</div>
+                <div>State:</div>
                 <div><%= current_user.state %></div>
                 <% end %>
 
                 <% if current_user.country_code.present? %>
-                <div>Country</div>
+                <div>Country:</div>
                 <div><%= current_user.country_code %></div>
                 <% end %>
 
                 <% if current_user.phone.present? %>
-                <div>Phone</div>
+                <div>Phone:</div>
                 <div><%= current_user.phone %></div>
                 <% end %>
 
@@ -158,7 +158,7 @@
           prizes to the most active action-takers.
           <%= token_tag(form_authenticity_token) %>
         </div>
-        <%= submit_tag "Save", class: 'shown-if-no-js btn btn-sm btn-red-outline' %>
+        <%= submit_tag "Save", class: 'eff-button' %>
       <% end -%>
 </div>
 <div class="user-info">
