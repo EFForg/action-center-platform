@@ -140,11 +140,27 @@
 .confirmations-create,
 .confirmations-show,
 .unlocks-new {
+  .row {
+    @include flex-this;
+    > div {
+      width: 100%;
+      form {
+        padding: 1rem;
+      }
+      @media screen and (min-width: $md) {
+        width: 50%;
+      }
+      @media screen and (min-width: $lg) {
+        width: 33%;
+      }
+    }
+  }
   input.form-control {
     border: 2px solid #fff;
   }
   .extra-links {
-    font-size: 15px;
+    font-size: $base-font-size * 0.8;
+    margin-top: 2rem;
   }
   .email-signup {
     background-color: #fff;
