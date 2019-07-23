@@ -145,6 +145,7 @@
     > div {
       width: 100%;
       form {
+        margin-bottom: 2rem;
         padding: 1rem;
       }
       @media screen and (min-width: $md) {
@@ -157,6 +158,10 @@
   }
   input.form-control {
     border: 2px solid #fff;
+  }
+  .submit {
+    margin: 0 auto;
+    text-align: center;
   }
   .extra-links {
     font-size: $base-font-size * 0.8;
@@ -208,7 +213,7 @@
   }
 }
 
-.users-show {
+.users-show { // your account page
   .row {
     @include flex-this;
     > div {
