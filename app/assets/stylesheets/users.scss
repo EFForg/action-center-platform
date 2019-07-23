@@ -157,7 +157,12 @@
     }
   }
   input.form-control {
-    border: 2px solid #fff;
+    background: $off-white;
+    border: 2px solid $off-white;
+    font-style: italic;
+    &:focus {
+      box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 8px rgba(233, 102, 102, 0.6)
+    }
   }
   .submit {
     margin: 0 auto;
@@ -168,7 +173,7 @@
     margin-top: 2rem;
   }
   .email-signup {
-    background-color: #fff;
+    background-color: $off-white;
     color: $charcoal;
     padding: 12px;
   }
@@ -252,6 +257,8 @@ table.table-simple {
 }
 
 .input-note {
+  border-bottom: 2px solid black;
+  color: black;
   font-size: 0.8rem;
   line-height: 2em;
 }

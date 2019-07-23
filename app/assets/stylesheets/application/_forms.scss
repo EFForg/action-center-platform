@@ -9,6 +9,7 @@ form {
   input[type=text],
   input[type=email],
   textarea {
+    background: $off-white;
     border: none;
     color: $charcoal;
     font-weight: 300;
@@ -61,7 +62,7 @@ a.button {
 [type="checkbox"]:not(:checked) + label:before,
 [type="checkbox"]:checked + label:before {
   content: '';
-  background: #fff;
+  background: $off-white;
   border: 1px solid $charcoal;
   box-shadow: none;
   display: block;
@@ -133,11 +134,12 @@ input[type="radio"] + label span {
 
 input[type="radio"] + label span {
   background-color: white;
+  border: 1px solid $charcoal;
 }
 
 input[type="radio"]:checked + label span {
   background: $charcoal;
-  border: 4px solid #fff;
+  border: 4px solid $gray;
 }
 
 input[type="radio"] + label span,
