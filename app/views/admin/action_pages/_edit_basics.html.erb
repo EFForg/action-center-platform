@@ -27,7 +27,7 @@
 
 <div class="form-item inline">
   <%= f.label :category %>
-  <%= f.select :category_id, options_from_collection_for_select(Category.all, :id, :title, f.object.category_id), include_blank: true %>
+  <%= f.select :category_id, options_from_collection_for_select(Category.all, :id, :title, f.object.category_id), include_blank: "- none -" %>
 </div>
 
 <div class="form-item inline">
