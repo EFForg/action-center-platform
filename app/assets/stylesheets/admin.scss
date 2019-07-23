@@ -121,10 +121,7 @@ fieldset {
 form {
   .form-item, .form-actions, aside {
     margin-top: 2em;
-
-    @include medium {
-      width: 70%;
-    }
+    max-width: 57em;
   }
 
   .form-item.inline {
@@ -225,12 +222,6 @@ form {
 
   .select2-search__field {
     width: 100% !important;
-  }
-}
-
-#filters form {
-  .form-item {
-    width: 100%;
   }
 }
 
