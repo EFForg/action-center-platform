@@ -835,8 +835,11 @@ h3.privacy-notice-header {
 // "All Campaigns" page
 
 .action_page-index {
+  .top-section {
+    display: inline-block;
+    margin: 2rem 0;
+  }
   section.more-actions {
-    padding-top: 100px;
     .row > div:first-child {
       border: 0;
     }
