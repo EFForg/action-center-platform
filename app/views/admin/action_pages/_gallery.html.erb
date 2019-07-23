@@ -1,16 +1,18 @@
 <div class="gallery">
-  <%= f.send :hidden_field, field %>
+  <% if defined?(f) %>
+    <%= f.send :hidden_field, field, value: nil %>
 
-  <% if current_value = f.object.send(field).presence %>
-    <figure class="current">
-      <%= image_tag current_value, class: "original" %>
+    <% if current_value = f.object.send(field).presence %>
+      <figure class="current">
+        <%= image_tag current_value, class: "original" %>
 
-      <span class="change">
-        &rarr; <img />
-      </span>
+        <span class="change">
+          &rarr; <img />
+        </span>
 
-      <figcaption>Current image</figcaption>
-    </figure>
+        <figcaption>Current image</figcaption>
+      </figure>
+    <% end %>
   <% end %>
 
   <div class="images">
