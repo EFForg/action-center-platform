@@ -38,6 +38,9 @@ module ActionPageHelper
     "mailto:?subject=#{u subject}&body=#{u message}"
   end
 
+  def link_share_url(action_page)
+  end
+
   def rep_photo_src(bioguide_id)
     asset_path "congress-images-102x125/i/#{bioguide_id}.jpg"
   end
