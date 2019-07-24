@@ -28,79 +28,49 @@
   <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
   <![endif]-->
 
-  <!-- Define our SVG shapes -->
-  <svg style="display: none;">
-    <defs>
-      <polygon id="arrow" points="0,0 0,10 8,5 "/>
-    </defs>
-  </svg>
-
   <div class="wrapper">
-    <div id="off-canvas" class="off-canvas" role="navigation" aria-label="mobile-navigaton">
-      <ul>
-        <li class="logo-li scrolly"><a href="#top" class="menu-logo" alt="Site logo">&nbsp;</a></li>
-        <li><a class="scrolly" href="/">Home</a></li>
-        <% if user_signed_in? %>
-        <% if can?(:administer_actions) && controller_name == "action_page" && @actionPage -%>
-        <li><%= link_to "Edit this page", edit_admin_action_page_path(@actionPage) -%></li>
-        <% end %>
-
-        <% if current_user.privileged_role? %>
-        <li><%= link_to("Admin", "/admin/action_pages") %></li>
-        <% end %>
-
-        <% if current_user.partner? %>
-        <li><%= link_to "Partner Dashboard", current_user.partner -%></li>
-        <% end %>
-
-        <li><%= link_to("Account", "/account") %></li>
-        <li>
-          <%= form_for current_user, url: destroy_user_session_path, method: :delete, html: { class: "nav-form-link" } do |f| %>
-          <%= f.submit "Logout" %>
-          <% end %>
-        </li>
-        <% else %>
-        <li><%= link_to("Register", new_user_registration_path)  %></li>
-        <li><%= link_to("Login", new_user_session_path)  %></li>
-        <% end %>
-
-      </ul>
-      <div class="close-menu"><a href="#">&times;</a></div>
-    </div>
-    <div >
       <nav role="navigation" aria-label="desktop-navigation">
-        <ul>
-          <li class="logo-li scrolly"><a href="/" class="menu-logo" alt="Site logo">&nbsp;</a></li>
-          <li><a class="scrolly" href="/">Home</a></li>
-          <% if user_signed_in? %>
-          <% if can?(:administer_actions) && controller_name == "action_page" && @actionPage -%>
-          <li><%= link_to "Edit this page", edit_admin_action_page_path(@actionPage) -%></li>
-          <% end %>
+        <div class="nav-wrapper">
+          <div>
+            <a href="/" class="menu-logo" alt="Site logo">&nbsp;</a>
+          </div>
 
-          <% if current_user.privileged_role? %>
-          <li><%= link_to("Admin", "/admin/action_pages") %></li>
-          <% end %>
+          <div class="nav-modal-container">
+            <input id="nav-modal-toggle" type="checkbox">
+            <button>&#x2261;</button>
+            <div class="nav-modal-backdrop">
+              <div  class="nav-modal-content" id="nav-menu" role="navigation" aria-label="navigaton">
+                  <ul>
+                    <% if user_signed_in? %>
+                    <% if can?(:administer_actions) && controller_name == "action_page" && @actionPage -%>
+                    <li><%= link_to "Edit this page", edit_admin_action_page_path(@actionPage) -%></li>
+                    <% end %>
 
-          <% if current_user.partner? %>
-          <li><%= link_to "Partner Dashboard", current_user.partner -%></li>
-          <% end %>
+                    <% if current_user.privileged_role? %>
+                    <li><%= link_to("Admin", "/admin/action_pages") %></li>
+                    <% end %>
 
-          <li><%= link_to("Account", "/account") %></li>
-          <li>
-            <%= form_for current_user, url: destroy_user_session_path, method: :delete, html: { class: "nav-form-link" } do |f| %>
-            <%= f.submit "Logout" %>
-            <% end %>
-          </li>
-          <% else %>
-          <li><%= link_to("Register", new_user_registration_path)  %></li>
-          <li><%= link_to("Login", new_user_session_path)  %></li>
-          <% end %>
+                    <% if current_user.partner? %>
+                    <li><%= link_to "Partner Dashboard", current_user.partner -%></li>
+                    <% end %>
 
-        </ul>
-        <a href="#off-canvas" class="open-menu">&#x2261;</a>
+                    <li><%= link_to("Account", "/account") %></li>
+                    <li>
+                      <%= form_for current_user, url: destroy_user_session_path, method:  :delete, html: { class: "nav-form-link" } do |f| %>
+                      <%= f.submit "Logout" %>
+                      <% end %>
+                    </li>
+                    <% else %>
+                    <li><%= link_to("Register", new_user_registration_path)  %></li>
+                    <li><%= link_to("Login", new_user_session_path)  %></li>
+                    <% end %>
+
+                  </ul>
+              </div>
+            </div>
+          </div>
+        </div>
       </nav>
-
-    </div>
 
     <div id="content">
       <% if content_for?(:content) -%>

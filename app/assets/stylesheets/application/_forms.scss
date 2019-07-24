@@ -189,7 +189,8 @@ select {
   }
 }
 
-.eff-red-button {
+.eff-red-button,
+a.eff-red-button {
   @extend .eff-button;
   background-color: $eff-red;
   border-bottom: 0.3rem solid $dark-red;
@@ -199,11 +200,10 @@ select {
   &:link, &:visited, a:link, a:visited {
     color: $off-white;
   }
-  &:hover {
-    background-color: $dark-red;
-    border-bottom: 0.3rem solid $eff-red;
-    color: $gray;
-
+  &:hover,
+  &:focus {
+    background: rgba($eff-red, 0.8) !important;
+    border-bottom: 4px solid rgba($dark-red, 0.8);
   }
 }
 
@@ -239,13 +239,31 @@ select {
 }
 
 
-.signup-checkbox {
-  margin: 2rem auto;
-  text-align: left;
-}
-
 .email-signup {
+
   font-size: $base-font-size * 0.8;
   margin-bottom: 0.8rem;
   margin-top: 1.2rem;
+  line-height: 1.5;
+
+  label.radio-inline {
+    margin-top: -3px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding-left: 23px;
+    padding-right: 6px;
+    line-height: 1.68;
+    input[type=radio] {
+      margin-top: 4px;
+      cursor: pointer;
+      margin-left: -18px;
+    }
+    &:first-child {
+      margin-right: 1px;
+    }
+    &:last-child {
+      margin-right: 2px;
+    }
+  }
+
 }

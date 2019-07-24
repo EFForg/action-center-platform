@@ -1,33 +1,51 @@
-.grey-box {
-  border: 1px solid #eee;
-  padding: 20px;
+.gray-box {
+  border: 1px solid $gray-dark;
+  padding: 1.5rem;
 }
 
 #settings {
-  i.action-type {
-    font-size: 22px;
-    line-height: 1.1;
+  .user-box {
+    @include flex-this;
+    flex-wrap: wrap;
+    > div {
+      @include flex-item;
+      margin: 1rem 0 0;
+      text-align: left;
+      width: 100%;
+      &:nth-child(even) {
+        border-bottom: 2px solid $off-white;
+        margin-bottom: 1rem;
+      }
+      @media screen and (min-width: $ph) {
+        border-bottom: 2px solid $off-white;
+        margin: 1rem 0 2rem;
+        width: 50%;
+      }
+    }
   }
   .user-info {
-    @extend .grey-box;
-    font-size: 15px;
-    margin-top: 20px;
+    @extend .gray-box;
     float: left;
+    margin: 0 0 1rem;
+    padding-bottom: 3rem;
+    width: 100%;
+    form {
+      background: transparent;
+      color: $off-white;
+      padding: 0;
+    }
+    .email-signup {
+      font-size: $base-font-size;
+    }
   }
   h4:first-child {
     margin-top: 5px;
   }
   .edit-settings {
-    font-size: 11px;
-    line-height: 1.1;
     padding-bottom: 1px;
     border: 0;
     margin-bottom: 0;
     margin-top: 0;
-    .btn-red-outline {
-      font-size: 11px;
-      line-height: 1.1;
-    }
   }
   h4 .edit-settings {
     float: right;
@@ -35,34 +53,18 @@
 }
 
 .action-grid {
-  font-size: 14px;
+  color: $off-white;
   float: left;
 
   span {
-    font-size: 36px;
-    color: $blue;
-    font-weight: bold;
-    margin-right: 5px;
-    letter-spacing: -2px;
+    color: white;
+    font-weight: 800;
   }
 
-  .quad-1 {
-    border-right: 1px solid #e0e0e0;
-    border-bottom: 1px solid #e0e0e0;
-  }
-  .quad-2 {
-    border-bottom: 1px solid #e0e0e0;
-  }
-  .quad-3 {
-    border-right: 1px solid #e0e0e0;
-    border-bottom: 1px solid #e0e0e0;
-  }
   .quad-4 {
-    border-bottom: 1px solid #e0e0e0;
+    border-bottom: 1px solid $gray;
   }
-  .total {
-    float: right;
-  }
+
 }
 
 .table-condensed {
@@ -70,7 +72,7 @@
 }
 
 .users-show .action-stats {
-  @extend .grey-box;
+  @extend .gray-box;
   float: left;
   margin-bottom: 20px;
   margin-top: 30px;
@@ -82,61 +84,51 @@
   .percentile {
     clear: both;
     span {
-      font-weight: bold;
-      color: $red;
-      letter-spacing: -1px;
-      font-size: 36px;
-    }
-    p {
-      line-height: 1.1;
+      font-weight: 800;
+      color: white;
     }
   }
 }
 
 .users-show .activity-stream {
   .age {
-    font-size: 13px;
     color: $gray;
     margin-left: 4px;
   }
+  a {
+    border-bottom: 2px solid $off-white;
+    color: $off-white;
+    &:hover,
+    &:focus {
+      color: $gray;
+      border-bottom: 2px solid $gray;
+    }
+  }
+
+  a.eff-red-button {
+    border-bottom: 0.3rem solid $dark-red;
+  }
+
   table {
-    font-size: 15px;
     .icon {
       padding-right: 0;
       width: 28px;
     }
     tbody > tr > td {
-      padding: 12px;
       vertical-align: middle;
       border: 0;
     }
   }
-
   td.btn-col {
-    text-align: right;
-    min-width: 127px;
-  }
-  h3 {
-    margin-top: 40px;
-  }
-}
-
-span.green-rect {
-  line-height: 35px;
-  border: 1px solid $green;
-  color: $green;
-  padding: 8px 18px;
-  font-size: 14px;
-  &.has-icon {
-    padding-left: 5px;
-    min-width: 99px;
-    i.icon-ok-circle {
-      font-size: 24px;
-      position: relative;
-      top: 3px;
-      margin-right: 5px;
+    min-width: 14rem;
+    button {
+      cursor: none;
+      font-size: $base-font-size * 0.8;
+      max-width: 12rem;
+      opacity: 0.5;
     }
   }
+
 }
 
 .passwords-edit,
@@ -145,38 +137,19 @@ span.green-rect {
 .sessions-new,
 .registrations-new,
 .registrations-create,
-.registrations-edit,
 .confirmations-create,
 .confirmations-show,
-.unlocks-new,
-.users-edit {
-  .top-section {
-    width: 100%;
-    .container {
-      padding: 0 3%;
-    }
-    .row {
-      @include flex-this;
-      > div {
-        @include flex-item;
-        @media screen and (max-width: $lg) {
-          width: 100%;
-        }
-      }
-      &:first-child {
-        margin-left: 0;
-        text-align: right;
-      }
-    }
+.unlocks-new {
+  input.form-control {
+    border: 2px solid #fff;
   }
-
   .extra-links {
-    font-size: $base-font-size * 0.9;
+    font-size: 15px;
   }
   .email-signup {
-    background-color: $off-white;
+    background-color: #fff;
     color: $charcoal;
-    padding: 1rem;
+    padding: 12px;
   }
   .error_explanation {
     background-color: transparent;
@@ -203,15 +176,36 @@ span.green-rect {
   }
 }
 
-.users-edit .top-section .row:last-child {
-  width: 100%;
-  input,
-  select {
-    margin: 5px 0 1.5rem;
+
+.users-show,
+.users-edit,
+.registrations-edit {
+  #settings, .edit {
+    margin-bottom: 50px;
+    margin-top: 20px;
   }
-  .eff-red-button {
-    display: block;
-    margin: 5px auto;
+  .form-horizontal .control-label {
+    padding-top: 5px;
+  }
+  .personal-info {
+    margin-top: 20px;
+  }
+}
+
+.users-show {
+  .row {
+    @include flex-this;
+    > div {
+      @include flex-item;
+      margin-left: 0;
+      text-align: left;
+      &:first-child {
+        width: 66%;
+      }
+      &:last-child {
+        margin: 0 auto;
+      }
+    }
   }
 }
 
@@ -237,13 +231,6 @@ table.table-simple {
 }
 
 .input-note {
-  color: $charcoal;
   font-size: 0.8rem;
   line-height: 2em;
-  border-bottom: 2px solid $charcoal;
-  &:hover,
-  &:focus {
-    color: black;
-    border-bottom: 2px solid black;
-  }
 }
