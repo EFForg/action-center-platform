@@ -18,7 +18,7 @@
 }
 #progress-bar {
   .count, .goal {
-    font-size: $base-font-size * 0.7;
+    font-size: $base-font-size * 0.8;
   }
 }
 
@@ -101,7 +101,6 @@
         font-size: 4rem;
         font-weight: 200;
         line-height: 4rem;
-        padding: 5px 0 0 0;
         margin: 0;
         text-transform: uppercase;
 
@@ -123,7 +122,7 @@
 
     .tool-body {
       padding: 10px;
-      h4 {
+      h3, h4, h5 {
         color: black;
       }
       label a,
