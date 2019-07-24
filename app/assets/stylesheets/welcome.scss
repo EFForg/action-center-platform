@@ -54,10 +54,10 @@ section.featured-action {
       span.eff-red-button {
         display: block;
         margin: 0 auto;
-        width: 200px;
+        width: 250px;
         text-align: center;
         @media screen and  (min-width: $lg) {
-          margin: 0;
+          margin: 1.5rem 0 0;
         }
       }
       div:last-child { // featured text
@@ -67,10 +67,10 @@ section.featured-action {
           margin: 0;
           width: 33%;
         }
-        h5 {
+        h5 { // category
           padding-top: 1rem;
           @media screen and  (min-width: $md) {
-            padding-top: 0;
+            padding: 0;
           }
         }
       }
