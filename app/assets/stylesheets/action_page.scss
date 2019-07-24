@@ -851,14 +851,14 @@ h3.privacy-notice-header {
     margin: 2rem 0;
   }
   section.more-actions {
-    .row > div:first-child {
-      border: 0;
+    .row > div {
+      &:hover {
+        opacity: 0.7;
+      }
     }
+    .row > div:first-child,
     .row > div:last-child {
       border: 0;
-    }
-    .row .col-sm-4 {
-      margin-bottom: 100px;
     }
   }
   .pagination {
