@@ -246,8 +246,12 @@
 
   }
   .progress {
-    height: 41px;
+    background: $charcoal;
+    height: 1rem;
     margin-bottom: 0;
+  }
+  .progress-bar-danger {
+    background-color: $eff-red;
   }
 
 }
