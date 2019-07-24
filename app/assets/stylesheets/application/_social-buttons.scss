@@ -2,6 +2,7 @@
   .share {
     @include griddy;
     grid-template-columns: 18% 18% 18% 18%;
+    grid-row-gap: 0;
     margin-top: 0;
     a,
     a:hover {
@@ -10,7 +11,6 @@
     }
     a div { // each share button
       background-size: cover;
-
     }
   }
   a.eff-red-button {
@@ -52,6 +52,24 @@
 
   #slink {
     background-image: image-url("social-link.png");
+    background-size: cover;
+  }
+
+  .url-field-share {
+    @media screen and (min-width: $md) {
+      width: 50%;
+    }
+    display: none;
+    margin: 0 auto;
+    width: 80%;
+    text-align: center;
+
+    input {
+      display: inline;
+      margin: 0;
+      padding: 5px;
+      width: 300px;
+    }
   }
 
 }

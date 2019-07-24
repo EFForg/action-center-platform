@@ -17,6 +17,7 @@
 //= require bootstrap/transition
 
 //= require application/select2-utils
+//= require application/copy-url
 
 //= require respond
 //= require html5shiv
