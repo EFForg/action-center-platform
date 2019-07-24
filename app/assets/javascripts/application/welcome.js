@@ -32,11 +32,11 @@ $(document).ready(function() {
   };
 
   $(window).load(function() {
-    equalheight('.more-actions .col-md-4');
+    equalheight('.more-actions');
   });
 
   $(window).resize(function() {
-    equalheight('.more-actions .col-md-4');
+    equalheight('.more-actions');
   });
 
   // Email subscription form submit
