@@ -240,12 +240,14 @@ code {
   display: none;
 }
 
-.no-scroll {  // for modals
-  margin: 0;
-  height: 100%;
-  overflow: hidden;
+h5.category {
+  color: $gray;
+  font-size: $base-font-size * 0.9;
+  padding-top: 1rem;
+  @media screen and  (min-width: $md) {
+    padding-top: 0;
+  }
 }
-
 
 .push { height: 100px;}
 

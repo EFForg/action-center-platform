@@ -15,7 +15,7 @@
           <%= link_to image_tag(@featuredActionPage.featured_image.url) , action_page_path(@featuredActionPage) -%>
         </div>
         <div class="featured-text">
-          <h5>Category placeholder</h5>
+          <h5 class="category">Category placeholder</h5>
           <%= link_to action_page_path(@featuredActionPage) do %>
             <h2>
               <%= @featuredActionPage.title -%>
@@ -35,7 +35,8 @@
       <%- @actionPages.each do |actionPage| -%>
         <div class="the-actions">
           <div class="more-actions-image">
-          <%= link_to image_tag(actionPage.featured_image.url), action_page_path(actionPage) %>
+            <h5 class="category">Category placeholder</h5>
+            <%= link_to image_tag(actionPage.featured_image.url), action_page_path(actionPage) %>
           </div>
           <div class="more-actions-text">
             <%= link_to action_page_path(actionPage) do%>
