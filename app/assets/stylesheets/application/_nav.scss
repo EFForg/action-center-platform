@@ -8,9 +8,12 @@ body {
 }
 
 nav {
+  @media screen and (min-width: $md) {
+    height: $nav-height;
+  }
   background-color: $eff-red;
   display: block;
-  height: $nav-height;
+  height: $nav-height * 0.75;
   position: fixed;
   left: 0;
   top: 0;
@@ -47,7 +50,7 @@ nav {
       @media screen and (min-width: $md) {
         height: 90px;
         left: 0;
-        margin-top: 1rem;
+
         position: relative;
         width: 500px;
       }
@@ -58,7 +61,7 @@ nav {
       display: inline-block;
       height: 50px;
       left: 0.5rem;
-      margin-top: 1rem;
+      margin-top: 17.5px;
       position: absolute;
       top: 0;
       transition: all 0.2s;
