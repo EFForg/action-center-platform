@@ -40,7 +40,7 @@ body>.wrapper {
   margin: 0 auto;
   max-width: $max-width;
   padding: 0 3%;
-  @media screen and (min-width: $md) {
+  @media screen and (min-width: $xl) {
     padding: 0;
   }
 }
