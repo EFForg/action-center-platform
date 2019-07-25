@@ -107,6 +107,10 @@
       }
       &:last-child {
         margin: 0 auto;
+        width: 100%;
+        @media screen and (min-width: $md) {
+          width: 33%;
+        }
       }
     }
   }
