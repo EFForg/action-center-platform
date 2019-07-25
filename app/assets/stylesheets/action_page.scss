@@ -32,7 +32,7 @@
 }
 #progress-bar {
   .count, .goal {
-    font-size: $base-font-size * 0.7;
+    font-size: $base-font-size * 0.8;
   }
 }
 
@@ -58,7 +58,9 @@
 
   [type="checkbox"]:not(:checked) + label,
   [type="checkbox"]:checked + label {
-    line-height: $base-line-height;
+    border-bottom: 2px solid $font-color;
+    font-size: $base-font-size * 1.2;
+    line-height: $base-line-height * 1.2;
     margin-bottom: 1rem;
     padding: 0;
     @media screen and (min-width: $ph) {
@@ -85,8 +87,10 @@
 
 .form-control {
   border-radius: 0;
+  font-size:  $base-font-size * 0.9;
+  line-height: $base-line-height * 0.9;
+  font-style: italic;
   padding: 0 0.5em;
-  font-size: 0.8em;
 }
 
 
@@ -98,8 +102,8 @@
     text-align: center;
     h3 {
       color: black;
-      font-size: $base-font-size;
-      line-height: $base-line-height;
+      font-size: $base-font-size * 1.2;
+      line-height: $base-line-height * 1.2;
       margin-top: 0;
     }
     a {
@@ -124,8 +128,9 @@
         font-size: 4rem;
         font-weight: 200;
         line-height: 4rem;
-        padding: 5px 0 0 0;
+        padding: 0 0 0 1rem;
         margin: 0;
+        text-align: left;
         text-transform: uppercase;
 
         .glyphicon {
@@ -145,7 +150,6 @@
     }
 
     .tool-body {
-      padding: 10px;
       h4 {
         color: black;
       }
@@ -159,9 +163,7 @@
         }
       }
 
-      form input[type="text"], form input[type="email"], form textarea {
-        font-style: italic;
-      }
+
     }
     .tool-notice {
       padding-bottom: 0.5rem;
@@ -171,9 +173,6 @@
     }
     .add_fields {
       font-size: 0.8rem;
-    }
-    form {
-      text-align: left;
     }
     select {
       max-width: 60%;
@@ -197,7 +196,8 @@
       margin: 10px 0px 10px 0px;
     }
     .privacy-notice {
-      font-size: 0.8rem;
+      font-size:  $base-font-size * 0.8;
+      line-height: $base-line-height * 0.8;
       padding: 0.5rem 0;
     }
     p.step2-intro {
@@ -241,7 +241,8 @@
         background-color: $off-white;
         color: $eff-red;
         i {
-          font-size: $base-font-size * 0.8;
+          font-size:  $base-font-size * 0.9;
+          line-height: $base-line-height * 0.9;
           margin-right: -3px;
         }
         &.in-progress {
@@ -623,7 +624,6 @@ h3.privacy-notice-header {
 #tools #congress-message-tool {
   .tool-body {
     padding-top: 0;
-    padding-bottom: 1rem;
   }
   .tool-title {
     margin-bottom: 1rem;
@@ -634,7 +634,8 @@ h3.privacy-notice-header {
   }
 
   label {
-    font-size:  $base-font-size * 0.8;
+    font-size:  $base-font-size * 0.9;
+    line-height: $base-line-height * 0.9;
   }
   #customize-message {
     margin-top: 0;
@@ -670,7 +671,8 @@ h3.privacy-notice-header {
   }
   .congressForms-captcha-label {
     font-weight: normal;
-    font-size: 14px;
+    font-size:  $base-font-size * 0.9;
+    line-height: $base-line-height * 0.9;
   }
   .congressForms-legislator-fields {
     margin-bottom: 15px;
@@ -784,7 +786,8 @@ h3.privacy-notice-header {
   .small {
     margin: 1rem 0;
     text-transform: uppercase;
-    font-size: $base-font-size * 0.7;
+    font-size:  $base-font-size * 0.8;
+    line-height: $base-line-height * 0.8;
     font-weight: bold;
   }
 }

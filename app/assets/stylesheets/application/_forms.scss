@@ -1,10 +1,11 @@
 form {
   background: $gray-darker;
   color: black;
-  padding: 2rem 0;
+  padding: 1rem 0;
   margin: 0 auto;
+  text-align: left;
   @media screen and (min-width: $md) {
-    padding: 2rem;
+    padding: 1rem 1rem 2rem;
   }
   input[type=text],
   input[type=email],
@@ -25,7 +26,8 @@ form {
   input[type=file] {
     appearance: none;
     color: $charcoal;
-    font-size: 0.8rem;
+    font-size: $base-font-size * 0.9;
+    line-height: $base-line-height * 0.9;
     text-transform: uppercase;
   }
 }
@@ -51,7 +53,8 @@ a.button {
 [type="checkbox"]:not(:checked) + label,
 [type="checkbox"]:checked + label {
   cursor: pointer;
-  font-size: $base-font-size * 0.8;
+  font-size: $base-font-size * 0.9;
+  line-height: $base-line-height * 0.9;
   padding-left: 1.95em;
   position: relative;
 }
@@ -196,7 +199,6 @@ a.eff-red-button {
   background-color: $eff-red;
   border-bottom: 0.3rem solid $dark-red;
   color: white;
-  max-width: 300px;
   width: 100%;
   &:link, &:visited, a:link, a:visited {
     color: $off-white;
@@ -208,41 +210,10 @@ a.eff-red-button {
   }
 }
 
-.button-style {
-  background: $gray;
-  border: 2px solid $gray;
-  clear: both;
-  color: black;
-  cursor: pointer;
-  display: inline-block;
-  font-size: 1rem;
-  font-weight: 700;
-  margin: 1rem auto;
-  max-width: 23rem;
-  padding: 0.3rem 1rem;
-  text-align: center;
-  text-decoration: none;
-  transition: all 0.2s;
-  &:hover {
-    background: black;
-    border: 2px solid black;
-    color: white;
-    text-decoration: none;
-  }
-
-  &:disabled {
-    border-color: $gray-dark;
-    background: url("../images/spinner.gif") bottom right no-repeat;
-    background-color: $gray-dark;
-    background-size: contain;
-    cursor: auto;
-  }
-}
-
-
 .email-signup {
 
-  font-size: $base-font-size * 0.8;
+  font-size: $base-font-size * 0.9;
+  line-height: $base-line-height * 0.9;
   margin-bottom: 0.8rem;
   margin-top: 1.2rem;
   line-height: 1.5;
