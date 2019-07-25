@@ -235,7 +235,16 @@
 .registrations-edit {
   #settings, .edit {
     display: inline-block;
-    margin: 3rem 0 4rem;
+    margin: 0 0 3rem 1rem;
+    padding-right: 4%;
+    @media screen and (min-width: $md) {
+      margin: 3rem 0 4rem;
+      padding-right: 0;
+      padding-left: 2%;
+    }
+    @media screen and (min-width: $xl) {
+      padding-left: 0;
+    }
   }
   .form-horizontal .control-label {
     padding-top: 0.5rem;
@@ -243,6 +252,9 @@
   .personal-info {
     margin-top: 1rem;
   }
+}
+.user-show #settings {
+
 }
 
 table.table-simple {
