@@ -324,9 +324,6 @@
   .tool-body {
     @extend form;
   }
-  .privacy-notice {
-    font-size: 12px;
-  }
 
   .form-group input {
     font-style: italic;
@@ -554,11 +551,6 @@ h3.privacy-notice-header {
     padding-bottom: 0.5em;
   }
 
-  .privacy-notice {
-    margin-bottom: 0px;
-    text-align: center;
-    margin-top: 5px;
-  }
   input[type=submit], button[type=submit] {
     margin-top: 0.1em;
     margin-bottom: 0.3em;
@@ -570,7 +562,7 @@ h3.privacy-notice-header {
     text-transform: uppercase;
   }
   .call-script-box {
-    padding: 6px 12px 2px 12px;
+    padding: 0;
     margin-bottom: 1rem;
     margin-top: 1rem;
   }
