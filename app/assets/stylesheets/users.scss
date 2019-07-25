@@ -91,43 +91,69 @@
   }
 }
 
-.users-show .activity-stream {
-  .age {
-    color: $gray;
-    margin-left: 4px;
-  }
-  a {
-    border-bottom: 2px solid $off-white;
-    color: $off-white;
-    &:hover,
-    &:focus {
-      color: $gray;
-      border-bottom: 2px solid $gray;
+.users-show { // your account page
+  .row {
+    @include flex-this;
+    > div {
+      @include flex-item;
+      margin-left: 0;
+      text-align: left;
+      &:first-child {
+        margin-top: 2rem;
+        width: 100%;
+        @media screen and (min-width: $md) {
+          width: 66%;
+        }
+      }
+      &:last-child {
+        margin: 0 auto;
+      }
     }
   }
+}
 
+.users-show .activity-stream {
+  @media screen and (min-width: $md) {
+    margin-right: 5rem;
+  }
+  h3,
+  p {
+    margin-bottom: 2rem;
+    a {
+      border-bottom: 2px solid $charcoal;
+      color: $off-white;
+      &:hover,
+      &:focus {
+        color: $gray;
+        border-bottom: 2px solid $gray;
+      }
+    }
+    .age {
+      color: $gray;
+      margin-left: 4px;
+    }
+  }
+  p.taken {
+    margin-bottom: 2rem;
+    a {
+      border-bottom: 2px solid $charcoal;
+      color: $gray-dark;
+      &:hover,
+      &:focus {
+        color: $gray;
+        border-bottom: 2px solid $gray;
+      }
+      &:before {
+        content: 'ACTION TAKEN: ';
+      }
+    }
+    .age {
+      color: $gray;
+      margin-left: 4px;
+    }
+  }
   a.eff-red-button {
     border-bottom: 0.3rem solid $dark-red;
-  }
-
-  table {
-    .icon {
-      padding-right: 0;
-      width: 28px;
-    }
-    tbody > tr > td {
-      vertical-align: middle;
-      border: 0;
-    }
-  }
-  td.btn-col {
-    min-width: 14rem;
-    button {
-      cursor: none;
-      font-size: $base-font-size * 0.8;
-      max-width: 12rem;
-      opacity: 0.5;
-    }
   }
 
 }
@@ -216,23 +242,6 @@
   }
   .personal-info {
     margin-top: 1rem;
-  }
-}
-
-.users-show { // your account page
-  .row {
-    @include flex-this;
-    > div {
-      @include flex-item;
-      margin-left: 0;
-      text-align: left;
-      &:first-child {
-        width: 66%;
-      }
-      &:last-child {
-        margin: 0 auto;
-      }
-    }
   }
 }
 
