@@ -1,6 +1,8 @@
 $(document).on("ready", function() {
-  $(".congress-message-rep-lookup, #congress-message-create").on("ajax:beforeSend", function() {
-    submit_in_progress($(this));
+  $("#congress-message-tool").on("ajax:beforeSend", function() {
+    $(".progress-striped").show();
+    $("input[type=submit]").hide();
+    $("input,textarea,button,select", $(this)).attr("disabled", "disabled");
   });
 
   $(".congress-message-rep-lookup").on("ajax:complete", function(xhr, data, status) {
@@ -21,6 +23,7 @@ $(document).on("ready", function() {
 
   $(document).on("ajax:complete", function(xhr, data, status) {
     if (xhr.target.id == "congress-message-create") {
+      var $form = $(this);
       if (status == "success") {
         $("#congress-message-create").hide();
         $(".email-tool-success-share").html(data.responseText).show();
@@ -31,12 +34,6 @@ $(document).on("ready", function() {
       }
     }
   });
-
-  function submit_in_progress(form) {
-    form.find(".progress-striped").show();
-    form.find("input[type=submit]").hide();
-    $("input,textarea,button,select", form).attr("disabled", "disabled");
-  }
 
   function show_error(error, form) {
     form.find(".progress-striped").hide();
