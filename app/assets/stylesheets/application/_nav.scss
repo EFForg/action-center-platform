@@ -34,10 +34,13 @@ nav {
 
   .nav-wrapper {
     margin: 0 auto;
-    padding: 0;
+    padding: 0 0 0 3%;
     width: 100% !important;
+    @media screen and (min-width: $sm) {
+      padding-left: 5%;
+    }
     @media screen and (min-width: $ph) {
-      padding-left: 0.2rem;
+      padding-left: 3%;
     }
     @media screen and (min-width: $lg) {
       max-width: $max-width;
@@ -50,7 +53,6 @@ nav {
       @media screen and (min-width: $md) {
         height: 90px;
         left: 0;
-
         position: relative;
         width: 500px;
       }
