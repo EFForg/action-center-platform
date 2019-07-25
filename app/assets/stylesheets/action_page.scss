@@ -42,8 +42,10 @@
     padding-bottom: 0;
   }
   > p {
-    font-size: $base-font-size * 1.2;
-    line-height: $base-line-height * 1.2;
+    @media screen and (min-width: $lg) {
+      font-size: $base-font-size * 1.2;
+      line-height: $base-line-height * 1.2;
+    }
   }
   img {
     padding-right: 1rem;
@@ -59,12 +61,14 @@
   [type="checkbox"]:not(:checked) + label,
   [type="checkbox"]:checked + label {
     border-bottom: 2px solid $font-color;
-    font-size: $base-font-size * 1.2;
-    line-height: $base-line-height * 1.2;
     margin-bottom: 1rem;
     padding: 0;
     @media screen and (min-width: $ph) {
       margin-left: 0;
+    }
+    @media screen and (min-width: $lg) {
+      font-size: $base-font-size * 1.2;
+      line-height: $base-line-height * 1.2;
     }
     &:before,
     &:after {
@@ -79,8 +83,10 @@
   }
   > p,
   > li {
-    font-size: $base-font-size * 1.2;
-    line-height: $base-line-height * 1.2;
+    @media screen and (min-width: $lg) {
+      font-size: $base-font-size * 1.2;
+      line-height: $base-line-height * 1.2;
+    }
   }
 }
 

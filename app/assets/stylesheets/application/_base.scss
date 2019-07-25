@@ -132,9 +132,7 @@ h5  {
 }
 
 p {
-  @media screen and (max-width: $ph) {
-    margin: 0 4% 1rem;
-  }
+  margin: 0 0 1rem;
   line-height: $base-line-height;
   margin-bottom: 1rem;
   padding: 0;
