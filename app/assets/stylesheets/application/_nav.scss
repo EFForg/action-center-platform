@@ -88,6 +88,7 @@ nav {
     #nav-menu {  // drop-down menu
       @media screen and (min-width: $md) {
         right: 5%;
+        top: 80px;
         width: 250px;
       }
       @media screen and (min-width: $xl) {
@@ -102,7 +103,7 @@ nav {
       padding-bottom: 1rem;
       position: absolute;
       right: 5%;
-      top: 5.3rem;
+      top: 60px;
       transition: all 0.3s ease;
       width: 200px;
       z-index: 100;
