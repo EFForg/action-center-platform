@@ -16,36 +16,24 @@
           </div>
         <% end -%>
 
-        <table class="table">
-          <tbody>
             <% @actionPages.each do |action_page| -%>
               <% if !action_page.archived && action_page.published || action_page.archived  && action_page.published && @actions_taken.include?( action_page.id) -%>
-                <tr>
-                  <td class="icon">
-                    <%=
-                    icons_for_action_page(action_page).map{|c| tag('i', class: "action-type #{c}")}.join.html_safe
-                    -%>
-                  </td>
-                  <td>
-                    <%= link_to action_page.title, action_page_path(action_page) -%>
-                    <span class="age">
-                      <%= distance_of_time_in_words_to_now(action_page.created_at) -%> old
-                    </span>
-                  </td>
-                  <td class="btn-col">
-                    <% if @actions_taken.include? action_page.id -%>
+                <% if @actions_taken.include? action_page.id -%>
+                  <p class="taken">
+                <% else %>
+                  <p>
+                <% end %>
+                <%= link_to action_page.title, action_page_path(action_page) -%>
+                  <span class="age">
+                    <%= distance_of_time_in_words_to_now(action_page.created_at) -%> old
+                  </span>
+                    <!--% if @actions_taken.include? action_page.id -%>
                       <button class="eff-red-button">
                         Action Taken
-                      </button>
-                    <% else -%>
-                      <%= link_to "Take action", action_page_path(action_page), class:"eff-red-button" -%>
-                    <% end -%>
-                  </td>
-                </tr>
+                      </button>-->
+                </p>
               <% end -%>
             <% end -%>
-          </tbody>
-        </table>
       </div>
     </div>
 
