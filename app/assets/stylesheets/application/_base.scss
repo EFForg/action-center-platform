@@ -433,6 +433,8 @@ div#email_target_text {
   }
 }
 
-.popover {  // overridng bootstrap
+.popover {  // overriding bootstrap
   color: $charcoal;
+  font-size: $base-font-size * 0.9 !important;
+  line-height: $base-line-height * 0.9;
 }

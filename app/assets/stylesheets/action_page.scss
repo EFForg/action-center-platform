@@ -702,7 +702,6 @@ h3.privacy-notice-header {
     span.customize-message-popover {
       @include transition (all 0.2s ease-in-out);
       background-color: white;
-      border: 1px solid $eff-red;
       color: $eff-red;
       cursor: pointer;
       display: inline-block;
@@ -711,7 +710,8 @@ h3.privacy-notice-header {
       float: right;
       line-height: 18px;
       height: 20px;
-      padding-top: 0px;
+      margin-top: 0.4rem;
+      padding-top: 1px;
       position: relative;
       text-align: center;
       width: 20px;
@@ -725,7 +725,6 @@ h3.privacy-notice-header {
       @include transition (all 0.2s ease-in-out);
       display: inline-block;
       float: right;
-      border: 1px solid #cc0000;
       height: 20px;
       width: 20px;
       text-align: center;
