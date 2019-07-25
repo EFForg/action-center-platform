@@ -115,37 +115,38 @@
     }
     .tool-container {
       padding: 2em 0.4em 0 0.4em;
+      img {
+        width: 100px;
+        height: 100px;
+      }
     }
 
     .tool-heading {
       color: $off-white;
+      padding-left: 1rem;
       text-transform: uppercase;
-      text-align: center;
+      text-align: left;
 
-      .tool-title {
-        color: $off-white;
-        font-family: $league;
-        font-size: 4rem;
-        font-weight: 200;
-        line-height: 4rem;
-        padding: 0 0 0 1rem;
-        margin: 0;
-        text-align: left;
-        text-transform: uppercase;
-
-        .glyphicon {
-          font-size: 0.8em;
-          padding-right: 0.2em;
-        }
-      }
       p {
         color: black;
         margin-top: 1rem;
         text-transform: none;
       }
-      img {
-        width: 100px;
-        height: 100px;
+    }
+
+    .tool-title {
+      color: $off-white;
+      font-family: $league;
+      font-size: 4rem;
+      font-weight: 200;
+      line-height: 4rem;
+      padding: 0 0 0 1rem;
+      margin: 0 0 1rem;
+      text-align: left;
+      text-transform: uppercase;
+      .glyphicon {
+        font-size: 0.8em;
+        padding-right: 0.2em;
       }
     }
 
@@ -301,6 +302,9 @@
 #petition-tool .tool-body .signed { text-align: center; }
 
 #tools #petition-tool {
+  .tool-title {
+    text-align: center;
+  }
   input[type=submit] {
     margin-top: 0;
     margin-bottom: 5px;
@@ -602,9 +606,6 @@ h3.privacy-notice-header {
     padding-top: 0;
     padding-bottom: 10px;
   }
-  .tool-title {
-    margin-bottom: 10px;
-  }
   textarea {
     padding: 6px;
   }
@@ -624,9 +625,6 @@ h3.privacy-notice-header {
 #tools #congress-message-tool {
   .tool-body {
     padding-top: 0;
-  }
-  .tool-title {
-    margin-bottom: 1rem;
   }
 
   form {
