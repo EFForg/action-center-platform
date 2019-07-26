@@ -51,7 +51,7 @@
     padding-right: 1rem;
     @media screen and (min-width: $md) {
       margin-bottom: 3rem;
-      padding-right: 2rem;
+      padding-right: 0.5rem;
     }
   }
   input:not(:checked) + label + div {  // for Learn more
@@ -146,14 +146,10 @@
       font-size: 4rem;
       font-weight: 200;
       line-height: 4rem;
-      padding: 0 0 0 1rem;
+      padding: 0 0 0 0.5rem;
       margin: 0 0 1rem;
       text-align: left;
       text-transform: uppercase;
-      .glyphicon {
-        font-size: 0.8em;
-        padding-right: 0.2em;
-      }
     }
 
     .tool-body {
@@ -284,7 +280,11 @@
 }
 
 #thank-you.tool {
+  @extend form;
   display: none;
+  .tool-title {
+    text-align: center;
+  }
   #tweet-back {
     text-decoration: underline;
     &:hover {
@@ -310,6 +310,8 @@
 #tools #petition-tool {
   .tool-title {
     text-align: center;
+    margin-left: 0;
+    padding: 0;
   }
   input[type=submit] {
     margin-top: 0;
@@ -328,7 +330,7 @@
 
 #tools #tweet-tool {
   .tool-body {
-    @extend form;
+    //@extend form;
   }
 
   .form-group input {
@@ -443,25 +445,7 @@ h3.header, #tools #email-tool h3, #tools #congress-message-tool h3 {
 
 h3.privacy-notice-header {
   span.privacy-notice-popover {
-    @include transition (all 0.2s ease-in-out);
-    display: inline-block;
-    float: right;
-    border: 1px solid #cc0000;
-    height: 20px;
-    width: 20px;
-    text-align: center;
-    font-style: normal;
-    line-height: 18px;
-    padding-top: 0px;
-    cursor: pointer;
-    position: relative;
-    font-weight: bold;
-    background-color: #fff;
-    color: #cc0000;
-    &:hover {
-      background-color: #cc0000;
-      color: #fff;
-    }
+    @include eff-tooltip;
   }
 }
 
@@ -569,8 +553,7 @@ h3.privacy-notice-header {
   }
   .call-script-box {
     padding: 0;
-    margin-bottom: 1rem;
-    margin-top: 1rem;
+    margin: 0 0 1rem 0;
   }
   .call-script {
     background: $off-white;
@@ -644,9 +627,7 @@ h3.privacy-notice-header {
   .progress {
     margin-top: 1rem;
   }
-  .congress-message-tool-container {
-    margin-top: 1rem;
-  }
+
   #congressForms-common-fields div.signup-checkbox:first-child {
     display: block;
   }
@@ -696,47 +677,11 @@ h3.privacy-notice-header {
       }
     }
     span.customize-message-popover {
-      @include transition (all 0.2s ease-in-out);
-      background-color: white;
-      color: $eff-red;
-      cursor: pointer;
-      display: inline-block;
-      font-style: normal;
-      font-weight: bold;
-      float: right;
-      line-height: 19px;
-      height: 20px;
-      margin-top: 0.4rem;
-      padding-top: 0;
-      position: relative;
-      text-align: center;
-      width: 20px;
-      &:hover {
-        background-color: $eff-red;
-        color: white;
-      }
+      @include eff-tooltip;
     }
 
     span.legislator-info-popover {
-      @include transition (all 0.2s ease-in-out);
-      display: inline-block;
-      float: right;
-      height: 20px;
-      width: 20px;
-      text-align: center;
-      font-style: normal;
-      line-height: 18px;
-      padding-top: 0px;
-      cursor: pointer;
-      position: relative;
-      font-weight: bold;
-      background-color: #fff;
-      color: #cc0000;
-      font-size: 12px;
-      &:hover {
-        background-color: #cc0000;
-        color: #fff;
-      }
+      @include eff-tooltip;
     }
   }
 
@@ -796,13 +741,7 @@ h3.privacy-notice-header {
     margin-top: 5px;
   }
 }
-.popover {
-  color: $charcoal;
-  font-size: 13px;
-  h3 {
-    color: $charcoal;
-  }
-}
+
 
 .popover-legislator-image {
   width: 50px;

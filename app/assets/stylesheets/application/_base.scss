@@ -433,6 +433,10 @@ div#email_target_text {
 
 .popover {  // overriding bootstrap
   color: $charcoal;
-  font-size: $base-font-size * 0.9 !important;
-  line-height: $base-line-height * 0.9;
+  font-family: $sans-serif;
+  font-size: $base-font-size * 0.8 !important;
+  line-height: $base-line-height;
+  h3 {
+    color: $charcoal;
+  }
 }

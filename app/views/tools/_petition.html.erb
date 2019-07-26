@@ -2,7 +2,7 @@
   <div class="tool-container">
     <div class="tool-heading">
       <h2 class="tool-title signed">
-        <span class='glyphicon glyphicon-ok'></span>Signed
+        Signed
       </h2>
       <h2 class="tool-title unsigned">
         <%= t :sign_the_petition -%>
@@ -10,6 +10,7 @@
     </div>
 
     <div class="tool-body">
+      <form>
       <%- if @petition.enable_affiliations -%>
         <div class='small tool-notice'>
           <%= t :name_and_affiliations_published -%>
@@ -101,6 +102,7 @@
             <%= render 'tools/loading' -%>
           <% end %>
       </div>
+      </form>
     </div>
   </div>
 </div>
