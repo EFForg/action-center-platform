@@ -61,7 +61,7 @@
         </div>
         <!-- If we have phone # -->
         <div class="call-body-phone-saved <%= 'hidden' unless current_user.try(:phone) -%>">
-          <form class="form call-tool" data-call-campaign-id="<%= @actionPage.call_campaign.call_campaign_id %>">
+          <form class="form call-tool" data-call-campaign-id="<%= @actionPage.call_campaign.call_campaign_id %>" role="form">
             <input type="hidden" name="call_campaign_id" value="<%= @actionPage.call_campaign.call_campaign_id %>" />
             <input type="hidden" name="action-id" value="<%= @actionPage.id %>" />
             <input type="hidden" name="phone" id="inputPhone" value="<%= current_user.try :phone -%>" />

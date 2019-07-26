@@ -2,7 +2,7 @@
   <h1><%= t :your_account -%></h1>
   <div class="row">
     <div>
-      <div class="activity-stream">
+      <div class="activity-stream" role="list">
         <h3>Take action</h3>
 
         <% # If our user doesn't have activity recording enabled, prompt them to enable it. %>
@@ -19,9 +19,9 @@
             <% @actionPages.each do |action_page| -%>
               <% if !action_page.archived && action_page.published || action_page.archived  && action_page.published && @actions_taken.include?( action_page.id) -%>
                 <% if @actions_taken.include? action_page.id -%>
-                  <p class="taken">
+                  <p class="taken" role="listitem">
                 <% else %>
-                  <p>
+                  <p role="listitem">
                 <% end %>
                 <%= link_to action_page.title, action_page_path(action_page) -%>
                   <span class="age">
@@ -164,7 +164,7 @@
           edit_subscription_path(current_user),
           :class => 'eff-button' -%>
       <% else -%>
-        <form action="https://supporters.eff.org/" method="post" id="eff-supporters-library-account-form" accept-charset="UTF-8" _lpchecked="1">
+        <form action="https://supporters.eff.org/" method="post" id="eff-supporters-library-account-form" accept-charset="UTF-8" _lpchecked="1" role="form">
           <p>Want to change your EFF newsletter subscriptions? Click below and we'll email <%= current_user.email %> with instructions.</p>
           <div class="form-group">
             <label for="edit-email" class="sr-only">Email Address </label>
