@@ -120,7 +120,7 @@
       }
     }
     .tool-container {
-      padding: 2em 0.4em 0 0.4em;
+      padding: 2rem 0.4rem 1rem 0.4rem;
       img {
         width: 100px;
         height: 100px;
@@ -537,10 +537,6 @@ h3.privacy-notice-header {
 }
 
 #tools #call-tool {
-  .tool-container {
-    padding-bottom: 0.5em;
-  }
-
   input[type=submit], button[type=submit] {
     margin-top: 0.1em;
     margin-bottom: 0.3em;
