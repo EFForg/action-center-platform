@@ -28,7 +28,7 @@ class CongressMessagesController < ApplicationController
 
     if @message.background_submit(params[:test])
       @name = user_params[:first_name] # for deliver_thanks_message
-      track_action
+      track_action unless params[:test]
       deliver_thanks_message
       render partial: "tools/share"
     else
