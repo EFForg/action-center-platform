@@ -160,6 +160,14 @@ RSpec.describe "Congress Messages", type: :request do
       expect(WebMock).not_to have_requested(:post, /fill-out-form/)
     end
 
+    it "enables test mode" do
+      message_attributes[:test] = 1
+      submit_congress_message
+      expect(response.status).to eq 200
+      expect(WebMock).to have_requested(:post, /fill-out-form/).
+        with(body: hash_including(test: 1)).twice
+    end
+
     it "succeeds with no common attributs" do
       stub_congress_forms_find_with_one_rep
       message_attributes = {

@@ -26,7 +26,7 @@ class CongressMessagesController < ApplicationController
     @message = CongressMessage.new(congress_message_params.merge(campaign: @campaign))
     @message.forms = CongressForms::Form.find(params[:bioguide_ids].split)
 
-    if @message.background_submit
+    if @message.background_submit(params[:test])
       @name = user_params[:first_name] # for deliver_thanks_message
       track_action
       deliver_thanks_message
