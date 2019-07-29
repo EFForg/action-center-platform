@@ -39,14 +39,14 @@
         <div class="form-group">
             <%= f.label :state, :class => 'col-sm-3 control-label'  %>
           <div class="col-sm-8">
-            <%= f.select :state, us_states, { prompt: 'State' }, :class => 'form-control' -%>
+            <%= f.select :state, Places.us_state_codes.to_a, { prompt: 'State' }, :class => 'form-control' -%>
           </div>
         </div>
 
         <div class="form-group">
           <%= f.label :country_code,  "Country", :class => 'col-sm-3 control-label'  %>
           <div class="col-sm-8">
-            <%= f.select :country_code, country_codes, { prompt: 'Country' }, :class => 'form-control' -%>
+            <%= f.select :country_code, Places.country_codes, { prompt: 'Country' }, :class => 'form-control' -%>
           </div>
         </div>
 

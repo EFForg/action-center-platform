@@ -15,7 +15,7 @@ module Admin
     def congress_member_options_for_select(campaign)
       selected = (campaign.target_bioguide_ids || "").split(/\s*,\s*/)
 
-      state_names = us_states_hash.invert
+      state_names = Places.us_state_codes.invert
 
       congressional_bioguides = []
       grouped_reps = CongressMember.all.group_by do |rep|

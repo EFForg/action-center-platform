@@ -68,9 +68,9 @@ module CongressForms
 
     def options_hash
       if @value == "$ADDRESS_STATE_POSTAL_ABBREV"
-        States.abbreviated
+        Places.us_state_codes
       elsif @value == "$ADDRESS_STATE_FULL"
-        States.full
+        Places.us_states
       else
         @options_hash
       end

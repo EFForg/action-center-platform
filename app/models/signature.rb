@@ -61,7 +61,7 @@ class Signature < ActiveRecord::Base
   end
 
   def state_symbol
-    us_states_hash[state]
+    Places.us_state_codes[state]
   end
 
   def location_required?
