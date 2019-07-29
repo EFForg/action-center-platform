@@ -1,6 +1,6 @@
 require "rails_helper"
 
-RSpec.describe "Tests about users", type: :request do
+RSpec.describe "Tests about users", type: :feature do
   before(:each) do
     stub_civicrm
     @user = FactoryGirl.create(:user)
@@ -37,12 +37,4 @@ RSpec.describe "Tests about users", type: :request do
     visit "/account"
     expect(page).to have_content("Personal information")
   end
-end
-
-# requires capybara
-def sign_in_user(user)
-  visit "/login"
-  fill_in "Email", with: user.email
-  fill_in "Password", with: user.password
-  click_button "Sign in"
 end

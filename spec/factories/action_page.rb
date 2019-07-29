@@ -6,6 +6,12 @@ FactoryGirl.define do
     published true
     email_text "$NAME, thanks for taking action!"
     victory_message "We won"
+
+    trait :with_partner do
+      after(:create) do |action_page, evaluator|
+        action_page.partners << FactoryGirl.create(:partner)
+      end
+    end
   end
 
   factory :action_page_with_petition, parent: :action_page do

@@ -38,9 +38,6 @@ class ActionPageController < ApplicationController
 
   def embed_iframe
     @css = params[:css] if params.include? :css
-    @target_bioguide_ids = params[:bioguide_ids] if params.include? :bioguide_ids
-    @location = location_params
-
     render layout: "application-blank"
   end
 
@@ -123,6 +120,7 @@ class ActionPageController < ApplicationController
     if @email_campaign and !@email_campaign.topic_category.nil?
       @topic_category = @email_campaign.topic_category.as_2d_array
     end
+    # @TODO remove
     if @congress_message_campaign.try(:topic_category).present?
       @topic_category = @congress_message_campaign.topic_category.as_2d_array
     end
@@ -168,11 +166,6 @@ class ActionPageController < ApplicationController
 
   def set_institution
     @institution = Institution.friendly.find(params[:institution_id])
-  end
-
-
-  def location_params
-    params.permit(:zip4, :zipcode, :street, :city, :state)
   end
 
   def allow_iframe
