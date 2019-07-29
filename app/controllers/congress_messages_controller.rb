@@ -12,7 +12,7 @@ class CongressMessagesController < ApplicationController
     if @campaign.target_bioguide_ids.present?
       bioguide_ids = @campaign.target_bioguide_ids.split
     else
-      location = SmartyStreets.get_location(params["street_address"], params["zipcode"])
+      location = SmartyStreets.get_location(params[:street_address], params[:zipcode])
       members = @campaign.targets.for_district(location.state, location.district)
       bioguide_ids = members.pluck(:bioguide_id)
     end
@@ -24,7 +24,7 @@ class CongressMessagesController < ApplicationController
 
   def create
     @message = CongressMessage.new(congress_message_params.merge(campaign: @campaign))
-    @message.forms = CongressForms::Form.find(params["bioguide_ids"].split)
+    @message.forms = CongressForms::Form.find(params[:bioguide_ids].split)
 
     if @message.background_submit
       @name = user_params[:first_name] # for deliver_thanks_message
@@ -39,7 +39,7 @@ class CongressMessagesController < ApplicationController
   private
 
   def set_congress_message_campaign
-    @campaign = CongressMessageCampaign.find(params["congress_message_campaign_id"])
+    @campaign = CongressMessageCampaign.find(params[:congress_message_campaign_id])
     @actionPage = @campaign.action_page
     @action_page = @actionPage # Account for inconsistent naming in views.
   end
