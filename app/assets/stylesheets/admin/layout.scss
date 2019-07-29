@@ -29,6 +29,50 @@ header {
     margin-bottom: 0;
     margin-left: 1.5rem;
   }
+
+  .top-nav {
+    display: inline-block;
+    width: 100%;
+    @include medium {
+      float: right;
+      width: 30%;
+    }
+    ul {
+      display: flex;
+      padding: 0;
+      justify-content: space-between;
+      list-style-type: none;
+      font-size: 16px;
+      @include medium {
+        font-size: 18px;
+      }
+      a {
+        text-decoration: none;
+        color: #000;
+      }
+      > li:last-child {
+        a {
+          text-decoration: underline;
+        }
+      }
+      .nav-logout {
+        input {
+          @extend a;
+          font-size: 16px;
+          background: none;
+          border-radius: 0;
+          box-shadow: none;
+          padding: 0;
+          font-weight: 300;
+          font-family: "Monserrat", sans-serif;
+
+          @include medium {
+            font-size: 18px;
+          }
+        }
+      }
+    }
+  }
 }
 
 #page {
@@ -88,7 +132,6 @@ header {
 
   > li:first-child {
     padding-top: 0;
-    font-size: 1.1em;
   }
 
   li a {
