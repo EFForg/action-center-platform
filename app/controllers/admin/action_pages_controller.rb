@@ -119,8 +119,14 @@ class Admin::ActionPagesController < Admin::ApplicationController
     respond_to do |format|
       format.html
       format.json do
-        # Ahoy::Event.action_types.include? params[:type].to_sym
-        render json: @actionPage.events.send(params[:type]).group_in_range(start_date, end_date)
+        if params[:type].blank?
+          render json: @actionPage.events.group_by_type_in_range(start_date, end_date)
+        elsif Ahoy::Event.action_types.map(&:to_s).include?(params[:type])
+          render json: @actionPage.events.send(params[:type])
+                  .group_in_range(start_date, end_date)
+        else
+          head status: 400
+        end
       end
     end
   end
