@@ -5,7 +5,7 @@
   <%= form_tag admin_action_pages_path, id: "filter_action_pages", method: :get do %>
     <div class="form-item">
       <%= label_tag "Type" %>
-      <%= select_tag :action_type, options_for_select(%w(all call congress_message email petition tweet)) %>
+      <%= select_tag :action_type, options_for_select(%w(all call congress_message email petition tweet redirect)) %>
     </div>
 
     <div class="form-actions">

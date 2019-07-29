@@ -29,6 +29,10 @@ $('.action_pages-edit, .action_pages-new').on('change', 'input[name=action_type]
   reflowEpicEditor();
 });
 
+$(function() {
+  $('.action_pages-edit, .action_pages-new').find('input[name=action_type]').trigger('change');
+});
+
 $('.action_pages-edit, .action_pages-new').on('change', 'input[name=action_type]', function(e) {
   if (e.target.value == 'redirect')
     $('#nav li[data-hide-for-redirect]').slideUp(100);
