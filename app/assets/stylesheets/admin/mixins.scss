@@ -60,3 +60,12 @@ $sans-serif: "Montserrat", sans-serif;
     opacity: 0.8;
   }
 }
+
+@mixin sr-only {
+  display: inline-block;
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  clip: rect(0, 0, 0, 0);
+  overflow: hidden;
+}

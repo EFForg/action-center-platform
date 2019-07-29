@@ -64,6 +64,10 @@ fieldset {
   }
 }
 
+.sr-only {
+  @include sr-only;
+}
+
 .btn {
   @include button;
 }
@@ -169,9 +173,7 @@ form {
   }
 
   .form-item input[type=radio].fancy {
-    position: absolute;
-    width: 0;
-    height: 0;
+    @include sr-only;
 
     + .ui {
       position: relative;
@@ -193,9 +195,7 @@ form {
   }
 
   .form-item input[type=checkbox].fancy {
-    position: absolute;
-    width: 0;
-    height: 0;
+    @include sr-only;
 
     + .ui {
       position: relative;
