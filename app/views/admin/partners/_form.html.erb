@@ -11,20 +11,22 @@
     </div>
   <% end %>
   
-  <div class="form-group">
+  <div class="form-item">
     <%= f.label :name, "Organization Name" -%>
-    <%= f.text_field :name, class: "form-control"  -%>
-  </div>
-  <div class="form-group">
-    <%= f.label :privacy_url, "Privacy URL" -%>
-    <%= f.text_field :privacy_url, class: "form-control" -%>
-  </div>
-  <div class="form-group">
-    <%= f.label :code, "Abbrevation  (e.g. eff)" -%>
-    <%= f.text_field :code, class: "form-control"  -%>
+    <%= f.text_field :name  -%>
   </div>
 
-  <div class="actions">
-    <%= f.submit "Submit", class: "btn btn-success"   %>
+  <div class="form-item">
+    <%= f.label :privacy_url, "Privacy URL" -%>
+    <%= f.text_field :privacy_url -%>
+  </div>
+
+  <div class="form-item">
+    <%= f.label :code, "Abbrevation  (e.g. eff)" -%>
+    <%= f.text_field :code  -%>
+  </div>
+
+  <div class="form-actions">
+    <%= f.submit %>
   </div>
 <% end %>

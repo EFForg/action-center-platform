@@ -10,6 +10,7 @@
 @import "admin/layout";
 @import "admin/gallery";
 @import "admin/action_pages";
+@import "admin/partners";
 @import "admin/users";
 
 body {
@@ -65,6 +66,10 @@ fieldset {
 
 .btn {
   @include button;
+}
+
+.table .btn {
+  border: 1px solid #777;
 }
 
 .nowrap {
