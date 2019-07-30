@@ -2,6 +2,7 @@ header {
   padding-bottom: 1rem;
   border-bottom: 1px solid $light-blue;
   margin: 0 2rem 2rem 2rem;
+  position: relative;
 
   @include medium {
     margin: 3rem 3vw 0 3vw;
@@ -33,22 +34,30 @@ header {
   .top-nav {
     display: inline-block;
     width: 100%;
+    padding-top: 1rem;
     @include medium {
-      float: right;
+      position: absolute;
+      bottom: 1rem;
+      right: 1rem;
       width: 30%;
+      padding: 0;
     }
     ul {
       display: flex;
       padding: 0;
+      margin: 0;
       justify-content: space-between;
       list-style-type: none;
-      font-size: 16px;
+      font-size: 1rem;
       @include medium {
-        font-size: 18px;
+        font-size: 1.1rem;
       }
       a {
         text-decoration: none;
         color: #000;
+      }
+      li {
+        padding: 0 0.3rem;
       }
       > li:last-child {
         a {
@@ -58,16 +67,16 @@ header {
       .nav-logout {
         input {
           @extend a;
-          font-size: 16px;
+          font-size: 1rem;
           background: none;
           border-radius: 0;
           box-shadow: none;
           padding: 0;
           font-weight: 300;
-          font-family: "Monserrat", sans-serif;
+          font-family: $sans-serif;
 
           @include medium {
-            font-size: 18px;
+            font-size: 1.1rem;
           }
         }
       }
