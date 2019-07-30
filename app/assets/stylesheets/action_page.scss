@@ -688,9 +688,28 @@ h3.privacy-notice-header {
     margin-top: 0;
     margin-bottom: 0;
   }
+  .submit-wrapper {
+    display: flex;
+  }
+
   input[type=submit] {
-    margin-top: 0.1em;
-    margin-bottom: 5px;
+    margin: 0.1em 2px 5px;
+
+    &:first-child {
+      margin-left: 0;
+    }
+
+    &:last-child {
+      margin-right: 0;
+    }
+
+    &.test {
+      background-color: $blue;
+
+      &:hover {
+        background-color: darken($blue, 10%);
+      }
+    }
   }
   .progress {
     margin-top: 15px;

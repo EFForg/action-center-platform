@@ -39,6 +39,11 @@
 
   <%= hidden_field_tag :bioguide_ids, @message.targets %>
 
-  <input type="submit" value="Submit" class="btn action">
+  <div class="submit-wrapper">
+    <input type="submit" value="Submit" class="btn action">
+    <% if current_user && current_user.privileged_role? %>
+      <input type="submit" value="Test" name="test" class="btn action test">
+    <% end %>
+  </div>
   <%= render "tools/loading" -%>
 <% end %>
