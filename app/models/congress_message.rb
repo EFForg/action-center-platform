@@ -9,7 +9,6 @@ class CongressMessage
   def common_attributes() @common_attributes || {}; end
   def member_attributes() @member_attributes || {}; end
 
-  # @TODO no longer need to CSS hide these fields
   def self.new_from_lookup(location, message, campaign, forms)
     common_attributes = {
       "$MESSAGE" => message,

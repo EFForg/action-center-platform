@@ -120,10 +120,6 @@ class ActionPageController < ApplicationController
     if @email_campaign and !@email_campaign.topic_category.nil?
       @topic_category = @email_campaign.topic_category.as_2d_array
     end
-    # @TODO remove
-    if @congress_message_campaign.try(:topic_category).present?
-      @topic_category = @congress_message_campaign.topic_category.as_2d_array
-    end
 
     # Initialize a temporary signature object for form auto-population
     current_zipcode = params[:zipcode] || current_user.try(:zipcode)

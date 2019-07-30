@@ -883,16 +883,6 @@ h3.privacy-notice-header {
   width: 50px;
 }
 
-[name="$ADDRESS_STATE_FULL"] { display: none; }
-[name="$ADDRESS_CITY"] { display: none; }
-[name="$ADDRESS_STREET"] { display: none; }
-[name="$ADDRESS_ZIP5"] { display: none; }
-[name="$SUBJECT"] { display: none; }
-.congressForms-legislator-fields [name="$SUBJECT"] {display: block;}
-[name="$MESSAGE"] { display: none; }
-[name="$ADDRESS_ZIP4"] { display: none; }
-[name="$ADDRESS_STATE_POSTAL_ABBREV"] { display: none; }
-
 /* Fix for broken bootstrap-sass */
 
 @include keyframes(progress-bar-stripes) {

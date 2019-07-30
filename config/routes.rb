@@ -122,10 +122,4 @@ Actioncenter::Application.routes.draw do
 
     resources :events, only: [:index]
   end
-
-  resources :congress, only: [:index] do
-    collection do
-      get :search
-    end
-  end
 end
