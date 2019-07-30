@@ -1,6 +1,5 @@
 include GoingPostal
 class Signature < ActiveRecord::Base
-  include ApplicationHelper
   belongs_to :user
   belongs_to :petition
   has_many :affiliations
