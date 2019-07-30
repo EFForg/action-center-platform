@@ -14,6 +14,7 @@ Feature: Users can sign petitions
     And I fill in my name
     And I fill in my email
     And I fill in my zip code
+    And I stub SmartyStreets
     And I submit the petition
     Then I should see "Test User" within "#signatures"
 

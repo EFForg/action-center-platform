@@ -112,7 +112,6 @@ end
 
 When(/^I submit the petition$/) do
   click_button "Speak Out"
-  sleep 0.5 while !page.has_content? "Now help spread the word:"
 end
 
 When(/^I filter the action page by institution$/) do
@@ -122,4 +121,8 @@ end
 
 Then(/^the institution should be selected in the filter$/) do
   find("#select2-_institution_id-container").should have_content(@institution.name)
+end
+
+When(/^I stub SmartyStreets$/) do
+  stub_smarty_streets
 end
