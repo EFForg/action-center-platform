@@ -10,13 +10,25 @@
     <%= csrf_meta_tags %>
   </head>
 
-  <body class="<%= controller.controller_name  + "-" +action_name %>">
+  <body class="<%= controller.controller_name  + "-" + action_name %>">
     <header>
       <div class="logo">
         <%= link_to admin_action_pages_path do %><%= image_tag "EFF_Monogram-red.png" %><% end %>
       </div>
 
       <h1><%= page_title %></h1>
+      <div class="top-nav">
+        <ul>
+          <li><%= link_to "Home", admin_action_pages_path %></li>
+          <li><%= link_to "Account", user_root_path %></li>
+          <li>
+            <%= form_for current_user, url: destroy_user_session_path, method: :delete, html: { class: "nav-logout" } do |f| %>
+              <%= f.submit "Logout" %>
+            <% end %>
+          </li>
+          <li><%= link_to "act.eff.org", root_path %></li>
+        </ul>
+      </div>
     </header>
 
     <div id="page">
