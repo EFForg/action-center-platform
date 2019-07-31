@@ -7,8 +7,11 @@ class Admin::ActionPagesController < Admin::ApplicationController
     :destroy,
     :events,
     :events_table,
+    :duplicate,
     :preview
   ]
+
+  before_action :set_source_files, only: %i(new edit duplicate)
 
   after_action :purge_cache, only: [:update, :publish]
 
@@ -30,7 +33,6 @@ class Admin::ActionPagesController < Admin::ApplicationController
     @actionPage.email_campaign = EmailCampaign.new
     @actionPage.congress_message_campaign = CongressMessageCampaign.new
     @actionPage.email_text = Rails.application.config.action_pages_email_text
-    @source_files = SourceFile.order(created_at: :desc).limit(12)
   end
 
   def create
@@ -50,8 +52,6 @@ class Admin::ActionPagesController < Admin::ApplicationController
     @actionPage.call_campaign ||= CallCampaign.new
     @actionPage.email_campaign ||= EmailCampaign.new
     @actionPage.congress_message_campaign ||= CongressMessageCampaign.new
-
-    @source_files = SourceFile.order(created_at: :desc).limit(12)
   end
 
   def status
@@ -116,6 +116,8 @@ class Admin::ActionPagesController < Admin::ApplicationController
   end
 
   def duplicate
+    @actionPage = ActionCloner.run(@actionPage)
+    render "new"
   end
 
   def events
@@ -160,6 +162,10 @@ class Admin::ActionPagesController < Admin::ApplicationController
 
   def set_action_page
     @actionPage = ActionPage.friendly.find(params[:id] || params[:action_page_id])
+  end
+
+  def set_source_files
+    @source_files = SourceFile.order(created_at: :desc).limit(12)
   end
 
   def action_page_params
