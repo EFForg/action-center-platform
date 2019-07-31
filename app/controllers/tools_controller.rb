@@ -3,6 +3,8 @@ require "uri"
 require "json"
 
 class ToolsController < ApplicationController
+  include Tooling
+
   before_action :set_user
   before_action :set_action_page
 
@@ -108,30 +110,6 @@ class ToolsController < ApplicationController
     render json: { success: true }, status: 200
   end
 
-  def message_congress
-    @user ||= User.find_or_initialize_by(email: params[:email])
-
-    update_user_data(email_params.with_indifferent_access) if params[:update_user_data] == "true"
-
-    ahoy.track "Action",
-      { type: "action", actionType: "congress_message", actionPageId: params[:action_id] },
-      action_page: @action_page
-
-    # You will only get here if you are not logged in.  Subscribe does not show for logged in users,
-    # since they are presented that option at signup.
-    if params[:subscribe] == "true"
-      @user.attributes = email_params.slice(
-        :first_name, :last_name, :city, :state, :street_address, :zipcode
-      )
-
-      @source = "action center congress message :: " + @action_page.title
-      @user.subscribe!(opt_in = true, source = @source)
-    end
-
-    @name = email_params[:first_name] # for deliver_thanks_message
-    render json: { success: true }, status: 200
-  end
-
   def email
     unless (@user and @user.events.emails.find_by_action_page_id(params[:action_id])) or params[:dnt] == "true"
       ahoy.track "Action",
@@ -185,27 +163,12 @@ class ToolsController < ApplicationController
     @action_page ||= ActionPage.find_by_id(params[:action_id])
   end
 
-  def deliver_thanks_message
-    @action_page ||= ActionPage.find(params[:action_id])
-    @email ||= current_user.try(:email) || params[:email] || params.dig(:subscription, :email)
-    UserMailer.thanks_message(@email, @action_page, user: @user, name: @name).deliver_now if @email.present?
-  end
-
   def create_newsletter_subscription
     if params[:subscribe] && EmailValidator.valid?(params[:subscription][:email])
       source = "action center #{@action_page.class.name.downcase} :: " + @action_page.title
       params[:subscription][:opt_in] = true
       params[:subscription][:source] = source
       CiviCRM::subscribe params[:subscription]
-    end
-  end
-
-  def create_partner_subscription
-    return unless @action_page
-    @action_page.partners.each do |partner|
-      if params["#{partner.code}_subscribe"] == "1"
-        Subscription.create!(partner_signup_params.merge(partner: partner))
-      end
     end
   end
 

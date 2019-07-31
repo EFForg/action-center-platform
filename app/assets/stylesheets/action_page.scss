@@ -573,7 +573,7 @@ h3.privacy-notice-header {
   }
 }
 
-.email-tool-container, .congress-message-tool-container {
+.email-tool-container {
   display: none;
   input[type=submit] {
     margin-top: 0px !important;
@@ -627,9 +627,28 @@ h3.privacy-notice-header {
     margin-top: 0;
     margin-bottom: 0;
   }
+  .submit-wrapper {
+    display: flex;
+  }
+
   input[type=submit] {
-    margin-top: 0.1em;
-    margin-bottom: 5px;
+    margin: 0.1em 2px 5px;
+
+    &:first-child {
+      margin-left: 0;
+    }
+
+    &:last-child {
+      margin-right: 0;
+    }
+
+    &.test {
+      background-color: $blue;
+
+      &:hover {
+        background-color: darken($blue, 10%);
+      }
+    }
   }
   .progress {
     margin-top: 1rem;
@@ -796,16 +815,6 @@ h3.privacy-notice-header {
 .popover-legislator-image {
   width: 50px;
 }
-
-[name="$ADDRESS_STATE_FULL"] { display: none; }
-[name="$ADDRESS_CITY"] { display: none; }
-[name="$ADDRESS_STREET"] { display: none; }
-[name="$ADDRESS_ZIP5"] { display: none; }
-[name="$SUBJECT"] { display: none; }
-.congressForms-legislator-fields [name="$SUBJECT"] {display: block;}
-[name="$MESSAGE"] { display: none; }
-[name="$ADDRESS_ZIP4"] { display: none; }
-[name="$ADDRESS_STATE_POSTAL_ABBREV"] { display: none; }
 
 /* Fix for broken bootstrap-sass */
 

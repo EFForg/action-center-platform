@@ -8,38 +8,67 @@
     </div>
 
     <div class="tool-body with-js">
-      <form class="form congress-message-rep-lookup">
-        <% unless @congress_message_campaign.target_bioguide_ids || @target_bioguide_ids %>
-        <fieldset id="lookup-address">
-          <h3>
-            <span class="customize-message-popover" data-container="body" data-toggle="popover" data-trigger="hover" data-placement="auto bottom" data-content="<%= @congress_message_campaign.look_up_helper_text "We'll use your address to look up your congressional district and find your representatives." %>">?</span>
-            <%= @congress_message_campaign.look_up_your_rep_text "Look up your representatives" %>
-          </h3>
+      <%= form_tag(new_congress_message_campaign_congress_message_path(@congress_message_campaign),
+                   method: :get, remote: true,
+                   class: "form congress-message-rep-lookup") do %>
+          <% unless @congress_message_campaign.target_bioguide_ids.present? %>
+            <fieldset id="lookup-address">
+              <h3>
+                <span class="customize-message-popover" data-container="body" data-toggle="popover" data-trigger="hover" data-placement="auto bottom" data-content="<%= @congress_message_campaign.look_up_helper_text "We'll use your address to look up your congressional district and find your representatives." %>">?</span>
+                <em><%= @congress_message_campaign.look_up_your_rep_text "Look up your representatives" %></em>
+              </h3>
+              <div id="errors"></div>
 
-          <div class="form-group">
-            <input value="<%= current_user && current_user.street_address %>" class="form-control" placeholder="Street Address" aria-label="Street Address" required="required" type="text" id="street_address">
-          </div>
-          <div class="form-group">
-            <input value="<%= current_user && current_user.zipcode %>" class="form-control" placeholder="Zip Code" aria-label="Zip Code" required="required"  type="text" id="zipcode" title="Must be 5 numeric numbers" pattern="\d{5}" maxlength="5" required>
-          </div>
-          <p class="privacy-notice">This tool uses the <a href="http://smartystreets.com/legal/privacy-policy" target="_blank">Smarty Streets</a> API (<a class="privacy-notice-popover" href="#" data-container="body" data-toggle="popover" data-title="Email Tool APIs" data-html="true" data-trigger="hover" data-placement="auto" data-content="<p>We need your full address to locate your exact congressional district, but this information isn't stored unless you're logged in.</p><p>We also use the Smarty Streets' API to look up your full 9 digit zip code (Zip+4), since some Congressmember's forms require it.</p>">why?</a>).<br>
-          If you prefer not to use our email tool, <a href="https://www.eff.org/congress"  target="_blank">click here</a>.</p>
-        </fieldset>
+              <div class="form-group">
+                <%= text_field_tag :street_address,
+                                   (current_user && current_user.street_address),
+                                   placeholder: "Street Address",
+                                   "aria-label": "Street Address",
+                                   required: true,
+                                   class: "form-control" %>
+              </div>
+
+              <div class="form-group">
+                <%= text_field_tag :zipcode,
+                                   (current_user && current_user.zipcode),
+                                   placeholder: "Zip Code",
+                                   "aria-label": "Zip Code",
+                                   required: true,
+                                   class: "form-control",
+                                   title: "Must be 5 numeric numbers",
+                                   pattern: "\\d{5}",
+                                   maxlength: 5 %>
+              </div>
+              <p class="privacy-notice">This tool uses the <a href="http://smartystreets.com/legal/privacy-policy" target="_blank">Smarty Streets</a> API (<a class="privacy-notice-popover" href="#" data-container="body" data-toggle="popover" data-title="Email Tool APIs" data-html="true" data-trigger="hover" data-placement="auto" data-content="<p>We need your full address to locate your exact congressional district, but this information isn't stored unless you're logged in.</p><p>We also use the Smarty Streets' API to look up your full 9 digit zip code (Zip+4), since some Congressmember's forms require it.</p>">why?</a>).<br>
+              If you prefer not to use our email tool, <a href="https://www.eff.org/congress"  target="_blank">click here</a>.</p>
+            </fieldset>
+          <% end %>
+          <fieldset id="customize-message">
+            <h3>
+              <span class="customize-message-popover" data-container="body" data-toggle="popover" data-trigger="hover" data-placement="auto bottom" data-content="<%= @congress_message_campaign.customize_message_helper_text "Add a personal note about why this matters to you. Members of Congress value a customized message much higher than a form letter." %>">?</span>
+              <em>Customize your message</em>
+            </h3>
+            <div class="form-group">
+              <%= text_area_tag :message, @congress_message_campaign.message,
+                                class: "campaign-message form-control",
+                                rows: 11 %>
+            </div>
+          </fieldset>
+          <%= render "tools/privacy_notice" %>
+
+          <input type="submit" class="btn btn-default action" value="Submit your message">
+          <%= render "tools/loading" -%>
         <% end %>
-        <fieldset id="customize-message">
-          <h3>
-            <span class="customize-message-popover" data-container="body" data-toggle="popover" data-trigger="hover" data-placement="auto bottom" data-content="<%= @congress_message_campaign.customize_message_helper_text "Add a personal note about why this matters to you. Members of Congress value a customized message much higher than a form letter." %>">?</span>
-            Customize your message
-          </h3>
-          <div class="form-group">
-            <textarea class="campaign-message form-control" rows="11"><%= @congress_message_campaign.message -%></textarea>
-          </div>
-        </fieldset>
-        <%= render "tools/privacy_notice" %>
 
-        <input type="submit" class="eff-red-button" value="Find Your Reps">
-        <%= render "tools/loading" -%>
-      </form>
+        <div id="email-signup-container" style="display:none;">
+          <%= render "tools/newsletter_signup", email: false, location: false, privacy_notice: false %>
+        </div>
+
+        <div class="congress-message-tool-container"></div>
+
+      <div class="thank-you" style="display: none;">
+        <div class="alert alert-success">Thank you for the email</div>
+      </div>
 
       <div id="email-signup-container" style="display:none;">
         <%= render "tools/newsletter_signup", email: false, location: false, privacy_notice: false %>
@@ -70,7 +99,10 @@
 
 <div class="update-user-data-container" style="display: none;">
   <% if current_user %>
-    <input checked="checked" id="update_user_data" name="update_user_data" type="checkbox" value="yes">
-    <label for="update_user_data", value="Save my name and address for next time.">Save my name and address for next time</label>
+  <div class="checkbox small">
+    <label for="update_user_data">
+      <input checked="checked" id="update_user_data" name="update_user_data" type="checkbox" value="yes">    Save my name and address for next time.
+    </label>
+  </div>
   <% end %>
 </div>

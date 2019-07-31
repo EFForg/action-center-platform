@@ -81,3 +81,13 @@ en:
     views: Action Page Views
     emails: Email Actions
     congress_messages: Congress Message Actions
+  congress_forms:
+    $NAME_LAST: Your last name
+    $NAME_FIRST: Your first name
+    $EMAIL: Your email
+    $TOPIC: Choose a topic
+    $NAME_PREFIX: Your prefix
+    $PHONE: Your phone number
+    address_lookup_failed: We were unable to find a congressional district for the address you entered. Make sure you *only* entered your street address (without your city and state). Please check and try again.
+    invalid_submission: Please check that all required fields are completed and try again.
+    request_failed: We're unable to submit your comments to congress because of a problem on our end. We apologize for the inconvenience. Please try again later.
