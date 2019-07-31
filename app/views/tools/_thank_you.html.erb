@@ -29,9 +29,9 @@
       <p> EFF is supported by donations from folks like you. We appreciate anything you can give! </p>
       <a class="eff-red-button" href="https://supporters.eff.org/donate">Donate</a>
       <% if @actionPage.enable_tweet && @actionPage.tweet %>
-      <% if @actionPage.tweet.targets.present? && (@actionPage.tweet.targets.size > 1) %>
-      <span id="tweet-back">Want to tweet at others? Go back</span>
-      <% end %>
+        <% if @actionPage.tweet.targets.present? && (@actionPage.tweet.targets.size > 1) %>
+          <span id="tweet-back">Want to tweet at others? Go back</span>
+        <% end %>
       <% end %>
     </div>
   </div>
