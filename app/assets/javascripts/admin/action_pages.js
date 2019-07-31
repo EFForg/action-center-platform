@@ -78,3 +78,16 @@ $('.action_pages-edit, .action_pages-new').on('change', '[type=checkbox][name*=t
     });
   }
 });
+
+$('#action-page-preview').on('click', function() {
+  var form = $('.edit_action_page');
+  $.ajax({
+    method: 'GET',
+    url: $(this).attr('href'),
+    data: form.serialize(),
+    dataType: 'html',
+    success: function(data) {
+      window.open().document.write(data);
+    }
+  });
+});
