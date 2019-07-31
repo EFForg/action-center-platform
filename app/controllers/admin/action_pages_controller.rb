@@ -115,6 +115,9 @@ class Admin::ActionPagesController < Admin::ApplicationController
     render "action_page/show", layout: "application"
   end
 
+  def duplicate
+  end
+
   def events
     respond_to do |format|
       format.html

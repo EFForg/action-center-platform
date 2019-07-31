@@ -87,3 +87,34 @@
     }
   }
 }
+
+.page-actions {
+  position: relative;
+  img {
+    &:hover {
+      cursor: pointer;
+    }
+  }
+  ul {
+    background: #fff;
+    list-style-type: none;
+    padding: 0;
+    border: 1px #aaa solid;
+    z-index: 1;
+    position: absolute;
+    top: 0;
+    left: 80%;
+    display: none;
+    li {
+      padding: 0.5rem;
+      a.menu-link {
+        &:hover {
+          color: #aaa;
+        }
+      }
+    }
+    li+li {
+      border-top: 1px #aaa solid;
+    }
+  }
+}

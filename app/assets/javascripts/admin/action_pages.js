@@ -91,4 +91,7 @@ $('#action-page-preview').on('click', function(e) {
       window.open().document.write(data);
     }
   });
+
+$('.action_pages-index .table .page-actions').on('click', function(){
+  $(this).children('ul').toggle();
 });
