@@ -30,7 +30,7 @@
 }
 #progress-bar {
   .count, .goal {
-    font-size: $base-font-size * 0.7;
+    font-size: $base-font-size * 0.8;
   }
 }
 
@@ -56,11 +56,12 @@
 
   [type="checkbox"]:not(:checked) + label,
   [type="checkbox"]:checked + label {
-    @extend p;
+    line-height: $base-line-height;
+    margin-bottom: 1rem;
+    padding: 0;
     @media screen and (min-width: $ph) {
       margin-left: 0;
     }
-    padding-left: 0;
     &:before,
     &:after {
       display: none;
@@ -121,7 +122,6 @@
         font-size: 4rem;
         font-weight: 200;
         line-height: 4rem;
-        padding: 5px 0 0 0;
         margin: 0;
         text-transform: uppercase;
 
@@ -130,7 +130,11 @@
           padding-right: 0.2em;
         }
       }
-
+      p {
+        color: black;
+        margin-top: 1rem;
+        text-transform: none;
+      }
       img {
         width: 100px;
         height: 100px;
@@ -139,7 +143,11 @@
 
     .tool-body {
       padding: 10px;
-      a {
+      h3, h4, h5 {
+        color: black;
+      }
+      label a,
+      p a {
         color: black;
         border-bottom: 2px solid black;
         &:hover {
@@ -147,6 +155,7 @@
           border-bottom: 2px solid $charcoal;
         }
       }
+
       form input[type="text"], form input[type="email"], form textarea {
         font-style: italic;
       }
@@ -257,17 +266,18 @@
 
   }
   .progress {
-    height: 41px;
+    background: $charcoal;
+    height: 1rem;
     margin-bottom: 0;
+  }
+  .progress-bar-danger {
+    background-color: $eff-red;
   }
 
 }
 
 #thank-you.tool {
   display: none;
-  .social-button {
-    display: inline-block;
-  }
   #tweet-back {
     text-decoration: underline;
     &:hover {
@@ -449,8 +459,9 @@ h3.privacy-notice-header {
 }
 
 #signatures {
-  font-size: 0.7em;
+  margin-left: 1rem;
   text-transform: capitalize;
+  width: 100%;
   .header {
     color: $gray-darker;
     margin: 2em 0 1em;
