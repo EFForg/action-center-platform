@@ -96,19 +96,18 @@
 
             <%= render "tools/privacy_notice" %>
 
-            <% button_text = params.include?("button_text") ? params["button_text"].to_sym : t(:speak_out) %>
+            <% button_text = params.include?("button_text") ? params["button_text"].to_sym : t(:take_action) %>
             <%= f.submit button_text, class: 'eff-red-button'-%>
             <%= render 'tools/loading' -%>
           <% end %>
       </div>
     </div>
   </div>
-</div>
-<!-- these are here so that recent_signatories appears under Learn More -->
 
-<% if !@petition.enable_affiliations? -%>
-<div id='signatures' class="hidden-xs ajax-update">
-  <h4 class='header'><%= t :recent_signatories -%></h4>
-  <%= render(partial: "tools/signatures", layout: false) %>
+  <% if !@petition.enable_affiliations? -%>
+  <div id='signatures' class="hidden-xs ajax-update">
+    <h4 class='header'><%= t :recent_signatories -%></h4>
+    <%= render(partial: "tools/signatures", layout: false) %>
+  </div>
+  <% end -%>
 </div>
-<% end -%>

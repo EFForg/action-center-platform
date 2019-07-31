@@ -26,7 +26,6 @@
 //= require bootstrap/tooltip
 //= require bootstrap/popover
 //= require bootstrap/alert
-//= require application/sticky_tools
 //= require action_page
 //= require_tree ./application
 //= require jquery-timeago
