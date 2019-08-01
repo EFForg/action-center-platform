@@ -16,7 +16,7 @@ $(document).on('ready', function() {
     var url = '/tools/petition';
     $.ajax({
       url: url,
-      data: form.serializeObject(),
+      data: form.serialize(),
       type: 'POST',
       success: function(data) {
         if (data.success) {
