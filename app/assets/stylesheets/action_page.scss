@@ -89,6 +89,18 @@
 
 
 #tools {
+  .page-indicator {
+    @include griddy;
+    background-color: $off-white;
+    display: none; // hide unless congress-message-tool
+    > div {
+      border-left: 4px solid $gray-darker;
+    }
+    div.page1 {  // start on page 1
+      background-color: $eff-red;
+      border-left: none;
+    }
+  }
   .tool {
     background-color: $gray-darker;
     color: black;

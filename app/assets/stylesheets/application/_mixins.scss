@@ -1,10 +1,11 @@
-@mixin griddy { // class for css-grid parent
+@mixin griddy { // class for tool form progress/page indicator
   display: grid;
-  grid-template-columns: 45% 45%;
   grid-template-rows: auto;
-  grid-column-gap: 10%;
-  grid-row-gap: 2rem;
-  margin-top: 2rem;
+  grid-column-gap: 0;
+  grid-row-gap: 0;
+  grid-template-columns: 33% 34% 33%;
+  height: 1rem;
+  margin: 0;
   width: 100%;
 }
 
