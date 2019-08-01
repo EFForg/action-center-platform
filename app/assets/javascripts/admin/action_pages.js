@@ -83,7 +83,7 @@ $('#action-page-preview').on('click', function(e) {
   e.preventDefault();
   var form = $('.edit_action_page');
   $.ajax({
-    method: 'GET',
+    method: 'PATCH',
     url: $(this).attr('href'),
     data: form.serialize(),
     dataType: 'html',
