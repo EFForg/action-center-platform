@@ -79,7 +79,8 @@ $('.action_pages-edit, .action_pages-new').on('change', '[type=checkbox][name*=t
   }
 });
 
-$('#action-page-preview').on('click', function() {
+$('#action-page-preview').on('click', function(e) {
+  e.preventDefault();
   var form = $('.edit_action_page');
   $.ajax({
     method: 'GET',

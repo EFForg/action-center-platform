@@ -20,7 +20,7 @@
   </li>
 
   <% if @actionPage.persisted? %>
-    <li><%= link_to "Preview", admin_action_page_preview_path(@actionPage), target: "_blank", id: "action-page-preview" %></li>
+    <li><%= link_to "Preview", admin_action_page_preview_path(@actionPage), id: "action-page-preview" %></li>
     <li data-hide-for-redirect="1"><%= nav_link_to "Analytics", admin_action_page_events_path(@actionPage) %></li>
     <li><%= nav_link_to "Change Status", admin_action_page_status_path(@actionPage) %></li>
   <% end %>
