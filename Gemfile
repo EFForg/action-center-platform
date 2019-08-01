@@ -105,7 +105,6 @@ group :development do
 end
 
 group :test do
-  gem "puffing-billy", "~> 1"
   gem "webmock", "~> 2"
 end
 

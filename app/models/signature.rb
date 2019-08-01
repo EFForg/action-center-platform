@@ -1,6 +1,5 @@
 include GoingPostal
 class Signature < ActiveRecord::Base
-  include ApplicationHelper
   belongs_to :user
   belongs_to :petition
   has_many :affiliations
@@ -61,7 +60,7 @@ class Signature < ActiveRecord::Base
   end
 
   def state_symbol
-    us_states_hash[state]
+    Places.us_state_codes[state]
   end
 
   def location_required?
