@@ -69,6 +69,10 @@ Actioncenter::Application.routes.draw do
     end
   end
 
+  resources :congress_message_campaigns, only: :none do
+    resources :congress_messages, only: [:new, :create], controller: :congress_messages
+  end
+
   namespace :admin do
 
     resources :source_files, :only => [:index, :create, :destroy], :controller => 's3_uploads' do
@@ -128,11 +132,5 @@ Actioncenter::Application.routes.draw do
     resources :events, only: [:index]
 
     resources :categories, only: [:index, :create, :destroy]
-  end
-
-  resources :congress, only: [:index] do
-    collection do
-      get :search
-    end
   end
 end

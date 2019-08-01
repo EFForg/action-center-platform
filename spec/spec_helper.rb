@@ -49,6 +49,7 @@ RSpec.configure do |config|
   end
 
   config.include Capybara::DSL
+  config.include FeatureHelpers, type: :feature
 
   WebMock.disable_net_connect!(allow_localhost: true)
 
