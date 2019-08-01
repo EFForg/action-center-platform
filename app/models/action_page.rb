@@ -37,6 +37,7 @@ class ActionPage < ActiveRecord::Base
   belongs_to :category
   belongs_to :active_action_page_for_redirect, class_name: "ActionPage",
              foreign_key: "archived_redirect_action_page_id"
+  belongs_to :author, class_name: 'User', foreign_key: :user_id, optional: true
 
   accepts_nested_attributes_for :tweet, :petition, :email_campaign,
     :call_campaign, :congress_message_campaign, reject_if: :all_blank
@@ -75,6 +76,20 @@ class ActionPage < ActiveRecord::Base
     end
 
     nil
+  end
+
+  def self.status(status)
+    unless %w(archived victory live draft).include?(status)
+      raise ArgumentError, "unrecognized status #{status}"
+    end
+    case status
+    when "live"
+      where(published: true, archived: false, victory: false)
+    when "draft"
+      where(published: false, archived: false, victory: false)
+    else
+      where(status.to_sym => true)
+    end
   end
 
   def should_generate_new_friendly_id?

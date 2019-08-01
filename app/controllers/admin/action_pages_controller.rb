@@ -18,6 +18,11 @@ class Admin::ActionPagesController < Admin::ApplicationController
   allow_collaborators_to :index, :edit
 
   def index
+    @categories = Category.all.order(:title).map { |c| [c.title, c.id] }
+    @authors = User.joins(:action_pages).order(:last_name).map do |a|
+      label = a.name.blank? ? a.email : a.name
+      [label, a.id]
+    end
     @actionPages = filter_action_pages
 
     if request.xhr?
@@ -36,7 +41,7 @@ class Admin::ActionPagesController < Admin::ApplicationController
   end
 
   def create
-    @actionPage = ActionPage.new(action_page_params)
+    @actionPage = ActionPage.new(action_page_params.merge(author: current_user))
 
     if @actionPage.save
       redirect_to action_page_path(@actionPage)
@@ -208,10 +213,31 @@ class Admin::ActionPagesController < Admin::ApplicationController
     pages = ActionPage.order(created_at: :desc)
     pages = pages.search(params[:q]) if params[:q].present?
 
-    if params[:action_type].present? && params[:action_type] != "all"
-      pages = pages.type(params[:action_type])
+    if params[:date_range].present?
+      start_date, end_date = params[:date_range].split(" - ").map do |date|
+        Time.zone.parse(date).to_date
+      end
+      unless start_date == end_date && start_date == Time.zone.today
+        pages = pages.where(created_at: start_date..end_date)
+      end
+    end
+
+    if params[:action_filters].present?
+      filters = params[:action_filters]
+      pages = pages.type(filters[:type]) if filter_present? :type
+      pages = pages.status(filters[:status]) if filter_present? :status
+      if filter_present? :author_id
+        pages = pages.where(author: filters[:author_id])
+      end
+      if filter_present? :category_id
+        pages = pages.where(category: filters[:category_id])
+      end
     end
 
     pages
+  end
+
+  def filter_present?(sym)
+    params[:action_filters][sym].present? && params[:action_filters][sym] != "all"
   end
 end

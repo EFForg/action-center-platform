@@ -17,6 +17,7 @@ class User < ActiveRecord::Base
   validates :email, email: true
   validate :password_complexity
   delegate :actions, :views, to: :events
+  has_many :action_pages
 
   before_update :invalidate_password_reset_tokens, if: :email_changed?
   before_update :invalidate_new_activists_password, if: :admin_changed?

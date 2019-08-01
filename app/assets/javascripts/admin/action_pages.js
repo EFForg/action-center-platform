@@ -16,6 +16,7 @@
   $('#filter_action_pages').on('submit', filterActionPages);
   $('#filter_action_pages').on('reset', filterActionPages);
   $('#filter_action_pages select').on('change', filterActionPages);
+  $('#filter_action_pages #date_range').on('change', filterActionPages);
 })();
 
 $('.action_pages-edit, .action_pages-new').on('change', 'input[name=action_type]', function(e) {
