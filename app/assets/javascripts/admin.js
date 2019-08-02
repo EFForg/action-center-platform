@@ -1,4 +1,5 @@
 //= require jquery
+//= require jquery-ujs
 //= require select2
 //= require admin/tabs
 //= require admin/editor

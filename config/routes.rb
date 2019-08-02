@@ -107,6 +107,7 @@ Actioncenter::Application.routes.draw do
       get :destroy
       post 'update_featured_pages', :on => :collection
       patch :preview
+      get :duplicate
       resources :affiliation_types, only: [:index, :new, :create, :destroy]
       resources :institutions, except: [:show, :edit, :update] do
         match :import, via: :post, on: :collection

@@ -87,3 +87,43 @@
     }
   }
 }
+
+.action_pages-index #page .page-actions {
+  position: relative;
+  padding: 1.4rem 2rem;
+
+  &:hover {
+    cursor: pointer;
+  }
+
+  &.open ul {
+    display: block;
+  }
+
+  ul {
+    background: #fff;
+    list-style-type: none;
+    padding: 0;
+    border: 1px #aaa solid;
+    z-index: 1;
+    position: absolute;
+    top: 0;
+    left: 80%;
+    display: none;
+
+    li a.menu-link {
+      display: inline-block;
+      padding: 0.5rem;
+      width: 100%;
+      box-sizing: border-box;
+
+      &:hover {
+        color: #aaa;
+      }
+    }
+
+    li + li {
+      border-top: 1px #aaa solid;
+    }
+  }
+}
