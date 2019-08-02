@@ -15,7 +15,10 @@
           <%= link_to image_tag(@featuredActionPage.featured_image.url) , action_page_path(@featuredActionPage) -%>
         </div>
         <div class="featured-text">
-          <h5>Category placeholder</h5>
+          <% if Category.exists? %>
+          <h5 class="category">
+            <%= Category.where(id: @featuredActionPage.category_id).pluck(:title).first; %></h5>
+          <% end %>
           <%= link_to action_page_path(@featuredActionPage) do %>
             <h2>
               <%= @featuredActionPage.title -%>
