@@ -91,7 +91,15 @@ $('#action-page-preview').on('click', function(e) {
       window.open().document.write(data);
     }
   });
-
-$('.action_pages-index .table .page-actions').on('click', function(){
-  $(this).children('ul').toggle();
 });
+
+$('.action_pages-index .table .page-actions').on('click', function() {
+  $('.page-actions.open').removeClass('open');
+  $(this).addClass('open');
+});
+
+$('.action_pages-index').on('click', function(e) {
+  if (!$(e.target).closest('.page-actions').length)
+    $('.page-actions.open').removeClass('open');
+});
+

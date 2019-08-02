@@ -88,13 +88,18 @@
   }
 }
 
-.page-actions {
+.action_pages-index #page .page-actions {
   position: relative;
-  img {
-    &:hover {
-      cursor: pointer;
-    }
+  padding: 1.4rem 2rem;
+
+  &:hover {
+    cursor: pointer;
   }
+
+  &.open ul {
+    display: block;
+  }
+
   ul {
     background: #fff;
     list-style-type: none;
@@ -105,15 +110,19 @@
     top: 0;
     left: 80%;
     display: none;
-    li {
+
+    li a.menu-link {
+      display: inline-block;
       padding: 0.5rem;
-      a.menu-link {
-        &:hover {
-          color: #aaa;
-        }
+      width: 100%;
+      box-sizing: border-box;
+
+      &:hover {
+        color: #aaa;
       }
     }
-    li+li {
+
+    li + li {
       border-top: 1px #aaa solid;
     }
   }
