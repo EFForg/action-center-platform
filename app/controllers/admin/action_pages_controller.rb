@@ -11,7 +11,7 @@ class Admin::ActionPagesController < Admin::ApplicationController
     :preview
   ]
 
-  before_action :set_source_files, only: %i(new edit duplicate)
+  before_action :set_source_files, only: %i(new edit create update duplicate)
 
   after_action :purge_cache, only: [:update, :publish]
 
