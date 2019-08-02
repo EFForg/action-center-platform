@@ -1,5 +1,5 @@
 <% content_for :head do -%>
-  <%= render 'action_page/meta_tags' -%>
+<%= render 'action_page/meta_tags' -%>
 
 <% end -%>
 <div class="top-section">
@@ -16,30 +16,27 @@
           <%= markdown @actionPage.description -%>
         </div>
       </div>
-    </div>
-  </div>
+      <div class=" action-content" id="action-content" data-action-id="<%= @actionPage.id -%>" >
 
-</div>
-<div class="container action-content" id="action-content" data-action-id="<%= @actionPage.id -%>" >
-  <div class="row">
-    <div>
-      <% if @actionPage.enable_petition? && @petition && @petition.description.present? && !@actionPage.description.include?('``` letter') -%>
+
+        <% if @actionPage.enable_petition? && @petition && @petition.description.present? && !@actionPage.description.include?('``` letter') -%>
         <% if !@petition.enable_affiliations? -%>
-          <div id='signatures' class="hidden-xs ajax-update">
-            <h4 class='header'><em><%= t :recent_signatories -%></em></h4>
-            <%= render(partial: "tools/signatures", layout: false) %>
-          </div>
+        <div id='signatures' class="hidden-xs ajax-update">
+          <h4 class='header'><em><%= t :recent_signatories -%></em></h4>
+          <%= render(partial: "tools/signatures", layout: false) %>
+        </div>
         <% end -%>
         <%= render(partial: "action_page/letter", layout: false) %>
-      <% end -%>
+        <% end -%>
 
-      <% if @actionPage.petition && @actionPage.enable_petition? && @actionPage.petition.enable_affiliations? -%>
+        <% if @actionPage.petition && @actionPage.enable_petition? && @actionPage.petition.enable_affiliations? -%>
         <%= render(partial: "tools/affiliation_signatures", layout: false) %>
-      <% end -%>
+        <% end -%>
 
+
+        <%= render "tools/container" %>
+      </div>
     </div>
-    <%= render "tools/container" %>
   </div>
 </div>
-
 <%= ahoy_track_tag("show", @actionPage.id) %>

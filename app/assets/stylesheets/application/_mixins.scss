@@ -1,26 +1,11 @@
-@mixin speak-out-button {
-  @include transition (background-color 0.2s ease-in-out);
-  width: 100%;
-  border: none;
-  font-size: 0.9em;
-  padding: 10px 0;
-  background-color: $red;
-  color: #fff;
-  text-transform: uppercase;
-  margin-top: 1em;
-  letter-spacing: 0.06em;
-  &:hover {
-    background-color: darken($red, 15%);
-  }
-}
-
-@mixin griddy { // class for css-grid parent
+@mixin griddy { // class for tool form progress/page indicator
   display: grid;
-  grid-template-columns: 45% 45%;
   grid-template-rows: auto;
-  grid-column-gap: 10%;
-  grid-row-gap: 2rem;
-  margin-top: 2rem;
+  grid-column-gap: 0;
+  grid-row-gap: 0;
+  grid-template-columns: 33% 34% 33%;
+  height: 1rem;
+  margin: 0;
   width: 100%;
 }
 

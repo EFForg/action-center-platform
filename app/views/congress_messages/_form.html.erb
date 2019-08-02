@@ -1,0 +1,49 @@
+<%= form_tag(congress_message_campaign_congress_messages_path(@campaign),
+             remote: true, id: "congress-message-create") do %>
+  <p class="step2-intro">
+    <%= @campaign.extra_fields_explain_text("We send your comments to your representatives by automatically filling out their online contact forms. Because each representative's form is a little different, we need your help filling out a few extra fields before we can send your message:") %>
+  </p>
+  <div id="errors"></div>
+  <% if @message.common_fields.any? %>
+    <h3 class="legislator-label common-fields">
+      <em>Common fields</em>
+    </h3>
+
+    <fieldset id="congressForms-common-fields">
+      <% @message.common_fields.each do |field| %>
+        <div class="form-group">
+          <%= congress_forms_field(field, @campaign, @message.common_attributes) %>
+        </div>
+      <% end %>
+    </fieldset>
+
+    <%= render "tools/newsletter_signup",
+               email: false, location: false, privacy_notice: false %>
+    <%= render "tools/save_my_info_option", info: %w(name address) %>
+  <% end %>
+
+  <% @message.forms_minus_common_fields.each do |form| %>
+    <fieldset class="congressForms-legislator-fields">
+      <h3 class="legislator-label">
+        <em><%= CongressMember.find_by(bioguide_id: form.bioguide_id).full_name %></em>
+      </h3>
+      <% form.fields.each do |field| %>
+        <div class="form-group">
+          <%= congress_forms_field(field, @campaign,
+                                   @message.attributes_for(form.bioguide_id),
+                                   form.bioguide_id) %>
+        </div>
+      <% end %>
+    </fieldset>
+  <% end %>
+
+  <%= hidden_field_tag :bioguide_ids, @message.targets %>
+
+  <div class="submit-wrapper">
+    <input type="submit" value="Submit" class="btn action">
+    <% if current_user && current_user.privileged_role? %>
+      <input type="submit" value="Test" name="test" class="btn action test">
+    <% end %>
+  </div>
+  <%= render "tools/loading" -%>
+<% end %>

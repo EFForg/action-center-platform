@@ -7,7 +7,6 @@
 require "cucumber/rails"
 require "cucumber/rspec/doubles"
 require "capybara/poltergeist"
-require "billy/capybara/cucumber"
 require "webmock/cucumber"
 
 Dir[Rails.root.join("spec/support/**/*.rb")].each { |f| require f }
@@ -21,19 +20,7 @@ end
 
 Capybara.javascript_driver = :poltergeist
 
-WebMock.allow_net_connect!
-
-Billy.configure do |c|
-  c.cache = true
-  c.cache_request_headers = false
-  c.ignore_params = ["https://anon-stats.eff.org/js/"]
-  c.persist_cache = true
-  c.cache_path = "features/req_cache/"
-  c.non_whitelisted_requests_disabled = ENV["DISABLE_PUFFING_BILLY_REQUESTS"]
-  c.after_cache_handles_request = proc do |_request, response|
-    response[:headers]["Access-Control-Allow-Origin"] = "*"
-  end
-end
+WebMock.disable_net_connect!(allow_localhost: true)
 
 # Don't prevent form fills by bots during the test run
 InvisibleCaptcha.setup do |config|
@@ -90,10 +77,6 @@ end
 # See https://github.com/cucumber/cucumber-rails/blob/master/features/choose_javascript_database_strategy.feature
 Cucumber::Rails::Database.javascript_strategy = :truncation
 
-Before("@billy") do
-  Capybara.current_driver = :poltergeist_billy
-end
-
 After do
   Capybara.use_default_driver
 end
@@ -104,7 +87,7 @@ end
 
 def stub_smarty_streets
   stub_resp = { "city" => "San Francisco", "state_abbreviation" => "CA", "state" => "California", "mailable_city" => true }
-  allow(SmartyStreets).to receive(:get_city_state).with("94109").and_return(stub_resp)
+  allow(SmartyStreets).to receive(:get_city_state).and_return(stub_resp)
 end
 
 def stub_smarty_streets_street_address

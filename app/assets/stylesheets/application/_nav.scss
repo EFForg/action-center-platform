@@ -1,5 +1,4 @@
-$nav-height: 100px;
-$nav-color:  black;
+$nav-height: 80px;
 $nav-font-color: white;
 $nav-font-size: 1.1rem;
 $nav-text-transform: uppercase;
@@ -11,16 +10,12 @@ body {
 nav {
   background-color: $eff-red;
   display: block;
-  height: 70px;
+  height: $nav-height;
   position: fixed;
   left: 0;
   top: 0;
-  text-align: center;
   width: 100%;
   z-index: 10;
-  @media screen and (min-width: $md) {
-    height: $nav-height;
-  }
   a {
     border: none;
     color: white;
@@ -33,69 +28,17 @@ nav {
       color: inherit;
     }
   }
-  a.open-menu {
-    @media screen and (min-width: $md) {
-      display: none;
-    }
-    color: white;
-    display: inline-block;
-    margin-top: 1.1em;
-  }
 
-  ul {
-    @media screen and (min-width: $md) {
-      max-width: 1280px;
-    }
-    display: flex;
-    font-size: 0.75rem;
-    justify-content: space-around;
-    list-style: none;
-    line-height: 1rem;
-    margin: 1.5rem auto 0;
-    padding: 0 0 0 1rem;
-    width: 100%;
-    &:after {
-      content: "";
-    }
-
-    li {
-      display: none;
-      text-align: center;
-      text-transform: $nav-text-transform;
-      font-size: $nav-font-size;
-      font-weight: 700;
-      color: white;
-      a {
-        color: white;
-        &.active {
-          color: white;
-        }
-        &:hover {
-          &:not(.menu-logo) {
-            border-bottom: 2px solid white;
-            color: white;
-          }
-        }
-      }
-      @media screen and (min-width: $md) {
-        display: inline-block;
-        font-size: 1rem;
-        margin: 0.9rem auto 0;
-        text-align: center;
-        flex-grow: 1;
-      }
-      &.logo-li {
-        display: inline-block;
-        margin: 0;
-        text-align: left;
-      }
-    }
+  .nav-wrapper {
+    margin: 0 auto;
+    max-width: $max-width;
+    position: relative;
     .menu-logo {
       @media screen and (min-width: $md) {
         height: 90px;
         width: 500px;
-        left: 0;
-        margin-top: 0;
+        left: 1.5%;
+        margin-top: 1rem;
         position: relative;
       }
       background: asset-url('EFF-logo-action.svg') no-repeat;
@@ -108,30 +51,133 @@ nav {
       margin-top: 1rem;
       position: absolute;
       top: 0;
-      //transition: all 0.2s;
+      transition: all 0.2s;
       width: 250px;
+    }
+    ul {
+      display: inline-block;
+      font-size: 0.75rem;
+      list-style: none;
+      line-height: 1rem;
+      margin: 0.5rem auto 0;
+      padding: 0 0 0 1rem;
 
+      li {
+        display: block;
+        font-size: $nav-font-size;
+        font-weight: 700;
+        margin: 0.9rem auto 0;
+        text-align: left;
+        text-transform: $nav-text-transform;
+      }
     }
-    li.close-menu {
-      display: none !important;
+
+    #nav-menu {  // drop-down menu
+      @media screen and (min-width: $md) {
+        right: 5%;
+        width: 250px;
+      }
+      @media screen and (min-width: $xl) {
+        right: 9%;
+      }
+      @media screen and (min-width: 1800px) { //very wide screens
+        right: 15%;
+      }
+      background-color: $gray;
+      color: black;
+      display: inline-block;
+      padding-bottom: 1rem;
+      position: absolute;
+      right: 5%;
+      top: 5.3rem;
+      transition: all 0.3s ease;
+      width: 200px;
+      z-index: 100;
+      a {
+        border-bottom: 2px solid $gray;
+        color: black;
+        &:hover {
+          border-bottom: 2px solid black;
+        }
+      }
+      form {  // login/logout
+        background: transparent;
+        margin: 0;
+        padding: 0;
+      }
+      .nav-form-link {
+        input[type=submit] {
+          background: none;
+          border: none;
+          color: black;
+          cursor: pointer;
+          margin: 0;
+          padding: 0;
+          text-decoration: none;
+          text-transform: uppercase;
+          &:hover {
+            border-bottom: 2px solid black;
+          }
+        }
+      }
     }
-  }
-  form {
-    background: transparent;
-    margin: 0;
-    padding: 0;
-  }
-  .nav-form-link {
-    input[type=submit] {
-      background: none;
-      border: none;
-      cursor: pointer;
-      color: white;
-      margin: 0;
-      text-decoration: none;
-      text-transform: uppercase;
-      &:hover {
-        border-bottom: 2px solid white;
+    .nav-modal-container {
+      button { // hamburger
+        background: $eff-red;
+        border: none;
+        display: inline-block;
+        float: right;
+        font-size: 3em;
+        height: 0;
+        margin: -0.58rem 0 0;
+        @media screen and (min-width: $md) {
+          font-size: 4rem;
+          margin: -6.7rem 0 0;
+        }
+      }
+      .nav-modal-backdrop {
+        height: 0;
+        width: 0;
+        opacity: 0;
+        overflow: hidden;
+        position: fixed;
+        transition: opacity 0.2s ease-in;
+      }
+      #nav-modal-toggle {
+        position: absolute;
+        left: 90%;
+        top: 0;
+        height: 6rem;
+        width: 6rem;
+        margin: 0;
+        opacity: 0;
+        cursor: pointer;
+        @media screen and (min-width: $ph) {
+          left: 95%;
+        }
+        &:checked {
+          width: 100vw;
+          height: 100vh;
+          position: fixed;
+          left: 0;
+          top: 0;
+          z-index: 9;
+          opacity: 0;
+          ~ .nav-modal-backdrop {
+            width: 100%;
+            height: 100vh;
+            left: 0;
+            top: 0;
+            z-index: 9;
+            pointer-events: none;
+            opacity: 1;
+            .nav-modal-content {
+              z-index: 999;
+              pointer-events: auto;
+              cursor: auto;
+            }
+          }
+        }
       }
     }
   }
