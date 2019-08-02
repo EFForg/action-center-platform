@@ -40,6 +40,10 @@
           <div class="more-actions-image">
           <%= link_to image_tag(actionPage.featured_image.url), action_page_path(actionPage) %>
           </div>
+          <% if Category.exists? %>
+          <h5 class="category">
+            <%= Category.where(id: actionPage.category_id).pluck(:title).first; %></h5>
+          <% end %>
           <div class="more-actions-text">
             <%= link_to action_page_path(actionPage) do%>
             <h3><%= actionPage.title -%></h3>
