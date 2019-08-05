@@ -729,47 +729,11 @@ h3.privacy-notice-header {
     span.customize-message-popover {
       @include eff-tooltip;
       @include transition (all 0.2s ease-in-out);
-      background-color: white;
-      border: 1px solid $eff-red;
-      border-radius: 0;
-      color: $eff-red;
-      cursor: pointer;
-      font-size: $base-font-size * 1.1;
-      font-weight: 600;
-      float: right;
-      top: 1rem;
-      &:hover {
-        background-color: $eff-red;
-        color: white;
-      }
-      .tooltiptext {
-        left: -5rem;
-        top: 2rem;
-        width: 10rem;
-      }
     }
 
     span.legislator-info-popover {
+      @include eff-tooltip;
       @include transition (all 0.2s ease-in-out);
-      display: inline-block;
-      float: right;
-      border: 1px solid #cc0000;
-      height: 20px;
-      width: 20px;
-      text-align: center;
-      font-style: normal;
-      line-height: 18px;
-      padding-top: 0px;
-      cursor: pointer;
-      position: relative;
-      font-weight: bold;
-      background-color: #fff;
-      color: #cc0000;
-      font-size: 12px;
-      &:hover {
-        background-color: #cc0000;
-        color: #fff;
-      }
     }
   }
 

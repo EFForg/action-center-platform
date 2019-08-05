@@ -56,28 +56,32 @@
 
 
 @mixin eff-tooltip { // replacing bootstrap tooltip & popover
-  color: $gray;
-  border: 2px solid $gray;
-  border-radius: 1rem;
+  background-color: $off-white;
+    color: $eff-red;
+    cursor: pointer;
+  border: 1px solid $eff-red;
+  border-radius: 0;
   display: inline-block;
-  font-size: 1.1rem;
-  font-weight: 800;
+    float: right;
+  font-size: $base-font-size * 1.1;
+  font-weight: 600;
   padding: 0 7px;
   position: absolute;
   right: 0;
-  top: 0;
+  top: 1rem;
   .tooltiptext {
     background-color: black;
     border-radius: 0.5rem;
-    color: white;
-    font-size: 1rem;
-    font-weight: 400;
-    left: 2rem;
+    color: $off-white;
+    font-size: $base-font-size * 0.9;
+    font-weight: normal;
+    left: -5rem;
     padding: 1rem;
     position: absolute;
     text-align: left;
+    top: 2rem;
     visibility: hidden;
-    width: 20rem;
+    width: 10rem;
     z-index: 1;
   }
   &:hover {
