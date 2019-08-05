@@ -446,26 +446,23 @@ h3.header, #tools #email-tool h3, #tools #congress-message-tool h3 {
   display: none;
 }
 
-h3.privacy-notice-header {
+.privacy-notice {
+  position: relative;
   span.privacy-notice-popover {
-    @include transition (all 0.2s ease-in-out);
-    display: inline-block;
-    float: right;
-    border: 1px solid #cc0000;
-    height: 20px;
-    width: 20px;
-    text-align: center;
-    font-style: normal;
-    line-height: 18px;
-    padding-top: 0px;
-    cursor: pointer;
+    @include eff-tooltip;
+    color: black;
+    background: $gray-darker;
+    border: 0;
+    border-bottom: 2px solid black;
+    float: none;
+    font-size: $base-font-size * 0.7;
+    padding: 0;
     position: relative;
-    font-weight: bold;
-    background-color: #fff;
-    color: #cc0000;
+    top: 0;
     &:hover {
-      background-color: #cc0000;
-      color: #fff;
+      background: $gray-darker;
+      border-bottom: 2px solid black;
+      color: black;
     }
   }
 }
