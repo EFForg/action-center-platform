@@ -75,17 +75,19 @@
     color: $off-white;
     font-size: $base-font-size * 0.9;
     font-weight: normal;
-    left: -5rem;
+    right: 0;
     padding: 1rem;
     position: absolute;
     text-align: left;
     top: 2rem;
     visibility: hidden;
-    width: 10rem;
+    width: 20rem;
     z-index: 1;
   }
   &:hover {
-    color: black;
+    background: $eff-red;
+    border-color: $eff-red;
+    color: $off-white;
     .tooltiptext {
       visibility: visible;
     }
