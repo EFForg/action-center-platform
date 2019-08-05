@@ -722,12 +722,10 @@ h3.header, #tools #email-tool h3, #tools #congress-message-tool h3 {
     }
     span.customize-message-popover {
       @include eff-tooltip;
-      @include transition (all 0.2s ease-in-out);
     }
 
     span.legislator-info-popover {
       @include eff-tooltip;
-      @include transition (all 0.2s ease-in-out);
     }
   }
 
