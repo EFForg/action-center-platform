@@ -731,21 +731,21 @@ h3.privacy-notice-header {
       @include transition (all 0.2s ease-in-out);
       background-color: white;
       border: 1px solid $eff-red;
+      border-radius: 0;
       color: $eff-red;
       cursor: pointer;
-      display: inline-block;
-      font-style: normal;
-      font-weight: bold;
+      font-size: $base-font-size * 1.1;
+      font-weight: 600;
       float: right;
-      line-height: 18px;
-      height: 20px;
-      padding-top: 0px;
-      position: relative;
-      text-align: center;
-      width: 20px;
+      top: 1rem;
       &:hover {
         background-color: $eff-red;
         color: white;
+      }
+      .tooltiptext {
+        left: -5rem;
+        top: 2rem;
+        width: 10rem;
       }
     }
 
