@@ -14,8 +14,11 @@
         <% unless @congress_message_campaign.target_bioguide_ids.present? %>
           <fieldset id="lookup-address">
             <h3>
-              <span class="customize-message-popover" data-container="body" data-toggle="popover" data-trigger="hover" data-placement="auto bottom" data-content="<%= @congress_message_campaign.look_up_helper_text "We'll use your address to look up your congressional district and find your representatives." %>">?</span>
-              <em><%= @congress_message_campaign.look_up_your_rep_text "Look up your representatives" %></em>
+              <span class="customize-message-popover" data-toggle="tooltip" data-trigger="hover">?
+ <span class="tooltiptext"><%= @congress_message_campaign.look_up_helper_text "We'll use your address to look up your congressional district and find your representatives." %></span>
+</span>
+
+              <%= @congress_message_campaign.look_up_your_rep_text "Look up your representatives" %>
             </h3>
             <div id="errors"></div>
 

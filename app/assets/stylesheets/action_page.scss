@@ -727,6 +727,7 @@ h3.privacy-notice-header {
       }
     }
     span.customize-message-popover {
+      @include eff-tooltip;
       @include transition (all 0.2s ease-in-out);
       background-color: white;
       border: 1px solid $eff-red;
