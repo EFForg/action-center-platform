@@ -4,6 +4,7 @@
 <!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
 <!--[if gt IE 8]><!--> <html class="no-js"> <!--<![endif]-->
 <head>
+  <html lang="en">
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -29,11 +30,9 @@
   <![endif]-->
 
   <div class="wrapper">
-      <nav role="navigation" aria-label="desktop-navigation">
+      <nav role="navigation" aria-label="navigation">
         <div class="nav-wrapper">
-          <div>
             <a href="/" class="menu-logo" alt="Site logo">&nbsp;</a>
-          </div>
 
           <div class="nav-modal-container">
             <input id="nav-modal-toggle" type="checkbox">
@@ -72,13 +71,13 @@
         </div>
       </nav>
 
-    <div id="content">
+
       <% if content_for?(:content) -%>
         <%= yield(:content) -%>
       <% else -%>
         <%= yield %>
       <% end -%>
-    </div>
+
   </div>
 
   <div class="footer">

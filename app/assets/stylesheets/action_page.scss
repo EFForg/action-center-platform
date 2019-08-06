@@ -6,21 +6,23 @@
     margin: 0;
     @media screen and (min-width: $lg) {
       flex-direction: row;
-      margin: 0 1rem;
     }
     > div {
       @include flex-item;
       margin: 0 auto;
       text-align: left;
       width: 100%;
+      @media screen and (min-width: $md) {
+        margin: 2rem auto;
+      }
     }
     @media screen and (min-width: $lg) {
       > div:first-child {
-        margin: 2rem 3rem 1rem;
+        margin: 2rem 3rem 1rem 0;
         width: 65%;
       }
       > div:last-child {
-        margin-top: 3rem;
+        margin: 3.2rem 0.5rem 0 0;
         width: 35%;
       }
     }
@@ -40,14 +42,16 @@
     padding-bottom: 0;
   }
   > p {
-    font-size: $base-font-size * 1.2;
-    line-height: $base-line-height * 1.2;
+    @media screen and (min-width: $lg) {
+      font-size: $base-font-size * 1.2;
+      line-height: $base-line-height * 1.2;
+    }
   }
   img {
     padding-right: 1rem;
     @media screen and (min-width: $md) {
       margin-bottom: 3rem;
-      padding-right: 2rem;
+      padding-right: 0.5rem;
     }
   }
   input:not(:checked) + label + div {  // for Learn more
@@ -56,11 +60,15 @@
 
   [type="checkbox"]:not(:checked) + label,
   [type="checkbox"]:checked + label {
-    line-height: $base-line-height;
+    border-bottom: 2px solid $font-color;
     margin-bottom: 1rem;
     padding: 0;
     @media screen and (min-width: $ph) {
       margin-left: 0;
+    }
+    @media screen and (min-width: $lg) {
+      font-size: $base-font-size * 1.2;
+      line-height: $base-line-height * 1.2;
     }
     &:before,
     &:after {
@@ -75,16 +83,20 @@
   }
   > p,
   > li {
-    font-size: $base-font-size * 1.2;
-    line-height: $base-line-height * 1.2;
+    @media screen and (min-width: $lg) {
+      font-size: $base-font-size * 1.2;
+      line-height: $base-line-height * 1.2;
+    }
   }
 }
 
 
 .form-control {
   border-radius: 0;
-  padding: 0 0.5em;
-  font-size: 0.8em;
+  font-size:  $base-font-size * 0.9;
+  line-height: $base-line-height * 0.9;
+  font-style: italic;
+  padding: 1rem 0.5rem;
 }
 
 
@@ -108,8 +120,8 @@
     text-align: center;
     h3 {
       color: black;
-      font-size: $base-font-size;
-      line-height: $base-line-height;
+      font-size: $base-font-size * 1.2;
+      line-height: $base-line-height * 1.2;
       margin-top: 0;
     }
     a {
@@ -120,14 +132,17 @@
       }
     }
     .tool-container {
-      padding: 2em 0.4em 0 0.4em;
+      padding: 2rem 0.4rem 1rem 0.4rem;
+      img {
+        width: 100px;
+        height: 100px;
+      }
     }
 
     .tool-heading {
       color: $off-white;
+      padding-left: 1rem;
       text-transform: uppercase;
-      text-align: center;
-
       .tool-title {
         color: $off-white;
         font-family: $league;
@@ -136,26 +151,28 @@
         line-height: 4rem;
         margin: 0;
         text-transform: uppercase;
-
-        .glyphicon {
-          font-size: 0.8em;
-          padding-right: 0.2em;
-        }
       }
       p {
         color: black;
         margin-top: 1rem;
         text-transform: none;
       }
-      img {
-        width: 100px;
-        height: 100px;
-      }
+    }
+
+    .tool-title {
+      color: $off-white;
+      font-family: $league;
+      font-size: 4rem;
+      font-weight: 200;
+      line-height: 4rem;
+      padding: 0 0 0 0.5rem;
+      margin: 0 0 1rem;
+      text-align: left;
+      text-transform: uppercase;
     }
 
     .tool-body {
-      padding: 10px;
-      h3, h4, h5 {
+      h4 {
         color: black;
       }
       label a,
@@ -168,9 +185,7 @@
         }
       }
 
-      form input[type="text"], form input[type="email"], form textarea {
-        font-style: italic;
-      }
+
     }
     .tool-notice {
       padding-bottom: 0.5rem;
@@ -180,9 +195,6 @@
     }
     .add_fields {
       font-size: 0.8rem;
-    }
-    form {
-      text-align: left;
     }
     select {
       max-width: 60%;
@@ -206,7 +218,8 @@
       margin: 10px 0px 10px 0px;
     }
     .privacy-notice {
-      font-size: 0.8rem;
+      font-size:  $base-font-size * 0.8;
+      line-height: $base-line-height;
       padding: 0.5rem 0;
     }
     p.step2-intro {
@@ -250,7 +263,8 @@
         background-color: $off-white;
         color: $eff-red;
         i {
-          font-size: $base-font-size * 0.8;
+          font-size:  $base-font-size * 0.9;
+          line-height: $base-line-height * 0.9;
           margin-right: -3px;
         }
         &.in-progress {
@@ -289,7 +303,11 @@
 }
 
 #thank-you.tool {
+  @extend form;
   display: none;
+  .tool-title {
+    text-align: center;
+  }
   #tweet-back {
     text-decoration: underline;
     &:hover {
@@ -313,6 +331,11 @@
 #petition-tool .tool-body .signed { text-align: center; }
 
 #tools #petition-tool {
+  .tool-title {
+    text-align: center;
+    margin-left: 0;
+    padding: 0;
+  }
   input[type=submit] {
     margin-top: 0;
     margin-bottom: 5px;
@@ -549,15 +572,6 @@ h3.header, #tools #email-tool h3, #tools #congress-message-tool h3 {
 }
 
 #tools #call-tool {
-  .tool-container {
-    padding-bottom: 0.5em;
-  }
-
-  .privacy-notice {
-    margin-bottom: 0px;
-    text-align: center;
-    margin-top: 5px;
-  }
   input[type=submit], button[type=submit] {
     margin-top: 0.1em;
     margin-bottom: 0.3em;
@@ -569,9 +583,8 @@ h3.header, #tools #email-tool h3, #tools #congress-message-tool h3 {
     text-transform: uppercase;
   }
   .call-script-box {
-    padding: 6px 12px 2px 12px;
-    margin-bottom: 1rem;
-    margin-top: 1rem;
+    padding: 0;
+    margin: 0 0 1rem 0;
   }
   .call-script {
     background: $off-white;
@@ -605,9 +618,6 @@ h3.header, #tools #email-tool h3, #tools #congress-message-tool h3 {
     padding-top: 0;
     padding-bottom: 10px;
   }
-  .tool-title {
-    margin-bottom: 10px;
-  }
   textarea {
     padding: 6px;
   }
@@ -627,10 +637,6 @@ h3.header, #tools #email-tool h3, #tools #congress-message-tool h3 {
 #tools #congress-message-tool {
   .tool-body {
     padding-top: 0;
-    padding-bottom: 1rem;
-  }
-  .tool-title {
-    margin-bottom: 1rem;
   }
 
   form {
@@ -638,7 +644,8 @@ h3.header, #tools #email-tool h3, #tools #congress-message-tool h3 {
   }
 
   label {
-    font-size:  $base-font-size * 0.8;
+    font-size:  $base-font-size * 0.9;
+    line-height: $base-line-height * 0.9;
   }
   #customize-message {
     margin-top: 0;
@@ -670,9 +677,7 @@ h3.header, #tools #email-tool h3, #tools #congress-message-tool h3 {
   .progress {
     margin-top: 1rem;
   }
-  .congress-message-tool-container {
-    margin-top: 1rem;
-  }
+
   #congressForms-common-fields div.signup-checkbox:first-child {
     display: block;
   }
@@ -693,7 +698,8 @@ h3.header, #tools #email-tool h3, #tools #congress-message-tool h3 {
   }
   .congressForms-captcha-label {
     font-weight: normal;
-    font-size: 14px;
+    font-size:  $base-font-size * 0.9;
+    line-height: $base-line-height * 0.9;
   }
   .congressForms-legislator-fields {
     margin-bottom: 15px;
@@ -770,7 +776,8 @@ h3.header, #tools #email-tool h3, #tools #congress-message-tool h3 {
   .small {
     margin: 1rem 0;
     text-transform: uppercase;
-    font-size: $base-font-size * 0.7;
+    font-size:  $base-font-size * 0.8;
+    line-height: $base-line-height * 0.8;
     font-weight: bold;
   }
 }
@@ -784,13 +791,7 @@ h3.header, #tools #email-tool h3, #tools #congress-message-tool h3 {
     margin-top: 5px;
   }
 }
-.popover {
-  color: $charcoal;
-  font-size: 13px;
-  h3 {
-    color: $charcoal;
-  }
-}
+
 
 .popover-legislator-image {
   width: 50px;
@@ -822,16 +823,19 @@ h3.header, #tools #email-tool h3, #tools #congress-message-tool h3 {
 // "All Campaigns" page
 
 .action_page-index {
+  .top-section {
+    display: inline-block;
+    margin: 2rem 0;
+  }
   section.more-actions {
-    padding-top: 100px;
-    .row > div:first-child {
-      border: 0;
+    .row > div {
+      &:hover {
+        opacity: 0.7;
+      }
     }
+    .row > div:first-child,
     .row > div:last-child {
       border: 0;
-    }
-    .row .col-sm-4 {
-      margin-bottom: 100px;
     }
   }
   .pagination {
@@ -874,13 +878,12 @@ html.no-js {
     display: block;
 
     .tool-body {
-      font-size: 15px;
+      font-size: $base-font-size;
       textarea.samplemessage {
-        font-size: 12px;
         width: 100%;
         height: 140px;
-        margin-bottom: 10px;
-        padding: 5px;
+        margin-bottom: 1rem;
+        padding: 1rem 0.5rem;
       }
       form {
         margin-top: 20px;

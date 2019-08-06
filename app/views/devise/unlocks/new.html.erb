@@ -1,5 +1,5 @@
 <div class="top-section">
-  <div class="container">
+  <div class="container" role="main">
     <div class="row">
       <div>
         <h1>Resend unlock instructions</h1>
@@ -12,7 +12,7 @@
             <%= f.email_field :email, autofocus: true, class: 'form-control', required: 'required' %>
           </div>
 
-          <div>
+          <div class="submit">
             <%= f.submit "Resend", class: 'eff-red-button' %>
           </div>
         <% end %>

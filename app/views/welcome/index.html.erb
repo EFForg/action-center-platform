@@ -15,12 +15,12 @@
           <%= link_to image_tag(@featuredActionPage.featured_image.url) , action_page_path(@featuredActionPage) -%>
         </div>
         <div class="featured-text">
-          <h5>Category placeholder</h5>
+          <h5 class="category">Category placeholder</h5>
           <%= link_to action_page_path(@featuredActionPage) do %>
             <h2>
               <%= @featuredActionPage.title -%>
             </h2>
-            <span class='eff-red-button'><%= t(:take_action) %></span>
+            <span class="eff-red-button" role="button" aria-pressed="false"><%= t(:take_action) %></span>
           <% end %>
         </div>
       </div>
@@ -35,8 +35,9 @@
       <%- @actionPages.each do |actionPage| -%>
         <div class="the-actions">
           <div class="more-actions-image">
-          <%= link_to image_tag(actionPage.featured_image.url), action_page_path(actionPage) %>
+            <%= link_to image_tag(actionPage.featured_image.url), action_page_path(actionPage) %>
           </div>
+          <h5 class="category">Category placeholder</h5>
           <div class="more-actions-text">
             <%= link_to action_page_path(actionPage) do%>
             <h3><%= actionPage.title -%></h3>
@@ -53,15 +54,3 @@
   </div>
 
 </section>
-<!--
-<section class="mobile-apps">
-  <div class="container">
-    <div class="col-sm-6 image">
-      <%= image_tag("mobile-apps.png") %>
-    </div>
-    <div class="col-sm-6">
-        <h3>Download the EFF mobile app</h3>
-    </div>
-  </div>
-  </section>
--->
