@@ -240,8 +240,9 @@ form {
 
 /* Tooltip container */
 .tooltip {
-  color: $gray;
-  border: 2px solid $gray;
+  cursor: default;
+  color: $border-gray;
+  border: 2px solid $border-gray;
   border-radius: 1rem;
   display: inline-block;
   font-size: 1.1rem;
@@ -250,6 +251,7 @@ form {
   position: absolute;
   right: 0;
   top: 0;
+
   .tooltiptext {
     background-color: black;
     border-radius: 0.5rem;
@@ -264,8 +266,10 @@ form {
     width: 20rem;
     z-index: 1;
   }
+
   &:hover {
     color: black;
+
     .tooltiptext {
       visibility: visible;
     }
