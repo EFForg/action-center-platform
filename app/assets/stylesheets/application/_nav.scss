@@ -8,9 +8,12 @@ body {
 }
 
 nav {
+  @media screen and (min-width: $md) {
+    height: $nav-height;
+  }
   background-color: $eff-red;
   display: block;
-  height: $nav-height;
+  height: $nav-height * 0.75;
   position: fixed;
   left: 0;
   top: 0;
@@ -31,15 +34,27 @@ nav {
 
   .nav-wrapper {
     margin: 0 auto;
-    max-width: $max-width;
+    padding: 0 0 0 3%;
+    width: 100% !important;
+    @media screen and (min-width: $sm) {
+      padding-left: 5%;
+    }
+    @media screen and (min-width: $ph) {
+      padding-left: 3%;
+    }
+    @media screen and (min-width: $lg) {
+      max-width: $max-width;
+    }
+    @media screen and (min-width: $xl) {
+      padding-left: 0;
+    }
     position: relative;
     .menu-logo {
       @media screen and (min-width: $md) {
         height: 90px;
-        width: 500px;
-        left: 1.5%;
-        margin-top: 1rem;
+        left: 0;
         position: relative;
+        width: 500px;
       }
       background: asset-url('EFF-logo-action.svg') no-repeat;
       background-repeat: no-repeat;
@@ -48,7 +63,7 @@ nav {
       display: inline-block;
       height: 50px;
       left: 0.5rem;
-      margin-top: 1rem;
+      margin-top: 17.5px;
       position: absolute;
       top: 0;
       transition: all 0.2s;
@@ -75,6 +90,7 @@ nav {
     #nav-menu {  // drop-down menu
       @media screen and (min-width: $md) {
         right: 5%;
+        top: 80px;
         width: 250px;
       }
       @media screen and (min-width: $xl) {
@@ -89,7 +105,7 @@ nav {
       padding-bottom: 1rem;
       position: absolute;
       right: 5%;
-      top: 5.3rem;
+      top: 60px;
       transition: all 0.3s ease;
       width: 200px;
       z-index: 100;
@@ -127,12 +143,15 @@ nav {
         border: none;
         display: inline-block;
         float: right;
-        font-size: 3em;
+        font-size: 3rem;
         height: 0;
-        margin: -0.58rem 0 0;
+        margin: -0.22rem 0 0;
         @media screen and (min-width: $md) {
           font-size: 4rem;
           margin: -6.7rem 0 0;
+        }
+        @media screen and (min-width: $xl) {
+          width: 3rem;
         }
       }
       .nav-modal-backdrop {

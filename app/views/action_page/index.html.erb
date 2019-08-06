@@ -1,5 +1,5 @@
 <div class="top-section">
-  <div class="container">
+  <div class="container" role="main">
     <h1><%= t :organization_abbreviation -%> Campaigns</h1>
   </div>
 </div>
@@ -20,6 +20,7 @@
                   <%= image_tag(actionPage.featured_image) %>
                 </div>
               <% end %>
+              <h5 class="category">Category placeholder</h5>
               <div class="text">
                 <%= link_to action_page_path(actionPage) do%>
                   <h3><%= actionPage.title -%></h3>

@@ -13,11 +13,11 @@
       text-align: left;
       width: 100%;
       &:nth-child(even) {
-        border-bottom: 2px solid $off-white;
+        //border-bottom: 2px solid $off-white;
         margin-bottom: 1rem;
       }
       @media screen and (min-width: $ph) {
-        border-bottom: 2px solid $off-white;
+        //border-bottom: 2px solid $off-white;
         margin: 1rem 0 2rem;
         width: 50%;
       }
@@ -74,8 +74,9 @@
 .users-show .action-stats {
   @extend .gray-box;
   float: left;
-  margin-bottom: 20px;
-  margin-top: 30px;
+  margin: 0 0 1rem;
+  padding-bottom: 3rem;
+  width: 100%;
 
   h3 {
     margin-top: 0;
@@ -90,43 +91,73 @@
   }
 }
 
-.users-show .activity-stream {
-  .age {
-    color: $gray;
-    margin-left: 4px;
-  }
-  a {
-    border-bottom: 2px solid $off-white;
-    color: $off-white;
-    &:hover,
-    &:focus {
-      color: $gray;
-      border-bottom: 2px solid $gray;
+.users-show { // your account page
+  .row {
+    @include flex-this;
+    > div {
+      @include flex-item;
+      margin-left: 0;
+      text-align: left;
+      &:first-child {
+        margin-top: 2rem;
+        width: 100%;
+        @media screen and (min-width: $md) {
+          width: 66%;
+        }
+      }
+      &:last-child {
+        margin: 0 auto;
+        width: 100%;
+        @media screen and (min-width: $md) {
+          width: 33%;
+        }
+      }
     }
   }
+}
 
+.users-show .activity-stream {
+  @media screen and (min-width: $md) {
+    margin-right: 5rem;
+  }
+  h3,
+  p {
+    margin-bottom: 2rem;
+    a {
+      border-bottom: 2px solid $charcoal;
+      color: $off-white;
+      &:hover,
+      &:focus {
+        color: $gray;
+        border-bottom: 2px solid $gray;
+      }
+    }
+    .age {
+      color: $gray;
+      margin-left: 4px;
+    }
+  }
+  p.taken {
+    margin-bottom: 2rem;
+    a {
+      border-bottom: 2px solid $charcoal;
+      color: $gray-dark;
+      &:hover,
+      &:focus {
+        color: $gray;
+        border-bottom: 2px solid $gray;
+      }
+      &:before {
+        content: 'ACTION TAKEN: ';
+      }
+    }
+    .age {
+      color: $gray;
+      margin-left: 4px;
+    }
+  }
   a.eff-red-button {
     border-bottom: 0.3rem solid $dark-red;
-  }
-
-  table {
-    .icon {
-      padding-right: 0;
-      width: 28px;
-    }
-    tbody > tr > td {
-      vertical-align: middle;
-      border: 0;
-    }
-  }
-  td.btn-col {
-    min-width: 14rem;
-    button {
-      cursor: none;
-      font-size: $base-font-size * 0.8;
-      max-width: 12rem;
-      opacity: 0.5;
-    }
   }
 
 }
@@ -140,14 +171,40 @@
 .confirmations-create,
 .confirmations-show,
 .unlocks-new {
+  .row {
+    @include flex-this;
+    > div {
+      width: 100%;
+      form {
+        margin-bottom: 2rem;
+        padding: 1rem;
+      }
+      @media screen and (min-width: $md) {
+        width: 50%;
+      }
+      @media screen and (min-width: $lg) {
+        width: 33%;
+      }
+    }
+  }
   input.form-control {
-    border: 2px solid #fff;
+    background: $off-white;
+    border: 2px solid $off-white;
+    font-style: italic;
+    &:focus {
+      box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 8px rgba(233, 102, 102, 0.6);
+    }
+  }
+  .submit {
+    margin: 0 auto;
+    text-align: center;
   }
   .extra-links {
-    font-size: 15px;
+    font-size: $base-font-size * 0.8;
+    margin-top: 2rem;
   }
   .email-signup {
-    background-color: #fff;
+    background-color: $off-white;
     color: $charcoal;
     padding: 12px;
   }
@@ -181,32 +238,27 @@
 .users-edit,
 .registrations-edit {
   #settings, .edit {
-    margin-bottom: 50px;
-    margin-top: 20px;
-  }
-  .form-horizontal .control-label {
-    padding-top: 5px;
-  }
-  .personal-info {
-    margin-top: 20px;
-  }
-}
-
-.users-show {
-  .row {
-    @include flex-this;
-    > div {
-      @include flex-item;
-      margin-left: 0;
-      text-align: left;
-      &:first-child {
-        width: 66%;
-      }
-      &:last-child {
-        margin: 0 auto;
-      }
+    display: inline-block;
+    margin: 0 0 3rem 1rem;
+    padding-right: 4%;
+    @media screen and (min-width: $md) {
+      margin: 3rem 0 4rem;
+      padding-right: 0;
+      padding-left: 2%;
+    }
+    @media screen and (min-width: $xl) {
+      padding-left: 0;
     }
   }
+  .form-horizontal .control-label {
+    padding-top: 0.5rem;
+  }
+  .personal-info {
+    margin-top: 1rem;
+  }
+}
+.user-show #settings {
+
 }
 
 table.table-simple {
@@ -231,6 +283,8 @@ table.table-simple {
 }
 
 .input-note {
+  border-bottom: 2px solid black;
+  color: black;
   font-size: 0.8rem;
   line-height: 2em;
 }

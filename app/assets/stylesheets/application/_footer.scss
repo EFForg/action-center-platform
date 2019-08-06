@@ -5,6 +5,7 @@
   left: 0;
   right: 0;
   bottom: 0;
+  margin-top: 3rem;
   padding: 2rem 1rem 5rem 1rem;
   z-index: 10;
   .container {
@@ -52,7 +53,7 @@
         border: none;
         display: block;
         height: 4.5rem;
-        margin-bottom: 2rem;
+        margin: 2rem 0;
         &:hover {
           background: asset-url('EFF-logo-lockup-1color-white.svg') no-repeat;
         }
