@@ -101,6 +101,18 @@
 
 
 #tools {
+  .page-indicator {
+    @include griddy;
+    background-color: $off-white;
+    display: none; // hide unless congress-message-tool
+    > div {
+      border-left: 4px solid $gray-darker;
+    }
+    div.page1 {  // start on page 1
+      background-color: $eff-red;
+      border-left: none;
+    }
+  }
   .tool {
     background-color: $gray-darker;
     color: black;
@@ -131,8 +143,15 @@
       color: $off-white;
       padding-left: 1rem;
       text-transform: uppercase;
-      text-align: left;
-
+      .tool-title {
+        color: $off-white;
+        font-family: $league;
+        font-size: 4rem;
+        font-weight: 200;
+        line-height: 4rem;
+        margin: 0;
+        text-transform: uppercase;
+      }
       p {
         color: black;
         margin-top: 1rem;
@@ -273,8 +292,12 @@
 
   }
   .progress {
-    height: 41px;
+    background: $charcoal;
+    height: 1rem;
     margin-bottom: 0;
+  }
+  .progress-bar-danger {
+    background-color: $eff-red;
   }
 
 }
@@ -453,9 +476,6 @@ h3.privacy-notice-header {
   margin-left: 1rem;
   text-transform: capitalize;
   width: 100%;
-  @media screen and (min-width: $md) {
-    width: 50%;
-  }
   .header {
     color: $gray-darker;
     margin: 2em 0 1em;
@@ -568,7 +588,7 @@ h3.privacy-notice-header {
   }
 }
 
-.email-tool-container, .congress-message-tool-container {
+.email-tool-container {
   display: none;
   input[type=submit] {
     margin-top: 0px !important;
@@ -616,9 +636,28 @@ h3.privacy-notice-header {
     margin-top: 0;
     margin-bottom: 0;
   }
+  .submit-wrapper {
+    display: flex;
+  }
+
   input[type=submit] {
-    margin-top: 0.1em;
-    margin-bottom: 5px;
+    margin: 0.1em 2px 5px;
+
+    &:first-child {
+      margin-left: 0;
+    }
+
+    &:last-child {
+      margin-right: 0;
+    }
+
+    &.test {
+      background-color: $blue;
+
+      &:hover {
+        background-color: darken($blue, 10%);
+      }
+    }
   }
   .progress {
     margin-top: 1rem;
@@ -742,16 +781,6 @@ h3.privacy-notice-header {
 .popover-legislator-image {
   width: 50px;
 }
-
-[name="$ADDRESS_STATE_FULL"] { display: none; }
-[name="$ADDRESS_CITY"] { display: none; }
-[name="$ADDRESS_STREET"] { display: none; }
-[name="$ADDRESS_ZIP5"] { display: none; }
-[name="$SUBJECT"] { display: none; }
-.congressForms-legislator-fields [name="$SUBJECT"] {display: block;}
-[name="$MESSAGE"] { display: none; }
-[name="$ADDRESS_ZIP4"] { display: none; }
-[name="$ADDRESS_STATE_POSTAL_ABBREV"] { display: none; }
 
 /* Fix for broken bootstrap-sass */
 

@@ -17,6 +17,7 @@
 //= require bootstrap/transition
 
 //= require application/select2-utils
+//= require application/copy-url
 
 //= require respond
 //= require html5shiv
@@ -29,7 +30,6 @@
 //= require_tree ./application
 //= require jquery-timeago
 //= require sweetalert
-//= require application/smarty_streets
 //= require fuzzyset
 //= require fuzzyset_util
 //= require bootstrap-formhelpers-phone

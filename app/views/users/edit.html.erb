@@ -13,11 +13,47 @@
           <%= f.label :street_address, :class => ''  %>
           <%= f.text_field :street_address, :autofocus => true, :class => 'form-control' %>
 
-          <%= f.label :city, :class => ''  %>
-          <%= f.text_field :city, :autofocus => true, :class => 'form-control' %>
+<div class="container edit">
+  <div class="row">
+    <div class="col-md-9 col-md-offset-1">
+      <%= form_for(current_user, :html => { :method => :put, :class => 'form-horizontal personal-info' }) do |f| %>
+        <div class="form-group">
+          <%= f.label :first_name, :class => 'col-sm-3 control-label'  %>
+          <div class="col-sm-8">
+            <%= f.text_field :first_name, :autofocus => true, :class => 'form-control' %>
+          </div>
+        </div>
+        <div class="form-group">
+          <%= f.label :last_name, :class => 'col-sm-3 control-label'  %>
+          <div class="col-sm-8">
+            <%= f.text_field :last_name, :autofocus => true, :class => 'form-control' %>
+          </div>
+        </div>
+        <div class="form-group">
+          <%= f.label :street_address, :class => 'col-sm-3 control-label'  %>
+          <div class="col-sm-8">
+            <%= f.text_field :street_address, :autofocus => true, :class => 'form-control' %>
+          </div>
+        </div>
+        <div class="form-group">
+          <%= f.label :city, :class => 'col-sm-3 control-label'  %>
+          <div class="col-sm-8">
+            <%= f.text_field :city, :autofocus => true, :class => 'form-control' %>
+          </div>
+        </div>
+        <div class="form-group">
+            <%= f.label :state, :class => 'col-sm-3 control-label'  %>
+          <div class="col-sm-8">
+            <%= f.select :state, Places.us_state_codes.to_a, { prompt: 'State' }, :class => 'form-control' -%>
+          </div>
+        </div>
 
-          <%= f.label :state, :class => ''  %>
-          <%= f.select :state, us_states, { prompt: 'State' }, :class => 'form-control' -%>
+        <div class="form-group">
+          <%= f.label :country_code,  "Country", :class => 'col-sm-3 control-label'  %>
+          <div class="col-sm-8">
+            <%= f.select :country_code, Places.country_codes, { prompt: 'Country' }, :class => 'form-control' -%>
+          </div>
+        </div>
 
           <%= f.label :country_code,  "Country", :class => ''  %>
           <%= f.select :country_code, country_codes, { prompt: 'Country' }, :class => 'form-control' -%>

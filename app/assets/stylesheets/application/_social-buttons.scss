@@ -2,11 +2,17 @@
   .share {
     @include griddy;
     grid-template-columns: 18% 18% 18% 18%;
+    grid-row-gap: 0;
+    justify-content: center;
     margin-top: 0;
+    margin-bottom: 4rem;
     a,
     a:hover {
       border: none;
       margin-bottom: 2rem;
+    }
+    a div { // each share button
+      background-size: cover;
     }
   }
   a.eff-red-button {
@@ -23,7 +29,7 @@
     float: left;
     width: 54px;
     height: 54px;
-    background-color: black;
+    background-color: white;
 
   }
 
@@ -35,19 +41,37 @@
   }
 
   #sfb {
-    background-image: image-url("social-facebook.svg");
+    background-image: image-url("social-facebook.png");
   }
 
   #stwit {
-    background-image: image-url("social-twitter.svg");
+    background-image: image-url("social-twitter.png");
   }
 
   #semail {
-    background-image: image-url("social-email.svg");
+    background-image: image-url("social-email.png");
   }
 
   #slink {
-    background-image: image-url("social-link.svg");
+    background-image: image-url("social-link.png");
+    background-size: cover;
+  }
+
+  .url-field-share {
+    @media screen and (min-width: $md) {
+      width: 50%;
+    }
+    display: none;
+    margin: 0 auto;
+    width: 80%;
+    text-align: center;
+
+    input {
+      display: inline;
+      margin: 0;
+      padding: 5px;
+      width: 300px;
+    }
   }
 
 }
