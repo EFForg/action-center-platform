@@ -135,6 +135,7 @@ form {
 
   .form-item.inline {
     display: inline-block;
+    position: relative;
     width: auto;
     margin-right: 2em;
   }
@@ -233,5 +234,40 @@ form {
 #content form .page {
   &:not(:first-of-type) {
     display: none;
+  }
+}
+
+
+/* Tooltip container */
+.tooltip {
+  color: $gray;
+  border: 2px solid $gray;
+  border-radius: 1rem;
+  display: inline-block;
+  font-size: 1.1rem;
+  font-weight: 800;
+  padding: 0 7px;
+  position: absolute;
+  right: 0;
+  top: 0;
+  .tooltiptext {
+    background-color: black;
+    border-radius: 0.5rem;
+    color: white;
+    font-size: 1rem;
+    font-weight: 400;
+    left: 2rem;
+    padding: 1rem;
+    position: absolute;
+    text-align: left;
+    visibility: hidden;
+    width: 20rem;
+    z-index: 1;
+  }
+  &:hover {
+    color: black;
+    .tooltiptext {
+      visibility: visible;
+    }
   }
 }

@@ -1,14 +1,16 @@
 <% content_for(:nav) { render "admin/nav" } %>
 
-<p>This is where you can add a list of partner organizations that your organization runs joint campaigns with. Here is how that process works:</p>
+<p>If we are running a joint campaign, we’ll want to include the partner organization’s name and logo on the action. Adding a partner here puts the name and logo into our database so that they can be added to an action from a list. </p>
 
-<h3>How partner signups work for users:</h3>
+<h3>Partner signups</h3>
 
-<p>When partner signups are enabled for an action, an extra email signup checkbox shows your partner's name and privacy policy instead of your own. If the user opts in they'll be added to one of the lists below as a "subscriber."</p>
+<p>In certain, very rare, situations, we might agree to let users subscribe to a partner organization’s email list from an action hosted by EFF. The partner organization’s name and privacy policy appears in an extra email signup box on the action. If a user opts in, they’ll be added as a “subscriber” on the partner’s page here in the action center.
+You must have the Activism Director’s approval to add a partner email signup to a campaign, and a partner must be approved each time we agree to give them a signup option on any campaign. </p>
+<p>“Edit Partner” will allow you to enter the information required for enabling partner signups. And then, you can enable partner signups. </p>
 
-<h3>How a partner fetches their new subscriptions:</h3>
+<h3>How partner organizations get their new subscriptions</h3>
 
-<p>Partners need to have an Action Center login to access their new subscriptions. After they've created an account, you can link their account to their organization. Once they are added, they will see "Partner Dashboard" link in the header of the site and they can view and download their new subscribers.</p>
+<p>If a partner has been approved to have signups on an action, they will need an Action Center login to download their subscription list. Once they have an account, you can link it to the organization on the partner list on the “Edit Partner” page. This will give them a “Partner Dashboard” link once they login to the site, allowing them to view and download their new subscribers. </p>
 
 <p>
   <%= link_to "+ Add New Partner", new_admin_partner_path, class: "new btn sm" %>
