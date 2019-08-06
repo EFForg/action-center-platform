@@ -37,7 +37,7 @@ class ActionPage < ActiveRecord::Base
   belongs_to :category
   belongs_to :active_action_page_for_redirect, class_name: "ActionPage",
              foreign_key: "archived_redirect_action_page_id"
-  belongs_to :author, class_name: 'User', foreign_key: :user_id, optional: true
+  belongs_to :author, class_name: "User", foreign_key: :user_id, optional: true
 
   accepts_nested_attributes_for :tweet, :petition, :email_campaign,
     :call_campaign, :congress_message_campaign, reject_if: :all_blank

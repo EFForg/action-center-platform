@@ -202,6 +202,11 @@ class Admin::ActionPagesController < Admin::ApplicationController
     )
   end
 
+  def filter_params
+    params.permit(:q, :date_range, :utf8,
+                  action_filters: %i(type status author category))
+  end
+
   def purge_cache
     if Rails.application.secrets.fastly_api_key.present?
       fastly = Fastly.new(api_key: Rails.application.secrets.fastly_api_key)
@@ -211,33 +216,9 @@ class Admin::ActionPagesController < Admin::ApplicationController
 
   def filter_action_pages
     pages = ActionPage.order(created_at: :desc)
-    pages = pages.search(params[:q]) if params[:q].present?
-
-    if params[:date_range].present?
-      start_date, end_date = params[:date_range].split(" - ").map do |date|
-        Time.zone.parse(date).to_date
-      end
-      unless start_date == end_date && start_date == Time.zone.today
-        pages = pages.where(created_at: start_date..end_date)
-      end
-    end
-
-    if params[:action_filters].present?
-      filters = params[:action_filters]
-      pages = pages.type(filters[:type]) if filter_present? :type
-      pages = pages.status(filters[:status]) if filter_present? :status
-      if filter_present? :author_id
-        pages = pages.where(author: filters[:author_id])
-      end
-      if filter_present? :category_id
-        pages = pages.where(category: filters[:category_id])
-      end
-    end
-
-    pages
-  end
-
-  def filter_present?(sym)
-    params[:action_filters][sym].present? && params[:action_filters][sym] != "all"
+    pages = pages.search(filter_params[:q]) if filter_params[:q].present?
+    filters = filter_params[:action_filters].to_h || {}
+    filters[:date_range] = filter_params[:date_range]
+    ActionPageFilters.run(relation: pages, **filters.transform_keys(&:to_sym))
   end
 end
