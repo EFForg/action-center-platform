@@ -3,7 +3,9 @@
     @include griddy;
     grid-template-columns: 18% 18% 18% 18%;
     grid-row-gap: 0;
+    justify-content: center;
     margin-top: 0;
+    margin-bottom: 4rem;
     a,
     a:hover {
       border: none;

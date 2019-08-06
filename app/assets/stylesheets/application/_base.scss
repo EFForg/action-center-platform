@@ -32,8 +32,6 @@ body {
   font-family: $sans-serif;
   font-weight: 400;
   line-height: 1.4;
-  height: 100%;
-  min-height: 100%;
   margin: 0;
   padding: 0;
 }
@@ -41,6 +39,10 @@ body>.wrapper {
   min-height: 100%;
   margin: 0 auto;
   max-width: $max-width;
+  padding: 0 3%;
+  @media screen and (min-width: $xl) {
+    padding: 0;
+  }
 }
 
 article,
@@ -130,9 +132,7 @@ h5  {
 }
 
 p {
-  @media screen and (max-width: $ph) {
-    margin: 0 4% 1rem;
-  }
+  margin: 0 0 1rem;
   line-height: $base-line-height;
   margin-bottom: 1rem;
   padding: 0;
@@ -238,12 +238,11 @@ code {
   display: none;
 }
 
-.no-scroll {  // for modals
-  margin: 0;
-  height: 100%;
-  overflow: hidden;
+h5.category {
+  color: $gray;
+  font-size: $base-font-size * 0.9;
+  padding-top: 1rem;
 }
-
 
 .push { height: 100px;}
 
@@ -424,6 +423,7 @@ div#email_target_text {
 }
 
 .container {  // overriding bootstrap
+  padding: 0;
   max-width: 750px !important;
   width: 100% !important;
   @media screen and (min-width: $lg) {
@@ -431,6 +431,12 @@ div#email_target_text {
   }
 }
 
-.popover {  // overridng bootstrap
+.popover {  // overriding bootstrap
   color: $charcoal;
+  font-family: $sans-serif;
+  font-size: $base-font-size * 0.8 !important;
+  line-height: $base-line-height;
+  h3 {
+    color: $charcoal;
+  }
 }

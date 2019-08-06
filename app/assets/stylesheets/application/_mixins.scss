@@ -53,3 +53,25 @@
     }
   }
 }
+
+@mixin eff-tooltip {
+  @include transition (all 0.2s ease-in-out);
+  background-color: white;
+  color: $eff-red;
+  cursor: pointer;
+  display: inline-block;
+  font-style: normal;
+  font-weight: bold;
+  float: right;
+  line-height: 19px;
+  height: 20px;
+  margin-top: 0.4rem;
+  padding-top: 0;
+  position: relative;
+  text-align: center;
+  width: 20px;
+  &:hover {
+    background-color: $eff-red;
+    color: white;
+  }
+}
