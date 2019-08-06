@@ -8,7 +8,8 @@ class Admin::ActionPagesController < Admin::ApplicationController
     :events,
     :events_table,
     :duplicate,
-    :preview
+    :preview,
+    :status
   ]
 
   before_action :set_source_files, only: %i(new edit create update duplicate)
