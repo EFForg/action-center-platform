@@ -10,10 +10,11 @@
       <div class="row">
         <% array_of_3_actions.each do |actionPage|%>
             <div>
-              <% if Category.exists? %>
-              <h5 class="category">
-                <%= Category.where(id: actionPage.category_id).pluck(:title).first; %></h5>
+              <h5>
+              <% if actionPage.category.present? %>
+                <%= actionPage.category.title %>
               <% end %>
+              </h5>
               <%= link_to action_page_path(actionPage) do%>
                 <div class="image">
                   <%= image_tag(actionPage.featured_image) %>
