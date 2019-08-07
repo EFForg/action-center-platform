@@ -54,24 +54,43 @@
   }
 }
 
-@mixin eff-tooltip {
+
+@mixin eff-tooltip { // replacing bootstrap tooltip & popover
   @include transition (all 0.2s ease-in-out);
-  background-color: white;
+  background-color: $off-white;
   color: $eff-red;
   cursor: pointer;
+  border: 1px solid $eff-red;
+  border-radius: 0;
   display: inline-block;
-  font-style: normal;
-  font-weight: bold;
   float: right;
-  line-height: 19px;
-  height: 20px;
-  margin-top: 0.4rem;
-  padding-top: 0;
-  position: relative;
-  text-align: center;
-  width: 20px;
+  font-size: $base-font-size * 1.1;
+  font-weight: 600;
+  padding: 0 7px;
+  position: absolute;
+  right: 0;
+  top: 1rem;
+  .tooltiptext {
+    background-color: black;
+    border-radius: 0.5rem;
+    color: $off-white;
+    font-size: $base-font-size * 0.9;
+    font-weight: normal;
+    right: 0;
+    padding: 1rem;
+    position: absolute;
+    text-align: left;
+    top: 2rem;
+    visibility: hidden;
+    width: 20rem;
+    z-index: 1;
+  }
   &:hover {
-    background-color: $eff-red;
-    color: white;
+    background: $eff-red;
+    border-color: $eff-red;
+    color: $off-white;
+    .tooltiptext {
+      visibility: visible;
+    }
   }
 }

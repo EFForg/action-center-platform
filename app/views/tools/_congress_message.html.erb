@@ -14,8 +14,10 @@
         <% unless @congress_message_campaign.target_bioguide_ids.present? %>
           <fieldset id="lookup-address">
             <h3>
-              <span class="customize-message-popover" data-container="body" data-toggle="popover" data-trigger="hover" data-placement="auto bottom" data-content="<%= @congress_message_campaign.look_up_helper_text "We'll use your address to look up your congressional district and find your representatives." %>">?</span>
-              <em><%= @congress_message_campaign.look_up_your_rep_text "Look up your representatives" %></em>
+              <span class="customize-message-popover" data-toggle="tooltip" data-trigger="hover">?
+                <span class="tooltiptext"><%= @congress_message_campaign.look_up_helper_text "We'll use your address to look up your congressional district and find your representatives." %></span>
+              </span>
+              <%= @congress_message_campaign.look_up_your_rep_text "Look up your representatives" %>
             </h3>
             <div id="errors"></div>
 
@@ -36,17 +38,27 @@
                                  required: true,
                                  class: "form-control",
                                  title: "Must be 5 numeric numbers",
+
+
                                  pattern: "\\d{5}",
                                  maxlength: 5 %>
             </div>
-            <p class="privacy-notice">This tool uses the <a href="http://smartystreets.com/legal/privacy-policy" target="_blank">Smarty Streets</a> API (<a class="privacy-notice-popover" href="#" data-container="body" data-toggle="popover" data-title="Email Tool APIs" data-html="true" data-trigger="hover" data-placement="auto" data-content="<p>We need your full address to locate your exact congressional district, but this information isn't stored unless you're logged in.</p><p>We also use the Smarty Streets' API to look up your full 9 digit zip code (Zip+4), since some Congressmember's forms require it.</p>">why?</a>).<br>
+
+
+            <p class="privacy-notice">This tool uses the <a href="http://smartystreets.com/legal/privacy-policy" target="_blank">Smarty Streets</a> API (
+              <span class="privacy-notice-popover" data-toggle="tooltip" data-trigger="hover">why?
+                <span class="tooltiptext">We need your full address to locate your exact congressional district, but this information isn't stored unless you're logged in.<br>We also use the Smarty Streets' API to look up your full 9 digit zip code (Zip+4), since some Congressmember's forms require it.</span>
+             </span>).
+            <br>
             If you prefer not to use our email tool, <a href="https://www.eff.org/congress"  target="_blank">click here</a>.</p>
           </fieldset>
         <% end %>
 
         <fieldset id="customize-message">
           <h3>
-            <span class="customize-message-popover" data-container="body" data-toggle="popover" data-trigger="hover" data-placement="auto bottom" data-content="<%= @congress_message_campaign.customize_message_helper_text "The best way to reach your representative is to speak to them in your own words and share your unique experiences and opinions. While there is some sample text included below, we encourage you to edit it to suit your own voice. " %>">?</span>
+            <span class="customize-message-popover" data-toggle="tooltip" data-trigger="hover">?
+              <span class="tooltiptext"><%= @congress_message_campaign.look_up_helper_text "Add a personal note about why this matters to you. Members of Congress value a customized message much higher than a form letter." %></span>
+           </span>
             <em>Customize your message</em>
           </h3>
           <div class="form-group">

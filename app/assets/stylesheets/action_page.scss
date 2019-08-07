@@ -353,7 +353,7 @@
 
 #tools #tweet-tool {
   .tool-body {
-    //@extend form;
+    @extend form;
   }
 
   .form-group input {
@@ -466,9 +466,24 @@ h3.header, #tools #email-tool h3, #tools #congress-message-tool h3 {
   display: none;
 }
 
-h3.privacy-notice-header {
+.privacy-notice {
+  position: relative;
   span.privacy-notice-popover {
     @include eff-tooltip;
+    color: black;
+    background: $gray-darker;
+    border: 0;
+    border-bottom: 2px solid black;
+    float: none;
+    font-size: $base-font-size * 0.7;
+    padding: 0;
+    position: relative;
+    top: 0;
+    &:hover {
+      background: $gray-darker;
+      border-bottom: 2px solid black;
+      color: black;
+    }
   }
 }
 
