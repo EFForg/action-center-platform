@@ -6,7 +6,9 @@
   <div class="container" role="main">
     <div class="row">
       <div class='short-description'>
-        <h5 class="category"><%= @actionPage.category.title -%></h5>
+        <% if @actionPage.category.present? %>
+          <h5 class="category"><%= @actionPage.category.title -%></h5>
+        <% end %>
         <h1><%= @actionPage.title -%></h1>
         <%= image_tag(@actionPage.featured_image) %>
         <%= markdown @actionPage.summary -%>
