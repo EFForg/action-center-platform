@@ -15,7 +15,13 @@
                   <%= image_tag(actionPage.featured_image) %>
                 </div>
               <% end %>
-              <h5 class="category">Category placeholder</h5>
+
+              <% if actionPage.category.present? %>
+                <h5 class="category">
+                  <%= actionPage.category.title %>
+                </h5>
+              <% end %>
+
               <div class="text">
                 <%= link_to action_page_path(actionPage) do%>
                   <h3><%= actionPage.title -%></h3>
