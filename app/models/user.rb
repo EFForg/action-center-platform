@@ -27,6 +27,8 @@ class User < ActiveRecord::Base
 
   alias :preferences :user_preferences
 
+  scope :authors, ->() { joins(:action_pages) }
+
   def self.group_created_in_range(start_date, end_date)
     if start_date == end_date
       where("created_at BETWEEN ? AND ?", start_date, end_date + 1.day)
@@ -69,6 +71,11 @@ class User < ActiveRecord::Base
 
   def name
     [first_name, last_name].join(" ")
+  end
+
+  def display_name
+    return name unless name.blank?
+    email
   end
 
   def percentile_rank

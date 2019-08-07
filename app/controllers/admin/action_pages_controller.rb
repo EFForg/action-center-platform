@@ -18,11 +18,8 @@ class Admin::ActionPagesController < Admin::ApplicationController
   allow_collaborators_to :index, :edit
 
   def index
-    @categories = Category.all.order(:title).map { |c| [c.title, c.id] }
-    @authors = User.joins(:action_pages).order(:last_name).map do |a|
-      label = a.name.blank? ? a.email : a.name
-      [label, a.id]
-    end
+    @categories = Category.all.order(:title)
+    @authors = User.authors.order(:last_name)
     @actionPages = filter_action_pages
 
     if request.xhr?

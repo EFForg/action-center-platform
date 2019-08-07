@@ -88,7 +88,7 @@ class ActionPage < ActiveRecord::Base
     when "draft"
       where(published: false, archived: false, victory: false)
     else
-      where(status.to_sym => true)
+      where(status => true)
     end
   end
 

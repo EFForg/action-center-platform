@@ -10,18 +10,17 @@
 
     <div class="form-item">
       <%= label_tag "Date Range" %>
-      <input type="text" class="form-control text-inline" id="date_range" name="date_range"
-                                                                          value="" />
+      <input type="text" id="date_range" name="date_range" value="" />
     </div>
 
     <div class="form-item">
       <%= label_tag "Author" %>
-      <%= select :action_filters, :author, @authors, { include_blank: "all" } %>
+      <%= collection_select :action_filters, :author, @authors, :id, :display_name, { include_blank: "all" } %>
     </div>
 
     <div class="form-item">
       <%= label_tag "Category" %>
-      <%= select :action_filters, :category, @categories, { include_blank: "all" } %>
+      <%= collection_select :action_filters, :category, @categories, :id, :title, { include_blank: "all" } %>
     </div>
 
     <div class="form-item">
