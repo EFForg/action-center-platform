@@ -1,7 +1,7 @@
 <%= form_tag(congress_message_campaign_congress_messages_path(@campaign),
              remote: true, id: "congress-message-create") do %>
   <p class="step2-intro">
-    <%= @campaign.extra_fields_explain_text("We send your comments to your representatives by automatically filling out their online contact forms. Because each representative's form is a little different, we need your help filling out a few extra fields before we can send your message:") %>
+    <%= @campaign.extra_fields_explain_text("Your Congressmembers require this information in order to contact their offices. EFF does not store this information.") %>
   </p>
   <div id="errors"></div>
   <% if @message.common_fields.any? %>

@@ -1,9 +1,8 @@
 <div id="petition-tool" class="tool <%= 'un' unless current_user.try(:signed?, @actionPage.petition) || params[:thankyou] -%>signed" data-petition-id="<%= @actionPage.petition.id %>">
   <div class="tool-container">
-
     <div class="tool-heading">
       <h2 class="tool-title signed">
-        <span class='glyphicon glyphicon-ok'></span>Signed
+        Signed
       </h2>
       <h2 class="tool-title unsigned">
         <%= t :sign_the_petition -%>
@@ -11,6 +10,7 @@
     </div>
 
     <div class="tool-body">
+      <form>
       <%- if @petition.enable_affiliations -%>
         <div class='small tool-notice'>
           <%= t :name_and_affiliations_published -%>
@@ -35,7 +35,7 @@
       <% end -%>
 
         <div class='signed'>
-          <%= render 'tools/share' -%>
+          <%= render 'tools/thank_you' -%>
         </div>
         <div class='unsigned'>
           <%= form_for @signature, url: '/tools/petition',
@@ -80,12 +80,11 @@
 
             <fieldset>
               <% unless @petition.enable_affiliations %>
-                <div class='checkbox small'>
-                  <%= f.label :anonymous do -%>
+
+
                     <%= check_box_tag 'signature[anonymous]' -%>
-                    <%= t :dont_show_my_name -%>
-                  <% end -%>
-                </div>
+                    <%= f.label :anonymous, 'Don\'t add my name or city to this petition (we\'ll only list your country).'  -%>
+
               <% end %>
 
               <% unless @require_location %>
@@ -98,18 +97,19 @@
 
             <%= render "tools/privacy_notice" %>
 
-            <% button_text = params.include?("button_text") ? params["button_text"].to_sym : t(:speak_out) %>
-            <%= f.submit button_text, class: 'btn action'-%>
+            <% button_text = params.include?("button_text") ? params["button_text"].to_sym : t(:take_action) %>
+            <%= f.submit button_text, class: 'eff-red-button'-%>
             <%= render 'tools/loading' -%>
           <% end %>
       </div>
+      </form>
     </div>
   </div>
-</div>
 
-<% if !@petition.enable_affiliations? -%>
-<div id='signatures' class="hidden-xs ajax-update">
-  <h4 class='header'><em><%= t :recent_signatories -%></em></h4>
-  <%= render(partial: "tools/signatures", layout: false) %>
+  <% if !@petition.enable_affiliations? -%>
+  <div id='signatures' class="hidden-xs ajax-update">
+    <h4 class='header'><%= t :recent_signatories -%></h4>
+    <%= render(partial: "tools/signatures", layout: false) %>
+  </div>
+  <% end -%>
 </div>
-<% end -%>

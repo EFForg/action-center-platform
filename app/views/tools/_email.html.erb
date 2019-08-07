@@ -8,7 +8,7 @@
     </div>
 
     <div class="tool-body" id="target-email">
-      <p>Send this email:</p>
+      <h3>Send this email:</h3>
 
       <fieldset disabled>
         <textarea class="form-control" rows="14"><%= @email_campaign.message %></textarea>
@@ -23,22 +23,22 @@
         <%= button_tag type: 'submit',
                        name: 'service',
                        value: 'default',
-                       class: 'btn btn-red email-action' do -%>
-          Open using default mail client
+                       class: 'eff-red-button' do -%>
+          Use default mail client
         <% end %>
         <p class="small">Or send using:</p>
 
         <%= button_tag type: 'submit',
                        name: 'service',
                        value: 'gmail',
-                       class: 'btn btn-sm btn-red-outline email-action' do -%>
+                       class: 'eff-button' do -%>
           <i class="icon-google"></i> Gmail
         <% end %>
 
         <%= button_tag type: 'submit',
                        name: 'service',
                        value: 'hotmail',
-                       class: 'btn btn-sm btn-red-outline email-action' do -%>
+                       class: 'eff-button' do -%>
           <i class="icon-windows"></i> Outlook
         <% end %>
         <br>
@@ -54,19 +54,11 @@
                          :trigger => 'click',
                        },
                        id: 'copy-email-action',
-                       class: 'btn btn-sm btn-red-outline email-action' do -%>
+                       class: 'eff-button' do -%>
           <i class="icon-copy"></i> Copy to Clipboard
         <% end %>
 
         <div id='email_target_text'><%= render 'tools/email_target_text' %></div>
-
-        <div class="thank-you" style="display: none;">
-          <div class="alert alert-success">Thank you for the email</div>
-        </div>
-
-        <div class="email-tool-success-share" style="display: none;">
-          <%= render 'tools/share' -%>
-        </div>
       <% end %>
     </div>
   </div>
@@ -74,8 +66,7 @@
 
 <div class="update-user-data-container" style="display: none;">
   <% if current_user %>
-  <div class="checkbox small">
-      <label for="update_user_data">    <input checked="checked" id="update_user_data" name="update_user_data" type="checkbox" value="yes">    Save my name and address for next time.</label>
-  </div>
+    <input checked="checked" id="update_user_data" name="update_user_data" type="checkbox" value="yes">
+    <label for="update_user_data", value="Save my name and address for next time."></label>
   <% end %>
 </div>

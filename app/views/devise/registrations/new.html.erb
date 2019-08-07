@@ -1,7 +1,7 @@
-<div class="redtop">
-  <div class="container">
+<div class="top-section">
+  <div class="container" role="main">
     <div class="row">
-      <div class="col-lg-4 col-lg-offset-4 col-sm-6 col-sm-offset-3">
+      <div>
         <h1>Sign up</h1>
 
         <%= form_for(resource, :as => resource_name, :url => registration_path(resource_name)) do |f| %>
@@ -24,10 +24,10 @@
           <div class="email-signup">
             I
             <%= f.radio_button :subscribe, 'true'-%>
-            <%= f.label :subscribe, 'want', value: 'true', class: 'radio-inline'-%>
+            <label for="user_subscribe_true"><span></span>want</label>
 
             <%= f.radio_button :subscribe, 'false'-%>
-            <%= f.label :subscribe, 'do not want', value: 'false', class: 'radio-inline'-%>
+            <label for="user_subscribe_false"><span></span>do not want</label>
 
             to receive the EFF newsletter and emails about other EFF campaigns.
           </div>
@@ -35,14 +35,14 @@
           <div class="email-signup">
             I
             <%= f.radio_button :record_activity, 'true', id: 'do-record' -%>
-            <label class="radio-inline" for="do-record">want</label>
+            <label for="do-record"><span></span>want</label>
 
             <%= f.radio_button :record_activity, 'false', id: 'do-not-record' -%>
-            <label class="radio-inline" for="do-not-record">do not want</label>
+            <label for="do-not-record"><span></span>do not want</label>
 
             EFF to keep a record of actions I take on the site, to be used for features like leaderboards or to give out prizes to the most active action-takers.
           </div>
-          <div><%= f.submit "Sign up", :class => 'btn btn-default' %></div>
+          <div class="submit"><%= f.submit "Sign up", :class => 'eff-red-button' %></div>
         <% end %>
         <%= render "devise/shared/links" %>
       </div>

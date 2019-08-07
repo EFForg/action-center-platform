@@ -17,7 +17,8 @@
 //= require bootstrap/transition
 
 //= require application/select2-utils
-//= require webshims/polyfiller
+//= require application/copy-url
+
 //= require respond
 //= require html5shiv
 //= require bootstrap/collapse
@@ -25,7 +26,6 @@
 //= require bootstrap/tooltip
 //= require bootstrap/popover
 //= require bootstrap/alert
-//= require application/sticky_tools
 //= require action_page
 //= require_tree ./application
 //= require jquery-timeago

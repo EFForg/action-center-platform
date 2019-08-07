@@ -1,15 +1,96 @@
-@mixin speak-out-button {
-  @include transition (background-color 0.2s ease-in-out);
+@mixin griddy { // class for tool form progress/page indicator
+  display: grid;
+  grid-template-rows: auto;
+  grid-column-gap: 0;
+  grid-row-gap: 0;
+  grid-template-columns: 33% 34% 33%;
+  height: 1rem;
+  margin: 0;
   width: 100%;
-  border: none;
-  font-size: 0.9em;
-  padding: 10px 0;
-  background-color: $red;
-  color: #fff;
-  text-transform: uppercase;
-  margin-top: 1em;
-  letter-spacing: 0.06em;
+}
+
+// flexbox
+@mixin flex-this { // class for flexbox parent
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  padding: 0;
+  margin: 0;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  width: 100%;
+  @media screen and (max-width: $md) {
+    flex-direction: column;
+    flex-wrap: wrap;
+    width: 100%;
+  }
+}
+
+@mixin flex-item { // flexbox child
+  height: auto;
+  margin: auto;
+  text-align: left;
+  width: 33%;
+  @media screen and (max-width: $ph) {
+    width: 100%;
+  }
+}
+// Make sure to give parent element the style position:relative
+@mixin vertical-center {
+  display: block;
+  overflow: auto;
+  margin: auto;
+  position: absolute;
+  top: 0; left: 0; bottom: 0; right: 0;
+}
+
+//This is an alternative to bourbon's "placeholder" mixin. That one conflicts with bootstrap, so instead we define placeholders
+@mixin placeholders {
+  $placeholders: ":-webkit-input" ":-moz" "-moz" "-ms-input";
+  @each $placeholder in $placeholders {
+    &:#{$placeholder}-placeholder {
+      @content;
+    }
+  }
+}
+
+
+@mixin eff-tooltip { // replacing bootstrap tooltip & popover
+  @include transition (all 0.2s ease-in-out);
+  background-color: $off-white;
+  color: $eff-red;
+  cursor: pointer;
+  border: 1px solid $eff-red;
+  border-radius: 0;
+  display: inline-block;
+  float: right;
+  font-size: $base-font-size * 1.1;
+  font-weight: 600;
+  padding: 0 7px;
+  position: absolute;
+  right: 0;
+  top: 1rem;
+  .tooltiptext {
+    background-color: black;
+    border-radius: 0.5rem;
+    color: $off-white;
+    font-size: $base-font-size * 0.9;
+    font-weight: normal;
+    right: 0;
+    padding: 1rem;
+    position: absolute;
+    text-align: left;
+    top: 2rem;
+    visibility: hidden;
+    width: 20rem;
+    z-index: 1;
+  }
   &:hover {
-    background-color: darken($red, 15%);
+    background: $eff-red;
+    border-color: $eff-red;
+    color: $off-white;
+    .tooltiptext {
+      visibility: visible;
+    }
   }
 }

@@ -1,13 +1,13 @@
 <fieldset id='location' data-international-only="<%= params[:international_only] %>" <%= 'class=require' if @require_location -%>>
   <span class='intl-toggle'>
     <div class="row">
-      <div class="col-xs-6">
+      <div>
         <%= f.text_field :zipcode, class: 'form-control',
           placeholder: "#{t(:zip_code)} #{@require_location ? '' : t(:optional)}",
           'aria-label': t(:zip_code),
           title: t('petition_errors.required.zip_code') -%>
       </div>
-      <div class="col-xs-6">
+      <div>
           <a class='intl-toggler pull-right hidden-if-no-js'><%= t :outside_the_us -%></a>
       </div>
     </div>

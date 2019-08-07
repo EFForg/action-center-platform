@@ -1,0 +1,21 @@
+.confirmations-new,
+.registrations-new,
+.sessions-new,
+.unlocks-new {
+  .redtop .container .row {
+    @include griddy;
+    grid-template-columns: 100%;
+    > div {
+      width: 100%;
+      margin: 0 auto;
+      @media screen and (min-width: $md) {
+        width: 30%;
+      }
+    }
+  }
+}
+
+
+.container {
+  width: 100% !important;  // overwriting bootstrap defaults
+}

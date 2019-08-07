@@ -1,19 +1,8 @@
-<div class="redtop">
-  <div class="container">
-    <h1><%= t :your_account -%></h1>
-  </div>
-
-  <svg class="triangle" viewBox="0 0 24 23.8" preserveAspectRatio="none">
-    <use xlink:href="#triangle"></use>
-  </svg>
-</div>
-
 <div class="container" id="settings">
+  <h1><%= t :your_account -%></h1>
   <div class="row">
-
-    <div class="col-md-8 ">
-
-      <div class="activity-stream">
+    <div>
+      <div class="activity-stream" role="list">
         <h3>Take action</h3>
 
         <% # If our user doesn't have activity recording enabled, prompt them to enable it. %>
@@ -27,40 +16,24 @@
           </div>
         <% end -%>
 
-        <table class="table table-striped">
-          <tbody>
             <% @actionPages.each do |action_page| -%>
               <% if !action_page.archived && action_page.published || action_page.archived  && action_page.published && @actions_taken.include?( action_page.id) -%>
-                <tr>
-                  <td class="icon">
-                    <%=
-                    icons_for_action_page(action_page).map{|c| tag('i', class: "action-type #{c}")}.join.html_safe
-                    -%>
-                  </td>
-                  <td>
-                    <%= link_to action_page.title, action_page_path(action_page) -%>
-                    <span class="age">
-                      <%= distance_of_time_in_words_to_now(action_page.created_at) -%> old
-                    </span>
-                  </td>
-                  <td class="btn-col">
-                    <% if @actions_taken.include? action_page.id -%>
-                      <span class="green-rect has-icon">
-                        <i class="icon-ok-circle"></i> Done
-                      </span>
-                    <% else -%>
-                      <%= link_to "Take action", action_page_path(action_page), class:"btn btn-red-outline" -%>
-                    <% end -%>
-                  </td>
-                </tr>
+                <% if @actions_taken.include? action_page.id -%>
+                  <p class="taken" role="listitem">
+                <% else %>
+                  <p role="listitem">
+                <% end %>
+                <%= link_to action_page.title, action_page_path(action_page) -%>
+                  <span class="age">
+                    <%= distance_of_time_in_words_to_now(action_page.created_at) -%> old
+                  </span>
+                </p>
               <% end -%>
             <% end -%>
-          </tbody>
-        </table>
       </div>
     </div>
 
-    <div class="col-md-4">
+    <div>
       <% if current_user.record_activity? %>
         <div class="action-stats">
           <h3>Stats</h3>
@@ -93,108 +66,116 @@
 
       <div class="user-info">
         <h4>
-          <%= link_to 'Edit', edit_user_path,
-            class: 'edit-settings btn btn-sm btn-red-outline' -%>
           Personal information
         </h4>
-        <table class="table table-simple">
-          <tbody>
+        <div class="user-box">
                 <% if current_user.name.present? %>
-                  <tr><td>Name</td><td><%= current_user.name %></td></tr>
+                  <div>Name:</div>
+                  <div><%= current_user.name %></div>
                 <% end %>
 
                 <% if current_user.street_address.present? %>
-                <tr><td>Street Address</td><td><%= current_user.street_address %></td></tr>
+                <div>Street Address:</div>
+                <div><%= current_user.street_address %></div>
                 <% end %>
 
                 <% if current_user.city.present? %>
-                <tr><td>City</td><td><%= current_user.city %></td></tr>
+                <div>City:</div>
+                <div><%= current_user.city %></div>
                 <% end %>
 
                 <% if current_user.zipcode.present? %>
-                <tr><td>Zipcode</td><td><%= current_user.zipcode %></td></tr>
+                <div>Zipcode:</div>
+                <div><%= current_user.zipcode %></div>
                 <% end %>
 
                 <% if current_user.state.present? %>
-                <tr><td>State</td><td><%= current_user.state %></td></tr>
+                <div>State:</div>
+                <div><%= current_user.state %></div>
                 <% end %>
 
                 <% if current_user.country_code.present? %>
-                <tr><td>Country</td><td><%= current_user.country_code %></td></tr>
+                <div>Country:</div>
+                <div><%= current_user.country_code %></div>
                 <% end %>
 
                 <% if current_user.phone.present? %>
-                <tr><td>Phone</td><td><%= current_user.phone %></td></tr>
+                <div>Phone:</div>
+                <div><%= current_user.phone %></div>
                 <% end %>
 
-          </tbody>
-        </table>
-
+           </div>
+        <%= link_to 'Edit', edit_user_path,
+          class: 'eff-button' -%>
+        </div>
+        <div class="user-info">
         <h4>
-          <%= link_to 'Edit', edit_user_registration_path,
-            class: 'edit-settings btn btn-sm btn-red-outline' -%>
           Email and password
         </h4>
 
-        <table class="table table-simple">
-          <tbody>
-            <tr>
-              <td>Email</td><td><%= current_user.email %></td></tr>
-            <tr>
-              <td>Password</td><td>********</td></tr>
-          </tbody>
-        </table>
-
+        <div class="user-box">
+            <div>Email</div>
+            <div><%= current_user.email %></div>
+            <div>Password</div>
+            <div>********</div>
+        </div>
+        <%= link_to 'Edit', edit_user_registration_path,
+          class: 'eff-button' -%>
+      </div>
+      <div class="user-info">
       <h4 id="activity">
+        Activity
         <%= button_to "Clear my activity", clear_activity_user_path, method: :delete,
           data: { confirm: "Are you sure you want to delete your activity records?" },
-          class: 'btn btn-red-outline btn-sm edit-settings' %>
-          Activity
+          class: 'eff-button' %>
       </h4>
       <%= form_for(current_user, :remote => true,
                    :html => { :method => :put , :class => 'record_activity' }) do |f| %>
         <div class="email-signup">
           I
           <%= f.radio_button :record_activity, 'true', id: 'do-record' -%>
-          <label class="radio-inline" for="do-record">want</label>
+          <label class="" for="do-record"><span></span>want</label>
           <%= f.radio_button :record_activity, 'false', id: 'do-not-record' -%>
-          <label class="radio-inline" for="do-not-record">do not want</label>
+          <label class="" for="do-not-record"><span></span>do not want</label>
           <%= t :organization_abbreviation -%> to keep a record of actions I take
           on the site, to be used for features like leaderboards or to give out
           prizes to the most active action-takers.
           <%= token_tag(form_authenticity_token) %>
         </div>
-        <%= submit_tag "Save", class: 'shown-if-no-js btn btn-sm btn-red-outline' %>
+        <%= submit_tag "Save", class: 'eff-button' %>
       <% end -%>
-
+</div>
+<div class="user-info">
       <h4>Delete your account</h4>
       <p>Click below to permanently delete your action center account.</p>
 
       <%= button_to "Delete my account", registration_path(current_user),
         data: { confirm: 'Are you sure you want to permanently delete your account?' },
-        method: :delete, class: 'btn btn-sm btn-red-outline edit-settings' %>
+        method: :delete, class: 'eff-button' %>
 
-      <p class="small" style="margin-top: 12px">Please note that this does not affect your newsletter subscriptions or <%= t :organization_abbreviation -%> membership.</p>
-
+      <p style="margin-top: 12px">Please note that this does not affect your newsletter subscriptions or <%= t :organization_abbreviation -%> membership.</p>
+</div>
+<div class="user-info">
 
       <h4>Change your email preferences</h4>
       <% if current_user.contact_id! -%>
         <p>Click below to change your EFF newsletter subscriptions.</p>
         <%= link_to "Edit subscriptions",
           edit_subscription_path(current_user),
-          :class => 'btn btn-sm btn-red-outline edit-settings' -%>
+          :class => 'eff-button' -%>
       <% else -%>
-        <form action="https://supporters.eff.org/" method="post" id="eff-supporters-library-account-form" accept-charset="UTF-8" _lpchecked="1">
+        <form action="https://supporters.eff.org/" method="post" id="eff-supporters-library-account-form" accept-charset="UTF-8" _lpchecked="1" role="form">
           <p>Want to change your EFF newsletter subscriptions? Click below and we'll email <%= current_user.email %> with instructions.</p>
           <div class="form-group">
             <label for="edit-email" class="sr-only">Email Address </label>
             <input type="hidden" name="email" value="<%= current_user.email %>">
           </div>
-          <input type="submit" id="edit-submit" name="op" value="Send me a link" class="btn btn-sm btn-red-outline">
+          <input type="submit" id="edit-submit" name="op" value="Send me a link" class="eff-button" role="button" aria-pressed="false">
           <input type="hidden" name="form_build_id" value="form-w4OjonMGPm3-u3bgN5jbX43pS-archmsJkVORQvdPZ4">
           <input type="hidden" name="form_id" value="eff_supporters_library_account_form" >
         </form>
       <% end -%>
+      </div>
       </div>
     </div>
   </div>

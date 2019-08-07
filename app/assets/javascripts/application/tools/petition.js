@@ -20,10 +20,11 @@ $(document).on('ready', function() {
       type: 'POST',
       success: function(data) {
         if (data.success) {
-          $('#petition-tool').removeClass('unsigned').addClass('signed');
           height_changed();
           incrementPetitionCount();
           getSignatures();
+          $('#petition-tool').hide();
+          $('#thank-you').show();
         }
         else if (data.errors) {
           var errors = JSON.parse(data.errors);
