@@ -30,10 +30,6 @@ class ActionPageFilters
 
   attr_accessor :relation, :filters
 
-  def default_date_range?(start_date, end_date)
-    start_date == end_date && start_date == Time.zone.today
-  end
-
   def empty_value?(val)
     val.blank? || val == "all"
   end
@@ -41,7 +37,6 @@ class ActionPageFilters
   def process_date_range
     return unless filters[:date_range].present?
     start_date, end_date = parse_date_range
-    return if default_date_range?(start_date, end_date)
     @relation = relation.where(created_at: start_date..(end_date + 1.day))
   end
 
