@@ -27,7 +27,7 @@ class User < ActiveRecord::Base
 
   alias :preferences :user_preferences
 
-  scope :authors, ->() { joins(:action_pages) }
+  scope :authors, ->() { joins(:action_pages).distinct }
 
   def self.group_created_in_range(start_date, end_date)
     if start_date == end_date
