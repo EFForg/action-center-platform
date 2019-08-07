@@ -1,5 +1,10 @@
 <%= f.fields_for(:email_campaign) do |sf| %>
   <div class="form-item">
+    <%= sf.label :email_addresses, "To" %>
+    <%= sf.text_field :email_addresses %>
+  </div>
+
+  <div class="form-item">
     <%= sf.label :subject %>
     <%= sf.text_field :subject %>
   </div>
