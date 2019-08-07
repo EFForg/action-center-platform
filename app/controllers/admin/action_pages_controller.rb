@@ -18,6 +18,8 @@ class Admin::ActionPagesController < Admin::ApplicationController
   allow_collaborators_to :index, :edit
 
   def index
+    @categories = Category.all.order(:title)
+    @authors = User.authors.order(:last_name)
     @actionPages = filter_action_pages
 
     if request.xhr?
@@ -36,7 +38,7 @@ class Admin::ActionPagesController < Admin::ApplicationController
   end
 
   def create
-    @actionPage = ActionPage.new(action_page_params)
+    @actionPage = ActionPage.new(action_page_params.merge(author: current_user))
 
     if @actionPage.save
       redirect_to action_page_path(@actionPage)
@@ -197,6 +199,11 @@ class Admin::ActionPagesController < Admin::ApplicationController
     )
   end
 
+  def filter_params
+    params.permit(:q, :date_range, :utf8,
+                  action_filters: %i(type status author category))
+  end
+
   def purge_cache
     if Rails.application.secrets.fastly_api_key.present?
       fastly = Fastly.new(api_key: Rails.application.secrets.fastly_api_key)
@@ -206,12 +213,9 @@ class Admin::ActionPagesController < Admin::ApplicationController
 
   def filter_action_pages
     pages = ActionPage.order(created_at: :desc)
-    pages = pages.search(params[:q]) if params[:q].present?
-
-    if params[:action_type].present? && params[:action_type] != "all"
-      pages = pages.type(params[:action_type])
-    end
-
-    pages
+    pages = pages.search(filter_params[:q]) if filter_params[:q].present?
+    filters = filter_params[:action_filters].to_h || {}
+    filters[:date_range] = filter_params[:date_range]
+    ActionPageFilters.run(relation: pages, **filters.transform_keys(&:to_sym))
   end
 end

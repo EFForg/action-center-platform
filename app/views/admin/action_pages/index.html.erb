@@ -5,7 +5,27 @@
   <%= form_tag admin_action_pages_path, id: "filter_action_pages", method: :get do %>
     <div class="form-item">
       <%= label_tag "Type" %>
-      <%= select_tag :action_type, options_for_select(%w(all call congress_message email petition tweet redirect)) %>
+      <%= select :action_filters, :type, options_for_select(%w(all call congress_message email petition tweet redirect)) %>
+    </div>
+
+    <div class="form-item">
+      <%= label_tag "Date Range" %>
+      <input type="text" id="date_range" name="date_range" value="" />
+    </div>
+
+    <div class="form-item">
+      <%= label_tag "Author" %>
+      <%= collection_select :action_filters, :author, @authors, :id, :display_name, { include_blank: "all" } %>
+    </div>
+
+    <div class="form-item">
+      <%= label_tag "Category" %>
+      <%= collection_select :action_filters, :category, @categories, :id, :title, { include_blank: "all" } %>
+    </div>
+
+    <div class="form-item">
+      <%= label_tag "Status" %>
+      <%= select :action_filters, :status, options_for_select(%w(all draft live victory archived)) %>
     </div>
 
     <div class="form-actions">
