@@ -46,7 +46,7 @@ class ActionPageFilters
   end
 
   def parse_date_range
-    filters[:date_range].split(" - ").map { |d| Time.zone.parse(d).to_date }
+    filters[:date_range].split(" - ").map { |d| Time.zone.parse(d) }
   end
 
   def valid_query?(f, val)
