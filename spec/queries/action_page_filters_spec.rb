@@ -7,9 +7,8 @@ describe ActionPageFilters do
     category_action = FactoryGirl.create(:action_page,
                                          enable_tweet: true,
                                          category: category)
-    draft_old = FactoryGirl.create(:action_page,
+    draft_old = FactoryGirl.create(:draft_action_page,
                                    enable_tweet: true,
-                                   published: false,
                                    created_at: Time.zone.today - 7.days)
     authored_old = FactoryGirl.create(:action_page,
                                       enable_tweet: true,

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20190806005510) do
+ActiveRecord::Schema.define(version: 20190808043221) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -64,18 +64,19 @@ ActiveRecord::Schema.define(version: 20190806005510) do
     t.boolean  "enable_redirect",                  default: false
     t.string   "redirect_url"
     t.text     "email_text"
-    t.boolean  "victory",                          default: false
+    t.boolean  "old_victory",                                  default: false
     t.text     "victory_message"
-    t.boolean  "archived",                         default: false
+    t.boolean  "old_archived",                                 default: false
     t.integer  "archived_redirect_action_page_id"
     t.integer  "category_id"
     t.boolean  "enable_congress_message",          default: false, null: false
     t.integer  "congress_message_campaign_id"
     t.string   "related_content_url"
     t.integer  "user_id"
-    t.index ["archived"], name: "index_action_pages_on_archived", using: :btree
+    t.integer  "status",                                       default: 0,     null: false
     t.index ["call_campaign_id"], name: "index_action_pages_on_call_campaign_id", using: :btree
     t.index ["email_campaign_id"], name: "index_action_pages_on_email_campaign_id", using: :btree
+    t.index ["old_archived"], name: "index_action_pages_on_old_archived", using: :btree
     t.index ["petition_id"], name: "index_action_pages_on_petition_id", using: :btree
     t.index ["slug"], name: "index_action_pages_on_slug", using: :btree
     t.index ["tweet_id"], name: "index_action_pages_on_tweet_id", using: :btree

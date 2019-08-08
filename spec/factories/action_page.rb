@@ -4,6 +4,7 @@ FactoryGirl.define do
     summary "not filling in summary"
     description "not filling desc in"
     published true
+    status "live"
     email_text "$NAME, thanks for taking action!"
     victory_message "We won"
 
@@ -36,9 +37,17 @@ FactoryGirl.define do
   end
 
   factory :archived_action_page, parent: :action_page do
-    archived true
+    status "archived"
     association :active_action_page_for_redirect, factory: :action_page
-    victory false
+  end
+
+  factory :victory_action_page, parent: :action_page do
+    status "victory"
+  end
+
+  factory :draft_action_page, parent: :action_page do
+    status "draft"
+    published false
   end
 
   factory :action_page_with_views, parent: :action_page do
