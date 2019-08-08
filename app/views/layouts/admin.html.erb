@@ -10,7 +10,7 @@
     <%= csrf_meta_tags %>
   </head>
 
-  <body class="<%= controller.controller_name  + "-" + action_name %>">
+  <body class="<%= controller.controller_name  + "-" + action_name %> <%= yield(:body_classes) %>">
     <header>
       <div class="logo">
         <%= link_to admin_action_pages_path do %><%= image_tag "EFF_Monogram-red.png" %><% end %>

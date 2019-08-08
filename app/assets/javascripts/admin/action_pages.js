@@ -24,7 +24,7 @@
   $('#filter_action_pages #date_range').on('apply.daterangepicker', filterActionPages);
 })();
 
-$('.action_pages-edit, .action_pages-new').on('change', 'input[name=action_type]', function(e) {
+$('.action_page_setup').on('change', 'input[name=action_type]', function(e) {
   $('.action-fields').removeClass('active')
     .filter('[data-action_type=' + e.target.value +']')
     .addClass('active');
@@ -35,7 +35,7 @@ $('.action_pages-edit, .action_pages-new').on('change', 'input[name=action_type]
   reflowEpicEditor();
 });
 
-$('.action_pages-edit, .action_pages-new').on('change', 'input[name=action_type]', function(e) {
+$('.action_page_setup').on('change', 'input[name=action_type]', function(e) {
   if (e.target.value == 'redirect')
     $('#nav li[data-hide-for-redirect]').slideUp(100);
   else
@@ -43,10 +43,10 @@ $('.action_pages-edit, .action_pages-new').on('change', 'input[name=action_type]
 });
 
 $(function() {
-  $('.action_pages-edit, .action_pages-new').find('input[name=action_type]:checked').trigger('change');
+  $('.action_page_setup').find('input[name=action_type]:checked').trigger('change');
 });
 
-$('.action_pages-edit, .action_pages-new').on('click', '#nav a[href=#save]', function(e) {
+$('.action_page_setup').on('click', '#nav a[href=#save]', function(e) {
   e.preventDefault();
   $('form', '#content').first().submit();
 });
@@ -73,7 +73,7 @@ $(document).on('click', '#individual-targets #add', function(e) {
   input.val('').focus();
 });
 
-$('.action_pages-edit, .action_pages-new').on('change', '[type=checkbox][name*=target_]', function(e) {
+$('.action_page_setup').on('change', '[type=checkbox][name*=target_]', function(e) {
   if (e.target.name.match(/target_house|target_senate/) && e.target.checked) {
     $(this).closest('fieldset').find('[name*=target_specific_legislators]').prop('checked', false);
     $(this).closest('fieldset').find('.select2').slideUp(40);
