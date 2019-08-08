@@ -8,4 +8,12 @@ class Tweet < ActiveRecord::Base
   def target_congress?
     target_house? || target_senate?
   end
+
+  def dup
+    super.tap do |tweet|
+      tweet_targets.each do |target|
+        tweet.tweet_targets.build(twitter_id: target.twitter_id)
+      end
+    end
+  end
 end

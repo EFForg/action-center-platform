@@ -23,6 +23,7 @@
       <ul>
         <%= sf.fields_for(:tweet_targets) do |ssf| %>
           <li>
+            <%= ssf.hidden_field :twitter_id %>
             <%= link_to "@#{ssf.object.twitter_id}", "https://twitter.com/#{ssf.object.twitter_id}" %>
 
             <%= ssf.check_box :_destroy %>
