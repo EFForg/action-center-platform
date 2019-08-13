@@ -60,16 +60,16 @@
   background-color: $off-white;
   color: $eff-red;
   cursor: pointer;
-  border: 1px solid $eff-red;
-  border-radius: 0;
+  border: 0;
   display: inline-block;
   float: right;
-  font-size: $base-font-size * 1.1;
+  font-size: $base-font-size * 0.8;
   font-weight: 600;
-  padding: 0 7px;
+  line-height: $base-line-height;
+  padding: 0 0.35rem;
   position: absolute;
   right: 0;
-  top: 1rem;
+  top: 1.7rem;
   .tooltiptext {
     background-color: black;
     border-radius: 0.5rem;
