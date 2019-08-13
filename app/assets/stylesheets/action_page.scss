@@ -656,8 +656,9 @@ h3.header, #tools #email-tool h3, #tools #congress-message-tool h3 {
   }
 
   input[type=submit] {
+    font-size: 1.3rem;
     margin: 0.1em 2px 5px;
-
+    padding: 0.4rem 0;
     &:first-child {
       margin-left: 0;
     }
