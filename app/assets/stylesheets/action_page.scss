@@ -103,14 +103,15 @@
 #tools {
   .page-indicator {
     @include griddy;
-    background-color: $off-white;
+    background-color: $charcoal;
+    color: $gray;
     display: none; // hide unless congress-message-tool
-    > div {
-      border-left: 4px solid $gray-darker;
-    }
+    font-weight: 600;
+    margin-bottom: 10px;
+    text-align: center;
     div.page1 {  // start on page 1
-      background-color: $eff-red;
-      border-left: none;
+      background-color: $gray;
+      color: $charcoal;
     }
   }
   .tool {
