@@ -13,7 +13,7 @@ You must have the Activism Director’s approval to add a partner email signup t
 <p>If a partner has been approved to have signups on an action, they will need an Action Center login to download their subscription list. Once they have an account, you can link it to the organization on the partner list on the “Edit Partner” page. This will give them a “Partner Dashboard” link once they login to the site, allowing them to view and download their new subscribers. </p>
 
 <p>
-  <%= link_to "+ Add New Partner", new_admin_partner_path, class: "new btn sm" %>
+  <%= link_to "+ Add New Partner", new_admin_partner_path, class: "new btn btn-primary btn-sm" %>
 </p>
 
 <table class="table table-striped">
@@ -34,7 +34,7 @@ You must have the Activism Director’s approval to add a partner email signup t
         <td><%= partner.code %></td>
         <td><%= link_to "Link", partner.privacy_url if partner.privacy_url? %></td>
         <td><%= partner.subscriptions.size -%></td>
-        <td><%= link_to "View and Edit", partner, class: "btn sm" %></td>
+        <td><%= link_to "View", partner, class: "btn btn-primary btn-sm" %> <%= link_to "Edit", edit_admin_partner_path(partner), class: "btn btn-primary btn-sm" %></td>
       </tr>
     <% end %>
   </tbody>

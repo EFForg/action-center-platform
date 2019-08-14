@@ -1,18 +1,12 @@
-
 .topics-index .intro {
   padding: 15px 20px;
 }
 
 *[data-react-class=TopicCategoryTables] {
-  .panel-title {
-    input {
-      margin-left: -4px;
-      margin-top: -4px;
-      margin-bottom: -4px;
-      padding-left: 4px;
-    }
-  }
+  @import "bootstrap";
+}
 
+*[data-react-class=TopicCategoryTables] {
   .create-category-btn {
     margin: 10px;
   }
@@ -39,12 +33,20 @@
     }
 
     .input-group {
-      width: 215px;
       float: left;
     }
 
     td {
       vertical-align: top;
     }
+  }
+
+  .editable-text {
+    font-size: 1.5em;
+  }
+
+  .editable-text[disabled] {
+    border: 0;
+    background: transparent;
   }
 }

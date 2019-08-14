@@ -24,7 +24,7 @@
   fieldset label {
     display: inline-block;
 
-    &:not(.prepend-input) {
+    &:not(.input-group-addon) {
       margin-right: 1em;
     }
   }
@@ -126,4 +126,10 @@
       border-top: 1px #aaa solid;
     }
   }
+}
+
+.action_page_setup #individual-targets .input-group {
+  float: left;
+  max-width: 15em;
+  margin-right: 1em;
 }

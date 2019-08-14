@@ -8,9 +8,9 @@
 
       <div class="form-actions">
         <% if @actionPage.new_record? && pages[i+1] %>
-          <%= link_to "Next", "##{pages[i+1].sub('_', '-')}", class: "btn"  %>
+          <%= link_to "Next", "##{pages[i+1].sub('_', '-')}", class: "btn btn-default"  %>
         <% else %>
-          <%= f.submit "Save" %>
+          <%= f.submit "Save", class: "btn btn-primary" %>
         <% end %>
       </div>
     </div>

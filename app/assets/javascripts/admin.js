@@ -1,11 +1,14 @@
 //= require jquery
 //= require jquery-ujs
+//= require react
+//= require react_ujs
 //= require select2
 //= require admin/tabs
 //= require admin/editor
 //= require admin/gallery
 //= require admin/action_pages
 //= require admin/analytics
+//= require_tree ./admin/components
 
 function debounce(fn, time) {
   var timeout;

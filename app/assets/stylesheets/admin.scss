@@ -2,9 +2,19 @@
  *= require select2
  */
 
+@import "admin/mixins";
+
+$btn-default-bg: $light-blue;
+$btn-font-weight: bold;
+
+@import "bootstrap-sprockets";
+@import "bootstrap/variables";
+@import "bootstrap/mixins";
+@import "bootstrap/buttons";
+@import "bootstrap/input-groups";
+
 @import "daterangepicker";
 
-@import "admin/mixins";
 @import "admin/fonts";
 @import "admin/base";
 @import "admin/layout";
@@ -12,8 +22,9 @@
 @import "admin/action_pages";
 @import "admin/partners";
 @import "admin/users";
+@import "admin/topics";
 
-body {
+html, body {
   font-family: $sans-serif;
   font-size: 16px;
   font-weight: 300;
@@ -69,7 +80,9 @@ fieldset {
 }
 
 .btn {
-  @include button;
+  border: 0;
+  border-radius: 5px;
+  box-shadow: 3px 3px 2px #ddd;
 }
 
 .table .btn {
@@ -150,27 +163,12 @@ form {
 
   .form-item input[type=text], .form-item textarea {
     width: 100%;
-    padding: 0.4em;
+    padding: 0.45em;
     box-sizing: border-box;
   }
 
   .form-item > textarea {
     min-height: 7em;
-  }
-
-  .form-item .prepend-input {
-    display: inline-block;
-    margin: 0;
-    padding: 0.27em 0.4em 0.3em 0.5em;
-    border-top-left-radius: 5px;
-    border-bottom-left-radius: 5px;
-    border: 1px solid $border-gray;
-    border-right: 0;
-    background-color: $light-blue;
-
-    + input {
-      width: auto;
-    }
   }
 
   .form-item input[type=radio].fancy {
@@ -214,10 +212,6 @@ form {
     &:checked + .ui {
       background: repeating-linear-gradient(-45deg, #22e, #fff 0.25em);
     }
-  }
-
-  button, input[type=button], input[type=submit] {
-    @include button;
   }
 
   select, .select2 {

@@ -22,35 +22,6 @@ $sans-serif: "Montserrat", sans-serif;
   }
 }
 
-@mixin button {
-  display: inline-block;
-  border: 0;
-  border-radius: 5px;
-  padding: 1em 2.5em;
-  background: $light-blue;
-  box-shadow: 3px 3px 2px #ddd;
-  cursor: pointer;
-  font-weight: bold;
-  text-decoration: none;
-
-  color: #000;
-
-  &:link,
-  &:visited,
-  &:focus,
-  &:active {
-    color: #000;
-  }
-
-  &.sm {
-    @include button-sm;
-  }
-}
-
-@mixin button-sm {
-  padding: 0.4em 1em;
-}
-
 @mixin label {
   display: block;
   font-size: 1.2em;

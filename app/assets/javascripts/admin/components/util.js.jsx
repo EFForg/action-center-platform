@@ -8,7 +8,7 @@ function Conditional(props) {
 
 
 function Icon(props) {
-  return <span className={ "icon-" + props.name } />;
+  return <span className={ "glyphicon glyphicon-" + props.name } />;
 }
 
 var EditableText = React.createClass({
