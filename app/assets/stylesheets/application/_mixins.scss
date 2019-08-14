@@ -74,8 +74,9 @@
     background-color: black;
     border-radius: 0.5rem;
     color: $off-white;
-    font-size: $base-font-size * 0.9;
-    font-weight: normal;
+    font-size: $base-font-size * 0.8;
+    font-weight: 400;
+    line-height: $base-line-height * 1.2;
     right: 0;
     padding: 1rem;
     position: absolute;

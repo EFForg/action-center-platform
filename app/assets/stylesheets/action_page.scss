@@ -94,7 +94,7 @@
 .form-control {
   border-radius: 0;
   font-size:  $base-font-size * 0.9;
-  line-height: $base-line-height * 0.9;
+  line-height: $base-line-height * 1.1;
   font-style: italic;
   padding: 1rem 0.5rem;
 }
@@ -455,8 +455,11 @@
   }
 }
 
-.description h3, h3.privacy-notice-header,
-h3.header, #tools #email-tool h3, #tools #congress-message-tool h3 {
+.description h3,
+h5.privacy-notice-header,
+h3.header,
+#tools #email-tool h3,
+#tools #congress-message-tool h3 {
   position: relative;
   margin-bottom: 1em;
   text-align: left;
@@ -733,6 +736,15 @@ h3.header, #tools #email-tool h3, #tools #congress-message-tool h3 {
 
     span.legislator-info-popover {
       @include eff-tooltip;
+    }
+  }
+
+  h5 {
+    color: black;
+    text-transform: none;
+    span.customize-message-popover {
+      @include eff-tooltip;
+      top: 1.1rem;
     }
   }
 
