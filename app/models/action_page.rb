@@ -140,7 +140,7 @@ class ActionPage < ActiveRecord::Base
   end
 
   def image
-    og_image || background_image || featured_image
+    [og_image, background_image, featured_image].find(&:present?)
   end
 
   def status
