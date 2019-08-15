@@ -1,11 +1,47 @@
-<% content_for :head do %>
- <%= stylesheet_link_tag 'admin/admin' %>
- <%= javascript_include_tag 'admin-head' %>
-<% end %>
+<!DOCTYPE html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="icon" type="image/x-icon" href="<%= asset_path('favicon.ico') -%>">
 
-<% content_for :body do %>
-  <%= javascript_include_tag "admin"  %>
-  <%= yield :charts_js %>
-<% end %>
+    <title><%= page_title -%></title>
+    <%= stylesheet_link_tag "admin", media: "all" %>
+    <%= yield(:head) if content_for?(:head) -%>
+    <%= csrf_meta_tags %>
+  </head>
 
-<%= render template: 'layouts/application' -%>
+  <body class="<%= controller.controller_name  + "-" + action_name %> <%= yield(:body_classes) %>">
+    <header>
+      <div class="logo">
+        <%= link_to admin_action_pages_path do %><%= image_tag "EFF_Monogram-red.png" %><% end %>
+      </div>
+
+      <h1><%= page_title %></h1>
+      <div class="top-nav">
+        <ul>
+          <li><%= link_to "Home", admin_action_pages_path %></li>
+          <li><%= link_to "Account", user_root_path %></li>
+          <li>
+            <%= form_for current_user, url: destroy_user_session_path, method: :delete, html: { class: "nav-logout" } do |f| %>
+              <%= f.submit "Logout" %>
+            <% end %>
+          </li>
+          <li><%= link_to "act.eff.org", root_path %></li>
+        </ul>
+      </div>
+    </header>
+
+    <div id="page">
+      <%= yield :nav %>
+
+      <div id="content">
+        <%= messages %>
+
+        <%= yield %>
+      </div>
+    </div>
+
+    <%= javascript_include_tag "admin" %>
+    <%= yield :charts_js %>
+  </body>
+</html>

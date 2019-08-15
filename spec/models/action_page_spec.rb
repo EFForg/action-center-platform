@@ -106,4 +106,37 @@ describe ActionPage do
       expect { ActionPage.type("unknown") }.to raise_error(ArgumentError)
     end
   end
+
+  describe ".status(status)" do
+    shared_examples "returns only the given status" do |status, action|
+      it status do
+        action = FactoryGirl.create(*action)
+        result = ActionPage.status(status)
+        expect(result).to contain_exactly(action)
+      end
+    end
+
+    context "not live" do
+      before { FactoryGirl.create(:action_page) }
+
+      it_behaves_like "returns only the given status", "archived",
+        [:action_page, { archived: true }]
+
+      it_behaves_like "returns only the given status", "victory",
+        [:action_page, { victory: true }]
+
+      it_behaves_like "returns only the given status", "draft",
+        [:action_page, { published: false }]
+    end
+
+    context "live action" do
+      before { FactoryGirl.create(:action_page, published: false) }
+      it_behaves_like "returns only the given status", "live",
+        [:action_page, { published: true }]
+    end
+
+    it "raises an ArgumentError when an invalid status is given" do
+      expect { ActionPage.status("unknown") }.to raise_error(ArgumentError)
+    end
+  end
 end

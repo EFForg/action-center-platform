@@ -1,54 +1,48 @@
 class Admin::ActionPagesController < Admin::ApplicationController
   include DateRange
-  before_action :set_action_page, except: [:new, :index, :create, :update_featured_pages]
-  before_action :cleanup_congress_message_params, only: [:update]
-  before_action :set_s3_post, only: [:new, :edit, :create, :update]
-  skip_before_action :verify_authenticity_token, only: [:update_featured_pages]
+
+  before_action :set_action_page, only: [
+    :edit,
+    :update,
+    :destroy,
+    :events,
+    :events_table,
+    :duplicate,
+    :preview,
+    :status
+  ]
+
+  before_action :set_source_files, only: %i(new edit create update duplicate)
+
   after_action :purge_cache, only: [:update, :publish]
 
   allow_collaborators_to :index, :edit
 
   def index
+    @categories = Category.all.order(:title)
+    @authors = User.authors.order(:last_name)
     @actionPages = filter_action_pages
-    @featuredActionPages = FeaturedActionPage.order("weight").
-                                              includes(:action_page).
-                                              map(&:action_page)
 
     if request.xhr?
-      render partial: "admin/action_pages/panel_action_pages"
+      render partial: "admin/action_pages/index"
     end
-  end
-
-  def update_featured_pages
-    FeaturedActionPage.destroy_all
-    featuredPages = Array.new
-    featuredPages << { action_page_id: featured_page_params[:fp4], weight: 4 }
-    featuredPages << { action_page_id: featured_page_params[:fp3], weight: 3 }
-    featuredPages << { action_page_id: featured_page_params[:fp2], weight: 2 }
-    featuredPages << { action_page_id: featured_page_params[:fp1], weight: 1 }
-    FeaturedActionPage.create(featuredPages)
-    #render :json => {success: true}, :status => 200
-    redirect_to({ action: "index" }, notice: "Featured pages updated")
   end
 
   def new
     @actionPage = ActionPage.new
-    @petition = @actionPage.petition = Petition.new
-    @tweet    = @actionPage.tweet    = Tweet.new
-    @call_campaign = @actionPage.call_campaign = CallCampaign.new
-    # Todo - Gotta convert email campaigns to singular - Thomas
-    @email_campaign = @actionPage.email_campaign = EmailCampaign.new
-    @congress_message_campaign = @actionPage.congress_message_campaign = CongressMessageCampaign.new
-    @categories = Category.all.order :title
-    @topic_categories = TopicCategory.all.order :name
+    @actionPage.petition = Petition.new
+    @actionPage.tweet = Tweet.new
+    @actionPage.call_campaign = CallCampaign.new
+    @actionPage.email_campaign = EmailCampaign.new
+    @actionPage.congress_message_campaign = CongressMessageCampaign.new
     @actionPage.email_text = Rails.application.config.action_pages_email_text
   end
 
   def create
-    @actionPage = ActionPage.new(action_page_params)
+    @actionPage = ActionPage.new(action_page_params.merge(author: current_user))
+
     if @actionPage.save
-      add_twitter_targets
-      redirect_to_action_page
+      redirect_to action_page_path(@actionPage)
     else
       render "new"
     end
@@ -61,9 +55,9 @@ class Admin::ActionPagesController < Admin::ApplicationController
     @actionPage.call_campaign ||= CallCampaign.new
     @actionPage.email_campaign ||= EmailCampaign.new
     @actionPage.congress_message_campaign ||= CongressMessageCampaign.new
+  end
 
-    @categories = Category.all.order :title
-    @topic_categories = TopicCategory.all.order :name
+  def status
   end
 
   def update
@@ -73,8 +67,6 @@ class Admin::ActionPagesController < Admin::ApplicationController
 
     @actionPage.update_attributes(action_page_params)
 
-    add_twitter_targets
-
     redirect_to({ action: "edit", anchor: params[:anchor] }, notice: "Action Page was successfully updated.")
   end
 
@@ -83,19 +75,6 @@ class Admin::ActionPagesController < Admin::ApplicationController
     redirect_to admin_action_pages_path, notice: "Deleted action page: #{@actionPage.title}"
   end
 
-  def show
-    render json: @actionPage
-  end
-
-  def publish
-    @actionPage.update(published: true)
-    redirect_to admin_action_pages_path, notice: "Published page: #{@actionPage.title}"
-  end
-
-  def unpublish
-    @actionPage.update(published: false)
-    redirect_to admin_action_pages_path, notice: "Unpublished page: #{@actionPage.title}"
-  end
 
   def preview
     @actionPage.attributes = action_page_params
@@ -139,39 +118,66 @@ class Admin::ActionPagesController < Admin::ApplicationController
     render "action_page/show", layout: "application"
   end
 
+  def duplicate
+    @actionPage = ActionCloner.run(@actionPage)
+    render "new"
+  end
+
+  def events
+    respond_to do |format|
+      format.html
+      format.json do
+        if params[:type].blank?
+          render json: @actionPage.events.group_by_type_in_range(start_date, end_date)
+        elsif Ahoy::Event.action_types.map(&:to_s).include?(params[:type])
+          render json: @actionPage.events.send(params[:type])
+                  .group_in_range(start_date, end_date)
+        else
+          head status: 400
+        end
+      end
+    end
+  end
+
+  def events_table
+    @data = @actionPage.events.group_by_type_in_range(start_date, end_date)
+    @columns = Ahoy::Event.action_types(@actionPage)
+    if @actionPage.enable_congress_message?
+      @fills = @actionPage.congress_message_campaign.date_fills(start_date, end_date)
+    end
+  end
+
+  def homepage
+    @featured_action_pages = FeaturedActionPage.order(:weight).preload(:action_page)
+  end
+
+  def update_featured_action_pages
+    @featured_action_pages = FeaturedActionPage.order(:weight)
+
+    params[:featured_action_pages].each do |i, featured_page_params|
+      @featured_action_pages[i.to_i].update(featured_page_params.permit(:weight, :action_page_id))
+    end
+
+    redirect_to({ action: "homepage" }, notice: "Featured pages updated")
+  end
+
   private
 
   def set_action_page
     @actionPage = ActionPage.friendly.find(params[:id] || params[:action_page_id])
   end
 
-  def set_s3_post
-    @s3_direct_post = S3_BUCKET.presigned_post(key: "uploads/#{SecureRandom.uuid}/${filename}",
-                                               success_action_status: "201", acl: "public-read")
-  end
-
-  def redirect_to_action_page
-    redirect_to action_page_path(@actionPage)
-  end
-
-  def add_twitter_targets
-    tweet_params["add_targets"].each_line do |t|
-      target = TweetTarget.find_or_create_by twitter_id: t.strip, tweet_id: @actionPage.tweet.id
-      @actionPage.tweet.tweet_targets.push(target)
-    end
-  end
-
-  def default_values
-    self.email_text ||= "default value"
+  def set_source_files
+    @source_files = SourceFile.order(created_at: :desc).limit(12)
   end
 
   def action_page_params
     params.require(:action_page).permit(
-      :title, :summary, :description, :category_id, :featured_image, :background_image,
+      :title, :summary, :description, :category_id, :related_content_url, :featured_image,
       :enable_call, :enable_petition, :enable_email, :enable_tweet,
       :enable_congress_message, :og_title, :og_image, :share_message, :published,
       :call_campaign_id, :what_to_say, :redirect_url, :email_text, :enable_redirect,
-      :victory, :victory_message, :archived_redirect_action_page_id, :archived,
+      :victory, :victory_message, :archived_redirect_action_page_id, :archived, :status,
       partner_ids: [], action_page_images_attributes: [:id, :action_page_image],
       call_campaign_attributes: [:id, :title, :message, :call_campaign_id],
       petition_attributes: [:id, :title, :description, :goal, :enable_affiliations],
@@ -186,7 +192,7 @@ class Admin::ActionPagesController < Admin::ApplicationController
         :alt_text_look_up_helper, :alt_text_customize_message_helper, :campaign_tag
       ],
       congress_message_campaign_attributes: [
-        :id, :message, :subject, :target_house, :target_senate, :target_bioguide_ids,
+        :id, :message, :subject, :target_house, :target_senate, { target_bioguide_list: [] },
         :topic_category_id, :alt_text_email_your_rep, :alt_text_look_up_your_rep,
         :alt_text_extra_fields_explain, :alt_text_look_up_helper,
         :alt_text_customize_message_helper, :campaign_tag
@@ -194,12 +200,9 @@ class Admin::ActionPagesController < Admin::ApplicationController
     )
   end
 
-  def tweet_params
-    params.permit(:add_targets)
-  end
-
-  def featured_page_params
-    params.permit(:fp1, :fp2, :fp3, :fp4)
+  def filter_params
+    params.permit(:q, :date_range, :utf8,
+                  action_filters: %i(type status author category))
   end
 
   def purge_cache
@@ -209,23 +212,11 @@ class Admin::ActionPagesController < Admin::ApplicationController
     end
   end
 
-  def cleanup_congress_message_params
-    if params[:action_page][:congress_message_campaign_attributes][:target_specific_legislators] != "1"
-      params[:action_page][:congress_message_campaign_attributes][:target_bioguide_ids] = nil
-    else
-      people = params[:action_page][:congress_message_campaign_attributes][:target_bioguide_ids].select(&:present?)
-      params[:action_page][:congress_message_campaign_attributes][:target_bioguide_ids] = people.join(", ")
-    end
-  end
-
   def filter_action_pages
     pages = ActionPage.order(created_at: :desc)
-    pages = pages.search(params[:q]) if params[:q].present?
-
-    if params[:action_type].present? && params[:action_type] != "all"
-      pages = pages.type(params[:action_type])
-    end
-
-    pages
+    pages = pages.search(filter_params[:q]) if filter_params[:q].present?
+    filters = filter_params[:action_filters].to_h || {}
+    filters[:date_range] = filter_params[:date_range]
+    ActionPageFilters.run(relation: pages, **filters.transform_keys(&:to_sym))
   end
 end

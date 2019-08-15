@@ -1,0 +1,31 @@
+<div class="gallery">
+  <% if defined?(f) %>
+    <%= f.send :hidden_field, field, value: nil %>
+
+    <% if current_value = f.object.send(field).presence %>
+      <figure class="current">
+        <%= image_tag current_value, class: "original" %>
+
+        <span class="change">
+          &rarr; <img />
+        </span>
+
+        <figcaption>Current image</figcaption>
+      </figure>
+    <% end %>
+  <% end %>
+
+  <div class="images">
+    <input type="search" placeholder="Search" />
+
+    <div class="upload">
+      <label for="fileupload">Upload new image</label>
+      <input id="fileupload" type="file"
+             data-url="<%= S3_BUCKET.url %>"
+             data-s3_fields="<%= s3_presigned_post_fields %>"
+             name="file" />
+    </div>
+
+    <%= render "admin/s3_uploads/list", source_files: @source_files %>
+  </div>
+</div>

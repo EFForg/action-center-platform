@@ -13,7 +13,7 @@ RUN apt-get update && \
     postgresql-client \
     cron \
     gnupg \
-    libssl1.0-dev
+    libssl-dev
 
 RUN set -x; \
   curl -sL https://deb.nodesource.com/setup_6.x -o nodesource_setup.sh \
@@ -22,6 +22,7 @@ RUN set -x; \
   && apt-get update \
   && apt-get install -y --no-install-recommends \
     nodejs \
+    npm \
   && apt-get clean \
   && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 

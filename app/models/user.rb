@@ -17,6 +17,7 @@ class User < ActiveRecord::Base
   validates :email, email: true
   validate :password_complexity
   delegate :actions, :views, to: :events
+  has_many :action_pages
 
   before_update :invalidate_password_reset_tokens, if: :email_changed?
   before_update :invalidate_new_activists_password, if: :admin_changed?
@@ -25,6 +26,8 @@ class User < ActiveRecord::Base
   alias_attribute :activist?, :admin?
 
   alias :preferences :user_preferences
+
+  scope :authors, ->() { joins(:action_pages).distinct }
 
   def self.group_created_in_range(start_date, end_date)
     if start_date == end_date
@@ -68,6 +71,11 @@ class User < ActiveRecord::Base
 
   def name
     [first_name, last_name].join(" ")
+  end
+
+  def display_name
+    return name unless name.blank?
+    email
   end
 
   def percentile_rank
