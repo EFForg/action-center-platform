@@ -5,7 +5,7 @@
     grid-row-gap: 0;
     justify-content: center;
     margin-top: 0;
-    margin-bottom: 4rem;
+    margin-bottom: 7rem;
     a,
     a:hover {
       border: none;
@@ -58,14 +58,9 @@
   }
 
   .url-field-share {
-    @media screen and (min-width: $md) {
-      width: 50%;
-    }
     display: none;
-    margin: 0 auto;
-    width: 80%;
+    margin: -0.7rem auto 0;
     text-align: center;
-
     input {
       display: inline;
       margin: 0;
