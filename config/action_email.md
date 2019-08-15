@@ -16,7 +16,7 @@ $SHAREBUTTONS
 
 Thank you for helping us defend privacy and free speech in the digital age,
 
-Rainey Reitman
+Elliot Harmon
 Activism Team
 Electronic Frontier Foundation
 

@@ -1,40 +1,24 @@
-<%= form_for @actionPage,
-  url: { controller: :action_pages,
-         action: (@actionPage.new_record? ? :create : :update)},
-  :html => { id: "action-page-form", multipart: true, :"data-timestamp" => @actionPage.updated_at.as_json }  do |f| -%>
+<% content_for(:body_classes) { "action_page_setup" } %>
 
-  <% if can?(:administer_actions) %>
-    <%= render partial: 'top_bar_authoring_controls', :locals => {:f => f} %>
+<%= form_for([:admin, @actionPage]) do |f| %>
+  <% pages = %w(basics action images sharing partners thank_you) %>
+  <% pages.each_with_index do |page, i| %>
+    <div id="<%= page.sub('_', '-') %>" class="page">
+      <%= render "edit_#{page}", f: f %>
+
+      <div class="form-actions">
+        <% if @actionPage.new_record? && pages[i+1] %>
+          <%= button_tag "Next", type: "button", class: "btn btn-default next-tab" %>
+        <% else %>
+          <%= f.submit "Save", class: "btn btn-primary" %>
+        <% end %>
+      </div>
+    </div>
   <% end %>
 
-  <!-- tab_panels.html.erb -->
-  <div class='container-fluid edit-action'>
-    <div class="tabs-left">
-      <%= render 'tab_buttons' %>
+  <div id="save" class="page">
+    <p>You're almost done!</p>
 
-      <!-- Tab panes -->
-      <div class="tab-content responsive">
-        <% if can?(:administer_actions) %>
-          <%= render partial: 'panel_content', :locals => {:f => f} %>
-          <%= render partial: 'panel_settings', :locals => {:f => f} %>
-          <%= render partial: 'panel_photos', :locals => {:f => f} %>
-          <%= render partial: 'panel_social', :locals => {:f => f} %>
-          <%= render partial: 'panel_email', :locals => {:f => f} %>
-          <%= render partial: 'panel_victory', :locals => {:f => f} %>
-        <% end %>
-
-        <% if can?(:view_analytics) %>
-          <%= render partial: 'admin/events/action_page_events', :locals => {:f => f} %>
-        <% end %>
-      </div><!-- .tab-content -->
-
-    </div><!-- .tabs-left -->
-  </div><!-- .container.edit-action -->
-
-  <input id="anchor" type="hidden" name="anchor">
-<% end -%>
-
-<!-- Button trigger modal -->
-
-
-<%= render 'modal_gallery.html.erb' %>
+    <%= f.submit "Save", class: "btn btn-primary" %>
+  </div>
+<% end %>

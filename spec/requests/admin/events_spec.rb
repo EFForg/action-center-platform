@@ -56,7 +56,11 @@ RSpec.describe "Admin Action Page Analytics", type: :request do
     context "without type param" do
       before do
         allow(Time.zone).to receive(:now).and_return(Time.local(2019))
-        action_page.update_attribute(:enable_petition, true)
+        action_page.update(
+          enable_petition: true,
+          petition_id: Petition.create.id
+        )
+
         FactoryGirl.create(:ahoy_signature,
                            action_page: action_page,
                            time: Time.zone.now)

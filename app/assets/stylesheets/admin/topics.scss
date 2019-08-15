@@ -1,0 +1,52 @@
+.topics-index .intro {
+  padding: 15px 20px;
+}
+
+*[data-react-class=TopicCategoryTables] {
+  @import "bootstrap";
+}
+
+*[data-react-class=TopicCategoryTables] {
+  .create-category-btn {
+    margin: 10px;
+  }
+
+  table {
+    position: relative;
+  }
+
+  .topic_set {
+    td:first-child {
+      width: 105px;
+    }
+
+    .btn-group, .input-group {
+      margin-bottom: 4px;
+    }
+
+    .btn-group {
+      float: left;
+      margin-left: 6px;
+      .label:hover {
+        color: white;
+      }
+    }
+
+    .input-group {
+      float: left;
+    }
+
+    td {
+      vertical-align: top;
+    }
+  }
+
+  .editable-text {
+    font-size: 1.5em;
+  }
+
+  .editable-text[disabled] {
+    border: 0;
+    background: transparent;
+  }
+}

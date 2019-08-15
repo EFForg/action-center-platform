@@ -1,0 +1,28 @@
+<h2>Sharing</h2>
+
+<p>Customize how the link to the action appears on social media below.</p>
+
+<div class="form-item">
+  <%= f.label :share_message do %>
+    Share Message
+    <span class="hint">(URL is automatically added to the end)</span>
+  <% end %>
+  <%= f.text_field :share_message %>
+</div>
+
+<div class="form-item">
+  <%= f.label :og_title do %>
+    Title
+    <span class="hint">(FB = 100chars, TWTR = 70chars. If left blank, this will default to the Title of your Action)</span>
+  <% end %>
+  <%= f.text_field :og_title %>
+</div>
+
+<div class="form-item">
+  <%= f.label :og_image do %>
+    Social Media Card Image
+    <span class="hint">(Should be 1200px x 630px. If left unset this will default ot the Action's featured image.)</span>
+  <% end %>
+
+  <%= render "gallery", f: f, field: :og_image %>
+</div>

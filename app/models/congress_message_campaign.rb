@@ -54,6 +54,18 @@ class CongressMessageCampaign < ActiveRecord::Base
     CongressForms.member_fills_url(campaign_tag)
   end
 
+  def target_bioguide_list=(x)
+    self.target_bioguide_ids = x.map(&:presence).compact.join(",")
+  end
+
+  def target_bioguide_list
+    Array(target_bioguide_ids.try(:split, ","))
+  end
+
+  def target_specific_legislators
+    target_bioguide_ids.present?
+  end
+
   private
 
   def target_bioguide_text_or_default(custom_text, default)

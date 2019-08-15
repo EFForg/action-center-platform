@@ -1,0 +1,43 @@
+$eff-red: #ec1e1e;
+$light-blue: #e5ebec;
+$border-gray: #aaa;
+
+$sans-serif: "Montserrat", sans-serif;
+
+@mixin small {
+  @media (max-width: 990px) {
+    @content;
+  }
+}
+
+@mixin medium {
+  @media (min-width: 990px) {
+    @content;
+  }
+}
+
+@mixin large {
+  @media (min-width: 1400px) {
+    @content;
+  }
+}
+
+@mixin label {
+  display: block;
+  font-size: 1.2em;
+  margin-bottom: 0.4em;
+
+  .hint {
+    font-size: 0.7em;
+    opacity: 0.8;
+  }
+}
+
+@mixin sr-only {
+  display: inline-block;
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  clip: rect(0, 0, 0, 0);
+  overflow: hidden;
+}

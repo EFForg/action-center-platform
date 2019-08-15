@@ -1,0 +1,17 @@
+<ul>
+  <% source_files.each do |source_file| %>
+    <li>
+      <%= link_to source_file.full_url, target: "_new" do %>
+        <figure>
+          <%= image_tag source_file.full_url %>
+          <figcaption><%= source_file.file_name %></figcaption>
+        </figure>
+      <% end %>
+    </li>
+  <% end %>
+
+  <% if source_files.empty? %>
+    <li>No results</li>
+  <% end %>
+</ul>
+

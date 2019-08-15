@@ -107,13 +107,23 @@ Actioncenter::Application.routes.draw do
       get :destroy
       post 'update_featured_pages', :on => :collection
       patch :preview
+      get :duplicate
       resources :affiliation_types, only: [:index, :new, :create, :destroy]
       resources :institutions, except: [:show, :edit, :update] do
         match :import, via: :post, on: :collection
         match :index, via: :delete, on: :collection, action: :destroy_all
       end
-      resources :events, only: [:index]
+
+      get :status
+
+      get :events
+      get :"events-table"
       get :views, to: "events#views"
+
+      collection do
+        get :homepage
+        post :homepage, to: "action_pages#update_featured_action_pages"
+      end
     end
 
     resources :users, only: [:index, :update]
@@ -121,5 +131,7 @@ Actioncenter::Application.routes.draw do
     get "images", to: "images#index"
 
     resources :events, only: [:index]
+
+    resources :categories, only: [:index, :create, :destroy]
   end
 end
