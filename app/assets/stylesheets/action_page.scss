@@ -131,6 +131,15 @@
         border-bottom: 2px solid $charcoal;
       }
     }
+    a.eff-red-button {
+      color: white;
+      border-bottom: 4px solid $dark-red;
+      &:hover {
+        background-color: $dark-red;
+        border-bottom: 4px solid $red;
+        opacity: 1;
+      }
+    }
     .tool-container {
       padding: 2rem 0.4rem 1rem 0.4rem;
       img {
