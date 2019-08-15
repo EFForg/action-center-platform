@@ -1,0 +1,11 @@
+<%= f.fields_for(:petition) do |sf| %>
+  <div class="form-item epiceditor">
+    <%= sf.label :description %>
+    <%= sf.text_area :description %>
+  </div>
+
+  <div class="form-item">
+    <%= sf.label :goal %>
+    <%= sf.number_field :goal %>
+  </div>
+<% end %>

@@ -1,0 +1,39 @@
+<h2>Basics</h2>
+
+<p>Enter the top-level information about your action below.</p>
+
+<div class="form-item">
+  <%= f.label :title %>
+  <%= f.text_field :title %>
+</div>
+
+<div class="form-item epiceditor">
+  <%= f.label :summary do %>
+    Summary <span class="hint">(this text appears next to the thumbnail image, short and sweet</span>
+  <% end %>
+  <%= f.text_area :summary %>
+</div>
+
+<div class="form-item epiceditor">
+  <%= f.label :description do %>
+    Description <span class="hint">(detailed synopsis of the issue, appears when user clicks “Learn More”)</span>
+  <% end %>
+  <%= f.text_area :description %>
+</div>
+
+<aside>
+  <p>Need help writing Markdown? Check out this <a href="https://gist.github.com/jonschlinkert/5854601" target="_blank">Cheatsheet</a>.</p>
+</aside>
+
+<div class="form-item inline">
+  <%= f.label :category %>
+  <%= f.select :category_id, options_from_collection_for_select(Category.all, :id, :title, f.object.category_id), include_blank: "- none -" %>
+</div>
+
+<div class="form-item inline">
+  <%= f.label :related_content_url, "Related Content" %>
+  <span class="tooltip">?
+   <span class="tooltiptext">The URL will appear in a box on the action center page, allowing a user to learn more about the subject of the action. Add a relevant eff.org URL and, if possible, remember to link to the action on that page once it’s live. </span>
+  </span>
+  <%= f.text_field :related_content_url, placeholder: "Paste URL here" %>
+</div>

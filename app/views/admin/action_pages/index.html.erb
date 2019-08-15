@@ -1,24 +1,49 @@
-<%= render 'admin/header' -%>
-<div class='container-fluid'>
-  <div class="tabs-left">
-    <%= render 'admin/nav_tabs' -%>
+<% content_for(:nav) { render "admin/nav" } %>
 
-    <div class="tab-content responsive">
-      <% if can?(:browse_actions) %>
-        <%= render "panel_action_pages" %>
-      <% end %>
-
-      <% if can?(:administer_homepage) %>
-        <%= render "panel_homepage_settings" %>
-      <% end %>
-
-      <% if can?(:view_analytics) %>
-        <%= render "admin/events/events" %>
-      <% end %>
-
-      <% if can?(:administer_topics) %>
-        <%= render "panel_topics" %>
-      <% end %>
+<div id="filters">
+  <h2>Filters</h2>
+  <%= form_tag admin_action_pages_path, id: "filter_action_pages", method: :get do %>
+    <div class="form-item">
+      <%= label_tag "Type" %>
+      <%= select :action_filters, :type, options_for_select(%w(all call congress_message email petition tweet redirect)) %>
     </div>
-  </div>
+
+    <div class="form-item">
+      <%= label_tag "Date Range" %>
+      <input type="text" id="date_range" name="date_range" value="" />
+    </div>
+
+    <div class="form-item">
+      <%= label_tag "Author" %>
+      <%= collection_select :action_filters, :author, @authors, :id, :display_name, { include_blank: "all" } %>
+    </div>
+
+    <div class="form-item">
+      <%= label_tag "Category" %>
+      <%= collection_select :action_filters, :category, @categories, :id, :title, { include_blank: "all" } %>
+    </div>
+
+    <div class="form-item">
+      <%= label_tag "Status" %>
+      <%= select :action_filters, :status, options_for_select(%w(all draft live victory archived)) %>
+    </div>
+
+    <div class="form-actions">
+      <button type="reset" class="btn btn-default btn-sm">Clear filters</button>
+    </div>
+
+    <div class="form-item">
+      <%= text_field_tag :q, params[:q],
+            :"aria-label" => "Search query",
+            placeholder: "Search by title, description, action text, etc.",
+            autocomplete: "off", class: "form-control input-sm" %>
+    </div>
+
+    <div class="form-actions">
+      <%= submit_tag "Search", class: "btn btn-primary btn-sm", data: { disable_with: false } %>
+    </div>
+  <% end %>
 </div>
+
+<%= render "index" %>
+

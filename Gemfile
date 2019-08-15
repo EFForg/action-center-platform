@@ -110,7 +110,7 @@ end
 
 group :development, :test do
   gem "byebug"
-  gem "capybara", "~> 2", ">= 2.5.0"
+  gem "capybara", "~> 3.26"
   gem "cucumber-rails", "1.6.0", require: false
   gem "database_cleaner", "~> 1"
   gem "factory_girl_rails", "~> 4"
@@ -120,7 +120,8 @@ group :development, :test do
   gem "rspec-rails", "~> 3"
   gem "rubocop", "0.52.0"
   gem "rubocop-github", "0.9.0"
-  gem "selenium-webdriver", "~> 2.49", require: false
+  gem "selenium-webdriver", "3.142.3"
+  gem "webdrivers", "~> 4.1"
 end
 
 group :production do

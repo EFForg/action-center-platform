@@ -1,0 +1,166 @@
+header {
+  padding-bottom: 1rem;
+  border-bottom: 1px solid $light-blue;
+  margin: 0 2rem 2rem 2rem;
+  position: relative;
+
+  @include medium {
+    margin: 3rem 3vw 0 3vw;
+  }
+
+  .logo, h1 {
+    display: inline-block;
+  }
+
+  .logo {
+    width: 8rem;
+  }
+
+  @include medium {
+    .logo {
+      width: 11.875rem;
+    }
+  }
+
+  .logo img {
+    width: 100%;
+  }
+
+  h1 {
+    margin-bottom: 0;
+    margin-left: 1.5rem;
+  }
+
+  .top-nav {
+    display: inline-block;
+    width: 100%;
+    padding-top: 1rem;
+
+    @include medium {
+      position: absolute;
+      bottom: 1rem;
+      right: 1rem;
+      width: 30%;
+      padding: 0;
+    }
+
+    ul {
+      display: flex;
+      padding: 0;
+      margin: 0;
+      justify-content: space-between;
+      list-style-type: none;
+      font-size: 1rem;
+
+      @include medium {
+        font-size: 1.1rem;
+      }
+
+      a {
+        text-decoration: none;
+        color: #000;
+      }
+
+      li {
+        padding: 0 0.3rem;
+      }
+
+      > li:last-child a {
+        text-decoration: underline;
+      }
+
+      .nav-logout input {
+        cursor: pointer;
+        border: 0;
+        font-size: 1rem;
+        background: none;
+        padding: 0;
+        font-weight: 300;
+        font-family: $sans-serif;
+
+        @include medium {
+          font-size: 1.1rem;
+        }
+      }
+    }
+  }
+}
+
+#page {
+  margin: 0 2rem 2rem 2rem;
+
+  @include medium {
+    display: flex;
+    flex-direction: row;
+    margin: 0 3vw 2rem 3vw;
+
+    #nav {
+      align-self: flex-start;
+      position: sticky;
+      top: 1rem;
+      padding-right: 1rem;
+      padding-top: 2rem;
+      max-width: 11.875rem;
+      min-width: 10.5rem;
+      width: 20%;
+    }
+
+    #content {
+      flex: 1;
+      padding-top: 2rem;
+      padding-left: 1.5rem;
+      border-left: 1px solid $light-blue;
+    }
+  }
+}
+
+#nav {
+  margin: 0 0 2rem 0;
+  padding: 0;
+
+  list-style-type: none;
+
+  font-weight: normal;
+
+  ul {
+    padding-left: 1em;
+
+    @include medium {
+      padding-left: 1.1em;
+    }
+
+    margin-top: 0.5rem;
+    list-style-type: none;
+  }
+
+  font-size: 1.1rem;
+
+  li {
+    padding-top: 0.5rem;
+    padding-bottom: 0.5rem;
+    font-weight: 300;
+  }
+
+  > li:first-child {
+    padding-top: 0;
+  }
+
+  li a {
+    text-decoration: none;
+    color: #888;
+
+    &.active {
+      font-weight: bold;
+    }
+
+    &.active, &:hover {
+      color: #000;
+    }
+  }
+
+  @include small {
+    li li {
+      display: inline-block;
+    }
+  }
+}

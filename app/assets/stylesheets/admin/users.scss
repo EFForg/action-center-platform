@@ -1,0 +1,28 @@
+.users-index {
+  .grid form, .grid table {
+    margin-bottom: 2em;
+  }
+
+  @include large {
+    .grid {
+      display: grid;
+      grid-template-columns: 1fr minmax(250px, auto);
+      column-gap: 2em;
+      row-gap: 2em;
+    }
+
+    .grid form {
+      grid-row: 1;
+      grid-column: 2;
+    }
+
+    .grid form input[name=query] {
+      width: 100%;
+    }
+
+    .grid table {
+      grid-row: 1;
+      grid-column: 1;
+    }
+  }
+}

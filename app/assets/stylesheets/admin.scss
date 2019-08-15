@@ -1,0 +1,271 @@
+/*
+ *= require select2
+ */
+
+@import "admin/mixins";
+
+$btn-default-bg: $light-blue;
+$btn-font-weight: bold;
+
+@import "bootstrap-sprockets";
+@import "bootstrap/variables";
+@import "bootstrap/mixins";
+@import "bootstrap/buttons";
+@import "bootstrap/input-groups";
+
+@import "daterangepicker";
+
+@import "admin/fonts";
+@import "admin/base";
+@import "admin/layout";
+@import "admin/gallery";
+@import "admin/action_pages";
+@import "admin/partners";
+@import "admin/users";
+@import "admin/topics";
+
+html, body {
+  font-family: $sans-serif;
+  font-size: 16px;
+  font-weight: 300;
+}
+
+#page .table {
+  td, th {
+    text-align: left;
+  }
+}
+
+#page .table {
+  border-collapse: collapse;
+
+  thead tr {
+    margin-top: 0;
+    margin-bottom: 0.3rem;
+    border-bottom: 1px solid $border-gray;
+
+    th {
+      vertical-align: bottom;
+      padding-bottom: 0.4rem;
+    }
+  }
+
+  tbody td {
+    padding-top: 1.4rem;
+    padding-bottom: 1.4rem;
+  }
+
+  td, th {
+    padding-left: 1rem;
+    padding-right: 1rem;
+  }
+
+  tbody tr:nth-child(2n) {
+    background: $light-blue;
+  }
+}
+
+fieldset {
+  border: 0;
+  margin: 0;
+  padding: 0;
+
+  legend {
+    @include label;
+  }
+}
+
+.sr-only {
+  @include sr-only;
+}
+
+.btn {
+  border: 0;
+  border-radius: 5px;
+  box-shadow: 3px 3px 2px #ddd;
+}
+
+.table .btn {
+  border: 1px solid #777;
+}
+
+.nowrap {
+  white-space: nowrap;
+}
+
+.flash {
+  padding: 1rem;
+  border: 1px solid black;
+  backgroud: #eee;
+
+  @include medium {
+    width: 70%;
+  }
+
+  &.success, &.message, &.notice {
+    border: 0;
+    background: rgba(0, 255, 0, 0.2);
+  }
+
+  &.error {
+    border: 0;
+    background: rgba(255, 0, 0, 0.2);
+  }
+}
+
+#content {
+  h2:first-child {
+    margin-top: 0;
+  }
+}
+
+#content #filters {
+  float: right;
+  margin-left: 2rem;
+
+  form {
+    width: 200px;
+    padding: 1rem;
+    border: 1px solid $border-gray;
+  }
+
+  .form-item:first-of-type {
+    margin-top: 0;
+  }
+
+  display: none;
+
+  @include large {
+    display: block;
+  }
+}
+
+form {
+  .form-item, .form-actions, aside {
+    margin-top: 2em;
+    max-width: 57em;
+  }
+
+  .form-item.inline {
+    display: inline-block;
+    position: relative;
+    width: auto;
+    margin-right: 2em;
+  }
+
+  .form-item.inline input[type=text] {
+    min-width: 20em;
+  }
+
+  .form-item > label {
+    @include label;
+  }
+
+  .form-item input[type=text], .form-item textarea {
+    width: 100%;
+    padding: 0.45em;
+    box-sizing: border-box;
+  }
+
+  .form-item > textarea {
+    min-height: 7em;
+  }
+
+  .form-item input[type=radio].fancy {
+    @include sr-only;
+
+    + .ui {
+      position: relative;
+      display: inline-block;
+      border-radius: 50%;
+      width: 1em;
+      height: 1em;
+      margin-right: 0.2em;
+      vertical-align: top;
+      text-align: center;
+      line-height: 0.9em;
+      border: 1px solid $border-gray;
+      box-shadow: 1px 1px 3px #999;
+    }
+
+    &:checked + .ui {
+      background: radial-gradient(circle, #22e 0.3em, #fff 0.4em);
+    }
+  }
+
+  .form-item input[type=checkbox].fancy {
+    @include sr-only;
+
+    + .ui {
+      position: relative;
+      display: inline-block;
+      width: 1em;
+      height: 1em;
+      margin-right: 0.2em;
+      vertical-align: top;
+      text-align: center;
+      line-height: 0.9em;
+      border: 1px solid $border-gray;
+      box-shadow: 2px 2px 2px #999;
+    }
+
+    &:checked + .ui {
+      background: repeating-linear-gradient(-45deg, #22e, #fff 0.25em);
+    }
+  }
+
+  select, .select2 {
+    max-width: 100%;
+    min-width: 10em;
+    width: 100%;
+  }
+
+  .select2-search__field {
+    width: 100% !important;
+  }
+}
+
+#content form .page {
+  &:not(:first-of-type) {
+    display: none;
+  }
+}
+
+
+/* Tooltip container */
+.tooltip {
+  cursor: default;
+  color: $border-gray;
+  border: 2px solid $border-gray;
+  border-radius: 1rem;
+  display: inline-block;
+  font-size: 1.1rem;
+  font-weight: 800;
+  padding: 0 7px;
+  position: absolute;
+  right: 0;
+  top: 0;
+
+  .tooltiptext {
+    background-color: black;
+    border-radius: 0.5rem;
+    color: white;
+    font-size: 1rem;
+    font-weight: 400;
+    left: 2rem;
+    padding: 1rem;
+    position: absolute;
+    text-align: left;
+    visibility: hidden;
+    width: 20rem;
+    z-index: 1;
+  }
+
+  &:hover {
+    color: black;
+
+    .tooltiptext {
+      visibility: visible;
+    }
+  }
+}

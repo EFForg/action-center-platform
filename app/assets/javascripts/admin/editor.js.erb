@@ -1,0 +1,31 @@
+//= require EpicEditor
+
+function initEpicEditor(item) {
+  var textarea = $('textarea', item).first();
+  var container = $('<div>').insertAfter(textarea);
+  var editor = new EpicEditor({
+    container: container[0],
+    textarea: textarea[0],
+    basePath: '',
+    clientSideStorage: false,
+    theme: {
+      base: "<%= asset_path "EpicEditor/epiceditor/themes/base/epiceditor.css" %>",
+      preview: "<%= asset_path "EpicEditor/epiceditor/themes/preview/github.css" %>",
+      editor: "<%= asset_path "EpicEditor/epiceditor/themes/editor/epic-light.css" %>"
+    },
+    autogrow: true,
+  }).load(function() {
+    this._textareaElement.style.display = 'none';
+  });
+
+  $(item).data('editor', editor);
+}
+
+function reflowEpicEditor() {
+  $('.epiceditor:visible').each(function() {
+    if (!$(this).data('editor'))
+      initEpicEditor(this);
+
+    $(this).data('editor').reflow();
+  });
+}

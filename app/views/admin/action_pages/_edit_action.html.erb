@@ -1,0 +1,20 @@
+<h2>Action</h2>
+
+<fieldset class="form-item">
+  <legend>Type of Action</legend>
+
+  <% %w(call congress_message email petition tweet redirect).each do |type| %>
+    <%= f.hidden_field :"enable_#{type}" %>
+
+    <label for="action_type_<%= type %>">
+      <%= radio_button_tag "action_type", type, @actionPage[:"enable_#{type}"], class: "fancy" %> <span class="ui"></span>
+      <%= type == "redirect" ? "External Link" : type.titleize %>
+    </label>
+  <% end %>
+</fieldset>
+
+<% %w(call congress_message email petition tweet redirect).each do |type| %>
+  <fieldset class="action-fields <%= 'active' if @actionPage[:"enable_#{type}"] %>" data-action_type="<%= type %>">
+    <%= render "#{type}_fields", f: f %>
+  </fieldset>
+<% end %>

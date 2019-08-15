@@ -1,0 +1,45 @@
+<%= f.fields_for(:tweet) do |sf| %>
+  <div class="form-item">
+    <%= sf.label :message %>
+    <%= sf.text_area :message %>
+  </div>
+
+  <fieldset class="form-item">
+    <legend>Targets</legend>
+
+    <%= sf.label :target_house do %>
+      <%= sf.check_box :target_house, class: "fancy" %> <span class="ui"></span>
+      House
+    <% end %>
+
+    <%= sf.label :target_senate do %>
+      <%= sf.check_box :target_senate, class: "fancy" %> <span class="ui"></span>
+      Senate
+    <% end %>
+
+    <fieldset class="form-item" id="individual-targets">
+      <legend>Individuals</legend>
+
+      <ul>
+        <%= sf.fields_for(:tweet_targets) do |ssf| %>
+          <li>
+            <%= ssf.hidden_field :twitter_id %>
+            <%= link_to "@#{ssf.object.twitter_id}", "https://twitter.com/#{ssf.object.twitter_id}" %>
+
+            <%= ssf.check_box :_destroy %>
+            <%= ssf.label :_destroy, "Delete" %>
+          </li>
+        <% end %>
+
+        <li>
+          <div class="input-group">
+            <span class="input-group-addon">@</span>
+            <input type="text" class="form-control" id="add-twitter_id" />
+          </div>
+
+          <button class="btn-sm" id="add">Add individual</button>
+        </li>
+      </ul>
+    </fieldset>
+  </fieldset>
+<% end %>
