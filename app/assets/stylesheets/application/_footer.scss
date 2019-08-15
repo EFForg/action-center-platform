@@ -15,7 +15,7 @@
       color: $gray;
       border-bottom: 1px solid black;
       font-size: 1.1rem;
-      font-weight: 300;
+      font-weight: 400;
       &:hover {
         @include transition (all 0.2s ease-in-out);
         color: white;
@@ -38,7 +38,7 @@
         color: $gray;
         border-bottom: 1px solid black;
         font-size: 1.1rem;
-        font-weight: 300;
+        font-weight: 400;
         text-transform: uppercase;
         &:hover {
           @include transition (all 0.2s ease-in-out);
@@ -56,6 +56,7 @@
         margin: 2rem 0;
         &:hover {
           background: asset-url('EFF-logo-lockup-1color-white.svg') no-repeat;
+          border: none;
         }
       }
     }
