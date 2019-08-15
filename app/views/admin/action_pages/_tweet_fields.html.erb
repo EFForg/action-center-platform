@@ -32,8 +32,12 @@
         <% end %>
 
         <li>
-          <label for="add-twitter_id" class="prepend-input">@</label><input type="text" id="add-twitter_id" />
-          <button class="sm" id="add">Add individual</button>
+          <div class="input-group">
+            <span class="input-group-addon">@</span>
+            <input type="text" class="form-control" id="add-twitter_id" />
+          </div>
+
+          <button class="btn-sm" id="add">Add individual</button>
         </li>
       </ul>
     </fieldset>

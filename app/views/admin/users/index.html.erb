@@ -8,7 +8,7 @@
     </div>
 
     <div class="form-actions">
-      <%= submit_tag "Search", class: "btn sm" %>
+      <%= submit_tag "Search", class: "btn btn-primary btn-sm" %>
     </div>
   <% end %>
 
@@ -28,15 +28,15 @@
         <td><%= user.last_name %></td>
         <td>
           <% if user.admin? %>
-            <%= button_to "Admin", "#", { "class": "btn sm", "disabled": true } %>
+            <%= button_to "Admin", "#", { "class": "btn btn-sm", "disabled": true } %>
           <% elsif user.collaborator? %>
             <%= button_to "Remove as collaborator", admin_user_path(user, @add_or_remove_params),
                           { method: :patch, params: { "user[collaborator]": "0" },
-                            "class": "btn sm" } %>
+                            "class": "btn btn-sm" } %>
           <% else %>
             <%= button_to "Add as collaborator", admin_user_path(user, @add_or_remove_params),
                           { method: :patch, params: { "user[collaborator]": "1" },
-                            "class": "btn sm" } %>
+                            "class": "btn btn-sm" } %>
           <% end %>
         </td>
       </tr>

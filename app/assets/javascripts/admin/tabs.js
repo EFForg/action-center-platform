@@ -16,6 +16,16 @@
     goto(window.location.hash);
   });
 
+  $(document).on('click', '.next-tab', function(e) {
+    e.preventDefault();
+
+    var next = $('#nav .active').closest('li')
+          .nextAll(':visible')
+          .find('a').attr('href');
+
+    window.location.hash = next;
+  });
+
   $(document).on('ready', function() {
     if (window.location.hash.length)
       goto(window.location.hash);
