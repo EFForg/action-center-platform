@@ -21,11 +21,27 @@ $(document).on("ready", function() {
   $("#to-page-3").click(function(){ // show representatives info
     $("#customize-message").hide();
     $("#to-page-3").hide();
-    $(".page-3").css({
+    $(".page-indicator div.page2").css({
+      'background-color': '#2D2D2D',
+      'color': '#BABABA'
+    });
+    $(".page-indicator div.page3").css({
       'background-color': '#BABABA',
       'color': '#2D2D2D'
-    })
+    });
   });
+
+  $("#tools #congress-message-tool input[type='submit']:first-child").click(function(){ // show thank you
+    $(".page-indicator div.page3").css({
+      'background-color': '#2D2D2D',
+      'color': '#BABABA'
+    });
+    $(".page-indicator div.page4").css({
+      'background-color': '#BABABA',
+      'color': '#2D2D2D'
+    });
+  });
+
 
   if ($("#congress-message-tool").length){  // showing paging at top of form
     $(".page-indicator").css("display", "grid");
