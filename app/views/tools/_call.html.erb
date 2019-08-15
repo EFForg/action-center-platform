@@ -78,9 +78,7 @@
         <div class="call-body-active hidden">
           <p class="advisory"><strong>If your call doesn't come through within 15 seconds, <a class="call-tool-try-again" href="#">click here</a> to try again.</strong></p>
           <div class="call-script-box">
-            <h3 class="header">What to say</h3>
             <div class="call-script">
-              <%= markdown @actionPage.message_rendered %>
               <%= render "tools/call_script" %>
             </div>
           </div>
