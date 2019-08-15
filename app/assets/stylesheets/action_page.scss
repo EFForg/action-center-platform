@@ -649,6 +649,7 @@ h3.header, #tools #email-tool h3, #tools #congress-message-tool h3 {
     line-height: $base-line-height * 0.9;
   }
   #customize-message {
+    display: none;
     margin-top: 0;
     margin-bottom: 0;
   }

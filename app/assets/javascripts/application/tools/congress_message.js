@@ -4,6 +4,17 @@ $(document).on("ready", function() {
     $("input[type=submit]").hide();
     $("input,textarea,button,select", $(this)).attr("disabled", "disabled");
   });
+  $("#to-page-2").click(function(){
+    $("#customize-message").show();
+    $(".address-lookup").hide();
+    $("#to-page-2").hide();
+  });
+
+  $("#to-page-3").click(function(){
+    $("#customize-message").hide();
+    $("#to-page-3").hide();
+  });
+
 
   $(".congress-message-rep-lookup").on("ajax:complete", function(xhr, data, status) {
     var $form = $(this);

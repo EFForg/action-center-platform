@@ -30,8 +30,8 @@
       <% form.fields.each do |field| %>
         <div class="form-group">
           <%= congress_forms_field(field, @campaign,
-                                   @message.attributes_for(form.bioguide_id),
-                                   form.bioguide_id) %>
+            @message.attributes_for(form.bioguide_id),
+            form.bioguide_id) %>
         </div>
       <% end %>
     </fieldset>
