@@ -318,6 +318,9 @@
     text-align: center;
   }
   #tweet-back {
+    display: block;
+    margin-top: 1rem;
+    text-align: center;
     text-decoration: underline;
     &:hover {
       cursor: pointer;
