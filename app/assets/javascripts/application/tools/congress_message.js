@@ -26,7 +26,8 @@ $(document).on("ready", function() {
       var $form = $(this);
       if (status == "success") {
         $("#congress-message-create").hide();
-        $(".email-tool-success-share").html(data.responseText).show();
+        $("#congress-message-tool").hide()
+        $("#thank-you").show();
       } else if (data.responseText) {
         show_error(data.responseText, $form);
       } else {

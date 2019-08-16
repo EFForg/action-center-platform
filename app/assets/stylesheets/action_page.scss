@@ -324,6 +324,9 @@
     }
   }
 }
+#call-tool h3.tool-title {
+  text-align: center;
+}
 .js {
   .tool {
     .email-signup + .email-signup {
@@ -591,18 +594,21 @@ h3.header, #tools #email-tool h3, #tools #congress-message-tool h3 {
   h3.header {
     text-transform: uppercase;
   }
+  .call-body-active {
+    margin: 0 1rem;
+  }
   .call-script-box {
     padding: 0;
     margin: 0 0 1rem 0;
   }
   .call-script {
     background: $off-white;
-    padding: 1rem;
     font-size: $base-font-size * 0.9;
+    margin: 0 1rem;
+    padding: 1rem;
+    text-align: left;
   }
-  .call-body-active .advisory {
-    margin-bottom: 1rem;
-  }
+
   .form-errors {
     margin-bottom: 1rem;
   }
