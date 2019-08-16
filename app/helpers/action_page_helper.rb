@@ -14,9 +14,6 @@ module ActionPageHelper
     "https://twitter.com/intent/tweet?status=#{u message}&related=#{related}"
   end
 
-  def google_share_url(action_page)
-    "https://plus.google.com/share?url=#{action_page_url(action_page)}"
-  end
 
   def tweet_url(target, message)
     message = [target, message].compact.join(" ")

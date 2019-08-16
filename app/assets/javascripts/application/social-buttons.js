@@ -16,11 +16,6 @@ $(document).on('ready', function() {
       window.open(url, "Twitter", "width=550,height=420");
       return false;
     })
-    $(".google-button").click(function() {
-      var url = $(this).attr("href");
-      window.open(url, "Share on Google Plus", "width=500,height=436");
-      return false;
-    })
   }
 
 });
