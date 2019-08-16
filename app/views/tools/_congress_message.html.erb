@@ -63,7 +63,7 @@
             <span class="customize-message-popover" data-toggle="tooltip" data-trigger="hover">?
               <span class="tooltiptext"><%= @congress_message_campaign.look_up_helper_text "Add a personal note about why this matters to you. Members of Congress value a customized message much higher than a form letter." %></span>
            </span>
-            <em>Customize your message</em>
+            Customize your message
           </h3>
           <div class="form-group">
             <%= text_area_tag :message, @congress_message_campaign.message,
@@ -80,10 +80,6 @@
       </div>
 
       <div class="congress-message-tool-container"></div>
-
-      <div class="email-tool-success-share" style="display: none;">
-        <%= render "tools/share" -%>
-      </div>
 
     </div>
 

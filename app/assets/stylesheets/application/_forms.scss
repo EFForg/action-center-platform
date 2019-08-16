@@ -187,7 +187,7 @@ select {
   font-size: 1.4rem;
   font-weight: 700;
   margin: 0.4rem 0;
-  padding: 0.4rem 3rem;
+  padding: 0.4rem 2rem;
   text-transform: uppercase;
   text-decoration: none;
   -moz-appearance: none;
@@ -218,8 +218,8 @@ a.eff-red-button {
   }
   &:hover,
   &:focus {
-    background: rgba($eff-red, 0.8) !important;
-    border-bottom: 4px solid rgba($dark-red, 0.8);
+    background: rgba($dark-red, 1);
+    border-bottom: 4px solid rgba($eff-red, 1);
   }
 }
 

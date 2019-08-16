@@ -94,7 +94,7 @@
 .form-control {
   border-radius: 0;
   font-size:  $base-font-size * 0.9;
-  line-height: $base-line-height * 0.9;
+  line-height: $base-line-height * 1.1;
   font-style: italic;
   padding: 1rem 0.5rem;
 }
@@ -130,6 +130,15 @@
       border-bottom: 2px solid black;
       &:hover {
         border-bottom: 2px solid $charcoal;
+      }
+    }
+    a.eff-red-button {
+      color: white;
+      border-bottom: 4px solid $dark-red;
+      &:hover {
+        background-color: $dark-red;
+        border-bottom: 4px solid $red;
+        opacity: 1;
       }
     }
     .tool-container {
@@ -316,6 +325,9 @@
     }
   }
 }
+#call-tool h3.tool-title {
+  text-align: center;
+}
 .js {
   .tool {
     .email-signup + .email-signup {
@@ -456,8 +468,11 @@
   }
 }
 
-.description h3, h3.privacy-notice-header,
-h3.header, #tools #email-tool h3, #tools #congress-message-tool h3 {
+.description h3,
+h5.privacy-notice-header,
+h3.header,
+#tools #email-tool h3,
+#tools #congress-message-tool h3 {
   position: relative;
   margin-bottom: 1em;
   text-align: left;
@@ -583,18 +598,21 @@ h3.header, #tools #email-tool h3, #tools #congress-message-tool h3 {
   h3.header {
     text-transform: uppercase;
   }
+  .call-body-active {
+    margin: 0 1rem;
+  }
   .call-script-box {
     padding: 0;
     margin: 0 0 1rem 0;
   }
   .call-script {
     background: $off-white;
-    padding: 1rem;
     font-size: $base-font-size * 0.9;
+    margin: 0 1rem;
+    padding: 1rem;
+    text-align: left;
   }
-  .call-body-active .advisory {
-    margin-bottom: 1rem;
-  }
+
   .form-errors {
     margin-bottom: 1rem;
   }
@@ -658,8 +676,9 @@ h3.header, #tools #email-tool h3, #tools #congress-message-tool h3 {
   }
 
   input[type=submit] {
+    font-size: 1.3rem;
     margin: 0.1em 2px 5px;
-
+    padding: 0.4rem 0;
     &:first-child {
       margin-left: 0;
     }
@@ -734,6 +753,15 @@ h3.header, #tools #email-tool h3, #tools #congress-message-tool h3 {
 
     span.legislator-info-popover {
       @include eff-tooltip;
+    }
+  }
+
+  h5 {
+    color: black;
+    text-transform: none;
+    span.customize-message-popover {
+      @include eff-tooltip;
+      top: 1.1rem;
     }
   }
 
