@@ -95,9 +95,10 @@ section.more-actions {
       }
     }
     h3 {
+      font-size: $base-font-size * 1.2;
       padding: 0 0 5rem;
       @media screen and (min-width: $md) {
-        padding-bottom: 1.3rem 0 0.3rem;
+        padding: 0 0 0.3rem;
       }
     }
   }
