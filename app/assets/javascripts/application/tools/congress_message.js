@@ -31,7 +31,9 @@ $(document).on("ready", function() {
     });
   });
 
-  $("#tools #congress-message-tool input[type='submit']:first-child").click(function(){ // show thank you
+  $("#tools #congress-message-tool input[type='submit'].test").click(function(){ // show thank you
+    alert('hi');
+      $('#thank-you').show();
     $(".page-indicator div.page3").css({
       'background-color': '#2D2D2D',
       'color': '#BABABA'
