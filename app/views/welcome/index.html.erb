@@ -49,6 +49,7 @@
           <div class="more-actions-text">
             <%= link_to action_page_path(actionPage) do%>
             <h3><%= actionPage.title -%></h3>
+            <p> <%= markdown actionPage.summary -%></p>
             <% end %>
           </div>
         </div>
