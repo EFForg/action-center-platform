@@ -149,6 +149,18 @@ class ActionPage < ActiveRecord::Base
     [og_image, background_image, featured_image].find(&:present?)
   end
 
+  def event_summary
+    @summary ||= {}.tap do |hash|
+      hash[:views] = events.views.count
+      hash[:actions] = events.actions.count
+      hash[:percent] = if hash[:views] == 0
+                         0
+                       else
+                         (hash[:actions] / hash[:views].to_f) * 100
+                       end
+    end
+  end
+
   def status
     if archived?
       "archived"

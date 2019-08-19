@@ -80,6 +80,27 @@ describe ActionPage do
     end
   end
 
+  describe "#event_summary" do
+    let(:page) { FactoryGirl.create(:action_page_with_petition) }
+    before(:each) do
+      FactoryGirl.create_list(:ahoy_view, 3, action_page: page)
+      FactoryGirl.create_list(:ahoy_signature, 2, action_page: page)
+    end
+    it "counts the actions taken" do
+      expect(page.event_summary[:actions]).to eq(2)
+    end
+    it "counts the views" do
+      expect(page.event_summary[:views]).to eq(3)
+    end
+    it "calculates the percentage of views that led to actions" do
+      expect(page.event_summary[:percent]).to eq((2 / 3.0) * 100)
+    end
+    it "returns all zeroes when no events" do
+      page = FactoryGirl.create(:action_page)
+      expect(page.event_summary.values).to eq([0, 0, 0])
+    end
+  end
+
   describe ".type(types)" do
     let(:call) { FactoryGirl.create(:action_page_with_call) }
     let(:congress_message) { FactoryGirl.create(:action_page_with_congress_message) }
