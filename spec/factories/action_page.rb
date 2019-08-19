@@ -20,6 +20,7 @@ FactoryGirl.define do
 
   factory :action_page_with_tweet, parent: :action_page do
     enable_tweet true
+    tweet
   end
 
   factory :action_page_with_call, parent: :action_page do

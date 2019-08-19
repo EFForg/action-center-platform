@@ -31,6 +31,12 @@ RSpec.configure do |config|
   config.include Devise::Test::ControllerHelpers, type: :controller
   config.include Warden::Test::Helpers, type: :request
 
+  config.include Warden::Test::Helpers, type: :feature
+  config.before(:each, type: :feature){ Warden.test_mode! }
+  config.after(:each, type: :feature){ Warden.test_reset! }
+
+  config.include CapybaraHelpers, type: :feature
+
   # Remove this line if you're not using ActiveRecord or ActiveRecord fixtures
   config.fixture_path = "#{::Rails.root}/spec/fixtures"
 
