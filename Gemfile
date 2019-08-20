@@ -66,6 +66,9 @@ gem "delayed_job_active_record", "~> 4"
 # Exception monitoring
 gem "sentry-raven", "~> 0.15"
 
+# Fancy counter caches
+gem "counter_culture", "~> 2.0"
+
 # Other
 gem "activerecord-session_store", "~> 1"
 gem "acts_as_paranoid", git: "https://github.com/ActsAsParanoid/acts_as_paranoid.git"

@@ -18,9 +18,9 @@
         <td><%= action_page.action_type %></td>
         <td><strong><%= link_to action_page.title, edit_admin_action_page_path(action_page) %></strong></td>
         <td class="nowrap"><%= action_page.created_at.strftime("%m-%d-%Y") %></td>
-        <td><%= action_page.event_summary[:views] %></td>
-        <td><%= action_page.event_summary[:actions] %></td>
-        <td><%= number_to_percentage(action_page.event_summary[:percent], precision: 2) %></td>
+        <td><%= action_page.view_count %></td>
+        <td><%= action_page.action_count %></td>
+        <td><%= number_to_percentage(action_page.actions_taken_percent, precision: 2) %></td>
         <td><%= action_page.status.humanize %></td>
         <td class="page-actions">
           <%= image_tag "3dots.png" %>

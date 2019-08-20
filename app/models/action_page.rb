@@ -149,16 +149,9 @@ class ActionPage < ActiveRecord::Base
     [og_image, background_image, featured_image].find(&:present?)
   end
 
-  def event_summary
-    @summary ||= {}.tap do |hash|
-      hash[:views] = events.views.count
-      hash[:actions] = events.actions.count
-      hash[:percent] = if hash[:views] == 0
-                         0
-                       else
-                         (hash[:actions] / hash[:views].to_f) * 100
-                       end
-    end
+  def actions_taken_percent
+    return 0 if view_count == 0
+    @percent ||= (action_count / view_count.to_f) * 100
   end
 
   def status
