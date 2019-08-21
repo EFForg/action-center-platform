@@ -63,16 +63,16 @@ $(document).on("ready", function() {
       var $form = $(this);
       if (status == "success") {
         $("#congress-message-create").hide();
-        $("#congress-message-tool").hide()
+        $("#congress-message-tool").hide();
         $('#thank-you').show();
-      $(".page-indicator div.page3").css({
-        'background-color': '#2D2D2D',
-        'color': '#BABABA'
-      });
-      $(".page-indicator div.page4").css({
-        'background-color': '#BABABA',
-        'color': '#2D2D2D'
-      });
+        $(".page-indicator div.page3").css({
+          'background-color': '#2D2D2D',
+          'color': '#BABABA'
+        });
+        $(".page-indicator div.page4").css({
+          'background-color': '#BABABA',
+          'color': '#2D2D2D'
+        });
       } else if (data.responseText) {
         show_error(data.responseText, $form);
       } else {
