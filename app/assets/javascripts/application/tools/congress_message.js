@@ -31,16 +31,9 @@ $(document).on("ready", function() {
     });
   });
 
-  $("#tools #congress-message-tool input[type='submit'].test").click(function(){ // show thank you
-
-  });
-
-
   if ($("#congress-message-tool").length){  // showing paging at top of form
     $(".page-indicator").css("display", "grid");
   }
-
-
 
   $(".congress-message-rep-lookup").on("ajax:complete", function(xhr, data, status) {
     var $form = $(this);
