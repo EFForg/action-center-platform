@@ -80,4 +80,10 @@ module ActionPageHelper
     featured = @actionPage.partners.where(code: params[:partner])
     featured.empty? ? @actionPage.partners : featured
   end
+
+  def pull_og_image(url)
+    og_url = Nokogiri::HTML(open(url)).css("meta[property='og:image']")
+    return "" if og_url.blank?
+    og_url.first.attributes("content").value
+  end
 end
