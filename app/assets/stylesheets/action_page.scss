@@ -652,7 +652,28 @@ h3.header,
     margin-bottom: 5px;
   }
 }
+// congress-message-tool, privacy_notice
+h3 {
+  &.legislator-label {
+    margin-top: 0px;
+    margin-bottom: 10px;
+    &.common-fields {
+      margin-top: 17px;
+      margin-bottom: 0;
+    }
+  }
+  span.customize-message-popover {
+    @include eff-tooltip;
+  }
 
+  span.legislator-info-popover {
+    @include eff-tooltip;
+  }
+}
+
+.privacy-notice-header {
+  position: relative;
+}
 #tools #congress-message-tool {
   .tool-body {
     padding-top: 0;
@@ -736,24 +757,6 @@ h3.header,
   }
   .rep-photo {
     padding: 0;
-  }
-
-  h3 {
-    &.legislator-label {
-      margin-top: 0px;
-      margin-bottom: 10px;
-      &.common-fields {
-        margin-top: 17px;
-        margin-bottom: 0;
-      }
-    }
-    span.customize-message-popover {
-      @include eff-tooltip;
-    }
-
-    span.legislator-info-popover {
-      @include eff-tooltip;
-    }
   }
 
   h5 {
