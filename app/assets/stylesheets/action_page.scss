@@ -78,6 +78,28 @@
 }
 
 #description {
+  @include flex-this;
+  > div {
+    @include flex-item;
+  }
+  > div.desc-text {
+    width: 60%;
+  }
+  > div.related-content {
+    margin: 0 auto 1rem;
+    width: 30%;
+    h4 {
+      padding-top: 0;
+      padding-bottom: 2rem;
+    }
+    h5 {
+      margin-bottom: 2rem;
+    }
+    img {
+      margin-bottom: 0;
+      width: 100%;
+    }
+  }
   p, li {
     margin-bottom: 1em;
   }

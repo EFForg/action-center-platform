@@ -15,7 +15,14 @@
         <input type='checkbox' style='display: none' id="learn-more">
         <label for="learn-more">Learn More</label>
         <div class="description" id="description">
+          <div class="desc-text">
           <%= markdown @actionPage.description -%>
+          </div>
+          <div class="related-content">
+            <h4>Related Content</h4>
+            <%= image_tag(@actionPage.featured_image) %>
+            <h5>related heading</h5>
+          </div>
         </div>
       </div>
       <div class=" action-content" id="action-content" data-action-id="<%= @actionPage.id -%>" >
