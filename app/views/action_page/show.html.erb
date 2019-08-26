@@ -20,13 +20,14 @@
           </div>
           <% if @actionPage.category.present? %>
             <div class="related-content">
+              <h4>Related Content</h4>
               <% @actionPages.each_slice(3) do |array_of_3_actions| %>
                 <% array_of_3_actions.each do |actionPage|%>
                         <%= link_to action_page_path(actionPage) do%>
                           <div class="image">
                             <%= image_tag(actionPage.featured_image) %>
                           </div>
-                          <%= actionPage.category.title %>
+                          <h5><%= actionPage.category.title %></h5>
                         <% end %>
                   <% end %>
               <% end %>
