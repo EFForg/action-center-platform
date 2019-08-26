@@ -18,11 +18,21 @@
           <div class="desc-text">
           <%= markdown @actionPage.description -%>
           </div>
-          <div class="related-content">
-            <h4>Related Content</h4>
-            <%= image_tag(@actionPage.featured_image) %>
-            <h5>related heading</h5>
-          </div>
+          <% if @actionPage.category.present? %>
+            <div class="related-content">
+              <% @actionPages.each_slice(3) do |array_of_3_actions| %>
+                <% array_of_3_actions.each do |actionPage|%>
+                        <%= link_to action_page_path(actionPage) do%>
+                          <div class="image">
+                            <%= image_tag(actionPage.featured_image) %>
+                          </div>
+                          <%= actionPage.category.title %>
+                        <% end %>
+                  <% end %>
+              <% end %>
+
+            </div>
+              <% end %>  <!-- if category present -->
         </div>
       </div>
       <div class=" action-content" id="action-content" data-action-id="<%= @actionPage.id -%>" >
