@@ -971,17 +971,13 @@ html.js {
 /* Tools div media queries */
 
 @media screen and (min-width: $md) {
-  #tools {
-
-  }
-
-
   #tools .tool select {
     max-width: auto;
   }
-  .action-content {
-    margin-bottom: 40px;
-  }
+}
+
+#action-content {
+  margin: 4rem 0;
 }
 
 .no-js .plain-date {
