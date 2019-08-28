@@ -84,14 +84,14 @@
   }
   > div.desc-text {
     padding-left: 0;
-    width: 100% !important;
+    width: 100%;
     @media screen and (min-width: $md) {
       margin: 0 auto;
       width: 71%;
     }
   }
   > div.related-content {
-    width: 100% !important;
+    width: 100%;
     @media screen and (min-width: $md) {
       margin: 0 0 0 3rem;
       width: 30%;
