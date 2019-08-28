@@ -15,6 +15,8 @@ class ActionPageController < ApplicationController
   manifest :action_page
 
   def show
+    @related_content = RelatedContent.new(@actionPage.related_content_url)
+    @related_content.load
     render @actionPage.template, layout: @actionPage.layout
   end
 

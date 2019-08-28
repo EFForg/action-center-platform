@@ -18,15 +18,14 @@
           <div class="desc-text">
           <%= markdown @actionPage.description -%>
           </div>
-          <% if @actionPage.related_content_url.present? &&
-              !pull_related_content(@actionPage.related_content_url).empty? %>
+          <% if @related_content.found? %>
             <div class="related-content">
               <h4>Related Content</h4>
               <%= link_to @actionPage.related_content_url do %>
                 <div class="image">
-                  <%= image_tag(pull_related_content(@actionPage.related_content_url)[:image]) %>
+                  <%= image_tag(@related_content.image) %>
                 </div>
-                <h5><%= pull_related_content(@actionPage.related_content_url)[:title] %></h5>
+                <h5><%= @related_content.title %></h5>
               <% end %>
             </div>
           <% end %>
