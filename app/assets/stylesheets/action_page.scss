@@ -78,6 +78,36 @@
 }
 
 #description {
+  @include flex-this;
+  > div {
+    @include flex-item;
+  }
+  > div.desc-text {
+    padding-left: 0;
+    width: 100%;
+    @media screen and (min-width: $md) {
+      margin: 0 auto;
+      width: 71%;
+    }
+  }
+  > div.related-content {
+    width: 100%;
+    @media screen and (min-width: $md) {
+      margin: 0 0 0 3rem;
+      width: 30%;
+    }
+    h4 {
+      padding-top: 0;
+      padding-bottom: 2rem;
+    }
+    h5 {
+      margin-bottom: 2rem;
+    }
+    img {
+      margin-bottom: 0;
+      width: 100%;
+    }
+  }
   p, li {
     margin-bottom: 1em;
   }
