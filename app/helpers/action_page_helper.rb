@@ -84,7 +84,8 @@ module ActionPageHelper
   def pull_related_content(url)
     return @related_content if @related_content
     page = Nokogiri::HTML(open(url))
-    @related_content = { title: page.title, image: pull_og_image(page) }
+    title = page.title.gsub(/ \|.*/, "")
+    @related_content = { title: title, image: pull_og_image(page) }
   end
 
   def pull_og_image(nokogiri_page)
