@@ -18,7 +18,8 @@
           <div class="desc-text">
           <%= markdown @actionPage.description -%>
           </div>
-          <% if @actionPage.related_content_url.present? %>
+          <% if @actionPage.related_content_url.present? &&
+              !pull_related_content(@actionPage.related_content_url).empty? %>
             <div class="related-content">
               <h4>Related Content</h4>
               <%= link_to @actionPage.related_content_url do %>
