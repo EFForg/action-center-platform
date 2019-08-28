@@ -83,11 +83,19 @@
     @include flex-item;
   }
   > div.desc-text {
-    width: 60%;
+    padding-left: 0;
+    width: 100% !important;
+    @media screen and (min-width: $md) {
+      margin: 0 auto;
+      width: 71%;
+    }
   }
   > div.related-content {
-    margin: 0 auto 1rem;
-    width: 30%;
+    width: 100% !important;
+    @media screen and (min-width: $md) {
+      margin: 0 0 0 3rem;
+      width: 30%;
+    }
     h4 {
       padding-top: 0;
       padding-bottom: 2rem;
