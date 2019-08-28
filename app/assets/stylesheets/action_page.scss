@@ -891,7 +891,16 @@ h3 {
     margin: 2rem 0;
   }
   section.more-actions {
+    .row {
+      @media screen and (min-width: $md) {
+        margin-bottom: 5rem;
+      }
+    }
     .row > div {
+      margin-bottom: 4rem;
+      @media screen and (min-width: $md) {
+        margin-bottom: 0;
+      }
       &:hover {
         opacity: 0.7;
       }
