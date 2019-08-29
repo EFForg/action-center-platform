@@ -14,16 +14,6 @@ describe ActionPage do
     expect(action_page.redirect_from_archived_to_active_action?).to be_truthy
   end
 
-  # The test was a no-go because of the ajaxy html requiring nils... and Then
-  # changing them from nils to ""???  Needs effeciency review before crashyness review
-  # it "should not allow the creation of a model with so few attrs that it would crash the views" do
-  #   expect {
-  #     ActionPage.create!({ })
-  #   }.to raise_exception(ActiveRecord::RecordInvalid)
-  #
-  #   expect(ActionPage.count).to eq 0
-  # end
-
   describe "slug" do
     let(:page) { FactoryGirl.create(:action_page) }
     let(:new_slug) { "a-better-slug" }
@@ -80,6 +70,19 @@ describe ActionPage do
     end
   end
 
+  describe "status callbacks" do
+    it "becomes published when live" do
+      action = FactoryGirl.create(:draft_action_page)
+      action.update!(status: "live")
+      expect(action.reload.published).to eq(true)
+    end
+    it "drafts become live when published" do
+      action = FactoryGirl.create(:draft_action_page)
+      action.update!(published: true)
+      expect(action.reload).to be_live
+    end
+  end
+
   describe ".type(types)" do
     let(:call) { FactoryGirl.create(:action_page_with_call) }
     let(:congress_message) { FactoryGirl.create(:action_page_with_congress_message) }
@@ -104,39 +107,6 @@ describe ActionPage do
 
     it "raises an ArgumentError when an invalid type is given" do
       expect { ActionPage.type("unknown") }.to raise_error(ArgumentError)
-    end
-  end
-
-  describe ".status(status)" do
-    shared_examples "returns only the given status" do |status, action|
-      it status do
-        action = FactoryGirl.create(*action)
-        result = ActionPage.status(status)
-        expect(result).to contain_exactly(action)
-      end
-    end
-
-    context "not live" do
-      before { FactoryGirl.create(:action_page) }
-
-      it_behaves_like "returns only the given status", "archived",
-        [:action_page, { archived: true }]
-
-      it_behaves_like "returns only the given status", "victory",
-        [:action_page, { victory: true }]
-
-      it_behaves_like "returns only the given status", "draft",
-        [:action_page, { published: false }]
-    end
-
-    context "live action" do
-      before { FactoryGirl.create(:action_page, published: false) }
-      it_behaves_like "returns only the given status", "live",
-        [:action_page, { published: true }]
-    end
-
-    it "raises an ArgumentError when an invalid status is given" do
-      expect { ActionPage.status("unknown") }.to raise_error(ArgumentError)
     end
   end
 end

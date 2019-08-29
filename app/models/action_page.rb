@@ -39,6 +39,8 @@ class ActionPage < ActiveRecord::Base
              foreign_key: "archived_redirect_action_page_id"
   belongs_to :author, class_name: "User", foreign_key: :user_id, optional: true
 
+  enum status: %i(draft live victory archived)
+
   accepts_nested_attributes_for :tweet, :petition, :email_campaign,
     :call_campaign, :congress_message_campaign, reject_if: :all_blank
 
@@ -54,6 +56,9 @@ class ActionPage < ActiveRecord::Base
   do_not_validate_attachment_file_type [:featured_image, :background_image, :og_image]
 
   #validates_length_of :og_title, maximum: 65
+  before_validation :publish, if: -> { live? }
+  before_validation :live!, if: -> { draft? && published }
+  validate :published_status
   after_save :no_drafts_on_homepage
 
   scope :categorized, ->(category) { joins(:category).where(categories: { title: category }) }
@@ -76,20 +81,6 @@ class ActionPage < ActiveRecord::Base
     end
 
     nil
-  end
-
-  def self.status(status)
-    unless %w(archived victory live draft).include?(status)
-      raise ArgumentError, "unrecognized status #{status}"
-    end
-    case status
-    when "live"
-      where(published: true, archived: false, victory: false)
-    when "draft"
-      where(published: false, archived: false, victory: false)
-    else
-      where(status => true)
-    end
   end
 
   def should_generate_new_friendly_id?
@@ -143,43 +134,19 @@ class ActionPage < ActiveRecord::Base
     [og_image, background_image, featured_image].find(&:present?)
   end
 
-  def status
-    if archived?
-      "archived"
-    elsif victory?
-      "victory"
-    elsif published?
-      "live"
-    else
-      "draft"
-    end
-  end
-
-  def status=(status)
-    case status
-    when "live"
-      self.published = true
-      self.archived = false
-      self.victory = false
-
-    when "archived"
-      self.published = false
-      self.archived = true
-      self.victory = false
-
-    when "victory"
-      self.published = false
-      self.archived = false
-      self.victory = true
-
-    when "draft"
-      self.published = false
-      self.archived = false
-      self.victory = false
-    end
-  end
-
   def no_drafts_on_homepage
     FeaturedActionPage.where(action_page_id: id).destroy_all unless published?
+  end
+
+  private
+
+  def publish
+    self.published = true
+  end
+
+  def published_status
+    return if (draft? && !published) || (!draft? && published)
+    errors.add(:published, "#{status} action pages must be "\
+                           "#{published ? 'un' : ''}published")
   end
 end

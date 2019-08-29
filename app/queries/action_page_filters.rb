@@ -14,7 +14,9 @@ class ActionPageFilters
 
     filters.each do |f, val|
       next unless valid_query?(f, val)
-      @relation = if NAMED_SCOPES.include? f
+      @relation = if ENUM_QUERY == f
+                    relation.send f
+                  elsif NAMED_SCOPES.include? f
                     relation.send(f, val)
                   else
                     relation.where(f => val)
@@ -25,7 +27,8 @@ class ActionPageFilters
 
   private
 
-  NAMED_SCOPES = %i(type status).freeze
+  ENUM_QUERY = "status".freeze
+  NAMED_SCOPES = %i(type).freeze
   VALID_FILTERS = %i(type status author category).freeze
 
   attr_accessor :relation, :filters
