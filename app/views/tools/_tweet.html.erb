@@ -76,7 +76,9 @@
     <%= form_for :subscription, url: subscriptions_path, remote: true, html: { class: "newsletter-subscription" } do |f| %>
       <hr />
       <%= invisible_captcha %>
+      <h3>
       <%= t :sign_up_for_mailings_from %> <b><%= t :organization_abbreviation %></b>?
+      </h3>
 
       <fieldset>
         <%= f.email_field :email, class: "form-control", placeholder: "Email", required: "email", "aria-label": "Email" %>
