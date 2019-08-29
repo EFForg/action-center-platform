@@ -208,25 +208,7 @@ select {
   }
 }
 
-.eff-red-button,
-a.eff-red-button {
-  @extend .eff-button;
-  background-color: $eff-red;
-  border-bottom: 0.3rem solid $dark-red;
-  color: white;
-  width: 100%;
-  &:link, &:visited, a:link, a:visited {
-    color: $off-white;
-  }
-  &:hover,
-  &:focus {
-    background: rgba($dark-red, 1);
-    border-bottom: 4px solid rgba($eff-red, 1);
-  }
-}
-
 .email-signup {
-
   font-size: $base-font-size * 0.9;
   line-height: $base-line-height * 0.9;
   margin-bottom: 0.8rem;
