@@ -132,6 +132,23 @@ input[type=checkbox]:checked + label:after,
   color: #aaa;
 }
 
+// congress forms email-signup
+.signup-checkbox [type="checkbox"]:not(:checked),
+.signup-checkbox[type="checkbox"]:checked,
+#do-subscribe {
+  left: 0;
+  position: relative;
+}
+
+.signup-checkbox [type="checkbox"]:not(:checked) + label:before,
+.signup-checkbox [type="checkbox"]:checked + label:before,
+.signup-checkbox [type="checkbox"]:not(:checked) + label:after,
+.signup-checkbox [type="checkbox"]:checked + label:after,
+#do-subscribe {
+  background: none;
+  border: 0;
+}
+
 // radio buttons
 input[type="radio"] {
   display: none;
