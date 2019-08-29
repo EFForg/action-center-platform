@@ -397,9 +397,10 @@
   width: 6.5rem;
 }
 
-#tools #tweet-tool {
+#tools > #tweet-tool {
   .tool-body {
-    @extend form;
+    margin-bottom: 0;
+    padding-bottom: 0;
   }
 
   .form-group input {
@@ -407,9 +408,8 @@
   }
 
   .newsletter-subscription {
-    margin: 0 15px;
+    margin: 0 0.5rem;
   }
-
 
   img.individual {
     display: block;
