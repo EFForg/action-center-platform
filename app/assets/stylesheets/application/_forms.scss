@@ -138,6 +138,13 @@ input[type=checkbox]:checked + label:after,
 #do-subscribe {
   left: 0;
   position: relative;
+  height: 1.2rem;
+  width: 1.2rem;
+}
+.signup-checkbox label {
+  left: 2.0rem;
+  padding-left: 0 !important;
+  top: -1.8rem;
 }
 
 .signup-checkbox [type="checkbox"]:not(:checked) + label:before,
