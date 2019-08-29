@@ -178,11 +178,11 @@ select {
 
 // Buttons
 .eff-button {
-  background: $light-blue;
+  background-color: $eff-red;
   border: none;
-  border-bottom: 0.3rem solid $slate;
+  border-bottom: 0.3rem solid $dark-red;
   border-radius: 0;
-  color: $medium-blue;
+  color: white;
   cursor: pointer;
   font-size: 1.4rem;
   font-weight: 700;
@@ -192,17 +192,19 @@ select {
   text-decoration: none;
   -moz-appearance: none;
   -webkit-appearance: none;
+  width: 100%;
   a {
     text-decoration: none;
   }
 
   &:link, &:visited, a:link, a:visited {
-    color: $medium-blue;
+    color: $off-white;
   }
 
-  &:hover {
-    background: rgba($light-blue, 0.8);
-    border-bottom: 4px solid rgba($slate, 0.8);
+  &:hover,
+  &:focus {
+    background: rgba($dark-red, 1);
+    border-bottom: 4px solid rgba($eff-red, 1);
   }
 }
 
