@@ -192,6 +192,10 @@
         margin: 0;
         text-transform: uppercase;
       }
+      .tool-title.precall,
+      .tool-title.postcall {  // for call tool
+        padding-left: 0;
+      }
       p {
         color: black;
         margin-top: 1rem;
@@ -342,21 +346,28 @@
 
 }
 
-#thank-you.tool {
-  @extend form;
-  display: none;
-  .tool-title {
-    text-align: center;
-  }
-  #tweet-back {
-    text-decoration: underline;
-    &:hover {
-      cursor: pointer;
+#thank-you {
+  .tool {
+    @extend form;
+    display: none;
+    #tweet-back {
+      text-decoration: underline;
+      &:hover {
+        cursor: pointer;
+      }
     }
   }
 }
-#call-tool h3.tool-title {
-  text-align: center;
+#call-tool {
+  h3.tool-title {
+    margin-left: 0;
+    padding-left: 1rem;
+    text-align: center !important;
+  }
+  .advisory {
+    color: black;
+    text-align: left;
+  }
 }
 .js {
   .tool {
@@ -514,6 +525,7 @@ h3.header,
 
 .privacy-notice {
   position: relative;
+  text-align: left;
   span.privacy-notice-popover {
     @include eff-tooltip;
     color: black;
@@ -638,7 +650,7 @@ h3.header,
   .call-script {
     background: $off-white;
     font-size: $base-font-size * 0.9;
-    margin: 0 1rem;
+    margin: 0;
     padding: 1rem;
     text-align: left;
   }
