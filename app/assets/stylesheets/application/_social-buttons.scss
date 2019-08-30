@@ -6,6 +6,9 @@
     justify-content: center;
     margin-top: 0;
     margin-bottom: 7rem;
+    @media screen and (min-width: $lg) {
+      grid-template-columns: 25% 25% 25% 25%;
+    }
     a,
     a:hover {
       border: none;
