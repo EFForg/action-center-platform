@@ -148,7 +148,7 @@
     background-color: $gray-darker;
     color: black;
     margin-bottom: 1.5rem;
-    text-align: center;
+    text-align: left;
     h3 {
       color: black;
       font-size: $base-font-size * 1.2;
@@ -172,7 +172,7 @@
       }
     }
     .tool-container {
-      padding: 2rem 0.4rem 1rem 0.4rem;
+      padding: 2rem 0.8rem 1rem 0.8rem;
       img {
         width: 100px;
         height: 100px;
@@ -346,10 +346,15 @@
 
 }
 
+#thank-you.tool {
+  @extend form;
+  display: none;
+}
 #thank-you {
+  > div {
+    text-align: center;
+  }
   .tool {
-    @extend form;
-    display: none;
     #tweet-back {
       text-decoration: underline;
       &:hover {
@@ -386,7 +391,6 @@
 
 #tools #petition-tool {
   .tool-title {
-    text-align: center;
     margin-left: 0;
     padding: 0;
   }
@@ -640,9 +644,12 @@ h3.header,
   h3.header {
     text-transform: uppercase;
   }
-  .call-body-active {
+  .call-body-active,
+  .call-body-phone-saved,
+  .call-body-phone-not-saved  {
     margin: 0 1rem;
   }
+
   .call-script-box {
     padding: 0;
     margin: 0 0 1rem 0;
@@ -659,9 +666,13 @@ h3.header,
     margin-bottom: 1rem;
   }
 
-  .call-body-phone-saved p.privacy-notice {
-    padding: 2rem;
+  form.call-tool {
+    padding: 0;  // to make margins uniform  on initial form for non-signed in users
   }
+  .signup-checkbox {
+    padding-top: 2rem;
+  }
+
 }
 
 .email-tool-container {
