@@ -99,7 +99,7 @@ $('#action-page-preview').on('click', function(e) {
   });
 });
 
-$('.action_pages-index .table .page-actions').on('click', function() {
+$('.action_pages-index').on('click', '.table .page-actions', function() {
   $('.page-actions.open').removeClass('open');
   $(this).addClass('open');
 });
