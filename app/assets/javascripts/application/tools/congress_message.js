@@ -4,19 +4,6 @@ $(document).on("ready", function() {
     $("input[type=submit]").hide();
     $("input,textarea,button,select", $(this)).attr("disabled", "disabled");
   });
-  $("#to-page-2").click(function(){  // show customize message
-    $("#customize-message").show();
-    $(".address-lookup").hide();
-    $("#to-page-2").hide();
-    $(".page-indicator div.page1").css({
-      'background-color': '#2D2D2D',
-      'color': '#BABABA'
-    });
-    $(".page-indicator div.page2").css({
-      'background-color': '#BABABA',
-      'color': '#2D2D2D'
-    });
-  });
 
   $("#to-page-3").click(function(){ // show representatives info
     $("#customize-message").hide();
@@ -38,6 +25,14 @@ $(document).on("ready", function() {
   $(".congress-message-rep-lookup").on("ajax:complete", function(xhr, data, status) {
     var $form = $(this);
     if (status == "success") {
+      $(".page-indicator div.page1").css({
+        'background-color': '#2D2D2D',
+        'color': '#BABABA'
+      });
+      $(".page-indicator div.page2").css({
+        'background-color': '#BABABA',
+        'color': '#2D2D2D'
+      });
       $form.remove();
       $(".congress-message-tool-container").html(data.responseText);
       // Trigger phone field formatting.
