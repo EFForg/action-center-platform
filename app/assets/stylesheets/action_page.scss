@@ -533,23 +533,6 @@ h3.header,
   }
 }
 
-#signatures {
-  margin-left: 1rem;
-  text-transform: capitalize;
-  width: 100%;
-  .header {
-    color: $gray-darker;
-    margin: 2em 0 1em;
-  }
-  td { border: none; }
-  .timeago {
-    text-align: right;
-    text-transform: uppercase;
-  }
-  .pagination {
-    float: right;
-  }
-}
 #description .letter, #letter {
   -webkit-box-shadow: 0 0 25px 5px rgba(0, 0, 0, 0.1); // iOS <4.3 & Android <4.1
   box-shadow: 0 0 25px 5px rgba(0, 0, 0, 0.1);
@@ -902,9 +885,10 @@ h3 {
     }
   }
   .pagination {
-    text-align: center;
-    margin-top: 4rem;
+    font-size: $base-font-size * 1.2;
     margin-bottom: 8rem;
+    margin-top: 4rem;
+    text-align: center;
     a {
       border: none;
     }
@@ -1045,40 +1029,54 @@ html.js #affiliations {
   }
 }
 
+#signatures {
+  text-transform: capitalize;
+  width: 100%;
+  .header {
+    color: $gray-darker;
+    margin: 2em 0 1em;
+  }
+  td { border: none; }
+  .timeago {
+    text-align: right;
+    text-transform: uppercase;
+  }
+  .pagination {
+    float: right;
+  }
+}
+
+#signatures + #tools {
+  margin-top: 2rem;
+  .tool {
+    padding: 0 1rem;
+  }
+}
 /**
 * Signatures by institution
 */
 #signatures-filter {
-  font-size: 17px;
+  font-size: $base-font-size;
   text-transform: none;
 
   #institution-select-container {
-    width: 70%;
     float: left;
-    padding-top: 2px;
+    width: 70%;
   }
 
+  form {
+    padding: 0;
+  }
   input[type=submit] {
-    @extend .eff-red-button;
+    @extend .eff-button;
     float: right;
-    width: 26%;
-    font-size: 0.7em;
+    font-size: $base-font-size * 0.8;
     margin: 0;
-  }
-}
-
-#signatures {
-  .affiliation-line {
-    margin-left: 10px;
+    width: 26%;
   }
 }
 
 #signatures.affiliation-signatures {
-
-  .header {
-    color: $eff-red;
-  }
-
   .content {
     border: 1px solid $gray-light;
     padding: 15px;
