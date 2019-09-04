@@ -57,6 +57,10 @@
   input:not(:checked) + label + div {  // for Learn more
     display: none;
   };
+  input:checked + label + div {  // for Learn more
+    display: flex !important;
+  };
+
 
   [type="checkbox"]:not(:checked) + label,
   [type="checkbox"]:checked + label {
@@ -79,6 +83,7 @@
 
 #description {
   @include flex-this;
+  display: none; // for learn more
   > div {
     @include flex-item;
   }
@@ -975,17 +980,13 @@ html.js {
 /* Tools div media queries */
 
 @media screen and (min-width: $md) {
-  #tools {
-
-  }
-
-
   #tools .tool select {
     max-width: auto;
   }
-  .action-content {
-    margin-bottom: 40px;
-  }
+}
+
+#action-content {
+  margin: 4rem 0;
 }
 
 .no-js .plain-date {
