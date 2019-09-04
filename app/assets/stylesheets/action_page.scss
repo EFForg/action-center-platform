@@ -902,9 +902,10 @@ h3 {
     }
   }
   .pagination {
-    text-align: center;
-    margin-top: 4rem;
+    font-size: $base-font-size * 1.2;
     margin-bottom: 8rem;
+    margin-top: 4rem;
+    text-align: center;
     a {
       border: none;
     }
