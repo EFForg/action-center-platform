@@ -5,19 +5,6 @@ $(document).on("ready", function() {
     $("input,textarea,button,select", $(this)).attr("disabled", "disabled");
   });
 
-  $("#to-page-3").click(function(){ // show representatives info
-    $("#customize-message").hide();
-    $("#to-page-3").hide();
-    $(".page-indicator div.page2").css({
-      'background-color': '#2D2D2D',
-      'color': '#BABABA'
-    });
-    $(".page-indicator div.page3").css({
-      'background-color': '#BABABA',
-      'color': '#2D2D2D'
-    });
-  });
-
   if ($("#congress-message-tool").length){  // showing paging at top of form
     $(".page-indicator").css("display", "grid");
   }
@@ -44,6 +31,19 @@ $(document).on("ready", function() {
     } else {
       show_error("Something went wrong. Please try again later.", $form);
     }
+  });
+
+  $("#to-page-3").click(function(){
+    $(".congress-message-tool-container").hide();
+    $("#customize-message").show();
+    $(".page-indicator div.page2").css({
+      'background-color': '#2D2D2D',
+      'color': '#BABABA'
+    });
+    $(".page-indicator div.page3").css({
+      'background-color': '#BABABA',
+      'color': '#2D2D2D'
+    });
   });
 
   $(document).on("ajax:complete", function(xhr, data, status) {

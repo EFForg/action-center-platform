@@ -54,9 +54,11 @@
             If you prefer not to use our email tool, <a href="https://www.eff.org/congress"  target="_blank">click here</a>.</p>
           </fieldset>
         <% end %>
-        <input id="to-page-2" type="submit" class="eff-button" value="Find your reps">
+        <input type="submit" class="eff-button" value="Find your reps">
         <%= render "tools/loading" -%>
         </div>
+
+      <div class="congress-message-tool-container"></div>
 
         <fieldset id="customize-message">
           <h3>
@@ -70,16 +72,14 @@
                               class: "campaign-message form-control",
                               rows: 11 %>
           </div>
-                  <%= render "tools/privacy_notice" %>
-                  <input id="to-page-3" type="submit" class="eff-button" value="Submit">
+          <%= render "tools/privacy_notice" %>
+          <input type="submit" class="eff-button" value="Submit">
         </fieldset>
       <% end %>
 
       <div id="email-signup-container" style="display:none;">
         <%= render "tools/newsletter_signup", email: false, location: false, privacy_notice: false %>
       </div>
-
-      <div class="congress-message-tool-container"></div>
 
     </div>
 
