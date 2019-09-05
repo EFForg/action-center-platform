@@ -159,6 +159,9 @@
       font-size: $base-font-size * 1.2;
       line-height: $base-line-height * 1.2;
       margin-top: 0;
+      em {
+        font-style: normal;
+      }
     }
     a {
       color: black;
@@ -242,9 +245,12 @@
       font-size: 0.8rem;
     }
     select {
-      max-width: 60%;
+      color: $charcoal;
+      height: 2.5rem;
       margin-bottom: 0.5rem;
+      padding: 0.5rem;
     }
+
     #affiliations select {
       max-width: 100%;
     }
