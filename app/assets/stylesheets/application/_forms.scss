@@ -141,11 +141,17 @@ input[type=checkbox]:checked + label:after,
   height: 1.2rem;
   width: 1.2rem;
 }
-.signup-checkbox label {
-  left: 2.0rem;
-  padding-left: 0 !important;
-  top: -1.8rem;
+.signup-checkbox {
+  width: 300px;
+  label {
+    font-weight: 400;
+    left: 1.5rem;
+    padding-left: 0 !important;
+    top: -1.8rem;
+    
+  }
 }
+
 
 .signup-checkbox [type="checkbox"]:not(:checked) + label:before,
 .signup-checkbox [type="checkbox"]:checked + label:before,
