@@ -17,7 +17,7 @@
         </div>
       <% end %>
 
-      <%- if @actionPage.petition.goal -%>
+      <%- if @actionPage.petition.goal && @actionPage.petition.goal > 0 -%>
         <div id="progress-bar">
           <div class='count'><b><%= @signature_count -%></b> /
             <span class='goal'><%= @actionPage.petition.goal -%> <%= t :signatures -%></span>
