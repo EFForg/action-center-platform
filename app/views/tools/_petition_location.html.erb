@@ -8,8 +8,8 @@
           title: t('petition_errors.required.zip_code') -%>
       </div>
 
-          <a class='intl-toggler pull-right hidden-if-no-js'><%= t :outside_the_us -%></a>
-      
+          <span class='intl-toggler pull-right hidden-if-no-js eff-button'><%= t :outside_the_us -%></span>
+
     </div>
   </span>
 
@@ -17,7 +17,7 @@
       <%= f.text_field :city, placeholder: t(:city), 'aria-label': t(:city),
         class: 'form-control input-pair', pattern: '.*\S+.*', title: t('petition_errors.required.city')
       -%>
-      <a class='intl-toggler pull-right hidden-if-no-js'><%= t :in_the_us -%></a>
+      <span class='intl-toggler pull-right hidden-if-no-js eff-button'><%= t :in_the_us -%></span>
       <%= f.select :country_code, Places.country_codes, { prompt: t(:country) },
         class: 'form-control' -%>
   </div>
