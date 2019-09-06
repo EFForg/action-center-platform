@@ -93,14 +93,19 @@ section.more-actions {
       @media screen and (min-width: $md) {
         padding: 0 2rem 0 0;
       }
+      a {
+        border: none;
+        &:hover {
+          color: $off-white;
+        }
+      }
+      &:hover {
+        opacity: 0.7;
+      }
     }
     h3 {
       font-size: $base-font-size * 1.2;
       padding: 0 0 0.3rem;
-      &:hover,
-      &:focus {
-        color: $gray-dark;
-      }
     }
   }
 
@@ -109,10 +114,6 @@ section.more-actions {
     position: relative;
     img {
       max-width: 100%;
-    }
-    &:hover,
-    &:focus {
-      opacity: 0.7;
     }
   }
 
