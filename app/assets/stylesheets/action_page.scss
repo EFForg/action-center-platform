@@ -401,6 +401,7 @@
 #petition-tool .tool-body .signed { text-align: center; }
 
 #tools #petition-tool {
+  padding: 2rem;
   .tool-title {
     margin-left: 0;
     padding: 0;
@@ -581,14 +582,21 @@ h3.header,
   }
 }
 #description .letter, #letter {
+  background-color: $off-white;
+  color: $charcoal;
+  font-family: serif;
   -webkit-box-shadow: 0 0 25px 5px rgba(0, 0, 0, 0.1); // iOS <4.3 & Android <4.1
   box-shadow: 0 0 25px 5px rgba(0, 0, 0, 0.1);
-
   margin: 2em 0 3em;
-  padding: 3em 3em 5em;
+  padding: 3em 2em 5em;
   position: relative;
-  font-family: serif;
-  color: #555;
+  a {
+    color: $charcoal;
+    border-bottom: 2px solid $charcoal;
+    &:hover {
+
+    }
+  }
   &:after {
     content: '';
     display: block;
