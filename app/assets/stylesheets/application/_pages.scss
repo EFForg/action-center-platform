@@ -15,7 +15,17 @@
   }
 }
 
-
+.registrations-new {
+  .row div p {
+    position: relative;
+  }
+  span.register-info {
+    @include eff-tooltip;
+    margin: 0 0 3rem 3rem;
+    position: relative;
+    top: 0;
+  }
+}
 .container {
   width: 100% !important;  // overwriting bootstrap defaults
 }

@@ -18,7 +18,7 @@
     }
     @media screen and (min-width: $lg) {
       > div:first-child {
-        margin: 2rem 3rem 1rem 0;
+        margin: 1rem 3rem 1rem 0;
         width: 65%;
       }
       > div:last-child {
@@ -57,6 +57,10 @@
   input:not(:checked) + label + div {  // for Learn more
     display: none;
   };
+  input:checked + label + div {  // for Learn more
+    display: flex !important;
+  };
+
 
   [type="checkbox"]:not(:checked) + label,
   [type="checkbox"]:checked + label {
@@ -79,6 +83,7 @@
 
 #description {
   @include flex-this;
+  display: none; // for learn more
   > div {
     @include flex-item;
   }
@@ -148,12 +153,15 @@
     background-color: $gray-darker;
     color: black;
     margin-bottom: 1.5rem;
-    text-align: center;
+    text-align: left;
     h3 {
       color: black;
       font-size: $base-font-size * 1.2;
       line-height: $base-line-height * 1.2;
       margin-top: 0;
+      em {
+        font-style: normal;
+      }
     }
     a {
       color: black;
@@ -172,7 +180,7 @@
       }
     }
     .tool-container {
-      padding: 2rem 0.4rem 1rem 0.4rem;
+      padding: 2rem 0.8rem 1rem 0.8rem;
       img {
         width: 100px;
         height: 100px;
@@ -191,6 +199,10 @@
         line-height: 4rem;
         margin: 0;
         text-transform: uppercase;
+      }
+      .tool-title.precall,
+      .tool-title.postcall {  // for call tool
+        padding-left: 0;
       }
       p {
         color: black;
@@ -237,9 +249,12 @@
       font-size: 0.8rem;
     }
     select {
-      max-width: 60%;
+      color: $charcoal;
+      height: 2.5rem;
       margin-bottom: 0.5rem;
+      padding: 0.5rem;
     }
+
     #affiliations select {
       max-width: 100%;
     }
@@ -345,18 +360,30 @@
 #thank-you.tool {
   @extend form;
   display: none;
-  .tool-title {
+}
+#thank-you {
+  > div {
     text-align: center;
   }
-  #tweet-back {
-    text-decoration: underline;
-    &:hover {
-      cursor: pointer;
+  .tool {
+    #tweet-back {
+      text-decoration: underline;
+      &:hover {
+        cursor: pointer;
+      }
     }
   }
 }
-#call-tool h3.tool-title {
-  text-align: center;
+#call-tool {
+  h3.tool-title {
+    margin-left: 0;
+    padding-left: 1rem;
+    text-align: center !important;
+  }
+  .advisory {
+    color: black;
+    text-align: left;
+  }
 }
 .js {
   .tool {
@@ -374,8 +401,8 @@
 #petition-tool .tool-body .signed { text-align: center; }
 
 #tools #petition-tool {
+  padding: 2rem;
   .tool-title {
-    text-align: center;
     margin-left: 0;
     padding: 0;
   }
@@ -392,11 +419,15 @@
   cursor: pointer;
   font-size: 0.8em;
   margin-top: 0.6em;
+  padding: 1.3rem 0.3rem;
+  text-align: center;
+  width: 6.5rem;
 }
 
-#tools #tweet-tool {
+#tools > #tweet-tool {
   .tool-body {
-    @extend form;
+    margin-bottom: 0;
+    padding-bottom: 0;
   }
 
   .form-group input {
@@ -404,9 +435,8 @@
   }
 
   .newsletter-subscription {
-    margin: 0 15px;
+    margin: 0 0.5rem;
   }
-
 
   img.individual {
     display: block;
@@ -499,7 +529,7 @@
 }
 
 .description h3,
-h5.privacy-notice-header,
+.privacy-notice-header,
 h3.header,
 #tools #email-tool h3,
 #tools #congress-message-tool h3 {
@@ -514,6 +544,7 @@ h3.header,
 
 .privacy-notice {
   position: relative;
+  text-align: left;
   span.privacy-notice-popover {
     @include eff-tooltip;
     color: black;
@@ -551,14 +582,21 @@ h3.header,
   }
 }
 #description .letter, #letter {
+  background-color: $off-white;
+  color: $charcoal;
+  font-family: serif;
   -webkit-box-shadow: 0 0 25px 5px rgba(0, 0, 0, 0.1); // iOS <4.3 & Android <4.1
   box-shadow: 0 0 25px 5px rgba(0, 0, 0, 0.1);
-
   margin: 2em 0 3em;
-  padding: 3em 3em 5em;
+  padding: 3em 2em 5em;
   position: relative;
-  font-family: serif;
-  color: #555;
+  a {
+    color: $charcoal;
+    border-bottom: 2px solid $charcoal;
+    &:hover {
+
+    }
+  }
   &:after {
     content: '';
     display: block;
@@ -628,9 +666,12 @@ h3.header,
   h3.header {
     text-transform: uppercase;
   }
-  .call-body-active {
+  .call-body-active,
+  .call-body-phone-saved,
+  .call-body-phone-not-saved  {
     margin: 0 1rem;
   }
+
   .call-script-box {
     padding: 0;
     margin: 0 0 1rem 0;
@@ -638,7 +679,7 @@ h3.header,
   .call-script {
     background: $off-white;
     font-size: $base-font-size * 0.9;
-    margin: 0 1rem;
+    margin: 0;
     padding: 1rem;
     text-align: left;
   }
@@ -647,9 +688,13 @@ h3.header,
     margin-bottom: 1rem;
   }
 
-  .call-body-phone-saved p.privacy-notice {
-    padding: 2rem;
+  form.call-tool {
+    padding: 0;  // to make margins uniform  on initial form for non-signed in users
   }
+  .signup-checkbox {
+    padding-top: 2rem;
+  }
+
 }
 
 .email-tool-container {
@@ -683,6 +728,9 @@ h3.header,
   }
 }
 // congress-message-tool, privacy_notice
+span.customize-message-popover {
+  @include eff-tooltip;
+}
 h3 {
   &.legislator-label {
     margin-top: 0px;
@@ -692,9 +740,7 @@ h3 {
       margin-bottom: 0;
     }
   }
-  span.customize-message-popover {
-    @include eff-tooltip;
-  }
+
 
   span.legislator-info-popover {
     @include eff-tooltip;
@@ -702,7 +748,13 @@ h3 {
 }
 
 .privacy-notice-header {
+  color: black;
+  font-size: 0.85rem;
   position: relative;
+  text-transform: none;
+  .customize-message-popover {
+    top: 0.8rem;
+  }
 }
 #tools #congress-message-tool {
   .tool-body {
@@ -891,7 +943,16 @@ h3 {
     margin: 2rem 0;
   }
   section.more-actions {
+    .row {
+      @media screen and (min-width: $md) {
+        margin-bottom: 5rem;
+      }
+    }
     .row > div {
+      margin-bottom: 4rem;
+      @media screen and (min-width: $md) {
+        margin-bottom: 0;
+      }
       a {
         border: none;
         &:hover {
@@ -908,9 +969,10 @@ h3 {
     }
   }
   .pagination {
-    text-align: center;
-    margin-top: 4rem;
+    font-size: $base-font-size * 1.2;
     margin-bottom: 8rem;
+    margin-top: 4rem;
+    text-align: center;
     a {
       border: none;
     }
@@ -972,17 +1034,13 @@ html.js {
 /* Tools div media queries */
 
 @media screen and (min-width: $md) {
-  #tools {
-
-  }
-
-
   #tools .tool select {
     max-width: auto;
   }
-  .action-content {
-    margin-bottom: 40px;
-  }
+}
+
+#action-content {
+  margin: 4rem 0;
 }
 
 .no-js .plain-date {

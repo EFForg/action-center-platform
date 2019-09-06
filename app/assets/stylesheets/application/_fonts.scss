@@ -2,34 +2,34 @@
   font-family: 'Montserrat';
   font-style: normal;
   font-weight: 100;
-  src: local("Montserrat Hairline"), local("Montserrat-Hairline"), url('fonts/Montserrat-Hairline.woff') format('woff'); }
+  src: local("Montserrat Hairline"), local("Montserrat-Hairline"), font-url('Montserrat-Hairline.woff') format('woff'); }
 
 @font-face {
   font-family: 'Montserrat';
   font-style: normal;
   font-weight: 300;
-  src: local("Montserrat Light"), local("Montserrat-Light"), url('fonts/Montserrat-Light.woff') format('woff'); }
+  src: local("Montserrat Light"), local("Montserrat-Light"), font-url('Montserrat-Light.woff') format('woff'); }
 
 @font-face {
   font-family: 'Montserrat';
   font-style: normal;
   font-weight: 400;
-  src: local("Montserrat Regular"), local("Montserrat-Regular"), url('fonts/Montserrat-Regular.woff') format('woff'); }
+  src: local("Montserrat Regular"), local("Montserrat-Regular"), font-url('Montserrat-Regular.woff') format('woff'); }
 
 @font-face {
   font-family: 'Montserrat';
   font-style: normal;
   font-weight: 700;
-  src: local("Montserrat Bold"), local("Montserrat-Bold"), url('fonts/Montserrat-Bold.woff') format('woff'); }
+  src: local("Montserrat Bold"), local("Montserrat-Bold"), font-url('Montserrat-Bold.woff') format('woff'); }
 
 @font-face {
   font-family: 'Montserrat';
   font-style: normal;
   font-weight: 900;
-  src: local("Montserrat Black"), local("Montserrat-Black"), url('fonts/Montserrat-Black.woff') format('woff'); }
+  src: local("Montserrat Black"), local("Montserrat-Black"), font-url('Montserrat-Black.woff') format('woff'); }
 
 @font-face {
   font-family: 'LeagueGothic';
   font-style: normal;
   font-weight: 200;
-  src: local("LeagueGothic"), local("LeagueGothic"), url('fonts/LeagueGothic-regular.woff') format('woff'); }
+  src: local("LeagueGothic"), local("LeagueGothic"), font-url('LeagueGothic-regular.woff') format('woff'); }
