@@ -21,6 +21,9 @@
   }
   span.register-info {
     @include eff-tooltip;
+    margin: 0 0 3rem 3rem;
+    position: relative;
+    top: 0;
   }
 }
 .container {
