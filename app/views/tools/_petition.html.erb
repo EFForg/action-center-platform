@@ -98,7 +98,7 @@
             <%= render "tools/privacy_notice" %>
 
             <% button_text = params.include?("button_text") ? params["button_text"].to_sym : t(:take_action) %>
-            <%= f.submit button_text, class: 'eff-red-button'-%>
+            <%= f.submit button_text, class: 'eff-button'-%>
             <%= render 'tools/loading' -%>
           <% end %>
       </div>
