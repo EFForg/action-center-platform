@@ -892,6 +892,12 @@ h3 {
   }
   section.more-actions {
     .row > div {
+      a {
+        border: none;
+        &:hover {
+          color: $font-color;
+        }
+      }
       &:hover {
         opacity: 0.7;
       }
