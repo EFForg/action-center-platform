@@ -558,8 +558,15 @@ h3.header,
   -webkit-box-shadow: 0 0 25px 5px rgba(0, 0, 0, 0.1); // iOS <4.3 & Android <4.1
   box-shadow: 0 0 25px 5px rgba(0, 0, 0, 0.1);
   margin: 2em 0 3em;
-  padding: 3em 3em 5em;
+  padding: 3em 2em 5em;
   position: relative;
+  a {
+    color: $charcoal;
+    border-bottom: 2px solid $charcoal;
+    &:hover {
+
+    }
+  }
   &:after {
     content: '';
     display: block;
