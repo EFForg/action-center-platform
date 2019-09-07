@@ -953,6 +953,12 @@ h3 {
       @media screen and (min-width: $md) {
         margin-bottom: 0;
       }
+      a {
+        border: none;
+        &:hover {
+          color: $font-color;
+        }
+      }
       &:hover {
         opacity: 0.7;
       }
