@@ -32,7 +32,6 @@ $(document).on("ready", function() {
 
   $(".congress-message-tool-container").on("click", "#customize-message :submit", function(e){
     // Can't use rails remote: true because the form is rendered dynamically
-    console.log("submit");
     e.preventDefault();
     var $form = $("#congress-message-create");
     $.ajax({
@@ -41,7 +40,6 @@ $(document).on("ready", function() {
       data: $form.serialize(),
       beforeSend: show_progress_bars(),
       success: function(data) {
-        console.log("going to thank you");
         $("#congress-message-create").hide();
         $("#congress-message-tool").hide();
         $('#thank-you').show();
@@ -76,7 +74,6 @@ $(document).on("ready", function() {
   }
 
   function update_tabs(from, to) {
-    console.log("going to page " + to + " from " + from);
     $(".page-indicator div.page" + from).css({
       'background-color': '#2D2D2D',
       'color': '#BABABA'
