@@ -48,6 +48,7 @@
       }
     }
     .logo {
+      width: 28rem;
       a {
         background: asset-url('EFF-logo-lockup-1color-gray.svg') no-repeat;
         border: none;
@@ -57,6 +58,7 @@
         &:hover {
           background: asset-url('EFF-logo-lockup-1color-white.svg') no-repeat;
           border: none;
+          transition: none;
         }
       }
     }
