@@ -1,4 +1,4 @@
-<%= form_tag(congress_message_campaign_congress_messages_path(@campaign), remote: true, id: "congress-message-create") do %>
+<%= form_tag(congress_message_campaign_congress_messages_path(@campaign), id: "congress-message-create") do %>
   <div class="rep-info">
     <p class="step2-intro">
     <%= @campaign.extra_fields_explain_text("Your Congressmembers require this information in order to contact their offices. EFF does not store this information.") %>
