@@ -10,14 +10,13 @@
     </div>
 
     <div class="tool-body">
-      <form>
       <%- if @petition.enable_affiliations -%>
         <div class='small tool-notice'>
           <%= t :name_and_affiliations_published -%>
         </div>
       <% end %>
 
-      <%- if @actionPage.petition.goal -%>
+      <%- if @actionPage.petition.goal && @actionPage.petition.goal > 0 -%>
         <div id="progress-bar">
           <div class='count'><b><%= @signature_count -%></b> /
             <span class='goal'><%= @actionPage.petition.goal -%> <%= t :signatures -%></span>
@@ -38,8 +37,7 @@
           <%= render 'tools/thank_you' -%>
         </div>
         <div class='unsigned'>
-          <%= form_for @signature, url: '/tools/petition',
-            html: {class: 'petition-tool'} do |f| -%>
+          <%= form_for @signature, url: tools_petition_path, html: {class: 'petition-tool'} do |f| -%>
             <%= invisible_captcha %>
             <%= f.hidden_field :petition_id -%>
             <input type="hidden" name="action_id" value="<%= @actionPage.id %>" />
@@ -102,7 +100,6 @@
             <%= render 'tools/loading' -%>
           <% end %>
       </div>
-      </form>
     </div>
   </div>
 

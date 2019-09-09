@@ -6,6 +6,7 @@ class Petition < ActiveRecord::Base
   after_initialize :set_goal
 
   def percent_complete
+    return 0 if goal == 0
     [signatures.count.to_f / goal.to_f, 1].min * 100
   end
 

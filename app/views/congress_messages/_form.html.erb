@@ -60,10 +60,12 @@
       </div>
       <%= render "tools/privacy_notice" %>
     </fieldset>
-    <input type="submit" class="eff-button" value="Submit">
-    <% if current_user && current_user.privileged_role? %>
-      <input type="submit" value="Test" name="test" class="eff-button action test">
-    <% end %>
+    <div class="submit-wrapper">
+      <input type="submit" class="eff-button" value="Submit">
+      <% if current_user && current_user.privileged_role? %>
+        <input type="submit" value="Test" name="test" class="eff-button test">
+      <% end %>
+    </div>
     <%= render "tools/loading" -%>
   </div>
 <% end %>
