@@ -54,33 +54,16 @@
             If you prefer not to use our email tool, <a href="https://www.eff.org/congress"  target="_blank">click here</a>.</p>
           </fieldset>
         <% end %>
-        <input id="to-page-2" type="button" class="eff-button" value="Find your reps">
+        <input type="submit" class="eff-button" value="Find your reps">
         <%= render "tools/loading" -%>
         </div>
-
-        <fieldset id="customize-message">
-          <h3>
-            <span class="customize-message-popover" data-toggle="tooltip" data-trigger="hover">?
-              <span class="tooltiptext"><%= @congress_message_campaign.look_up_helper_text "Add a personal note about why this matters to you. Members of Congress value a customized message much higher than a form letter." %></span>
-           </span>
-            Customize your message
-          </h3>
-          <div class="form-group">
-            <%= text_area_tag :message, @congress_message_campaign.message,
-                              class: "campaign-message form-control",
-                              rows: 11 %>
-          </div>
-                  <%= render "tools/privacy_notice" %>
-                  <input id="to-page-3" type="submit" class="eff-button" value="Next >">
-        </fieldset>
       <% end %>
+
+      <div class="congress-message-tool-container"></div>
 
       <div id="email-signup-container" style="display:none;">
         <%= render "tools/newsletter_signup", email: false, location: false, privacy_notice: false %>
       </div>
-
-      <div class="congress-message-tool-container"></div>
-
     </div>
 
     <div class="tool-body without-js">
