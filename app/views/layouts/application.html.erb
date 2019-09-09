@@ -40,9 +40,7 @@
             <div class="nav-modal-backdrop">
               <div  class="nav-modal-content" id="nav-menu" role="navigation" aria-label="navigaton">
                   <ul>
-                    <% if current_page?(root_path) %>
-                    <li><a href="https:eff.org">EFF.org</a></li>
-                    <% end %>
+                    <li><a href="/action">EFF Campaigns</a></li>
                     <% if user_signed_in? %>
                       <% if can?(:administer_actions) && controller_name == "action_page" && @actionPage -%>
                         <li><%= link_to "Edit this page", edit_admin_action_page_path(@actionPage) -%></li>
@@ -66,7 +64,7 @@
                       <li><%= link_to("Register", new_user_registration_path)  %></li>
                       <li><%= link_to("Login", new_user_session_path)  %></li>
                     <% end %>
-
+                    <li><a href="https:eff.org">EFF.org</a></li>
                   </ul>
               </div>
             </div>
