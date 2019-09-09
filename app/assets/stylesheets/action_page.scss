@@ -36,12 +36,13 @@
   }
 }
 
+#description,
 .short-description {
   h5 {
     margin-bottom: 0;
     padding-bottom: 0;
   }
-  > p {
+  p {
     @media screen and (min-width: $lg) {
       font-size: $base-font-size * 1.2;
       line-height: $base-line-height * 1.2;
@@ -95,10 +96,14 @@
       width: 71%;
     }
   }
+  > div.desc-text.full {
+    padding-left: 0;
+    width: 100%;
+  }
   > div.related-content {
     width: 100%;
     @media screen and (min-width: $md) {
-      margin: 0 0 0 3rem;
+      margin: 1.4rem 0 0 3rem;
       width: 30%;
     }
     h4 {
@@ -125,7 +130,6 @@
   }
 }
 
-
 .form-control {
   border-radius: 0;
   font-size:  $base-font-size * 0.9;
@@ -133,7 +137,6 @@
   font-style: italic;
   padding: 1rem 0.5rem;
 }
-
 
 #tools {
   .page-indicator {
