@@ -1,49 +1,69 @@
-<%= form_tag(congress_message_campaign_congress_messages_path(@campaign),
-             remote: true, id: "congress-message-create") do %>
-  <p class="step2-intro">
+<%= form_tag(congress_message_campaign_congress_messages_path(@campaign), remote: true, id: "congress-message-create") do %>
+  <div class="rep-info">
+    <p class="step2-intro">
     <%= @campaign.extra_fields_explain_text("Your Congressmembers require this information in order to contact their offices. EFF does not store this information.") %>
-  </p>
-  <div id="errors"></div>
-  <% if @message.common_fields.any? %>
-    <h3 class="legislator-label common-fields">
-      <em>Common fields</em>
-    </h3>
-
-    <fieldset id="congressForms-common-fields">
-      <% @message.common_fields.each do |field| %>
-        <div class="form-group">
-          <%= congress_forms_field(field, @campaign, @message.common_attributes) %>
-        </div>
-      <% end %>
-    </fieldset>
-
-    <%= render "tools/newsletter_signup",
-               email: false, location: false, privacy_notice: false %>
-    <%= render "tools/save_my_info_option", info: %w(name address) %>
-  <% end %>
-
-  <% @message.forms_minus_common_fields.each do |form| %>
-    <fieldset class="congressForms-legislator-fields">
-      <h3 class="legislator-label">
-        <em><%= CongressMember.find_by(bioguide_id: form.bioguide_id).full_name %></em>
+    </p>
+    <div id="errors"></div>
+    <% if @message.common_fields.any? %>
+      <h3 class="legislator-label common-fields">
+        <em>Common fields</em>
       </h3>
-      <% form.fields.each do |field| %>
-        <div class="form-group">
-          <%= congress_forms_field(field, @campaign,
-            @message.attributes_for(form.bioguide_id),
-            form.bioguide_id) %>
-        </div>
-      <% end %>
-    </fieldset>
-  <% end %>
 
-  <%= hidden_field_tag :bioguide_ids, @message.targets %>
+      <fieldset id="congressForms-common-fields">
+        <% @message.common_fields.each do |field| %>
+          <div class="form-group">
+            <%= congress_forms_field(field, @campaign, @message.common_attributes) %>
+          </div>
+        <% end %>
+      </fieldset>
 
-  <div class="submit-wrapper">
-    <input id="to-page-3" type="submit" value="Next >" class="btn action">
-    <% if current_user && current_user.privileged_role? %>
-      <input id="to-page-3" type="submit" value="Test" name="test" class="btn action test">
+      <%= render "tools/newsletter_signup",
+        email: false, location: false, privacy_notice: false %>
+      <%= render "tools/save_my_info_option", info: %w(name address) %>
     <% end %>
+
+    <% @message.forms_minus_common_fields.each do |form| %>
+      <fieldset class="congressForms-legislator-fields">
+        <h3 class="legislator-label">
+          <em><%= CongressMember.find_by(bioguide_id: form.bioguide_id).full_name %></em>
+        </h3>
+        <% form.fields.each do |field| %>
+          <div class="form-group">
+            <%= congress_forms_field(field, @campaign,
+                                     @message.attributes_for(form.bioguide_id),
+                                     form.bioguide_id) %>
+          </div>
+        <% end %>
+      </fieldset>
+    <% end %>
+
+    <%= hidden_field_tag :bioguide_ids, @message.targets %>
+
+    <div class="submit-wrapper">
+      <input id="to-page-3" type="button" value="Next >" class="eff-button action">
+    </div>
+    <%= render "tools/loading" -%>
   </div>
-  <%= render "tools/loading" -%>
+
+  <div id="customize-message">
+    <fieldset>
+      <h3>
+        <span class="customize-message-popover" data-toggle="tooltip" data-trigger="hover">?
+          <span class="tooltiptext"><%= @campaign.look_up_helper_text "Add a personal note about why this matters to you. Members of Congress value a customized message much higher than a form letter." %></span>
+        </span>
+        Customize your message
+      </h3>
+      <div class="form-group">
+        <%= text_area_tag :message, @campaign.message,
+          class: "campaign-message form-control",
+          rows: 11 %>
+      </div>
+      <%= render "tools/privacy_notice" %>
+    </fieldset>
+    <input type="submit" class="eff-button" value="Submit">
+    <% if current_user && current_user.privileged_role? %>
+      <input type="submit" value="Test" name="test" class="eff-button action test">
+    <% end %>
+    <%= render "tools/loading" -%>
+  </div>
 <% end %>

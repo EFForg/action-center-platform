@@ -33,8 +33,8 @@ $(document).on("ready", function() {
     }
   });
 
-  $("#to-page-3").click(function(){
-    $(".congress-message-tool-container").hide();
+  $("#congress-message-tool").on("click", "#to-page-3", function(){
+    $(".rep-info").hide();
     $("#customize-message").show();
     $(".page-indicator div.page2").css({
       'background-color': '#2D2D2D',
@@ -46,7 +46,14 @@ $(document).on("ready", function() {
     });
   });
 
+  $(".congress-message-tool-container").on("click", "#customize-message :submit", function(){
+    console.log("submit");
+    $("#congress-message-create").trigger('submit');
+  });
+
   $(document).on("ajax:complete", function(xhr, data, status) {
+    console.log("ajax completed");
+    console.log(xhr.target);
     if (xhr.target.id == "congress-message-create") {
       var $form = $(this);
       if (status == "success") {
@@ -62,6 +69,7 @@ $(document).on("ready", function() {
           'color': '#2D2D2D'
         });
       } else if (data.responseText) {
+        back_to_page_2();
         show_error(data.responseText, $form);
       } else {
         show_error("Something went wrong. Please try again later.", $form);
@@ -75,5 +83,18 @@ $(document).on("ready", function() {
     form.find(".alert-danger").remove();
     $("#errors").append($('<div class="small alert alert-danger help-block">').text(error));
     $("input,textarea,button,select", form).removeAttr("disabled");
+  }
+
+  function back_to_page_2() {
+    $("#customize-message").hide();
+    $(".rep-info").show();
+    $(".page-indicator div.page2").css({
+      'background-color': '#BABABA',
+      'color': '#2D2D2D'
+    });
+    $(".page-indicator div.page3").css({
+      'background-color': '#2D2D2D',
+      'color': '#BABABA'
+    });
   }
 });
