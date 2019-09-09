@@ -40,28 +40,31 @@
             <div class="nav-modal-backdrop">
               <div  class="nav-modal-content" id="nav-menu" role="navigation" aria-label="navigaton">
                   <ul>
+                    <% if current_page?(root_path) %>
+                    <li><a href="https:eff.org">EFF.org</a></li>
+                    <% end %>
                     <% if user_signed_in? %>
-                    <% if can?(:administer_actions) && controller_name == "action_page" && @actionPage -%>
-                    <li><%= link_to "Edit this page", edit_admin_action_page_path(@actionPage) -%></li>
-                    <% end %>
+                      <% if can?(:administer_actions) && controller_name == "action_page" && @actionPage -%>
+                        <li><%= link_to "Edit this page", edit_admin_action_page_path(@actionPage) -%></li>
+                        <% end %>
 
-                    <% if current_user.privileged_role? %>
-                    <li><%= link_to("Admin", "/admin/action_pages") %></li>
-                    <% end %>
+                        <% if current_user.privileged_role? %>
+                          <li><%= link_to("Admin", "/admin/action_pages") %></li>
+                        <% end %>
 
-                    <% if current_user.partner? %>
-                    <li><%= link_to "Partner Dashboard", current_user.partner -%></li>
-                    <% end %>
+                        <% if current_user.partner? %>
+                          <li><%= link_to "Partner Dashboard", current_user.partner -%></li>
+                        <% end %>
 
-                    <li><%= link_to("Account", "/account") %></li>
-                    <li>
-                      <%= form_for current_user, url: destroy_user_session_path, method:  :delete, html: { class: "nav-form-link" } do |f| %>
-                      <%= f.submit "Logout" %>
-                      <% end %>
-                    </li>
+                        <li><%= link_to("Account", "/account") %></li>
+                        <li>
+                          <%= form_for current_user, url: destroy_user_session_path, method:  :delete, html: { class: "nav-form-link" } do |f| %>
+                          <%= f.submit "Logout" %>
+                          <% end %>
+                        </li>
                     <% else %>
-                    <li><%= link_to("Register", new_user_registration_path)  %></li>
-                    <li><%= link_to("Login", new_user_session_path)  %></li>
+                      <li><%= link_to("Register", new_user_registration_path)  %></li>
+                      <li><%= link_to("Login", new_user_session_path)  %></li>
                     <% end %>
 
                   </ul>
