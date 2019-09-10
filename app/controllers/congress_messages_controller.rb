@@ -18,12 +18,14 @@ class CongressMessagesController < ApplicationController
     end
 
     forms = CongressForms::Form.find(bioguide_ids)
-    @message = CongressMessage.new_from_lookup(location, params[:message], @campaign, forms)
+    @message = CongressMessage.new_from_lookup(location, @campaign, forms)
     render partial: "form"
   end
 
   def create
     @message = CongressMessage.new(congress_message_params.merge(campaign: @campaign))
+    # Custom messages are set after other fields and need to be refreshed
+    @message.update_common_attributes("$MESSAGE": params[:message])
     @message.forms = CongressForms::Form.find(params[:bioguide_ids].split)
 
     if @message.background_submit(params[:test])
