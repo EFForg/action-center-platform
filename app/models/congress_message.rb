@@ -9,9 +9,9 @@ class CongressMessage
   def common_attributes() @common_attributes || {}; end
   def member_attributes() @member_attributes || {}; end
 
-  def self.new_from_lookup(location, message, campaign, forms)
+  def self.new_from_lookup(location, campaign, forms)
     common_attributes = {
-      "$MESSAGE" => message,
+      "$MESSAGE" => campaign.message,
       "$SUBJECT" => campaign.subject
     }
     if location
@@ -57,6 +57,12 @@ class CongressMessage
   def background_submit(test = false)
     if valid?
       @forms.each { |f| f.delay.fill(attributes_for(f.bioguide_id), campaign.campaign_tag, test) }
+    end
+  end
+
+  def update_common_attributes(**attrs)
+    member_attributes.values.each do |member_attrs|
+      attrs.each { |key, val| member_attrs[key.to_s] = val }
     end
   end
 
