@@ -369,14 +369,22 @@
   > div {
     text-align: center;
   }
-  .tool {
+  .go-back {
+    margin: 1rem 0 3rem;
     #tweet-back {
-      text-decoration: underline;
-      &:hover {
-        cursor: pointer;
-      }
+      @extend .eff-button;
+      background: $gray-light;
+      border-bottom: 0;
+      clear: both;
+      color: $charcoal;
+      float: left;
+      font-size: $base-font-size * 0.8;
+      margin: 1rem auto;
+      max-width: 100%;
+      text-transform: none;
     }
   }
+
 }
 #call-tool {
   .advisory {
