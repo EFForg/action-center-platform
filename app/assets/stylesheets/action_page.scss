@@ -382,6 +382,12 @@
       margin: 1rem auto;
       max-width: 100%;
       text-transform: none;
+      &:hover {
+        background: $gray-light;
+        border-bottom: 0;
+        color: $charcoal;
+        cursor: default;
+      }
     }
   }
 
