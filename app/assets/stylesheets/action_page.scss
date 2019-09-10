@@ -642,17 +642,16 @@ h3.header,
       font-family: serif;
     }
     .signed {
-      color: $gray-light;
+      color: $charcoal;
       text-transform: uppercase;
       font-size: 0.85em;
-      font-style: italic;
       font-weight: bold;
       letter-spacing: 0.1em;
-      font-family: $sans-serif;
       margin-bottom: 1em;
     }
     .name {
       margin-bottom: 0.5em;
+      font-style: italic;
     }
   }
 }
