@@ -3,6 +3,7 @@ $(document).on('ready', function() {
   _.templateSettings.interpolate = /{{([\s\S]+?)}}/g;
 
   $('form.petition-tool').on('submit', function(ev) {
+    ev.preventDefault();
     var form = $(ev.currentTarget);
 
     // There are two types of errors: inline (.has-error) and not (.alert-danger)
@@ -20,11 +21,12 @@ $(document).on('ready', function() {
       type: 'POST',
       success: function(data) {
         if (data.success) {
+          console.log("success");
           height_changed();
           incrementPetitionCount();
           getSignatures();
           $('#petition-tool').hide();
-          $('#thank-you').show();
+          $('.thank-you').show();
         }
         else if (data.errors) {
           var errors = JSON.parse(data.errors);

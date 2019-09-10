@@ -31,17 +31,19 @@
 
 }
 #progress-bar {
-  .count, .goal {
+  padding: 0 1rem;
+  .text {
     font-size: $base-font-size * 0.8;
   }
 }
 
+#description,
 .short-description {
   h5 {
     margin-bottom: 0;
     padding-bottom: 0;
   }
-  > p {
+  p {
     @media screen and (min-width: $lg) {
       font-size: $base-font-size * 1.2;
       line-height: $base-line-height * 1.2;
@@ -95,10 +97,14 @@
       width: 71%;
     }
   }
+  > div.desc-text.full {
+    padding-left: 0;
+    width: 100%;
+  }
   > div.related-content {
     width: 100%;
     @media screen and (min-width: $md) {
-      margin: 0 0 0 3rem;
+      margin: 1.4rem 0 0 3rem;
       width: 30%;
     }
     h4 {
@@ -125,7 +131,6 @@
   }
 }
 
-
 .form-control {
   border-radius: 0;
   font-size:  $base-font-size * 0.9;
@@ -133,7 +138,6 @@
   font-style: italic;
   padding: 1rem 0.5rem;
 }
-
 
 #tools {
   .page-indicator {
@@ -361,11 +365,15 @@
 
 }
 
-#thank-you.tool {
+#tools .thank-you .tool-title {
+  text-align: center;
+}
+
+.thank-you.tool {
   @extend form;
   display: none;
 }
-#thank-you {
+.thank-you {
   > div {
     text-align: center;
   }
@@ -647,17 +655,16 @@ h3.header,
       font-family: serif;
     }
     .signed {
-      color: $gray-light;
+      color: $charcoal;
       text-transform: uppercase;
       font-size: 0.85em;
-      font-style: italic;
       font-weight: bold;
       letter-spacing: 0.1em;
-      font-family: $sans-serif;
       margin-bottom: 1em;
     }
     .name {
       margin-bottom: 0.5em;
+      font-style: italic;
     }
   }
 }
