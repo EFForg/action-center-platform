@@ -35,6 +35,7 @@ nav {
   .nav-wrapper {
     margin: 0 auto;
     padding: 0;
+    position: relative;
     max-width: 860px;
     width: 95%;
     @media screen and (min-width: $lg) {
@@ -84,7 +85,6 @@ nav {
 
     #nav-menu {  // drop-down menu
       @media screen and (min-width: $md) {
-        right: 5%;
         top: 80px;
         width: 250px;
       }
@@ -99,7 +99,7 @@ nav {
       display: inline-block;
       padding-bottom: 1rem;
       position: absolute;
-      right: 5%;
+      right: 2rem;
       top: 60px;
       transition: all 0.3s ease;
       width: 200px;
