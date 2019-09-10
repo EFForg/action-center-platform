@@ -42,7 +42,7 @@ $(document).on("ready", function() {
       success: function(data) {
         $("#congress-message-create").hide();
         $("#congress-message-tool").hide();
-        $('#thank-you').show();
+        $('.thank-you').show();
         update_tabs(3, 4);
       },
       error: function(data) {

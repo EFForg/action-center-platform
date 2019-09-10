@@ -12,28 +12,30 @@
         <h1><%= @actionPage.title -%></h1>
         <%= image_tag(@actionPage.featured_image) %>
         <%= markdown @actionPage.summary -%>
-        <input type='checkbox' style='display: none' id="learn-more">
-        <label for="learn-more">Learn More</label>
-        <div class="description" id="description">
-        <% if @related_content.found? %>
-          <div class="desc-text">
-            <p><%= markdown @actionPage.description -%></p>
-          </div>
-          <div class="related-content">
-            <h4>Related Content</h4>
-            <%= link_to @actionPage.related_content_url do %>
-              <div class="image">
-                <%= image_tag(@related_content.image) %>
+        <% if @actionPage.description.present? %>
+          <input type='checkbox' style='display: none' id="learn-more">
+          <label for="learn-more">Learn More</label>
+          <div class="description" id="description">
+            <% if @related_content.found? %>
+              <div class="desc-text">
+                <p><%= markdown @actionPage.description -%></p>
               </div>
-              <h5><%= @related_content.title %></h5>
+              <div class="related-content">
+                <h4>Related Content</h4>
+                <%= link_to @actionPage.related_content_url do %>
+                  <div class="image">
+                    <%= image_tag(@related_content.image) %>
+                  </div>
+                  <h5><%= @related_content.title %></h5>
+                <% end %>
+              </div>
+            <% else %>
+              <div class="desc-text full">
+                <p><%= markdown @actionPage.description -%></p>
+              </div>
             <% end %>
           </div>
-        <% else %>
-          <div class="desc-text full">
-            <p><%= markdown @actionPage.description -%></p>
-          </div>
         <% end %>
-        </div>
       </div>
       <div class=" action-content" id="action-content" data-action-id="<%= @actionPage.id -%>" >
 

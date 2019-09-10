@@ -31,7 +31,8 @@
 
 }
 #progress-bar {
-  .count, .goal {
+  padding: 0 1rem;
+  .text {
     font-size: $base-font-size * 0.8;
   }
 }
@@ -360,11 +361,15 @@
 
 }
 
-#thank-you.tool {
+#tools .thank-you .tool-title {
+  text-align: center;
+}
+
+.thank-you.tool {
   @extend form;
   display: none;
 }
-#thank-you {
+.thank-you {
   > div {
     text-align: center;
   }

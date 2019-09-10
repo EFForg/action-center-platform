@@ -16,24 +16,22 @@
         </div>
       <% end %>
 
-      <%- if @actionPage.petition.goal && @actionPage.petition.goal > 0 -%>
-        <div id="progress-bar">
-          <div class='count'><b><%= @signature_count -%></b> /
+      <div id="progress-bar">
+        <%- if @actionPage.petition.goal && @actionPage.petition.goal > 0 -%>
+          <div class='text'><b><%= @signature_count -%></b> /
             <span class='goal'><%= @actionPage.petition.goal -%> <%= t :signatures -%></span>
           </div>
           <div class="progress">
             <div class="progress-bar progress-bar-danger signatures-bar" role="progressbar" aria-valuenow="<%= @signature_count -%>>" aria-valuemin="0" aria-valuemax="<%= @actionPage.petition.goal-%>" style="width: <%= @actionPage.petition.percent_complete -%>%">
             </div>
           </div>
-        </div>
-      <% else %>
-        <div id="progress-bar">
-          <div class='count'><b><%= @signature_count -%></b><span class='goal'> <%= t :signatures -%></span>
-          </div>
-        </div>
-      <% end -%>
+        <% else %>
+          <div class='text'><b><%= @signature_count -%></b><span class='goal'> <%= t :signatures -%></span></div>
+        <% end -%>
+      </div>
 
         <div class='signed'>
+          <hr>
           <%= render 'tools/thank_you' -%>
         </div>
         <div class='unsigned'>
@@ -102,11 +100,11 @@
       </div>
     </div>
   </div>
+</div>
 
-  <% if !@petition.enable_affiliations? -%>
+<% if !@petition.enable_affiliations? -%>
   <div id='signatures' class="hidden-xs ajax-update">
     <h4 class='header'><%= t :recent_signatories -%></h4>
     <%= render(partial: "tools/signatures", layout: false) %>
   </div>
-  <% end -%>
-</div>
+<% end -%>
