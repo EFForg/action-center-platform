@@ -50,13 +50,14 @@
     .logo {
       width: 28rem;
       a {
-        background: asset-url('EFF-logo-lockup-1color-gray.svg') no-repeat;
+        background: asset-url('EFF-logo-lockup-1color-white.svg') no-repeat;
         border: none;
         display: block;
         height: 4.5rem;
         margin: 2rem 0;
+        opacity: 0.7;
         &:hover {
-          background: asset-url('EFF-logo-lockup-1color-white.svg') no-repeat;
+          opacity: 1;
           border: none;
           transition: none;
         }
