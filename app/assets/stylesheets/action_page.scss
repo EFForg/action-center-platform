@@ -382,7 +382,7 @@
     #tweet-back {
       @extend .eff-button;
       background: $gray-light;
-      border-bottom: 0;
+      border-bottom: 4px solid $charcoal;
       clear: both;
       color: $charcoal;
       float: left;
@@ -391,10 +391,9 @@
       max-width: 100%;
       text-transform: none;
       &:hover {
-        background: $gray-light;
-        border-bottom: 0;
-        color: $charcoal;
-        cursor: default;
+        background: $charcoal;
+        border-bottom: 4px solid $gray-light;
+        color: $gray-light;
       }
     }
   }
