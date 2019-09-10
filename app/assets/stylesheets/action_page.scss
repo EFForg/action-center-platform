@@ -542,7 +542,7 @@ h3.header,
 #tools #email-tool h3,
 #tools #congress-message-tool h3 {
   position: relative;
-  margin-bottom: 1em;
+  margin-bottom: 1rem;
   text-align: left;
 }
 
@@ -671,6 +671,8 @@ h3.header,
     font-size: $base-font-size * 0.8;
   }
   h3.header {
+    margin-bottom: 0;
+    padding-bottom: 0;
     text-transform: uppercase;
   }
   .call-body-active,
