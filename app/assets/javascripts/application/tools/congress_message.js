@@ -29,6 +29,10 @@ $(document).on("ready", function() {
     $("#customize-message").show();
     update_tabs(2, 3);
   });
+  $(".congress-message-tool-container").on("change", "#select-members :checkbox", function(e){
+    var bioguide_id = $(this).val();
+    $("#form-for-" + bioguide_id).toggle();
+  });
 
   $(".congress-message-tool-container").on("click", "#customize-message :submit", function(e){
     // Can't use rails remote: true because the form is rendered dynamically
