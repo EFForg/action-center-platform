@@ -24,7 +24,7 @@
             <h2>
               <%= @featuredActionPage.title -%>
             </h2>
-            <span class="eff-red-button" role="button" aria-pressed="false"><%= t(:take_action) %></span>
+            <span class="eff-button" role="button" aria-pressed="false"><%= t(:take_action) %></span>
           <% end %>
         </div>
       </div>
@@ -47,8 +47,10 @@
             </h5>
           <% end %>
           <div class="more-actions-text">
+
+            <h3><%= actionPage.title -%>
             <%= link_to action_page_path(actionPage) do%>
-            <h3><%= actionPage.title -%></h3>
+            </h3>
             <p> <%= markdown actionPage.summary -%></p>
             <% end %>
           </div>

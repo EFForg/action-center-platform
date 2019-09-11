@@ -139,10 +139,11 @@ nav {
         display: inline-block;
         float: right;
         font-size: 3rem;
-        height: 0;
+        height: 3rem;
         margin: -0.22rem 0 0;
         @media screen and (min-width: $md) {
           font-size: 4rem;
+          height: 4rem;
           margin: -6.7rem 0 0;
         }
         @media screen and (min-width: $xl) {

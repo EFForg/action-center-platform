@@ -102,7 +102,6 @@ RSpec.describe "Congress Messages", type: :request do
           "$ADDRESS_ZIP5" => "94109",
           "$EMAIL" => "jsummers@altavista.com",
           "$NAME_PREFIX" => "Mrs.",
-          "$MESSAGE" => "Impeach Mayor Richard Wilkins III"
         },
         member_attributes: {
           "C000880" => {
@@ -115,7 +114,10 @@ RSpec.describe "Congress Messages", type: :request do
             "$TOPIC" => "Special_Requests"
           }
         },
-        bioguide_ids: "C000880 A000360"
+        forms: {
+          bioguide_ids: %w(C000880 A000360)
+        },
+        message: "Impeach Mayor Richard Wilkins III"
       }
     end
 

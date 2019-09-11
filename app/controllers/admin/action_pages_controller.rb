@@ -114,6 +114,8 @@ class Admin::ActionPagesController < Admin::ApplicationController
                               zipcode: current_zipcode,
                               country_code: current_country_code,
                               email: current_email }
+    @related_content = RelatedContent.new(@actionPage.related_content_url)
+    @related_content.load
 
     render "action_page/show", layout: "application"
   end

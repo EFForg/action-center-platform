@@ -71,12 +71,12 @@ $(document).on('ready', function() {
     }
     Twitter.handleIntent(e);
     $('#tweet-tool').hide();
-    $('#thank-you').show();
+    $('.thank-you').show();
   });
 
   $('#tweet-back').on('click', function(){
     $('#tweet-tool').show();
-    $('#thank-you').hide();
+    $('.thank-you').hide();
   });
 
   var related = $("#tweet-tool").data("tweet-related");

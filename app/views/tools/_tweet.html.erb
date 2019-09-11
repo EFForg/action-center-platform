@@ -44,7 +44,7 @@
               <input class="form-control" type=text name="zipcode" id="zipcode" required>
             </div>
             <%= render "tools/save_my_info_option", info: %w[address zipcode] -%>
-            <input type=submit class="eff-red-button" value="Look up your reps" role="button" aria-pressed="false">
+            <input type=submit class="eff-button" value="Look up your reps" role="button" aria-pressed="false">
             <%= render "tools/loading" -%>
 
                 <% if @tweet.target_congress? && !@reps.present? -%>
@@ -76,7 +76,9 @@
     <%= form_for :subscription, url: subscriptions_path, remote: true, html: { class: "newsletter-subscription" } do |f| %>
       <hr />
       <%= invisible_captcha %>
+      <h3>
       <%= t :sign_up_for_mailings_from %> <b><%= t :organization_abbreviation %></b>?
+      </h3>
 
       <fieldset>
         <%= f.email_field :email, class: "form-control", placeholder: "Email", required: "email", "aria-label": "Email" %>
@@ -86,7 +88,7 @@
 
       <%= render "tools/privacy_notice" %>
 
-      <%= f.submit "Sign up", class: "btn btn-primary action" %>
+      <%= f.submit "Sign up", class: "eff-button" %>
     <% end %>
   <% end %>
 </div>

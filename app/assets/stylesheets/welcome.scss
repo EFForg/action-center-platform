@@ -32,6 +32,7 @@ section.featured-action {
       h2 {
         padding-top: 0;
         @media screen and  (min-width: $lg) {
+          margin-bottom: 1rem;
           margin-top: -0.5rem;
         }
       }
@@ -46,7 +47,7 @@ section.featured-action {
           margin-top: 0;
         }
       }
-      span.eff-red-button {
+      span.eff-button {
         display: block;
         margin: 1rem auto 0;
         text-align: center;
@@ -67,6 +68,7 @@ section.featured-action {
           width: 33.5%;
         }
         h5 { // category
+          padding-bottom: 0;
           padding-top: 1rem;
           @media screen and  (min-width: $md) {
             padding: 0;
@@ -93,10 +95,19 @@ section.more-actions {
       @media screen and (min-width: $md) {
         padding: 0 2rem 0 0;
       }
+      a {
+        border: none;
+        &:hover {
+          color: $off-white;
+        }
+      }
+      &:hover {
+        opacity: 0.7;
+      }
     }
     h3 {
       font-size: $base-font-size * 1.2;
-      padding: 0 0 0.3rem;
+      padding: 0.5rem 0 0.3rem;
     }
   }
 

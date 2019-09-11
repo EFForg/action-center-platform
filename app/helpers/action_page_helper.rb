@@ -40,7 +40,7 @@ module ActionPageHelper
   end
 
   def rep_tweet_link(rep)
-    tweet_link("@#{rep.twitter_id}", class: "btn-sm rep")
+    tweet_link("@#{rep.twitter_id}", class: "btn-tweet rep")
   end
 
   def individual_tweet_link(tweet_target)
