@@ -11,7 +11,7 @@ class CongressMessagesController < ApplicationController
   def new
     if @campaign.target_bioguide_ids.present?
       bioguide_ids = @campaign.target_bioguide_ids.split
-      @members = CongressMembers.where(bioguide_id: bioguide_ids)
+      @members = CongressMember.where(bioguide_id: bioguide_ids)
     else
       location = SmartyStreets.get_location(params[:street_address], params[:zipcode])
       @members = @campaign.targets.for_district(location.state, location.district)
