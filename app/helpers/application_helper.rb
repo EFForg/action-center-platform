@@ -1,6 +1,7 @@
 module ApplicationHelper
   def page_title
-    [@title, I18n.t("site_title")].compact.join(" | ")
+    t("page_title", scope: [controller_path.gsub("/", "_"), action_name],
+      default: [@title, I18n.t("site_title")].compact.join(" | "))
   end
 
   def escape_page_title
@@ -97,6 +98,14 @@ module ApplicationHelper
   def pluralize_with_span(count, noun)
     noun = count == 1 ? noun : noun.pluralize
     content_tag(:span, count) + " #{noun}"
+  end
+
+  def messages
+    messages = flash.collect do |type, content|
+      content_tag :p, content, class: "flash #{type}"
+    end
+
+    safe_join(messages)
   end
 
   private

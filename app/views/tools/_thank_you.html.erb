@@ -1,0 +1,38 @@
+<div class="thank-you tool-container">
+  <div>
+    <%= image_tag 'thankyou-circle.png', alt: 'Illustration of a woman with green hair using a laptop' %>
+    <h3 class="tool-title thank-you-title">Thank You!</h3>
+    <p>Your action is important and contributes
+    to preserving a free, open internet.</p>
+  </div>
+  <div class="tool-body">
+    <hr>
+    <h5>Spread the word:</h5>
+    <div class="share">
+      <a data-network="twitter" href="<%= twitter_share_url(@actionPage) -%>" count="0" target="_blank" >
+        <div class="sicon" id="stwit"></div>
+      </a>
+      <a href="<%= facebook_share_url(@actionPage) -%>" data-network="facebook" count="0" target="_blank"">
+        <div class="sicon" id="sfb"></div>
+      </a>
+      <a href="<%= email_friends_url(@actionPage) -%>" count="0" target="_blank">
+        <div class="sicon" id="semail"></div>
+      </a>
+
+      <div class="sicon copy-url-share" title="Show persistent url" id="slink"></div>
+      <div class="url-field-share">
+        <input type="text" readOnly />
+      </div>
+    </div>
+  </div>
+  <hr>
+  <p> EFF is supported by donations from folks like you. We appreciate anything you can give! </p>
+  <a class="eff-button" href="https://supporters.eff.org/donate" role="button" aria-pressed="false">Donate</a>
+  <% if @actionPage.enable_tweet && @actionPage.tweet %>
+    <% if @actionPage.tweet.targets.present? && (@actionPage.tweet.targets.size > 1) %>
+    <div class="go-back">
+      <button id="tweet-back">Want to tweet others? Go back</button>
+    </div>
+    <% end %>
+  <% end %>
+</div>

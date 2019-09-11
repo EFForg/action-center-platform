@@ -1,8 +1,4 @@
 <% if user_signed_in? -%>
-  <div class='checkbox small'>
-    <%= label_tag :update_user_data do -%>
-      <%= check_box_tag :update_user_data, 'yes', checked=user_signed_in? -%>
-      <%= t :save_my_info, info: info.to_sentence -%>
-    <% end -%>
-  </div>
+  <%= check_box_tag :update_user_data, 'yes', checked=user_signed_in? -%>
+  <%= label_tag :update_user_data, 'Save my address and zipcode for next time.' -%>
 <% end -%>

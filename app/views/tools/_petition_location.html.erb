@@ -1,15 +1,15 @@
 <fieldset id='location' data-international-only="<%= params[:international_only] %>" <%= 'class=require' if @require_location -%>>
   <span class='intl-toggle'>
     <div class="row">
-      <div class="col-xs-6">
+      <div>
         <%= f.text_field :zipcode, class: 'form-control',
           placeholder: "#{t(:zip_code)} #{@require_location ? '' : t(:optional)}",
           'aria-label': t(:zip_code),
           title: t('petition_errors.required.zip_code') -%>
       </div>
-      <div class="col-xs-6">
-          <a class='intl-toggler pull-right hidden-if-no-js'><%= t :outside_the_us -%></a>
-      </div>
+
+          <span class='intl-toggler pull-right hidden-if-no-js eff-button'><%= t :outside_the_us -%></span>
+
     </div>
   </span>
 
@@ -17,7 +17,7 @@
       <%= f.text_field :city, placeholder: t(:city), 'aria-label': t(:city),
         class: 'form-control input-pair', pattern: '.*\S+.*', title: t('petition_errors.required.city')
       -%>
-      <a class='intl-toggler pull-right hidden-if-no-js'><%= t :in_the_us -%></a>
+      <span class='intl-toggler pull-right hidden-if-no-js eff-button'><%= t :in_the_us -%></span>
       <%= f.select :country_code, Places.country_codes, { prompt: t(:country) },
         class: 'form-control' -%>
   </div>

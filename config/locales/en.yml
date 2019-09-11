@@ -23,8 +23,7 @@ en:
   organization_name: Electronic Frontier Foundation
   organization_abbreviation: EFF
   site_title: EFF Action Center
-  front_page_header_html: HELP US <strong>FIGHT</strong> FOR YOUR <strong>DIGITAL RIGHTS</strong>
-  summary: Defend free speech. Fight surveillance. Support innovation.
+  front_page_header_html: Defend free speech. Fight surveillance. Support innovation.
   take_action: Take action
   your_account: Your EFF Action Account
   see_all_campaigns: See all our campaigns
@@ -53,7 +52,7 @@ en:
   recent_signatories: Recent Signatories
   signed: Signed
   your_name: Your Name
-  sign_the_petition: Sign the petition
+  sign_the_petition: Take Action
   signatures: signatures
   first_name: First Name
   last_name: Last Name
@@ -82,6 +81,24 @@ en:
     views: Action Page Views
     emails: Email Actions
     congress_messages: Congress Message Actions
+  admin_action_pages:
+    new:
+      page_title: Create New Action
+
+    edit:
+      page_title: Edit Action
+
+  admin_events:
+    index:
+      page_title: Site Analytics
+
+  admin_users:
+    index:
+      page_title: Users
+
+  admin_source_files:
+    index:
+      page_title: Image Gallery
   congress_forms:
     $NAME_LAST: Your last name
     $NAME_FIRST: Your first name

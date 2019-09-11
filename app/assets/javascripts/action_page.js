@@ -18,10 +18,6 @@ function rumbleEl(el) {
 
 $(document).on('ready', function() {
   jQuery(".timeago").timeago();
-
-  // Enables popover on the action pages.
-  $('.customize-message-popover').popover();
-  $('.privacy-notice-popover').popover();
 });
 
 // Give an approximate character count guide to see how many character's are

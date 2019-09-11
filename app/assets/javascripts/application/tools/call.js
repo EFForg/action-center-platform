@@ -110,6 +110,7 @@ $(document).on('ready', function() {
               contentType: false
             }).success(function() {
               form.attr("data-success", "true");
+              $('.thank-you').show();
             });
           }
         }, zip_code, street_address);

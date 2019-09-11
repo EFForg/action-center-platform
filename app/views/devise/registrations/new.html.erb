@@ -1,9 +1,15 @@
-<div class="redtop">
-  <div class="container">
+<div class="top-section">
+  <div class="container" role="main">
     <div class="row">
-      <div class="col-lg-4 col-lg-offset-4 col-sm-6 col-sm-offset-3">
-        <h1>Sign up</h1>
+      <div>
+        <h1>Register</h1>
 
+        <p>
+          <span class="register-info" data-toggle="tooltip" data-trigger="hover">?
+            <span class="tooltiptext">You can save information like your address for convenience in taking actions later, and manage your subscriptions to EFF newsletters. Within your account you may choose not to keep track of your actions, not supply any information, or unsubscribe to newsletters, if that is your preference.  All information is subject to EFF's privacy policy, and you may delete your account at any time.</span>
+          </span>
+        Registering for the Action Center allows you to keep track of any EFF actions you have taken.
+        </p>
         <%= form_for(resource, :as => resource_name, :url => registration_path(resource_name)) do |f| %>
           <%= devise_error_messages! %>
           <div class="form-group">
@@ -24,10 +30,10 @@
           <div class="email-signup">
             I
             <%= f.radio_button :subscribe, 'true'-%>
-            <%= f.label :subscribe, 'want', value: 'true', class: 'radio-inline'-%>
+            <label for="user_subscribe_true"><span></span>want</label>
 
             <%= f.radio_button :subscribe, 'false'-%>
-            <%= f.label :subscribe, 'do not want', value: 'false', class: 'radio-inline'-%>
+            <label for="user_subscribe_false"><span></span>do not want</label>
 
             to receive the EFF newsletter and emails about other EFF campaigns.
           </div>
@@ -35,14 +41,14 @@
           <div class="email-signup">
             I
             <%= f.radio_button :record_activity, 'true', id: 'do-record' -%>
-            <label class="radio-inline" for="do-record">want</label>
+            <label for="do-record"><span></span>want</label>
 
             <%= f.radio_button :record_activity, 'false', id: 'do-not-record' -%>
-            <label class="radio-inline" for="do-not-record">do not want</label>
+            <label for="do-not-record"><span></span>do not want</label>
 
             EFF to keep a record of actions I take on the site, to be used for features like leaderboards or to give out prizes to the most active action-takers.
           </div>
-          <div><%= f.submit "Sign up", :class => 'btn btn-default' %></div>
+          <div class="submit"><%= f.submit "Sign up", :class => 'eff-button' %></div>
         <% end %>
         <%= render "devise/shared/links" %>
       </div>

@@ -34,7 +34,7 @@ h1 {
 label span {
   font-weight: normal;
   font-size: 11px;
-  color: $mediumgrey;
+  color: $gray;
 }
 
 #admin-action-page .btn-bar form {
@@ -61,7 +61,6 @@ Main Form
     width: 100%;
     padding: 0.25em 0.5em;
     border: 1px solid #cce;
-    border-radius: 4px;
     font-size: 1em;
     background-color: #fff;
   }
@@ -285,7 +284,7 @@ Analytics
   }
 }
 
-div#date_control_container {
+div#analytics_date_control_container {
   margin: 10px 0;
   display: inline-block;
 
@@ -361,7 +360,7 @@ File upload/gallery
 }
 
 // Fix Gallery button position on non-mobile devices
-@media (min-width: 798px) {
+@media screen and (min-width: $md) {
   .tabs-left .open-gallery {
     float: none !important;
   }

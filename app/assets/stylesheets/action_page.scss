@@ -1,145 +1,276 @@
-/*
- * This is a manifest file that'll be compiled into action_page.css, which will include all the files
- * listed below.
- */
+.action_page-show,
+.action_pages-preview {
+  .row {
+    @include flex-this;
+    flex-direction: column;
+    margin: 0;
+    @media screen and (min-width: $lg) {
+      flex-direction: row;
+    }
+    > div {
+      @include flex-item;
+      margin: 0 auto;
+      text-align: left;
+      width: 100%;
+      @media screen and (min-width: $md) {
+        margin: 2rem auto;
+      }
+    }
+    @media screen and (min-width: $lg) {
+      > div:first-child {
+        margin: 1rem 3rem 1rem 0;
+        width: 65%;
+      }
+      > div:last-child {
+        margin: 3.2rem 0.5rem 0 0;
+        width: 35%;
+      }
+    }
 
-.redtop {
-  padding: 2em 0 0;
-  h1 {
-    font-size: 2.5em;
-    font-weight: normal;
-    line-height: 1.2;
-    margin-top: 0;
   }
 
-  a {
-    color: #fff;
-    text-decoration: underline;
-    &:hover {
-      color: #D5D5D5;
+}
+#progress-bar {
+  padding: 0 1rem;
+  .text {
+    font-size: $base-font-size * 0.8;
+  }
+}
+
+#description,
+.short-description {
+  h5 {
+    margin-bottom: 0;
+    padding-bottom: 0;
+  }
+  p {
+    @media screen and (min-width: $lg) {
+      font-size: $base-font-size * 1.2;
+      line-height: $base-line-height * 1.2;
+    }
+  }
+  img {
+    padding-right: 1rem;
+    @media screen and (min-width: $md) {
+      margin-bottom: 3rem;
+      padding-right: 0.5rem;
+    }
+  }
+  input:not(:checked) + label + div {  // for Learn more
+    display: none;
+  };
+  input:checked + label + div {  // for Learn more
+    display: flex !important;
+  };
+
+
+  [type="checkbox"]:not(:checked) + label,
+  [type="checkbox"]:checked + label {
+    border-bottom: 2px solid $font-color;
+    margin-bottom: 1rem;
+    padding: 0;
+    @media screen and (min-width: $ph) {
+      margin-left: 0;
+    }
+    @media screen and (min-width: $lg) {
+      font-size: $base-font-size * 1.2;
+      line-height: $base-line-height * 1.2;
+    }
+    &:before,
+    &:after {
+      display: none;
     }
   }
 }
-.action_page-show .redtop {
-  padding-bottom: 0;
-  svg.triangle {
-  }
-}
-#progress-bar {
-  .progress {
-    margin-bottom: 1.2em;
-  }
-  .count, .goal {
-    font-size: 0.85em;
-  }
-}
-
-.short-description {
-  font-size: 1.1em;
-  margin-top: 2em;
-}
 
 #description {
-  margin-top: 3em;
-  h3 {
-    color: #0a639b;
-    line-height: 1.3;
-    * { background-color: #fff; }
+  @include flex-this;
+  display: none; // for learn more
+  > div {
+    @include flex-item;
+  }
+  > div.desc-text {
+    padding-left: 0;
+    width: 100%;
+    @media screen and (min-width: $md) {
+      margin: 0 auto;
+      width: 71%;
+    }
+  }
+  > div.desc-text.full {
+    padding-left: 0;
+    width: 100%;
+  }
+  > div.related-content {
+    width: 100%;
+    @media screen and (min-width: $md) {
+      margin: 1.4rem 0 0 3rem;
+      width: 30%;
+    }
+    h4 {
+      padding-top: 0;
+      padding-bottom: 2rem;
+    }
+    h5 {
+      margin-bottom: 2rem;
+    }
+    img {
+      margin-bottom: 0;
+      width: 100%;
+    }
   }
   p, li {
     margin-bottom: 1em;
   }
-}
-
-.tools-wrapper {
-  z-index: 10;
+  > p,
+  > li {
+    @media screen and (min-width: $lg) {
+      font-size: $base-font-size * 1.2;
+      line-height: $base-line-height * 1.2;
+    }
+  }
 }
 
 .form-control {
   border-radius: 0;
-  padding: 0 0.5em;
-  font-size: 0.8em;
-}
-
-#share-buttons-wrapper {
-  position: absolute;
-  text-align: center;
-  right: 20px;
-  top: 0px;
-  @media (max-width: $screen-sm-max) and (min-width: $screen-sm-min) {
-    position: relative;
-    right: 0;
-    #share-buttons a {
-      display: inline-block !important;
-    }
-  }
-  @media (max-width: $screen-xs-max) {
-    display: none;
-  }
+  font-size:  $base-font-size * 0.9;
+  line-height: $base-line-height * 1.1;
+  font-style: italic;
+  padding: 1rem 0.5rem;
 }
 
 #tools {
-
-  .tool {
-    background-color: #ffffff;
-    margin-bottom: 20px;
-    border: solid 1px #cc0000;
-    border-radius: 4px;
-    -webkit-box-shadow: 0 0 5px 5px rgba(0, 0, 0, 0.1); // iOS <4.3 & Android <4.1
-    box-shadow: 0 0 2px 2px rgba(0, 0, 0, 0.1);
-
-    .tool-container {
-      padding: 1em 0.4em 0 0.4em;
+  .page-indicator {
+    @include griddy;
+    background-color: $charcoal;
+    color: $gray;
+    display: none; // hide unless congress-message-tool
+    font-weight: 600;
+    margin-bottom: 10px;
+    text-align: center;
+    div.page1 {  // start on page 1
+      background-color: $gray;
+      color: $charcoal;
     }
-
-    .tool-heading {
-      color: #cc0000;
-      text-transform: uppercase;
-      text-align: center;
-
-      .tool-title {
-        text-transform: none;
-        font-size: 1.2em;
-        padding: 5px 0 0 0;
-        margin: 0;
-
-        .glyphicon {
-          font-size: 0.8em;
-          padding-right: 0.2em;
-        }
-        &.signed {
-          color: #14618b;
-        }
+  }
+  .tool {
+    background-color: $gray-darker;
+    color: black;
+    margin-bottom: 1.5rem;
+    text-align: left;
+    h3 {
+      color: black;
+      font-size: $base-font-size * 1.2;
+      line-height: $base-line-height * 1.2;
+      margin-top: 0;
+      em {
+        font-style: normal;
+      }
+    }
+    a {
+      color: black;
+      border-bottom: 2px solid black;
+      &:hover {
+        border-bottom: 2px solid $charcoal;
+      }
+    }
+    a.eff-button {
+      color: white;
+      border-bottom: 4px solid $dark-red;
+      &:hover {
+        background-color: $dark-red;
+        border-bottom: 4px solid $red;
+        opacity: 1;
+      }
+    }
+    .tool-container {
+      padding: 2rem 0.8rem 1rem 0.8rem;
+      img {
+        width: 100px;
+        height: 100px;
       }
     }
 
+    .tool-heading {
+      color: $off-white;
+      padding-left: 1rem;
+      text-transform: uppercase;
+      .tool-title {
+        color: $off-white;
+        font-family: $league;
+        font-size: 4rem;
+        font-weight: 200;
+        line-height: 4rem;
+        margin: 0;
+        text-transform: uppercase;
+      }
+      .tool-title.precall,
+      .tool-title.postcall {  // for call tool
+        padding-left: 0;
+      }
+      p {
+        color: black;
+        margin-top: 1rem;
+        text-transform: none;
+      }
+    }
+
+    .tool-title {
+      color: $off-white;
+      font-family: $league;
+      font-size: 4rem;
+      font-weight: 200;
+      line-height: 4rem;
+      padding: 0 0 0 0.5rem;
+      margin: 0 0 1rem;
+      text-align: left;
+      text-transform: uppercase;
+    }
+
+    .tool-title.thank-you-title {
+      text-align: center;
+    }
+
     .tool-body {
-      padding: 10px;
+      h4 {
+        color: black;
+      }
+      label a,
+      p a {
+        color: black;
+        border-bottom: 2px solid black;
+        &:hover {
+          color: $charcoal;
+          border-bottom: 2px solid $charcoal;
+        }
+      }
+
+
     }
     .tool-notice {
-      padding-bottom: 5px;
+      padding-bottom: 0.5rem;
     }
     .btn-default[disabled="disabled"] {
       opacity: 0.7;
     }
     .add_fields {
-      font-size: 0.8em;
-    }
-    form {
-      text-align: left;
+      font-size: 0.8rem;
     }
     select {
-      max-width: 60%;
-      margin-bottom: 0.5em;
+      color: $charcoal;
+      height: 2.5rem;
+      margin-bottom: 0.5rem;
+      padding: 0.5rem;
     }
+
     #affiliations select {
       max-width: 100%;
     }
     .input-pair {
-      margin-bottom: 0.5em;
+      margin-bottom: 0.5rem;
     }
     input[type=submit].action, button[type=submit].action {
-      @include speak-out-button
+      @extend .eff-button;
     }
     label.checkbox.small {
       font-size: 70%;
@@ -150,24 +281,23 @@
       margin: 10px 0px 10px 0px;
     }
     .privacy-notice {
-      font-size: 11px;
-      padding: 5px 0;
+      font-size:  $base-font-size * 0.8;
+      line-height: $base-line-height;
+      padding: 0.5rem 0;
     }
     p.step2-intro {
-      font-size: 14px;
+      font-size: 1rem;
     }
     p.donate {
       text-align: center;
-      margin-bottom: 20px;
+      margin-bottom: 1.2rem;
     }
     fieldset {
-      margin: 0.5em 0 0.8em;
+      margin: 0.5rem 0 0.8rem;
       &.has-error {
-        border: solid 1px #faebcc;
-        background-color: #fcf8e3;
+        background-color: $eff-red;
         padding: 4px;
         margin: 0.5em -5px 0.8em;
-        border-radius: 4px;
       }
       &#lookup-address {
         margin: 0;
@@ -182,7 +312,7 @@
         @include transition (all 0.2s ease-in-out);
         display: inline-block;
         float: right;
-        border: 1px solid $red;
+        border: 1px solid $eff-red;
         text-align: center;
         border-radius: 10px;
         position: relative;
@@ -193,29 +323,28 @@
         font-size: 13px;
         font-style: normal;
         padding: 0px 6px;
-        line-height: 20px;
-        background-color: #fff;
-        color: $red;
-
+        background-color: $off-white;
+        color: $eff-red;
         i {
-          font-size: 14px;
+          font-size:  $base-font-size * 0.9;
+          line-height: $base-line-height * 0.9;
           margin-right: -3px;
         }
         &.in-progress {
-          color: $blue;
+          color: $gray;
           border-color: #bce8f1;
           background-color: #d9edf7;
-          }
+        }
         &.success {
           color: #3c763d;
           border-color: #d6e9c6;
           background-color: #dff0d8;
-          }
+        }
         &.error {
           color: #a94442;
           border-color: #ebccd1;
           background-color: #f2dede;
-          }
+        }
         &.warn {
           color: #8a6d3b;
           border-color: #faebcc;
@@ -226,10 +355,56 @@
 
   }
   .progress {
-    height: 41px;
+    background: $charcoal;
+    height: 1rem;
+    margin-bottom: 0;
   }
+  .progress-bar-danger {
+    background-color: $eff-red;
+  }
+
 }
 
+#tools .thank-you .tool-title {
+  text-align: center;
+}
+
+.thank-you.tool {
+  @extend form;
+  display: none;
+}
+.thank-you {
+  > div {
+    text-align: center;
+  }
+  .go-back {
+    margin: 1rem 0 3rem;
+    #tweet-back {
+      @extend .eff-button;
+      background: $gray-light;
+      border-bottom: 4px solid $charcoal;
+      clear: both;
+      color: $charcoal;
+      float: left;
+      font-size: $base-font-size * 0.8;
+      margin: 1rem auto;
+      max-width: 100%;
+      text-transform: none;
+      &:hover {
+        background: $charcoal;
+        border-bottom: 4px solid $gray-light;
+        color: $gray-light;
+      }
+    }
+  }
+
+}
+#call-tool {
+  .advisory {
+    color: black;
+    text-align: left;
+  }
+}
 .js {
   .tool {
     .email-signup + .email-signup {
@@ -246,6 +421,11 @@
 #petition-tool .tool-body .signed { text-align: center; }
 
 #tools #petition-tool {
+  padding: 2rem;
+  .tool-title {
+    margin-left: 0;
+    padding: 0;
+  }
   input[type=submit] {
     margin-top: 0;
     margin-bottom: 5px;
@@ -259,30 +439,23 @@
   cursor: pointer;
   font-size: 0.8em;
   margin-top: 0.6em;
+  padding: 1.3rem 0.3rem;
+  text-align: center;
+  width: 6.5rem;
 }
 
-#tools #tweet-tool {
-  text-align: center;
-  padding-bottom: 15px;
-
+#tools > #tweet-tool {
   .tool-body {
-    padding-bottom: 0px;
+    margin-bottom: 0;
+    padding-bottom: 0;
   }
 
-  .privacy-notice {
-    font-size: 12px;
+  .form-group input {
+    font-style: italic;
   }
 
   .newsletter-subscription {
-    margin: 0 15px;
-
-    input[type=submit] {
-      margin-bottom: 0;
-    }
-  }
-
-  input[type=submit] {
-    margin-top: 0;
+    margin: 0 0.5rem;
   }
 
   img.individual {
@@ -322,7 +495,6 @@
 
   .btn-tweet {
     margin: 0em auto 1.5em;
-    line-height: 19px;
     padding: 5px 10px 5px 5px;
     i {
       color: #04ADEE;
@@ -340,17 +512,9 @@
     text-align: left;
     margin-top: 40px;
   }
-  h3.twitter-tool-label em {
-    font-size: 17px;
-    color: #0A639B;
-    font-style: normal;
-    font-weight: normal;
-    background-color: white;
-    padding-right: 0.3em;
-  }
+
   h3.twitter-tool-label::before {
     margin-bottom: -0.6em;
-    border-bottom: 1px solid #eee;
     content: "";
     display: block;
   }
@@ -372,83 +536,60 @@
   margin-top: 15px;
   margin-bottom: 15px;
 }
-@media (min-width: 992px) {
+@media (min-width: $lg) {
   .description img.full-width {
     max-width: 109%;
   }
 }
-@media (min-width: 1200px) {
+@media (min-width: $xl) {
   .description img.full-width {
     max-width: 120%;
     margin-left: -10%;
   }
 }
 
-.description h3, h3.privacy-notice-header,
-h3.header, #tools #email-tool h3, #tools #congress-message-tool h3 {
+.description h3,
+.privacy-notice-header,
+h3.header,
+#tools #email-tool h3,
+#tools #congress-message-tool h3 {
   position: relative;
-  margin-bottom: 1em;
-  font-weight: normal;
+  margin-bottom: 1rem;
   text-align: left;
-  font-size: 15px;
-
-  em {
-    background-color: #ffffff;
-    padding-right: 0.3em;
-    font-style: normal;
-    position: relative;
-    @media (max-width: $screen-xs-max) {
-      font-size: 15px;
-    }
-  }
-  &:before {
-    content: '';
-    height: 1px;
-    display: block;
-    border-bottom: solid 1px #eee;
-    width: 100%;
-    position: absolute;
-    top: 8px;
-  }
 }
 
 .call-script-box h3:before {
   display: none;
 }
 
-h3.privacy-notice-header {
-  font-size: 15px;
-  color: $blue;
-  margin-top: 1em;
+.privacy-notice {
+  position: relative;
+  text-align: left;
   span.privacy-notice-popover {
-    @include transition (all 0.2s ease-in-out);
-    display: inline-block;
-    float: right;
-    border: 1px solid #cc0000;
-    height: 20px;
-    width: 20px;
-    text-align: center;
-    border-radius: 10px;
-    font-style: normal;
-    line-height: 18px;
-    padding-top: 0px;
-    cursor: pointer;
+    @include eff-tooltip;
+    color: black;
+    background: $gray-darker;
+    border: 0;
+    border-bottom: 2px solid black;
+    float: none;
+    font-size: $base-font-size * 0.7;
+    padding: 0;
     position: relative;
-    font-weight: bold;
-    background-color: #fff;
-    color: #cc0000;
+    top: 0;
     &:hover {
-      background-color: #cc0000;
-      color: #fff;
+      background: $gray-darker;
+      border-bottom: 2px solid black;
+      color: black;
     }
   }
 }
 
 #signatures {
-  font-size: 0.7em;
+  margin-left: 1rem;
   text-transform: capitalize;
+  width: 100%;
   .header {
-    color: #666;
+    color: $gray-darker;
     margin: 2em 0 1em;
   }
   td { border: none; }
@@ -461,14 +602,21 @@ h3.privacy-notice-header {
   }
 }
 #description .letter, #letter {
+  background-color: $off-white;
+  color: $charcoal;
+  font-family: serif;
   -webkit-box-shadow: 0 0 25px 5px rgba(0, 0, 0, 0.1); // iOS <4.3 & Android <4.1
   box-shadow: 0 0 25px 5px rgba(0, 0, 0, 0.1);
-
   margin: 2em 0 3em;
-  padding: 3em 3em 5em;
+  padding: 3em 2em 5em;
   position: relative;
-  font-family: serif;
-  color: #555;
+  a {
+    color: $charcoal;
+    border-bottom: 2px solid $charcoal;
+    &:hover {
+
+    }
+  }
   &:after {
     content: '';
     display: block;
@@ -506,56 +654,19 @@ h3.privacy-notice-header {
       font-family: serif;
     }
     .signed {
-      color: #999;
+      color: $charcoal;
       text-transform: uppercase;
       font-size: 0.85em;
-      font-style: italic;
       font-weight: bold;
       letter-spacing: 0.1em;
-      font-family: $sans-serif;
       margin-bottom: 1em;
     }
     .name {
       margin-bottom: 0.5em;
+      font-style: italic;
     }
   }
 }
-
-.vertical-share {
-  line-height: 54px;
-  text-align: center;
-  a {
-    display: block;
-    margin: 0 auto 1em;
-    color: #ffffff;
-    max-width: 276px;
-
-    &.twitter {
-      @include transition (background-color 0.5s ease-in-out);
-      background-color: #51c5f4;
-    }
-    &.facebook {
-      @include transition (background-color 0.5s ease-in-out);
-      background-color: #3f75bd;
-    }
-    &.google {
-      @include transition (background-color 0.5s ease-in-out);
-      background-color: #df5138;
-    }
-    div.share-label {
-      text-align: center;
-    }
-  }
-
-  a:hover {
-    color: #fbfbfb;
-
-    &.twitter { background-color: #28aae1 !important; }
-    &.facebook { background-color: #1e4389 !important; }
-    &.google { background-color: #d5492c !important; }
-  }
-}
-
 
 @media (max-width: 768px) {
   #letter .body {
@@ -564,62 +675,47 @@ h3.privacy-notice-header {
 }
 
 #tools #call-tool {
-  padding-bottom: 0;
-  .checkbox {
-    margin-top: -5px;
-  }
-  .tool-body {
-    padding-bottom: 0;
-  }
-  .tool-container {
-    padding-bottom: 0.5em;
-  }
-  .form-group:last-child {
-    margin-bottom: 0;
-  }
-  .privacy-notice {
-    margin-bottom: 0px;
-    text-align: center;
-    margin-top: 5px;
-  }
   input[type=submit], button[type=submit] {
     margin-top: 0.1em;
     margin-bottom: 0.3em;
   }
   .smalltext {
-    font-size: 13px;
+    font-size: $base-font-size * 0.8;
   }
   h3.header {
-    position: relative;
+    margin-bottom: 0;
+    padding-bottom: 0;
     text-transform: uppercase;
-    margin-bottom: 0.3em;
-    margin-top: 0.4em;
-    letter-spacing: 0.06em;
-    color: #0a639b;
-    font-size: 0.8em;
-    font-weight: bold;
   }
+  .call-body-active,
+  .call-body-phone-saved,
+  .call-body-phone-not-saved  {
+    margin: 0 1rem;
+  }
+
   .call-script-box {
-    padding: 6px 12px 2px 12px;
-    background-color: #eee;
-    margin-bottom: 1.0em;
-    margin-top: 0.3em;
+    padding: 0;
+    margin: 0 0 1rem 0;
   }
   .call-script {
-    padding: 0px;
-    font-size: 14px;
+    background: $off-white;
+    font-size: $base-font-size * 0.9;
+    margin: 0;
+    padding: 1rem;
+    text-align: left;
   }
-  .call-body-active .advisory {
-    margin-bottom: 0.8em;
-    line-height: 1.2;
-  }
-  .vertical-share p {
-    line-height: 1.5;
-    margin-bottom: 15px;
-  }
+
   .form-errors {
     margin-bottom: 1rem;
   }
+
+  form.call-tool {
+    padding: 0;  // to make margins uniform  on initial form for non-signed in users
+  }
+  .signup-checkbox {
+    padding-top: 2rem;
+  }
+
 }
 
 .email-tool-container {
@@ -637,17 +733,10 @@ h3.privacy-notice-header {
     padding-top: 0;
     padding-bottom: 10px;
   }
-  .tool-title {
-    margin-bottom: 10px;
-  }
   textarea {
-    line-height: 1.3;
-    font-size: 13px;
     padding: 6px;
   }
-  form {
-    text-align: center;
-  }
+
   .form-group {
     margin-bottom: 7px;
   }
@@ -658,33 +747,51 @@ h3.privacy-notice-header {
     margin-top: 0.1em;
     margin-bottom: 5px;
   }
-  h3 {
-    font-size: 17px;
-    color: $blue;
-    margin-top: 0;
+}
+// congress-message-tool, privacy_notice
+span.customize-message-popover {
+  @include eff-tooltip;
+}
+h3 {
+  &.legislator-label {
+    margin-top: 0px;
+    margin-bottom: 10px;
+    &.common-fields {
+      margin-top: 17px;
+      margin-bottom: 0;
+    }
+  }
+
+
+  span.legislator-info-popover {
+    @include eff-tooltip;
   }
 }
 
+.privacy-notice-header {
+  color: black;
+  font-size: 0.85rem;
+  position: relative;
+  text-transform: none;
+  .customize-message-popover {
+    top: 0.8rem;
+  }
+}
 #tools #congress-message-tool {
   .tool-body {
     padding-top: 0;
-    padding-bottom: 10px;
   }
-  .tool-title {
-    margin-bottom: 10px;
+
+  form {
+    padding-top: 0;
   }
-  textarea {
-    line-height: 1.3;
-    font-size: 13px;
-    padding: 6px;
-  }
-  .form-group {
-    margin-bottom: 7px;
-  }
-  .privacy-notice {
-    margin-bottom: 5px;
+
+  label {
+    font-size:  $base-font-size * 0.9;
+    line-height: $base-line-height * 0.9;
   }
   #customize-message {
+    display: none;
     margin-top: 0;
     margin-bottom: 0;
   }
@@ -693,8 +800,9 @@ h3.privacy-notice-header {
   }
 
   input[type=submit] {
+    font-size: 1.3rem;
     margin: 0.1em 2px 5px;
-
+    padding: 0.4rem 0;
     &:first-child {
       margin-left: 0;
     }
@@ -712,24 +820,41 @@ h3.privacy-notice-header {
     }
   }
   .progress {
-    margin-top: 15px;
+    margin-top: 1rem;
   }
-  .congress-message-tool-container {
-    margin-top: 20px;
+
+  #select-members {
+    label {
+      clear: both;
+      display: block;
+      font-size: $base-font-size;
+      padding-left: 0 !important;
+      position: relative;
+      top: -1.8rem;
+    }
+    [type="checkbox"]:not(:checked),
+    [type="checkbox"]:checked {
+      background: none;
+      border: 0;
+      left: 0;
+      position: relative;
+      height: 1.2rem;
+      top: 0.3rem;
+      width: 1.2rem;
+    }
   }
   #congressForms-common-fields div.signup-checkbox:first-child {
     display: block;
   }
   .captcha-form {
-    margin-top: 10px;
-    margin-bottom: 15px;
+    margin-top: 1rem;
+    margin-bottom: 1rem;
   }
   #congressForms-common-fields {
     margin-bottom: 0;
     margin-top: 4px;
   }
   .update-user-data-container .checkbox {
-    line-height: 1.3;
     margin-top: 3px;
     padding-bottom: 5px;
   }
@@ -738,7 +863,8 @@ h3.privacy-notice-header {
   }
   .congressForms-captcha-label {
     font-weight: normal;
-    font-size: 14px;
+    font-size:  $base-font-size * 0.9;
+    line-height: $base-line-height * 0.9;
   }
   .congressForms-legislator-fields {
     margin-bottom: 15px;
@@ -747,77 +873,26 @@ h3.privacy-notice-header {
       margin-bottom: 15px;
     }
   }
-  &.congress-message-rep-lookup fieldset:last-of-type {
-    margin-bottom: 0;
+  &.congress-message-rep-lookup {
+    fieldset:last-of-type {
+      margin-bottom: 0;
+    }
   }
   .rep-photo {
     padding: 0;
   }
-  h3 {
-    font-size: 17px;
-    color: $blue;
-    margin-top: 0;
 
-    &.legislator-label {
-      margin-top: 0px;
-      margin-bottom: 10px;
-      &.common-fields {
-        margin-top: 17px;
-        margin-bottom: 0;
-      }
-    }
+  h5 {
+    color: black;
+    text-transform: none;
     span.customize-message-popover {
-      @include transition (all 0.2s ease-in-out);
-      display: inline-block;
-      float: right;
-      border: 1px solid #cc0000;
-      height: 20px;
-      width: 20px;
-      text-align: center;
-      border-radius: 10px;
-      font-style: normal;
-      line-height: 18px;
-      padding-top: 0px;
-      cursor: pointer;
-      position: relative;
-      font-weight: bold;
-      background-color: #fff;
-      color: #cc0000;
-
-      &:hover {
-        background-color: #cc0000;
-        color: #fff;
-      }
-    }
-    span.legislator-info-popover {
-      @include transition (all 0.2s ease-in-out);
-      display: inline-block;
-      float: right;
-      border: 1px solid #cc0000;
-      height: 20px;
-      width: 20px;
-      text-align: center;
-      border-radius: 10px;
-      font-style: normal;
-      line-height: 18px;
-      padding-top: 0px;
-      cursor: pointer;
-      position: relative;
-      font-weight: bold;
-      background-color: #fff;
-      color: #cc0000;
-      font-size: 12px;
-      &:hover {
-        background-color: #cc0000;
-        color: #fff;
-      }
+      @include eff-tooltip;
+      top: 1.1rem;
     }
   }
 
   .defunct-notice {
-    font-size: 13px;
     margin-bottom: 10px;
-    line-height: 1.5;
   }
 }
 
@@ -831,57 +906,35 @@ h3.privacy-notice-header {
       opacity: 0.5;
     }
 
-    input[type=submit] {
-      background-color: #337ab7;
-    }
   }
 }
 
 // These styles only apply if you are targeting specific email addresses rather than MoC.
 #target-email {
-  padding-bottom: 10px;
-  text-align: center;
+  padding-bottom: 1rem;
   fieldset[disabled] textarea.form-control {
     cursor: default;
   }
-  .btn-red-outline {
-    margin-bottom: 15px;
-  }
+
   i {
     margin-right: 5px;
     margin-left: 0;
   }
   i.icon-mail {
-    font-size: 19px;
     position: relative;
     top: 1px;
-    line-height: 19px;
   }
   i.icon-google {
     position: relative;
     top: 1px;
     margin-right: 0;
   }
-  .btn-sm {
-    margin-bottom: 7px;
-    padding-left: 5px;
-    letter-spacing: 0.03em;
-  }
-  .btn-red {
-    font-size: 14px;
-    text-transform: none;
-    padding: 10px 20px;
-    margin-bottom: 10px;
-    letter-spacing: 0.02em;
-  }
   .small {
-    padding-top: 0;
-    margin-bottom: 5px;
+    margin: 1rem 0;
     text-transform: uppercase;
-    font-size: 11px;
+    font-size:  $base-font-size * 0.8;
+    line-height: $base-line-height * 0.8;
     font-weight: bold;
-    letter-spacing: 0.05em;
-    color: $mediumgrey;
   }
 }
 
@@ -894,9 +947,7 @@ h3.privacy-notice-header {
     margin-top: 5px;
   }
 }
-.popover {
-  font-size: 13px;
-}
+
 
 .popover-legislator-image {
   width: 50px;
@@ -928,37 +979,51 @@ h3.privacy-notice-header {
 // "All Campaigns" page
 
 .action_page-index {
-  .redtop {
-    padding: 1em 0 0 0;
-    .container {
-      padding: 0 25px;
-    }
-    h1 {
-      margin-bottom: 0;
-    }
+  .top-section {
+    display: inline-block;
+    margin: 2rem 0;
   }
   section.more-actions {
-    background-color: #fff;
-    padding-top: 100px;
-    .row > div:first-child {
-      border: 0;
+    .row {
+      @media screen and (min-width: $md) {
+        margin-bottom: 5rem;
+      }
     }
+    .row > div {
+      margin-bottom: 4rem;
+      @media screen and (min-width: $md) {
+        margin-bottom: 0;
+      }
+      a {
+        border: none;
+        &:hover {
+          color: $font-color;
+        }
+      }
+      &:hover {
+        opacity: 0.7;
+      }
+    }
+    .row > div:first-child,
     .row > div:last-child {
       border: 0;
     }
-    .row .col-sm-4 {
-      margin-bottom: 100px;
-    }
   }
   .pagination {
+    font-size: $base-font-size * 1.2;
+    margin-bottom: 8rem;
+    margin-top: 4rem;
     text-align: center;
-    margin-top: 60px;
-    margin-bottom: 80px;
+    a {
+      border: none;
+    }
+    .current {
+      border: 1px solid $off-white;
+      padding: 1px 4px 1px 1px;
+    }
   }
 }
 input[type="file"] {
-  font-size: 12px;
-  line-height: 1;
   margin-bottom: 10px;
 }
 
@@ -985,22 +1050,15 @@ html.no-js {
     display: block;
 
     .tool-body {
-      font-size: 15px;
+      font-size: $base-font-size;
       textarea.samplemessage {
-        font-size: 12px;
         width: 100%;
         height: 140px;
-        margin-bottom: 10px;
-        padding: 5px;
+        margin-bottom: 1rem;
+        padding: 1rem 0.5rem;
       }
       form {
         margin-top: 20px;
-      }
-      h4 {
-        font-size: 16px;
-      }
-      p {
-        line-height: 1.3;
       }
     }
   }
@@ -1016,88 +1074,14 @@ html.js {
 
 /* Tools div media queries */
 
-@media (min-width: 768px) {
-  #tools {
-    position: fixed;
-    width: 312px;
-    padding-right: 25px;
-    top: 100px;
-  }
-  .tools-wrapper.fixed {
-    position: static;
-  }
-  .tools-wrapper.tools #tools {
-    position: absolute;
-    top: 97px;
-  }
-  .congressForms-legislator-fields .col-xs-9 {
-    padding-left: 0;
-    padding-right: 0;
-  }
+@media screen and (min-width: $md) {
   #tools .tool select {
     max-width: auto;
   }
 }
 
-@media (min-width: 992px) {
-  #tools {
-    width: 390px;
-    margin-left: 20px;
-  }
-  .congressForms-legislator-fields .col-xs-9 {
-    padding-left: 15px;
-    padding-right: 15px;
-  }
-}
-
-@media (min-width: 992px) {
-  #share-buttons {
-    position: absolute;
-    right: -70px;
-
-    .social-count {
-      display: block;
-      float: none;
-      margin-bottom: 50px;
-    }
-  }
-}
-
-@media (min-width: 1200px) {
-  .redtop .container, .action-content.container {
-    padding-left: 40px;
-  }
-  #tools {
-    width: 390px;
-    margin-left: 55px;
-  }
-}
-
-@media (max-width: 767px) {
-  #tools {
-    margin-top: 32px;
-    margin-bottom: 30px;
-  }
-  .action-content {
-    margin-bottom: 40px;
-  }
-}
-
-@media (min-width: 768px) and (max-width: 991px) {
-  #tools .tool .tool-heading .tool-title {
-    font-size: 1.35em;
-  }
-  #tools #tweet-tool .rep img {
-    margin-right: 0.3em;
-  }
-  #tools #tweet-tool .privacy-notice, #tools .tool .privacy-notice {
-    font-size: 9px;
-    padding-bottom: 0px;
-    margin-bottom: 0;
-  }
-  #tools #email-tool form input[type=submit] {
-    font-size: 0.9em;
-  }
+#action-content {
+  margin: 4rem 0;
 }
 
 .no-js .plain-date {
@@ -1110,11 +1094,11 @@ html.js {
   padding: 1px 0;
 
   a {
-    color: #fff;
+    color: $off-white;
     text-decoration: underline;
 
     &:hover {
-      color: $red;
+      color: $gray-light;
     }
   }
 }
@@ -1124,8 +1108,8 @@ html.js {
 }
 
 /**
- * Select menu autocomplete
- */
+* Select menu autocomplete
+*/
 #affiliations,
 #signatures {
   .select2-selection,
@@ -1167,8 +1151,8 @@ html.js #affiliations {
 }
 
 /**
- * Signatures by institution
- */
+* Signatures by institution
+*/
 #signatures-filter {
   font-size: 17px;
   text-transform: none;
@@ -1180,7 +1164,7 @@ html.js #affiliations {
   }
 
   input[type=submit] {
-    @include speak-out-button;
+    @extend .eff-button;
     float: right;
     width: 26%;
     font-size: 0.7em;
@@ -1197,11 +1181,11 @@ html.js #affiliations {
 #signatures.affiliation-signatures {
 
   .header {
-    color: $red;
+    color: $eff-red;
   }
 
   .content {
-    border: 1px solid $lightgrey;
+    border: 1px solid $gray-light;
     padding: 15px;
 
     table {

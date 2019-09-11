@@ -1,0 +1,11 @@
+<%= f.fields_for(:call_campaign) do |sf| %>
+  <div class="form-item">
+    <%= sf.label :call_campaign_id, "Campaign" %>
+    <%= sf.select :call_campaign_id, call_campaign_options_for_select %>
+  </div>
+
+  <div class="form-item epiceditor">
+    <%= sf.label :message, "What to say" %>
+    <%= sf.text_area :message %>
+  </div>
+<% end %>

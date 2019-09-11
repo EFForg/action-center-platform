@@ -1,9 +1,8 @@
 <div id="petition-tool" class="tool <%= 'un' unless current_user.try(:signed?, @actionPage.petition) || params[:thankyou] -%>signed" data-petition-id="<%= @actionPage.petition.id %>">
   <div class="tool-container">
-
     <div class="tool-heading">
       <h2 class="tool-title signed">
-        <span class='glyphicon glyphicon-ok'></span>Signed
+        Signed
       </h2>
       <h2 class="tool-title unsigned">
         <%= t :sign_the_petition -%>
@@ -17,29 +16,26 @@
         </div>
       <% end %>
 
-      <%- if @actionPage.petition.goal -%>
-        <div id="progress-bar">
-          <div class='count'><b><%= @signature_count -%></b> /
+      <div id="progress-bar">
+        <%- if @actionPage.petition.goal && @actionPage.petition.goal > 0 -%>
+          <div class='text'><b><%= @signature_count -%></b> /
             <span class='goal'><%= @actionPage.petition.goal -%> <%= t :signatures -%></span>
           </div>
           <div class="progress">
             <div class="progress-bar progress-bar-danger signatures-bar" role="progressbar" aria-valuenow="<%= @signature_count -%>>" aria-valuemin="0" aria-valuemax="<%= @actionPage.petition.goal-%>" style="width: <%= @actionPage.petition.percent_complete -%>%">
             </div>
           </div>
-        </div>
-      <% else %>
-        <div id="progress-bar">
-          <div class='count'><b><%= @signature_count -%></b><span class='goal'> <%= t :signatures -%></span>
-          </div>
-        </div>
-      <% end -%>
+        <% else %>
+          <div class='text'><b><%= @signature_count -%></b><span class='goal'> <%= t :signatures -%></span></div>
+        <% end -%>
+      </div>
 
         <div class='signed'>
-          <%= render 'tools/share' -%>
+          <hr>
+          <%= render 'tools/thank_you' -%>
         </div>
         <div class='unsigned'>
-          <%= form_for @signature, url: '/tools/petition',
-            html: {class: 'petition-tool'} do |f| -%>
+          <%= form_for @signature, url: tools_petition_path, html: {class: 'petition-tool'} do |f| -%>
             <%= invisible_captcha %>
             <%= f.hidden_field :petition_id -%>
             <input type="hidden" name="action_id" value="<%= @actionPage.id %>" />
@@ -80,12 +76,11 @@
 
             <fieldset>
               <% unless @petition.enable_affiliations %>
-                <div class='checkbox small'>
-                  <%= f.label :anonymous do -%>
+
+
                     <%= check_box_tag 'signature[anonymous]' -%>
-                    <%= t :dont_show_my_name -%>
-                  <% end -%>
-                </div>
+                    <%= f.label :anonymous, 'Don\'t add my name or city to this petition (we\'ll only list your country).'  -%>
+
               <% end %>
 
               <% unless @require_location %>
@@ -98,8 +93,8 @@
 
             <%= render "tools/privacy_notice" %>
 
-            <% button_text = params.include?("button_text") ? params["button_text"].to_sym : t(:speak_out) %>
-            <%= f.submit button_text, class: 'btn action'-%>
+            <% button_text = params.include?("button_text") ? params["button_text"].to_sym : t(:take_action) %>
+            <%= f.submit button_text, class: 'eff-button'-%>
             <%= render 'tools/loading' -%>
           <% end %>
       </div>
@@ -108,8 +103,8 @@
 </div>
 
 <% if !@petition.enable_affiliations? -%>
-<div id='signatures' class="hidden-xs ajax-update">
-  <h4 class='header'><em><%= t :recent_signatories -%></em></h4>
-  <%= render(partial: "tools/signatures", layout: false) %>
-</div>
+  <div id='signatures' class="hidden-xs ajax-update">
+    <h4 class='header'><%= t :recent_signatories -%></h4>
+    <%= render(partial: "tools/signatures", layout: false) %>
+  </div>
 <% end -%>

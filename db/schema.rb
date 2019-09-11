@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180516215539) do
+ActiveRecord::Schema.define(version: 20190806005510) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -71,14 +71,16 @@ ActiveRecord::Schema.define(version: 20180516215539) do
     t.integer  "category_id"
     t.boolean  "enable_congress_message",          default: false, null: false
     t.integer  "congress_message_campaign_id"
+    t.string   "related_content_url"
+    t.integer  "user_id"
+    t.index ["archived"], name: "index_action_pages_on_archived", using: :btree
+    t.index ["call_campaign_id"], name: "index_action_pages_on_call_campaign_id", using: :btree
+    t.index ["email_campaign_id"], name: "index_action_pages_on_email_campaign_id", using: :btree
+    t.index ["petition_id"], name: "index_action_pages_on_petition_id", using: :btree
+    t.index ["slug"], name: "index_action_pages_on_slug", using: :btree
+    t.index ["tweet_id"], name: "index_action_pages_on_tweet_id", using: :btree
+    t.index ["user_id"], name: "index_action_pages_on_user_id", using: :btree
   end
-
-  add_index "action_pages", ["archived"], name: "index_action_pages_on_archived", using: :btree
-  add_index "action_pages", ["call_campaign_id"], name: "index_action_pages_on_call_campaign_id", using: :btree
-  add_index "action_pages", ["email_campaign_id"], name: "index_action_pages_on_email_campaign_id", using: :btree
-  add_index "action_pages", ["petition_id"], name: "index_action_pages_on_petition_id", using: :btree
-  add_index "action_pages", ["slug"], name: "index_action_pages_on_slug", using: :btree
-  add_index "action_pages", ["tweet_id"], name: "index_action_pages_on_tweet_id", using: :btree
 
   create_table "affiliation_types", force: :cascade do |t|
     t.string   "name"

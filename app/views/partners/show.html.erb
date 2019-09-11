@@ -38,7 +38,7 @@
     </div>
     <div class='col-lg-6'>
       <h4>Administrators</h4>
-      <p>Admins all have access to this page, and can download your list of users. They must sign up for an Action Center account before you can add them.</p>
+      <p>All admins have access to a partner page and can download the partner organization’s subscriber list, if that option has been enabled. Adding an action center user to the partner organization will give that account the ability to download the subscriber list.</p>
       <table class='table'>
         <% @partner.users.each do |user| -%>
           <tr>
@@ -53,7 +53,7 @@
         <tr>
           <td>Add new user:</td>
           <td>
-            <%= form_tag [:add_user, @partner], class: 'form-inline' do -%>
+            <%= form_tag [:add_user, @partner] do -%>
               <%= text_field_tag :email, nil, class: 'form-control input-sm' -%>
               <%= submit_tag 'Add', class: 'btn btn-sm btn-success',
                 data: {confirm: "Allow this user to access private content for #{@partner.name}?"} -%>

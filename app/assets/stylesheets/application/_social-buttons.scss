@@ -1,118 +1,75 @@
-#share-buttons {
-  margin-top: -20px;
-  height: 100px;
-}
-
-#share-buttons a {
-  // margin:4px;  // these are being disabled now that twitter doesn't have
-  // margin-top: 40px; // the money to keep track of tweet counts
-  width: 54px;
-  height: 54px;
-  z-index: 0;
-}
-
-.sicon {
-  float: left;
-  width: 54px;
-  height: 54px;
-  background-color: black;
-  background-image: image-url("social-icons.png");
-}
-
-#share-buttons .sicon {
-  // margin-top: 2px;  // changed when tweet count was disabled
-  margin-top: 20px;
-}
-
-#sfb {
-  background-position: 70% 0;
-}
-
-#sfb:hover {
-  opacity: 0.8;
-}
-
-#stwit {
-  background-position: 50% 0;
-}
-
-#stwit:hover {
-  opacity: 0.8;
-}
-
-#sgplus {
-  background-position: 20% 0;
-}
-#sgplus:hover {
-  opacity: 0.8;
-}
-
-.social-count {
-  display: inline-block;
-  position: relative;
-}
-
-.social-count:after {
-  background: #fff;
-  border: 1px solid #efefef;
-  border-radius: 2px;
-  top: -40px;
-  color: #444;
-  content: attr(count);
-  display: block;
-  left: 0px;
-  width: 54px;
-  padding: 5px;
-  text-align: center;
-  position: absolute;
-  text-shadow: 0 1px 0 #000;
-  white-space: nowrap;
-}
-
-.social-count:before {
-  border: 1px solid #fff;
-  border-color: #fff transparent;
-  border-width: 0.4em 0.4em 0 0.4em;
-  top: -4px;
-  content: "";
-  display: block;
-  left: 22px;
-  position: absolute;
-}
-.no-js {
-  #share-buttons a {
-    margin-top: 0 !important;
+#tools .tool .tool-body {
+  .share {
+    @include griddy;
+    grid-template-columns: 18% 18% 18% 18%;
+    grid-row-gap: 0;
+    justify-content: center;
+    margin-top: 0;
+    margin-bottom: 7rem;
+    @media screen and (min-width: $lg) {
+      grid-template-columns: 25% 25% 25% 25%;
+    }
+    a,
+    a:hover {
+      border: none;
+      margin-bottom: 2rem;
+    }
+    a div { // each share button
+      background-size: cover;
+    }
   }
-
-  #share-buttons .social-count {
-    margin-bottom: 0 !important;
+  a.eff-button {
+    border-bottom: 0.3rem solid $dark-red;
+    color: $off-white;
+    display: inline-block;
+    margin-bottom: 3rem;
+    &:hover {
+      border: none;
+      border-bottom: 0.3rem solid $eff-red;
+    }
   }
-
-  .social-count:after {
-    background: #fff;
-    border: 1px solid #efefef;
-    border-radius: 2px;
-    top: -40px;
-    color: #444;
-    content: attr(count);
-    display: none;
-    left: 0px;
+  .sicon {
+    float: left;
     width: 54px;
-    padding: 5px;
-    text-align: center;
-    position: absolute;
-    text-shadow: 0 1px 0 #000;
-    white-space: nowrap;
+    height: 54px;
+    background-color: white;
+
   }
 
-  .social-count:before {
-    border: 1px solid #fff;
-    border-color: #fff transparent;
-    border-width: 0.4em 0.4em 0 0.4em;
-    top: -4px;
-    content: "";
-    display: none;
-    left: 22px;
-    position: absolute;
+  #share-buttons .sicon {
+    margin-top: 20px;
+    &:hover {
+      opacity: 0.8;
+    }
   }
+
+  #sfb {
+    background-image: image-url("social-facebook.png");
+  }
+
+  #stwit {
+    background-image: image-url("social-twitter.png");
+  }
+
+  #semail {
+    background-image: image-url("social-email.png");
+  }
+
+  #slink {
+    background-image: image-url("social-link.png");
+    background-size: cover;
+  }
+
+  .url-field-share {
+    display: none;
+    margin: -0.7rem auto 0;
+    text-align: center;
+    input {
+      display: inline;
+      margin: 0;
+      padding: 5px;
+      width: 300px;
+    }
+  }
+
 }

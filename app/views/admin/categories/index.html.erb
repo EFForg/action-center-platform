@@ -1,0 +1,24 @@
+<% content_for(:nav) { render "admin/nav" } %>
+
+<%= form_for([:admin, Category.new]) do |f| %>
+  <table class="table striped">
+    <tbody>
+      <% @categories.each do |category| %>
+        <tr>
+          <td><%= category.title %></td><td>&nbsp;</td>
+        </tr>
+      <% end %>
+
+      <tr>
+        <td>
+          <%= f.label :title, "New Category" %>
+          <%= f.text_field :title %>
+        </td>
+
+        <td>
+          <%= f.submit class: "btn sm" %>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+<% end %>

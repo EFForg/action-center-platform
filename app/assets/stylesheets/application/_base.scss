@@ -1,60 +1,249 @@
-html {
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-}
-
-* {
+/**
+* Reset some basic elements
+*/
+body, h1, h2, h3, h4, h5, h6,
+p, blockquote, pre,
+dl, dd, ol, ul, figure {
   margin: 0;
-}
-
-html, body {
-  height: 100%;
-}
-
-body>.wrapper {
-  position: relative;
-  min-height: 100%;
-}
-
-#content {
-  padding-bottom: 240px;
-}
-
-.radio, .checkbox {
-  padding-left: 20px;
-}
-
-.checkbox.small {
-  color: $darkgrey;
-}
-
-.radio label, .checkbox label {
-  padding-left: 0;
-  display: inline;
-}
-
-.radio-inline {
-  color: $darkgrey;
-}
-
-label {
-  font-weight: normal;
-}
-
-ul li {
-  margin-bottom: 10px;
-}
-
-.link-button {
-  background: none;
-  border: none;
-  color: $red;
-  text-decoration: none;
   padding: 0;
-  cursor: pointer;
-  &:hover {
-    @extend a:hover;
+}
+
+/* base styles */
+html {
+  box-sizing: border-box;
+  font-size: 100%;
+  height: 100%;
+  min-height: 100%;
+  vertical-align: baseline;
+}
+
+*, *::before, *::after {;
+  box-sizing: inherit;
+}
+
+body {
+  @media screen and (min-width: $md) {
+    font-size: $base-font-size;
+    line-height: $base-line-height;
   }
+  background: $site-bg;
+  color: $font-color;
+  font-size: 16px;
+  font-family: $sans-serif;
+  font-weight: 400;
+  line-height: 1.4;
+  margin: 0;
+  padding: 0;
+}
+body>.wrapper {
+  min-height: 100%;
+  margin: 0 auto;
+  max-width: $max-width;
+  padding: 0;
+  width: 95%;
+  @media screen and (min-width: 1320px) {
+    width: 100%;
+  }
+}
+
+article,
+header,
+section {
+  display: block;
+}
+
+a {
+  background-color: transparent;
+  color: $font-color;
+  border-bottom: 2px solid $gray;
+  text-decoration: none;
+  -webkit-text-decoration-skip: objects;
+
+  &:hover,
+  &:focus {
+    color: $gray;
+    border-bottom: 2px solid $gray-dark;
+  }
+}
+
+img {
+  border-style: none;
+  display: inline-block;
+  vertical-align: middle;
+  max-width: 100%;
+  height: auto;
+  -ms-interpolation-mode: bicubic;
+}
+
+%clearfix {
+  &:after {
+    content: "";
+    display: table;
+    clear: both;
+  }
+}
+
+h1,
+h2,
+h3,
+h4,
+h5 {
+  color: $off-white;
+  font-family: $sans-serif;
+  font-weight: 600;
+  line-height: $base-line-height;
+  @media screen and (max-width: $lg) {
+    line-height: $base-line-height * 0.9;
+  }
+}
+
+h1 {
+  @media screen and (max-width: $lg) { // mobile headers
+    font-size: 47px * 0.7;
+  }
+  font-size: 47px;
+  line-height: 1.3;
+  padding: 1rem 0;
+}
+h2 {
+  @media screen and (max-width: $lg) {
+    font-size: 37px * 0.7;
+  }
+  font-size: 37px;
+  padding: 1.3rem 0 0.3rem 0;
+}
+h3 {
+  @media screen and (max-width: $lg) { // mobile headers
+    font-size: 29px * 0.7;
+  }
+  font-size: 29px;
+  padding: 1.3rem 0 0.3rem 0;
+}
+h4 {
+  @media screen and (max-width: $lg) { // mobile headers
+    font-size: 23px * 0.7;
+  }
+  font-size: 23px;
+  padding: 1.3rem 0 0.3rem 0;
+}
+h5  {
+  font-size: $base-font-size;
+  padding: 1rem 0;
+  text-transform: uppercase;
+}
+
+p {
+  margin: 0 0 1rem;
+  line-height: $base-line-height;
+  margin-bottom: 1rem;
+  padding: 0;
+}
+
+
+ul {
+  margin: 0 0 1rem 2rem;
+  li {
+    line-height: 26px;
+    margin-bottom: 0.5rem;
+    ul {
+      margin: 0.5rem 0 1rem 1.3rem;
+    }
+  }
+}
+ol {
+  counter-reset: li-counter;
+  list-style-type: none;
+  margin: 0;
+  margin-left: 3em;
+  padding: 0 0 2rem;
+  li {
+    margin-bottom: 1rem;
+    padding: 0.2rem 0 0 0.5rem;
+    position: relative;
+    &:before {
+      color: $off-white;
+      content: counter(li-counter);
+      counter-increment: li-counter;
+      font-size: 1.1rem;
+      font-weight: 400;
+      line-height: 1;
+      position: absolute;
+      top: 0.4rem;
+      left: -0.6rem;
+      text-align: right;
+    }
+  }
+}
+
+ol.ol-decimal {
+  list-style-type: decimal;
+  li {
+    &:before {
+      content: " ";
+    }
+  }
+}
+
+blockquote {
+  border-left: 0.7rem solid $gray-dark;
+  padding-right: 3rem;
+  padding-left: 2rem;
+  margin-bottom: 2.3rem;
+}
+
+.js-no {
+  display: inline-block;
+}
+
+.js-yes {
+  display: none;
+}
+
+.left {
+  float: left;
+}
+.right {
+  float: right;
+}
+
+.centered {
+  margin: 0 auto;
+}
+
+pre {
+  background-color: $gray-light;
+  padding: 0 0.5rem 0.5rem;
+  margin-bottom: 0.5rem;
+}
+
+code {
+  display: inline-block;
+  font-size: 1.1rem;
+  max-width: 100%;
+  white-space: normal;
+  word-break: break-all;
+}
+
+.visually-hidden {
+  // For screen-readers.
+  // https://snook.ca/archives/html_and_css/hiding-content-for-accessibility
+  position: absolute !important;
+  height: 1px; width: 1px;
+  overflow: hidden;
+  // sass-lint:disable no-duplicate-properties
+  clip: rect(1px 1px 1px 1px); /* IE6, IE7 */
+  clip: rect(1px, 1px, 1px, 1px);
+}
+
+.hidden {
+  display: none;
+}
+
+h5.category {
+  color: $gray;
+  font-size: $base-font-size * 0.9;
+  padding-bottom: 0;
+  padding-top: 1rem;
 }
 
 .push { height: 100px;}
@@ -71,154 +260,21 @@ a:hover {
   line-height: 10px;
   padding-right: 20px;
   padding-left: 20px;
+  border: none;
+  &:hover {
+    border-bottom: 2px solid white;
+  }
 }
 
 .nav-form-link {
   input[type=submit] {
     background: none;
     border: none;
-    text-decoration: none;
     cursor: pointer;
     color: white;
-    padding: 15px 20px 15px 20px;
-    line-height: 10px;
-    @media (max-width: $screen-sm-max) {
-      padding: 10px 20px 10px 20px;
-    }
-    &:hover {
-      color: #dddddd;
-    }
+    margin: 0;
+    text-decoration: none;
   }
-}
-
-.navbar-wrapper {
-  background: $red;
-
-  .container {
-    @media(min-width: 1201px) {
-      padding-left: 40px;
-    }
-  }
-
-  .navbar-inverse {
-    border: 0;
-    background-color: #cc0000;
-    background-image: none;
-  }
-
-  .navbar {
-    font-size: 13px;
-    margin-top: 1.5rem;
-    margin-bottom: 0px;
-    z-index: 102;
-  }
-
-  .horiz-rule {
-    background-color: #C40B02;
-    height: 1px;
-  }
-
-  .navbar-brand {
-    display: block;
-    padding: 0;
-    margin-top: 11px;
-    height: 32px;
-    width: 128px;
-
-    @media(min-width: 768px) {
-      margin-top: 0;
-      height: 5rem;
-      width: 20rem;
-    }
-    background: asset-url('EFF_Monogram-white.svg') no-repeat;
-  }
-
-  .icon-eff-action-logo {
-    color: #fff;
-    font-size: 29px;
-  }
-
-  .navbar-collapse {
-    padding-left: 0;
-  }
-}
-
-@media (min-width: 768px) {
-  .navbar-nav.navbar-right:last-child {
-    margin-right: 0;
-  }
-}
-
-.redtop {
-  background-color: $red;
-  color: #fff;
-  .ws-po-box {
-    color: $darkgrey;
-  }
-}
-
-.triangle {
-  height: 57px;
-  width: 100%;
-  fill: #fff;
-  display: block;
-}
-
-.btn-red {
-  @include transition (background-color 0.3s ease-in-out, color 0.3s ease-in-out);
-  font-weight: bold;
-  text-transform: uppercase;
-  background-color: $red;
-  color: #fff;
-  letter-spacing: 1px;
-  font-size: 16px;
-  padding: 18px 40px 15px 40px;
-  -webkit-font-smoothing: antialiased;
-
-  &:hover {
-    background-color: $darkred;
-    color: #fff;
-  }
-
-  &:focus {
-    color: #fff;
-  }
-}
-
-.btn-red-outline {
-  @include transition (all 0.2s ease-in-out);
-  background-color: #fff;
-  color: $red;
-  font-size: 14px;
-  font-family: $sans-serif;
-  border: 1px solid #cc0000;
-  border-radius: 8px;
-  -webkit-font-smoothing: antialiased;
-
-  &:hover {
-    color: #fff;
-    border-color: $red;
-    background-color: $red;
-  }
-
-  &.btn-sm {
-    margin-top: -1px;
-    padding: 3px 9px;
-    margin-bottom: 10px;
-    border-radius: 3px;
-    text-transform: uppercase;
-    font-weight: bold;
-    letter-spacing: 1px;
-    font-size: 11px;
-    line-height: 1.1;
-  }
-}
-
-.eff-logo {
-  display: inline-block;
-  height: 5rem;
-  width: 20rem;
-  background: asset-url('EFF-logo-lockup-1color.svg') no-repeat;
 }
 
 .avatar-frame {
@@ -239,69 +295,6 @@ a:hover {
   overflow: hidden;
 }
 
-.footer {
-  background: #1a1a1a;
-  position: absolute;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  color: #fff;
-  z-index: 10;
-
-  a {
-    color: #fff;
-    &:hover {
-      color: #cc0000;
-    }
-  }
-
-  .icon-eff-logo {
-    font-size: 30px;
-    line-height: 1;
-  }
-
-  .cc-notice {
-    font-size: 11px;
-    i {
-      font-size: 25px;
-    }
-  }
-
-  .triangle {
-    fill: #1a1a1a;
-    z-index: 10;
-    position: relative;
-    transform: translate(0, -57px);
-  }
-
-  .container {
-    padding-top: 0;
-    padding-bottom: 66px;
-    background: #1a1a1a;
-    margin-top: -10px;
-  }
-
-  .logo {
-    a {
-      display: block;
-      height: 4.5rem;
-      background: asset-url('EFF-logo-lockup-1color-white.svg') no-repeat;
-    }
-  }
-
-  .links {
-    padding: 0 0 0 15px;
-    line-height: 4.5rem;
-    margin: 0;
-    color: #cc0000;
-    font-size: 13px;
-
-    a {
-      @include transition (color 0.2s ease-in-out);
-      margin-right: 13px;
-    }
-  }
-}
 
 .top-buffer {
   margin-top: 20px;
@@ -312,7 +305,7 @@ a:hover {
 }
 
 .panel-body {
-  color: $darkgrey;
+  color: $gray-dark;
 }
 
 /* ==============================================
@@ -333,25 +326,19 @@ Styles for the alert box
   right: 20px;
   background-color: $blue;
 
-  background-image: -webkit-linear-gradient($darkgrey, lighten($darkgrey, 10%));
-  background-image: -moz-linear-gradient($darkgrey, lighten($darkgrey, 10%));
-  background-image: linear-gradient($darkgrey, lighten($darkgrey, 10%));
+  background-image: -webkit-linear-gradient($gray-dark, lighten($gray-dark, 10%));
+  background-image: -moz-linear-gradient($gray-dark, lighten($gray-dark, 10%));
+  background-image: linear-gradient($gray-dark, lighten($gray-dark, 10%));
 
-  color: #fff;
+  color: $font-color;
   text-align: center;
   line-height: 1.3;
   overflow: hidden;
   border: 1px solid #ddd;
-  border-radius: 10px;
   padding: 20px 30px;
   font-size: 15px;
   height: auto;
   max-width: 500px;
-
-  @media (max-width: $screen-xs-max) {
-    left: 20px;
-    right: 20px;
-  }
 
   .close {
     position: absolute;
@@ -362,12 +349,6 @@ Styles for the alert box
     height: 16px;
     width: 16px;
     cursor: pointer;
-  }
-}
-
-@media (max-width: 991px) {
-  alert.alert-info, .alert.alert-error {
-    font-size: 14px;
   }
 }
 
@@ -391,58 +372,6 @@ Styles for the alert box
   10%, 90% { opacity: 1; transform: translate(0, 0); }
 }
 
-.signup-checkbox {
-  font-size: 1.3rem;
-  line-height: 1.5rem;
-  margin-bottom: 2rem;
-}
-
-.email-signup {
-  font-size: 13px;
-  margin-bottom: 10px;
-  margin-top: 20px;
-  line-height: 1.5;
-
-  label.radio-inline {
-    margin-top: -3px;
-    border: 1px solid #ddd;
-    border-radius: 8px;
-    padding-left: 23px;
-    padding-right: 6px;
-    line-height: 1.68;
-    input[type=radio] {
-      margin-top: 4px;
-      cursor: pointer;
-      margin-left: -18px;
-    }
-    &:first-child {
-      margin-right: 1px;
-    }
-    &:last-child {
-      margin-right: 2px;
-    }
-  }
-
-  // Using a dummy selector to check for browser support for ":checked".
-  // The rest of the rule will be thrown out if that fails.
-  #dummy:checked::before,
-  input[type="radio"] {
-    position: absolute;
-    clip: rect(0, 0, 0, 0);
-  }
-
-  #dummy:checked,
-  input[type="radio"] + label::before {
-    content: asset-data-url('radio-unchecked.png');
-    top: 3px;
-    left: 4px;
-    position: absolute;
-  }
-
-  input[type="radio"]:checked + label::before {
-    content: asset-data-url('radio-checked.png');
-  }
-}
 
 /* ======================
 No-js styles
@@ -476,15 +405,40 @@ textarea#email_target_text {
 div#email_target_text {
   display: none;
 }
-.btn-red-outline.hover {
-  color: #FFF;
-  border-color: #C00;
-  background-color: #C00;
+
+
+// row default
+.row {
+  margin: 1rem 0;
+}
+// screen readers only
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  border: 0;
+
 }
 
-/* ======================
-Base font overrides
-========================*/
-h4 {
-  line-height: 25px;
+.container {  // overriding bootstrap
+  padding: 0;
+  max-width: 860px !important;
+  width: 100% !important;
+  @media screen and (min-width: $lg) {
+    max-width: 1280px !important;
+  }
+}
+
+.popover {  // overriding bootstrap
+  color: $charcoal;
+  font-family: $sans-serif;
+  font-size: $base-font-size * 0.8 !important;
+  line-height: $base-line-height;
+  h3 {
+    color: $charcoal;
+  }
 }

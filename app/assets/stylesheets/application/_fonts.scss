@@ -1,4 +1,35 @@
-@include font-face(Roboto, 'roboto-webfont/Roboto-Regular-webfont', $weight: normal, $asset-pipeline: true);
-@include font-face(Roboto, 'roboto-webfont/Roboto-Bold-webfont', $weight: bold, $asset-pipeline: true);
-@include font-face(Roboto, 'roboto-webfont/Roboto-Italic-webfont', $weight: regular, $style: italic, $asset-pipeline: true);
-@include font-face(Roboto, 'roboto-webfont/Roboto-BoldItalic-webfont', $weight: bold, $style: italic, $asset-pipeline: true);
+@font-face {
+  font-family: 'Montserrat';
+  font-style: normal;
+  font-weight: 100;
+  src: local("Montserrat Hairline"), local("Montserrat-Hairline"), font-url('Montserrat-Hairline.woff') format('woff'); }
+
+@font-face {
+  font-family: 'Montserrat';
+  font-style: normal;
+  font-weight: 300;
+  src: local("Montserrat Light"), local("Montserrat-Light"), font-url('Montserrat-Light.woff') format('woff'); }
+
+@font-face {
+  font-family: 'Montserrat';
+  font-style: normal;
+  font-weight: 400;
+  src: local("Montserrat Regular"), local("Montserrat-Regular"), font-url('Montserrat-Regular.woff') format('woff'); }
+
+@font-face {
+  font-family: 'Montserrat';
+  font-style: normal;
+  font-weight: 700;
+  src: local("Montserrat Bold"), local("Montserrat-Bold"), font-url('Montserrat-Bold.woff') format('woff'); }
+
+@font-face {
+  font-family: 'Montserrat';
+  font-style: normal;
+  font-weight: 900;
+  src: local("Montserrat Black"), local("Montserrat-Black"), font-url('Montserrat-Black.woff') format('woff'); }
+
+@font-face {
+  font-family: 'LeagueGothic';
+  font-style: normal;
+  font-weight: 200;
+  src: local("LeagueGothic"), local("LeagueGothic"), font-url('LeagueGothic-regular.woff') format('woff'); }

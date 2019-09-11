@@ -12,8 +12,8 @@
 
         <div class="signup-checkbox">
           <input type="checkbox" name="subscribe" value="1" <%= "checked" if params[:subscribe] == "1" -%> id="do-subscribe" >
-          <b><%= t(:sign_up_for_mailings_from_org, name: t(:organization_abbreviation)) -%></b>
-          <%= t(:why_sign_up_for_mailings_from_org, name: t(:organization_abbreviation)) -%>
+          <label for="do-subscribe"><%= t(:sign_up_for_mailings_from_org, name: t(:organization_abbreviation)) -%> <%= t(:why_sign_up_for_mailings_from_org, name: t(:organization_abbreviation)) -%></label>
+
         </div>
 
         <%= render "tools/privacy_notice" if privacy_notice %>
@@ -24,9 +24,9 @@
     <% visible_partners.each do |partner| %>
       <div class="newsletter-signup partner signup-checkbox text-left">
         <input type="checkbox" name=<%= "#{partner.code}_subscribe" %> value="1" <%= "checked" if params[:subscribe] == "1" -%> id="do-subscribe" >
-        <b><%= t :sign_up_for_mailings_from_org, name: partner.name %></b>
+        <label for="do-subscribe"><%= t :sign_up_for_mailings_from_org, name: partner.name %> (<%= link_to 'privacy policy', partner.privacy_url -%>).</label>
 
-        (<%= link_to 'privacy policy', partner.privacy_url -%>).
+
       </div>
     <% end %>
 

@@ -205,6 +205,7 @@ var TopicCategory = React.createClass({
     var saveAction = "/admin/topic_categories/" + (isNewRecord ? '' : this.props.topicCategoryId);
     var saveMethod = isNewRecord ? "post" : "patch";
     var saveUpdateClasses = "btn btn-success btn-sm " + (isNewRecord ?  "create_category" : "update_category");
+    var cancelDeleteClasses = "btn btn-sm delete-category-btn " + ( editMode ? "btn-warning" : "btn-danger");
 
     var topicSets = this.state.topicSets.slice(0).sort(function(set1, set2) {
       return set1.tier - set2.tier;
@@ -217,11 +218,12 @@ var TopicCategory = React.createClass({
             <div className="panel-title">
               <form action={ saveAction } method="post" onSubmit={ this.save }>
                 <input type="hidden" name="_method" value={ saveMethod } />
+
                 <EditableText ref="title" editMode={ editMode }
                               name="topic_category[name]" value={ this.state.topicCategoryName }
                               placeholder="Category name" aria-label="Category name"/>
 
-                <div className="btn-group category pull-right edit-category-btn" key="saveOrEdit">
+                <div className="btn-group pull-right">
                   <button type="submit" className={ saveUpdateClasses }>
                     <Icon name={ editMode ? "check" : "pencil" } />
                     { isNewRecord ? "Create" : editMode ? "Update" : "Edit" }
@@ -229,12 +231,14 @@ var TopicCategory = React.createClass({
 
                   <Conditional when={ !isNewRecord }>
                     <span onClick={ editMode ? this.cancelEdit : this.destroy }
-                          className="btn btn-success btn-sm delete-category-btn" key="destroyOrCancel">
+                          className={ cancelDeleteClasses } key="destroyOrCancel">
                       <Icon name="trash" /> { editMode ? "Cancel" : "Delete" }
                     </span>
                   </Conditional>
                 </div>
               </form>
+              <div className="clearfix">
+              </div>
             </div>
           </div>
 
@@ -346,10 +350,11 @@ var TopicSetRow = React.createClass({
     var topicLabel = function(topic) {
       return (
         <div className="btn-group btn-group-sm topic_set_edit" key={ topic.id }>
-          <span className="btn label label-primary">{ topic.name }</span>
-          <span className="btn btn-danger delete-btn"
+          <span className="btn btn-sm btn-primary label label-primary">{ topic.name }</span>
+          <span className="btn btn-sm btn-danger delete-btn"
                 onClick={ self.destroyTopic.bind(self, topic) }>
-            <Icon name="cancel-circled-outline" />
+            <Icon name="ban-circle" />
+            &nbsp;
           </span>
         </div>
       );
@@ -360,21 +365,22 @@ var TopicSetRow = React.createClass({
         <td><span className="badge">{ this.props.tier }</span></td>
         <td>
           <form action="/admin/topics" method="post"
+                className="form-inline"
                 onSubmit={ this.createTopic } >
+            <input type="hidden" name="topic[topic_set_id]" value={ this.props.id } />
             <div className="input-group input-group-sm">
-              <input type="hidden" name="topic[topic_set_id]" value={ this.props.id } />
               <input ref="newTopicInput"
                      className="form-control"
                      name="topic[name]"
                      value={ this.state.newTopicName }
                      onChange={ this.updateNewTopicName } />
-              <span className="input-group-btn">
+              <div className="input-group-btn">
                 <button type="submit"
                         title="Add term"
-                        className="btn btn-success add_topic">
+                        className="btn btn-sm btn-success add_topic">
                   <Icon name="doc-new" /> Add term
                 </button>
-              </span>
+              </div>
             </div>
           </form>
 
