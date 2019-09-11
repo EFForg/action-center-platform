@@ -65,8 +65,8 @@ $(document).on("ready", function() {
 
   function show_progress_bars() {
     $(".progress-striped").show();
-    $(":submit").hide();
-    $("input,textarea,button,select", $(this)).attr("disabled", "disabled");
+    $("#tools :submit").hide();
+    $("#tools input,textarea,button,select", $(this)).attr("disabled", "disabled");
   }
 
   function show_error(error, form) {
@@ -74,7 +74,7 @@ $(document).on("ready", function() {
     form.find(":submit").show();
     form.find(".alert-danger").remove();
     $("#errors").append($('<div class="small alert alert-danger help-block">').text(error));
-    $("input,textarea,button,select", form).removeAttr("disabled");
+    $("#tools input,textarea,button,select", form).removeAttr("disabled");
   }
 
   function update_tabs(from, to) {
