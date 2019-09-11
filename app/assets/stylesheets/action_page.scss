@@ -823,6 +823,26 @@ h3 {
     margin-top: 1rem;
   }
 
+  #select-members {
+    label {
+      clear: both;
+      display: block;
+      font-size: $base-font-size;
+      padding-left: 0 !important;
+      position: relative;
+      top: -1.8rem;
+    }
+    [type="checkbox"]:not(:checked),
+    [type="checkbox"]:checked {
+      background: none;
+      border: 0;
+      left: 0;
+      position: relative;
+      height: 1.2rem;
+      top: 0.3rem;
+      width: 1.2rem;
+    }
+  }
   #congressForms-common-fields div.signup-checkbox:first-child {
     display: block;
   }
