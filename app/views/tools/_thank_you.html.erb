@@ -1,7 +1,7 @@
 <div class="thank-you tool-container">
   <div>
     <%= image_tag 'thankyou-circle.png', alt: 'Illustration of a woman with green hair using a laptop' %>
-    <h3 class="tool-title">Thank You!</h3>
+    <h3 class="tool-title thank-you-title">Thank You!</h3>
     <p>Your action is important and contributes
     to preserving a free, open internet.</p>
   </div>
@@ -30,7 +30,9 @@
   <a class="eff-button" href="https://supporters.eff.org/donate" role="button" aria-pressed="false">Donate</a>
   <% if @actionPage.enable_tweet && @actionPage.tweet %>
     <% if @actionPage.tweet.targets.present? && (@actionPage.tweet.targets.size > 1) %>
-      <span id="tweet-back">Want to tweet at others? Go back</span>
+    <div class="go-back">
+      <button id="tweet-back">Want to tweet others? Go back</button>
+    </div>
     <% end %>
   <% end %>
 </div>

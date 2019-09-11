@@ -174,7 +174,7 @@
         border-bottom: 2px solid $charcoal;
       }
     }
-    a.eff-red-button {
+    a.eff-button {
       color: white;
       border-bottom: 4px solid $dark-red;
       &:hover {
@@ -227,6 +227,10 @@
       text-transform: uppercase;
     }
 
+    .tool-title.thank-you-title {
+      text-align: center;
+    }
+
     .tool-body {
       h4 {
         color: black;
@@ -266,7 +270,7 @@
       margin-bottom: 0.5rem;
     }
     input[type=submit].action, button[type=submit].action {
-      @extend .eff-red-button;
+      @extend .eff-button;
     }
     label.checkbox.small {
       font-size: 70%;
@@ -373,21 +377,29 @@
   > div {
     text-align: center;
   }
-  .tool {
+  .go-back {
+    margin: 1rem 0 3rem;
     #tweet-back {
-      text-decoration: underline;
+      @extend .eff-button;
+      background: $gray-light;
+      border-bottom: 4px solid $charcoal;
+      clear: both;
+      color: $charcoal;
+      float: left;
+      font-size: $base-font-size * 0.8;
+      margin: 1rem auto;
+      max-width: 100%;
+      text-transform: none;
       &:hover {
-        cursor: pointer;
+        background: $charcoal;
+        border-bottom: 4px solid $gray-light;
+        color: $gray-light;
       }
     }
   }
+
 }
 #call-tool {
-  h3.tool-title {
-    margin-left: 0;
-    padding-left: 1rem;
-    text-align: center !important;
-  }
   .advisory {
     color: black;
     text-align: left;
@@ -1132,7 +1144,7 @@ html.js #affiliations {
   }
 
   input[type=submit] {
-    @extend .eff-red-button;
+    @extend .eff-button;
     float: right;
     width: 26%;
     font-size: 0.7em;
