@@ -89,7 +89,11 @@ nav {
         width: 250px;
       }
       @media screen and (min-width: $xl) {
-        right: 9%;
+        right: 7%;
+      }
+
+      @media screen and (min-width: 1500px) {
+        right: 10%;
       }
       @media screen and (min-width: 1800px) { //very wide screens
         right: 15%;
