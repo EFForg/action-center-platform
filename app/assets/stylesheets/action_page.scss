@@ -60,7 +60,8 @@
     display: none;
   };
   input:checked + label + div {  // for Learn more
-    display: flex !important;
+    //display: flex !important;
+    display: inline-block !important;
   };
 
 
@@ -84,15 +85,16 @@
 }
 
 #description {
-  @include flex-this;
+  //@include flex-this;
   display: none; // for learn more
   > div {
-    @include flex-item;
+    //@include flex-item;
   }
   > div.desc-text {
     padding-left: 0;
     width: 100%;
     @media screen and (min-width: $md) {
+      float: left;
       margin: 0 auto;
       width: 71%;
     }
@@ -104,8 +106,10 @@
   > div.related-content {
     width: 100%;
     @media screen and (min-width: $md) {
+      float: right;
+      height: auto;
       margin: 1.4rem 0 0 3rem;
-      width: 30%;
+      width: 300px;
     }
     h4 {
       padding-top: 0;
