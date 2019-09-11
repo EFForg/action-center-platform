@@ -11,10 +11,11 @@ class CongressMessagesController < ApplicationController
   def new
     if @campaign.target_bioguide_ids.present?
       bioguide_ids = @campaign.target_bioguide_ids.split
+      @members = CongressMembers.where(bioguide_id: bioguide_ids)
     else
       location = SmartyStreets.get_location(params[:street_address], params[:zipcode])
-      members = @campaign.targets.for_district(location.state, location.district)
-      bioguide_ids = members.pluck(:bioguide_id)
+      @members = @campaign.targets.for_district(location.state, location.district)
+      bioguide_ids = @members.pluck(:bioguide_id)
     end
 
     forms = CongressForms::Form.find(bioguide_ids)
@@ -26,7 +27,12 @@ class CongressMessagesController < ApplicationController
     @message = CongressMessage.new(congress_message_params.merge(campaign: @campaign))
     # Custom messages are set after other fields and need to be refreshed
     @message.update_common_attributes("$MESSAGE": params[:message])
-    @message.forms = CongressForms::Form.find(params[:bioguide_ids].split)
+    bioguide_ids = if params.key? :bioguide_id
+                     [params[:bioguide_id]]
+                   else
+                     params[:forms][:bioguide_ids]
+                   end
+    @message.forms = CongressForms::Form.find(bioguide_ids)
 
     if @message.background_submit(params[:test])
       @name = user_params[:first_name] # for deliver_thanks_message
