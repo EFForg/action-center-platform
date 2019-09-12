@@ -141,6 +141,10 @@ nav {
         font-size: 3rem;
         height: 3rem;
         margin: -0.22rem 0 0;
+        @media screen and (device-aspect-ratio: 40/71) {
+          /* CSS specific to iPhone5/older iPods */
+          margin-right: -2rem;
+        }
         @media screen and (min-width: $md) {
           font-size: 4rem;
           height: 4rem;
@@ -150,6 +154,7 @@ nav {
           width: 3rem;
         }
       }
+
       .nav-modal-backdrop {
         height: 0;
         width: 0;
@@ -169,6 +174,13 @@ nav {
         cursor: pointer;
         @media screen and (min-width: $ph) {
           left: 95%;
+        }
+        @supports (-webkit-overflow-scrolling: touch) {
+          /* CSS specific to iOS devices */
+          left: 75%;
+          @media screen and (min-width: $md) {
+            left: 85%;
+          }
         }
         &:checked {
           width: 100vw;
