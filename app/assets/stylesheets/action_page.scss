@@ -87,16 +87,11 @@
 #description {
   //@include flex-this;
   display: none; // for learn more
-  > div {
-    //@include flex-item;
-  }
   > div.desc-text {
     padding-left: 0;
     width: 100%;
     @media screen and (min-width: $md) {
-      float: left;
       margin: 0 auto;
-      width: 71%;
     }
   }
   > div.desc-text.full {
