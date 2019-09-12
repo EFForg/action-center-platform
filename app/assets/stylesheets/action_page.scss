@@ -99,8 +99,10 @@
     width: 100%;
   }
   > div.related-content {
+    display: none;
     width: 100%;
     @media screen and (min-width: $md) {
+      display: block;
       float: right;
       height: auto;
       margin: 1.4rem 0 0 3rem;
@@ -116,6 +118,12 @@
     img {
       margin-bottom: 0;
       width: 100%;
+    }
+  }
+  > div.related-content.mobile {
+    display: block;
+    @media screen and (min-width: $md) {
+      display: none;
     }
   }
   p, li {
