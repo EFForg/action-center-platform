@@ -5,6 +5,10 @@ class CongressMessagesController < ApplicationController
   before_action :update_user, only: :create
   before_action :subscribe_user, only: :create
 
+  # See https://github.com/EFForg/action-center-platform/wiki/Deployment-Notes#csrf-protection
+  skip_before_action :verify_authenticity_token, only: :create
+  before_action :verify_request_origin, only: :create
+
   rescue_from SmartyStreets::AddressNotFound, with: :address_not_found
   rescue_from CongressForms::RequestFailed, with: :congress_forms_request_failed
 
