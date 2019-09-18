@@ -37,6 +37,11 @@ module CongressMessageHelper
         })
     elsif field.value == "$EMAIL"
       email_field_tag name, prefill, congress_forms_field_defaults(field)
+    elsif field.value.include? "ADDRESS"
+      address_part = field.value.split("_").last.downcase
+      address_part = "zipcode" if address_part.include? "zip"
+      address_label = "Your address - #{address_part}"
+      text_field_tag name, prefill, congress_forms_field_defaults(field, placeholder: address_label, "aria-label": address_label)
     elsif field.is_select?
       select_tag name, options_for_select(field.options_hash, prefill),
         class: "form-control", "aria-label": field.label, include_blank: field.label, required: true
@@ -45,11 +50,11 @@ module CongressMessageHelper
     end
   end
 
-  def congress_forms_field_defaults(field)
+  def congress_forms_field_defaults(field, **overrides)
     { class: "form-control",
       placeholder: field.label,
       "aria-label": field.label,
       maxlength: field.max_length,
-      required: true }
+      required: true }.merge(overrides)
   end
 end
