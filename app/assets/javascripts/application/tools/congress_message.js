@@ -10,6 +10,7 @@ $(document).on("ready", function() {
   $(".congress-message-rep-lookup").on("ajax:complete", function(xhr, data, status) {
     var $form = $(this);
     if (status == "success") {
+      $(window).scrollTop( $("#action-content").offset().top ); // go to top of page
       update_tabs(1, 2);
       $form.remove();
       $(".congress-message-tool-container").html(data.responseText);
@@ -27,6 +28,7 @@ $(document).on("ready", function() {
   $("#congress-message-tool").on("click", "#to-page-3", function(){
     $(".rep-info").hide();
     $("#customize-message").show();
+    $(window).scrollTop( $("#action-content").offset().top ); // go to top of page
     update_tabs(2, 3);
   });
   $(".congress-message-tool-container").on("change", "#select-members :checkbox", function(e){
@@ -47,6 +49,7 @@ $(document).on("ready", function() {
         $("#congress-message-create").hide();
         $("#congress-message-tool").hide();
         $('.thank-you').show();
+        $(window).scrollTop( $("#action-content").offset().top ); // go to top of page
         update_tabs(3, 4);
       },
       error: function(data) {
