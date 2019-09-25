@@ -22,10 +22,19 @@
           <label for="learn-more">Learn More</label>
           <div class="description" id="description">
             <% if @related_content.found? %>
+            <div class="related-content">
+              <h4>Related Content</h4>
+              <%= link_to @actionPage.related_content_url do %>
+                <div class="image">
+                  <%= image_tag(@related_content.image) %>
+                </div>
+                <h5><%= @related_content.title %></h5>
+              <% end %>
+            </div>
               <div class="desc-text">
                 <p><%= markdown @actionPage.description -%></p>
               </div>
-              <div class="related-content">
+              <div class="related-content mobile">
                 <h4>Related Content</h4>
                 <%= link_to @actionPage.related_content_url do %>
                   <div class="image">
