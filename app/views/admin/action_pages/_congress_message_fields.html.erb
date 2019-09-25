@@ -33,6 +33,11 @@
   </fieldset>
 
   <div class="form-item">
+    <%= sf.label :topic_category_id, "Congress Topic" %>
+    <%= sf.select :topic_category_id, options_from_collection_for_select(TopicCategory.all, :id, :name, sf.object.topic_category_id) %>
+  </div>
+
+  <div class="form-item">
     <%= sf.label :campaign_tag %>
     <%= sf.text_field :campaign_tag %>
   </div>
