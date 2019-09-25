@@ -120,8 +120,8 @@ group :development, :test do
   gem "rspec-rails", "~> 3"
   gem "rubocop", "0.52.0"
   gem "rubocop-github", "0.9.0"
-  gem "selenium-webdriver", "3.142.3"
-  gem "webdrivers", "~> 4.1"
+  gem "selenium-webdriver", "~> 3"
+  gem "webdrivers", "~> 4"
 end
 
 group :production do
