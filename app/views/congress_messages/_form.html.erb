@@ -38,7 +38,12 @@
       <fieldset id="form-for-<%= form.bioguide_id %>" class="congressForms-legislator-fields">
         <h3 class="legislator-label">
           <em><%= CongressMember.find_by(bioguide_id: form.bioguide_id).full_name %></em>
+          <span class="customize-message-popover" data-toggle="tooltip" data-trigger="hover">?
+            <span class="tooltiptext"><%= @campaign.look_up_helper_text "Your congressmembers require this information in order to contact their offices. EFF does not store this information. 'Topics' are categories congressmembers use to sort messages they receive and are required by their offices." %></span>
+          </span>
+    
         </h3>
+
         <% form.fields.each do |field| %>
           <div class="form-group">
             <%= congress_forms_field(field, @campaign,
