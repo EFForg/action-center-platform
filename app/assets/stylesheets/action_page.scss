@@ -699,10 +699,13 @@ h3.header,
   }
   .call-script {
     background: $off-white;
-    font-size: $base-font-size;
+    font-size: 1.06rem;
     margin: 0;
     padding: 1rem;
     text-align: left;
+    @media screen and (min-width: $md) {
+      font-size: $base-font-size;
+    }
   }
 
   .form-errors {
