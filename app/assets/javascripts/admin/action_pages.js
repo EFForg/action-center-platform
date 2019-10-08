@@ -57,6 +57,18 @@ $('.action_pages-status').on('change', 'input[type="radio"]', function() {
   $('#archive-redirect input[type="hidden"]').val(archive_selected);
 });
 
+$('.action_page_setup').on('change', '#action_page_petition_attributes_enable_affiliations', function() {
+  $('#affiliations-enabled').toggle($(this).prop('checked'));
+});
+
+$('.action_page_setup').on('change', '#institutions_reset', function() {
+  $('#add-institutions').toggle($(this).prop('checked'));
+});
+
+$('#affiliations-enabled').on('keyup paste', '#affiliation-types input', function() {
+  $(this).parent().next('.form-item').show();
+});
+
 $(document).on('click', '#individual-targets #add', function(e) {
   e.preventDefault();
 
