@@ -1,13 +1,4 @@
 $(document).on("ready", function() {
-  if ($("#congress-message-tool").length){  // showing paging at top of form
-    $(".page-indicator").css("display", "grid");
-    if ($(".page-indicator").children().length == 3) {
-      $(".page-indicator").css({
-        "grid-template-columns": "33% 33% 33%"
-      });
-    }
-  }
-
   if ($(".load-target-members").length && $(".load-target-members").is(":visible")) {
     var campaign_id = $(".load-target-members").attr("id");
     $.ajax({
@@ -96,13 +87,7 @@ $(document).on("ready", function() {
   }
 
   function update_tabs(from, to) {
-    $(".page-indicator div.page" + from).css({
-      'background-color': '#2D2D2D',
-      'color': '#BABABA'
-    });
-    $(".page-indicator div.page" + to).css({
-      'background-color': '#BABABA',
-      'color': '#2D2D2D'
-    });
+    $(".page-indicator div.page" + from).removeClass('active');
+    $(".page-indicator div.page" + to).addClass('active');
   }
 });

@@ -141,16 +141,20 @@
 
 #tools {
   .page-indicator {
-    @include griddy;
+    display: flex;
     background-color: $charcoal;
     color: $gray;
-    display: none; // hide unless congress-message-tool
     font-weight: 600;
     margin-bottom: 10px;
     text-align: center;
-    div.page1 {  // start on page 1
+
+    div.active {
       background-color: $gray;
       color: $charcoal;
+    }
+
+    div {
+      flex: 1;
     }
   }
   .tool {
