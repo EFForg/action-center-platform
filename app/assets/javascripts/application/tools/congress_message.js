@@ -1,5 +1,5 @@
 $(document).on("ready", function() {
-  if ($(".load-target-members").length && $(".load-target-members").is(":visible")) {
+  if ($(".load-target-members").is(":visible")) {
     var campaign_id = $(".load-target-members").attr("id");
     $.ajax({
       type: "GET",
