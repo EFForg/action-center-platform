@@ -63,12 +63,13 @@
               <p class="privacy-notice">This tool uses the <a href="http://smartystreets.com/legal/privacy-policy" target="_blank">Smarty Streets</a> API (
                 <span class="privacy-notice-popover" data-toggle="tooltip" data-trigger="hover">why?
                   <span class="tooltiptext">We need your full address to locate your exact congressional district, but this information isn't stored unless you're logged in.<br>We also use the Smarty Streets' API to look up your full 9 digit zip code (Zip+4), since some Congressmember's forms require it.</span>
-               </span>).
-              <br>
-              If you prefer not to use our email tool, <a href="https://www.eff.org/congress"  target="_blank">click here</a>.</p>
+                </span>).
+                <br>
+                If you prefer not to use our email tool, <a href="https://www.eff.org/congress"  target="_blank">click here</a>.
+              </p>
             </fieldset>
+            <input type="submit" class="eff-button" value="Find your reps">
           <% end %>
-          <input type="submit" class="eff-button" value="Find your reps">
           <%= render "tools/loading" -%>
           </div>
       <% end %>
