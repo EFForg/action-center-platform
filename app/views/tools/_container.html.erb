@@ -1,25 +1,19 @@
 <div id="tools" >
-  <div class="page-indicator">
-    <div class="page1">1</div>
-    <div class="page2">2</div>
-    <div class="page3">3</div>
-    <div class="page4">4</div>
-  </div>
   <% if @actionPage.victory? -%>
     <%= render "tools/victory"  %>
   <% elsif @actionPage.archived? -%>
     <%= render "tools/archived" if @actionPage.archived? %>
   <% else -%>
-    <% unless @actionPage.enable_call? %>
-      <div class="thank-you tool">
-        <%= render "tools/thank_you" %>
-      </div>
-    <% end %>
     <%= render "tools/petition" if @actionPage.enable_petition? && @actionPage.petition %>
     <%= render "tools/call" if @actionPage.enable_call? && @actionPage.call_campaign %>
     <%= render "tools/email" if @actionPage.enable_email? && @actionPage.email_campaign %>
     <%= render "tools/congress_message" if @actionPage.enable_congress_message? && @actionPage.congress_message_campaign %>
     <%= render "tools/tweet" if @actionPage.enable_tweet? && @actionPage.tweet %>
     <%= render "tools/mailing_list" if @no_tools == true %>
+    <% unless @actionPage.enable_call? %>
+      <div class="thank-you tool">
+        <%= render "tools/thank_you" %>
+      </div>
+    <% end %>
   <% end -%>
 </div>

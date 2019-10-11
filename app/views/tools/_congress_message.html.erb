@@ -1,3 +1,15 @@
+<div class="page-indicator">
+  <% if @congress_message_campaign.target_bioguide_ids.present? %>
+    <div class="page1 page2">1</div>
+    <div class="page3">2</div>
+    <div class="page4">3</div>
+  <% else %>
+    <div class="page1">1</div>
+    <div class="page2">2</div>
+    <div class="page3">3</div>
+    <div class="page4">4</div>
+  <% end %>
+</div>
 <div id="congress-message-tool" class="tool" data-action-id="<%= @actionPage.id %>">
   <div class="tool-container">
     <div class="tool-heading">
@@ -8,55 +20,57 @@
     </div>
 
     <div class="tool-body with-js">
-      <div class="address-lookup">
-      <%= form_tag(new_congress_message_campaign_congress_message_path(@congress_message_campaign),
-                   method: :get, remote: true,
-                   class: "form congress-message-rep-lookup") do %>
-        <% unless @congress_message_campaign.target_bioguide_ids.present? %>
-          <fieldset id="lookup-address">
-            <h3>
-              <span class="customize-message-popover" data-toggle="tooltip" data-trigger="hover">?
-                <span class="tooltiptext"><%= @congress_message_campaign.look_up_helper_text "We'll use your address to look up your congressional district and find your representatives." %></span>
-              </span>
-              <%= @congress_message_campaign.look_up_your_rep_text "Look up your representatives" %>
-            </h3>
-            <div id="errors"></div>
+      <% if @congress_message_campaign.target_bioguide_ids.present? %>
+        <div class="load-target-members" id="<%= @congress_message_campaign.id %>"></div>
+      <% else %>
+        <div class="address-lookup">
+        <%= form_tag(new_congress_message_campaign_congress_message_path(@congress_message_campaign),
+                     method: :get, remote: true,
+                     class: "form congress-message-rep-lookup") do %>
+            <fieldset id="lookup-address">
+              <h3>
+                <span class="customize-message-popover" data-toggle="tooltip" data-trigger="hover">?
+                  <span class="tooltiptext"><%= @congress_message_campaign.look_up_helper_text "We'll use your address to look up your congressional district and find your representatives." %></span>
+                </span>
+                <%= @congress_message_campaign.look_up_your_rep_text "Look up your representatives" %>
+              </h3>
+              <div id="errors"></div>
 
-            <div class="form-group">
-              <%= text_field_tag :street_address,
-                                 (current_user && current_user.street_address),
-                                 placeholder: "Street Address",
-                                 "aria-label": "Street Address",
-                                 required: true,
-                                 class: "form-control" %>
-            </div>
+              <div class="form-group">
+                <%= text_field_tag :street_address,
+                                   (current_user && current_user.street_address),
+                                   placeholder: "Street Address",
+                                   "aria-label": "Street Address",
+                                   required: true,
+                                   class: "form-control" %>
+              </div>
 
-            <div class="form-group">
-              <%= text_field_tag :zipcode,
-                                 (current_user && current_user.zipcode),
-                                 placeholder: "Zip Code",
-                                 "aria-label": "Zip Code",
-                                 required: true,
-                                 class: "form-control",
-                                 title: "Must be 5 numeric numbers",
-
-
-                                 pattern: "\\d{5}",
-                                 maxlength: 5 %>
-            </div>
+              <div class="form-group">
+                <%= text_field_tag :zipcode,
+                                   (current_user && current_user.zipcode),
+                                   placeholder: "Zip Code",
+                                   "aria-label": "Zip Code",
+                                   required: true,
+                                   class: "form-control",
+                                   title: "Must be 5 numeric numbers",
 
 
-            <p class="privacy-notice">This tool uses the <a href="http://smartystreets.com/legal/privacy-policy" target="_blank">Smarty Streets</a> API (
-              <span class="privacy-notice-popover" data-toggle="tooltip" data-trigger="hover">why?
-                <span class="tooltiptext">We need your full address to locate your exact congressional district, but this information isn't stored unless you're logged in.<br>We also use the Smarty Streets' API to look up your full 9 digit zip code (Zip+4), since some Congressmember's forms require it.</span>
-             </span>).
-            <br>
-            If you prefer not to use our email tool, <a href="https://www.eff.org/congress"  target="_blank">click here</a>.</p>
-          </fieldset>
-        <% end %>
-        <input type="submit" class="eff-button" value="Find your reps">
-        <%= render "tools/loading" -%>
-        </div>
+                                   pattern: "\\d{5}",
+                                   maxlength: 5 %>
+              </div>
+
+
+              <p class="privacy-notice">This tool uses the <a href="http://smartystreets.com/legal/privacy-policy" target="_blank">Smarty Streets</a> API (
+                <span class="privacy-notice-popover" data-toggle="tooltip" data-trigger="hover">why?
+                  <span class="tooltiptext">We need your full address to locate your exact congressional district, but this information isn't stored unless you're logged in.<br>We also use the Smarty Streets' API to look up your full 9 digit zip code (Zip+4), since some Congressmember's forms require it.</span>
+               </span>).
+              <br>
+              If you prefer not to use our email tool, <a href="https://www.eff.org/congress"  target="_blank">click here</a>.</p>
+            </fieldset>
+          <% end %>
+          <input type="submit" class="eff-button" value="Find your reps">
+          <%= render "tools/loading" -%>
+          </div>
       <% end %>
 
       <div class="congress-message-tool-container"></div>

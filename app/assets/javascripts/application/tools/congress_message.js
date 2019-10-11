@@ -1,6 +1,14 @@
 $(document).on("ready", function() {
-  if ($("#congress-message-tool").length){  // showing paging at top of form
-    $(".page-indicator").css("display", "grid");
+  if ($(".load-target-members").is(":visible")) {
+    var campaign_id = $(".load-target-members").attr("id");
+    $.ajax({
+      type: "GET",
+      url: "/congress_message_campaigns/" + campaign_id + "/congress_messages/new",
+      success: function(data) {
+        $(".load-target-members").hide();
+        $(".congress-message-tool-container").html(data);
+      }
+    });
   }
 
   $("#congress-message-tool").on("ajax:beforeSend", function() {
@@ -29,6 +37,7 @@ $(document).on("ready", function() {
     $("#customize-message").show();
     update_tabs(2, 3);
   });
+
   $(".congress-message-tool-container").on("change", "#select-members :checkbox", function(e){
     var bioguide_id = $(this).val();
     $("#form-for-" + bioguide_id).toggle();
@@ -78,13 +87,7 @@ $(document).on("ready", function() {
   }
 
   function update_tabs(from, to) {
-    $(".page-indicator div.page" + from).css({
-      'background-color': '#2D2D2D',
-      'color': '#BABABA'
-    });
-    $(".page-indicator div.page" + to).css({
-      'background-color': '#BABABA',
-      'color': '#2D2D2D'
-    });
+    $(".page-indicator div.page" + from).removeClass('active');
+    $(".page-indicator div.page" + to).addClass('active');
   }
 });
