@@ -19,6 +19,7 @@ $(document).on("ready", function() {
     var $form = $(this);
     if (status == "success") {
       update_tabs(1, 2);
+      $(".progress-striped").hide();
       $form.remove();
       $(".congress-message-tool-container").html(data.responseText);
       // Trigger phone field formatting.
@@ -79,7 +80,7 @@ $(document).on("ready", function() {
   }
 
   function show_error(error, form) {
-    form.find(".progress-striped").hide();
+    $(".progress-striped").hide();
     form.find(":submit").show();
     form.find(".alert-danger").remove();
     $("#errors").append($('<div class="small alert alert-danger help-block">').text(error));
