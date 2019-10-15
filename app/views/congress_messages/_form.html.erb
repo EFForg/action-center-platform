@@ -54,6 +54,20 @@
       </fieldset>
     <% end %>
 
+
+    <% unless @defunct_members.empty? %>
+      <h3 class="legislator-label">
+        <em>Contact other representatives</em>
+      </h3>
+      <p class="step2-intro">
+        These legislators cannot be contacted with our tool. To message them,
+        visit their websites.
+      </p>
+      <% @defunct_members.each do |m| %>
+        <p><%= link_to m.full_name, @links[m.bioguide_id], target: "_blank"  %></p>
+      <% end %>
+    <% end %>
+
     <div class="submit-wrapper">
       <input id="to-page-3" type="button" value="Next >" class="eff-button action">
     </div>
