@@ -54,18 +54,15 @@
       </fieldset>
     <% end %>
 
-
-    <% unless @defunct_members.empty? %>
+    <% @defunct_members.each do |m| %>
       <h3 class="legislator-label">
-        <em>Contact other representatives</em>
+        <em><%= m.full_name %></em>
       </h3>
+
       <p class="step2-intro">
-        These legislators cannot be contacted with our tool. To message them,
-        visit their websites.
+        Sorry, this legislator cannot be contacted with our tool. To message them,
+        visit <%= link_to "their website", @links[m.bioguide_id], target: "_blank"  %> instead.
       </p>
-      <% @defunct_members.each do |m| %>
-        <p><%= link_to m.full_name, @links[m.bioguide_id], target: "_blank"  %></p>
-      <% end %>
     <% end %>
 
     <div class="submit-wrapper">
