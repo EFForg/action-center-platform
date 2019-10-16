@@ -38,7 +38,7 @@ class CongressMessagesController < ApplicationController
                    else
                      params[:forms][:bioguide_ids]
                    end
-    @message.forms = CongressForms::Form.find(bioguide_ids)
+    @message.forms, _ = CongressForms::Form.find(bioguide_ids)
 
     if @message.background_submit(params[:test])
       @name = user_params[:first_name] # for deliver_thanks_message
