@@ -5,9 +5,13 @@ module CongressForms
     attr_accessor :fields, :bioguide_id
 
     def self.find(bioguide_ids)
-      raw_forms = CongressForms.post("/retrieve-form-elements/", { bio_ids: bioguide_ids })
-      raise CongressForms::RequestFailed if raw_forms.empty?
-      raw_forms.map { |id, raw| Form.new(id, raw["required_actions"]) }
+      raw_data = CongressForms.post("/retrieve-form-elements/", { bio_ids: bioguide_ids })
+      raise CongressForms::RequestFailed if raw_data.empty?
+      links, forms = raw_data.partition { |id, raw| raw["defunct"] }
+      [
+        forms.map { |id, raw| Form.new(id, raw["required_actions"]) },
+        links.map { |id, raw| [id, raw["contact_url"]] }.to_h
+      ]
     end
 
     def initialize(bioguide_id, fields)

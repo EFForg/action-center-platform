@@ -21,8 +21,10 @@ class CongressMessagesController < ApplicationController
       @members = @campaign.targets.for_district(location.state, location.district)
       bioguide_ids = @members.pluck(:bioguide_id)
     end
-
-    forms = CongressForms::Form.find(bioguide_ids)
+    forms, @links = CongressForms::Form.find(bioguide_ids)
+    @defunct_members, @members = @members.partition do |m|
+      @links.keys.include? m.bioguide_id
+    end
     @message = CongressMessage.new_from_lookup(location, @campaign, forms)
     render partial: "form"
   end
@@ -36,7 +38,7 @@ class CongressMessagesController < ApplicationController
                    else
                      params[:forms][:bioguide_ids]
                    end
-    @message.forms = CongressForms::Form.find(bioguide_ids)
+    @message.forms, _ = CongressForms::Form.find(bioguide_ids)
 
     if @message.background_submit(params[:test])
       @name = user_params[:first_name] # for deliver_thanks_message

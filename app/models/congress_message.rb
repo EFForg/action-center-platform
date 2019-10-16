@@ -6,6 +6,10 @@ class CongressMessage
 
   attr_accessor :forms, :campaign
   attr_writer :common_attributes, :member_attributes
+
+  ALWAYS_COMMON = %w($NAME_FIRST $NAME_LAST $ADDRESS_CITY $ADDRESS_STATE
+                     $ADDRESS_STREET $ADDRESS_ZIP5 $EMAIL).freeze
+
   def common_attributes() @common_attributes || {}; end
   def member_attributes() @member_attributes || {}; end
 
@@ -33,7 +37,8 @@ class CongressMessage
 
   def common_fields!
     all_fields = @forms.reduce([]) { |a, b| a + b.fields }
-    all_fields.select { |e| all_fields.count(e) > 1 }.uniq
+    always_common = all_fields.select { |f| ALWAYS_COMMON.include? f.value }
+    (all_fields.select { |e| all_fields.count(e) > 1 } + always_common).uniq
   end
 
   def forms_minus_common_fields
