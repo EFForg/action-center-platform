@@ -33,18 +33,20 @@ Follow these instructions to run the Action Center using Docker (recommended). T
   * Connects calls between citizens and their congress person using the Twilio API
 
 
-### Generating the icon font
-
-The EFF icon font is generated using [fontello.com](fontello.com) and via the [fontello-rails-converter](https://github.com/railslove/fontello_rails_converter).
-
-To add a new icon to the fontset, read the **Update your existing fontello font** section of the [fontello_rails_converter readme](https://github.com/railslove/fontello_rails_converter#updating-your-existing-fontello-font).
-
-
 ## Using the Action Center
 
 Action Center administrators can create four types of actions:
 * **Call Action**
   * A user is connected to a political leader by phone, leaving a message or sometimes speaking to an aid.
+  * The user is shown a script to read and enters their phone number and email
+  * When they submit their info, they are called and the process begins.
+* **Congress Action**
+  * A user stepped through a four-part form to submit their comments to their congress person.
+  * Page 1 asks for the user's street address and zip code.
+  * Based on this information, page 2 displays the user's representatives. User can select which representatives they wish to contact. Then they choose what to fill in for whatever required fields for each representative selected.
+  * Page 3 asks the user to customize the message to be delivered.
+  * Page 4 is the Thank You page with share links for social media.
+  * When creating the action, admin can choose House, Senate, Both or specific legislators
 * **Petition Action**
   * A user signs a petition, leaving an email address and sometimes location data.
   * Optionally, users can petition local institutions (like universities) and see signatures by institution.
@@ -54,6 +56,13 @@ Action Center administrators can create four types of actions:
   * A user e-mails a target *or*
   * A user submits comments to a congressperson via [Phantom of the Capitol](https://github.com/efforg/phantom-of-the-capitol).
 
+### Shared Elements of All Actions
+
+* User is presented with a Thank You page at the end where they are invited to share the action via social media.
+* When creating an action, admin can add partner organizations.
+* Admin can also customize share messages and thank you email.
+* Admin chooses a banner image form the library
+* The title for the action form is always "Take Action".
 
 ### Administering Users
 
@@ -97,7 +106,7 @@ If you want to get fancy, you can modify the embed code to include some of the f
 
     <script type="text/javascript">
         var ac_embed = {};
-        ac_embed.css = "https://example.com/hello.css"; // specify a css file url
+        ac_embed.css = "https://example.com/hello.css"; // specify a css file url. File must be globally available (i.e. on the Internet, not local or staging).
         ac_embed.width = 500; // specify a width manually
         ac_embed.no_css = true; // remove all default styles
         ac_embed.css_content = "#some_elem"; // specify an element which itself contains some styles
@@ -138,6 +147,23 @@ For notes related to deploying Action Center in production, see [the project wik
 ## Acknowledgements
 
 This project was created by Lilia Kai, Thomas Davis, and Sina Khanifar. Large portions of the codebase are directly attributable to them, while under the employ or contractorship of the Electronic Frontier Foundation in 2014. Thank you Lilia, Thomas, and Sina! The Action Center is currently maintained by the EFF Engineering and Design team.
+
+
+## Styling
+
+The styling is done with SCSS. The partials files are in the stylesheets directory. Admin files are in their own subdirectory.
+
+Bootstrap is also used for much of the styling. Please see the stylesheets/application/bootstrap-custom.scss for what styles may be used.
+
+Bootstrap is used only for styling, not for javascript.
+
+## File Structure
+
+* The home page layout is in views/welcome/index.html.erb.
+* The main internal layout is in views/layouts/application.html.erb.
+* Individiual action views are in views/tools/.
+* User pages are in views/devise.
+* All admin layouts are in views/admin.
 
 
 ## Licensing
