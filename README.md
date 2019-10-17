@@ -149,10 +149,6 @@ For notes related to deploying Action Center in production, see [the project wik
 This project was created by Lilia Kai, Thomas Davis, and Sina Khanifar. Large portions of the codebase are directly attributable to them, while under the employ or contractorship of the Electronic Frontier Foundation in 2014. Thank you Lilia, Thomas, and Sina! The Action Center is currently maintained by the EFF Engineering and Design team.
 
 
-## Licensing
-
-See the `LICENSE` file for licensing information. This is applicable to the entire project, sans any 3rd party libraries that may be included.
-
 ## Styling
 
 The styling is done with SCSS. The partials files are in the stylesheets directory. Admin files are in their own subdirectory.
@@ -168,3 +164,8 @@ Bootstrap is used only for styling, not for javascript.
 * Individiual action views are in views/tools/.
 * User pages are in views/devise.
 * All admin layouts are in views/admin.
+
+
+## Licensing
+
+See the `LICENSE` file for licensing information. This is applicable to the entire project, sans any 3rd party libraries that may be included.
