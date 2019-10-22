@@ -95,6 +95,19 @@
 
     </div>
   </div>
+
+  <div id="call-tool-error" class="tool hidden">
+    <div class="tool-container">
+      <div class="tool-heading">
+        <h2 class="tool-title">Take Action</h2>
+      </div>
+
+      <div class="tool-body">
+        <p class="call-script-box">It looks like we've already called this number a few times today. Please try again tomorrow.</p>
+      </div>
+    </div>
+  </div>
+
 <% elsif current_user.try(:admin?) %>
   <div class="tool">
     <div class="tool-body">
