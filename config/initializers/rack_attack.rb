@@ -17,6 +17,10 @@ class Rack::Attack
     original_user(req) if req.path == '/tools/petition' && req.post?
   end
 
+  throttle('calls', limit: 3, period: 1.day) do |req|
+    req.params['phone'] if req.path == '/tools/call' && req.post?
+  end
+
   private
 
   def self.original_user(req)

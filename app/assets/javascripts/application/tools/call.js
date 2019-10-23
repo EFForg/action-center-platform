@@ -111,6 +111,11 @@ $(document).on('ready', function() {
             }).success(function() {
               form.attr("data-success", "true");
               $('.thank-you').show();
+            }).error(function(xhr) {
+              if (xhr.status == 429) {
+                $('#call-tool').hide();
+                $('#call-tool-error').removeClass('hidden');
+              }
             });
           }
         }, zip_code, street_address);
