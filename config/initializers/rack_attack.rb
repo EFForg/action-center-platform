@@ -1,4 +1,14 @@
 class Rack::Attack
+  safelist('eff office') do |req|
+    if req.env['HTTP_X_FORWARDED_FOR']
+      ip = req.env['HTTP_X_FORWARDED_FOR'].split(/\s*,\s*/)[0]
+    else
+      ip = req.ip
+    end
+
+    Array(ENV["unthrottled_ips"].try(:split, ",")).include?(ip)
+  end
+
   throttle('registrations', limit: 10, period: 1.day) do |req|
     original_user(req) if req.path == '/' && req.post?
   end
