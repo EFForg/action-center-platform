@@ -1,5 +1,6 @@
 class Admin::ActionPagesController < Admin::ApplicationController
   include DateRange
+  include ActionPageDisplay
 
   before_action :set_action_page, only: [
     :edit,
@@ -86,36 +87,7 @@ class Admin::ActionPagesController < Admin::ApplicationController
 
     flash.now[:notice] = "This is a preview. Your changes have NOT been saved."
 
-    @title = @actionPage.title
-    @petition = @actionPage.petition
-    @tweet = @actionPage.tweet
-    @email_campaign = @actionPage.email_campaign
-
-    # Shows a mailing list if no tools enabled
-    @no_tools = [:tweet, :petition, :call, :email, :congress_message].none? do |tool|
-      @actionPage.send "enable_#{tool}".to_sym
-    end
-
-    if @petition
-      @signatures = @petition.signatures.order(created_at: :desc).paginate(page: 1, per_page: 5)
-      @signature_count = @petition.signatures.pretty_count
-
-      @top_institutions = @actionPage.institutions.top(300)
-      @institutions = @actionPage.institutions.order(:name)
-    end
-
-    # Initialize a temporary signature object for form auto-population
-    @signature = Signature.new(petition_id: @actionPage.petition_id)
-    @signature.attributes = { first_name: current_first_name,
-                              last_name: current_last_name,
-                              street_address: current_street_address,
-                              state: current_state,
-                              city: current_city,
-                              zipcode: current_zipcode,
-                              country_code: current_country_code,
-                              email: current_email }
-    @related_content = RelatedContent.new(@actionPage.related_content_url)
-    @related_content.load
+    set_action_display_variables
 
     render "action_page/show", layout: "application"
   end
