@@ -29,6 +29,8 @@ require "webdrivers"
 # If you are not using ActiveRecord, you can remove this line.
 ActiveRecord::Migration.maintain_test_schema!
 
+Webdrivers::Chromedriver.update
+
 capabilities = Selenium::WebDriver::Remote::Capabilities.chrome(
   loggingPrefs: {
     browser: "ALL",
@@ -86,6 +88,11 @@ RSpec.configure do |config|
   config.before(:each) { DatabaseCleaner.start }
   config.after(:each) { DatabaseCleaner.clean }
 
+  config.before(:each, type: :feature) do 
+    # disable call tool by default; it will be stubbed for tests that need it
+    disable_call_tool
+  end
+
   FileUtils.mkdir_p("#{Rails.root}/tmp/cache")
   config.before(:each) do
     Rails.cache.clear
@@ -101,12 +108,4 @@ def login(user)
       password: "strong passwords defeat lobsters covering wealth"
     }
   }
-end
-
-# for feature tests
-def visit_login(user)
-  visit "/"
-  click_on "#nav-modal-toggle"
-  click_on "Login"
-  # TODO
 end
