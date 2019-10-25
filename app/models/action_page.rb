@@ -55,6 +55,7 @@ class ActionPage < ActiveRecord::Base
 
   #validates_length_of :og_title, maximum: 65
   after_save :no_drafts_on_homepage
+  after_save :set_congress_tag, if: -> { enable_congress_message }
 
   scope :categorized, ->(category) { joins(:category).where(categories: { title: category }) }
 
@@ -181,5 +182,10 @@ class ActionPage < ActiveRecord::Base
 
   def no_drafts_on_homepage
     FeaturedActionPage.where(action_page_id: id).destroy_all unless published?
+  end
+
+  def set_congress_tag
+    return unless congress_message_campaign.campaign_tag.blank?
+    congress_message_campaign.update(campaign_tag: slug)
   end
 end
