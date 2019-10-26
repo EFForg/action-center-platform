@@ -2,7 +2,7 @@ require "rails_helper"
 
 RSpec.describe "Admin action page previews", type: :feature, js: true do
   before { sign_in_user(FactoryGirl.create(:admin_user)) }
-  
+
   xit "works for tweet actions" do
     # window switching is broken, fixing previews for now
     tweet = FactoryGirl.create(:tweet)

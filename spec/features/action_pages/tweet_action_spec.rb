@@ -20,7 +20,7 @@ RSpec.feature "Tweet actions", type: :feature, js: true do
                    district: 10)
   }
 
-  before do 
+  before do
     allow(SmartyStreets).to receive(:get_location).and_return(location)
   end
 

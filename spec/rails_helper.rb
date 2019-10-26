@@ -31,16 +31,16 @@ ActiveRecord::Migration.maintain_test_schema!
 
 
 capabilities = Selenium::WebDriver::Remote::Capabilities.chrome(
-  loggingPrefs: {
+  :loggingPrefs => {
     browser: "ALL",
     client: "ALL",
     driver: "ALL",
     server: "ALL"
   },
-  'chromeOptions' => {
-    'w3c' => false,
-    'args' => ['headless', 'disable-gpu', '--window-size=1400,900'].tap do |a|
-      a.push('no-sandbox') if ENV['TRAVIS']
+  "chromeOptions" => {
+    "w3c" => false,
+    "args" => ["headless", "disable-gpu", "--window-size=1400,900"].tap do |a|
+      a.push("no-sandbox") if ENV["TRAVIS"]
     end
   }
 )
@@ -87,7 +87,7 @@ RSpec.configure do |config|
   config.before(:each) { DatabaseCleaner.start }
   config.after(:each) { DatabaseCleaner.clean }
 
-  config.before(:each, type: :feature) do 
+  config.before(:each, type: :feature) do
     # disable call tool by default; it will be stubbed for tests that need it
     disable_call_tool
   end
