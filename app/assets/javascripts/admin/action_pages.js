@@ -51,6 +51,12 @@ $('.action_page_setup').on('click', '#nav a[href=#save]', function(e) {
   $('form', '#content').first().submit();
 });
 
+$('.action_pages-status').on('change', 'input[type="radio"]', function() {
+  var archive_selected = $(this).val() == "archived";
+  $('#archive-redirect').toggle(archive_selected);
+  $('#archive-redirect input[type="hidden"]').val(archive_selected);
+});
+
 $(document).on('click', '#individual-targets #add', function(e) {
   e.preventDefault();
 
