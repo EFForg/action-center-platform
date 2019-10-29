@@ -116,6 +116,7 @@ class ActionPageController < ApplicationController
     if @actionPage.petition and @actionPage.petition.enable_affiliations
       @top_institutions = @actionPage.institutions.top(300, first: @institution.try(:id))
       @institutions = @actionPage.institutions.order(:name)
+      @institution_category = @institutions.first.category
     end
 
     @topic_category = nil

@@ -24,7 +24,7 @@
       <p>
       This action is currently targeting 
       <%= link_to @target_category.downcase.pluralize,
-        admin_institutions_path(q: @target_category), target: "_blank" %>.
+        admin_institutions_path(category: @target_category), target: "_blank" %>.
       </p>
       <div class="form-item targets-field">
         <%= label :institutions, :reset do %>
