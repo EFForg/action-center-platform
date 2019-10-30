@@ -3,7 +3,7 @@ class Admin::InstitutionsController < Admin::ApplicationController
   before_action :set_categories, only: %i(new edit upload index)
 
   def index
-    @institutions = Institution.all.order(created_at: :desc)
+    @institutions = Institution.includes(:action_pages).all.order(created_at: :desc)
     @institutions = @institutions.search(params[:q]) if params[:q].present?
     if params[:category].present? && params[:category] != "All"
       @institutions = @institutions.where(category: params[:category])

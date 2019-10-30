@@ -52,4 +52,9 @@ class Institution < ActiveRecord::Base
       .order("institutions.id = #{first.to_i} desc", "s_count DESC", "institutions.name")
       .limit(n)
   end
+
+  def included_in_active_actions?
+    return false if action_pages.empty?
+    action_pages.map(&:status).any? "live"
+  end
 end

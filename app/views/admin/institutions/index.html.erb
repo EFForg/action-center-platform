@@ -25,6 +25,8 @@
       <tr>
         <th>Name</th>
         <th>Category</th>
+        <th>Used in live actions?</th>
+        <th>Used in any actions?</th>
         <th></th>
       </tr>
     </thead>
@@ -34,10 +36,15 @@
         <tr>
           <td> <%= institution.name -%> </td>
           <td> <%= institution.category.humanize -%> </td>
+          <td> <%= institution.included_in_active_actions? ? "Yes" : "No" -%> </td>
+          <td> <%= institution.action_pages.empty? ? "No" : "Yes" -%> </td>
           <td>
             <div class='btn-group'>
-              <%= link_to 'Edit', edit_admin_institution_path(institution), class: 'btn-sm btn btn-default', target: "_blank" %>
-              <%= link_to 'Delete', admin_institution_path(institution), class: 'btn-sm btn btn-default', method: :delete, data: { confirm: 'Are you sure?' } %>
+              <%= link_to 'Edit', edit_admin_institution_path(institution),
+                class: 'btn-sm btn btn-default', target: "_blank" %>
+              <%= link_to 'Delete', admin_institution_path(institution),
+                class: 'btn-sm btn btn-default', method: :delete,
+                data: { confirm: "Are you sure?\nIf this target is included in actions, deleting it could cause data errors." } %>
             </div>
           </td>
         </tr>
