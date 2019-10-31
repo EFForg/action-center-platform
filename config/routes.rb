@@ -98,7 +98,7 @@ Actioncenter::Application.routes.draw do
     end
 
     resources :em
-    resources :partners, except: [:show, :edit, :update]
+    resources :partners
     resources :topic_categories, :topic_sets, :topics
 
     resources :action_pages do

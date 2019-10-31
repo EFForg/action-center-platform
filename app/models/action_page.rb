@@ -40,7 +40,8 @@ class ActionPage < ActiveRecord::Base
   belongs_to :author, class_name: "User", foreign_key: :user_id, optional: true
 
   accepts_nested_attributes_for :tweet, :petition, :email_campaign,
-    :call_campaign, :congress_message_campaign, :affiliation_types, reject_if: :all_blank
+    :call_campaign, :congress_message_campaign, :affiliation_types, :partnerships,
+    reject_if: :all_blank
 
   has_attached_file :featured_image, amazon_credentials.merge(default_url: "missing.png")
   has_attached_file :background_image, amazon_credentials
@@ -91,6 +92,10 @@ class ActionPage < ActiveRecord::Base
     else
       where(status => true)
     end
+  end
+
+  def mailing_list_partners
+    partnerships.where(enable_mailings: true).partners
   end
 
   def should_generate_new_friendly_id?
