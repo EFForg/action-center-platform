@@ -109,6 +109,7 @@ Actioncenter::Application.routes.draw do
       patch :preview
       get :duplicate
       get :status
+      get :edit_partners
 
       get :events
       get :"events-table"

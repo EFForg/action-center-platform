@@ -138,6 +138,22 @@
   display: none;
 }
 
+.action_pages-edit_partners {
+  p {
+    margin-bottom: 0;
+    max-width: 57em;
+  }
+  .form-item.checkbox {
+    margin-top: 1.2em;
+    label {
+      display: inline-block;
+    }
+  }
+  .btn-primary {
+    margin-top: 1em;
+  }
+}
+
 #petition-targets {
   .hidden {
     display: none;
@@ -155,9 +171,6 @@
     padding: 0.5em;
     margin-bottom: 0.5em;
   }
-  .btn-primary {
-    margin-top: 1em;
-  }
 }
 
 .action_page_setup #affiliations-enabled {
@@ -173,10 +186,6 @@
   p {
     font-size: 1.2em; // match labels
   }
-}
-
-.action_page_setup .hidden {
-  display: none
 }
 
 .action_page_setup #affiliation-types {
