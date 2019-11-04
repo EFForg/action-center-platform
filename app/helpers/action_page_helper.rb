@@ -77,7 +77,9 @@ module ActionPageHelper
   end
 
   def visible_partners
-    featured = @actionPage.partners.where(code: params[:partner])
-    featured.empty? ? @actionPage.partners : featured
+    mailings_enabled = @actionPage.partners.includes(:partnerships)
+                                  .where(partnerships: { enable_mailings: true })
+    return mailings_enabled if params[:partner].empty?
+    mailings_enabled.where(code: params[:partner])
   end
 end
