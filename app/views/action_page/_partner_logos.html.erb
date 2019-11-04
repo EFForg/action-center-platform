@@ -1,0 +1,7 @@
+<% if @actionPage.partners.present? %>
+  <div class="partner-logos">
+    <% @actionPage.partners.each do |partner| %>
+      <%= image_tag partner.logo %>
+    <% end %>
+  </div>
+<% end %>
