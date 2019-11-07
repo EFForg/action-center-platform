@@ -150,12 +150,12 @@ class Admin::ActionPagesController < Admin::ApplicationController
   end
 
   def homepage
-    @featured_action_pages = FeaturedActionPage.order(:weight).preload(:action_page)
+    @live_actions = ActionPage.status("live").order(:title)
+    @featured_action_pages = FeaturedActionPage.load_for_edit
   end
 
   def update_featured_action_pages
-    @featured_action_pages = FeaturedActionPage.order(:weight)
-
+    @featured_action_pages = FeaturedActionPage.load_for_edit
     params[:featured_action_pages].each do |i, featured_page_params|
       @featured_action_pages[i.to_i].update(featured_page_params.permit(:weight, :action_page_id))
     end
