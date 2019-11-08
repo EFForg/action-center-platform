@@ -103,7 +103,7 @@ class CongressMessagesController < ApplicationController
     customized_message = params[:message] == @campaign.message
     ahoy.track "Action",
       { type: "action", actionType: "congress_message", actionPageId: params[:action_id],
-        customized_message: customized_message },
+        customizedMessage: customized_message },
       action_page: @action_page
   end
 
