@@ -38,7 +38,7 @@ class Admin::ActionPagesController < Admin::ApplicationController
     @actionPage.email_campaign = EmailCampaign.new
     @actionPage.congress_message_campaign = CongressMessageCampaign.new
     @actionPage.email_text = Rails.application.config.action_pages_email_text
-    5.times { @actionPage.affiliation_types.build }
+    10.times { @actionPage.affiliation_types.build }
   end
 
   def create
@@ -61,7 +61,7 @@ class Admin::ActionPagesController < Admin::ApplicationController
     @actionPage.call_campaign ||= CallCampaign.new
     @actionPage.email_campaign ||= EmailCampaign.new
     @actionPage.congress_message_campaign ||= CongressMessageCampaign.new
-    5.times { @actionPage.affiliation_types.build }
+    10.times { @actionPage.affiliation_types.build }
     if @actionPage.enable_petition && @actionPage.petition.enable_affiliations
       @target_category = @actionPage.institutions.first.category
     end
