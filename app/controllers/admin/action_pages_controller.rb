@@ -46,8 +46,8 @@ class Admin::ActionPagesController < Admin::ApplicationController
 
     if @actionPage.save
       if institutions_params[:category]
-        ActionInstitution.delay.add(action_page: @actionPage,
-                                    category: institutions_params[:category])
+        ActionInstitution.add(action_page: @actionPage,
+                              category: institutions_params[:category])
       end
       redirect_to action_page_path(@actionPage)
     else
@@ -77,8 +77,8 @@ class Admin::ActionPagesController < Admin::ApplicationController
 
     @actionPage.update_attributes(action_page_params)
     if institutions_params[:reset] && institutions_params[:reset] == "1"
-      ActionInstitution.delay.add(action_page: @actionPage,
-                                  **institutions_params.to_h.symbolize_keys)
+      ActionInstitution.add(action_page: @actionPage,
+                            **institutions_params.to_h.symbolize_keys)
     end
 
     redirect_to({ action: "edit", anchor: params[:anchor] }, notice: "Action Page was successfully updated.")
