@@ -1,9 +1,9 @@
 <div class='nested-fields'>
   <fieldset class='form-group'>
     <div id="institution-select-wrapper">
-      <%= f.label :institution_id, class: 'sr-only'-%>
+      <%= f.label :institution_id, @institution_category, class: 'sr-only'-%>
       <%= f.collection_select :institution_id, @top_institutions, :id, :name,
-        { prompt: t(:institution) },
+        { include_blank: @institution_category.capitalize },
         { class: 'form-control institution empty', title: t('petition_errors.required.institution'), style: 'width: 100%' }
       -%>
     </div>

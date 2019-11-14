@@ -1,0 +1,17 @@
+<% content_for(:nav) { render "admin/institutions/nav" } %>
+<h2>Upload petition targets</h2>
+<%= form_tag import_admin_institutions_path, multipart: true, id: 'import-institutions-form' do %>
+  <div class="form-item" id="select-category">
+    <%= label :institutions_category, "Select category to upload" %>
+    <%= select :institutions, :category, options_for_select(@categories), include_blank: 'New Category' %>
+  </div>
+  <div class="form-item" id="new-category">
+    <%= label :institutions_new_category, "New category name" %>
+    <%= text_field :institutions, :new_category %>
+  </div>
+  <div class="form-item">
+    <%= file_field_tag :file %>
+  </div>
+  <%= submit_tag "Import targets", class: "btn btn-primary" %>
+<% end %>
+

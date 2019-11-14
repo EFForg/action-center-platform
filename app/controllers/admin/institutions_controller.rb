@@ -1,79 +1,77 @@
 class Admin::InstitutionsController < Admin::ApplicationController
-  before_action :set_action_page
-  before_action :set_institution, only: [:destroy]
+  before_action :set_institution, only: %i(destroy edit update)
+  before_action :set_categories, only: %i(new edit upload index)
 
-  require "csv"
-
-  # GET /admin/action_pages/:action_page_id/institutions
   def index
-    @institutions = @actionPage.institutions.order(:name).page(params[:page])
+    @institutions = Institution.includes(:action_pages).all.order(created_at: :desc)
+    @institutions = @institutions.search(params[:q]) if params[:q].present?
+    if params[:category].present? && params[:category] != "All"
+      @institutions = @institutions.where(category: params[:category])
+    end
+    @institutions = @institutions.paginate(page: params[:page], per_page: 20)
   end
 
-  # GET /admin/action_pages/:action_page_id/institutions/new
   def new
-    @institution = @actionPage.institutions.new
+    @institution = Institution.new
   end
 
-  # POST /admin/action_pages/:action_page_id/institutions
   def create
-    @institution = Institution.find_or_initialize_by(name: institution_params[:name])
-    @actionPage.institutions << @institution
+    @institution = Institution.find_or_initialize_by(institution_params)
 
-    respond_to do |format|
-      if @institution.save
-        format.html { redirect_to [:admin, @actionPage, Institution], notice: "Institution was successfully created." }
-      else
-        format.html { render "new" }
-      end
+    if @institution.save
+      redirect_to action: "index", notice: "#{@institution.name} was successfully created."
+    else
+      render "new"
     end
   end
 
-  # POST /admin/action_pages/:action_page_id/institutions/import
+  def edit; end
+
+  def update
+    if @institution.update(institution_params)
+      redirect_to action: "index", notice: "#{@institution.name} was successfully updated."
+    else
+      render "edit"
+    end
+  end
+
+  def upload; end
+
   def import
-    names = []
-    CSV.foreach(params[:file].path, headers: true) do |row|
-      params = row.to_hash
-      unless params["name"]
-        flash[:notice] = "Import failed. Please check CSV formatting"
-        break
-      end
-      names << params["name"]
+    names = Institution.process_csv(params[:file])
+    if names.empty?
+      redirect_to action: "upload", notice: "Import failed. Please check CSV formatting"
+    else
+      category = if import_params[:new_category].blank?
+                   import_params[:category]
+                 else
+                   import_params[:new_category]
+                 end
+      Institution.delay.import(category, names)
+      redirect_to action: "index", notice: "Successfully imported #{names.length} targets"
     end
-
-    Institution.delay.import(names, @actionPage) if names.present?
-
-    redirect_to [:admin, @actionPage, Institution]
   end
 
-  # DELETE /admin/action_pages/:action_page_id/institutions/1/
   def destroy
-    @actionPage.institutions.delete(@institution)
-    respond_to do |format|
-      format.html { redirect_to [:admin, @actionPage, Institution] }
-    end
-  end
-
-  # DELETE /admin/action_pages/:action_page_id/institutions/
-  def destroy_all
-    @actionPage.institutions.delete_all
-    respond_to do |format|
-      format.html { redirect_to [:admin, @actionPage, Institution] }
-    end
+    @institution.destroy
+    redirect_to action: "index", notice: "Target deleted"
   end
 
   private
-
-  def set_action_page
-    @actionPage = ActionPage.friendly.find(params[:action_page_id])
-    raise ActiveRecord::RecordNotFound unless @actionPage
-  end
 
   def set_institution
     @institution = Institution.friendly.find(params[:id])
   end
 
-  # Never trust parameters from the scary internet, only allow the white list through.
+  def set_categories
+    @categories = Institution.categories
+  end
+
   def institution_params
-    params.require(:institution).permit(:name, :action_page_id)
+    params.require(:institution).permit(:name, :category, :slug)
+  end
+
+  def import_params
+    params.require(:institutions).permit(:category, :new_category)
   end
 end

@@ -137,3 +137,53 @@
 .hidden {
   display: none;
 }
+
+#petition-targets {
+  .hidden {
+    display: none;
+  }
+  legend + .form-item {
+    margin-top: 0.5em;
+  }
+  legend {
+    margin-top: 1em;
+  }
+  .alert {
+    background: #bbeabb;
+    border: 1px solid $border-gray;
+    font-weight: 400;
+    padding: 0.5em;
+    margin-bottom: 0.5em;
+  }
+  .btn-primary {
+    margin-top: 1em;
+  }
+}
+
+.action_page_setup #affiliations-enabled {
+  margin-top: 1em;
+  legend {
+    font-weight: bold;
+    margin-top: 1em;
+    margin-bottom: 0;
+  }
+  .targets-field {
+    margin-top: 1em;
+  }
+  p {
+    font-size: 1.2em; // match labels
+  }
+}
+
+.action_page_setup .hidden {
+  display: none
+}
+
+.action_page_setup #affiliation-types {
+  .form-item + .form-item {
+    display: none;
+  }
+  .targets-field {
+    margin-bottom: 2em;
+  }
+}

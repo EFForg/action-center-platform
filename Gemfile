@@ -90,6 +90,9 @@ gem "whenever", "~> 0", require: false # Cron jobs
 gem "will_paginate", "~> 3.0"
 gem "xmlrpc"
 
+# For creating many records, quickly
+gem "fast_inserter", "~> 0.1"
+
 group :doc do
   # bundle exec rake doc:rails generates the API under doc/api
   gem "sdoc", require: false
