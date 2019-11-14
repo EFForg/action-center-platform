@@ -76,7 +76,8 @@ class Admin::ActionPagesController < Admin::ApplicationController
     @actionPage.og_image         = nil if params[:destroy_og_image]
 
     @actionPage.update_attributes(action_page_params)
-    if institutions_params[:reset] && institutions_params[:reset] == "1"
+    if (institutions_params[:reset] && institutions_params[:reset] == "1") &&
+        institutions_params[:category]
       ActionInstitution.add(action_page: @actionPage,
                             **institutions_params.to_h.symbolize_keys)
     end
