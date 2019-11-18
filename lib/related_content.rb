@@ -8,7 +8,7 @@ class RelatedContent
     begin
       open_page
       @loaded_successfully = true
-    rescue OpenUri::HTTPError
+    rescue OpenURI::HTTPError
       return
     end
   end
