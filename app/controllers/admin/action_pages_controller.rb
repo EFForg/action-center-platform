@@ -129,8 +129,9 @@ class Admin::ActionPagesController < Admin::ApplicationController
     respond_to do |format|
       format.html do
         if @actionPage.enable_congress_message?
-          @total = @actionPage.events.count
-          @customized = @actionPage.events.where("properties ->> 'customizedMessage' = 'true'").count
+          action_events = @actionPage.events.where(name: 'Action')
+          @total = action_events.count
+          @customized = action_events.where("properties ->> 'customizedMessage' = 'true'").count
           @percentage = @total != 0 ? (@customized / @total.to_f) * 100 : 0
         end
       end
