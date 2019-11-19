@@ -65,7 +65,7 @@
                   <%= render 'affiliations/affiliation_fields', :f => affiliation %>
                 <% end %>
                 <div class='links text-right with-js'>
-                  <%= link_to_add_association t(:add_another_institution), f, :affiliations, partial: 'affiliations/affiliation_fields' %>
+                  <%= link_to_add_association "+ Add another #{@institution_category.downcase}", f, :affiliations, partial: 'affiliations/affiliation_fields' %>
                 </div>
               </div>
             <% end %>
