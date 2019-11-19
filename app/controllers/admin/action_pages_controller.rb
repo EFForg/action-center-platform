@@ -129,7 +129,9 @@ class Admin::ActionPagesController < Admin::ApplicationController
     respond_to do |format|
       format.html do
         if @actionPage.enable_congress_message?
+          launch_date = Time.zone.parse("Nov 19 2019")
           action_events = @actionPage.events.where(name: 'Action')
+                                            .where("time > ?", launch_date)
           @total = action_events.count
           @customized = action_events.where("properties ->> 'customizedMessage' = 'true'").count
           @percentage = @total != 0 ? (@customized / @total.to_f) * 100 : 0
