@@ -143,7 +143,15 @@ class Admin::ActionPagesController < Admin::ApplicationController
 
   def events
     respond_to do |format|
-      format.html
+      format.html do
+        if @actionPage.enable_congress_message?
+          action_events = @actionPage.events.where(name: 'Action')
+                                     .where("json_extract_path(properties, 'customizedMessage') is not null")
+          @total = action_events.count
+          @customized = action_events.where("properties ->> 'customizedMessage' = 'true'").count
+          @percentage = @total != 0 ? (@customized / @total.to_f) * 100 : 0
+        end
+      end
       format.json do
         if params[:type].blank?
           render json: @actionPage.events.group_by_type_in_range(start_date, end_date)
