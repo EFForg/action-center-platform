@@ -1,5 +1,6 @@
 .action_page-show,
-.action_pages-preview {
+.action_pages-preview,
+.action_page-show_by_institution {
   .row {
     @include flex-this;
     flex-direction: column;
