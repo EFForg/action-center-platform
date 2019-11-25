@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20191112204445) do
+ActiveRecord::Schema.define(version: 20191031184958) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -141,19 +141,6 @@ ActiveRecord::Schema.define(version: 20191112204445) do
     t.string   "title",      null: false
     t.datetime "created_at"
     t.datetime "updated_at"
-  end
-
-  create_table "ckeditor_assets", force: :cascade do |t|
-    t.string   "data_file_name",               null: false
-    t.string   "data_content_type"
-    t.integer  "data_file_size"
-    t.string   "data_fingerprint"
-    t.string   "type",              limit: 30
-    t.integer  "width"
-    t.integer  "height"
-    t.datetime "created_at",                   null: false
-    t.datetime "updated_at",                   null: false
-    t.index ["type"], name: "index_ckeditor_assets_on_type", using: :btree
   end
 
   create_table "complaints", force: :cascade do |t|
