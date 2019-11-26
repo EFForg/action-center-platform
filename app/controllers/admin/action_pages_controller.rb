@@ -243,6 +243,7 @@ class Admin::ActionPagesController < Admin::ApplicationController
   end
 
   def institutions_params
+    return {} unless params.has_key? :institutions
     params.require(:institutions).permit(%i(category reset))
   end
 
