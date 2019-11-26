@@ -81,14 +81,6 @@ Actioncenter::Application.routes.draw do
 
     get 'mailer/:action/:id' => 'mailer#:action'
 
-    resources :petitions, only: :show do
-      member do
-        get :csv
-        get :presentable_csv
-        delete "signatures" => "petitions#destroy_signatures", as: :signatures
-      end
-    end
-
     resources :congress_message_campaigns, only: :none do
       member do
         get :date_tabulation
@@ -100,6 +92,14 @@ Actioncenter::Application.routes.draw do
     resources :em
     resources :partners
     resources :topic_categories, :topic_sets, :topics
+
+    resources :petitions, only: %i() do
+      member do
+        get :presentable_csv
+        get :affiliation_csv
+        delete "signatures" => "petitions#destroy_signatures", as: :signatures
+      end
+    end
 
     resources :action_pages do
       get :publish
@@ -114,6 +114,8 @@ Actioncenter::Application.routes.draw do
       get :events
       get :"events-table"
       get :views, to: "events#views"
+
+      resources :petitions, only: :show
 
       collection do
         get :homepage

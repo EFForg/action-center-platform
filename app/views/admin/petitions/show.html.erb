@@ -1,68 +1,59 @@
-<div class="container">
-  <h3>Petition</h3>
-  <p>
-    <strong>Title:</strong>
-    <%= @petition.title %>
-  </p>
+<% content_for(:nav) { render "admin/action_pages/action_page_nav" } %>
+<h2>Signatures for <%= @actionPage.title %></h2>
+<% signatures_count = @petition.signatures.count %>
+<h3><%= signatures_count %> Signatures</h3>
 
-  <p>
-    <strong>Text:</strong>
-    <%= markdown @petition.description %>
-  </p>
+<% if can?(:export_signatures) %>
+  <% if @petition.enable_affiliations? %>
+    <%= link_to "Download CSV", affiliation_csv_admin_petition_path(@petition), class: "btn btn-default btn-sm" %>
+  <% else %>
+    <%= link_to "Download CSV", presentable_csv_admin_petition_path(@petition), class: "btn btn-default btn-sm" %>
+  <% end %>
+<% end %>
 
-  <% signatures_count = @petition.signatures.count %>
-  <h3 class="clearfix">
-    <%= signatures_count -%> Signatures
-
-    <% if can?(:export_signatures) %>
-      <%= link_to "Download CSV", csv_admin_petition_path(@petition), class: "btn btn-default btn-sm pull-right"-%>
-    <% end %>
-  </h3>
-
-  <% unless signatures_count.zero? %>
-    <%= form_tag admin_petition_path(@petition), id: "filter_petitions", method: "get" do %>
+<% unless signatures_count.zero? %>
+    <%= form_tag admin_action_page_petition_path(@actionPage, @petition), id: "filter_petitions", method: "get" do %>
       <%= label_tag :query, "Filter by name or e-mail", class: "sr-only" %>
       <%= text_field_tag :query, params[:query], placeholder: "Filter by name or email", class: "form-control input-sm" %>
       <%= submit_tag "Search", class: "btn btn-sm btn-default" %>
     <% end %>
 
-    <% if @signatures.exists? %>
-      <%= form_tag signatures_admin_petition_path(@petition, @search_params), method: :delete do %>
-        <table class="table table-striped table-hover ">
-          <thead>
+  <% if @signatures.exists? %>
+    <%= form_tag signatures_admin_petition_path(@petition, @search_params), method: :delete do %>
+      <table class="table table-striped table-hover ">
+        <thead>
+          <tr>
+            <th>Name</th>
+            <th>Email</th>
+            <th>Signed</th>
+            <th>Delete?</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% @signatures.each do |signature| %>
             <tr>
-              <th>Name</th>
-              <th>Email</th>
-              <th>Signed</th>
-              <th><input type="checkbox" class="select-all" title="Select all" /></th>
-            </tr>
-          </thead>
-          <tbody>
-            <% @signatures.each do |signature| %>
-              <tr>
-                <td><em><%= "#{signature.first_name} #{signature.last_name}" %></em></td>
-                <td><em><%= signature.email %></em></td>
-                <td class="timeago" title="<%= signature.created_at.to_time.iso8601 %>"><%= signature.created_at.to_time.iso8601 %></td>
-                <td>
-                  <input type="checkbox" name="signature_ids[]" value="<%= signature.id %>"
-                         title="<%= "Select #{signature.first_name} #{signature.last_name} for deletion" %>">
-                </td>
-              </tr>
-            <% end %>
-
-            <tr>
-              <td colspan="3"></td>
-              <td align="center">
-                <%= submit_tag "Delete Selected", class: "btn btn-danger btn-sm" %>
+              <td><em><%= "#{signature.first_name} #{signature.last_name}" %></em></td>
+              <td><em><%= signature.email %></em></td>
+              <td class="timeago" title="<%= signature.created_at.to_time.iso8601 %>"><%= signature.created_at.to_time.iso8601 %></td>
+              <td>
+                <input type="checkbox" name="signature_ids[]" value="<%= signature.id %>"
+                                                              title="<%= "Select #{signature.first_name} #{signature.last_name} for deletion" %>">
               </td>
             </tr>
-          </tbody>
-        </table>
-      <% end %>
-    <% else %>
-      <strong>No signatures match this query</strong>
-    <% end %>
+          <% end %>
 
-    <%= will_paginate @signatures -%>
+          <tr>
+            <td colspan="3"></td>
+            <td align="center">
+              <%= submit_tag "Delete Selected", class: "btn btn-danger btn-sm" %>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    <% end %>
+  <% else %>
+    <strong>No signatures match this query</strong>
   <% end %>
-</div>
+
+  <%= will_paginate @signatures -%>
+<% end %>

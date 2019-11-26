@@ -5,6 +5,7 @@ class Admin::PetitionsController < Admin::ApplicationController
   allow_collaborators_to :show, :destroy_signatures
 
   def show
+    @actionPage = ActionPage.friendly.find(params[:action_page_id])
     @search_params = search_params
     @signatures = filtered_signatures
   end
@@ -18,6 +19,11 @@ class Admin::PetitionsController < Admin::ApplicationController
   def presentable_csv
     filename = sanitize_filename("#{@petition}.csv")
     send_data @petition.to_presentable_csv, filename: filename
+  end
+
+  def affiliation_csv
+    filename = sanitize_filename("#{@petition}.csv")
+    send_data @petition.to_affiliation_csv, filename: filename
   end
 
   def destroy_signatures
