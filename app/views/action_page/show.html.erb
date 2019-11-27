@@ -13,6 +13,8 @@
         <%= image_tag(@actionPage.featured_image) %>
         <%= markdown @actionPage.summary -%>
 
+        <%= render "partner_logos" %>
+
         <% if @actionPage.enable_petition? && @petition && @petition.description.present? && !@actionPage.description.include?('``` letter') -%>
           <%= render(partial: "action_page/letter", layout: false) %>
         <% end -%>

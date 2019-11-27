@@ -9,11 +9,12 @@ class Admin::ActionPagesController < Admin::ApplicationController
     :events_table,
     :duplicate,
     :preview,
-    :status
+    :status,
+    :edit_partners
   ]
 
-  before_action :set_petition_targets, only: %i(new edit)
-
+  before_action :set_petition_targets, only: %i(new edit duplicate)
+  before_action :set_partners, only: %i(new edit duplicate)
   before_action :set_source_files, only: %i(new edit create update duplicate)
 
   after_action :purge_cache, only: [:update, :publish]
@@ -68,6 +69,10 @@ class Admin::ActionPagesController < Admin::ApplicationController
   end
 
   def status
+  end
+
+  def edit_partners
+    @partners = Partner.order(name: :desc)
   end
 
   def update
@@ -201,6 +206,10 @@ class Admin::ActionPagesController < Admin::ApplicationController
     @target_categories = Institution.categories
   end
 
+  def set_partners
+    @partners = Partner.order(name: :desc)
+  end
+
   def action_page_params
     params.require(:action_page).permit(
       :title, :summary, :description, :category_id, :related_content_url, :featured_image,
@@ -228,11 +237,13 @@ class Admin::ActionPagesController < Admin::ApplicationController
         :topic_category_id, :alt_text_email_your_rep, :alt_text_look_up_your_rep,
         :alt_text_extra_fields_explain, :alt_text_look_up_helper,
         :alt_text_customize_message_helper, :campaign_tag
-      ]
+      ],
+      partnerships_attributes: [:id, :enable_mailings]
     )
   end
 
   def institutions_params
+    return {} unless params.has_key? :institutions
     params.require(:institutions).permit(%i(category reset))
   end
 

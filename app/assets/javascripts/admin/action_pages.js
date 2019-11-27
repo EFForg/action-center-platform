@@ -69,6 +69,23 @@ $('#affiliations-enabled').on('keyup paste', '#affiliation-types input', functio
   $(this).parent().next('.form-item').show();
 });
 
+$('.action_pages-edit_partners').on('select2:select', "#action_page_partner_ids", function(e) {
+  var id = '#partner-' + e.params.data.id;
+  if ($(id).length > 0 ) {
+    // Re-enable mailing field
+    $(id + ' :input').prop('disabled', false);
+    $(id).next(':input').prop('disabled', false);
+    $(id).show();
+  }
+});
+
+$('.action_pages-edit_partners').on('select2:unselect', "#action_page_partner_ids", function(e) {
+  var id = '#partner-' + e.params.data.id;
+  $(id + ' :input').prop('disabled', true);
+  $(id).next(':input').prop('disabled', true);
+  $(id).hide();
+});
+
 $(document).on('click', '#individual-targets #add', function(e) {
   e.preventDefault();
 
