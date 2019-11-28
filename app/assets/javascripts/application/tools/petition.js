@@ -85,47 +85,10 @@ $(document).on('ready', function() {
     return $('#petition-tool .count b');
   }
 
-  // var getSignaturesInterval = 2000;
-  // var previousSignatures = {};
-  // var getSignatures = function(){
-  //   var petition_id = $("#petition-tool").data("petition-id");
-  //   $.ajax({
-  //     url: '/petition/' + petition_id + '/recent_signatures',
-  //     success: function(data){
-  //       var signatures_total = data.signatures_total;
-  //       setPetitionCountValue(signatures_total);
-
-  //       var progress_total = $('.signatures-bar').attr('aria-valuemax');
-  //       $(".signatures-bar").attr('aria-valuenow', signatures_total).css({width: signatures_total/progress_total*100 + '%'});
-  //       var signatures = data.signatories;
-  //       var individual_signature_template =
-  //         "<tr>\
-  //           <td> <div>{{ name }}</div> <div>{{ location }}</div> </td>\
-  //           <td class='timeago'> {{ time_ago }} </td>\
-  //         </tr>"
-  //       var signatures_html = _.map(signatures, function(signature){
-  //         return _.template(individual_signature_template)({
-  //           name: (signature.first_name ? signature.first_name + " " + signature.last_name : "Anonymous"),
-  //           location: signature.location,
-  //           time_ago: signature.time_ago + " ago"
-  //         });
-  //       }).join("");
-  //       $("#signatures.ajax-update tbody").html(signatures_html);
-
-  //       // did anything change? if no, wait longer til next check.
-  //       if (_.isEqual(data, previousSignatures)) {
-  //         getSignaturesInterval *= 2;
-  //       } else {
-  //         getSignaturesInterval = 2000;
-  //       }
-  //       previousSignatures = data
-  //       window.setTimeout(getSignatures, getSignaturesInterval);
-  //     },
-  //     error: function() {
-  //       window.setTimeout(getSignatures, getSignaturesInterval);
-  //     }
-  //   });
-  // }
+  var getSignaturesInterval = 2000;
+  var previousSignatures = {};
+  var getSignatures = function(){
+  };
 
   var zip_pattern = '\\d{5}(-?\\d{4})?';
 
