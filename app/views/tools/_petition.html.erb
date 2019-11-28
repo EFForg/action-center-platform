@@ -103,7 +103,7 @@
 </div>
 
 <% if !@petition.enable_affiliations? -%>
-  <div id='signatures' class="hidden-xs ajax-update">
+  <div id='signatures' class="hidden-xs <%= 'ajax-update' unless params[:page] %>">
     <h4 class='header'><%= t :recent_signatories -%></h4>
     <%= render(partial: "tools/signatures", layout: false) %>
   </div>

@@ -147,21 +147,18 @@ class ActionPageController < ApplicationController
       # Signatures filtered by institution
       if @institution
         @signatures = @petition.signatures_by_institution(@institution)
-            .paginate(page: params[:page], per_page: 9)
-            .order(created_at: :desc)
         @institution_signature_count = @signatures.pretty_count
-
-      # Signatures with associated affiliations
       elsif @petition.enable_affiliations
         @signatures = @petition.signatures
             .includes(affiliations: [:institution, :affiliation_type])
-            .paginate(page: params[:page], per_page: 9)
-            .order(created_at: :desc)
-
-      # Signatures, no affiliations
       else
-        @signatures = @petition.signatures.order(created_at: :desc).limit(5)
+        @signatures = @petition.signatures
       end
+
+      @signatures = @signatures
+                      .paginate(page: params[:page], per_page: 9)
+                      .order(created_at: :desc)
+
       @signature_count = @petition.signatures.pretty_count
       @require_location = !@petition.enable_affiliations
     end
