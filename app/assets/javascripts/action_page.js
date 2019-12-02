@@ -40,3 +40,7 @@ $('.charactercount').keyup(function() {
       maxLength = $element.data('maxlength');
       $("#" + this.id + "-counter").html("&#126; " + (maxLength - $element.val().length));
 });
+
+$('#action-page-filter select').on('change', function() {
+  $(this).closest('form').submit();
+});
