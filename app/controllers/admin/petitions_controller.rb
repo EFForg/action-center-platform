@@ -33,7 +33,8 @@ class Admin::PetitionsController < Admin::ApplicationController
       params[:page] = filtered_signatures.total_pages
     end
 
-    redirect_to admin_petition_path(@petition, search_params)
+    redirect_to admin_action_page_petition_path(@petition.action_page,
+                                                @petition, search_params)
   end
 
   private

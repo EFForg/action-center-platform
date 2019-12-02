@@ -58,10 +58,7 @@ class ActionPageController < ApplicationController
   end
 
   def show_by_institution
-    respond_to do |format|
-      format.csv { send_data @petition.to_affiliation_csv(@institution) }
-      format.html { render @actionPage.template, layout: @actionPage.layout }
-    end
+    render @actionPage.template, layout: @actionPage.layout
   end
 
   def filter
