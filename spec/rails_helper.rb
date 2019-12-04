@@ -52,6 +52,7 @@ end
 
 Capybara.server = :puma
 Capybara.javascript_driver = :chrome_headless
+Capybara.enable_aria_label = true
 
 RSpec.configure do |config|
   config.include Devise::Test::ControllerHelpers, type: :controller
