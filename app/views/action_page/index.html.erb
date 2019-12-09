@@ -5,6 +5,12 @@
 </div>
 
 <section class="more-actions">
+  <%= form_tag action_page_index_path, method: :get, id: "action-page-filter" do %>
+    <%= select_tag :category,
+      options_from_collection_for_select(Category.all.order(:title).uniq,
+                                         :title, :title, params[:category]),
+      include_blank: "All campaigns" %>
+  <% end %>
   <div class='container'>
     <% @actionPages.each_slice(3) do |array_of_3_actions| %>
       <div class="row">

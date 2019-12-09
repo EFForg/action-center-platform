@@ -981,6 +981,32 @@ h3 {
     display: inline-block;
     margin: 2rem 0;
   }
+  form {
+    background: none;
+    padding: 0 0;
+    margin-bottom: 3rem;
+    select {
+      font-family: $sans-serif;
+      font-weight: bold;
+      color: #303030;
+      text-transform: uppercase;
+      appearance: none;
+      -moz-appearance: none;
+      -webkit-appearance: none;
+      height: 3rem;
+      padding: 0 0.5rem;
+      background-color: #e9e9e9;
+      border-bottom: 0.3rem solid #989898;
+      background-image: url(down-arrow-1.svg);
+      background-size: 25px 20px;
+      background-position: 95% 60%;
+      background-repeat: no-repeat;
+
+      option {
+        background-color: #e9e9e9;
+      }
+    }
+  }
   section.more-actions {
     .row {
       @media screen and (min-width: $md) {
