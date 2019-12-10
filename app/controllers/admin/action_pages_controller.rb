@@ -171,8 +171,17 @@ class Admin::ActionPagesController < Admin::ApplicationController
   end
 
   def events_table
-    @data = @actionPage.events.group_by_type_in_range(start_date, end_date)
-    @columns = Ahoy::Event.action_types(@actionPage)
+    events_from = if events_params[:date_range].present?
+                    if events_params[:date_range] == "Action lifetime"
+                      @actionPage.created_at
+                    else
+                      parse_time_ago(events_params[:date_range])
+                    end
+                  else
+                    Time.zone.now - 1.month
+                  end
+    @data = @actionPage.events.group_by_type_in_range(events_from, Time.zone.now)
+    @columns = Ahoy::Event.action_types(@actionPage).sort.reverse
     if @actionPage.enable_congress_message?
       @fills = @actionPage.congress_message_campaign.date_fills(start_date, end_date)
     end
@@ -250,6 +259,10 @@ class Admin::ActionPagesController < Admin::ApplicationController
   def filter_params
     params.permit(:q, :date_range, :utf8,
                   action_filters: %i(type status author category))
+  end
+
+  def events_params
+    params.permit(:date_range)
   end
 
   def purge_cache

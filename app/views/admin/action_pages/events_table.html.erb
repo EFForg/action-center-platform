@@ -1,50 +1,49 @@
 <% content_for(:nav) { render "action_page_nav" } %>
 <h2>Action page analytics for: <em><%= @actionPage.title %></em></h3>
 
-<table class="table striped" >
-  <col>
-  <% @columns.each do |_| %>
-    <colgroup span="2">
-  <% end %>
+<div id="analytics-nav">
+  <%= link_to "Table", admin_action_page_events_table_path(@actionPage), class: "btn sm active", target: "_blank" %>
+  <%= link_to "Chart", admin_action_page_events_path(@actionPage), class: "btn sm", target: "_blank" %>
+  <div class="analytics-filters">
+    <h2>Filters</h2>
+    <%= form_tag admin_action_page_events_table_path(@actionPage), method: :get do %>
+      <div class="form-item">
+        <%= label_tag "Date Range" %>
+        <%= select_tag :date_range,
+        options_for_select(["Last 7 days", "Last 30 days", "Last 3 months",
+                            "Last 6 months", "Action lifetime"], params[:date_range]) %>
+      </div>
+      <div class="form-actions">
+        <%= submit_tag "Filter", class: "btn btn-primary btn-sm", data: { disable_with: false } %>
+      </div>
+    <% end %>
+  </div>
+</div>
 
+<table id="analytics-table" class="table striped">
   <thead>
     <tr>
-      <td></td>
-      <% @columns.each do |c| %>
-        <th colspan="2">
-          <%= t(c, scope: :ahoy) %>
-        </th>
-      <% end %>
-      <% if @fills.present? %>
-        <th colspan="2">Congress Messages Submitted</th>
-      <% end %>
-    </tr>
-    <tr>
       <th>Date</th>
-      <% @columns.each do |_| %>
-        <th class="subheader">Daily</th>
-        <th class="subheader">Total</th>
-      <% end %>
-      <% if @fills.present? %>
-        <th class="subheader">Daily</th>
-        <th class="subheader">Total</th>
-      <% end %>
+      <th>Views</th>
+      <th>Actions Taken</th>
+      <th>%</th>
     </tr>
   </thead>
 
   <tbody>
-    <% @totals = Hash.new(0) %>
     <% @data.each do |date, counts| %>
       <tr>
-        <td><%= date.to_datetime.strftime("%B %-d, %Y") %></td>
-        <% @columns.each do |c| %>
-          <td><%= counts[c] || 0 %></td>
-          <td><%= @totals[c] += counts[c] || 0 %></td>
+        <td><%= date %></td>
+        <% @columns.each do |col| %>
+          <td><%= counts[col] %></td>
         <% end %>
-        <% if @fills.present? %>
-          <td><%= @fills[date] || 0 %></td>
-          <td><%= @totals[:fills] += @fills[date] || 0 %></td>
-        <% end %>
+        <td>
+          <% if counts[@columns[0]] > 0 %>
+            <%= number_to_percentage(counts[@columns[1]] / counts[@columns[0]].to_f) %>
+          <% else %>
+            -
+          <% end %>
+        </td>
       </tr>
     <% end %>
   </tbody>

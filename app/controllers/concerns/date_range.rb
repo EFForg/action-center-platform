@@ -25,6 +25,13 @@ module DateRange
     end_date.strftime("%Y-%m-%d")
   end
 
+  # Convert Last X (days|weeks|months) to a time
+  def parse_time_ago(string)
+    _, count, unit = string.split(' ')
+    return Time.zone.now unless %w(days weeks months years).include? unit
+    Time.zone.now - count.send(unit)
+  end
+
   included do
     helper_method :start_date_string
     helper_method :end_date_string
