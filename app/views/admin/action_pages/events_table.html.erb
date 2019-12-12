@@ -5,18 +5,25 @@
   <%= link_to "Table", admin_action_page_events_table_path(@actionPage), class: "btn sm active", target: "_blank" %>
   <%= link_to "Chart", admin_action_page_events_path(@actionPage), class: "btn sm", target: "_blank" %>
   <div class="analytics-filters">
-    <h2>Filters</h2>
+    <h3>Filters</h3>
     <%= form_tag admin_action_page_events_table_path(@actionPage), method: :get do %>
       <div class="form-item">
         <%= label_tag "Date Range" %>
-        <%= select_tag :date_range,
+        <%= select_tag :date_text,
         options_for_select(["Last 7 days", "Last 30 days", "Last 3 months",
-                            "Last 6 months", "Action lifetime"], params[:date_range]) %>
+                            "Last 6 months", "Action lifetime"], params[:date_text]) %>
+        <input type="text" id="date_range" name="date_range_text" value="" />
       </div>
       <div class="form-actions">
         <%= submit_tag "Filter", class: "btn btn-primary btn-sm", data: { disable_with: false } %>
       </div>
     <% end %>
+    <h3>Summary</h3>
+    <p>Views: <%= @summary[:view] %></p>
+    <p>Actions Taken: <%= @summary[:action] %></p>
+    <p><%= percentage(@summary[:action], @summary[:view]) %> of views led to actions</p>
+  </div>
+  <div>
   </div>
 </div>
 
@@ -27,23 +34,32 @@
       <th>Views</th>
       <th>Actions Taken</th>
       <th>%</th>
+      <% if @actionPage.enable_congress_message %>
+        <th>Emails Sent<th>
+      <% end %>
     </tr>
   </thead>
 
   <tbody>
-    <% @data.each do |date, counts| %>
+    <% @counts.each do |date, counts| %>
       <tr>
         <td><%= date %></td>
-        <% @columns.each do |col| %>
-          <td><%= counts[col] %></td>
-        <% end %>
+        <td><%= counts[:view] %></td>
+        <td><%= counts[:action] %></td>
         <td>
-          <% if counts[@columns[0]] > 0 %>
-            <%= number_to_percentage(counts[@columns[1]] / counts[@columns[0]].to_f) %>
+          <% if counts[:view] > 0 %>
+            <%= percentage(counts[:action], counts[:view])%>
           <% else %>
             -
           <% end %>
         </td>
+        <% if @actionPage.enable_congress_message %>
+          <td>
+            <% if @fills.present? %>
+              <%= @fills[date.to_datetime.strftime("%B %-d")] || 0 %>
+            <% end %>
+          </td>
+        <% end %>
       </tr>
     <% end %>
   </tbody>

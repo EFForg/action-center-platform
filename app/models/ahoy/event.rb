@@ -55,6 +55,23 @@ module Ahoy
       end
     end
 
+    def self.counts_by_date(start_date, end_date)
+      result = group(:name).group_by_day(:time, format: "%b %-e %Y",
+                                                range: start_date..end_date.tomorrow)
+                           .count
+      result.reduce({}) do |h, row|
+        pair, count = row
+        type, date = pair
+        h[date] ||= {}
+        if type.present?
+          type = type.downcase.to_sym
+          h[date][type] ||= 0
+          h[date][type] += count
+        end
+        h
+      end
+    end
+
     def self.group_in_range(start_date, end_date)
       if (end_date - start_date) <= 5.days
         group_by_hour(
@@ -65,10 +82,19 @@ module Ahoy
       else
         group_by_day(
           :time,
-          format: "%b %-e",
+          format: "%b %-e %Y",
           range: start_date..end_date.tomorrow
         ).count
       end
+    end
+
+    def self.summary(start_date, end_date)
+      events = where(time: start_date..(end_date + 1.day))
+      view_count = events.views.count
+      action_count = events.actions.count
+      { 
+        view: view_count, action: action_count
+      }
     end
 
     def user_opt_out

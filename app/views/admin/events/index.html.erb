@@ -8,6 +8,3 @@
   <h3><%= t(type, scope: :ahoy) %></h3>
   <%= line_chart(admin_events_path(type: type), height: "200px", discrete: true) %>
 <% end %>
-
-<h3>Users</h3>
-<%= line_chart(admin_users_path, height: "200px", discrete: true) %>

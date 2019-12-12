@@ -150,7 +150,7 @@ class Admin::ActionPagesController < Admin::ApplicationController
     respond_to do |format|
       format.html do
         if @actionPage.enable_congress_message?
-          action_events = @actionPage.events.where(name: 'Action')
+          action_events = @actionPage.events.actions
                                      .where("json_extract_path(properties, 'customizedMessage') is not null")
           @total = action_events.count
           @customized = action_events.where("properties ->> 'customizedMessage' = 'true'").count
@@ -158,11 +158,13 @@ class Admin::ActionPagesController < Admin::ApplicationController
         end
       end
       format.json do
+        @start_date, @end_date = process_dates(**date_params.to_h.symbolize_keys)
         if params[:type].blank?
-          render json: @actionPage.events.group_by_type_in_range(start_date, end_date)
+          render json: @actionPage.events.group_by_type_in_range(@start_date,
+                                                                 @end_date)
         elsif Ahoy::Event.action_types.map(&:to_s).include?(params[:type])
           render json: @actionPage.events.send(params[:type])
-                  .group_in_range(start_date, end_date)
+                  .group_in_range(@start_date, @end_date)
         else
           head status: 400
         end
@@ -171,17 +173,9 @@ class Admin::ActionPagesController < Admin::ApplicationController
   end
 
   def events_table
-    events_from = if events_params[:date_range].present?
-                    if events_params[:date_range] == "Action lifetime"
-                      @actionPage.created_at
-                    else
-                      parse_time_ago(events_params[:date_range])
-                    end
-                  else
-                    Time.zone.now - 1.month
-                  end
-    @data = @actionPage.events.group_by_type_in_range(events_from, Time.zone.now)
-    @columns = Ahoy::Event.action_types(@actionPage).sort.reverse
+    start_date, end_date = process_dates(**date_params.to_h.symbolize_keys)
+    @counts = @actionPage.events.counts_by_date(start_date, end_date)
+    @summary = @actionPage.events.summary(start_date, end_date)
     if @actionPage.enable_congress_message?
       @fills = @actionPage.congress_message_campaign.date_fills(start_date, end_date)
     end
@@ -259,10 +253,6 @@ class Admin::ActionPagesController < Admin::ApplicationController
   def filter_params
     params.permit(:q, :date_range, :utf8,
                   action_filters: %i(type status author category))
-  end
-
-  def events_params
-    params.permit(:date_range)
   end
 
   def purge_cache
