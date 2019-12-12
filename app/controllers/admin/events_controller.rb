@@ -2,7 +2,7 @@ class Admin::EventsController < Admin::ApplicationController
   include DateRange
 
   def index
-    @start_date, @end_date = process_dates(**date_params.to_h.symbolize_keys)
+    set_dates
     if Ahoy::Event.action_types.include?(params[:type].try(:to_sym))
       @events = Ahoy::Event.all.send(params[:type])
       @data = @events.group_in_range(@start_date, @end_date)

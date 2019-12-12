@@ -147,7 +147,7 @@ class Admin::ActionPagesController < Admin::ApplicationController
   end
 
   def events
-    @start_date, @end_date = process_dates(**date_params.to_h.symbolize_keys)
+    set_dates
     respond_to do |format|
       format.html do
         @summary = @actionPage.events.summary(@start_date, @end_date)
@@ -174,11 +174,11 @@ class Admin::ActionPagesController < Admin::ApplicationController
   end
 
   def events_table
-    start_date, end_date = process_dates(**date_params.to_h.symbolize_keys)
-    @counts = @actionPage.events.counts_by_date(start_date, end_date)
-    @summary = @actionPage.events.summary(start_date, end_date)
+    set_dates
+    @counts = @actionPage.events.counts_by_date(@start_date, @end_date)
+    @summary = @actionPage.events.summary(@start_date, @end_date)
     if @actionPage.enable_congress_message?
-      @fills = @actionPage.congress_message_campaign.date_fills(start_date, end_date)
+      @fills = @actionPage.congress_message_campaign.date_fills(@start_date, @end_date)
     end
   end
 

@@ -1,6 +1,10 @@
 module DateRange
   extend ActiveSupport::Concern
 
+  def set_dates
+    @start_date, @end_date = process_dates(**date_params.to_h.symbolize_keys)
+  end
+
   def process_dates(date_range_text: nil, date_text: nil, **_)
     return parse_date_range(date_range_text) if date_range_text.present?
     return [Time.zone.now - 1.month, Time.zone.now] unless date_text.present?
@@ -21,8 +25,10 @@ module DateRange
     Time.zone.now - count.to_i.send(unit)
   end
 
-  def date_string(date)
-    date.strftime("%Y-%m-%d")
+  def date_range_string
+    return "" unless @start_date && @end_date
+    format = "%Y-%m-%d"
+    "#{@start_date.strftime(format)} - #{@end_date.strftime(format)}"
   end
 
   def select_time_ago(action_page)
@@ -32,7 +38,7 @@ module DateRange
   end
 
   included do
-    helper_method :date_string
+    helper_method :date_range_string
     helper_method :select_time_ago
   end
 

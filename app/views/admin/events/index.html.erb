@@ -2,7 +2,10 @@
 
 <%= render 'sidebar', path: admin_events_path, action_page: nil, summary: @summary %>
 
-<% Ahoy::Event.action_types.each do |type| %>
-  <h3><%= t(type, scope: :ahoy) %></h3>
-  <%= line_chart(admin_events_path(type: type), height: "200px", discrete: true) %>
-<% end %>
+<div class="charts">
+  <% Ahoy::Event.action_types.each do |type| %>
+    <h3><%= t(type, scope: :ahoy) %></h3>
+    <%= line_chart(admin_events_path(type: type, date_range_text: date_range_string),
+                   height: "200px", discrete: true) %>
+  <% end %>
+</div>

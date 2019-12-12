@@ -7,19 +7,17 @@
 Chart.defaults.global.responsive = true;
 
 $(document).ready(function() {
-  $("#analytics_date_control_container #date_range").daterangepicker({
-    locale: { format: 'YYYY-MM-DD' }
+  $('#date_range').on('focus', function(){
+    $(this).daterangepicker({
+      locale: { format: 'YYYY-MM-DD' }
+    });
   });
 
-  $("#analytics_date_control_container #date_range").on('apply.daterangepicker', function(ev, picker){
-    Chartkick.eachChart( function(chart) {
-      var path, search;
-      [path, search] = chart.dataSource.split('?')
-      var params = new URLSearchParams(search);
-      params.set('date_start', picker.startDate.format('YYYY-MM-DD'));
-      params.set('date_end', picker.endDate.format('YYYY-MM-DD'));
-      chart.dataSource = path + '?' + params.toString();
-      chart.refreshData();
-    });
+  $('#analytics-filters-form').on('click', 'button[type=reset]', function(e) {
+    e.preventDefault();
+    var $form = $(this).parents('form');
+    $form.find('input').val('');
+    $form.find('select').val('').trigger('change');
+    $form.submit();
   });
 });
