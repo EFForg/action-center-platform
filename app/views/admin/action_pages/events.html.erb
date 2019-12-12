@@ -1,27 +1,12 @@
 <% content_for(:nav) { render "action_page_nav" } %>
 
-<h2>Analytics</h2>
+<h2>Analytics for: <em><%= @actionPage.title %></em></h3>
 
 <span class="alert alert-warning times-notification"><i class="icon-attention"></i> All dates and times are given in <%= Time.zone.name %></span>
-<div id="analytics-nav">
-  <%= link_to "Table", admin_action_page_events_table_path(@actionPage), class: "btn sm", target: "_blank" %>
-  <%= link_to "Chart", admin_action_page_events_path(@actionPage), class: "btn sm active", target: "_blank" %>
-  <div class="analytics-filters">
-    <h2>Filters</h2>
-    <%= form_tag admin_action_page_events_path(@actionPage), method: :get do %>
-      <div class="form-item">
-        <%= label_tag "Date Range" %>
-        <%= select_tag :date_text,
-        options_for_select(["Last 7 days", "Last 30 days", "Last 3 months",
-                            "Last 6 months", "Action lifetime"], params[:date_text]) %>
-        <input type="text" id="date_range" name="date_range_text" value="" />
-      </div>
-      <div class="form-actions">
-        <%= submit_tag "Filter", class: "btn btn-primary btn-sm", data: { disable_with: false } %>
-      </div>
-    <% end %>
-  </div>
-</div>
+
+<%= render 'admin/events/sidebar', action_page: @actionPage,
+    path: admin_action_page_events_path(@actionPage),
+    active: :chart, summary: @summary %>
 
 <% if @actionPage.enable_congress_message? %>
   <p>Out of <%= @total %> total messages, <%= @customized %> were customized (<%= number_to_percentage(@percentage, precision: 2) %>).</p>

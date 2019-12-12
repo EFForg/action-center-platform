@@ -1,8 +1,6 @@
 <% content_for(:nav) { render "admin/nav" } %>
 
-<div id="filters">
-  <%= render 'admin/action_pages/date_range_form' -%>
-</div>
+<%= render 'sidebar', path: admin_events_path, action_page: nil, summary: @summary %>
 
 <% Ahoy::Event.action_types.each do |type| %>
   <h3><%= t(type, scope: :ahoy) %></h3>

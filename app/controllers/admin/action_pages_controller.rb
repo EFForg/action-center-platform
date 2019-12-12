@@ -147,8 +147,10 @@ class Admin::ActionPagesController < Admin::ApplicationController
   end
 
   def events
+    @start_date, @end_date = process_dates(**date_params.to_h.symbolize_keys)
     respond_to do |format|
       format.html do
+        @summary = @actionPage.events.summary(@start_date, @end_date)
         if @actionPage.enable_congress_message?
           action_events = @actionPage.events.actions
                                      .where("json_extract_path(properties, 'customizedMessage') is not null")
@@ -158,7 +160,6 @@ class Admin::ActionPagesController < Admin::ApplicationController
         end
       end
       format.json do
-        @start_date, @end_date = process_dates(**date_params.to_h.symbolize_keys)
         if params[:type].blank?
           render json: @actionPage.events.group_by_type_in_range(@start_date,
                                                                  @end_date)

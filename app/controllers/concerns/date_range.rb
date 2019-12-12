@@ -25,8 +25,15 @@ module DateRange
     date.strftime("%Y-%m-%d")
   end
 
+  def select_time_ago(action_page)
+    ["Last 7 days", "Last 30 days", "Last 3 months", "Last 6 months"].tap do |o|
+      o << "Action lifetime" if action_page.present?
+    end
+  end
+
   included do
     helper_method :date_string
+    helper_method :select_time_ago
   end
 
   private
