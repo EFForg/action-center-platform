@@ -149,6 +149,11 @@ class ActionPage < ActiveRecord::Base
     [og_image, background_image, featured_image].find(&:present?)
   end
 
+  def actions_taken_percent
+    return 0 if view_count == 0
+    @percent ||= (action_count / view_count.to_f) * 100
+  end
+
   def status
     if archived?
       "archived"

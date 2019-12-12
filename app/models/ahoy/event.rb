@@ -5,6 +5,15 @@ module Ahoy
     belongs_to :visit
     belongs_to :user
     belongs_to :action_page
+    counter_culture :action_page, column_name: proc { |record|
+      if record.name == "Action"
+        "action_count"
+      elsif record.name == "View"
+        "view_count"
+      else
+        nil
+      end
+    }
 
     scope :actions,    -> { where(name: "Action") }
     scope :views,      -> { where(name: "View") }
