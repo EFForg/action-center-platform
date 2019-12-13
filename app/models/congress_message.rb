@@ -66,7 +66,7 @@ class CongressMessage
   end
 
   def update_common_attributes(**attrs)
-    member_attributes.values.each do |member_attrs|
+    member_attributes.each_value do |member_attrs|
       attrs.each { |key, val| member_attrs[key.to_s] = val }
     end
   end
