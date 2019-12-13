@@ -2,6 +2,13 @@
   var goto = function(id) {
     if (!id) return;
 
+    // Don't allow hidden epiceditors to save -- when the element
+    // is hidden, whitespace formatting doesn't export correctly.
+    $('#content form .page:visible .epiceditor').each(function() {
+      if ($(this).data('editor'))
+        $(this).data('editor')._canSave = false;
+    });
+
     $('#content form .page:visible').fadeOut(100, function() {
       $('#nav .active').removeClass('active');
       $('#nav a[href=' + id +']').addClass('active');

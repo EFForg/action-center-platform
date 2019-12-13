@@ -1,0 +1,29 @@
+<% content_for(:nav) { render "action_page_nav" } %>
+
+<h2>Partners for <%= @actionPage.title %></h2>
+
+<p> Add partner logos and email signups to this action. </p>
+
+<%= form_for([:admin, @actionPage]) do |f| %>
+  <div class="form-item">
+    <%= f.label :partner_ids, "Add Partners" %>
+    <%= f.collection_select :partner_ids, @partners, :id, :name, { }, { multiple: true } %>
+  </div>
+
+  <% unless @actionPage.partners.empty? %>
+    <h3>Enable mailing lists</h3>
+    <p>
+    You <em>must</em> have the Activism Director’s approval to add a partner email signup to a campaign,
+    and a partner must be approved each time we agree to give them a signup option on any campaign.
+    </p>
+    <fieldset>
+      <%= f.fields_for(:partnerships) do |sf| %>
+        <div id="partner-<%= sf.object.partner.id %>" class="form-item checkbox">
+          <%= sf.label :enable_mailings, "Enable mailings for #{sf.object.partner.name}" %>
+          <%= sf.check_box :enable_mailings %>
+        </div>
+      <% end %>
+    </fieldset>
+  <% end %>
+  <%= f.submit "Save Partners", class: "btn btn-primary" %>
+<% end %>

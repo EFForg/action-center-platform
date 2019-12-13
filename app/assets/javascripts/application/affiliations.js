@@ -16,9 +16,11 @@ $(document).on('ready', function() {
     $(this).toggleClass("empty", $.inArray($(this).val(), ['', null]) >= 0);
   })
 
+  var category = $affiliations.find('#signature_affiliations_attributes_0_institution_id')
+                              .children('option:first').text();
   var select2_options = {
     theme: 'bootstrap',
-    placeholder: 'Institution',
+    placeholder: category
   }
 
   // If institutions are passed as json, load them as paginated data
@@ -50,7 +52,7 @@ $(document).on('ready', function() {
   // Autocomplete institution when filtering signatures.
   $('#signatures select.institution').select2(
     $.extend({}, select2_options, {
-      placeholder: 'Filter by institution',
+      placeholder: 'Filter by ' + category
     })
   )
 });

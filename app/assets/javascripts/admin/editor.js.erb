@@ -27,5 +27,6 @@ function reflowEpicEditor() {
       initEpicEditor(this);
 
     $(this).data('editor').reflow();
+    $(this).data('editor')._canSave = true;
   });
 }

@@ -9,6 +9,10 @@
   <%= link_to "Table View", admin_action_page_events_table_path(@actionPage), class: "btn sm", target: "_blank" %>
 </div>
 
+<% if @actionPage.enable_congress_message? %>
+  <p>Out of <%= @total %> total messages, <%= @customized %> were customized (<%= number_to_percentage(@percentage, precision: 2) %>).</p>
+<% end %>
+
 <% Ahoy::Event.action_types(@actionPage).each do |type| %>
   <h3><%= t(type, scope: :ahoy) %></h3>
 

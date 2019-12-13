@@ -7,6 +7,7 @@
 //= require admin/editor
 //= require admin/gallery
 //= require admin/action_pages
+//= require admin/action_pages/petition-targets
 //= require admin/analytics
 //= require_tree ./admin/components
 

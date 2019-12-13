@@ -8,4 +8,49 @@
     <%= sf.label :goal %>
     <%= sf.number_field :goal %>
   </div>
+
+  <div class="form-item">
+    <%= sf.label :enable_affiliations do %>
+      Add petition targets <span class="hint">(ex. universities or cities)</span>
+    <% end %>
+    <%= sf.check_box :enable_affiliations %>
+  </div>
 <% end %>
+
+<div id="affiliations-enabled" class="<%= "hidden"  unless @actionPage.petition.enable_affiliations %>">
+  <legend>Targets</legend>
+  <% if @actionPage.institutions.present? %>
+    <div id="edit-institutions">
+      <p>
+      This action is currently targeting 
+      <%= link_to @target_category.downcase.pluralize,
+        admin_institutions_path(category: @target_category), target: "_blank" %>.
+      </p>
+      <div class="form-item targets-field">
+        <%= label :institutions, :reset do %>
+          Reset targets <span class="hint">(remove all targets to add new ones)</span>
+        <% end %>
+        <%= check_box :institutions, :reset %>
+      </div>
+    </div>
+  <% end %>
+
+  <div id="add-institutions" class="<%= "hidden"  if @actionPage.institutions.present? %>">
+    <div class="form-item targets-field">
+      <%= label :institutions_category, "Type of institution to target" %>
+      <%= select :institutions, :category, options_for_select(@target_categories) %>
+    </div>
+  </div>
+
+  <fieldset id="affiliation-types">
+    <legend>Affiliations</legend>
+    <%= f.fields_for :affiliation_types do |sf| %>
+      <div class="form-item targets-field">
+        <%= sf.label :name do %>
+          Name <span class="hint">(ex. Student or Resident)</span>
+        <% end %>
+        <%= sf.text_field :name %>
+      </div>
+    <% end %>
+  </fieldset>
+</div>
