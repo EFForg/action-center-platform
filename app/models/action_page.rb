@@ -40,7 +40,8 @@ class ActionPage < ActiveRecord::Base
   belongs_to :author, class_name: "User", foreign_key: :user_id, optional: true
 
   accepts_nested_attributes_for :tweet, :petition, :email_campaign,
-    :call_campaign, :congress_message_campaign, reject_if: :all_blank
+    :call_campaign, :congress_message_campaign, :affiliation_types, :partnerships,
+    reject_if: :all_blank
 
   has_attached_file :featured_image, amazon_credentials.merge(default_url: "missing.png")
   has_attached_file :background_image, amazon_credentials
@@ -55,6 +56,7 @@ class ActionPage < ActiveRecord::Base
 
   #validates_length_of :og_title, maximum: 65
   after_save :no_drafts_on_homepage
+  after_save :set_congress_tag, if: -> { enable_congress_message }
 
   scope :categorized, ->(category) { joins(:category).where(categories: { title: category }) }
 
@@ -90,6 +92,10 @@ class ActionPage < ActiveRecord::Base
     else
       where(status => true)
     end
+  end
+
+  def mailing_list_partners
+    partnerships.where(enable_mailings: true).partners
   end
 
   def should_generate_new_friendly_id?
@@ -143,6 +149,11 @@ class ActionPage < ActiveRecord::Base
     [og_image, background_image, featured_image].find(&:present?)
   end
 
+  def actions_taken_percent
+    return 0 if view_count == 0
+    @percent ||= (action_count / view_count.to_f) * 100
+  end
+
   def status
     if archived?
       "archived"
@@ -181,5 +192,10 @@ class ActionPage < ActiveRecord::Base
 
   def no_drafts_on_homepage
     FeaturedActionPage.where(action_page_id: id).destroy_all unless published?
+  end
+
+  def set_congress_tag
+    return unless congress_message_campaign.campaign_tag.blank?
+    congress_message_campaign.update(campaign_tag: slug)
   end
 end

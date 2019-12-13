@@ -80,6 +80,35 @@ describe ActionPage do
     end
   end
 
+  describe "counter cache" do
+    let(:page) { FactoryGirl.create(:action_page_with_petition) }
+    before(:each) do
+      FactoryGirl.create_list(:ahoy_view, 2, action_page: page)
+      FactoryGirl.create(:ahoy_signature, action_page: page)
+      page.reload
+    end
+    it "counts actions taken" do
+      expect(page.action_count).to eq(1)
+    end
+    it "counts views" do
+      expect(page.view_count).to eq(2)
+    end
+  end
+
+  describe "#actions_taken_percent" do
+    it "calculates the percentage of views that led to actions" do
+      page = FactoryGirl.create(:action_page_with_petition)
+      FactoryGirl.create_list(:ahoy_view, 3, action_page: page)
+      FactoryGirl.create_list(:ahoy_signature, 2, action_page: page)
+      page.reload
+      expect(page.actions_taken_percent).to eq((2 / 3.0) * 100)
+    end
+    it "returns all zeroes when no events" do
+      page = FactoryGirl.create(:action_page)
+      expect(page.actions_taken_percent).to eq(0)
+    end
+  end
+
   describe ".type(types)" do
     let(:call) { FactoryGirl.create(:action_page_with_call) }
     let(:congress_message) { FactoryGirl.create(:action_page_with_congress_message) }

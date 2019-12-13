@@ -1,5 +1,6 @@
 .action_page-show,
-.action_pages-preview {
+.action_pages-preview,
+.action_page-show_by_institution {
   .row {
     @include flex-this;
     flex-direction: column;
@@ -595,23 +596,6 @@ h3.header,
   }
 }
 
-#signatures {
-  margin-left: 1rem;
-  text-transform: capitalize;
-  width: 100%;
-  .header {
-    color: $gray-darker;
-    margin: 2em 0 1em;
-  }
-  td { border: none; }
-  .timeago {
-    text-align: right;
-    text-transform: uppercase;
-  }
-  .pagination {
-    float: right;
-  }
-}
 #description .letter, #letter {
   background-color: $off-white;
   color: $charcoal;
@@ -710,10 +694,13 @@ h3.header,
   }
   .call-script {
     background: $off-white;
-    font-size: $base-font-size * 0.9;
+    font-size: 1.06rem;
     margin: 0;
     padding: 1rem;
     text-align: left;
+    @media screen and (min-width: $md) {
+      font-size: $base-font-size;
+    }
   }
 
   .form-errors {
@@ -994,6 +981,32 @@ h3 {
     display: inline-block;
     margin: 2rem 0;
   }
+  form {
+    background: none;
+    padding: 0 0;
+    margin-bottom: 3rem;
+    select {
+      font-family: $sans-serif;
+      font-weight: bold;
+      color: #303030;
+      text-transform: uppercase;
+      appearance: none;
+      -moz-appearance: none;
+      -webkit-appearance: none;
+      height: 3rem;
+      padding: 0 0.5rem;
+      background-color: #e9e9e9;
+      border-bottom: 0.3rem solid #989898;
+      background-image: url(down-arrow-1.svg);
+      background-size: 25px 20px;
+      background-position: 95% 60%;
+      background-repeat: no-repeat;
+
+      option {
+        background-color: #e9e9e9;
+      }
+    }
+  }
   section.more-actions {
     .row {
       @media screen and (min-width: $md) {
@@ -1161,40 +1174,54 @@ html.js #affiliations {
   }
 }
 
+#signatures {
+  text-transform: capitalize;
+  width: 100%;
+  .header {
+    color: $gray-darker;
+    margin: 2em 0 1em;
+  }
+  td { border: none; }
+  .timeago {
+    text-align: right;
+    text-transform: uppercase;
+  }
+  .pagination {
+    float: right;
+  }
+}
+
+#signatures + #tools {
+  margin-top: 2rem;
+  .tool {
+    padding: 0 1rem;
+  }
+}
 /**
 * Signatures by institution
 */
 #signatures-filter {
-  font-size: 17px;
+  font-size: $base-font-size;
   text-transform: none;
 
   #institution-select-container {
-    width: 70%;
     float: left;
-    padding-top: 2px;
+    width: 70%;
   }
 
+  form {
+    padding: 0;
+  }
   input[type=submit] {
     @extend .eff-button;
     float: right;
-    width: 26%;
-    font-size: 0.7em;
+    font-size: $base-font-size * 0.8;
     margin: 0;
-  }
-}
-
-#signatures {
-  .affiliation-line {
-    margin-left: 10px;
+    width: 26%;
   }
 }
 
 #signatures.affiliation-signatures {
-
-  .header {
-    color: $eff-red;
-  }
-
   .content {
     border: 1px solid $gray-light;
     padding: 15px;
@@ -1205,6 +1232,25 @@ html.js #affiliations {
 
     .name {
       margin-bottom: 2px;
+    }
+  }
+}
+
+.partner-logos {
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
+  flex-wrap: wrap;
+  @media screen and (min-width: $lg) {
+    flex-wrap: nowrap;
+  }
+  img {
+    width: 100%;
+    height: auto;
+    max-width: 200px;
+    padding: 1em;
+    @media screen and (min-width: $md) {
+      padding: 0 1em;
     }
   }
 }

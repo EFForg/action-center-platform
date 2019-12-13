@@ -3,10 +3,16 @@ class ActionPageController < ApplicationController
                 :protect_unpublished,
                 :redirect_to_specified_url,
                 :redirect_from_archived_to_active_action,
-                only: [:show, :show_by_institution, :embed_iframe, :signature_count]
+                only: [:show, :show_by_institution, :embed_iframe,
+                       :signature_count, :filter]
   before_action :redirect_to_cannonical_slug, only: [:show]
   before_action :set_institution, only: [:show_by_institution, :filter]
-  before_action :set_action_display_variables, only: [:show, :show_by_institution, :embed_iframe, :signature_count]
+  before_action :set_action_display_variables, only: [:show,
+                                                      :show_by_institution,
+                                                      :embed_iframe,
+                                                      :signature_count,
+                                                      :filter]
+  before_action :set_related_content, only: [:show, :filter, :show_by_institution]
 
   skip_before_action :verify_authenticity_token, only: :embed
 
@@ -15,8 +21,6 @@ class ActionPageController < ApplicationController
   manifest :action_page
 
   def show
-    @related_content = RelatedContent.new(@actionPage.related_content_url)
-    @related_content.load
     render @actionPage.template, layout: @actionPage.layout
   end
 
@@ -116,6 +120,7 @@ class ActionPageController < ApplicationController
     if @actionPage.petition and @actionPage.petition.enable_affiliations
       @top_institutions = @actionPage.institutions.top(300, first: @institution.try(:id))
       @institutions = @actionPage.institutions.order(:name)
+      @institution_category = @institutions.first.category
     end
 
     @topic_category = nil
@@ -142,21 +147,18 @@ class ActionPageController < ApplicationController
       # Signatures filtered by institution
       if @institution
         @signatures = @petition.signatures_by_institution(@institution)
-            .paginate(page: params[:page], per_page: 9)
-            .order(created_at: :desc)
         @institution_signature_count = @signatures.pretty_count
-
-      # Signatures with associated affiliations
       elsif @petition.enable_affiliations
         @signatures = @petition.signatures
             .includes(affiliations: [:institution, :affiliation_type])
-            .paginate(page: params[:page], per_page: 9)
-            .order(created_at: :desc)
-
-      # Signatures, no affiliations
       else
-        @signatures = @petition.signatures.order(created_at: :desc).limit(5)
+        @signatures = @petition.signatures
       end
+
+      @signatures = @signatures
+                      .paginate(page: params[:page], per_page: 9)
+                      .order(created_at: :desc)
+
       @signature_count = @petition.signatures.pretty_count
       @require_location = !@petition.enable_affiliations
     end
@@ -164,6 +166,11 @@ class ActionPageController < ApplicationController
 
   def set_institution
     @institution = Institution.friendly.find(params[:institution_id])
+  end
+
+  def set_related_content
+    @related_content = RelatedContent.new(@actionPage.related_content_url)
+    @related_content.load
   end
 
   def allow_iframe

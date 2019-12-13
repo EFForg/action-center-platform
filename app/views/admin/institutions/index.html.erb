@@ -1,28 +1,32 @@
-<%= render 'admin/header' -%>
-<div class='container-fluid'>
-  <h3>
-    Editing institutions for <%= @actionPage.title -%>
-  </h3>
+<% content_for(:nav) { render "admin/institutions/nav" } %>
 
-  <div class='top-buffer bottom-buffer'>
-    <%= link_to [:new, :admin, @actionPage, :institution], class: 'btn btn-sm btn-primary' do %>
-      <i class="icon-doc-new"></i> Add an institution
-    <% end %>
+<div id="institutions-index">
+  <h2>All Petition Targets</h2>
 
-    <%= form_tag [:import, :admin, @actionPage, Institution], multipart: true, id: 'import-institutions-form' do %>
-      <span class="btn btn-sm btn-success file-input">
-        <span>Import from CSV</span>
-        <%= file_field_tag :file, onchange: 'javascript:this.form.submit();' %>
-      </span>
-    <% end %>
-
-    <%= link_to 'Remove all', [:admin, @actionPage, Institution], method: :delete, class: 'btn btn-sm btn-danger pull-right', data: { confirm: 'Are you sure you want to remove all institutions from this action?' } %>
-  </div>
-
+  <%= form_tag admin_institutions_path, id: "search_institutions", method: :get do %>
+    <div class="form-item">
+      <%= label :category, "Category" %>
+      <%= select_tag :category, options_for_select(@categories, params[:category]), 
+                 include_blank: "All" %>
+    </div>
+    <div class="form-item">
+      <%= text_field_tag :q, params[:q],
+        :"aria-label" => "Search query",
+        placeholder: "Search by target name or category",
+        autocomplete: "off", class: "form-control input-sm" %>
+    </div>
+    <div class="form-item">
+      <%= submit_tag "Search & Filter", class: "btn btn-default btn-sm" %>
+      <button type="reset" class="btn btn-default btn-sm">Clear search & filters</button>
+    </div>
+  <% end %>
   <table class='table-striped table table-simple'>
     <thead>
       <tr>
-        <th>Institution Name</th>
+        <th>Name</th>
+        <th>Category</th>
+        <th>Used in live actions?</th>
+        <th>Used in any actions?</th>
         <th></th>
       </tr>
     </thead>
@@ -31,9 +35,16 @@
       <% @institutions.each do |institution| -%>
         <tr>
           <td> <%= institution.name -%> </td>
+          <td> <%= institution.category.humanize -%> </td>
+          <td> <%= institution.included_in_active_actions? ? "Yes" : "No" -%> </td>
+          <td> <%= institution.action_pages.empty? ? "No" : "Yes" -%> </td>
           <td>
             <div class='btn-group'>
-              <%= link_to 'Remove', [:admin, @actionPage, institution], class: 'btn-sm btn btn-danger', method: :delete, data: { confirm: 'Are you sure?' } %>
+              <%= link_to 'Edit', edit_admin_institution_path(institution),
+                class: 'btn-sm btn btn-default', target: "_blank" %>
+              <%= link_to 'Delete', admin_institution_path(institution),
+                class: 'btn-sm btn btn-default', method: :delete,
+                data: { confirm: "Are you sure?\nIf this target is included in actions, deleting it could cause data errors." } %>
             </div>
           </td>
         </tr>

@@ -1,7 +1,7 @@
 <% content_for(:body_classes) { "action_page_setup" } %>
 
 <%= form_for([:admin, @actionPage]) do |f| %>
-  <% pages = %w(basics action images sharing partners thank_you) %>
+  <% pages = %w(basics action images sharing thank_you) %>
   <% pages.each_with_index do |page, i| %>
     <div id="<%= page.sub('_', '-') %>" class="page">
       <%= render "edit_#{page}", f: f %>

@@ -9,9 +9,12 @@ class Admin::ActionPagesController < Admin::ApplicationController
     :events_table,
     :duplicate,
     :preview,
-    :status
+    :status,
+    :edit_partners
   ]
 
+  before_action :set_petition_targets, only: %i(new edit duplicate)
+  before_action :set_partners, only: %i(new edit duplicate)
   before_action :set_source_files, only: %i(new edit create update duplicate)
 
   after_action :purge_cache, only: [:update, :publish]
@@ -36,12 +39,17 @@ class Admin::ActionPagesController < Admin::ApplicationController
     @actionPage.email_campaign = EmailCampaign.new
     @actionPage.congress_message_campaign = CongressMessageCampaign.new
     @actionPage.email_text = Rails.application.config.action_pages_email_text
+    10.times { @actionPage.affiliation_types.build }
   end
 
   def create
     @actionPage = ActionPage.new(action_page_params.merge(author: current_user))
 
     if @actionPage.save
+      if institutions_params[:category]
+        ActionInstitution.add(action_page: @actionPage,
+                              category: institutions_params[:category])
+      end
       redirect_to action_page_path(@actionPage)
     else
       render "new"
@@ -51,13 +59,20 @@ class Admin::ActionPagesController < Admin::ApplicationController
   def edit
     @actionPage.petition ||= Petition.new
     @actionPage.tweet ||= Tweet.new
-
     @actionPage.call_campaign ||= CallCampaign.new
     @actionPage.email_campaign ||= EmailCampaign.new
     @actionPage.congress_message_campaign ||= CongressMessageCampaign.new
+    10.times { @actionPage.affiliation_types.build }
+    if @actionPage.enable_petition && @actionPage.petition.enable_affiliations
+      @target_category = @actionPage.institutions.first.category
+    end
   end
 
   def status
+  end
+
+  def edit_partners
+    @partners = Partner.order(name: :desc)
   end
 
   def update
@@ -66,6 +81,11 @@ class Admin::ActionPagesController < Admin::ApplicationController
     @actionPage.og_image         = nil if params[:destroy_og_image]
 
     @actionPage.update_attributes(action_page_params)
+    if (institutions_params[:reset] && institutions_params[:reset] == "1") ||
+        (institutions_params[:category] && @actionPage.institutions.empty?)
+      ActionInstitution.add(action_page: @actionPage,
+                            **institutions_params.to_h.symbolize_keys)
+    end
 
     redirect_to({ action: "edit", anchor: params[:anchor] }, notice: "Action Page was successfully updated.")
   end
@@ -97,7 +117,8 @@ class Admin::ActionPagesController < Admin::ApplicationController
     end
 
     if @petition
-      @signatures = @petition.signatures.order(created_at: :desc).paginate(page: 1, per_page: 5)
+      @signatures = @petition.signatures.order(created_at: :desc)
+        .paginate(page: 1, per_page: 5)
       @signature_count = @petition.signatures.pretty_count
 
       @top_institutions = @actionPage.institutions.top(300)
@@ -127,7 +148,15 @@ class Admin::ActionPagesController < Admin::ApplicationController
 
   def events
     respond_to do |format|
-      format.html
+      format.html do
+        if @actionPage.enable_congress_message?
+          action_events = @actionPage.events.where(name: 'Action')
+                                     .where("json_extract_path(properties, 'customizedMessage') is not null")
+          @total = action_events.count
+          @customized = action_events.where("properties ->> 'customizedMessage' = 'true'").count
+          @percentage = @total != 0 ? (@customized / @total.to_f) * 100 : 0
+        end
+      end
       format.json do
         if params[:type].blank?
           render json: @actionPage.events.group_by_type_in_range(start_date, end_date)
@@ -150,12 +179,12 @@ class Admin::ActionPagesController < Admin::ApplicationController
   end
 
   def homepage
-    @featured_action_pages = FeaturedActionPage.order(:weight).preload(:action_page)
+    @live_actions = ActionPage.status("live").order(:title)
+    @featured_action_pages = FeaturedActionPage.load_for_edit
   end
 
   def update_featured_action_pages
-    @featured_action_pages = FeaturedActionPage.order(:weight)
-
+    @featured_action_pages = FeaturedActionPage.load_for_edit
     params[:featured_action_pages].each do |i, featured_page_params|
       @featured_action_pages[i.to_i].update(featured_page_params.permit(:weight, :action_page_id))
     end
@@ -173,6 +202,14 @@ class Admin::ActionPagesController < Admin::ApplicationController
     @source_files = SourceFile.order(created_at: :desc).limit(12)
   end
 
+  def set_petition_targets
+    @target_categories = Institution.categories
+  end
+
+  def set_partners
+    @partners = Partner.order(name: :desc)
+  end
+
   def action_page_params
     params.require(:action_page).permit(
       :title, :summary, :description, :category_id, :related_content_url, :featured_image,
@@ -180,9 +217,11 @@ class Admin::ActionPagesController < Admin::ApplicationController
       :enable_congress_message, :og_title, :og_image, :share_message, :published,
       :call_campaign_id, :what_to_say, :redirect_url, :email_text, :enable_redirect,
       :victory, :victory_message, :archived_redirect_action_page_id, :archived, :status,
-      partner_ids: [], action_page_images_attributes: [:id, :action_page_image],
+      partner_ids: [],
+      action_page_images_attributes: [:id, :action_page_image],
       call_campaign_attributes: [:id, :title, :message, :call_campaign_id],
       petition_attributes: [:id, :title, :description, :goal, :enable_affiliations],
+      affiliation_types_attributes: [:id, :name],
       tweet_attributes: [
         :id, :target, :target_house, :target_senate, :message, :cta, :bioguide_id,
         tweet_targets_attributes: [:id, :_destroy, :twitter_id, :image]
@@ -198,8 +237,14 @@ class Admin::ActionPagesController < Admin::ApplicationController
         :topic_category_id, :alt_text_email_your_rep, :alt_text_look_up_your_rep,
         :alt_text_extra_fields_explain, :alt_text_look_up_helper,
         :alt_text_customize_message_helper, :campaign_tag
-      ]
+      ],
+      partnerships_attributes: [:id, :enable_mailings]
     )
+  end
+
+  def institutions_params
+    return {} unless params.has_key? :institutions
+    params.require(:institutions).permit(%i(category reset))
   end
 
   def filter_params
