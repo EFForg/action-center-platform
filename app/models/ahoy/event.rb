@@ -36,10 +36,11 @@ module Ahoy
       end
     end
 
-    # Returns data, grouped by name, for displaying a chart with both
-    # actions and views at the same time
-    def self.chart_data
-      group(:name).group_by_date
+    # Formats the event data for a chart
+    def self.chart_data(type: nil)
+      by_type = TYPES.include? type.try(:to_sym)
+      collection = by_type ? all.send(type) : group(:name)
+      collection.group_by_date
     end
 
     # Reformats chart data for use in tables

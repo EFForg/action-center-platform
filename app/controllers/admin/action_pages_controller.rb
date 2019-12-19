@@ -157,18 +157,10 @@ class Admin::ActionPagesController < Admin::ApplicationController
                                      .where("json_extract_path(properties, 'customizedMessage') is not null")
           @total = action_events.count
           @customized = action_events.where("properties ->> 'customizedMessage' = 'true'").count
-          # TODO: use new helper
-          @percentage = @total != 0 ? (@customized / @total.to_f) * 100 : 0
         end
       end
       format.json do
-        if params[:type].blank?
-          render json: @events.chart_data
-        elsif Ahoy::Event.action_types.map(&:to_s).include?(params[:type])
-          render json: @events.send(params[:type]).group_by_date
-        else
-          head status: 400
-        end
+        render json: @events.chart_data(type: params[:type])
       end
     end
   end

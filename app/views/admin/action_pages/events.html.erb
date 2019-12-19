@@ -9,7 +9,7 @@
     active: :chart, summary: @summary %>
 
 <% if @actionPage.enable_congress_message? %>
-  <p>Out of <%= @total %> total messages, <%= @customized %> were customized (<%= number_to_percentage(@percentage, precision: 2) %>).</p>
+  <p>Out of <%= @total %> total messages, <%= @customized %> were customized (<%= percentage(@customized, @total) %>).</p>
 <% end %>
 
 <div class="charts">
