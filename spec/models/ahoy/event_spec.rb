@@ -26,7 +26,7 @@ describe Ahoy::Event do
 
     describe '.counts_by_date' do
       it "returns a hash with :counts of views and actions by date" do
-        result = page.events.counts_by_date(page.created_at - 1.day, now)
+        result = page.events.table_data
         target_date = now.strftime("%b %-e %Y")
         expect(result[target_date]).to eq({ view: 2, action: 1 })
       end
@@ -34,13 +34,8 @@ describe Ahoy::Event do
 
     describe '.summary' do
       it "returns a hash with :summary of total views and actions" do
-        result = page.events.summary(page.created_at - 1.day, now)
+        result = page.events.summary
         expect(result).to eq({ view: 5, action: 2 })
-      end
-
-      it "filters over given start and end dates" do
-        result = page.events.summary(now - 1.day, now)
-        expect(result).to eq({ view: 2, action: 1 })
       end
     end
   end

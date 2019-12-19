@@ -148,24 +148,24 @@ class Admin::ActionPagesController < Admin::ApplicationController
 
   def events
     set_dates
+    @events = @actionPage.events.in_range(@start_date, @end_date)
     respond_to do |format|
       format.html do
-        @summary = @actionPage.events.summary(@start_date, @end_date)
+        @summary = @events.summary
         if @actionPage.enable_congress_message?
           action_events = @actionPage.events.actions
                                      .where("json_extract_path(properties, 'customizedMessage') is not null")
           @total = action_events.count
           @customized = action_events.where("properties ->> 'customizedMessage' = 'true'").count
+          # TODO: use new helper
           @percentage = @total != 0 ? (@customized / @total.to_f) * 100 : 0
         end
       end
       format.json do
         if params[:type].blank?
-          render json: @actionPage.events.group_by_type_in_range(@start_date,
-                                                                 @end_date)
+          render json: @events.chart_data
         elsif Ahoy::Event.action_types.map(&:to_s).include?(params[:type])
-          render json: @actionPage.events.send(params[:type])
-                  .group_in_range(@start_date, @end_date)
+          render json: @events.send(params[:type]).group_by_date
         else
           head status: 400
         end
@@ -175,8 +175,9 @@ class Admin::ActionPagesController < Admin::ApplicationController
 
   def events_table
     set_dates
-    @counts = @actionPage.events.counts_by_date(@start_date, @end_date)
-    @summary = @actionPage.events.summary(@start_date, @end_date)
+    @events = @actionPage.events.in_range(@start_date, @end_date)
+    @counts = @events.table_data
+    @summary = @events.summary
     if @actionPage.enable_congress_message?
       @fills = @actionPage.congress_message_campaign.date_fills(@start_date, @end_date)
     end

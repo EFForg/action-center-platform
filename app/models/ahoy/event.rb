@@ -14,6 +14,9 @@ module Ahoy
     scope :signatures, -> { where("properties ->> 'actionType' = 'signature'") }
     scope :tweets,     -> { where("properties ->> 'actionType' = 'tweet'") }
     scope :on_page,    -> (id) { where(action_page_id: id) }
+    scope :in_range, ->(start_date, end_date) {
+      where(time: start_date..end_date.tomorrow)
+    }
 
     before_save :user_opt_out
     before_save :anonymize_views
@@ -33,68 +36,41 @@ module Ahoy
       end
     end
 
-    # Returns a hash with the following format:
+    # Returns data, grouped by name, for displaying a chart with both
+    # actions and views at the same time
+    def self.chart_data
+      group(:name).group_by_date
+    end
+
+    # Reformats chart data for use in tables
+    # Returns the following format:
     # {
-    #   "June 1": {
-    #     "views": 10
-    #     "signatures": 5
-    #   }
+    #   "June 1 2019": {
+    #     action: 10,
+    #     view: 20
+    #   },
+    #   ...
     # }
-    def self.group_by_type_in_range(start_date, end_date)
-      group("properties ->> 'actionType'").group_in_range(start_date, end_date).reduce({}) do |r, row|
-        pair, count = row
-        action, date = pair
-        r[date] = {} unless r[date]
-        action = "view" if action == "embedded_view" || action == "show"
-        if action.present?
-          action = action.pluralize.to_sym
-          r[date][action] = 0 unless r[date][action]
-          r[date][action] += count
+    def self.table_data
+      {}.tap do |table|
+        chart_data.each do |(type, date), count|
+          table[date] ||= {}
+          key = type.downcase.to_sym
+          table[date][key] = count
         end
-        r
       end
     end
 
-    def self.counts_by_date(start_date, end_date)
-      result = group(:name).group_by_day(:time, format: "%b %-e %Y",
-                                                range: start_date..end_date.tomorrow)
-                           .count
-      result.reduce({}) do |h, row|
-        pair, count = row
-        type, date = pair
-        h[date] ||= {}
-        if type.present?
-          type = type.downcase.to_sym
-          h[date][type] ||= 0
-          h[date][type] += count
-        end
-        h
-      end
+    # Returns events grouped by date. Can be used to chart event collections
+    # with only one event type
+    def self.group_by_date
+      group_by_day(:time, format: "%b %-e %Y").count
     end
 
-    def self.group_in_range(start_date, end_date)
-      if (end_date - start_date) <= 5.days
-        group_by_hour(
-          :time,
-          format: "%b %-e, %-l%P",
-          range: start_date..end_date.tomorrow
-        ).count
-      else
-        group_by_day(
-          :time,
-          format: "%b %-e %Y",
-          range: start_date..end_date.tomorrow
-        ).count
-      end
-    end
-
-    def self.summary(start_date, end_date)
-      events = where(time: start_date..(end_date + 1.day))
-      view_count = events.views.count
-      action_count = events.actions.count
-      { 
-        view: view_count, action: action_count
-      }
+    def self.summary
+      @view_count ||= views.count
+      @action_count ||= actions.count
+      { view: @view_count, action: @action_count }
     end
 
     def user_opt_out

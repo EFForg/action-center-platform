@@ -7,7 +7,7 @@ module DateRange
 
   def process_dates(date_range_text: nil, date_text: nil, **_)
     return parse_date_range(date_range_text) if date_range_text.present?
-    return [Time.zone.now - 1.month, Time.zone.now] unless date_text.present?
+    return [1.month.ago, Time.zone.now] unless date_text.present?
     if date_text == "Action lifetime" && @actionPage.present?
       return [@actionPage.created_at, Time.zone.now]
     end
