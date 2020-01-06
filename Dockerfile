@@ -77,5 +77,5 @@ RUN chown -R www-data /opt/actioncenter/public \
                       /var/www
 
 USER www-data
-CMD ["rails", "s", "-b", "0.0.0.0"]
+CMD ["bin/rails", "s", "-b", "0.0.0.0"]
 ENTRYPOINT ["/opt/actioncenter/docker/entrypoint.sh"]
