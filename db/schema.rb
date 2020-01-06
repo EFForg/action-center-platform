@@ -84,6 +84,8 @@ ActiveRecord::Schema.define(version: 20191031184958) do
     t.integer  "congress_message_campaign_id"
     t.string   "related_content_url"
     t.integer  "user_id"
+    t.integer  "view_count",                                   default: 0,     null: false
+    t.integer  "action_count",                                 default: 0,     null: false
     t.index ["archived"], name: "index_action_pages_on_archived", using: :btree
     t.index ["call_campaign_id"], name: "index_action_pages_on_call_campaign_id", using: :btree
     t.index ["email_campaign_id"], name: "index_action_pages_on_email_campaign_id", using: :btree

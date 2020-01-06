@@ -56,7 +56,9 @@ class ToolsController < ApplicationController
     @action_page = Petition.find(params[:signature][:petition_id]).action_page
     @signature = Signature.new(signature_params.merge(user_id: @user.id))
 
-    @signature.country_code = "US" if @signature.zipcode.present?
+    if @signature.zipcode.present? && @signature.country_code.blank?
+      @signature.country_code = "US"
+    end
 
     if @signature.country_code == "US" && !Rails.application.secrets.smarty_streets_id.nil?
       if city_state = SmartyStreets.get_city_state(@signature.zipcode)
