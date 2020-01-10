@@ -1,9 +1,7 @@
 class Admin::UsersController < Admin::ApplicationController
   def index
-    format.html do
-      @add_or_remove_params = params.permit(:query, :page).to_h
-      @users = filtered_users.order(created_at: :desc).paginate(page: params[:page])
-    end
+    @add_or_remove_params = params.permit(:query, :page).to_h
+    @users = filtered_users.order(created_at: :desc).paginate(page: params[:page])
   end
 
   def update
