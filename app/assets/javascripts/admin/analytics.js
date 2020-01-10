@@ -7,19 +7,47 @@
 Chart.defaults.global.responsive = true;
 
 $(document).ready(function() {
-  $("#analytics_date_control_container #date_range").daterangepicker({
-    locale: { format: 'YYYY-MM-DD' }
+  $('#date_range').on('focus', function(){
+    $(this).daterangepicker({
+      locale: { format: 'YYYY-MM-DD' }
+    });
   });
 
-  $("#analytics_date_control_container #date_range").on('apply.daterangepicker', function(ev, picker){
-    Chartkick.eachChart( function(chart) {
-      var path, search;
-      [path, search] = chart.dataSource.split('?')
-      var params = new URLSearchParams(search);
-      params.set('date_start', picker.startDate.format('YYYY-MM-DD'));
-      params.set('date_end', picker.endDate.format('YYYY-MM-DD'));
-      chart.dataSource = path + '?' + params.toString();
-      chart.refreshData();
+  $('#analytics-filters-form').on('change', '#date_text', function(e) {
+    var start, stop = new Date();
+    stop.setHours(0);
+    stop.setMinutes(0);
+    stop.setSeconds(0);
+
+    start = new Date(stop.getTime());
+
+    switch($('option:selected', e.target).val()) {
+    case 'Last 7 days':
+      start.setDate(stop.getDate() - 7);
+      break;
+    case 'Last 30 days':
+      start.setDate(stop.getDate() - 30);
+      break;
+    case 'Last 3 months':
+      start.setMonth(stop.getMonth() - 3);
+      break;
+    case 'Last 6 months':
+      start.setMonth(stop.getMonth() - 6);
+      break;
+    }
+
+    $('#date_range').daterangepicker({
+      startDate: start, endDate: stop
     });
+
+    $(e.target.form).submit();
+  });
+
+  $('#analytics-filters-form').on('click', 'button[type=reset]', function(e) {
+    e.preventDefault();
+    var $form = $(this).parents('form');
+    $form.find('input').val('');
+    $form.find('select').val('').trigger('change');
+    $form.submit();
   });
 });

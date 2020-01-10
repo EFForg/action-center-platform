@@ -108,6 +108,11 @@ module ApplicationHelper
     safe_join(messages)
   end
 
+  def percentage(x, y, precision: 0)
+    return '-' unless y > 0
+    number_to_percentage((x / y.to_f) * 100, precision: precision)
+  end
+
   private
 
   def user_session_data_whitelist

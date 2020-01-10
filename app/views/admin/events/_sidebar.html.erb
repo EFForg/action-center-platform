@@ -1,0 +1,31 @@
+<div id="analytics-nav">
+  <% if action_page.present? %>
+    <%= link_to "Chart", admin_action_page_events_path(action_page),
+      class: "btn sm #{"active" if active == :chart }" %>
+    <%= link_to "Table", admin_action_page_events_table_path(action_page),
+      class: "btn sm #{"active" if active == :table }" %>
+  <% end %>
+  <div class="analytics-filters">
+    <h3>Filters</h3>
+    <%= form_tag path, method: :get, id: "analytics-filters-form" do %>
+      <div class="form-item">
+        <%= label_tag "Date Range" %>
+        <%= select_tag :date_text,
+          options_for_select(select_time_ago(action_page), params[:date_text] || "Last 30 days") %>
+      </div>
+      <div class="form-item">
+        <input type="text" id="date_range" name="date_range_text" value="<%= date_range_string %>" />
+      </div>
+      <div class="form-actions">
+        <%= submit_tag "Filter", class: "btn btn-primary btn-sm", data: { disable_with: false } %>
+      <button type="reset" class="btn btn-default btn-sm">Clear filters</button>
+      </div>
+    <% end %>
+    <h3>Summary</h3>
+    <p>Views: <%= summary[:view] %></p>
+    <p>Actions Taken: <%= summary[:action] %></p>
+    <p><%= percentage(summary[:action], summary[:view]) %> of views led to actions</p>
+  </div>
+  <div>
+  </div>
+</div>
