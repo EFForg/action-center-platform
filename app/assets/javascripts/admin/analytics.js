@@ -13,6 +13,36 @@ $(document).ready(function() {
     });
   });
 
+  $('#analytics-filters-form').on('change', '#date_text', function(e) {
+    var start, stop = new Date();
+    stop.setHours(0);
+    stop.setMinutes(0);
+    stop.setSeconds(0);
+
+    start = new Date(stop.getTime());
+
+    switch($('option:selected', e.target).val()) {
+    case 'Last 7 days':
+      start.setDate(stop.getDate() - 7);
+      break;
+    case 'Last 30 days':
+      start.setDate(stop.getDate() - 30);
+      break;
+    case 'Last 3 months':
+      start.setMonth(stop.getMonth() - 3);
+      break;
+    case 'Last 6 months':
+      start.setMonth(stop.getMonth() - 6);
+      break;
+    }
+
+    $('#date_range').daterangepicker({
+      startDate: start, endDate: stop
+    });
+
+    $(e.target.form).submit();
+  });
+
   $('#analytics-filters-form').on('click', 'button[type=reset]', function(e) {
     e.preventDefault();
     var $form = $(this).parents('form');
