@@ -20,7 +20,7 @@
         <td class="nowrap"><%= action_page.created_at.strftime("%m-%d-%Y") %></td>
         <td><%= action_page.view_count %></td>
         <td><%= action_page.action_count %></td>
-        <td><%= number_to_percentage(action_page.actions_taken_percent, precision: 2) %></td>
+        <td><%= number_to_percentage(action_page.actions_taken_percent, precision: 0) %></td>
         <td><%= action_page.status.humanize %></td>
         <td class="page-actions">
           <%= image_tag "3dots.png" %>
