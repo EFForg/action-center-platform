@@ -28,7 +28,7 @@ describe CongressForms do
       end
 
       it "retrieves a Form for each bioguide_id" do
-        forms = CongressForms::Form.find(["C000880", "A000360"])
+        forms = CongressForms::Form.find(["C000880", "A000360"]).first
         expect(forms.length).to eq 2
         lamar = forms.first
         expect(lamar.fields.length).to eq 11

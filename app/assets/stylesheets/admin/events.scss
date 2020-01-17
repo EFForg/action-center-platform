@@ -1,0 +1,38 @@
+#page #analytics-table {
+  width: 70%;
+  &.table th, td {
+    text-align: center;
+  }
+}
+#analytics-nav {
+  float: right;
+  width: 25%;
+  text-align: center;
+  a.btn {
+    border: 1px solid $border-gray;
+    border-radius: 0;
+    color: #000;
+    padding: 0.5rem 2rem;
+    margin: 0 1rem;
+    &.active {
+      background-color: $light-blue;
+    }
+  }
+  .analytics-filters {
+    text-align: left;
+    float: none;
+    margin-top: 2rem;
+    form {
+      padding: 1rem;
+      border: 1px solid $border-gray;
+    }
+
+    .form-item:first-of-type {
+      margin-top: 0;
+    }
+  }
+}
+
+.charts {
+  width: 70%;
+}

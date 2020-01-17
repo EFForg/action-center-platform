@@ -1,48 +1,42 @@
-<h2>Action page analytics for: <em><%= @actionPage.title %></em></h3>
+<% content_for(:nav) { render "action_page_nav" } %>
+<h2>Analytics for: <em><%= @actionPage.title %></em></h3>
 
-<table class="table striped" >
-  <col>
-  <% @columns.each do |_| %>
-    <colgroup span="2">
-  <% end %>
+<%= render 'admin/events/sidebar', action_page: @actionPage,
+  path: admin_action_page_events_table_path(@actionPage),
+  active: :table, summary: @summary %>
 
+<table id="analytics-table" class="table striped">
   <thead>
     <tr>
-      <td></td>
-      <% @columns.each do |c| %>
-        <th colspan="2">
-          <%= t(c, scope: :ahoy) %>
-        </th>
-      <% end %>
-      <% if @fills.present? %>
-        <th colspan="2">Congress Messages Submitted</th>
-      <% end %>
-    </tr>
-    <tr>
       <th>Date</th>
-      <% @columns.each do |_| %>
-        <th class="subheader">Daily</th>
-        <th class="subheader">Total</th>
-      <% end %>
-      <% if @fills.present? %>
-        <th class="subheader">Daily</th>
-        <th class="subheader">Total</th>
+      <th>Views</th>
+      <th>Actions Taken</th>
+      <th>%</th>
+      <% if @actionPage.enable_congress_message %>
+        <th>Emails Sent<th>
       <% end %>
     </tr>
   </thead>
 
   <tbody>
-    <% @totals = Hash.new(0) %>
-    <% @data.each do |date, counts| %>
+    <% @counts.each do |date, counts| %>
       <tr>
-        <td><%= date.to_datetime.strftime("%B %-d, %Y") %></td>
-        <% @columns.each do |c| %>
-          <td><%= counts[c] || 0 %></td>
-          <td><%= @totals[c] += counts[c] || 0 %></td>
-        <% end %>
-        <% if @fills.present? %>
-          <td><%= @fills[date] || 0 %></td>
-          <td><%= @totals[:fills] += @fills[date] || 0 %></td>
+        <td><%= date %></td>
+        <td><%= counts[:view] %></td>
+        <td><%= counts[:action] %></td>
+        <td>
+          <% if counts[:view] > 0 %>
+            <%= percentage(counts[:action], counts[:view])%>
+          <% else %>
+            -
+          <% end %>
+        </td>
+        <% if @actionPage.enable_congress_message %>
+          <td>
+            <% if @fills.present? %>
+              <%= @fills[date.to_datetime.strftime("%B %-d")] || 0 %>
+            <% end %>
+          </td>
         <% end %>
       </tr>
     <% end %>

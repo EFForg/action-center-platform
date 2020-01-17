@@ -26,10 +26,6 @@ class CongressMessageCampaign < ActiveRecord::Base
     target_bioguide_text_or_default alt_text_extra_fields_explain, default
   end
 
-  def target_specific_legislators
-    !(target_house || target_senate)
-  end
-
   def targets
     if target_bioguide_ids
       CongressMember.find(target_bioguide_ids.split)
