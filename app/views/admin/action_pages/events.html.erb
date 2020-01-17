@@ -17,8 +17,7 @@
     <h3><%= t(type, scope: :ahoy) %></h3>
 
     <% if type == :signatures %>
-      <%= link_to "Download CSV", csv_admin_petition_path(@actionPage.petition), class: "btn" %>
-      <%= link_to "View Signatures", admin_petition_path(@actionPage.petition), class: "btn" %>
+      <%= link_to "View Signatures", admin_action_page_petition_path(@actionPage, @actionPage.petition), class: "btn btn-default" %>
     <% end %>
 
     <%= line_chart(admin_action_page_events_path(@actionPage, type: type, date_range_text: date_range_string), height: "200px", discrete: true) %>
