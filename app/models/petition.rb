@@ -53,12 +53,13 @@ class Petition < ActiveRecord::Base
     end
   end
 
-  def to_affiliation_csv(institution, options = {})
+  def to_affiliation_csv(options = {})
     column_names = %w[full_name, institution, affiliation_type]
 
     CSV.generate(options) do |csv|
-      signatures_by_institution(institution).each do |s|
+      signatures.each do |s|
         affiliation = s.affiliations.first
+        next unless affiliation
         csv << [s.name,
                 affiliation.institution.name,
                 affiliation.affiliation_type.name]

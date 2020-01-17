@@ -1,17 +1,6 @@
-
 body.petitions-show {
   form#filter_petitions {
-    display: flex;
-    flex-direction: row;
-    margin-bottom: 8px;
-
-    input[type=text] {
-      flex: 1 0;
-    }
-
-    input[type=submit] {
-      margin-left: 8px;
-    }
+    margin: 1em 0;
   }
 
   table td:last-child, table th:last-child {

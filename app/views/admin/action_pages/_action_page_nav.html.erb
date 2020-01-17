@@ -23,5 +23,8 @@
     <li data-hide-for-redirect="1"><%= nav_link_to "Analytics", admin_action_page_events_path(@actionPage) %></li>
     <li><%= nav_link_to "Change Status", admin_action_page_status_path(@actionPage) %></li>
     <li><%= link_to "Partners", admin_action_page_edit_partners_path(@actionPage) %></li>
+    <% if @actionPage.enable_petition? && @actionPage.petition %>
+      <li><%= nav_link_to "Signatures", admin_action_page_petition_path(@actionPage, @actionPage.petition) %></li>
+    <% end %>
   <% end %>
 </ul>
