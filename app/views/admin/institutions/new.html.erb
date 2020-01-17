@@ -1,9 +1,4 @@
-<%= render 'admin/header' -%>
-<div class='container-fluid'>
+<% content_for(:nav) { render "admin/institutions/nav" } %>
+<h2>New Institution</h2>
 
-  <h3>New Institution</h3>
-
-  <%= render 'form' %>
-
-  <%= link_to 'Back', [:admin, @actionPage, Institution] %>
-</div>
+<%= render 'form' %>

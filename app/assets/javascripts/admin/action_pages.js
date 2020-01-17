@@ -51,6 +51,41 @@ $('.action_page_setup').on('click', '#nav a[href=#save]', function(e) {
   $('form', '#content').first().submit();
 });
 
+$('.action_pages-status').on('change', 'input[type="radio"]', function() {
+  var archive_selected = $(this).val() == "archived";
+  $('#archive-redirect').toggle(archive_selected);
+  $('#archive-redirect input[type="hidden"]').val(archive_selected);
+});
+
+$('.action_page_setup').on('change', '#action_page_petition_attributes_enable_affiliations', function() {
+  $('#affiliations-enabled').toggle($(this).prop('checked'));
+});
+
+$('.action_page_setup').on('change', '#institutions_reset', function() {
+  $('#add-institutions').toggle($(this).prop('checked'));
+});
+
+$('#affiliations-enabled').on('keyup paste', '#affiliation-types input', function() {
+  $(this).parent().next('.form-item').show();
+});
+
+$('.action_pages-edit_partners').on('select2:select', "#action_page_partner_ids", function(e) {
+  var id = '#partner-' + e.params.data.id;
+  if ($(id).length > 0 ) {
+    // Re-enable mailing field
+    $(id + ' :input').prop('disabled', false);
+    $(id).next(':input').prop('disabled', false);
+    $(id).show();
+  }
+});
+
+$('.action_pages-edit_partners').on('select2:unselect', "#action_page_partner_ids", function(e) {
+  var id = '#partner-' + e.params.data.id;
+  $(id + ' :input').prop('disabled', true);
+  $(id).next(':input').prop('disabled', true);
+  $(id).hide();
+});
+
 $(document).on('click', '#individual-targets #add', function(e) {
   e.preventDefault();
 

@@ -100,8 +100,10 @@ class CongressMessagesController < ApplicationController
   end
 
   def track_action
+    customized_message = params[:message] != @campaign.message
     ahoy.track "Action",
-      { type: "action", actionType: "congress_message", actionPageId: params[:action_id] },
+      { type: "action", actionType: "congress_message", actionPageId: params[:action_id],
+        customizedMessage: customized_message },
       action_page: @action_page
   end
 

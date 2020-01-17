@@ -12,7 +12,6 @@
         <li><%= link_to "Action", "#action" %></li>
         <li><%= link_to "Images", "#images" %></li>
         <li data-hide-for-redirect="1"><%= link_to "Sharing", "#sharing" %></li>
-        <li data-hide-for-redirect="1"><%= link_to "Partners", "#partners" %></li>
         <li data-hide-for-redirect="1"><%= link_to "Thank You", "#thank-you" %></li>
         <li class="btn btn-default"><%= link_to "Save", "#save" %></li>
       </ul>
@@ -23,5 +22,6 @@
     <li><%= link_to "Preview", admin_action_page_preview_path(@actionPage), id: "action-page-preview" %></li>
     <li data-hide-for-redirect="1"><%= nav_link_to "Analytics", admin_action_page_events_path(@actionPage) %></li>
     <li><%= nav_link_to "Change Status", admin_action_page_status_path(@actionPage) %></li>
+    <li><%= link_to "Partners", admin_action_page_edit_partners_path(@actionPage) %></li>
   <% end %>
 </ul>

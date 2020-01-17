@@ -48,18 +48,20 @@ nav {
     position: relative;
     .menu-logo {
       @media screen and (min-width: $md) {
-        height: 90px;
+        background: asset-url('EFF-logo-action.svg') no-repeat;
+        height: 50px;
         left: 0;
+        margin-top: 17.5px;
         position: relative;
         width: 500px;
       }
-      background: asset-url('EFF-logo-action.svg') no-repeat;
+      background: asset-url('EFF-monogram-action.svg') no-repeat;
       background-repeat: no-repeat;
       background-size: contain;
       border: none;
       display: inline-block;
-      height: 50px;
-      margin-top: 17.5px;
+      height: 40px;
+      margin-top: 9.5px;
       position: absolute;
       top: 0;
       transition: all 0.2s;
@@ -152,7 +154,7 @@ nav {
         @media screen and (min-width: $md) {
           font-size: 4rem;
           height: 4rem;
-          margin: -6.7rem 0 0;
+          margin: -4.4rem 0 0;
         }
         @media screen and (min-width: $xl) {
           width: 3rem;

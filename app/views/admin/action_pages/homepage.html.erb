@@ -6,7 +6,7 @@
       <div class="form-item">
         <%= f.hidden_field :weight %>
         <%= f.label :action_page_id, i.zero? ? "Main Item" : "Featured #{i}" %>
-        <%= f.collection_select :action_page_id, ActionPage.all.order(:title), :id, :title,
+        <%= f.collection_select :action_page_id, @live_actions, :id, :title,
               { prompt: "Select a campaign", object: f.object.action_page } %>
       </div>
     <% end %>

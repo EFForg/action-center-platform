@@ -66,6 +66,9 @@ gem "delayed_job_active_record", "~> 4"
 # Exception monitoring
 gem "sentry-raven", "~> 0.15"
 
+# Fancy counter caches
+gem "counter_culture", "~> 2.0"
+
 # Other
 gem "activerecord-session_store", "~> 1"
 gem "acts_as_paranoid", git: "https://github.com/ActsAsParanoid/acts_as_paranoid.git"
@@ -89,6 +92,9 @@ gem "warden", "1.2.4" # This dep of devise has a bug in 1.2.5 so am avaoiding
 gem "whenever", "~> 0", require: false # Cron jobs
 gem "will_paginate", "~> 3.0"
 gem "xmlrpc"
+
+# For creating many records, quickly
+gem "fast_inserter", "~> 0.1"
 
 group :doc do
   # bundle exec rake doc:rails generates the API under doc/api
@@ -120,8 +126,8 @@ group :development, :test do
   gem "rspec-rails", "~> 3"
   gem "rubocop", "0.52.0"
   gem "rubocop-github", "0.9.0"
-  gem "selenium-webdriver", "3.142.3"
-  gem "webdrivers", "~> 4.1"
+  gem "selenium-webdriver", "~> 3"
+  gem "webdrivers", "~> 4"
 end
 
 group :production do
