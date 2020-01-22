@@ -78,9 +78,7 @@ module Ahoy
     end
 
     def self.summary
-      @view_count ||= views.count
-      @action_count ||= actions.count
-      { view: @view_count, action: @action_count }
+      { view: views.count, action: actions.count }
     end
 
     def user_opt_out
