@@ -33,6 +33,5 @@
     <% if @institution and @institution_signature_count != '0' -%>
       <%= link_to 'Download CSV', institution_action_page_path(@actionPage, @institution, :format => 'csv') -%>
     <% end -%>
-    <%= will_paginate @signatures %>
   </div>
 </div>
