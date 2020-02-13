@@ -8,9 +8,9 @@ describe Ahoy::Event do
     end
   end
 
-  describe 'calculations' do
+  describe "calculations" do
     let!(:now) { Time.zone.parse("12-11-2019 11:00 AM") }
-    let!(:page) do 
+    let!(:page) do
       FactoryGirl.create(:action_page_with_petition,
                          created_at: now - 1.week, updated_at: now)
     end
@@ -24,7 +24,7 @@ describe Ahoy::Event do
       page.reload
     end
 
-    describe '.counts_by_date' do
+    describe ".counts_by_date" do
       it "returns a hash with :counts of views and actions by date" do
         result = page.events.table_data
         target_date = now.strftime("%b %-e %Y")
@@ -32,7 +32,7 @@ describe Ahoy::Event do
       end
     end
 
-    describe '.summary' do
+    describe ".summary" do
       it "returns a hash with :summary of total views and actions" do
         result = page.events.summary
         expect(result).to eq({ view: 5, action: 2 })
