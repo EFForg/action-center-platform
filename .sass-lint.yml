@@ -18,10 +18,6 @@ rules:
 
   declarations-before-nesting: 2
   extends-before-declarations: 2
-  mixins-before-declarations:
-    - 2
-    -
-      exclude: breakpoint
 
   leading-zero:
     - 2
