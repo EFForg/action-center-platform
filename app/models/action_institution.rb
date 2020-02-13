@@ -21,7 +21,7 @@ class ActionInstitution < ActiveRecord::Base
         check_for_existing: true,
         unique: true
       },
-      variable_column: 'institution_id',
+      variable_column: "institution_id",
       values: institution_ids
     }
     FastInserter::Base.new(insert_params).fast_insert

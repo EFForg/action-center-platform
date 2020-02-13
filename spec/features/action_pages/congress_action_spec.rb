@@ -46,7 +46,7 @@ RSpec.feature "Congress actions", type: :feature, js: true do
     fill_in "Your last name", with: "Dax"
     select "Dr.", from: "Your prefix"
     topic_fields = find_all("select[aria-label='Choose a topic']")
-    topic_fields.each { |f| f.find_all('option').last.select_option }
+    topic_fields.each { |f| f.find_all("option").last.select_option }
     click_on "Next >"
 
     # Page 3: send message
