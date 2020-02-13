@@ -34,7 +34,7 @@ class ActionPage < ActiveRecord::Base
   belongs_to :email_campaign
   belongs_to :congress_message_campaign
   belongs_to :call_campaign
-  belongs_to :category
+  belongs_to :category, optional: true
   belongs_to :active_action_page_for_redirect, class_name: "ActionPage",
              foreign_key: "archived_redirect_action_page_id"
   belongs_to :author, class_name: "User", foreign_key: :user_id, optional: true
