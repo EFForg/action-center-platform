@@ -4,24 +4,26 @@ describe Institution do
   describe ".top" do
     let(:petition) { FactoryGirl.create(:local_organizing_petition) }
 
-    let(:high_rank) { petition.action_page.institutions.create(name: "A") }
-    let(:mid_rank) { petition.action_page.institutions.create(name: "B") }
-    let(:low_rank) { petition.action_page.institutions.create(name: "C") }
+    let(:high_rank) { petition.action_page.institutions.create(name: "A", category: "University") }
+    let(:mid_rank) { petition.action_page.institutions.create(name: "B", category: "University") }
+    let(:low_rank) { petition.action_page.institutions.create(name: "C", category: "University") }
+
+    let(:student) { petition.action_page.affiliation_types.find_or_create_by!(name: "Student") }
 
     before(:each) do
       100.times do
         sig = FactoryGirl.create(:signature, petition_id: petition.id)
-        sig.affiliations.create(institution_id: high_rank.id)
+        sig.affiliations.create(institution_id: high_rank.id, affiliation_type: student)
       end
 
       50.times do
         sig = FactoryGirl.create(:signature, petition_id: petition.id)
-        sig.affiliations.create(institution_id: mid_rank.id)
+        sig.affiliations.create(institution_id: mid_rank.id, affiliation_type: student)
       end
 
       10.times do
         sig = FactoryGirl.create(:signature, petition_id: petition.id)
-        sig.affiliations.create(institution_id: low_rank.id)
+        sig.affiliations.create(institution_id: low_rank.id, affiliation_type: student)
       end
     end
 
@@ -44,9 +46,8 @@ describe Institution do
 
     it "adds institutions by name" do
       expect {
-        described_class.import(names, action_page)
-      }.to change(action_page.institutions, :count).by(names.count)
-    end
+        described_class.import("University", names)
+      }.to change(Institution.where(category: "University"), :count).by(names.count)
     end
   end
 end
