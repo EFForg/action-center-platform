@@ -47,15 +47,6 @@ describe Institution do
         described_class.import(names, action_page)
       }.to change(action_page.institutions, :count).by(names.count)
     end
-
-    context "when a page has existing institutions" do
-      before { action_page.institutions << institution }
-
-      it "does not remove existing institutions from the action" do
-        expect {
-          described_class.import(names << institution.name, action_page)
-        }.to change(action_page.institutions, :count).by(names.count + 1)
-      end
     end
   end
 end
