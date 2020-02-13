@@ -7,7 +7,7 @@ RSpec.describe Admin::InstitutionsController, type: :controller do
   # Admin::Institution. As you add validations to Admin::InstitutionSet, be sure to
   # adjust the attributes here as well.
   let(:valid_attributes) {
-    { name: "San Francisco State University" }
+    { name: "San Francisco State University", category: "University" }
   }
 
   before(:each) do
@@ -22,8 +22,7 @@ RSpec.describe Admin::InstitutionsController, type: :controller do
   describe "GET #index" do
     it "assigns all actionPage.institutions as @institutions" do
       institution = Institution.create! valid_attributes
-      @actionPage.institutions << institution
-      get :index, params: { action_page_id: @actionPage.id }
+      get :index
       expect(assigns(:institutions)).to eq([institution])
     end
   end
@@ -39,7 +38,6 @@ RSpec.describe Admin::InstitutionsController, type: :controller do
 
       it "does not create duplicate institutions" do
         institution = Institution.create! valid_attributes
-        @actionPage.institutions << institution
         expect {
           post :create, params: { action_page_id: @actionPage.id,
             institution: valid_attributes }
@@ -50,7 +48,7 @@ RSpec.describe Admin::InstitutionsController, type: :controller do
 
   describe "POST #import" do
     let(:import) do
-      post :import, params: { action_page_id: @actionPage.id, file: file }
+      post :import, params: { file: file, institutions: { category: "University" } }
     end
 
     let(:import_and_work_off) do
@@ -66,12 +64,13 @@ RSpec.describe Admin::InstitutionsController, type: :controller do
       end
 
       it "uploads institutions" do
-        expect(Institution).to receive(:import).with(
-          ["University of California, Berkeley",
-           "University of California, Davis",
-           "University of California, Santa Cruz"],
-           @actionPage
-        )
+        expect(Institution).
+          to receive(:import).with(
+               "University",
+               ["University of California, Berkeley",
+                "University of California, Davis",
+                "University of California, Santa Cruz"]
+             )
         import_and_work_off
       end
     end
@@ -91,13 +90,11 @@ RSpec.describe Admin::InstitutionsController, type: :controller do
   end
 
   describe "DELETE #destroy" do
-    it "doesn't delete the institutions" do
+    it "deletes the institution" do
       institution = Institution.create! valid_attributes
-      @actionPage.institutions << institution
       expect {
-        delete :destroy_all, params: { action_page_id: @actionPage.id,
-          id: institution.to_param }
-      }.to_not change(Institution, :count)
+        delete :destroy, params: { id: institution.to_param }
+      }.to change(Institution, :count).by(-1)
     end
   end
 end

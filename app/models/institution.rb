@@ -32,10 +32,10 @@ class Institution < ActiveRecord::Base
 
   def self.import(category, names)
     names.each do |name|
-      self.find_or_create_by!(name: name, category: category)
+      find_or_create_by!(name: name, category: category)
     end
 
-    return true
+    true
   end
 
   def self.categories
