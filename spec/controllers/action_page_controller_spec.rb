@@ -128,22 +128,5 @@ RSpec.describe ActionPageController, type: :controller do
           .to have_attributes(affiliations: [signature.affiliations.first])
       end
     end
-
-    context "csv" do
-      render_views
-      it "returns a csv with filtered affiliations" do
-        get :show_by_institution, params: { id: @actionPage.id,
-          institution_id: @actionPage.institutions.first.id,
-          format: "csv" }
-
-        signature = @petition.signatures.first
-        csv_contents = [
-          signature.name,
-          signature.affiliations.first.institution.name,
-          signature.affiliations.first.affiliation_type.name
-        ]
-        expect(response.body.strip).to eq(csv_contents.join(","))
-      end
-    end
   end
 end
