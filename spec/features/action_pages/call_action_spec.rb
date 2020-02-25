@@ -15,7 +15,7 @@ RSpec.feature "Call actions", type: :feature, js: true do
 
   before do
     allow(CallTool).to receive(:enabled?).and_return(true)
-    stub_request(:get, %r{.*/api/campaign/\?api_key(.*)?})
+    stub_request(:get, %r{.*/api/campaign/#{action.call_campaign.call_campaign_id}\?api_key(.*)?})
       .to_return(status: 200, body: calltool_request)
     stub_request(:get, %r{/api/campaign\?api_key(.*)?&page=1})
       .to_return(status: 200, body: calltool_request)
