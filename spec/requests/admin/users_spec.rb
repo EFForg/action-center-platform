@@ -17,7 +17,7 @@ RSpec.describe "Admin Users", type: :request do
       get "/admin/users"
       expect(response.code).to eq "200"
 
-      User.all.each{ |user| expect(response.body).to include(user.email) }
+      User.all.each { |user| expect(response.body).to include(user.email) }
     end
 
     it "filters by email" do
