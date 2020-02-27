@@ -29,9 +29,5 @@
     <% end %>
 
     <%= render(partial: "tools/signatures", layout: false) %>
-
-    <% if @institution and @institution_signature_count != '0' -%>
-      <%= link_to 'Download CSV', institution_action_page_path(@actionPage, @institution, :format => 'csv') -%>
-    <% end -%>
   </div>
 </div>
