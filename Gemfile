@@ -131,6 +131,5 @@ group :development, :test do
 end
 
 group :production do
-  gem "lograge", "~> 0"
   gem "puma", "~> 3"
 end
