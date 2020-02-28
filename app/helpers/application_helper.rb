@@ -109,7 +109,7 @@ module ApplicationHelper
   end
 
   def percentage(x, y, precision: 0)
-    return '-' unless y > 0
+    return "-" unless y > 0
     number_to_percentage((x / y.to_f) * 100, precision: precision)
   end
 
