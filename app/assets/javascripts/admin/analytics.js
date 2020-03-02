@@ -30,4 +30,19 @@ $(document).ready(function() {
     $form.find('select').val('').trigger('change');
     $form.submit();
   });
+
+  $('#congress_message_tabulation_by_congress').each(function() {
+    var table = this;
+
+    $.get(table.dataset.fills_url, function(fills) {
+      Object.keys(fills).forEach(function(rep) {
+        $(table).append(
+          $('<tr>').append(
+            $('<td>').text(rep),
+            $('<td>').text(fills[rep])
+          )
+        );
+      });
+    });
+  });
 });

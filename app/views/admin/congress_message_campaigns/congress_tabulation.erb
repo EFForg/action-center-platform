@@ -1,12 +1,8 @@
 <div class="container">
   <h3>Congressional breakdown of messages sent for campaign:<br><i><%= @congress_message_campaign.campaign_tag %></i></h3>
-  <table class="table table-striped" id="congress_message_tabulation_by_congress"
-         data-staffer_report_url="<%= staffer_report_admin_congress_message_campaign_path(@congress_message_campaign, "placeholder") %>"
-         data-fills_url="<%= @congress_message_campaign.member_fills_url %>"
-         data-legislators_url="<%= congress_index_path(format: :json) %>">
+  <table class="table table-striped" id="congress_message_tabulation_by_congress" data-fills_url="<%= @congress_message_campaign.member_fills_url %>">
     <thead>
       <tr>
-        <th>Bioguide ID</th>
         <th>Member</th>
         <th>Messages</th>
       </tr>
