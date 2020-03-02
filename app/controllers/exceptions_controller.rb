@@ -1,19 +1,25 @@
-class ExceptionsController < ApplicationController
+class ExceptionsController < ActionController::Base
   layout "application"
 
   def show
-    @exception       = env["action_dispatch.exception"]
-    @status_code     = ActionDispatch::ExceptionWrapper.new(env, @exception).status_code
+   @exception       = request.env["action_dispatch.exception"]
+    @status_code     = ActionDispatch::ExceptionWrapper.new(request.env, @exception).status_code
     @rescue_response = ActionDispatch::ExceptionWrapper.rescue_responses[@exception.class.name]
 
     respond_to do |format|
-      format.html { render :show, status: @status_code, layout: !request.xhr? }
       format.xml  { render xml: details, root: "error", status: @status_code }
       format.json { render json: { error: details }, status: @status_code }
+      format.any { render "show.html", status: @status_code, layout: !request.xhr?, content_type: "text/html" }
     end
   end
 
   protected
+
+  helper_method :current_user
+
+  def current_user
+    nil
+  end
 
   def details
     @details ||= {}.tap do |h|
