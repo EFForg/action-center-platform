@@ -34,11 +34,6 @@
     </div>
   </fieldset>
 
-  <div id="archive-redirect" class="<%= 'hidden' unless @actionPage.archived? %>">
-    <%= f.hidden_field :enable_redirect %>
-    <%= render "redirect_fields", f: f %>
-  </div>
-
   <div class="form-actions">
     <%= f.submit "Update", class: "btn btn-primary" %>
   </div>
