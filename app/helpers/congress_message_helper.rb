@@ -37,7 +37,7 @@ module CongressMessageHelper
         })
     elsif field.value == "$EMAIL"
       email_field_tag name, prefill, congress_forms_field_defaults(field)
-    elsif field.value.include? "ADDRESS"
+    elsif field.value.include?("ADDRESS") && !field.is_select?
       address_part = field.value.split("_").last.downcase
       address_part = "zipcode" if address_part.include? "zip"
       address_label = "Your address - #{address_part}"
