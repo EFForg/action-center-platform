@@ -204,7 +204,8 @@ class Admin::ActionPagesController < Admin::ApplicationController
         :id, :message, :subject, :target_house, :target_senate, { target_bioguide_list: [] },
         :topic_category_id, :alt_text_email_your_rep, :alt_text_look_up_your_rep,
         :alt_text_extra_fields_explain, :alt_text_look_up_helper,
-        :alt_text_customize_message_helper, :campaign_tag
+        :alt_text_customize_message_helper, :campaign_tag,
+        :enable_customization_notice
       ],
       partnerships_attributes: [:id, :enable_mailings]
     )

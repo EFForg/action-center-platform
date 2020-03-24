@@ -53,6 +53,19 @@ $(document).on("ready", function() {
   $(".congress-message-tool-container").on("click", "#customize-message :submit", function(e){
     // Can't use rails remote: true because the form is rendered dynamically
     e.preventDefault();
+
+    var notice = $(this).parents('#customize-message').find('.notice');
+
+    if (notice.length && notice.hasClass('down')) {
+      var message = $('#message');
+      var offset = $('#customize-message .form-group')
+      if (message.val() == message.data('original-message')) {
+        return notice.removeClass('down');
+      }
+    }
+
+    notice.addClass('down');
+
     var $form = $("#congress-message-create");
     $.ajax({
       type: "POST",
@@ -80,6 +93,11 @@ $(document).on("ready", function() {
         }
       }
     });
+  });
+
+  $(".congress-message-tool-container").on("click", "#customize-message .notice .edit", function(e) {
+    e.preventDefault();
+    $('#customize-message .notice').addClass('down');
   });
 
   function show_progress_bars() {
