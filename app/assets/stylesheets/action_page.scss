@@ -1254,3 +1254,84 @@ html.js #affiliations {
     }
   }
 }
+
+#congress-message-create {
+  position: relative;
+
+  #customize-message .notice {
+    overflow: hidden;
+    max-height: 25em;
+    transition: max-height 250ms linear, padding 250ms ease-in;
+
+    position: absolute;
+    bottom: 0;
+    padding: 1rem 2.5rem;
+    margin: 0 -.8rem -1rem;
+
+    @media (min-width: $md) {
+      margin-left: -2.3rem;
+    }
+
+    background-color: #e5e5e5;
+
+    font-size: .8em;
+
+    &.down {
+      padding-top: 0em;
+      padding-bottom: 0em;
+      max-height: 0em;
+    }
+  }
+
+  #customize-message .notice strong {
+    font-size: 1.2em;
+  }
+
+  #customize-message .notice p {
+    margin-top: 0.7em;
+  }
+
+  #customize-message .notice .actions {
+    display: flex;
+  }
+
+  #customize-message .notice input {
+    flex: 1;
+    padding: 0.4em;
+    margin: 0;
+    border: 0;
+
+    font-size: 1em;
+    font-weight: bold;
+
+    background: #c4c4c4;
+
+    &:first-child {
+      margin-right: 1rem;
+    }
+
+    &:not(:first-child) {
+      margin-left: 1rem;
+    }
+  }
+
+  #customize-message .notice .icon {
+    display: inline-block;
+    width: 1.3em;
+    height: 1.3em;
+    margin-right: 0.3em;
+
+    line-height: 1.3;
+    text-align: center;
+
+    border: 1px solid $eff-red;
+    border-radius: 50%;
+    background-color: $eff-red;
+
+    font-size: 1.3em;
+    color: #fff;
+
+    cursor: default;
+  }
+}
+
