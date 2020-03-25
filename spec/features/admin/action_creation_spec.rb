@@ -134,6 +134,6 @@ RSpec.describe "Admin action page creation", type: :feature, js: true do
   end
 
   def select_action_type(type)
-    find("#action_type_#{type}").ancestor('label').click
+    find("#action_type_#{type}").ancestor("label").click
   end
 end

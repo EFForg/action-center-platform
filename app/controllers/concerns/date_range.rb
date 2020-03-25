@@ -20,7 +20,7 @@ module DateRange
 
   # Convert Last X (days|weeks|months) to a time
   def parse_time_ago(string)
-    _, count, unit = string.split(' ')
+    _, count, unit = string.split(" ")
     return Time.zone.now - 1.month unless %w(days weeks months years).include? unit
     Time.zone.now - count.to_i.send(unit)
   end
