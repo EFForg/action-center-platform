@@ -5,7 +5,12 @@
 
 <% if can?(:export_signatures) %>
   <% if @petition.enable_affiliations? %>
-    <%= link_to "Download CSV", affiliation_csv_admin_petition_path(@petition), class: "btn btn-default btn-sm" %>
+    <%= form_tag(affiliation_csv_admin_petition_path(@petition), method: :get, id: "export_signatures") do %>
+      <div>
+        <%= select_tag :institution_id, options_for_select(@petition.signatures.institutions), include_blank: "Location/Institution" %>
+      </div>
+      <%= submit_tag "Download CSV", class: "btn btn-default btn-sm", data: { disable_with: false } %>
+    <% end %>
   <% else %>
     <%= link_to "Download CSV", presentable_csv_admin_petition_path(@petition), class: "btn btn-default btn-sm" %>
   <% end %>

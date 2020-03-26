@@ -1,4 +1,5 @@
 include GoingPostal
+
 class Signature < ActiveRecord::Base
   belongs_to :user
   belongs_to :petition
@@ -28,6 +29,53 @@ class Signature < ActiveRecord::Base
   end
 
   include ActionView::Helpers::DateHelper
+
+  def self.to_csv(options={})
+    column_names = %w[first_name last_name email zipcode country_code created_at]
+
+    CSV.generate(options) do |csv|
+      csv << column_names
+
+      all.each do |sub|
+        csv << sub.attributes.values_at(*column_names)
+      end
+    end
+  end
+
+  def self.to_presentable_csv(options = {})
+    column_names = %w[full_name email city state country]
+
+    CSV.generate(options) do |csv|
+      csv << column_names
+
+      all.each do |signature|
+        csv << signature.to_csv_line
+      end
+    end
+  end
+
+  def self.to_affiliation_csv(options={})
+    column_names = %w[full_name, institution, affiliation_type]
+
+    CSV.generate(options) do |csv|
+      csv << column_names
+
+      all.each do |s|
+        affiliation = s.affiliations.first or next
+
+        csv << [
+          s.name,
+          affiliation.institution.name,
+          affiliation.affiliation_type.name
+        ]
+      end
+    end
+  end
+
+  def self.institutions
+    joins(affiliations: :institution).
+      distinct.pluck("institutions.name, institutions.id").sort
+  end
 
   def self.pretty_count
     ActiveSupport::NumberHelper::number_to_delimited(self.count, delimiter: ",")

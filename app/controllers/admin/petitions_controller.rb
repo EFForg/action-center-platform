@@ -12,18 +12,25 @@ class Admin::PetitionsController < Admin::ApplicationController
 
   # This file will wind up at CiviCRM
   def csv
-    send_data @petition.to_csv
+    send_data @petition.signatures.to_csv
   end
 
   # this csv file is just for activists, they tender them to legislators after vetting
   def presentable_csv
-    filename = sanitize_filename("#{@petition}.csv")
-    send_data @petition.to_presentable_csv, filename: filename
+    send_data @petition.signatures.to_presentable_csv,
+              filename: sanitize_filename("#{@petition}.csv")
   end
 
   def affiliation_csv
-    filename = sanitize_filename("#{@petition}.csv")
-    send_data @petition.to_affiliation_csv, filename: filename
+    signatures = @petition.signatures
+
+    if params[:institution_id].present?
+      signatures = signatures.joins(affiliations: :institution).
+                     where(institutions: { id: params[:institution_id] })
+    end
+
+    send_data signatures.to_affiliation_csv,
+              filename: sanitize_filename("#{@petition}.csv")
   end
 
   def destroy_signatures
