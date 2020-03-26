@@ -31,42 +31,6 @@ class Petition < ActiveRecord::Base
     !enable_affiliations
   end
 
-  def to_csv(options = {})
-    column_names =
-      %w[first_name last_name email zipcode country_code created_at]
-    CSV.generate(options) do |csv|
-      csv << column_names
-      signatures.each do |sub|
-        csv << sub.attributes.values_at(*column_names)
-      end
-    end
-  end
-
-  def to_presentable_csv(options = {})
-    column_names =
-      %w[full_name email city state country]
-    CSV.generate(options) do |csv|
-      csv << column_names
-      signatures.each do |signature|
-        csv << signature.to_csv_line
-      end
-    end
-  end
-
-  def to_affiliation_csv(options = {})
-    column_names = %w[full_name, institution, affiliation_type]
-
-    CSV.generate(options) do |csv|
-      signatures.each do |s|
-        affiliation = s.affiliations.first
-        next unless affiliation
-        csv << [s.name,
-                affiliation.institution.name,
-                affiliation.affiliation_type.name]
-      end
-    end
-  end
-
   def to_s
     "#{title}-exported_on-#{DateTime.now.strftime("%Y-%m-%d")}"
   end
