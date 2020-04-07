@@ -1,6 +1,18 @@
 body.petitions-show {
+  form#export_signatures {
+    display: flex;
+  }
+
+  form#export_signatures input[type=submit] {
+    margin-left: 0.25rem;
+  }
+
   form#filter_petitions {
     margin: 1em 0;
+  }
+
+  form#filter_petitions #query {
+    padding: 0.3rem;
   }
 
   table td:last-child, table th:last-child {
