@@ -7,8 +7,8 @@
     .grid {
       display: grid;
       grid-template-columns: 1fr minmax(250px, auto);
-      column-gap: 2em;
-      row-gap: 2em;
+      grid-column-gap: 2em;
+      grid-row-gap: 2em;
     }
 
     .grid form {

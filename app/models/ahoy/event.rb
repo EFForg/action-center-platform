@@ -46,10 +46,15 @@ module Ahoy
     end
 
     # Formats the event data for a chart
-    def self.chart_data(type: nil)
+    def self.chart_data(type: nil, range: nil)
       by_type = TYPES.include? type.try(:to_sym)
       collection = by_type ? all.send(type) : group(:name)
-      collection.group_by_date
+      collection.group_by_day(
+        :time,
+        format: "%b %-e %Y",
+        range: range,
+        default_value: 0
+      ).count
     end
 
     # Reformats chart data for use in tables
@@ -74,7 +79,7 @@ module Ahoy
     # Returns events grouped by date. Can be used to chart event collections
     # with only one event type
     def self.group_by_date
-      group_by_day(:time, format: "%b %-e %Y").count
+      group_by_day
     end
 
     def self.summary

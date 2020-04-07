@@ -99,7 +99,7 @@ fieldset {
 .flash {
   padding: 1rem;
   border: 1px solid black;
-  backgroud: #eee;
+  background: #eee;
 
   @include medium {
     width: 70%;
@@ -125,6 +125,10 @@ fieldset {
 #content #filters {
   float: right;
   margin-left: 2rem;
+  display: none;
+  @include large {
+    display: block;
+  }
 
   form {
     width: 200px;
@@ -134,12 +138,6 @@ fieldset {
 
   .form-item:first-of-type {
     margin-top: 0;
-  }
-
-  display: none;
-
-  @include large {
-    display: block;
   }
 }
 

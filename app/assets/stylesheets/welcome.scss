@@ -97,9 +97,9 @@ section.more-actions {
       }
       a {
         border: none;
-        &:hover {
-          color: $off-white;
-        }
+      }
+      a:hover {
+        color: $off-white;
       }
       &:hover {
         opacity: 0.7;

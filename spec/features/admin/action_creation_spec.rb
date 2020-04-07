@@ -19,8 +19,10 @@ RSpec.describe "Admin action page creation", type: :feature, js: true do
     # Skip partners
     click_on "Next"
 
-    click_on "Save"
-    expect(page).to have_content("Very Important Action")
+    tempermental {
+      click_button "Save"
+      expect(page).to have_content("Very Important Action", wait: 10)
+    }
   end
 
   it "can create basic petition actions" do
@@ -41,9 +43,10 @@ RSpec.describe "Admin action page creation", type: :feature, js: true do
     # Skip partners
     click_on "Next"
 
-    click_on "Save"
-
-    expect(page).to have_content("Very Important Action")
+    tempermental {
+      click_button "Save"
+      expect(page).to have_content("Very Important Action", wait: 10)
+    }
   end
 
   it "can create email actions" do
@@ -64,9 +67,10 @@ RSpec.describe "Admin action page creation", type: :feature, js: true do
     # Skip partners
     click_on "Next"
 
-    click_on "Save"
-
-    expect(page).to have_content("Very Important Action")
+    tempermental {
+      click_button "Save"
+      expect(page).to have_content("Very Important Action", wait: 10)
+    }
   end
 
   it "can create congress actions" do
@@ -86,9 +90,10 @@ RSpec.describe "Admin action page creation", type: :feature, js: true do
     # Skip partners
     click_on "Next"
 
-    click_on "Save"
-
-    expect(page).to have_content("Very Important Action")
+    tempermental {
+      click_button "Save"
+      expect(page).to have_content("Very Important Action", wait: 10)
+    }
   end
 
   it "can create call actions" do
@@ -108,9 +113,10 @@ RSpec.describe "Admin action page creation", type: :feature, js: true do
     # Skip partners
     click_on "Next"
 
-    click_on "Save"
-
-    expect(page).to have_content("Very Important Action")
+    tempermental {
+      click_button "Save"
+      expect(page).to have_content("Very Important Action", wait: 10)
+    }
   end
 
   def fill_in_basic_info(title:, summary:, description:)
@@ -134,6 +140,6 @@ RSpec.describe "Admin action page creation", type: :feature, js: true do
   end
 
   def select_action_type(type)
-    find("#action_type_#{type}").ancestor('label').click
+    find("#action_type_#{type}").ancestor("label").click
   end
 end

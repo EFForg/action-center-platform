@@ -131,7 +131,10 @@ class Admin::ActionPagesController < Admin::ApplicationController
         end
       end
       format.json do
-        render json: @events.chart_data(type: params[:type])
+        render json: @events.chart_data(
+                 type: params[:type],
+                 range: @start_date..@end_date
+               )
       end
     end
   end

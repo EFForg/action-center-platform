@@ -12,7 +12,7 @@ RSpec.describe Admin::PetitionsController, type: :controller do
     let(:petition) { FactoryGirl.create(:petition) }
 
     it "assigns @signatures" do
-      get :show, params: { id: petition.id }
+      get :show, params: { id: petition.id, action_page_id: petition.action_page.id }
       expect(assigns(:signatures)).not_to be_nil
       expect(response.status).to eq(200)
     end
@@ -26,7 +26,7 @@ RSpec.describe Admin::PetitionsController, type: :controller do
         Signature.all
       end
 
-      get :show, params: { id: petition.id, query: query }
+      get :show, params: { id: petition.id, action_page_id: petition.action_page.id, query: query }
       expect(response.status).to eq(200)
     end
   end
@@ -52,17 +52,17 @@ RSpec.describe Admin::PetitionsController, type: :controller do
     it "should delete signatures from the signature_ids param" do
       delete :destroy_signatures, params: { id: petition.id, signature_ids: signatures[10..-1].map(&:id) }
       expect(petition.signatures.reload).to contain_exactly(*signatures[0..9])
-      expect(response).to redirect_to(admin_petition_path(petition))
+      expect(response).to redirect_to(admin_action_page_petition_path(petition.action_page, petition))
     end
 
     it "should redirect back to the same page (or earlier if that page is deleted)" do
       signatures
       delete :destroy_signatures, params: { id: petition.id, signature_ids: [], query: "", page: 2 }
-      expect(response).to redirect_to(admin_petition_path(petition, query: "", page: 2))
+      expect(response).to redirect_to(admin_action_page_petition_path(petition.action_page, petition, query: "", page: 2))
 
       # there is no page 4, so we expect a redirect to page 3
       delete :destroy_signatures, params: { id: petition.id, signature_ids: [], query: "", page: 4 }
-      expect(response).to redirect_to(admin_petition_path(petition, query: "", page: 3))
+      expect(response).to redirect_to(admin_action_page_petition_path(petition.action_page, petition, query: "", page: 3))
     end
   end
 end

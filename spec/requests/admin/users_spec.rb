@@ -9,23 +9,25 @@ RSpec.describe "Admin Users", type: :request do
   describe "#index" do
     before do
       10.times do |n|
-        FactoryGirl.create(:user, created_at: Time.now - n.days)
+        FactoryGirl.create(:user, created_at: Time.now - n.days, email: "user-#{n}@example.com")
       end
     end
 
-    it "responds with users created over time as JSON" do
-      get "/admin/users", params: {}, headers: { "ACCEPT" => "application/json" }
+    it "responds with a list of users" do
+      get "/admin/users"
       expect(response.code).to eq "200"
-      expect(JSON.parse(response.body).keys.count).to eq(10)
+
+      User.all.each { |user| expect(response.body).to include(user.email) }
     end
 
-    it "filters by date" do
-      start_date = (Time.now - 6.days).strftime("%Y-%m-%d")
-      end_date = (Time.now - 2.days).strftime("%Y-%m-%d")
-      get "/admin/users",
-        params: { date_start: start_date, date_end: end_date },
-        headers: { "ACCEPT" => "application/json" }
-      expect(JSON.parse(response.body).keys.count).to eq(4)
+    it "filters by email" do
+      get "/admin/users", params: { query: "user-3@example.com" }
+
+      expect(response.body).to include("user-3@example.com")
+
+      User.where.not(email: "user-3@example.com").each do |user|
+        expect(response.body).not_to include(user.email)
+      end
     end
   end
 end
