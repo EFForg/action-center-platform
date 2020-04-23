@@ -12,12 +12,20 @@ class TopicCategory < ActiveRecord::Base
   end
 
   def best_match(options)
-    alphanum = options.map { |x| x.downcase.gsub(/\W/, "") }
     topics = topic_sets.order(:tier).reduce([]) do |arr, ts|
-      arr += ts.topics.map { |t| t.name.downcase.gsub(/\W/, "") }
+      arr += ts.topics
     end
-    # Order is preserved from the first array
-    match = (topics & alphanum).first
-    options[alphanum.index(match)] if match != nil
+
+    topics.each do |topic|
+      t = topic.name.downcase.gsub(/\W/, "")
+
+      options.each do |key, value|
+        values = [key.downcase.gsub(/\W/, ""), value.downcase.gsub(/\W/, "")]
+
+        return value if values.include?(t)
+      end
+    end
+
+    nil
   end
 end
