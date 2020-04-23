@@ -1,7 +1,7 @@
 module CongressMessageHelper
   def congress_forms_prefills(campaign, field)
     if field.value == "$TOPIC" && campaign.topic_category.present?
-      return campaign.topic_category.best_match(field.options)
+      return campaign.topic_category.best_match(field.options_hash)
     end
     {
       "$NAME_FIRST" => current_first_name,
