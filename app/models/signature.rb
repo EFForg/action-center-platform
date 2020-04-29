@@ -30,7 +30,7 @@ class Signature < ActiveRecord::Base
 
   include ActionView::Helpers::DateHelper
 
-  def self.to_csv(options={})
+  def self.to_csv(options = {})
     column_names = %w[first_name last_name email zipcode country_code created_at]
 
     CSV.generate(options) do |csv|
@@ -54,7 +54,7 @@ class Signature < ActiveRecord::Base
     end
   end
 
-  def self.to_affiliation_csv(options={})
+  def self.to_affiliation_csv(options = {})
     column_names = %w[full_name, institution, affiliation_type]
 
     CSV.generate(options) do |csv|
