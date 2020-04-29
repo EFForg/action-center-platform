@@ -20,9 +20,12 @@ class TopicCategory < ActiveRecord::Base
       t = topic.name.downcase.gsub(/\W/, "")
 
       options.each do |key, value|
-        values = [key.downcase.gsub(/\W/, ""), value.downcase.gsub(/\W/, "")]
+        values = [
+          key.downcase.gsub(/\W/, ""),
+          value.try(:downcase).try(:gsub, /\W/, "")
+        ].compact
 
-        return value if values.include?(t)
+        return (value || key) if values.include?(t)
       end
     end
 
