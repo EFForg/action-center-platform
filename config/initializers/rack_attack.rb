@@ -19,7 +19,8 @@ class Rack::Attack
 
   throttle('password reset', limit: 10, period: 1.day) do |req|
     if req.path == '/password' && req.params['user']
-      req.params['user']['email'].presence
+      # Normalize email address (as Devise does by default).
+      req.params['user']['email'].presence ? req.params['user']['email'].strip.downcase : nil
     end
   end
 
