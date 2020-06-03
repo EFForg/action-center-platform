@@ -91,7 +91,7 @@ class CongressMessagesController < ApplicationController
   end
 
   def subscribe_user
-    if params[:subscribe] == "1"
+    if params[:subscribe] == "1" && Truemail.valid?(user_params[:email])
       source = "action center congress message :: " + @action_page.title
       user = User.find_or_initialize_by(email: user_params[:email])
       user.attributes = user_params
