@@ -50,8 +50,8 @@ class ToolsController < ApplicationController
   #
   # A form is posted here via ajax when a user signs a petition
   def petition
-    @user ||= User.find_or_initialize_by(email: params[:signature][:email])
     @email = params[:signature][:email]
+    @user ||= User.find_or_initialize_by(email: @email)
     @name = params[:signature][:first_name]
     @action_page = Petition.find(params[:signature][:petition_id]).action_page
     @signature = Signature.new(signature_params.merge(user_id: @user.id))
@@ -166,7 +166,7 @@ class ToolsController < ApplicationController
   end
 
   def create_newsletter_subscription
-    if params[:subscribe] && EmailValidator.valid?(params[:subscription][:email])
+    if params[:subscribe] && Truemail.valid?(params[:subscription][:email])
       source = "action center #{@action_page.class.name.downcase} :: " + @action_page.title
       params[:subscription][:opt_in] = true
       params[:subscription][:source] = source

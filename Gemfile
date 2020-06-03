@@ -78,6 +78,8 @@ gem "devise", "~> 4.7"
 gem "ejs", "~> 1"                         # Embedded javascript
 gem "email_validator", "~> 1"
 gem "fastly", "~> 2"
+gem "flipper"
+gem "flipper-ui"
 gem "friendly_id", "~> 5.0" # Slugging/permalink plugins for Active Record
 gem "going_postal", "~> 0"                # Zip code validation
 gem "gravatar-ultimate", "~> 2"
@@ -88,6 +90,7 @@ gem "jbuilder", "~> 1.2" # JSON APIs
 gem "oauth", "~> 0"
 gem "rest-client", "~> 2"
 gem "sanitize", "~> 4" # Sanitize user input
+gem "truemail"
 gem "warden", "1.2.4" # This dep of devise has a bug in 1.2.5 so am avaoiding
 gem "whenever", "~> 0", require: false # Cron jobs
 gem "will_paginate", "~> 3.0"

@@ -9,7 +9,7 @@ class SubscriptionsController < ApplicationController
 
   def create
     email = params[:subscription][:email]
-    if !EmailValidator.valid?(email)
+    unless Truemail.valid?(email)
       render json: { message: "Bad news, something went wrong with your email address. Please check it for typos and try again." }, status: 400
       return
     end
