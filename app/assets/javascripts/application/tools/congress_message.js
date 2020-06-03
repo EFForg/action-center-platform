@@ -37,6 +37,12 @@ $(document).on("ready", function() {
   });
 
   $("#congress-message-tool").on("click", "#to-page-3", function(){
+    // Run browser email validation, plus additional check for valid hostname.
+    if (!$('#common_attributes__EMAIL')[0].checkValidity() || !/^[^@\s]+@([-a-z0-9]+\.)+[a-z]{2,}$/i.test($('#common_attributes__EMAIL').val())) {
+      show_error('Please double-check your email address and try again.', $('.rep-info'));
+      $(window).scrollTop($('.rep-info').offset().top);
+      return;
+    }
     $(".rep-info").hide();
     $("#customize-message").show();
     if ($("#action-content").length) {
