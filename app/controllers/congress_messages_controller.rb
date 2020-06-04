@@ -3,7 +3,6 @@ class CongressMessagesController < ApplicationController
 
   before_action :set_congress_message_campaign
   before_action :update_user, only: :create
-  before_action :subscribe_user, only: :create
 
   # See https://github.com/EFForg/action-center-platform/wiki/Deployment-Notes#csrf-protection
   skip_before_action :verify_authenticity_token, only: :create
@@ -40,11 +39,12 @@ class CongressMessagesController < ApplicationController
                    end
     @message.forms, _ = CongressForms::Form.find(bioguide_ids)
 
-    if @message.background_submit(params[:test])
+    if EmailValidator.valid?(user_params[:email]) && @message.background_submit(params[:test])
       @name = user_params[:first_name] # for deliver_thanks_message
       @email = user_params[:email] # for deliver_thanks_message
       track_action unless params[:test]
       deliver_thanks_message
+      subscribe_user
       render partial: "tools/share"
     else
       render plain: I18n.t(:invalid_submission, scope: :congress_forms), status: :bad_request
