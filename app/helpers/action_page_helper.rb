@@ -11,14 +11,14 @@ module ActionPageHelper
 
     related = Rails.application.config.twitter_related.to_a.join(",")
 
-    "https://twitter.com/intent/tweet?status=#{u message}&related=#{related}"
+    "https://twitter.com/intent/tweet?text=#{u message}&related=#{related}"
   end
 
 
   def tweet_url(target, message)
     message = [target, message].compact.join(" ")
     related = Rails.application.config.twitter_related.to_a.join(",")
-    "https://twitter.com/intent/tweet?status=.#{u message}&related=#{related}"
+    "https://twitter.com/intent/tweet?text=.#{u message}&related=#{related}"
   end
 
   def facebook_share_url(action_page)

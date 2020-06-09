@@ -19,7 +19,13 @@
                 <img src="<%= target.image_url %>" class="individual">
               <% end %>
 
-              <%= link_to "https://twitter.com/intent/tweet?" + {status: ".@#{target.twitter_id} #{@tweet.message}", related: Rails.application.config.twitter_related.to_a.join(',')}.to_query, :target => "_blank", :class => "btn btn-default btn-tweet individual", :"data-twitter-id" => "@#{target.twitter_id}" do %>
+              <%= link_to "https://twitter.com/intent/tweet?" + {
+                  text: ".@#{target.twitter_id} #{@tweet.message}",
+                  related: Rails.application.config.twitter_related.to_a.join(',')
+                }.to_query,
+                  :target => "_blank",
+                  :class => "btn btn-default btn-tweet individual",
+                  :"data-twitter-id" => "@#{target.twitter_id}" do %>
                 <i class="icon-twitter-1"></i> Tweet <%= target.twitter_id %>
               <% end %>
             </div>
