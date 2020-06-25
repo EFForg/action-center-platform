@@ -95,7 +95,7 @@ class CongressMessagesController < ApplicationController
       source = "action center congress message :: " + @action_page.title
       user = User.find_or_initialize_by(email: user_params[:email])
       user.attributes = user_params
-      user.subscribe!(opt_in = true, source = source)
+      user.subscribe!(false, source)
     end
     create_partner_subscription
   end
