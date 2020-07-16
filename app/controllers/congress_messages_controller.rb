@@ -92,7 +92,7 @@ class CongressMessagesController < ApplicationController
   def subscribe_user
     create_partner_subscription
 
-    if params[:subscribe] == "1" && EmailValidator.valid?(user_params[:email])
+    if params[:subscribe] == "1"
       source = "action center congress message :: " + @action_page.title
       user = User.find_or_initialize_by(email: user_params[:email])
       user.attributes = user_params
