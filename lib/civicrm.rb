@@ -12,6 +12,7 @@ module CiviCRM
       return nil if CiviCRM.skip_crm?
       res = CiviCRM::subscribe contact_attributes.merge(opt_in: opt_in, source: source)
       update_attributes(contact_id: res["contact_id"]) if (res && res["contact_id"])
+      res || {}
     end
 
     def contact_id!
