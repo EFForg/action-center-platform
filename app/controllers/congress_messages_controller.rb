@@ -96,7 +96,7 @@ class CongressMessagesController < ApplicationController
       source = "action center congress message :: " + @action_page.title
       user = User.find_or_initialize_by(email: user_params[:email])
       user.attributes = user_params
-      !user.subscribe!(opt_in = false, source = source)["requires_confirmation"]
+      user.subscribe!(opt_in = false, source = source)["requires_confirmation"]
     end
   end
 
