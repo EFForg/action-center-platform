@@ -117,7 +117,7 @@ GEM
       rack-test (>= 0.6.3)
       regexp_parser (~> 1.5)
       xpath (~> 3.2)
-    chartkick (3.3.0)
+    chartkick (3.4.0)
     childprocess (2.0.0)
       rake (< 13.0)
     chronic (0.10.2)
@@ -574,4 +574,4 @@ DEPENDENCIES
   xmlrpc
 
 BUNDLED WITH
-   2.0.1
+   2.1.4
