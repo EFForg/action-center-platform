@@ -20,8 +20,6 @@ class User < ActiveRecord::Base
   has_many :action_pages
 
   before_update :invalidate_password_reset_tokens, if: :email_changed?
-  before_update :invalidate_new_activists_password, if: :admin_changed?
-  after_validation :reset_password_expiration_flag, if: :encrypted_password_changed?
 
   alias_attribute :activist?, :admin?
 
@@ -41,14 +39,6 @@ class User < ActiveRecord::Base
 
   def invalidate_password_reset_tokens
     self.reset_password_token = nil
-  end
-
-  def invalidate_new_activists_password
-    self.password_expired = true
-  end
-
-  def reset_password_expiration_flag
-    self.password_expired = false
   end
 
   def email_taken?
