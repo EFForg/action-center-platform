@@ -138,3 +138,7 @@ $('.action_pages-index').on('click', function(e) {
     $('.page-actions.open').removeClass('open');
 });
 
+$('.action_pages-status').on('change', ':radio', function() {
+  var is_victory = $('#action_page_status_victory').is(':checked');
+  $("#victory-message").toggle(is_victory);
+});

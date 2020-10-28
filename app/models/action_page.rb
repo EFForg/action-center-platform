@@ -179,7 +179,7 @@ class ActionPage < ActiveRecord::Base
       self.victory = false
 
     when "victory"
-      self.published = false
+      self.published = true
       self.archived = false
       self.victory = true
 

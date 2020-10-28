@@ -34,6 +34,11 @@
     </div>
   </fieldset>
 
+  <div id="victory-message" class="form-item epic-editor <%= "hidden" unless @actionPage.victory? %>">
+    <%= f.label :victory_message %>
+    <%= f.text_area :victory_message %>
+  </div>
+
   <div class="form-actions">
     <%= f.submit "Update", class: "btn btn-primary" %>
   </div>
