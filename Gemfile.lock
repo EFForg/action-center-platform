@@ -361,7 +361,7 @@ GEM
       execjs
       railties (>= 3.2)
       tilt
-    redcarpet (3.4.0)
+    redcarpet (3.5.1)
     referer-parser (0.3.0)
     regexp_parser (1.6.0)
     request_store (1.4.1)
