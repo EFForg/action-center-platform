@@ -28,13 +28,14 @@
                 </h5>
               <% end %>
 
-              <div class="text">
-                <h3>
-                <%= link_to action_page_path(actionPage) do%>
-                  <%= actionPage.title -%>
-                <% end %>
-                </h3>
+
+              <%= link_to action_page_path(actionPage) do%>
+                <div class="text">
+                  <h3>
+                    <%= actionPage.title -%>
+                  </h3>
               </div>
+              <% end %>
             </div>
         <% end %>
       </div>
