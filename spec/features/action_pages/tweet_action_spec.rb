@@ -26,15 +26,11 @@ RSpec.feature "Tweet actions", type: :feature, js: true do
 
   it "allows vistors to tweet at representatives" do
     visit action_page_path(tweet_action)
-
     expect(page).not_to have_content("THANK YOU!")
     fill_in "street_address", with: "1630 Ravello Drive"
     fill_in "zipcode", with: "94109"
     click_on "Look up your reps"
-
-    expect(page).to have_content("Default message")
     click_on "Tweet @sisko"
-
     expect(page).to have_content("THANK YOU!")
   end
 end

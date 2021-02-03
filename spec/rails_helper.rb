@@ -5,8 +5,7 @@ require File.expand_path("../../config/environment", __FILE__)
 abort("The Rails environment is running in production mode!") if Rails.env.production?
 require "spec_helper"
 require "rspec/rails"
-require "selenium/webdriver"
-require "webdrivers"
+require "capybara/apparition"
 
 # Add additional requires below this line. Rails is not loaded until this point!
 
@@ -30,24 +29,25 @@ require "webdrivers"
 ActiveRecord::Migration.maintain_test_schema!
 
 
-capabilities = Selenium::WebDriver::Remote::Capabilities.chrome(
-  :loggingPrefs => {
-    browser: "ALL",
-    client: "ALL",
-    driver: "ALL",
-    server: "ALL"
-  },
-  "chromeOptions" => {
+apparition_opts = {
+  window_size: [1400, 900],
+  screen_size: [1920, 1090],
+  browser_options: {
     "w3c" => false,
-    "args" => ["headless", "disable-gpu", "--window-size=1400,900"].tap do |a|
-      a.push("no-sandbox") if ENV["TRAVIS"]
-    end
+    "args" => ["headless", "disable-gpu", "--window-size=1400,900"]
   }
-)
+}
+
+if ENV["TRAVIS"]
+  apparition_opts[:browser_options] = {
+    "remote-debugging-address" => "127.0.0.1",
+    "remote-debugging-port" => 9222
+  }
+  apparition_opts[:remote] = true
+end
 
 Capybara.register_driver :chrome_headless do |app|
-  Capybara::Selenium::Driver.new(app, browser: :chrome,
-                                 desired_capabilities: capabilities)
+  Capybara::Apparition::Driver.new(app, apparition_opts)
 end
 
 Capybara.server = :puma
