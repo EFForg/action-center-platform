@@ -111,8 +111,8 @@ group :development do
 end
 
 group :test do
-  gem "webmock", "~> 2"
   gem "apparition", "~> 0.6"
+  gem "webmock", "~> 2"
 end
 
 group :development, :test do

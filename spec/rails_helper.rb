@@ -40,8 +40,8 @@ apparition_opts = {
 
 if ENV["TRAVIS"]
   apparition_opts[:browser_options] = {
-    'remote-debugging-address' => '127.0.0.1',
-    'remote-debugging-port' => 9222
+    "remote-debugging-address" => "127.0.0.1",
+    "remote-debugging-port" => 9222
   }
   apparition_opts[:remote] = true
 end
