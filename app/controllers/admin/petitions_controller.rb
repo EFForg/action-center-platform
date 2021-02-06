@@ -52,7 +52,7 @@ class Admin::PetitionsController < Admin::ApplicationController
 
   def filtered_signatures
     @petition.signatures.
-      filter(params[:query]).
+      search(params[:query]).
       order(created_at: :desc).
       paginate(page: params[:page], per_page: params[:per_page] || 10)
   end
