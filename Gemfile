@@ -7,8 +7,8 @@ gem "pg", "~> 1.1"
 gem "pg_search"
 
 # Hosting-related
-gem "aws-sdk", "~> 2.3"
-gem "aws-sdk-rails", "~> 1"
+gem "aws-sdk-rails", "~> 2"
+gem "aws-sdk-s3", "~> 1"
 gem "dotenv-rails", "~> 2"
 gem "rack-attack", "~> 5"
 gem "rails_12factor", group: :production # Loads "rails_serve_static_assets" and "rails_stdout_logging"
@@ -44,7 +44,7 @@ source "https://rails-assets.org" do
 end
 
 # File upload
-gem "paperclip", "~> 5.2"
+gem "kt-paperclip", "~> 6"
 
 # Email preformatting
 gem "nokogiri", "~> 1"                    # Required for premailer-rails
