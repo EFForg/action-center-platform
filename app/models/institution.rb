@@ -25,6 +25,7 @@ class Institution < ActiveRecord::Base
       CSV.foreach(csv_file.path, headers: true) do |row|
         row = row.to_hash
         return [] unless row["name"]
+
         names << row["name"]
       end
     end
@@ -55,6 +56,7 @@ class Institution < ActiveRecord::Base
 
   def included_in_active_actions?
     return false if action_pages.empty?
+
     action_pages.map(&:status).any? "live"
   end
 end

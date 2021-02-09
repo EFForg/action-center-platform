@@ -4,7 +4,8 @@ class ActionInstitution < ActiveRecord::Base
 
   def self.add(action_page:, category:, reset: false)
     return unless action_page.enable_petition &&
-      action_page.petition.enable_affiliations
+                  action_page.petition.enable_affiliations
+
     action_page.action_institutions.delete_all if reset == "1"
     institution_ids = Institution.where(category: category).pluck(:id)
     fast_create(action_page_id: action_page.id, institution_ids: institution_ids)
@@ -33,5 +34,5 @@ class ActionInstitution < ActiveRecord::Base
   # * Check if there are any duplicates in production
   # * If so, remove them in a way that doesn't break anything else
   # * Uncomment the following line
-  #validates_uniqueness_of :institution_id, scope: :action_page_id
+  # validates_uniqueness_of :institution_id, scope: :action_page_id
 end

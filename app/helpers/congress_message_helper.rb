@@ -3,6 +3,7 @@ module CongressMessageHelper
     if field.value == "$TOPIC" && campaign.topic_category.present?
       return campaign.topic_category.best_match(field.options_hash)
     end
+
     {
       "$NAME_FIRST" => current_first_name,
       "$NAME_LAST" => current_last_name,
@@ -30,11 +31,11 @@ module CongressMessageHelper
     elsif field.value == "$PHONE"
       telephone_field_tag name, prefill, congress_forms_field_defaults(field)
         .merge({
-          class: "form-control bfh-phone",
-          "data-format": "ddd-ddd-dddd",
-          pattern: "^((5\\d[123467890])|(5[123467890]\\d)|([2346789]\\d\\d))-\\d\\d\\d-\\d\\d\\d\\d$",
-          title: "Must be a valid US phone number entered in 555-555-5555 format"
-        })
+                 class: "form-control bfh-phone",
+                 "data-format": "ddd-ddd-dddd",
+                 pattern: "^((5\\d[123467890])|(5[123467890]\\d)|([2346789]\\d\\d))-\\d\\d\\d-\\d\\d\\d\\d$",
+                 title: "Must be a valid US phone number entered in 555-555-5555 format"
+               })
     elsif field.value == "$EMAIL"
       email_field_tag name, prefill, congress_forms_field_defaults(field)
     elsif field.value.include?("ADDRESS") && !field.is_select?
@@ -44,7 +45,7 @@ module CongressMessageHelper
       text_field_tag name, prefill, congress_forms_field_defaults(field, placeholder: address_label, "aria-label": address_label)
     elsif field.is_select?
       select_tag name, options_for_select(field.options_hash, prefill),
-        class: "form-control", "aria-label": field.label, include_blank: field.label, required: true
+                 class: "form-control", "aria-label": field.label, include_blank: field.label, required: true
     else
       text_field_tag name, prefill, congress_forms_field_defaults(field)
     end

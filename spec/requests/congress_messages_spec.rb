@@ -21,17 +21,17 @@ RSpec.describe "Congress Messages", type: :request do
   }
 
   def stub_congress_forms_find_with_two_reps
-    stub_request(:post, /retrieve-form-elements/).
-      with(body: { "bio_ids" => ["C000880", "A000360"] }).
-      and_return(status: 200, body: file_fixture("retrieve-form-elements.json"))
+    stub_request(:post, /retrieve-form-elements/)
+      .with(body: { "bio_ids" => ["C000880", "A000360"] })
+      .and_return(status: 200, body: file_fixture("retrieve-form-elements.json"))
   end
 
   def stub_congress_forms_find_with_one_rep
     forms_body = JSON.parse(file_fixture("retrieve-form-elements.json").read)
     forms_body.delete("A000360")
-    stub_request(:post, /retrieve-form-elements/).
-      with(body: { "bio_ids" => ["C000880"] }).
-      and_return(status: 200, body: forms_body.to_json)
+    stub_request(:post, /retrieve-form-elements/)
+      .with(body: { "bio_ids" => ["C000880"] })
+      .and_return(status: 200, body: forms_body.to_json)
   end
 
   before do
@@ -81,7 +81,7 @@ RSpec.describe "Congress Messages", type: :request do
       end
 
       it "to target a single chamber" do
-        members.last.update_attributes(chamber: "house", district: 10)
+        members.last.update(chamber: "house", district: 10)
         campaign = FactoryGirl.create(:congress_message_campaign, :targeting_senate)
         action_page.update_attribute(:congress_message_campaign, campaign)
         get_congress_message_form
@@ -129,30 +129,30 @@ RSpec.describe "Congress Messages", type: :request do
     end
 
     before do
-      stub_request(:post, /fill-out-form/).
-        and_return(status: 200, body: "{}")
+      stub_request(:post, /fill-out-form/)
+        .and_return(status: 200, body: "{}")
     end
 
     it "successfully submits good input" do
       submit_congress_message
-      expect(WebMock).to have_requested(:post, /fill-out-form/).
-        with(body: {
-        "bio_id": "C000880",
-        "fields": {
-          "$NAME_FIRST": "Joyce",
-          "$NAME_LAST": "Summers",
-          "$ADDRESS_STREET": "1630 Ravello Drive",
-          "$ADDRESS_CITY": "Sunnydale",
-          "$ADDRESS_ZIP5": "94109",
-          "$EMAIL": "jsummers@altavista.com",
-          "$SUBJECT": "Take Action",
-          "$NAME_PREFIX": "Mrs.",
-          "$ADDRESS_STATE_POSTAL_ABBREV": "CA",
-          "$MESSAGE": "Impeach Mayor Richard Wilkins III",
-          "$TOPIC": "JU"
-        },
-        campaign_tag: "a campaign tag"
-      })
+      expect(WebMock).to have_requested(:post, /fill-out-form/)
+        .with(body: {
+                "bio_id": "C000880",
+                "fields": {
+                  "$NAME_FIRST": "Joyce",
+                  "$NAME_LAST": "Summers",
+                  "$ADDRESS_STREET": "1630 Ravello Drive",
+                  "$ADDRESS_CITY": "Sunnydale",
+                  "$ADDRESS_ZIP5": "94109",
+                  "$EMAIL": "jsummers@altavista.com",
+                  "$SUBJECT": "Take Action",
+                  "$NAME_PREFIX": "Mrs.",
+                  "$ADDRESS_STATE_POSTAL_ABBREV": "CA",
+                  "$MESSAGE": "Impeach Mayor Richard Wilkins III",
+                  "$TOPIC": "JU"
+                },
+                campaign_tag: "a campaign tag"
+              })
     end
 
     it "returns an error when validation fails" do
@@ -166,8 +166,8 @@ RSpec.describe "Congress Messages", type: :request do
       message_attributes[:test] = 1
       submit_congress_message
       expect(response.status).to eq 200
-      expect(WebMock).to have_requested(:post, /fill-out-form/).
-        with(body: hash_including(test: 1)).twice
+      expect(WebMock).to have_requested(:post, /fill-out-form/)
+        .with(body: hash_including(test: 1)).twice
     end
 
     it "succeeds with no common attributs" do

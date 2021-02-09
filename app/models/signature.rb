@@ -8,7 +8,7 @@ class Signature < ActiveRecord::Base
   before_validation :format_zipcode
   before_save :sanitize_input
   validates_presence_of :first_name, :last_name, :petition_id,
-    message: "This can't be blank."
+                        message: "This can't be blank."
 
   validates_presence_of :country_code, if: :location_required?
 
@@ -38,7 +38,7 @@ class Signature < ActiveRecord::Base
     CSV.generate(options) do |csv|
       csv << column_names
 
-      all.each do |sub|
+      all.find_each do |sub|
         csv << sub.attributes.values_at(*column_names)
       end
     end
@@ -50,19 +50,19 @@ class Signature < ActiveRecord::Base
     CSV.generate(options) do |csv|
       csv << column_names
 
-      all.each do |signature|
+      all.find_each do |signature|
         csv << signature.to_csv_line
       end
     end
   end
 
   def self.to_affiliation_csv(options = {})
-    column_names = %w[full_name, institution, affiliation_type]
+    column_names = %w[full_name institution affiliation_type]
 
     CSV.generate(options) do |csv|
       csv << column_names
 
-      all.each do |s|
+      all.find_each do |s|
         affiliation = s.affiliations.first or next
 
         csv << [
@@ -75,8 +75,8 @@ class Signature < ActiveRecord::Base
   end
 
   def self.institutions
-    joins(affiliations: :institution).
-      distinct.pluck("institutions.name, institutions.id").sort
+    joins(affiliations: :institution)
+      .distinct.pluck("institutions.name, institutions.id").sort
   end
 
   def self.pretty_count

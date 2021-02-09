@@ -43,8 +43,8 @@ RSpec.describe ActionPageController, type: :controller do
 
     it "redirects to an admin specified url if redirect is enabled" do
       action_page = FactoryGirl.create :action_page,
-                      enable_redirect: true,
-                      redirect_url: "https://example.com"
+                                       enable_redirect: true,
+                                       redirect_url: "https://example.com"
       get :show, params: { id: action_page }
       expect(response).to redirect_to "https://example.com"
     end
@@ -53,7 +53,7 @@ RSpec.describe ActionPageController, type: :controller do
       let(:active_action_page) { FactoryGirl.create :action_page }
       let(:archived_action_page) {
         FactoryGirl.create :archived_action_page,
-        active_action_page_for_redirect: active_action_page
+                           active_action_page_for_redirect: active_action_page
       }
 
       it "redirects archived actions to active actions" do
@@ -62,7 +62,7 @@ RSpec.describe ActionPageController, type: :controller do
       end
 
       it "doesn't redirect away from victories" do
-        archived_action_page.update_attributes(victory: true)
+        archived_action_page.update(victory: true)
         get :show, params: { id: archived_action_page }
         expect(response.status).to eq(200)
       end
@@ -100,24 +100,24 @@ RSpec.describe ActionPageController, type: :controller do
 
       # Signature with affiliations to two different institutions
       signature = FactoryGirl.create(:signature,
-        petition: @petition)
+                                     petition: @petition)
       signature.affiliations << FactoryGirl.create(:affiliation,
-        institution: @actionPage.institutions.first)
+                                                   institution: @actionPage.institutions.first)
       signature.affiliations << FactoryGirl.create(:affiliation,
-        institution: @actionPage.institutions.last)
+                                                   institution: @actionPage.institutions.last)
 
       # Signature with an affiliation to the second institutions
       signature = FactoryGirl.create(:signature,
-        petition: @petition)
+                                     petition: @petition)
       signature.affiliations << FactoryGirl.create(:affiliation,
-        institution: @actionPage.institutions.last,
-        affiliation_type: @actionPage.affiliation_types.first)
+                                                   institution: @actionPage.institutions.last,
+                                                   affiliation_type: @actionPage.affiliation_types.first)
     end
 
     context "html" do
       it "assigns signatures filtered by institution" do
         get :show_by_institution, params: { id: @actionPage.id,
-          institution_id: @actionPage.institutions.first.id }
+                                            institution_id: @actionPage.institutions.first.id }
         expect(assigns(:institution)).to eq(@actionPage.institutions.first)
 
         # it should assign signatures associated with the institution

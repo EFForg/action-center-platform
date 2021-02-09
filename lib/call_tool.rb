@@ -8,15 +8,15 @@ module CallTool
 
     get "/call/create", {
       campaignId: campaign.to_param,
-      userPhone:  phone,
+      userPhone: phone,
       userCountry: "US",
       userLocation: location,
       callback_url: callback_url,
 
       # TODO - Settle on the schema of the private meta data
       meta: {
-        user_id:     user_id,
-        action_id:   action_id,
+        user_id: user_id,
+        action_id: action_id,
         action_type: "call"
       }.to_json,
     }
@@ -56,7 +56,7 @@ module CallTool
     end
 
     # Don't raise for twilio error 13224: number invalid
-    unless error.match(/^13224:/)
+    unless error.match?(/^13224:/)
       if Rails.application.secrets.sentry_dsn.nil?
         raise error
       else

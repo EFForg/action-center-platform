@@ -1,15 +1,15 @@
 def setup_action
   @action_info = { title: "this is an important call",
-    summary: "blablabla",
-    description: "such bla, such bla" }
+                   summary: "blablabla",
+                   description: "such bla, such bla" }
 end
 
 def create_visitor
   @visitor ||= { name: "Test User",
-    email: "me@example.com",
-    zip_code: "94117",
-    password: "strong passwords defeat lobsters covering wealth",
-    password_confirmation: "strong passwords defeat lobsters covering wealth" }
+                 email: "me@example.com",
+                 zip_code: "94117",
+                 password: "strong passwords defeat lobsters covering wealth",
+                 password_confirmation: "strong passwords defeat lobsters covering wealth" }
 end
 
 def delete_user
@@ -342,8 +342,8 @@ Given(/^A tweet petition targeting senate exists$/) do
   @tweet = FactoryGirl.create(:tweet_targeting_senate)
   @action_page = @tweet.action_page
   @action_page.update_attributes(title: @action_info[:title],
-    summary: @action_info[:summary],
-    description: @action_info[:description])
+                                 summary: @action_info[:summary],
+                                 description: @action_info[:description])
 end
 
 Then(/^I see a button to lookup my reps$/) do
@@ -377,8 +377,8 @@ Given(/^a call petition targeting senate exists$/) do
   @call_campaign = FactoryGirl.create(:call_campaign, call_campaign_id: senate_call_campaign_id, message: "hey hey")
   @action_page = @call_campaign.action_page
   @action_page.update_attributes(title: @action_info[:title],
-    summary: @action_info[:summary],
-    description: @action_info[:description])
+                                 summary: @action_info[:summary],
+                                 description: @action_info[:description])
 end
 
 Given(/^a call petition targeting a custom number exists$/) do
@@ -386,8 +386,8 @@ Given(/^a call petition targeting a custom number exists$/) do
   @call_campaign = FactoryGirl.create(:call_campaign, call_campaign_id: custom_call_campaign_id, message: "hey hey")
   @action_page = @call_campaign.action_page
   @action_page.update_attributes(title: @action_info[:title],
-    summary: @action_info[:summary],
-    description: @action_info[:description])
+                                 summary: @action_info[:summary],
+                                 description: @action_info[:description])
 end
 
 Then(/^I see form fields for phone number, address, and zip code$/) do
@@ -452,8 +452,8 @@ Then(/^"(.*?)" should be signed up for mailings$/) do |email|
   wait_until {
     WebMock::WebMockMatcher.new(:post, CiviCRM::supporters_api_url).matches?(nil)
   }
-  WebMock.should have_requested(:post, CiviCRM::supporters_api_url).
-    with(body: /.*#{email}.*/)
+  WebMock.should have_requested(:post, CiviCRM::supporters_api_url)
+    .with(body: /.*#{email}.*/)
 end
 
 Then(/^I should not have signed up for mailings$/) do

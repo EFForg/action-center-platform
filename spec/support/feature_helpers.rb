@@ -7,7 +7,7 @@ module FeatureHelpers
     click_button "Sign in"
   end
 
-  def sign_out_user(user)
+  def sign_out_user(_user)
     find("#nav-modal-toggle").click
     find("input[value='Logout']", visible: :all, match: :first).click
   end

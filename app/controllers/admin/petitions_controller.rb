@@ -25,8 +25,8 @@ class Admin::PetitionsController < Admin::ApplicationController
     signatures = @petition.signatures
 
     if params[:institution_id].present?
-      signatures = signatures.joins(affiliations: :institution).
-                     where(institutions: { id: params[:institution_id] })
+      signatures = signatures.joins(affiliations: :institution)
+                             .where(institutions: { id: params[:institution_id] })
     end
 
     send_data signatures.to_affiliation_csv,
@@ -51,10 +51,10 @@ class Admin::PetitionsController < Admin::ApplicationController
   end
 
   def filtered_signatures
-    @petition.signatures.
-      search(params[:query]).
-      order(created_at: :desc).
-      paginate(page: params[:page], per_page: params[:per_page] || 10)
+    @petition.signatures
+             .search(params[:query])
+             .order(created_at: :desc)
+             .paginate(page: params[:page], per_page: params[:per_page] || 10)
   end
 
   def search_params

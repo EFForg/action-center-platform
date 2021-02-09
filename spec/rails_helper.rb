@@ -28,7 +28,6 @@ require "capybara/apparition"
 # If you are not using ActiveRecord, you can remove this line.
 ActiveRecord::Migration.maintain_test_schema!
 
-
 apparition_opts = {
   window_size: [1400, 900],
   screen_size: [1920, 1090],

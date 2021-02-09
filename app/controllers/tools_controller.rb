@@ -22,8 +22,8 @@ class ToolsController < ApplicationController
 
   def call
     ahoy.track "Action",
-      { type: "action", actionType: "call", actionPageId: params[:action_id] },
-      action_page: @action_page
+               { type: "action", actionType: "call", actionPageId: params[:action_id] },
+               action_page: @action_page
 
     @name = current_user.try :name
 
@@ -85,8 +85,8 @@ class ToolsController < ApplicationController
       end
 
       ahoy.track "Action",
-        { type: "action", actionType: "signature", actionPageId: @action_page.id },
-        action_page: @action_page
+                 { type: "action", actionType: "signature", actionPageId: @action_page.id },
+                 action_page: @action_page
 
       respond_to do |format|
         format.json { render json: { success: true }, status: 200 }
@@ -107,16 +107,16 @@ class ToolsController < ApplicationController
 
   def tweet
     ahoy.track "Action",
-      { type: "action", actionType: "tweet", actionPageId: params[:action_id] },
-      action_page: @action_page
+               { type: "action", actionType: "tweet", actionPageId: params[:action_id] },
+               action_page: @action_page
     render json: { success: true }, status: 200
   end
 
   def email
-    unless (@user and @user.events.emails.find_by_action_page_id(params[:action_id])) or params[:dnt] == "true"
+    unless (@user and @user.events.emails.find_by(action_page_id: params[:action_id])) or params[:dnt] == "true"
       ahoy.track "Action",
-        { type: "action", actionType: "email", actionPageId: params[:action_id] },
-        action_page: @action_page
+                 { type: "action", actionType: "email", actionPageId: params[:action_id] },
+                 action_page: @action_page
     end
 
     if params[:service] == "copy"
@@ -162,7 +162,7 @@ class ToolsController < ApplicationController
   end
 
   def set_action_page
-    @action_page ||= ActionPage.find_by_id(params[:action_id])
+    @action_page ||= ActionPage.find_by(id: params[:action_id])
   end
 
   def create_newsletter_subscription

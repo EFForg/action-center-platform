@@ -25,7 +25,7 @@ class Admin::TopicCategoriesController < Admin::ApplicationController
   def update
     topic_category = TopicCategory.find(params[:id])
 
-    if topic_category.update_attributes(topic_category_params)
+    if topic_category.update(topic_category_params)
       render json: topic_category
     else
       render json: topic_category.errors, status: 500

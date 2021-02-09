@@ -28,7 +28,7 @@ class Admin::TopicSetsController < Admin::ApplicationController
   def update
     topic_set = TopicSet.find(params[:id])
 
-    if topic_set.update_attributes(topic_set_params)
+    if topic_set.update(topic_set_params)
       render json: topic_set
     else
       render json: topic_set.errors, status: 500

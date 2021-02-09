@@ -64,17 +64,18 @@ class User < ActiveRecord::Base
   end
 
   def display_name
-    return name unless name.blank?
+    return name if name.present?
+
     email
   end
 
   def percentile_rank
     user_action_counts = Rails.cache.fetch("user_action_counts", expires_in: 24.hours) {
       User.select("users.id, count(ahoy_events.id) AS events_count")
-        .joins("LEFT OUTER JOIN ahoy_events ON ahoy_events.user_id = users.id")
-        .where("ahoy_events.name IS null OR ahoy_events.name = ?", "Action")
-        .group("users.id")
-        .map { |u| u.events_count }
+          .joins("LEFT OUTER JOIN ahoy_events ON ahoy_events.user_id = users.id")
+          .where("ahoy_events.name IS null OR ahoy_events.name = ?", "Action")
+          .group("users.id")
+          .map { |u| u.events_count }
     }
 
     user_count = events.actions.count

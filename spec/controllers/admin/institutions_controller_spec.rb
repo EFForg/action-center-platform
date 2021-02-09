@@ -32,7 +32,7 @@ RSpec.describe Admin::InstitutionsController, type: :controller do
       it "creates a new institution" do
         expect {
           post :create, params: { action_page_id: @actionPage.id,
-            institution: valid_attributes }
+                                  institution: valid_attributes }
         }.to change(Institution, :count).by(1)
       end
 
@@ -40,7 +40,7 @@ RSpec.describe Admin::InstitutionsController, type: :controller do
         institution = Institution.create! valid_attributes
         expect {
           post :create, params: { action_page_id: @actionPage.id,
-            institution: valid_attributes }
+                                  institution: valid_attributes }
         }.to_not change(Institution, :count)
       end
     end
@@ -64,13 +64,13 @@ RSpec.describe Admin::InstitutionsController, type: :controller do
       end
 
       it "uploads institutions" do
-        expect(Institution).
-          to receive(:import).with(
-               "University",
-               ["University of California, Berkeley",
-                "University of California, Davis",
-                "University of California, Santa Cruz"]
-             )
+        expect(Institution)
+          .to receive(:import).with(
+            "University",
+            ["University of California, Berkeley",
+             "University of California, Davis",
+             "University of California, Santa Cruz"]
+          )
         import_and_work_off
       end
     end

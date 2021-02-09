@@ -5,12 +5,13 @@ class Petition < ActiveRecord::Base
 
   def percent_complete
     return 0 if goal == 0
+
     [signatures.count.to_f / goal.to_f, 1].min * 100
   end
 
   def recent_signatures(num)
     recent = []
-    signatures.last(num).reverse.each do |s|
+    signatures.last(num).reverse_each do |s|
       if s.anonymous
         recent.push(s.as_json(only: [], methods: [:time_ago, :location]))
       else
@@ -22,7 +23,7 @@ class Petition < ActiveRecord::Base
 
   def signatures_by_institution(institution)
     signatures.includes(affiliations: :institution)
-      .where(institutions: { id: institution })
+              .where(institutions: { id: institution })
   end
 
   def location_required?

@@ -8,9 +8,9 @@ class Admin::EventsController < Admin::ApplicationController
       format.html { @summary = @events.summary }
       format.json {
         render json: @events.chart_data(
-                 type: params[:type],
-                 range: @start_date..@end_date
-               )
+          type: params[:type],
+          range: @start_date..@end_date
+        )
       }
     end
   end

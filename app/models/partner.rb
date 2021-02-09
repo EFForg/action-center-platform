@@ -8,10 +8,9 @@ class Partner < ActiveRecord::Base
   has_attached_file :logo, amazon_credentials
 
   validates_media_type_spoof_detection :logo,
-    if: -> { logo.present? && logo_file_name_came_from_user? }
+                                       if: -> { logo.present? && logo_file_name_came_from_user? }
   do_not_validate_attachment_file_type [:logo]
   validates_uniqueness_of :code
-
 
   def to_csv(options = {})
     column_names = %w[first_name last_name email created_at]

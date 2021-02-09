@@ -8,8 +8,8 @@ namespace :users do
   end
 
   desc "Remove admin status from an account, given an email"
-  task :remove_admin, [:email] => :environment do |t, args|
-    u = User.find_by_email(args[:email])
+  task :remove_admin, [:email] => :environment do |_t, args|
+    u = User.find_by(email: args[:email])
     abort("I couldn't find a user with the email '#{args[:email]}'.") unless u
 
     u.admin = false
@@ -17,9 +17,9 @@ namespace :users do
   end
 
   desc "Add admin status from an account, given an email"
-  task :add_admin, [:email] => :environment do |t, args|
+  task :add_admin, [:email] => :environment do |_t, args|
     email = args[:email]
-    u = User.find_by_email(email)
+    u = User.find_by(email: email)
     abort("I couldn't find a user with the email '#{email}'.") unless u
 
     u.admin = true

@@ -1,17 +1,19 @@
 require "rails_helper"
 
 RSpec.describe ToolsController, type: :controller do
-  let(:valid_attributes) { {
-    signature: {
-      "petition_id" => "1",
-      "email" => "rob@eff.org",
-      "first_name" => "adsf",
-      "last_name" => "asdf",
-      "zipcode" => "94109",
-      "city" => "",
-      "country_code" => ""
+  let(:valid_attributes) {
+    {
+      signature: {
+        "petition_id" => "1",
+        "email" => "rob@eff.org",
+        "first_name" => "adsf",
+        "last_name" => "asdf",
+        "zipcode" => "94109",
+        "city" => "",
+        "country_code" => ""
+      }
     }
-  } }
+  }
 
   before(:each) do
     stub_smarty_streets
@@ -49,11 +51,11 @@ RSpec.describe ToolsController, type: :controller do
 
       expect(CallTool).to receive(:campaign_call)
       post :call, params: {
-             phone: "000-000-0000",
-             location: "00000",
-             call_campaign_id: call_campaign.id,
-             action_id: call_campaign.action_page.id
-           }
+        phone: "000-000-0000",
+        location: "00000",
+        call_campaign_id: call_campaign.id,
+        action_id: call_campaign.action_page.id
+      }
     end
   end
 

@@ -8,8 +8,8 @@ class AhoyController < ApplicationController
     action_page_id = params.require(:action_page_id)
 
     ahoy.track "View",
-      { type: "action", actionType: action_type, actionPageId: action_page_id },
-      action_page_id: action_page_id
+               { type: "action", actionType: action_type, actionPageId: action_page_id },
+               action_page_id: action_page_id
 
     send_data image_asset, content_type: "image/gif"
   end

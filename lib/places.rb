@@ -324,5 +324,4 @@ module Places
       ["Zimbabwe", "ZW"]
     ].freeze
   end
-
 end

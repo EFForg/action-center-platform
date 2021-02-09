@@ -14,6 +14,7 @@ module DeviseHelper
     end
 
     return "" if resource.errors.empty? && flash_alerts.empty?
+
     @hasErrorMessages = true
     errors = resource.errors.empty? ? flash_alerts : resource.errors.full_messages
 
@@ -42,7 +43,7 @@ module DeviseHelper
   end
 
   def locked_account?
-    u = User.find_by_email(@user.email)
+    u = User.find_by(email: @user.email)
     u && u.access_locked?
   end
 end

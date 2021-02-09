@@ -24,13 +24,13 @@ class Admin::S3UploadsController < Admin::ApplicationController
       if @source_file.save
         format.html {
           render json: @source_file.to_jq_upload,
-          content_type: "text/html",
-          layout: false
+                 content_type: "text/html",
+                 layout: false
         }
-        format.json { render json: @source_file.to_jq_upload, status: :created }
+        format.json { render json: @source_file.to_jq_upload, status: 201 }
       else
         format.html { render "new" }
-        format.json { render json: @source_file.errors, status: :unprocessable_entity }
+        format.json { render json: @source_file.errors, status: 422 }
       end
     end
   end
@@ -52,7 +52,7 @@ class Admin::S3UploadsController < Admin::ApplicationController
   # for /admin/action_page/new
   # GET /admin/source_files/generate_key
   def generate_key
-    uid = SecureRandom.uuid.gsub(/-/, "")
+    uid = SecureRandom.uuid.delete('-')
 
     render json: {
       key: "uploads/#{uid}/#{params[:filename]}",

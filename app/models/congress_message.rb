@@ -11,6 +11,7 @@ class CongressMessage
                      $ADDRESS_STREET $ADDRESS_ZIP5 $EMAIL).freeze
 
   def common_attributes() @common_attributes || {}; end
+
   def member_attributes() @member_attributes || {}; end
 
   def self.new_from_lookup(location, campaign, forms)
@@ -20,13 +21,13 @@ class CongressMessage
     }
     if location
       common_attributes.merge!({
-        "$ADDRESS_STREET" => location.street,
-        "$ADDRESS_CITY" => location.city,
-        "$ADDRESS_ZIP4" => location.zip4,
-        "$ADDRESS_ZIP5" => location.zipcode,
-        "$ADDRESS_STATE" => location.state,
-        "$ADDRESS_STATE_POSTAL_ABBREV" => location.state
-      })
+                                 "$ADDRESS_STREET" => location.street,
+                                 "$ADDRESS_CITY" => location.city,
+                                 "$ADDRESS_ZIP4" => location.zip4,
+                                 "$ADDRESS_ZIP5" => location.zipcode,
+                                 "$ADDRESS_STATE" => location.state,
+                                 "$ADDRESS_STATE_POSTAL_ABBREV" => location.state
+                               })
     end
     new({ common_attributes: common_attributes, forms: forms, campaign: campaign })
   end
@@ -45,7 +46,7 @@ class CongressMessage
     @forms.map do |form|
       form_minus = form.dup
       form_minus.fields = form.fields
-        .reject { |x| common_fields.include?(x) }
+                              .reject { |x| common_fields.include?(x) }
       form_minus
     end
   end
@@ -56,6 +57,7 @@ class CongressMessage
 
   def attributes_for(bioguide_id)
     return common_attributes unless member_attributes[bioguide_id]
+
     common_attributes.merge(member_attributes[bioguide_id])
   end
 

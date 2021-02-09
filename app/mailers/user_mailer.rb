@@ -12,7 +12,7 @@ class UserMailer < ActionMailer::Base
     mail(to: email, subject: "Thanks for taking action")
   end
 
-  def signup_attempt_with_existing_email(user, options = {})
+  def signup_attempt_with_existing_email(user, _options = {})
     @user = user
     @email = user.email
     @token = user.reset_password_token
@@ -22,7 +22,7 @@ class UserMailer < ActionMailer::Base
   private
 
   def check_bounces
-    unless Bounce.find_by_email(@email.downcase).nil?
+    unless Bounce.find_by(email: @email.downcase).nil?
       mail.perform_deliveries = false
     end
   end

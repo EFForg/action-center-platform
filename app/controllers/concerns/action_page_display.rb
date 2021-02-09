@@ -53,18 +53,17 @@ module ActionPageDisplay
         @institution_signature_count = @signatures.pretty_count
       elsif @petition.enable_affiliations
         @signatures = @petition.signatures
-            .includes(affiliations: [:institution, :affiliation_type])
+                               .includes(affiliations: [:institution, :affiliation_type])
       else
         @signatures = @petition.signatures
       end
 
       @signatures = @signatures
-                     .paginate(page: params[:page], per_page: 9)
-                     .order(created_at: :desc)
+                    .paginate(page: params[:page], per_page: 9)
+                    .order(created_at: :desc)
 
       @signature_count = @petition.signatures.pretty_count
       @require_location = !@petition.enable_affiliations
     end
   end
-
 end

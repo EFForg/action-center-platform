@@ -6,9 +6,9 @@ class PartnersController < ApplicationController
   # GET /partners/1
   # GET /partners/1.json
   def show
-    @subscriptions = @partner.subscriptions.
-      paginate(page: params[:page], per_page: 10).
-      order("id desc")
+    @subscriptions = @partner.subscriptions
+                             .paginate(page: params[:page], per_page: 10)
+                             .order("id desc")
   end
 
   def csv
@@ -24,13 +24,13 @@ class PartnersController < ApplicationController
         format.json { head :no_content }
       else
         format.html { render "edit" }
-        format.json { render json: @partner.errors, status: :unprocessable_entity }
+        format.json { render json: @partner.errors, status: 422 }
       end
     end
   end
 
   def add_user
-    user = User.find_by_email(params[:email])
+    user = User.find_by(email: params[:email])
     if user.nil?
       flash[:notice] = "Couldn't find a user by email #{params[:email]}"
     else

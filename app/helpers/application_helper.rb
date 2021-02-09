@@ -1,11 +1,11 @@
 module ApplicationHelper
   def page_title
-    t("page_title", scope: [controller_path.gsub("/", "_"), action_name],
-      default: [@title, I18n.t("site_title")].compact.join(" | "))
+    t("page_title", scope: [controller_path.tr("/", "_"), action_name],
+                    default: [@title, I18n.t("site_title")].compact.join(" | "))
   end
 
   def escape_page_title
-    URI.escape(page_title , Regexp.new("[^#{URI::PATTERN::UNRESERVED}]"))
+    URI.escape(page_title, Regexp.new("[^#{URI::PATTERN::UNRESERVED}]"))
   end
 
   def twitter_handle
@@ -71,7 +71,7 @@ module ApplicationHelper
     if user_signed_in?
       p = params.clone
       p.delete(:email)
-      current_user.update_attributes p
+      current_user.update p
     end
   end
 
@@ -110,6 +110,7 @@ module ApplicationHelper
 
   def percentage(x, y, precision: 0)
     return "-" unless y > 0
+
     number_to_percentage((x / y.to_f) * 100, precision: precision)
   end
 
@@ -122,6 +123,7 @@ module ApplicationHelper
 
   def current_user_data(field)
     return nil unless user_session_data_whitelist.include? field
+
     current_user.try(field)
   end
 end

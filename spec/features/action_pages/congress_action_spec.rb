@@ -22,12 +22,12 @@ RSpec.feature "Congress actions", type: :feature, js: true do
 
   before do
     allow(SmartyStreets).to receive(:get_location).and_return(location)
-    stub_request(:post, /retrieve-form-elements/).
-      with(body: { "bio_ids" => ["C000880", "A000360"] }).
-      and_return(status: 200, body: file_fixture("retrieve-form-elements.json"))
-    stub_request(:post, /retrieve-form-elements/).
-      with(body: { "bio_ids" => ["", "C000880", "A000360"] }).
-      and_return(status: 200, body: file_fixture("retrieve-form-elements.json"))
+    stub_request(:post, /retrieve-form-elements/)
+      .with(body: { "bio_ids" => ["C000880", "A000360"] })
+      .and_return(status: 200, body: file_fixture("retrieve-form-elements.json"))
+    stub_request(:post, /retrieve-form-elements/)
+      .with(body: { "bio_ids" => ["", "C000880", "A000360"] })
+      .and_return(status: 200, body: file_fixture("retrieve-form-elements.json"))
     stub_request(:post, /fill-out-form/).and_return(status: 200, body: "{}")
   end
 

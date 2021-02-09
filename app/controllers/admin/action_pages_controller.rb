@@ -81,9 +81,9 @@ class Admin::ActionPagesController < Admin::ApplicationController
     @actionPage.featured_image   = nil if params[:destroy_featured_image]
     @actionPage.og_image         = nil if params[:destroy_og_image]
 
-    @actionPage.update_attributes(action_page_params)
+    @actionPage.update(action_page_params)
     if (institutions_params[:reset] && institutions_params[:reset] == "1") ||
-        (institutions_params[:category] && @actionPage.institutions.empty?)
+       (institutions_params[:category] && @actionPage.institutions.empty?)
       ActionInstitution.add(action_page: @actionPage,
                             **institutions_params.to_h.symbolize_keys)
     end
@@ -96,12 +96,11 @@ class Admin::ActionPagesController < Admin::ApplicationController
     redirect_to admin_action_pages_path, notice: "Deleted action page: #{@actionPage.title}"
   end
 
-
   def preview
     @actionPage.attributes = action_page_params
 
     if @actionPage.enable_redirect
-        redirect_to @actionPage.redirect_url, status: 301
+      redirect_to @actionPage.redirect_url, status: 301
       return
     end
 
@@ -132,9 +131,9 @@ class Admin::ActionPagesController < Admin::ApplicationController
       end
       format.json do
         render json: @events.chart_data(
-                 type: params[:type],
-                 range: @start_date..@end_date
-               )
+          type: params[:type],
+          range: @start_date..@end_date
+        )
       end
     end
   end
@@ -216,6 +215,7 @@ class Admin::ActionPagesController < Admin::ApplicationController
 
   def institutions_params
     return {} unless params.has_key? :institutions
+
     params.require(:institutions).permit(%i(category reset))
   end
 

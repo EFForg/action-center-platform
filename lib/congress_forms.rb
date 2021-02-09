@@ -7,7 +7,8 @@ module CongressForms
     def self.find(bioguide_ids)
       raw_data = CongressForms.post("/retrieve-form-elements/", { bio_ids: bioguide_ids })
       raise CongressForms::RequestFailed if raw_data.empty?
-      links, forms = raw_data.partition { |id, raw| raw["defunct"] }
+
+      links, forms = raw_data.partition { |_id, raw| raw["defunct"] }
       [
         forms.map { |id, raw| Form.new(id, raw["required_actions"]) },
         links.map { |id, raw| [id, raw["contact_url"]] }.to_h
@@ -46,6 +47,7 @@ module CongressForms
       return false if input.nil?
       return false if max_length && input.length > max_length
       return false unless options.nil? || options.include?(input)
+
       true
     end
 
@@ -83,6 +85,7 @@ module CongressForms
 
     def options
       return options_hash.values if options_hash.is_a?(Hash)
+
       options_hash
     end
   end

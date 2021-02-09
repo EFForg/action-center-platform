@@ -29,7 +29,7 @@ describe ActionPage do
     let(:new_slug) { "a-better-slug" }
 
     it "has a friendly slug" do
-      expect(page.slug).to eq(page.title.downcase.gsub(" ", "-"))
+      expect(page.slug).to eq(page.title.downcase.tr(" ", "-"))
     end
 
     it "updates the slug when title changes" do
@@ -149,19 +149,19 @@ describe ActionPage do
       before { FactoryGirl.create(:action_page) }
 
       it_behaves_like "returns only the given status", "archived",
-        [:action_page, { archived: true }]
+                      [:action_page, { archived: true }]
 
       it_behaves_like "returns only the given status", "victory",
-        [:action_page, { victory: true }]
+                      [:action_page, { victory: true }]
 
       it_behaves_like "returns only the given status", "draft",
-        [:action_page, { published: false }]
+                      [:action_page, { published: false }]
     end
 
     context "live action" do
       before { FactoryGirl.create(:action_page, published: false) }
       it_behaves_like "returns only the given status", "live",
-        [:action_page, { published: true }]
+                      [:action_page, { published: true }]
     end
 
     it "raises an ArgumentError when an invalid status is given" do

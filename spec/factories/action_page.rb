@@ -8,7 +8,7 @@ FactoryGirl.define do
     victory_message "We won"
 
     trait :with_partner do
-      after(:create) do |action_page, evaluator|
+      after(:create) do |action_page, _evaluator|
         action_page.partners << FactoryGirl.create(:partner)
       end
     end
@@ -42,7 +42,7 @@ FactoryGirl.define do
   end
 
   factory :action_page_with_views, parent: :action_page do
-    after(:build) do |action_page, evaluator|
+    after(:build) do |action_page, _evaluator|
       10.times do |n|
         FactoryGirl.create(:ahoy_view,
                            action_page: action_page,

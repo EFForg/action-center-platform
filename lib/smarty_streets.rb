@@ -3,7 +3,7 @@ module SmartyStreets
   def self.get_city_state(zipcode)
     url = "https://us-zipcode.api.smartystreets.com/lookup"
     res = post(url, base_params.merge(zipcode: zipcode))
-    if res && !res.empty?
+    if res.present?
       res.first["city_states"].try :first
     end
   end
@@ -11,7 +11,7 @@ module SmartyStreets
   def self.get_location(street, zipcode)
     url = "https://api.smartystreets.com/street-address"
     res = post(url, base_params.merge(street: street, zipcode: zipcode))
-    raise AddressNotFound if !res || res.empty?
+    raise AddressNotFound if res.blank?
 
     location = OpenStruct.new
     location.street = street
@@ -39,7 +39,7 @@ module SmartyStreets
       return res
     rescue => e
       Raven.capture_exception(e)
-      Rails.logger.error "#{ e } (#{ e.class })!"
+      Rails.logger.error "#{e} (#{e.class})!"
       return false
     end
   end

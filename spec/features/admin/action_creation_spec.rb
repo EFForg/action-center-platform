@@ -34,7 +34,7 @@ RSpec.describe "Admin action page creation", type: :feature, js: true do
 
     select_action_type("petition")
     fill_in_editor "#action_page_petition_attributes_description",
-      with: "A petititon letter"
+                   with: "A petititon letter"
     fill_in "Goal", with: 1000
     next_section
 
@@ -105,7 +105,7 @@ RSpec.describe "Admin action page creation", type: :feature, js: true do
 
     select_action_type "call"
     fill_in_editor "#action_page_call_campaign_attributes_message",
-      with: "Call script"
+                   with: "Call script"
     next_section
 
     # skip banner selection

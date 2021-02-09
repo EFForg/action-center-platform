@@ -5,6 +5,7 @@ class RelatedContent
 
   def load
     return if url.blank?
+
     begin
       open_page
       @loaded_successfully = true
@@ -23,6 +24,7 @@ class RelatedContent
 
   def image
     return @image if @image
+
     og_url = page.css("meta[property='og:image']")
     @image = if og_url.blank?
                ""

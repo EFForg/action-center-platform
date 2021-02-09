@@ -34,11 +34,11 @@ describe ActionPageFilters do
   it "does not filter when values are blank or 'all'" do
     FactoryGirl.create(:action_page)
     FactoryGirl.create(:action_page, enable_tweet: true,
-                       category: FactoryGirl.create(:category))
+                                     category: FactoryGirl.create(:category))
     FactoryGirl.create(:action_page, enable_tweet: true, published: false,
-                       created_at: Time.zone.today - 7.days)
+                                     created_at: Time.zone.today - 7.days)
     result = described_class.run(category: "all", type: "", status: "all",
-                                   author: "", date_range: "")
+                                 author: "", date_range: "")
     expect(result.size).to eq(3)
   end
 

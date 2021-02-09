@@ -2,7 +2,7 @@ source "https://rubygems.org"
 
 gem "rails", "~> 5.0"
 
-#Database
+# Database
 gem "pg", "~> 1.1"
 gem "pg_search"
 
@@ -117,15 +117,16 @@ end
 
 group :development, :test do
   gem "byebug"
-  gem "capybara", "~> 3.26"
-  gem "cucumber-rails", "1.6.0", require: false
+  gem "capybara", "~> 3"
   gem "database_cleaner", "~> 1"
   gem "factory_girl_rails", "~> 4"
   gem "rails-controller-testing"
   gem "rspec-core", "~> 3"
   gem "rspec-rails", "~> 3"
-  gem "rubocop", "0.52.0"
-  gem "rubocop-github", "0.9.0"
+  gem "rubocop"
+  gem "rubocop-github", "~> 0.16"
+  gem "rubocop-performance", require: false
+  gem "rubocop-rails", require: false
   gem "webdrivers", "~> 4"
 end
 

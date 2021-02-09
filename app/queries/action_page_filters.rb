@@ -14,6 +14,7 @@ class ActionPageFilters
 
     filters.each do |f, val|
       next unless valid_query?(f, val)
+
       @relation = if NAMED_SCOPES.include? f
                     relation.send(f, val)
                   else
@@ -35,7 +36,8 @@ class ActionPageFilters
   end
 
   def process_date_range
-    return unless filters[:date_range].present?
+    return if filters[:date_range].blank?
+
     start_date, end_date = parse_date_range
     @relation = relation.where(created_at: start_date..(end_date + 1.day))
   end

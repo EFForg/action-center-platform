@@ -14,7 +14,6 @@ module ActionPageHelper
     "https://twitter.com/intent/tweet?text=#{u message}&related=#{related}"
   end
 
-
   def tweet_url(target, message)
     message = [target, message].compact.join(" ")
     related = Rails.application.config.twitter_related.to_a.join(",")
@@ -70,16 +69,17 @@ module ActionPageHelper
     title = @actionPage.title
     name = html_escape(options[:name])
 
-    email_text.
-      gsub(/\$TITLE/, title).
-      gsub(/\$URL/, url).
-      gsub(/\$NAME/, name)
+    email_text
+      .gsub(/\$TITLE/, title)
+      .gsub(/\$URL/, url)
+      .gsub(/\$NAME/, name)
   end
 
   def visible_partners
     mailings_enabled = @actionPage.partners.includes(:partnerships)
                                   .where(partnerships: { enable_mailings: true })
     return mailings_enabled if params[:partner].blank?
+
     mailings_enabled.where(code: params[:partner])
   end
 end

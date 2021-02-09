@@ -22,7 +22,7 @@ module Ahoy
     scope :calls,      -> { where("properties ->> 'actionType' = 'call'") }
     scope :signatures, -> { where("properties ->> 'actionType' = 'signature'") }
     scope :tweets,     -> { where("properties ->> 'actionType' = 'tweet'") }
-    scope :on_page,    -> (id) { where(action_page_id: id) }
+    scope :on_page,    ->(id) { where(action_page_id: id) }
     scope :in_range, ->(start_date, end_date) {
       where(time: start_date..end_date.tomorrow)
     }
@@ -88,7 +88,7 @@ module Ahoy
 
     def user_opt_out
       if user
-         user_id = nil unless user.record_activity?
+        user_id = nil unless user.record_activity?
       end
     end
 

@@ -26,7 +26,7 @@ class EmailCampaign < ActiveRecord::Base
 
   def service_uri(service)
     mailto_addresses = email_addresses.split(/\s*,\s*/).map do |email|
-      u(email.gsub(" ", "")).gsub("%40", "@")
+      u(email.delete(" ")).gsub("%40", "@")
     end.join(",")
 
     {

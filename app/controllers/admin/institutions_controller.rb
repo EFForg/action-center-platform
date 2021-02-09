@@ -42,11 +42,7 @@ class Admin::InstitutionsController < Admin::ApplicationController
     if names.empty?
       redirect_to action: "upload", notice: "Import failed. Please check CSV formatting"
     else
-      category = if import_params[:new_category].blank?
-                   import_params[:category]
-                 else
-                   import_params[:new_category]
-                 end
+      category = import_params[:new_category].presence || import_params[:category]
       Institution.delay.import(category, names)
       redirect_to action: "index", notice: "Successfully imported #{names.length} targets"
     end

@@ -6,10 +6,10 @@ RSpec.feature "Call actions", type: :feature, js: true do
   end
   let!(:calltool_request) do
     {
-       "objects" => [{ "id" => 1, "name" => "call someone", "status" => "live" }],
-       "required_fields" => { "userLocation" => "" },
-       "page" => 1,
-       "total_pages" => 1
+      "objects" => [{ "id" => 1, "name" => "call someone", "status" => "live" }],
+      "required_fields" => { "userLocation" => "" },
+      "page" => 1,
+      "total_pages" => 1
     }.to_json
   end
 
