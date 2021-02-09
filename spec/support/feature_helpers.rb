@@ -7,13 +7,18 @@ module FeatureHelpers
     click_button "Sign in"
   end
 
+  def sign_out_user(user)
+    find("#nav-modal-toggle").click
+    find("input[value='Logout']", visible: :all, match: :first).click
+  end
+
   def disable_call_tool
     allow(CallTool).to receive(:enabled?).and_return(false)
   end
 
   def fill_in_editor(locator, with:)
     within_frame find(locator, visible: :all).sibling("div").find("iframe") do
-      within_frame find("iframe") do
+      within_frame find("#epiceditor-editor-frame") do
         find("body").set(with)
       end
     end

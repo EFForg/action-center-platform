@@ -17,11 +17,11 @@ RSpec.describe Admin::PetitionsController, type: :controller do
       expect(response.status).to eq(200)
     end
 
-    it "passes the 'query' param through Signature.filter" do
+    it "passes the 'query' param through Signature.search" do
       query = "jo@example.com"
 
       expect(Petition).to receive(:find) { petition }
-      expect(petition.signatures).to receive(:filter) do |q|
+      expect(petition.signatures).to receive(:search) do |q|
         expect(q).to eq(query)
         Signature.all
       end
