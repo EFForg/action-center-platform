@@ -47,7 +47,7 @@ RSpec.describe ToolsController, type: :controller do
 
   describe "#call" do
     it "should CallTool#campaign_call, passing parameters in" do
-      call_campaign = FactoryGirl.create(:call_campaign)
+      call_campaign = FactoryBot.create(:call_campaign)
 
       expect(CallTool).to receive(:campaign_call)
       post :call, params: {
@@ -60,7 +60,7 @@ RSpec.describe ToolsController, type: :controller do
   end
 
   describe "#email" do
-    let(:email_campaign) { FactoryGirl.create(:email_campaign) }
+    let(:email_campaign) { FactoryBot.create(:email_campaign) }
 
     it "should redirect to ActionPage#service_uri(service)" do
       action_page = email_campaign.action_page
@@ -75,7 +75,7 @@ RSpec.describe ToolsController, type: :controller do
 end
 
 def create_signature_and_have_user_sign
-  @petition = FactoryGirl.create(:petition_with_99_signatures_needing_1_more)
+  @petition = FactoryBot.create(:petition_with_99_signatures_needing_1_more)
   post :petition, params: { signature: valid_attributes[:signature].merge({ "petition_id" => @petition.id.to_s }) }
 end
 

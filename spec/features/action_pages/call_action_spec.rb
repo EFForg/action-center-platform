@@ -2,7 +2,7 @@ require "rails_helper"
 
 RSpec.feature "Call actions", type: :feature, js: true do
   let!(:action) do
-    FactoryGirl.create(:call_campaign).action_page
+    FactoryBot.create(:call_campaign).action_page
   end
   let!(:calltool_request) do
     {

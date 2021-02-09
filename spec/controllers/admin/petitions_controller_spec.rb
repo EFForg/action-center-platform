@@ -5,11 +5,11 @@ RSpec.describe Admin::PetitionsController, type: :controller do
 
   before(:each) do
     @request.env["devise.mapping"] = Devise.mappings[:admin]
-    sign_in FactoryGirl.create(:admin_user)
+    sign_in FactoryBot.create(:admin_user)
   end
 
   describe "GET #show" do
-    let(:petition) { FactoryGirl.create(:petition) }
+    let(:petition) { FactoryBot.create(:petition) }
 
     it "assigns @signatures" do
       get :show, params: { id: petition.id, action_page_id: petition.action_page.id }
@@ -32,7 +32,7 @@ RSpec.describe Admin::PetitionsController, type: :controller do
   end
 
   describe "DELETE #destroy_signatures" do
-    let(:petition) { FactoryGirl.create(:petition) }
+    let(:petition) { FactoryBot.create(:petition) }
     let(:signatures) do
       30.times.map { FactoryGirl.create(:signature, petition: petition) }
     end

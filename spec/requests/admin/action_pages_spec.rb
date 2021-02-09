@@ -24,7 +24,7 @@ RSpec.describe "Admin Action Pages", type: :request do
 
   describe "Admins" do
     before(:each) do
-      @admin = FactoryGirl.create(:admin_user)
+      @admin = FactoryBot.create(:admin_user)
       login @admin
     end
 
@@ -39,7 +39,7 @@ RSpec.describe "Admin Action Pages", type: :request do
     end
 
     it "should allow them to search action pages" do
-      border = FactoryGirl.create(
+      border = FactoryBot.create(
         :action_page_with_petition,
         title: "borderpetition",
         petition_attributes: {
@@ -47,13 +47,13 @@ RSpec.describe "Admin Action Pages", type: :request do
         }
       )
 
-      privacy = FactoryGirl.create(
+      privacy = FactoryBot.create(
         :action_page_with_petition,
         title: "privacypetition",
         petition_attributes: { description: "online privacy" }
       )
 
-      tweet = FactoryGirl.create(
+      tweet = FactoryBot.create(
         :action_page_with_tweet,
         title: "bordertweet",
         tweet_attributes: { message: "border surveillance tweet" }

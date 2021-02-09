@@ -1,8 +1,8 @@
 require "rails_helper"
 
 RSpec.describe "Admin action page creation", type: :feature, js: true do
-  before { sign_in_user(FactoryGirl.create(:admin_user)) }
-  let!(:category) { FactoryGirl.create(:category, title: "Privacy") }
+  before { sign_in_user(FactoryBot.create(:admin_user)) }
+  let!(:category) { FactoryBot.create(:category, title: "Privacy") }
   it "can create tweet actions" do
     visit new_admin_action_page_path
     fill_in_basic_info(title: "Very Important Action",

@@ -1,9 +1,9 @@
-FactoryGirl.define do
+FactoryBot.define do
   factory :tweet do
     message "Please protect my right to use the Internet safely"
 
     after(:create) do |tweet|
-      FactoryGirl.create(:action_page_with_tweet, tweet_id: tweet.id)
+      FactoryBot.create(:action_page_with_tweet, tweet_id: tweet.id)
     end
   end
 

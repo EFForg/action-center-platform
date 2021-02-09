@@ -28,7 +28,7 @@ RSpec.describe "S3 Uploads Spec", type: :request do
   end
 
   it "should allow admins" do
-    @admin = FactoryGirl.create(:admin_user)
+    @admin = FactoryBot.create(:admin_user)
     login @admin
 
     expect do

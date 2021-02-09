@@ -7,7 +7,7 @@ describe CallTool do
   end
 
   describe ".campaign_call" do
-    let(:campaign) { FactoryGirl.create(:call_campaign) }
+    let(:campaign) { FactoryBot.create(:call_campaign) }
 
     let(:keywords) do
       {

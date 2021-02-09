@@ -1,8 +1,8 @@
 require "rails_helper"
 
 RSpec.describe "Admin Action Page Analytics", type: :request do
-  let(:action_page) { FactoryGirl.create(:action_page_with_views) }
-  before { login FactoryGirl.create(:admin_user) }
+  let(:action_page) { FactoryBot.create(:action_page_with_views) }
+  before { login FactoryBot.create(:admin_user) }
 
   describe "#index" do
     context "with type param" do
@@ -20,9 +20,7 @@ RSpec.describe "Admin Action Page Analytics", type: :request do
 
         # Default is to return data for the previous month.
         expect(JSON.parse(response.body).keys)
-          # rubocop:todo Style/FormatStringToken
           .to include(*(1..31).map { |i| format("Dec %d 2018", i) })
-        # rubocop:enable Style/FormatStringToken
       end
 
       it "filters by date" do
@@ -56,9 +54,9 @@ RSpec.describe "Admin Action Page Analytics", type: :request do
           petition_id: Petition.create.id
         )
 
-        FactoryGirl.create(:ahoy_signature,
-                           action_page: action_page,
-                           time: Time.zone.now)
+        FactoryBot.create(:ahoy_signature,
+                          action_page: action_page,
+                          time: Time.zone.now)
       end
 
       it "renders html" do

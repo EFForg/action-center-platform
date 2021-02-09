@@ -16,9 +16,7 @@ class ApplicationController < ActionController::Base
   skip_before_action :set_ahoy_request_store
 
   def user_conditional_logic
-    if user_signed_in?
-      lock_users_with_expired_passwords! unless user_is_being_told_to_reset_pass_or_is_resetting_pass?
-    end
+    lock_users_with_expired_passwords! if user_signed_in? && !user_is_being_told_to_reset_pass_or_is_resetting_pass?
   end
 
   # This method seems to check if the request is coming from a domain listed in

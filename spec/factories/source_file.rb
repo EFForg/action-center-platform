@@ -1,4 +1,4 @@
-FactoryGirl.define do
+FactoryBot.define do
   factory :source_file do
     key "uploaded_files/meh.jpg"
 

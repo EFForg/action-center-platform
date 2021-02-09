@@ -187,7 +187,7 @@ class Admin::ActionPagesController < Admin::ApplicationController
       affiliation_types_attributes: %i[id name],
       tweet_attributes: [
         :id, :target, :target_house, :target_senate, :message, :cta, :bioguide_id,
-        tweet_targets_attributes: %i[id _destroy twitter_id image]
+        { tweet_targets_attributes: %i[id _destroy twitter_id image] }
       ],
       email_campaign_attributes: %i[
         id message subject target_house target_senate target_email

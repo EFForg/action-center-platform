@@ -24,15 +24,15 @@ class SourceFile < ActiveRecord::Base
     Rails.logger.debug "Trying to validate S3 object."
     self.file_name = key.split("/").last if key
     self.file_size ||= begin
-                         s3_object.content_length
-                       rescue StandardError
-                         nil
-                       end
+      s3_object.content_length
+    rescue StandardError
+      nil
+    end
     self.file_content_type ||= begin
-                                 s3_object.content_type
-                               rescue StandardError
-                                 nil
-                               end
+      s3_object.content_type
+    rescue StandardError
+      nil
+    end
     false
   end
 
@@ -57,9 +57,7 @@ class SourceFile < ActiveRecord::Base
   end
 
   def is_image? # rubocop:todo Naming/PredicateName
-    # rubocop:todo Style/DoubleNegation
     !!file_content_type.try(:match, /image/)
-    # rubocop:enable Style/DoubleNegation
   end
 
   #---- start S3 related methods -----

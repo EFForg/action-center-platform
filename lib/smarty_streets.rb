@@ -30,8 +30,7 @@ module SmartyStreets
   class AddressNotFound < StandardError; end
 
   def self.post(url, params)
-    res = JSON.parse RestClient.get("#{url}?#{params.to_query}")
-    res
+    JSON.parse RestClient.get("#{url}?#{params.to_query}")
   rescue StandardError => e
     Raven.capture_exception(e)
     Rails.logger.error "#{e} (#{e.class})!"

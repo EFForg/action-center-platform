@@ -1,4 +1,4 @@
-FactoryGirl.define do
+FactoryBot.define do
   factory :congress_message_campaign do
     subject "a subject"
     message "a message"

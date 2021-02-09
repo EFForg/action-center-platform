@@ -85,9 +85,7 @@ module Ahoy
     end
 
     def user_opt_out
-      if user
-        self.user_id = nil unless user.record_activity?
-      end
+      self.user_id = nil if user && !user.record_activity?
     end
 
     def record_civicrm

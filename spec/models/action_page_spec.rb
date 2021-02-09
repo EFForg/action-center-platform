@@ -1,7 +1,7 @@
 require "rails_helper"
 
 describe ActionPage do
-  let(:attr) { FactoryGirl.attributes_for :action_page }
+  let(:attr) { FactoryBot.attributes_for :action_page }
 
   it "creates a new instance given a valid attribute" do
     expect do
@@ -10,7 +10,7 @@ describe ActionPage do
   end
 
   it "knows when to redirect from an archived action" do
-    action_page = FactoryGirl.build_stubbed :archived_action_page
+    action_page = FactoryBot.build_stubbed :archived_action_page
     expect(action_page.redirect_from_archived_to_active_action?).to be_truthy
   end
 
@@ -25,7 +25,7 @@ describe ActionPage do
   # end
 
   describe "slug" do
-    let(:page) { FactoryGirl.create(:action_page) }
+    let(:page) { FactoryBot.create(:action_page) }
     let(:new_slug) { "a-better-slug" }
 
     it "has a friendly slug" do
@@ -73,17 +73,17 @@ describe ActionPage do
       before { page.update(slug: new_slug) }
 
       it "does not allow slug conflicts" do
-        expect(FactoryGirl.create(:action_page, slug: old_slug).slug)
+        expect(FactoryBot.create(:action_page, slug: old_slug).slug)
           .not_to eq(old_slug)
       end
     end
   end
 
   describe "counter cache" do
-    let(:page) { FactoryGirl.create(:action_page_with_petition) }
+    let(:page) { FactoryBot.create(:action_page_with_petition) }
     before(:each) do
-      FactoryGirl.create_list(:ahoy_view, 2, action_page: page)
-      FactoryGirl.create(:ahoy_signature, action_page: page)
+      FactoryBot.create_list(:ahoy_view, 2, action_page: page)
+      FactoryBot.create(:ahoy_signature, action_page: page)
       page.reload
     end
     it "counts actions taken" do
@@ -96,24 +96,24 @@ describe ActionPage do
 
   describe "#actions_taken_percent" do
     it "calculates the percentage of views that led to actions" do
-      page = FactoryGirl.create(:action_page_with_petition)
-      FactoryGirl.create_list(:ahoy_view, 3, action_page: page)
-      FactoryGirl.create_list(:ahoy_signature, 2, action_page: page)
+      page = FactoryBot.create(:action_page_with_petition)
+      FactoryBot.create_list(:ahoy_view, 3, action_page: page)
+      FactoryBot.create_list(:ahoy_signature, 2, action_page: page)
       page.reload
       expect(page.actions_taken_percent).to eq((2 / 3.0) * 100)
     end
     it "returns all zeroes when no events" do
-      page = FactoryGirl.create(:action_page)
+      page = FactoryBot.create(:action_page)
       expect(page.actions_taken_percent).to eq(0)
     end
   end
 
   describe ".type(types)" do
-    let(:call) { FactoryGirl.create(:action_page_with_call) }
-    let(:congress_message) { FactoryGirl.create(:action_page_with_congress_message) }
-    let(:email) { FactoryGirl.create(:action_page_with_email) }
-    let(:petition) { FactoryGirl.create(:action_page_with_petition) }
-    let(:tweet) { FactoryGirl.create(:action_page_with_tweet) }
+    let(:call) { FactoryBot.create(:action_page_with_call) }
+    let(:congress_message) { FactoryBot.create(:action_page_with_congress_message) }
+    let(:email) { FactoryBot.create(:action_page_with_email) }
+    let(:petition) { FactoryBot.create(:action_page_with_petition) }
+    let(:tweet) { FactoryBot.create(:action_page_with_tweet) }
 
     before do
       [call, congress_message, email, petition, tweet]
@@ -138,14 +138,14 @@ describe ActionPage do
   describe ".status(status)" do
     shared_examples "returns only the given status" do |status, action|
       it status do
-        action = FactoryGirl.create(*action)
+        action = FactoryBot.create(*action)
         result = ActionPage.status(status)
         expect(result).to contain_exactly(action)
       end
     end
 
     context "not live" do
-      before { FactoryGirl.create(:action_page) }
+      before { FactoryBot.create(:action_page) }
 
       it_behaves_like "returns only the given status", "archived",
                       [:action_page, { archived: true }]
@@ -158,7 +158,7 @@ describe ActionPage do
     end
 
     context "live action" do
-      before { FactoryGirl.create(:action_page, published: false) }
+      before { FactoryBot.create(:action_page, published: false) }
       it_behaves_like "returns only the given status", "live",
                       [:action_page, { published: true }]
     end

@@ -2,7 +2,7 @@ require "rails_helper"
 
 RSpec.feature "Petition actions", type: :feature, js: true do
   let!(:action) do
-    FactoryGirl.create(:petition).action_page
+    FactoryBot.create(:petition).action_page
   end
   let(:location) { OpenStruct.new(city: "Sunnydale", state: "CA") }
 

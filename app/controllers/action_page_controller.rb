@@ -87,9 +87,9 @@ class ActionPageController < ApplicationController
   end
 
   def redirect_from_archived_to_active_action
-    if @actionPage.redirect_from_archived_to_active_action?
+    if @actionPage.redirect_from_archived_to_active_action? && !current_user && (current_user.taken_action?(@actionPage) || current_user.admin?)
       # Users can access actions they've taken in the past as a historical record
-      redirect_to @actionPage.active_action_page_for_redirect unless current_user && (current_user.taken_action?(@actionPage) || current_user.admin?)
+      redirect_to @actionPage.active_action_page_for_redirect
     end
   end
 

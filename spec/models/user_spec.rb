@@ -2,8 +2,8 @@ require "rails_helper"
 require "lib/civicrm_spec"
 
 describe User do
-  let(:attr) { FactoryGirl.attributes_for :user }
-  let(:user) { FactoryGirl.create(:user) }
+  let(:attr) { FactoryBot.attributes_for :user }
+  let(:user) { FactoryBot.create(:user) }
 
   before(:each) do
     stub_civicrm
@@ -36,7 +36,7 @@ describe User do
     end
 
     it "makes sure admins are using strong passwords" do
-      user = FactoryGirl.create(:user, admin: true)
+      user = FactoryBot.create(:user, admin: true)
 
       result = set_weak_password(user)
       expect(result).to be_falsey
@@ -47,9 +47,9 @@ describe User do
   end
 
   describe "track user actions" do
-    let(:user) { FactoryGirl.create(:user, record_activity: true) }
+    let(:user) { FactoryBot.create(:user, record_activity: true) }
     let(:ahoy) { Ahoy::Tracker.new }
-    let(:action_page) { FactoryGirl.create :action_page_with_petition }
+    let(:action_page) { FactoryBot.create :action_page_with_petition }
 
     it "knows if the user has taken a given action" do
       ahoy.authenticate(user)
@@ -67,14 +67,14 @@ end
 
 def record_several_actions
   # a user with no actions
-  FactoryGirl.create(:user, record_activity: true)
+  FactoryBot.create(:user, record_activity: true)
 
   # a user with three actions
-  ahoy.authenticate(FactoryGirl.create(:user, record_activity: true))
+  ahoy.authenticate(FactoryBot.create(:user, record_activity: true))
   3.times { track_signature(action_page) }
 
   # a user with 1 action
-  ahoy.authenticate(FactoryGirl.create(:user, record_activity: true))
+  ahoy.authenticate(FactoryBot.create(:user, record_activity: true))
   1.times { track_signature(action_page) }
 
   # our friend, with 2 actions

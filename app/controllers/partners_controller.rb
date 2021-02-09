@@ -64,9 +64,7 @@ class PartnersController < ApplicationController
 
   def authenticate
     authenticate_user!
-    unless current_user.admin?
-      raise ActiveRecord::RecordNotFound if current_user.partner != @partner
-    end
+    raise ActiveRecord::RecordNotFound if !current_user.admin? && (current_user.partner != @partner)
   end
 
   # Never trust parameters from the scary internet, only allow the white list through.

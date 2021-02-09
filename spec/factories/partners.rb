@@ -1,4 +1,4 @@
-FactoryGirl.define do
+FactoryBot.define do
   factory :partner do
     name "Another Activist Org"
     sequence(:code) { |n| "p#{n}" }

@@ -13,10 +13,10 @@ RSpec.describe Admin::InstitutionsController, type: :controller do
   before(:each) do
     # Admin login
     @request.env["devise.mapping"] = Devise.mappings[:admin]
-    sign_in FactoryGirl.create(:admin_user)
+    sign_in FactoryBot.create(:admin_user)
 
     # Set parent action
-    @actionPage = FactoryGirl.create(:action_page_with_petition)
+    @actionPage = FactoryBot.create(:action_page_with_petition)
   end
 
   describe "GET #index" do

@@ -44,12 +44,12 @@ end
 # for controller tests
 def login_as_admin
   @request.env["devise.mapping"] = Devise.mappings[:admin]
-  sign_in FactoryGirl.create(:admin_user)
+  sign_in FactoryBot.create(:admin_user)
 end
 
 def login_as_collaborator
   @request.env["devise.mapping"] = Devise.mappings[:admin]
-  sign_in FactoryGirl.create(:collaborator_user)
+  sign_in FactoryBot.create(:collaborator_user)
 end
 
 def set_weak_password(user) # rubocop:todo Naming/AccessorMethodName

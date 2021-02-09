@@ -1,5 +1,5 @@
 Given(/^a congress member exists$/) do
-  member = FactoryGirl.create(:congress_member)
+  member = FactoryBot.create(:congress_member)
 end
 
 Given(/^a stubbed phantomdc$/) do

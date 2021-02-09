@@ -1,5 +1,5 @@
 Given(/^a petition exists with many signatures$/) do
-  @petition = FactoryGirl.create(:petition_complete_with_one_hundred_signatures)
+  @petition = FactoryBot.create(:petition_complete_with_one_hundred_signatures)
 end
 
 When(/^I visit the signatures list$/) do

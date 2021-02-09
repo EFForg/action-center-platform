@@ -22,11 +22,11 @@ end
 namespace :petition do
   desc "Create a local organizing petition with 99 signatures"
   task create_local: :environment do
-    petition = FactoryGirl.create(:local_organizing_petition)
+    petition = FactoryBot.create(:local_organizing_petition)
 
     (0..98).each do |i|
-      petition.signatures << FactoryGirl.build(:signature, petition: petition)
-      petition.signatures.last.affiliations << FactoryGirl.build(
+      petition.signatures << FactoryBot.build(:signature, petition: petition)
+      petition.signatures.last.affiliations << FactoryBot.build(
         :affiliation,
         institution: petition.action_page.institutions[i % 10],
         affiliation_type: petition.action_page.affiliation_types[i % 5]

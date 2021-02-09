@@ -1,4 +1,4 @@
-FactoryGirl.define do
+FactoryBot.define do
   form1 = CongressForms::Form.new("C000880", [
                                     { "value" => "$NAME_FIRST" },
                                     { "value" => "$NAME_LAST" },

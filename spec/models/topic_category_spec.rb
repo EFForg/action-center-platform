@@ -1,7 +1,7 @@
 require "rails_helper"
 
 describe TopicCategory do
-  subject { FactoryGirl.create(:topic_category) }
+  subject { FactoryBot.create(:topic_category) }
 
   describe "#best_match" do
     it "selects the best match from a list of options" do
@@ -15,7 +15,7 @@ describe TopicCategory do
     end
 
     after do
-      FactoryGirl.reload # Reset sequence numbers
+      FactoryBot.reload # Reset sequence numbers
     end
   end
 end

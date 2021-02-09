@@ -31,11 +31,11 @@ RSpec.describe SubscriptionsController, type: :controller do
   end
 
   describe "#edit" do
-    let(:subscription) { FactoryGirl.create(:subscription) }
+    let(:subscription) { FactoryBot.create(:subscription) }
     subject { get :edit, params: { id: subscription } }
 
     it "redirects to supporters" do
-      sign_in FactoryGirl.create(:user)
+      sign_in FactoryBot.create(:user)
       expect(subject).to redirect_to(/#{Rails.application.secrets.supporters["host"]}/)
     end
 
@@ -46,7 +46,7 @@ RSpec.describe SubscriptionsController, type: :controller do
       end
 
       it "fails gracefully" do
-        sign_in FactoryGirl.create(:user)
+        sign_in FactoryBot.create(:user)
         expect(subject).to redirect_to("/account")
         expect(flash[:error]).to be_present
       end
