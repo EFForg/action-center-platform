@@ -110,7 +110,7 @@ module ApplicationHelper
     safe_join(messages)
   end
 
-  def percentage(x, y, precision: 0)
+  def percentage(x, y, precision: 0) # rubocop:todo Naming/MethodParameterName
     return "-" unless y > 0
 
     number_to_percentage((x / y.to_f) * 100, precision: precision)

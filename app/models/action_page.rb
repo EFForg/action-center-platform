@@ -147,11 +147,13 @@ class ActionPage < ActiveRecord::Base
     [og_image, background_image, featured_image].find(&:present?)
   end
 
+  # rubocop:todo Naming/MemoizedInstanceVariableName
   def actions_taken_percent
     return 0 if view_count == 0
 
     @percent ||= (action_count / view_count.to_f) * 100
   end
+  # rubocop:enable Naming/MemoizedInstanceVariableName
 
   def status
     if archived?

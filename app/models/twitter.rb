@@ -1,5 +1,5 @@
 class Twitter
-  def self.has_api_keys?
+  def self.has_api_keys? # rubocop:todo Naming/PredicateName
     Rails.application.secrets.twitter_api_key.present? &&
       Rails.application.secrets.twitter_api_secret.present? &&
       Rails.application.secrets.twitter_oauth_token.present? &&

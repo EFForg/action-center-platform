@@ -55,7 +55,7 @@ module CongressForms
       I18n.t value, scope: :congress_forms, default: value.sub("$", "").humanize
     end
 
-    def is_select?
+    def is_select? # rubocop:todo Naming/PredicateName
       options_hash != nil
     end
 

@@ -7,39 +7,6 @@
 # versions of RuboCop, may require this file to be generated again.
 
 # Offense count: 3
-Naming/AccessorMethodName:
-  Exclude:
-    - 'spec/requests/congress_messages_spec.rb'
-    - 'spec/spec_helper.rb'
-
-# Offense count: 2
-# Configuration parameters: MinNameLength, AllowNamesEndingInNumbers, AllowedNames, ForbiddenNames.
-Naming/BlockParameterName:
-  Exclude:
-    - 'app/views/action_page/index.atom.builder'
-    - 'app/views/action_page/index.json.jbuilder'
-
-# Offense count: 3
-# Configuration parameters: EnforcedStyleForLeadingUnderscores.
-# SupportedStylesForLeadingUnderscores: disallowed, required, optional
-Naming/MemoizedInstanceVariableName:
-  Exclude:
-    - 'app/controllers/tools_controller.rb'
-    - 'app/models/action_page.rb'
-    - 'lib/related_content.rb'
-
-# Offense count: 7
-# Configuration parameters: MinNameLength, AllowNamesEndingInNumbers, AllowedNames, ForbiddenNames.
-# AllowedNames: io, id, to, by, on, in, at, ip, db, os, pp
-Naming/MethodParameterName:
-  Exclude:
-    - 'app/helpers/application_helper.rb'
-    - 'app/mailers/user_mailer.rb'
-    - 'app/models/congress_message_campaign.rb'
-    - 'app/models/institution.rb'
-    - 'app/queries/action_page_filters.rb'
-
-# Offense count: 3
 # Configuration parameters: NamePrefix, ForbiddenPrefixes, AllowedMethods, MethodDefinitionMacros.
 # NamePrefix: is_, has_, have_
 # ForbiddenPrefixes: is_, has_, have_
@@ -48,9 +15,6 @@ Naming/MethodParameterName:
 Naming/PredicateName:
   Exclude:
     - 'spec/**/*'
-    - 'app/models/source_file.rb'
-    - 'app/models/twitter.rb'
-    - 'lib/congress_forms.rb'
 
 # Offense count: 45
 # Configuration parameters: EnforcedStyle.

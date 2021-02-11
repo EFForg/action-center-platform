@@ -56,7 +56,7 @@ class SourceFile < ActiveRecord::Base
     }
   end
 
-  def is_image?
+  def is_image? # rubocop:todo Naming/PredicateName
     !!file_content_type.try(:match, /image/)
   end
 

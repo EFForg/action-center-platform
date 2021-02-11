@@ -52,14 +52,14 @@ def login_as_collaborator
   sign_in FactoryGirl.create(:collaborator_user)
 end
 
-def set_weak_password(user)
+def set_weak_password(user) # rubocop:todo Naming/AccessorMethodName
   weak_password = "12345678"
   user.password = weak_password
   user.password_confirmation = weak_password
   user.save
 end
 
-def set_strong_password(user)
+def set_strong_password(user) # rubocop:todo Naming/AccessorMethodName
   weak_password = "strong passwords defeat lobsters covering wealth"
   user.password = weak_password
   user.password_confirmation = weak_password

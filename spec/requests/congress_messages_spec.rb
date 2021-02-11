@@ -40,7 +40,7 @@ RSpec.describe "Congress Messages", type: :request do
   end
 
   describe "#new" do
-    def get_congress_message_form
+    def get_congress_message_form # rubocop:todo Naming/AccessorMethodName
       campaign_id = action_page.congress_message_campaign_id
       get("/congress_message_campaigns/#{campaign_id}/congress_messages/new",
           params: { street_address: location.street,

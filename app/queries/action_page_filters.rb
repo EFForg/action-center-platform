@@ -46,12 +46,12 @@ class ActionPageFilters
     filters[:date_range].split(" - ").map { |d| Time.zone.parse(d) }
   end
 
-  def valid_query?(f, val)
+  def valid_query?(f, val) # rubocop:todo Naming/MethodParameterName
     validate_filter_name f
     !empty_value? val
   end
 
-  def validate_filter_name(f)
+  def validate_filter_name(f) # rubocop:todo Naming/MethodParameterName
     raise ArgumentError, "unrecognized filter #{f}" unless VALID_FILTERS.include? f
   end
 end

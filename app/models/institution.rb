@@ -45,7 +45,7 @@ class Institution < ActiveRecord::Base
 
   # Sort institutions by most popular.
   # Put `first` at the top of the list if it exists.
-  def self.top(n, first: 0)
+  def self.top(n, first: 0) # rubocop:todo Naming/MethodParameterName
     select("institutions.*, COUNT(signatures.id) AS s_count")
       .joins("LEFT OUTER JOIN affiliations ON institutions.id = affiliations.institution_id")
       .joins("LEFT OUTER JOIN signatures ON affiliations.signature_id = signatures.id")
