@@ -74,7 +74,9 @@ RSpec.describe "Congress Messages", type: :request do
 
       it "to target bioguide_ids" do
         campaign = FactoryGirl.create(:congress_message_campaign, :targeting_bioguide_ids)
+        # rubocop:todo Rails/SkipsModelValidations
         action_page.update_attribute(:congress_message_campaign, campaign)
+        # rubocop:enable Rails/SkipsModelValidations
         get_congress_message_form
         expect(response.body).to include("C000880")
         expect(response.body).not_to include("A000360")
@@ -83,7 +85,9 @@ RSpec.describe "Congress Messages", type: :request do
       it "to target a single chamber" do
         members.last.update(chamber: "house", district: 10)
         campaign = FactoryGirl.create(:congress_message_campaign, :targeting_senate)
+        # rubocop:todo Rails/SkipsModelValidations
         action_page.update_attribute(:congress_message_campaign, campaign)
+        # rubocop:enable Rails/SkipsModelValidations
         get_congress_message_form
         expect(response.body).to include("C000880")
         expect(response.body).not_to include("A000360")

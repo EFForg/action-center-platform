@@ -155,7 +155,7 @@ class ToolsController < ApplicationController
   end
 
   # rubocop:todo Naming/MemoizedInstanceVariableName
-  def set_action_page # rubocop:todo Naming/MemoizedInstanceVariableName
+  def set_action_page
     @action_page ||= ActionPage.find_by(id: params[:action_id])
   end
   # rubocop:enable Naming/MemoizedInstanceVariableName

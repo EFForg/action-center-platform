@@ -36,9 +36,13 @@ class ActionPage < ActiveRecord::Base
   belongs_to :congress_message_campaign
   belongs_to :call_campaign
   belongs_to :category, optional: true
+  # rubocop:todo Rails/InverseOf
   belongs_to :active_action_page_for_redirect, class_name: "ActionPage",
                                                foreign_key: "archived_redirect_action_page_id"
+  # rubocop:enable Rails/InverseOf
+  # rubocop:todo Rails/InverseOf
   belongs_to :author, class_name: "User", foreign_key: :user_id, optional: true
+  # rubocop:enable Rails/InverseOf
 
   accepts_nested_attributes_for :tweet, :petition, :email_campaign,
                                 :call_campaign, :congress_message_campaign, :affiliation_types, :partnerships,

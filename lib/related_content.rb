@@ -38,7 +38,7 @@ class RelatedContent
   attr_reader :url, :page, :loaded_successfully
 
   # rubocop:todo Naming/MemoizedInstanceVariableName
-  def open_page # rubocop:todo Naming/MemoizedInstanceVariableName
+  def open_page
     @page ||= Nokogiri::HTML(open(url))
   end
   # rubocop:enable Naming/MemoizedInstanceVariableName

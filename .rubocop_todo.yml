@@ -121,13 +121,6 @@ Rails/HelperInstanceVariable:
     - 'app/helpers/devise_helper.rb'
     - 'app/helpers/petition_helper.rb'
 
-# Offense count: 2
-# Configuration parameters: Include.
-# Include: app/models/**/*.rb
-Rails/InverseOf:
-  Exclude:
-    - 'app/models/action_page.rb'
-
 # Offense count: 6
 # Configuration parameters: Include.
 # Include: app/controllers/**/*.rb
@@ -138,19 +131,6 @@ Rails/LexicallyScopedActionFilter:
     - 'app/controllers/petition_controller.rb'
     - 'app/controllers/sessions_controller.rb'
     - 'app/controllers/tools_controller.rb'
-
-# Offense count: 9
-# Configuration parameters: Blacklist, Whitelist.
-# Blacklist: decrement!, decrement_counter, increment!, increment_counter, toggle!, touch, update_all, update_attribute, update_column, update_columns, update_counters
-Rails/SkipsModelValidations:
-  Exclude:
-    - 'app/controllers/registrations_controller.rb'
-    - 'app/controllers/users_controller.rb'
-    - 'app/models/congress_scorecard.rb'
-    - 'lib/tasks/ahoy.rake'
-    - 'lib/tasks/congress.rake'
-    - 'spec/requests/congress_messages_spec.rb'
-    - 'spec/tasks/signatures_spec.rb'
 
 # Offense count: 3
 # Configuration parameters: Include.
