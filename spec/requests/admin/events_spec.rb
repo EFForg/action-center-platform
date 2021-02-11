@@ -20,7 +20,9 @@ RSpec.describe "Admin Action Page Analytics", type: :request do
 
         # Default is to return data for the previous month.
         expect(JSON.parse(response.body).keys)
+          # rubocop:todo Style/FormatStringToken
           .to include(*(1..31).map { |i| format("Dec %d 2018", i) })
+        # rubocop:enable Style/FormatStringToken
       end
 
       it "filters by date" do

@@ -57,7 +57,9 @@ class SourceFile < ActiveRecord::Base
   end
 
   def is_image? # rubocop:todo Naming/PredicateName
+    # rubocop:todo Style/DoubleNegation
     !!file_content_type.try(:match, /image/)
+    # rubocop:enable Style/DoubleNegation
   end
 
   #---- start S3 related methods -----

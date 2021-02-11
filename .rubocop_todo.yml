@@ -155,18 +155,6 @@ Style/ClassAndModuleChildren:
     - 'app/models/ahoy/event.rb'
     - 'lib/monkey_patches/octet_stream_override.rb'
 
-# Offense count: 1
-Style/DoubleNegation:
-  Exclude:
-    - 'app/models/source_file.rb'
-
-# Offense count: 1
-# Configuration parameters: EnforcedStyle.
-# SupportedStyles: annotated, template, unannotated
-Style/FormatStringToken:
-  Exclude:
-    - 'spec/requests/admin/events_spec.rb'
-
 # Offense count: 17
 # Configuration parameters: MinBodyLength.
 Style/GuardClause:
