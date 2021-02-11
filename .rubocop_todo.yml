@@ -295,16 +295,6 @@ Rails/LexicallyScopedActionFilter:
     - 'app/controllers/sessions_controller.rb'
     - 'app/controllers/tools_controller.rb'
 
-# Offense count: 4
-# Cop supports --auto-correct.
-# Configuration parameters: Include.
-# Include: **/Rakefile, **/*.rake
-Rails/RakeEnvironment:
-  Exclude:
-    - 'lib/capistrano/tasks/**/*.rake'
-    - 'lib/tasks/cucumber.rake'
-    - 'lib/tasks/test.rake'
-
 # Offense count: 2
 Rails/ReflectionClassName:
   Exclude:
