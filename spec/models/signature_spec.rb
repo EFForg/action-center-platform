@@ -23,26 +23,26 @@ describe Signature do
   it "should reject spammy emails" do
     invalid_email = @attr.merge(email: "a@b")
 
-    expect {
+    expect do
       Signature.create!(invalid_email)
-    }.to raise_error ActiveRecord::RecordInvalid
+    end.to raise_error ActiveRecord::RecordInvalid
   end
 
   it "should impose an arbitrary opinion as to whether a string of text may refer to a country" do
     # note: it is my personal belief that there is no such thing as a country/ nation =)
     arbitrarily_invalid_opinion = @attr.merge(country_code: "laserland")
 
-    expect {
+    expect do
       Signature.create!(arbitrarily_invalid_opinion)
-    }.to raise_error ActiveRecord::RecordInvalid
+    end.to raise_error ActiveRecord::RecordInvalid
   end
 
   it "should reject long zipcodes" do
     long_zip = @attr.merge(zipcode: "9" * 13)
 
-    expect {
+    expect do
       Signature.create!(long_zip)
-    }.to raise_error ActiveRecord::RecordInvalid
+    end.to raise_error ActiveRecord::RecordInvalid
   end
 
   describe ".search" do

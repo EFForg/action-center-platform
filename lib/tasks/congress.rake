@@ -14,7 +14,7 @@ namespace :congress do
 
     legislator_sources.each do |repo|
       data = RestClient.get(repo)
-      YAML.load(data).each do |info|
+      YAML.safe_load(data).each do |info|
         term = info["terms"].last
         next if term["start"] < "2011-01-01" # don't get too historical
 
@@ -37,10 +37,11 @@ namespace :congress do
           .update!(attributes)
       end
 
-      legislator_social_media_sources.each do |repo|
-        data = RestClient.get(repo)
-        YAML.load(data).each do |info|
-          next unless twitter_id = info["social"]["twitter"]
+      legislator_social_media_sources.each do |s_repo|
+        data = RestClient.get(s_repo)
+        YAML.safe_load(data).each do |info|
+          twitter_id = info["social"]["twitter"]
+          next unless twitter_id
 
           CongressMember
             .where(bioguide_id: info["id"]["bioguide"])

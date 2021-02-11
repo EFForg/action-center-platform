@@ -1,28 +1,29 @@
 class ActionPage < ActiveRecord::Base
-  extend FriendlyId, AmazonCredentials
+  extend AmazonCredentials
+  extend FriendlyId
 
   include PgSearch
   pg_search_scope :search,
-                  against: [
-                    :title,
-                    :slug,
-                    :summary,
-                    :description,
-                    :email_text,
+                  against: %i[
+                    title
+                    slug
+                    summary
+                    description
+                    email_text
                   ],
                   associated_against: {
-                    call_campaign: [:title, :message],
-                    congress_message_campaign: [:subject, :message, :campaign_tag],
-                    email_campaign: [:subject, :message],
-                    petition: [:title, :description],
-                    tweet: [:target, :message, :cta]
+                    call_campaign: %i[title message],
+                    congress_message_campaign: %i[subject message campaign_tag],
+                    email_campaign: %i[subject message],
+                    petition: %i[title description],
+                    tweet: %i[target message cta]
                   },
                   using: { tsearch: { prefix: true } }
 
-  friendly_id :title, use: [:slugged, :history]
+  friendly_id :title, use: %i[slugged history]
   scope :published, -> { where(published: true) }
 
-  has_many :events, class_name: Ahoy::Event
+  has_many :events, class_name: "Ahoy::Event"
   has_many :partnerships
   has_many :partners, through: :partnerships
   has_many :action_institutions
@@ -52,7 +53,7 @@ class ActionPage < ActiveRecord::Base
                                        if: -> { background_image.present? && background_image_file_name_came_from_user? }
   validates_media_type_spoof_detection :og_image,
                                        if: -> { og_image.present? && og_image_file_name_came_from_user? }
-  do_not_validate_attachment_file_type [:featured_image, :background_image, :og_image]
+  do_not_validate_attachment_file_type %i[featured_image background_image og_image]
 
   # validates_length_of :og_title, maximum: 65
   after_save :no_drafts_on_homepage
@@ -62,18 +63,16 @@ class ActionPage < ActiveRecord::Base
 
   def self.type(*types)
     scopes = Array(types).flatten.map do |t|
-      unless %w(call congress_message email petition tweet redirect).include?(t)
-        raise ArgumentError, "unrecognized type #{t}"
-      end
+      raise ArgumentError, "unrecognized type #{t}" unless %w[call congress_message email petition tweet redirect].include?(t)
 
-      where(:"enable_#{t}" => true)
+      where("enable_#{t}": true)
     end
 
     scopes.inject(:or) || all
   end
 
   def action_type
-    %w(call congress_message email petition tweet redirect).each do |type|
+    %w[call congress_message email petition tweet redirect].each do |type|
       return type.titleize if self[:"enable_#{type}"]
     end
 
@@ -81,9 +80,7 @@ class ActionPage < ActiveRecord::Base
   end
 
   def self.status(status)
-    unless %w(archived victory live draft).include?(status)
-      raise ArgumentError, "unrecognized status #{status}"
-    end
+    raise ArgumentError, "unrecognized status #{status}" unless %w[archived victory live draft].include?(status)
 
     case status
     when "live"
@@ -107,14 +104,14 @@ class ActionPage < ActiveRecord::Base
 
   def call_tool_title
     call_campaign &&
-      call_campaign.title.length > 0 &&
+      !call_campaign.title.empty? &&
       call_campaign.title ||
       "Call Your Legislators"
   end
 
   def message_rendered
     # TODO: just write a test for this and rename this to .to_md
-    call_campaign && call_campaign.message || ""
+    call_campaign&.message || ""
   end
 
   def verb

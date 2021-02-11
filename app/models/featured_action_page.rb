@@ -1,6 +1,6 @@
 class FeaturedActionPage < ActiveRecord::Base
   belongs_to :action_page
-  validates_presence_of :action_page, :weight
+  validates :action_page, :weight, presence: true
 
   def initialize(attributes = {})
     super(attributes.reverse_merge(weight: 0))
@@ -11,6 +11,6 @@ class FeaturedActionPage < ActiveRecord::Base
     return existing unless existing.length < 4
 
     weights_to_create = (1..4).to_a - existing.map(&:weight)
-    existing += weights_to_create.map { |w| new(weight: w) }
+    existing + weights_to_create.map { |w| new(weight: w) }
   end
 end

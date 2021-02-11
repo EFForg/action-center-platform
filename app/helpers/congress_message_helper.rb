@@ -1,8 +1,6 @@
 module CongressMessageHelper
   def congress_forms_prefills(campaign, field)
-    if field.value == "$TOPIC" && campaign.topic_category.present?
-      return campaign.topic_category.best_match(field.options_hash)
-    end
+    return campaign.topic_category.best_match(field.options_hash) if field.value == "$TOPIC" && campaign.topic_category.present?
 
     {
       "$NAME_FIRST" => current_first_name,
@@ -11,16 +9,16 @@ module CongressMessageHelper
       "$PHONE" => number_to_phone(current_user.try(:phone)),
       "$ADDRESS_STREET" => current_street_address,
       "$ADDRESS_CITY" => current_city,
-      "$SUBJECT" => campaign.subject,
+      "$SUBJECT" => campaign.subject
     }[field.value]
   end
 
   def congress_forms_field(field, campaign, message_attributes, bioguide_id = nil)
-    if bioguide_id
-      name = "member_attributes[#{bioguide_id}][#{field.value}]"
-    else
-      name = "common_attributes[#{field.value}]"
-    end
+    name = if bioguide_id
+             "member_attributes[#{bioguide_id}][#{field.value}]"
+           else
+             "common_attributes[#{field.value}]"
+           end
 
     # Try to guess the input based on saved info about the campaign + user.
     prefill = congress_forms_prefills(campaign, field)

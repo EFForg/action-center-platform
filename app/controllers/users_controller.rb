@@ -7,11 +7,11 @@ class UsersController < ApplicationController
   end
 
   def update
-    if current_user.update(user_params)
-      flash[:notice] = "You updated your account successfully."
-    else
-      flash[:notice] = "Could not update your account."
-    end
+    flash[:notice] = if current_user.update(user_params)
+                       "You updated your account successfully."
+                     else
+                       "Could not update your account."
+                     end
 
     if request.xhr?
       render json: {}, status: 200

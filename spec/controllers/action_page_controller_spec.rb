@@ -51,10 +51,10 @@ RSpec.describe ActionPageController, type: :controller do
 
     context "archived" do
       let(:active_action_page) { FactoryGirl.create :action_page }
-      let(:archived_action_page) {
+      let(:archived_action_page) do
         FactoryGirl.create :archived_action_page,
                            active_action_page_for_redirect: active_action_page
-      }
+      end
 
       it "redirects archived actions to active actions" do
         get :show, params: { id: archived_action_page }
@@ -72,9 +72,9 @@ RSpec.describe ActionPageController, type: :controller do
       let(:unpublished_action_page) { FactoryGirl.create :action_page, published: false }
 
       it "hides unpublished pages from unprivileged users" do
-        expect {
+        expect do
           get :show, params: { id: unpublished_action_page }
-        }.to raise_error ActiveRecord::RecordNotFound
+        end.to raise_error ActiveRecord::RecordNotFound
       end
 
       it "notifies admin users that a page is unpublished" do

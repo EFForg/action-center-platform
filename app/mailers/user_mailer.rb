@@ -22,8 +22,6 @@ class UserMailer < ActionMailer::Base
   private
 
   def check_bounces
-    unless Bounce.find_by(email: @email.downcase).nil?
-      mail.perform_deliveries = false
-    end
+    mail.perform_deliveries = false unless Bounce.find_by(email: @email.downcase).nil?
   end
 end

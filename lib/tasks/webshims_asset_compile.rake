@@ -23,18 +23,18 @@ namespace :webshims do
     manifest_data["assets"].each do |logical_path, digested_path|
       logical_pathname = Pathname.new logical_path
 
-      if ["webshims/**/*"].any? { |testpath| logical_pathname.fnmatch?(testpath, File::FNM_PATHNAME) }
-        full_digested_path    = Rails.root.join("public/assets", digested_path)
-        full_nondigested_path = Rails.root.join("public/assets", logical_path)
+      next unless ["webshims/**/*"].any? { |testpath| logical_pathname.fnmatch?(testpath, File::FNM_PATHNAME) }
 
-        logger.info "(Webshims) Copying to #{full_nondigested_path}"
+      full_digested_path    = Rails.root.join("public/assets", digested_path)
+      full_nondigested_path = Rails.root.join("public/assets", logical_path)
 
-        # Use FileUtils.copy_file with true third argument to copy
-        # file attributes (eg mtime) too, as opposed to FileUtils.cp
-        # Making symlnks with FileUtils.ln_s would be another option, not
-        # sure if it would have unexpected issues.
-        FileUtils.copy_file full_digested_path, full_nondigested_path, true
-      end
+      logger.info "(Webshims) Copying to #{full_nondigested_path}"
+
+      # Use FileUtils.copy_file with true third argument to copy
+      # file attributes (eg mtime) too, as opposed to FileUtils.cp
+      # Making symlnks with FileUtils.ln_s would be another option, not
+      # sure if it would have unexpected issues.
+      FileUtils.copy_file full_digested_path, full_nondigested_path, true
     end
   end
 end

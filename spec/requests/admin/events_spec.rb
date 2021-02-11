@@ -9,7 +9,7 @@ RSpec.describe "Admin Action Page Analytics", type: :request do
       it "responds with views over time as JSON" do
         expect(Time.zone)
           .to receive(:now)
-          .and_return(Time.local(2019))
+          .and_return(Time.zone.local(2019))
           .at_least(:once)
 
         get "/admin/action_pages/#{action_page.slug}/events",
@@ -20,12 +20,10 @@ RSpec.describe "Admin Action Page Analytics", type: :request do
 
         # Default is to return data for the previous month.
         expect(JSON.parse(response.body).keys)
-          .to include(*(1..31).map { |i| sprintf("Dec %d 2018", i) })
+          .to include(*(1..31).map { |i| format("Dec %d 2018", i) })
       end
 
       it "filters by date" do
-        start_date = Time.utc(2019, 1, 1).strftime("%Y-%m-%d")
-        end_date = Time.utc(2019, 1, 7).strftime("%Y-%m-%d")
         get "/admin/action_pages/#{action_page.slug}/events",
             params: {
               date_range_text: "Jan 1, 2019 - Jan 8, 2019",
@@ -50,7 +48,7 @@ RSpec.describe "Admin Action Page Analytics", type: :request do
 
     context "without type param" do
       before do
-        allow(Time.zone).to receive(:now).and_return(Time.local(2019))
+        allow(Time.zone).to receive(:now).and_return(Time.zone.local(2019))
         action_page.update(
           enable_petition: true,
           petition_id: Petition.create.id

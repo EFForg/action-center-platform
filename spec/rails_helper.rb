@@ -1,6 +1,6 @@
 # This file is copied to spec/ when you run 'rails generate rspec:install'
 ENV["RAILS_ENV"] ||= "test"
-require File.expand_path("../../config/environment", __FILE__)
+require File.expand_path("../config/environment", __dir__)
 # Prevent database truncation if the environment is production
 abort("The Rails environment is running in production mode!") if Rails.env.production?
 require "spec_helper"
@@ -59,7 +59,7 @@ RSpec.configure do |config|
   config.include Warden::Test::Helpers, type: :feature
 
   # Remove this line if you're not using ActiveRecord or ActiveRecord fixtures
-  config.fixture_path = "#{::Rails.root}/spec/fixtures"
+  config.fixture_path = Rails.root.join("spec/fixtures")
 
   # If you're not using ActiveRecord, or you'd prefer not to run each of your
   # examples within a transaction, remove the following line or assign false
@@ -92,7 +92,7 @@ RSpec.configure do |config|
     disable_call_tool
   end
 
-  FileUtils.mkdir_p("#{Rails.root}/tmp/cache")
+  FileUtils.mkdir_p(Rails.root.join("tmp/cache"))
   config.before(:each) do
     Rails.cache.clear
   end

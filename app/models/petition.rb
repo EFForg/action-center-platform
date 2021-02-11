@@ -6,16 +6,16 @@ class Petition < ActiveRecord::Base
   def percent_complete
     return 0 if goal == 0
 
-    [signatures.count.to_f / goal.to_f, 1].min * 100
+    [signatures.count / goal.to_f, 1].min * 100
   end
 
   def recent_signatures(num)
     recent = []
     signatures.last(num).reverse_each do |s|
       if s.anonymous
-        recent.push(s.as_json(only: [], methods: [:time_ago, :location]))
+        recent.push(s.as_json(only: [], methods: %i[time_ago location]))
       else
-        recent.push(s.as_json(only: [:first_name, :last_name, :city], methods: [:time_ago, :location]))
+        recent.push(s.as_json(only: %i[first_name last_name city], methods: %i[time_ago location]))
       end
     end
     recent
@@ -31,14 +31,12 @@ class Petition < ActiveRecord::Base
   end
 
   def to_s
-    "#{title}-exported_on-#{DateTime.now.strftime("%Y-%m-%d")}"
+    "#{title}-exported_on-#{DateTime.now.strftime('%Y-%m-%d')}"
   end
 
   private
 
   def set_goal
-    if new_record?
-      goal = 100
-    end
+    self.goal = 100 if new_record?
   end
 end

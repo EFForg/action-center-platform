@@ -1,16 +1,16 @@
-include GoingPostal
-
 class Signature < ActiveRecord::Base
+  include GoingPostal
+
   belongs_to :user
   belongs_to :petition
   has_many :affiliations
 
   before_validation :format_zipcode
   before_save :sanitize_input
-  validates_presence_of :first_name, :last_name, :petition_id,
-                        message: "This can't be blank."
+  validates :first_name, :last_name, :petition_id,
+            presence: { message: "This can't be blank." }
 
-  validates_presence_of :country_code, if: :location_required?
+  validates :country_code, presence: { if: :location_required? }
 
   validates :email, email: true
   validates :email, uniqueness: { scope: :petition_id,
@@ -20,15 +20,15 @@ class Signature < ActiveRecord::Base
 
   accepts_nested_attributes_for :affiliations, reject_if: :all_blank
 
-  scope :search, ->(f) do
+  scope :search, lambda { |f|
     if f.present?
-      where("LOWER(email) LIKE ? " +
+      where("LOWER(email) LIKE ? " \
             "OR LOWER(first_name || ' ' || last_name) LIKE ?",
             "%#{f}%".downcase, "%#{f}%".downcase)
     else
       all
     end
-  end
+  }
 
   include ActionView::Helpers::DateHelper
 
@@ -80,13 +80,11 @@ class Signature < ActiveRecord::Base
   end
 
   def self.pretty_count
-    ActiveSupport::NumberHelper::number_to_delimited(self.count, delimiter: ",")
+    ActiveSupport::NumberHelper.number_to_delimited(count, delimiter: ",")
   end
 
   def arbitrary_opinion_of_country_string_validity
-    if country_code.present? and full_country_name.nil?
-      errors.add(:country_code, "Country Code might come from a spam bot.")
-    end
+    errors.add(:country_code, "Country Code might come from a spam bot.") if country_code.present? && full_country_name.nil?
   end
 
   def name
@@ -118,17 +116,15 @@ class Signature < ActiveRecord::Base
   end
 
   def full_country_name
-    begin
-      IsoCountryCodes.find(country_code).name
-    rescue IsoCountryCodes::UnknownCodeError
-      nil
-    end
+    IsoCountryCodes.find(country_code).name
+  rescue IsoCountryCodes::UnknownCodeError
+    nil
   end
 
   private
 
   def format_zipcode
-    zipcode = GoingPostal.format_zipcode(zipcode, country_code) || zipcode
+    self.zipcode = GoingPostal.format_zipcode(zipcode, country_code) || zipcode
   end
 
   def sanitize_input
@@ -143,8 +139,6 @@ class Signature < ActiveRecord::Base
   end
 
   def validate_zipcode
-    unless GoingPostal.valid_zipcode?(zipcode, country_code)
-      errors.add(:zipcode, "Invalid zip/postal code for country")
-    end
+    errors.add(:zipcode, "Invalid zip/postal code for country") unless GoingPostal.valid_zipcode?(zipcode, country_code)
   end
 end

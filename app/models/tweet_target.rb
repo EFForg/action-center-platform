@@ -4,7 +4,7 @@ class TweetTarget < ActiveRecord::Base
 
   belongs_to :tweet
   has_attached_file :image, amazon_credentials
-  validates_media_type_spoof_detection :image, if: ->() { image_file_name.present? }
+  validates_media_type_spoof_detection :image, if: -> { image_file_name.present? }
   do_not_validate_attachment_file_type :image
   after_save :attach_twitter_image
 
@@ -15,7 +15,7 @@ class TweetTarget < ActiveRecord::Base
   delegate :url, to: :image, prefix: true
 
   def attach_twitter_image
-    self.delay.attach_twitter_image_without_delay if image_file_name.nil? and Twitter.has_api_keys?
+    delay.attach_twitter_image_without_delay if image_file_name.nil? && Twitter.has_api_keys?
   end
 
   def attach_twitter_image_without_delay
@@ -27,6 +27,6 @@ class TweetTarget < ActiveRecord::Base
     user_image_url = user_info["profile_image_url_https"].gsub(/_normal\./, "_bigger.")
 
     self.image = URI.parse(user_image_url)
-    self.save
+    save
   end
 end

@@ -7,12 +7,16 @@ class CongressMessage
   attr_accessor :forms, :campaign
   attr_writer :common_attributes, :member_attributes
 
-  ALWAYS_COMMON = %w($NAME_FIRST $NAME_LAST $ADDRESS_CITY $ADDRESS_STATE
-                     $ADDRESS_STREET $ADDRESS_ZIP5 $EMAIL).freeze
+  ALWAYS_COMMON = %w[$NAME_FIRST $NAME_LAST $ADDRESS_CITY $ADDRESS_STATE
+                     $ADDRESS_STREET $ADDRESS_ZIP5 $EMAIL].freeze
 
-  def common_attributes() @common_attributes || {}; end
+  def common_attributes
+    @common_attributes || {}
+  end
 
-  def member_attributes() @member_attributes || {}; end
+  def member_attributes
+    @member_attributes || {}
+  end
 
   def self.new_from_lookup(location, campaign, forms)
     common_attributes = {
@@ -62,9 +66,7 @@ class CongressMessage
   end
 
   def background_submit(test = false)
-    if valid?
-      @forms.each { |f| f.delay.fill(attributes_for(f.bioguide_id), campaign.campaign_tag, test) }
-    end
+    @forms.each { |f| f.delay.fill(attributes_for(f.bioguide_id), campaign.campaign_tag, test) } if valid?
   end
 
   def update_common_attributes(**attrs)
@@ -79,9 +81,7 @@ class CongressMessage
     @forms.each do |form|
       attributes = attributes_for(form.bioguide_id)
       form.fields.each do |field|
-        if !field.validate(attributes[field.value])
-          errors.add(:base, "Invalid input for #{field.value}")
-        end
+        errors.add(:base, "Invalid input for #{field.value}") unless field.validate(attributes[field.value])
       end
     end
   end

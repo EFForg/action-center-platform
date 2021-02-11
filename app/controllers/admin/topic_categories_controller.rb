@@ -14,12 +14,10 @@ class Admin::TopicCategoriesController < Admin::ApplicationController
   end
 
   def destroy
-    begin
-      TopicCategory.destroy(params[:id])
-      render json: { id: params[:id] }
-    rescue => e
-      render text: e.message, status: 500
-    end
+    TopicCategory.destroy(params[:id])
+    render json: { id: params[:id] }
+  rescue StandardError => e
+    render text: e.message, status: 500
   end
 
   def update

@@ -4,9 +4,9 @@ describe ActionPage do
   let(:attr) { FactoryGirl.attributes_for :action_page }
 
   it "creates a new instance given a valid attribute" do
-    expect {
+    expect do
       ActionPage.create!(attr)
-    }.to change { ActionPage.count }.by(1)
+    end.to change { ActionPage.count }.by(1)
   end
 
   it "knows when to redirect from an archived action" do
@@ -33,8 +33,7 @@ describe ActionPage do
     end
 
     it "updates the slug when title changes" do
-      expect { page.update(title: "something else") }
-        .to change { page.slug }
+      expect { page.update(title: "something else") }.to change { page.slug }
     end
 
     it "does not update slug when unrelated attr changes" do
@@ -124,7 +123,7 @@ describe ActionPage do
       calls = ActionPage.type("call")
       expect(calls).to contain_exactly(call)
 
-      calls_and_tweets = ActionPage.type(["call", "tweet"])
+      calls_and_tweets = ActionPage.type(%w[call tweet])
       expect(calls_and_tweets).to contain_exactly(call, tweet)
 
       all = ActionPage.type("call", "congress_message", "email", "petition", "tweet")

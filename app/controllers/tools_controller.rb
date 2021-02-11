@@ -10,10 +10,10 @@ class ToolsController < ApplicationController
 
   # Put an invisible captcha on forms are easy to submit programmatically and
   # create email subscriptions.
-  invisible_captcha only: [:email, :petition]
-  before_action :create_newsletter_subscription, only: [:email, :call]
-  before_action :create_partner_subscription, only: [:email, :call, :petition, :message_congress]
-  after_action :deliver_thanks_message, only: [:email, :call, :petition, :message_congress]
+  invisible_captcha only: %i[email petition]
+  before_action :create_newsletter_subscription, only: %i[email call]
+  before_action :create_partner_subscription, only: %i[email call petition message_congress]
+  after_action :deliver_thanks_message, only: %i[email call petition message_congress]
   skip_after_action :deliver_thanks_message, if: :signature_has_errors
 
   # See https://github.com/EFForg/action-center-platform/wiki/Deployment-Notes#csrf-protection
@@ -27,9 +27,7 @@ class ToolsController < ApplicationController
 
     @name = current_user.try :name
 
-    if params[:update_user_data] == "yes"
-      update_user_data(call_params)
-    end
+    update_user_data(call_params) if params[:update_user_data] == "yes"
 
     CallTool.campaign_call(params[:call_campaign_id],
                            phone: params[:phone],
@@ -56,12 +54,11 @@ class ToolsController < ApplicationController
     @action_page = Petition.find(params[:signature][:petition_id]).action_page
     @signature = Signature.new(signature_params.merge(user_id: @user.id))
 
-    if @signature.zipcode.present? && @signature.country_code.blank?
-      @signature.country_code = "US"
-    end
+    @signature.country_code = "US" if @signature.zipcode.present? && @signature.country_code.blank?
 
     if @signature.country_code == "US" && !Rails.application.secrets.smarty_streets_id.nil?
-      if city_state = SmartyStreets.get_city_state(@signature.zipcode)
+      city_state = SmartyStreets.get_city_state(@signature.zipcode)
+      if city_state
         @signature.city = city_state["city"]
         @signature.state = city_state["state"]
       end
@@ -77,12 +74,10 @@ class ToolsController < ApplicationController
         )
 
         @source = "action center petition :: " + @action_page.title
-        @user.subscribe!(opt_in = true, source = @source)
+        @user.subscribe!(opt_in: true, source: @source)
       end
 
-      if params[:update_user_data]
-        update_user_data(signature_params)
-      end
+      update_user_data(signature_params) if params[:update_user_data]
 
       ahoy.track "Action",
                  { type: "action", actionType: "signature", actionPageId: @action_page.id },
@@ -91,13 +86,11 @@ class ToolsController < ApplicationController
       respond_to do |format|
         format.json { render json: { success: true }, status: 200 }
         format.html do
-          begin
-            url = URI.parse(request.referrer)
-            url.query = [url.query.presence, "thankyou=1"].join("&")
-            redirect_to url.to_s
-          rescue
-            redirect_to welcome_index_path
-          end
+          url = URI.parse(request.referrer)
+          url.query = [url.query.presence, "thankyou=1"].join("&")
+          redirect_to url.to_s
+        rescue StandardError
+          redirect_to welcome_index_path
         end
       end
     else
@@ -113,7 +106,7 @@ class ToolsController < ApplicationController
   end
 
   def email
-    unless (@user and @user.events.emails.find_by(action_page_id: params[:action_id])) or params[:dnt] == "true"
+    unless (@user && @user.events.emails.find_by(action_page_id: params[:action_id])) || (params[:dnt] == "true")
       ahoy.track "Action",
                  { type: "action", actionType: "email", actionPageId: params[:action_id] },
                  action_page: @action_page
@@ -170,7 +163,7 @@ class ToolsController < ApplicationController
       source = "action center #{@action_page.class.name.downcase} :: " + @action_page.title
       params[:subscription][:opt_in] = true
       params[:subscription][:source] = source
-      CiviCRM::subscribe params[:subscription]
+      CiviCRM.subscribe params[:subscription]
     end
   end
 
@@ -179,9 +172,9 @@ class ToolsController < ApplicationController
   end
 
   def partner_signup_params
-    attributes = %i(first_name last_name email)
+    attributes = %i[first_name last_name email]
     # Partner signup params might come through the main form or a nested subscription form.
-    %i(signature subscription).each do |model|
+    %i[signature subscription].each do |model|
       return params.require(model).permit(*attributes) if params[model].present?
     end
     params.permit(*attributes)
@@ -191,8 +184,8 @@ class ToolsController < ApplicationController
     params.require(:signature).permit(
       :first_name, :last_name, :email, :petition_id, :user_id,
       :street_address, :city, :state, :country_code, :zipcode, :anonymous,
-      affiliations_attributes: [
-        :id, :institution_id, :affiliation_type_id
+      affiliations_attributes: %i[
+        id institution_id affiliation_type_id
       ]
     )
   end

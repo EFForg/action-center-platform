@@ -17,6 +17,6 @@ class Twitter
     # now create the access token object from passed values
     token_hash = { oauth_token: oauth_token,
                    oauth_token_secret: oauth_token_secret }
-    access_token = OAuth::AccessToken.from_hash(consumer, token_hash)
+    OAuth::AccessToken.from_hash(consumer, token_hash)
   end
 end

@@ -26,8 +26,8 @@ class ActionPageFilters
 
   private
 
-  NAMED_SCOPES = %i(type status).freeze
-  VALID_FILTERS = %i(type status author category).freeze
+  NAMED_SCOPES = %i[type status].freeze
+  VALID_FILTERS = %i[type status author category].freeze
 
   attr_accessor :relation, :filters
 
@@ -52,8 +52,6 @@ class ActionPageFilters
   end
 
   def validate_filter_name(f)
-    unless VALID_FILTERS.include? f
-      raise ArgumentError, "unrecognized filter #{f}"
-    end
+    raise ArgumentError, "unrecognized filter #{f}" unless VALID_FILTERS.include? f
   end
 end

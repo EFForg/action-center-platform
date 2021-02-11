@@ -10,7 +10,7 @@ class RelatedContent
       open_page
       @loaded_successfully = true
     rescue OpenURI::HTTPError
-      return
+      nil
     end
   end
 

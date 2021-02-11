@@ -2,7 +2,7 @@ require "rails_helper"
 
 describe CongressMember do
   let(:legislators) do
-    end_date = (Time.now + 1.year).strftime("%Y-%m-%d")
+    end_date = (Time.zone.now + 1.year).strftime("%Y-%m-%d")
     [
       CongressMember.new(
         "bioguide_id" => "A000001",

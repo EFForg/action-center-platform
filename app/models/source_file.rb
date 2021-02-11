@@ -1,7 +1,7 @@
 class SourceFile < ActiveRecord::Base
   include Rails.application.routes.url_helpers
 
-  validates_presence_of :file_name, :file_content_type, :file_size, :key, :bucket
+  validates :file_name, :file_content_type, :file_size, :key, :bucket, presence: true
 
   delegate :secrets, to: "Rails.application".to_sym
 
@@ -23,8 +23,16 @@ class SourceFile < ActiveRecord::Base
   def pull_down_s3_object_attributes
     Rails.logger.debug "Trying to validate S3 object."
     self.file_name = key.split("/").last if key
-    self.file_size ||= s3_object.content_length rescue nil
-    self.file_content_type ||= s3_object.content_type rescue nil
+    self.file_size ||= begin
+                         s3_object.content_length
+                       rescue StandardError
+                         nil
+                       end
+    self.file_content_type ||= begin
+                                 s3_object.content_type
+                               rescue StandardError
+                                 nil
+                               end
     false
   end
 
@@ -43,7 +51,7 @@ class SourceFile < ActiveRecord::Base
       "name" => file_name,
       "size" => file_size,
       "full_url" => full_url,
-      "image" => self.is_image?,
+      "image" => is_image?,
       "delete_url" => Rails.application.routes.url_helpers.admin_source_file_path(self, format: :json)
     }
   end

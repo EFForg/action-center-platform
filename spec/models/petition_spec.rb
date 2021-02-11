@@ -15,10 +15,9 @@ describe Petition do
 
   it "should output useful CSV files" do
     p = FactoryGirl.create(:petition_complete_with_one_hundred_signatures)
-    expected_first_record = "John Doe,#{p.signatures.to_a.first.email},San Francisco,CA,United States of America\n"
-
+    expected_first_record = "John Doe,#{p.signatures.order(:id).first.email},"\
+                            "San Francisco,CA,United States of America\n"
     csv = p.signatures.to_presentable_csv
-
     columns = csv.lines.first
     first_record = csv.lines[1]
 

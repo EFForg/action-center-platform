@@ -5,12 +5,10 @@ class Admin::TopicSetsController < Admin::ApplicationController
   end
 
   def destroy
-    begin
-      TopicSet.destroy(params[:id])
-      render json: { id: params[:id] }
-    rescue => e
-      render text: e.message, status: 500
-    end
+    TopicSet.destroy(params[:id])
+    render json: { id: params[:id] }
+  rescue StandardError => e
+    render text: e.message, status: 500
   end
 
   def create

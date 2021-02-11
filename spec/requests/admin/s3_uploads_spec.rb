@@ -1,7 +1,7 @@
 require "rails_helper"
 
 RSpec.describe "S3 Uploads Spec", type: :request do
-  let(:valid_attributes) {
+  let(:valid_attributes) do
     {
       "source_file" => {
         "bucket" => "actioncenter-staging",
@@ -14,7 +14,7 @@ RSpec.describe "S3 Uploads Spec", type: :request do
       "controller" => "admin/s3_uploads",
       "format" => "json"
     }
-  }
+  end
 
   before(:each) do
     # bypasses a 3rd party lookup (s3)
@@ -22,17 +22,17 @@ RSpec.describe "S3 Uploads Spec", type: :request do
   end
 
   it "should deny non-admins" do
-    expect {
+    expect do
       post "/admin/source_files", params: valid_attributes
-    }.to raise_exception(ActiveRecord::RecordNotFound)
+    end.to raise_exception(ActiveRecord::RecordNotFound)
   end
 
   it "should allow admins" do
     @admin = FactoryGirl.create(:admin_user)
     login @admin
 
-    expect {
+    expect do
       post "/admin/source_files", params: valid_attributes
-    }.to change { SourceFile.count }.by(1)
+    end.to change { SourceFile.count }.by(1)
   end
 end

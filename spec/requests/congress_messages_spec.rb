@@ -1,16 +1,16 @@
 require "rails_helper"
 
 RSpec.describe "Congress Messages", type: :request do
-  let!(:members) {
+  let!(:members) do
     [FactoryGirl.create(:congress_member, state: "CA", bioguide_id: "C000880"),
      FactoryGirl.create(:congress_member, state: "CA", bioguide_id: "A000360")]
-  }
+  end
 
-  let(:action_page) {
+  let(:action_page) do
     FactoryGirl.create(:action_page_with_congress_message)
-  }
+  end
 
-  let(:location) {
+  let(:location) do
     OpenStruct.new(success: true,
                    street: "1630 Ravello Drive",
                    city: "Sunnydale",
@@ -18,11 +18,11 @@ RSpec.describe "Congress Messages", type: :request do
                    zip4: 1234,
                    state: "CA",
                    district: 10)
-  }
+  end
 
   def stub_congress_forms_find_with_two_reps
     stub_request(:post, /retrieve-form-elements/)
-      .with(body: { "bio_ids" => ["C000880", "A000360"] })
+      .with(body: { "bio_ids" => %w[C000880 A000360] })
       .and_return(status: 200, body: file_fixture("retrieve-form-elements.json"))
   end
 
@@ -101,13 +101,13 @@ RSpec.describe "Congress Messages", type: :request do
           "$ADDRESS_CITY" => "Sunnydale",
           "$ADDRESS_ZIP5" => "94109",
           "$EMAIL" => "jsummers@altavista.com",
-          "$NAME_PREFIX" => "Mrs.",
+          "$NAME_PREFIX" => "Mrs."
         },
         member_attributes: {
           "C000880" => {
             "$SUBJECT" => "Take Action",
             "$ADDRESS_STATE_POSTAL_ABBREV" => "CA",
-            "$TOPIC" => "JU",
+            "$TOPIC" => "JU"
           },
           "A000360" => {
             "$ADDRESS_STATE" => "CA",
@@ -115,7 +115,7 @@ RSpec.describe "Congress Messages", type: :request do
           }
         },
         forms: {
-          bioguide_ids: %w(C000880 A000360)
+          bioguide_ids: %w[C000880 A000360]
         },
         message: "Impeach Mayor Richard Wilkins III"
       }
@@ -172,24 +172,6 @@ RSpec.describe "Congress Messages", type: :request do
 
     it "succeeds with no common attributs" do
       stub_congress_forms_find_with_one_rep
-      message_attributes = {
-        member_attributes: {
-          "C000880" => {
-            "$NAME_FIRST" => "Joyce",
-            "$NAME_LAST" => "Summers",
-            "$ADDRESS_STREET" => "1630 Ravello Drive",
-            "$ADDRESS_CITY" => "Sunnydale",
-            "$ADDRESS_ZIP5" => "94109",
-            "$EMAIL" => "jsummers@altavista.com",
-            "$NAME_PREFIX" => "Mrs.",
-            "$MESSAGE" => "Impeach Mayor Richard Wilkins III",
-            "$SUBJECT" => "Take Action",
-            "$ADDRESS_STATE_POSTAL_ABBREV" => "CA",
-            "$TOPIC" => "JU",
-          }
-        },
-        bioguide_ids: "C000880"
-      }
       submit_congress_message
       expect(response.status).to eq 200
     end

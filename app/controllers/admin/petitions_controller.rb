@@ -1,5 +1,5 @@
-include PetitionHelper
 class Admin::PetitionsController < Admin::ApplicationController
+  include PetitionHelper
   before_action :set_petition
 
   allow_collaborators_to :show, :destroy_signatures
@@ -36,9 +36,7 @@ class Admin::PetitionsController < Admin::ApplicationController
   def destroy_signatures
     @petition.signatures.where(id: params[:signature_ids]).delete_all
 
-    if params[:page].to_i > filtered_signatures.total_pages
-      params[:page] = filtered_signatures.total_pages
-    end
+    params[:page] = filtered_signatures.total_pages if params[:page].to_i > filtered_signatures.total_pages
 
     redirect_to admin_action_page_petition_path(@petition.action_page,
                                                 @petition, search_params)

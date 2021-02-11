@@ -19,10 +19,10 @@ RSpec.describe "Admin action page creation", type: :feature, js: true do
 
     fill_in_social_media
 
-    tempermental {
+    tempermental do
       click_button "Save"
       expect(page).to have_content("Very Important Action", wait: 10)
-    }
+    end
   end
 
   it "can create basic petition actions" do
@@ -43,10 +43,10 @@ RSpec.describe "Admin action page creation", type: :feature, js: true do
 
     fill_in_social_media
 
-    tempermental {
+    tempermental do
       click_button "Save"
       expect(page).to have_content("Very Important Action", wait: 10)
-    }
+    end
   end
 
   it "can create email actions" do
@@ -67,10 +67,10 @@ RSpec.describe "Admin action page creation", type: :feature, js: true do
 
     fill_in_social_media
 
-    tempermental {
+    tempermental do
       click_button "Save"
       expect(page).to have_content("Very Important Action", wait: 10)
-    }
+    end
   end
 
   it "can create congress actions" do
@@ -90,10 +90,10 @@ RSpec.describe "Admin action page creation", type: :feature, js: true do
 
     fill_in_social_media
 
-    tempermental {
+    tempermental do
       click_button "Save"
       expect(page).to have_content("Very Important Action", wait: 10)
-    }
+    end
   end
 
   it "can create call actions" do
@@ -113,10 +113,10 @@ RSpec.describe "Admin action page creation", type: :feature, js: true do
 
     fill_in_social_media
 
-    tempermental {
+    tempermental do
       click_button "Save"
       expect(page).to have_content("Very Important Action", wait: 10)
-    }
+    end
   end
 
   def fill_in_basic_info(title:, summary:, description:)

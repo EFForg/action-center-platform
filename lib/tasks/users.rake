@@ -1,9 +1,7 @@
 namespace :users do
   desc "List the emails of all admin accounts"
   task list_admins: :environment do
-    admins = User.where(admin: true).map do |u|
-      u.email
-    end.sort
+    admins = User.where(admin: true).map(&:email).sort
     puts admins.empty? ? "No Admin Users" : admins
   end
 

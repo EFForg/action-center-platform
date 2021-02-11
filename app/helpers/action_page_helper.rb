@@ -4,9 +4,7 @@ module ActionPageHelper
       action_page.share_message, action_page_url(action_page)
     ].map(&:presence).compact.join(" ")
 
-    suffix = if Rails.application.config.twitter_handle
-               " via @#{Rails.application.config.twitter_handle}"
-             end
+    suffix = (" via @#{Rails.application.config.twitter_handle}" if Rails.application.config.twitter_handle)
     message += suffix if action_page.share_message.to_s.length + suffix.length <= 117
 
     related = Rails.application.config.twitter_related.to_a.join(",")

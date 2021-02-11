@@ -65,7 +65,7 @@ class CongressMessageCampaign < ActiveRecord::Base
   private
 
   def target_bioguide_text_or_default(custom_text, default)
-    if !target_bioguide_ids or custom_text.blank?
+    if !target_bioguide_ids || custom_text.blank?
       default
     else
       custom_text

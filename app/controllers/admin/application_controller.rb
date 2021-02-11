@@ -6,25 +6,19 @@ class Admin::ApplicationController < ApplicationController
     self.class.manifest || "admin"
   end
 
-  protected
-
+  # FLAG_AS_UNUSED
   def self.allow_collaborators_to(*actions)
     skip_before_action :must_be_admin, only: actions
     before_action :must_be_admin_or_collaborator, only: actions
   end
 
   def must_be_admin
-    unless user_signed_in? && current_user.admin?
-      raise ActiveRecord::RecordNotFound
-    end
+    raise ActiveRecord::RecordNotFound unless user_signed_in? && current_user.admin?
   end
 
   def must_be_admin_or_collaborator
-    unless user_signed_in? && (current_user.admin? || current_user.collaborator?)
-      raise ActiveRecord::RecordNotFound
-    end
+    raise ActiveRecord::RecordNotFound unless user_signed_in? && (current_user.admin? || current_user.collaborator?)
   end
 
-  def images
-  end
+  def images; end
 end

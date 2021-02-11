@@ -22,7 +22,7 @@ module CongressForms
     end
 
     def order_fields
-      order = %w($NAME_PREFIX $NAME_FIRST $NAME_LAST $PHONE $EMAIL $SUBJECT $TOPIC)
+      order = %w[$NAME_PREFIX $NAME_FIRST $NAME_LAST $PHONE $EMAIL $SUBJECT $TOPIC]
       @fields = @fields.sort_by { |f| order.index(f.value) || Float::INFINITY }
     end
 
@@ -98,7 +98,7 @@ module CongressForms
     params = {
       date_start: start_date,
       date_end: end_date,
-      campaign_tag: campaign_tag,
+      campaign_tag: campaign_tag
     }.compact
     data_path("/successful-fills-by-date/", params, bioguide_id)
   end
@@ -113,30 +113,26 @@ module CongressForms
 
   def self.data_path(base_path, params = {}, bioguide_id = nil)
     base_path += bioguide_id unless bioguide_id.nil?
-    base_path += "?" + {
-      debug_key: Rails.application.secrets.congress_forms_debug_key,
+    base_path + "?" + {
+      debug_key: Rails.application.secrets.congress_forms_debug_key
     }.merge(params).to_query
   end
 
   def self.get(path)
-    begin
-      JSON.parse RestClient.get(base_url + path)
-    rescue RestClient::ExceptionWithResponse => e
-      Raven.capture_exception(e)
-      Rails.logger.error e
-      return {}
-    end
+    JSON.parse RestClient.get(base_url + path)
+  rescue RestClient::ExceptionWithResponse => e
+    Raven.capture_exception(e)
+    Rails.logger.error e
+    {}
   end
 
   def self.post(path, body = {})
-    begin
-      JSON.parse RestClient.post(base_url + path, body.to_json,
-                                 { content_type: :json, accept: :json })
-    rescue RestClient::ExceptionWithResponse => e
-      Raven.capture_exception(e)
-      Rails.logger.error e
-      raise RequestFailed
-    end
+    JSON.parse RestClient.post(base_url + path, body.to_json,
+                               { content_type: :json, accept: :json })
+  rescue RestClient::ExceptionWithResponse => e
+    Raven.capture_exception(e)
+    Rails.logger.error e
+    raise RequestFailed
   end
 
   def self.base_url

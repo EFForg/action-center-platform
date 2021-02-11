@@ -1,7 +1,7 @@
 require "rails_helper"
 
 RSpec.describe ToolsController, type: :controller do
-  let(:valid_attributes) {
+  let(:valid_attributes) do
     {
       signature: {
         "petition_id" => "1",
@@ -13,7 +13,7 @@ RSpec.describe ToolsController, type: :controller do
         "country_code" => ""
       }
     }
-  }
+  end
 
   before(:each) do
     stub_smarty_streets
@@ -63,8 +63,10 @@ RSpec.describe ToolsController, type: :controller do
     let(:email_campaign) { FactoryGirl.create(:email_campaign) }
 
     it "should redirect to ActionPage#service_uri(service)" do
-      service, uri = "gmail", "https://composeurl.example.com"
-      expect(ActionPage).to receive(:find_by_id) { email_campaign.action_page }
+      action_page = email_campaign.action_page
+      service = "gmail"
+      uri = "https://composeurl.example.com"
+      expect(ActionPage).to receive(:find_by).with(id: action_page.id.to_s) { action_page }
       expect(email_campaign).to receive(:service_uri).with(service) { uri }
       get :email, params: { action_id: email_campaign.action_page.id, service: service }
       expect(response).to redirect_to(uri)

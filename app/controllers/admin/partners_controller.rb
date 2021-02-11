@@ -1,7 +1,7 @@
 class Admin::PartnersController < Admin::ApplicationController
   layout "admin"
 
-  before_action :set_partner, only: %i(edit update show destroy)
+  before_action :set_partner, only: %i[edit update show destroy]
 
   # GET /partners
   # GET /partners.json
@@ -30,8 +30,7 @@ class Admin::PartnersController < Admin::ApplicationController
     end
   end
 
-  def edit
-  end
+  def edit; end
 
   def update
     if @partner.update(partner_params)

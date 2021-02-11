@@ -9,7 +9,7 @@ RSpec.describe "Admin Users", type: :request do
   describe "#index" do
     before do
       10.times do |n|
-        FactoryGirl.create(:user, created_at: Time.now - n.days, email: "user-#{n}@example.com")
+        FactoryGirl.create(:user, created_at: Time.zone.now - n.days, email: "user-#{n}@example.com")
       end
     end
 

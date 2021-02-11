@@ -6,12 +6,12 @@ class Admin::EventsController < Admin::ApplicationController
     @events = Ahoy::Event.all.in_range(@start_date, @end_date)
     respond_to do |format|
       format.html { @summary = @events.summary }
-      format.json {
+      format.json do
         render json: @events.chart_data(
           type: params[:type],
           range: @start_date..@end_date
         )
-      }
+      end
     end
   end
 end

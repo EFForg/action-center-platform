@@ -1,4 +1,4 @@
-# inherit_from: .rubocop_todo.yml
+inherit_from: .rubocop_todo.yml
 
 inherit_gem:
   rubocop-github:
@@ -83,6 +83,10 @@ GitHub/RailsControllerRenderPathsExist:
   # Doesn't seem to work; can't find templates that exist
   Enabled: false
 
+GitHub/RailsApplicationRecord:
+  # Rails/ApplicationRecord does the same thing
+  Enabled: false
+
 Lint/Void:
   Exclude:
     - 'features/**/*'
@@ -92,7 +96,7 @@ Lint/Debugger:
   Exclude:
     - 'features/step_definitions/debug_steps.rb'
 
-Style/BlockComments:
+Lint/AmbiguousBlockAssociation:
   Exclude:
     - 'spec/**/*'
 
@@ -114,14 +118,30 @@ Layout/MultilineHashBraceLayout:
 Layout/SpaceAroundOperators:
   Enabled: true
 
+Naming/PredicateName:
+  Exclude:
+    - 'spec/**/*'
+
 Security/JSONLoad:
   Enabled: true
   Exclude:
     - 'spec/**/*'
 
-GitHub/RailsApplicationRecord:
-  # Rails/ApplicationRecord does the same thing
-  Enabled: false
-
 Rails/HttpStatus:
   EnforcedStyle: 'numeric'
+
+Style/Alias:
+  Enabled: false
+
+Style/BlockComments:
+  Exclude:
+    - 'spec/**/*'
+
+Style/ClassAndModuleChildren:
+  EnforcedStyle: 'compact'
+
+Style/Documentation:
+  Enabled: false
+
+Style/NumericLiterals:
+  MinDigits: 6

@@ -31,12 +31,10 @@ module FeatureHelpers
 
   def tempermental(try: 2.times)
     try.each do |attempt|
-      begin
-        yield
-        break
-      rescue RSpec::Expectations::ExpectationNotMetError => e
-        raise e if attempt == try.size - 1
-      end
+      yield
+      break
+    rescue RSpec::Expectations::ExpectationNotMetError => e
+      raise e if attempt == try.size - 1
     end
   end
 end

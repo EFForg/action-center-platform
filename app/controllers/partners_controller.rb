@@ -33,15 +33,13 @@ class PartnersController < ApplicationController
     user = User.find_by(email: params[:email])
     if user.nil?
       flash[:notice] = "Couldn't find a user by email #{params[:email]}"
+    elsif user.partner == @partner
+      flash[:notice] = "That user is already linked to #{@partner.name}"
+    elsif user.partner.nil?
+      user.partner = @partner
+      user.save
     else
-      if user.partner.nil?
-        user.partner = @partner
-        user.save
-      elsif user.partner == @partner
-        flash[:notice] = "That user is already linked to #{@partner.name}"
-      else
-        flash[:notice] = "That user is linked to another partner: #{user.partner.name}"
-      end
+      flash[:notice] = "That user is linked to another partner: #{user.partner.name}"
     end
     redirect_to @partner
   end

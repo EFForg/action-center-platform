@@ -28,9 +28,7 @@ class RegistrationsController < Devise::RegistrationsController
       existing.send_email_taken_notice
 
       # Allow unconfirmed users to set a new password by re-registering.
-      if !existing.confirmed?
-        existing.update(sign_up_params)
-      end
+      existing.update(sign_up_params) unless existing.confirmed?
 
       if resource.persisted?
         resource.update_attribute(:unconfirmed_email, account_update_params[:email])

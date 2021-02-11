@@ -45,9 +45,9 @@ describe Institution do
     end
 
     it "adds institutions by name" do
-      expect {
+      expect do
         described_class.import("University", names)
-      }.to change(Institution.where(category: "University"), :count).by(names.count)
+      end.to change(Institution.where(category: "University"), :count).by(names.count)
     end
   end
 end

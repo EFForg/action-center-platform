@@ -2,13 +2,13 @@ class Institution < ActiveRecord::Base
   require "csv"
   extend FriendlyId
 
-  friendly_id :name, use: [:slugged, :history]
+  friendly_id :name, use: %i[slugged history]
 
   include PgSearch
   pg_search_scope :search,
-                  against: [
-                    :name,
-                    :category
+                  against: %i[
+                    name
+                    category
                   ],
                   using: { tsearch: { prefix: true } }
 
@@ -16,9 +16,9 @@ class Institution < ActiveRecord::Base
   has_many :action_pages, through: :action_institutions
   has_many :affiliations
 
-  validates_presence_of :name
-  validates_uniqueness_of :name
-  validates_presence_of :category
+  validates :name, presence: true
+  validates :name, uniqueness: true
+  validates :category, presence: true
 
   def self.process_csv(csv_file)
     [].tap do |names|

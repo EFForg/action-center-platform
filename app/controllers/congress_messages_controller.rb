@@ -37,7 +37,7 @@ class CongressMessagesController < ApplicationController
                    else
                      params[:forms][:bioguide_ids]
                    end
-    @message.forms, _ = CongressForms::Form.find(bioguide_ids)
+    @message.forms, = CongressForms::Form.find(bioguide_ids)
 
     if EmailValidator.valid?(user_params[:email]) && @message.background_submit(params[:test])
       @name = user_params[:first_name] # for deliver_thanks_message
@@ -84,9 +84,7 @@ class CongressMessagesController < ApplicationController
   end
 
   def update_user
-    if params[:update_user_data] == "yes"
-      current_user.update(user_params.except(:email))
-    end
+    current_user.update(user_params.except(:email)) if params[:update_user_data] == "yes"
   end
 
   def subscribe_user
@@ -96,7 +94,7 @@ class CongressMessagesController < ApplicationController
       source = "action center congress message :: " + @action_page.title
       user = User.find_or_initialize_by(email: user_params[:email])
       user.attributes = user_params
-      user.subscribe!(opt_in = false, source = source)["requires_confirmation"]
+      user.subscribe!(opt_in: false, source: source)["requires_confirmation"]
     end
   end
 

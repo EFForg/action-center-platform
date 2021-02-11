@@ -69,7 +69,7 @@ describe ActionCloner do
                   :congress_message_campaign
 
   def filter_attrs(attrs)
-    attrs_not_cloned = %w(published archived created_at updated_at slug id)
+    attrs_not_cloned = %w[published archived created_at updated_at slug id]
     attrs.tap do |hash|
       attrs_not_cloned.each { |a| hash.delete a }
     end

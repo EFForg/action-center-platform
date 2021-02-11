@@ -2,7 +2,7 @@ require "rails_helper"
 
 describe CongressForms do
   describe CongressForms::Form do
-    let(:form) {
+    let(:form) do
       CongressForms::Form.new("C000880", [
                                 { "value" => "$NAME_FIRST" },
                                 { "value" => "$NAME_LAST" },
@@ -11,26 +11,26 @@ describe CongressForms do
                                   "NEW YORK" => "NY"
                                 } }
                               ])
-    }
+    end
 
-    let(:input) {
+    let(:input) do
       {
         "$NAME_FIRST" => "Willow",
         "$NAME_LAST" => "Rosenberg",
         "$MESSAGE" => "Impeach Mayor Richard Wilkins III",
         "$ADDRESS_STATE" => "CA"
       }
-    }
+    end
 
     describe "::find" do
       before do
         stub_request(:post, /retrieve-form-elements/)
-          .with(body: { "bio_ids" => ["C000880", "A000360"] })
+          .with(body: { "bio_ids" => %w[C000880 A000360] })
           .and_return(status: 200, body: file_fixture("retrieve-form-elements.json"))
       end
 
       it "retrieves a Form for each bioguide_id" do
-        forms = CongressForms::Form.find(["C000880", "A000360"]).first
+        forms = CongressForms::Form.find(%w[C000880 A000360]).first
         expect(forms.length).to eq 2
         lamar = forms.first
         expect(lamar.fields.length).to eq 11

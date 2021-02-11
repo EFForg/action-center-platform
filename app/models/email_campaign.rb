@@ -48,7 +48,7 @@ class EmailCampaign < ActiveRecord::Base
   end
 
   def target_bioguide_text_or_default(custom_text, default)
-    if !target_bioguide_id or custom_text.blank?
+    if !target_bioguide_id || custom_text.blank?
       default
     else
       custom_text

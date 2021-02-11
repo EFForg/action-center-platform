@@ -1,4 +1,4 @@
 class Category < ActiveRecord::Base
-  validates_presence_of :title
-  validates_format_of :title, with: /\A[\w\s&]+\Z/
+  validates :title, presence: true
+  validates :title, format: { with: /\A[\w\s&]+\Z/ }
 end

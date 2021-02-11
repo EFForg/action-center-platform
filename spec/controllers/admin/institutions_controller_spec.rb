@@ -6,9 +6,9 @@ RSpec.describe Admin::InstitutionsController, type: :controller do
   # This should return the minimal set of attributes required to create a valid
   # Admin::Institution. As you add validations to Admin::InstitutionSet, be sure to
   # adjust the attributes here as well.
-  let(:valid_attributes) {
+  let(:valid_attributes) do
     { name: "San Francisco State University", category: "University" }
-  }
+  end
 
   before(:each) do
     # Admin login
@@ -30,18 +30,18 @@ RSpec.describe Admin::InstitutionsController, type: :controller do
   describe "POST #create" do
     context "with valid params" do
       it "creates a new institution" do
-        expect {
+        expect do
           post :create, params: { action_page_id: @actionPage.id,
                                   institution: valid_attributes }
-        }.to change(Institution, :count).by(1)
+        end.to change(Institution, :count).by(1)
       end
 
       it "does not create duplicate institutions" do
-        institution = Institution.create! valid_attributes
-        expect {
+        Institution.create! valid_attributes
+        expect do
           post :create, params: { action_page_id: @actionPage.id,
                                   institution: valid_attributes }
-        }.to_not change(Institution, :count)
+        end.to_not change(Institution, :count)
       end
     end
   end
@@ -92,9 +92,9 @@ RSpec.describe Admin::InstitutionsController, type: :controller do
   describe "DELETE #destroy" do
     it "deletes the institution" do
       institution = Institution.create! valid_attributes
-      expect {
+      expect do
         delete :destroy, params: { id: institution.to_param }
-      }.to change(Institution, :count).by(-1)
+      end.to change(Institution, :count).by(-1)
     end
   end
 end
