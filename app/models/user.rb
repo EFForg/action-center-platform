@@ -2,7 +2,7 @@ require "civicrm"
 class User < ActiveRecord::Base
   include CiviCRM::UserMethods
 
-  include PgSearch
+  include PgSearch::Model
   pg_search_scope :search, against: %i[email first_name last_name]
 
   # Include default devise modules. Others available are:

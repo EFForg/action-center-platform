@@ -2,7 +2,7 @@ class ActionPage < ActiveRecord::Base
   extend AmazonCredentials
   extend FriendlyId
 
-  include PgSearch
+  include PgSearch::Model
   pg_search_scope :search,
                   against: %i[
                     title

@@ -4,7 +4,7 @@ class Institution < ActiveRecord::Base
 
   friendly_id :name, use: %i[slugged history]
 
-  include PgSearch
+  include PgSearch::Model
   pg_search_scope :search,
                   against: %i[
                     name
