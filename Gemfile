@@ -84,7 +84,7 @@ gem "gravatar-ultimate", "~> 2"
 gem "http_accept_language", "~> 2"        # Detect HTTP language header
 gem "invisible_captcha", "~> 0"           # Prevent form submissions by bots
 gem "iso_country_codes", "~> 0"
-gem "jbuilder", "~> 1.2" # JSON APIs
+gem "jbuilder", "~> 2"
 gem "oauth", "~> 0"
 gem "rest-client", "~> 2"
 gem "sanitize", "~> 4" # Sanitize user input
