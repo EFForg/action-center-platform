@@ -42,7 +42,7 @@ describe CongressForms do
       it "posts to the congress forms API" do
         stub_request(:post, /fill-out-form/)
           .and_return(status: 200, body: "{}")
-        campaign = FactoryGirl.build(:congress_message_campaign)
+        campaign = FactoryBot.build(:congress_message_campaign)
         form.fill(input, campaign.campaign_tag)
         expect(WebMock).to have_requested(:post, /fill-out-form/)
           .with(body: { bio_id: "C000880", fields: input,

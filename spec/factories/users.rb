@@ -3,7 +3,7 @@
 FactoryBot.define do
   factory :unconfirmed_user, class: User do
     sequence(:email, ActiveRecord::Base.connection.table_exists?("users") ? User.next_id : 0) { |n| "person_#{n}@example.com" }
-    password "strong passwords defeat lobsters covering wealth"
+    password { "strong passwords defeat lobsters covering wealth" }
   end
 
   factory :user, parent: :unconfirmed_user do

@@ -1,6 +1,6 @@
 FactoryBot.define do
   factory :tweet do
-    message "Please protect my right to use the Internet safely"
+    message { "Please protect my right to use the Internet safely" }
 
     after(:create) do |tweet|
       FactoryBot.create(:action_page_with_tweet, tweet_id: tweet.id)
@@ -8,6 +8,6 @@ FactoryBot.define do
   end
 
   factory :tweet_targeting_senate, parent: :tweet do
-    target_senate true
+    target_senate { true }
   end
 end

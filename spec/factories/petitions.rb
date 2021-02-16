@@ -1,8 +1,8 @@
 FactoryBot.define do
   factory :petition do
     sequence(:title)      { |n| "petition-#{n}" }
-    description "A sample Petition"
-    goal 100
+    description { "A sample Petition" }
+    goal { 100 }
 
     after(:create) do |petition|
       FactoryBot.create(:action_page_with_petition, petition_id: petition.id)
@@ -28,7 +28,7 @@ FactoryBot.define do
   end
 
   factory :local_organizing_petition, parent: :petition do
-    enable_affiliations true
+    enable_affiliations { true }
 
     after(:create) do |petition|
       petition.action_page.institutions << FactoryBot.build(:institution)

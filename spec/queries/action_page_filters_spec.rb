@@ -2,19 +2,19 @@ require "rails_helper"
 
 describe ActionPageFilters do
   it "returns only actions matching the given filters" do
-    category = FactoryGirl.create(:category)
-    basic = FactoryGirl.create(:action_page)
-    category_action = FactoryGirl.create(:action_page,
+    category = FactoryBot.create(:category)
+    basic = FactoryBot.create(:action_page)
+    category_action = FactoryBot.create(:action_page,
                                          enable_tweet: true,
                                          category: category)
-    draft_old = FactoryGirl.create(:action_page,
+    draft_old = FactoryBot.create(:action_page,
                                    enable_tweet: true,
                                    published: false,
                                    created_at: Time.zone.today - 7.days)
-    authored_old = FactoryGirl.create(:action_page,
+    authored_old = FactoryBot.create(:action_page,
                                       enable_tweet: true,
                                       created_at: Time.zone.today - 7.days,
-                                      author: FactoryGirl.create(:user),
+                                      author: FactoryBot.create(:user),
                                       category: category)
     new_date_range = "#{Time.zone.today - 3.days} - #{Time.zone.today}"
 
@@ -32,10 +32,10 @@ describe ActionPageFilters do
   end
 
   it "does not filter when values are blank or 'all'" do
-    FactoryGirl.create(:action_page)
-    FactoryGirl.create(:action_page, enable_tweet: true,
-                                     category: FactoryGirl.create(:category))
-    FactoryGirl.create(:action_page, enable_tweet: true, published: false,
+    FactoryBot.create(:action_page)
+    FactoryBot.create(:action_page, enable_tweet: true,
+                                     category: FactoryBot.create(:category))
+    FactoryBot.create(:action_page, enable_tweet: true, published: false,
                                      created_at: Time.zone.today - 7.days)
     result = described_class.run(category: "all", type: "", status: "all",
                                  author: "", date_range: "")

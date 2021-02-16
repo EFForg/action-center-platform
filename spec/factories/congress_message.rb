@@ -17,6 +17,6 @@ FactoryBot.define do
                                   ])
 
   factory :congress_message do
-    forms [form1, form2]
+    forms { [form1, form2] }
   end
 end

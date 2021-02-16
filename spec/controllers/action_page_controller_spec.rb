@@ -3,7 +3,7 @@ require "rails_helper"
 RSpec.describe ActionPageController, type: :controller do
   include Devise::Test::ControllerHelpers
 
-  let(:action_page) { FactoryGirl.create :action_page }
+  let(:action_page) { FactoryBot.create :action_page }
   let(:admin) { login_as_admin }
   let(:collaborator) { login_as_collaborator }
 
@@ -12,8 +12,8 @@ RSpec.describe ActionPageController, type: :controller do
 
     it "filters by category" do
       action_page
-      category = FactoryGirl.create(:category, title: "Privacy")
-      privacy_action_page = FactoryGirl.create(:action_page, category: category)
+      category = FactoryBot.create(:category, title: "Privacy")
+      privacy_action_page = FactoryBot.create(:action_page, category: category)
       get :index, params: { category: "Privacy" }
       expect(assigns(:actionPages)).to contain_exactly(privacy_action_page)
     end
@@ -42,7 +42,7 @@ RSpec.describe ActionPageController, type: :controller do
     end
 
     it "redirects to an admin specified url if redirect is enabled" do
-      action_page = FactoryGirl.create :action_page,
+      action_page = FactoryBot.create :action_page,
                                        enable_redirect: true,
                                        redirect_url: "https://example.com"
       get :show, params: { id: action_page }
@@ -50,9 +50,9 @@ RSpec.describe ActionPageController, type: :controller do
     end
 
     context "archived" do
-      let(:active_action_page) { FactoryGirl.create :action_page }
+      let(:active_action_page) { FactoryBot.create :action_page }
       let(:archived_action_page) do
-        FactoryGirl.create :archived_action_page,
+        FactoryBot.create :archived_action_page,
                            active_action_page_for_redirect: active_action_page
       end
 
@@ -69,7 +69,7 @@ RSpec.describe ActionPageController, type: :controller do
     end
 
     context "unpublished" do
-      let(:unpublished_action_page) { FactoryGirl.create :action_page, published: false }
+      let(:unpublished_action_page) { FactoryBot.create :action_page, published: false }
 
       it "hides unpublished pages from unprivileged users" do
         expect do
@@ -94,22 +94,22 @@ RSpec.describe ActionPageController, type: :controller do
   describe "GET #show_by_institution" do
     before(:each) do
       # Petition with two institutions
-      @petition = FactoryGirl.create(:local_organizing_petition)
+      @petition = FactoryBot.create(:local_organizing_petition)
       @actionPage = @petition.action_page
-      @actionPage.institutions << FactoryGirl.create(:institution)
+      @actionPage.institutions << FactoryBot.create(:institution)
 
       # Signature with affiliations to two different institutions
-      signature = FactoryGirl.create(:signature,
+      signature = FactoryBot.create(:signature,
                                      petition: @petition)
-      signature.affiliations << FactoryGirl.create(:affiliation,
+      signature.affiliations << FactoryBot.create(:affiliation,
                                                    institution: @actionPage.institutions.first)
-      signature.affiliations << FactoryGirl.create(:affiliation,
+      signature.affiliations << FactoryBot.create(:affiliation,
                                                    institution: @actionPage.institutions.last)
 
       # Signature with an affiliation to the second institutions
-      signature = FactoryGirl.create(:signature,
+      signature = FactoryBot.create(:signature,
                                      petition: @petition)
-      signature.affiliations << FactoryGirl.create(:affiliation,
+      signature.affiliations << FactoryBot.create(:affiliation,
                                                    institution: @actionPage.institutions.last,
                                                    affiliation_type: @actionPage.affiliation_types.first)
     end

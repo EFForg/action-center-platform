@@ -2,12 +2,12 @@ require "rails_helper"
 
 RSpec.describe "Congress Messages", type: :request do
   let!(:members) do
-    [FactoryGirl.create(:congress_member, state: "CA", bioguide_id: "C000880"),
-     FactoryGirl.create(:congress_member, state: "CA", bioguide_id: "A000360")]
+    [FactoryBot.create(:congress_member, state: "CA", bioguide_id: "C000880"),
+     FactoryBot.create(:congress_member, state: "CA", bioguide_id: "A000360")]
   end
 
   let(:action_page) do
-    FactoryGirl.create(:action_page_with_congress_message)
+    FactoryBot.create(:action_page_with_congress_message)
   end
 
   let(:location) do
@@ -73,7 +73,7 @@ RSpec.describe "Congress Messages", type: :request do
       end
 
       it "to target bioguide_ids" do
-        campaign = FactoryGirl.create(:congress_message_campaign, :targeting_bioguide_ids)
+        campaign = FactoryBot.create(:congress_message_campaign, :targeting_bioguide_ids)
         # rubocop:todo Rails/SkipsModelValidations
         action_page.update_attribute(:congress_message_campaign, campaign)
         # rubocop:enable Rails/SkipsModelValidations
@@ -84,7 +84,7 @@ RSpec.describe "Congress Messages", type: :request do
 
       it "to target a single chamber" do
         members.last.update(chamber: "house", district: 10)
-        campaign = FactoryGirl.create(:congress_message_campaign, :targeting_senate)
+        campaign = FactoryBot.create(:congress_message_campaign, :targeting_senate)
         # rubocop:todo Rails/SkipsModelValidations
         action_page.update_attribute(:congress_message_campaign, campaign)
         # rubocop:enable Rails/SkipsModelValidations

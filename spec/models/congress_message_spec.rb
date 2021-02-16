@@ -2,7 +2,7 @@ require "rails_helper"
 
 describe CongressMessage do
   subject do
-    FactoryGirl.build(:congress_message)
+    FactoryBot.build(:congress_message)
   end
 
   describe "#common_fields" do

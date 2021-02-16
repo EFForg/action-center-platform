@@ -1,13 +1,13 @@
 require "rails_helper"
 
 RSpec.feature "Submit congress message", type: :feature do
-  let(:action_page) { FactoryGirl.create(:action_page_with_congress_message, :with_partner) }
+  let(:action_page) { FactoryBot.create(:action_page_with_congress_message, :with_partner) }
 
   let(:partner) { action_page.partners.first }
 
   let!(:members) do
-    [FactoryGirl.create(:congress_member, state: "CA", bioguide_id: "C000880"),
-     FactoryGirl.create(:congress_member, state: "CA", bioguide_id: "A000360")]
+    [FactoryBot.create(:congress_member, state: "CA", bioguide_id: "C000880"),
+     FactoryBot.create(:congress_member, state: "CA", bioguide_id: "A000360")]
   end
 
   let(:location) do
@@ -58,7 +58,7 @@ RSpec.feature "Submit congress message", type: :feature do
   end
 
   scenario "Logged in user submits a congress message" do
-    giles = FactoryGirl.create(:user,
+    giles = FactoryBot.create(:user,
                                first_name: "Rupert",
                                last_name: "Giles",
                                email: "mrgiles@sunnydale.edu")

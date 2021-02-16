@@ -2,13 +2,13 @@ require "rails_helper"
 
 RSpec.feature "Tweet actions", type: :feature, js: true do
   let!(:tweet_action) do
-    FactoryGirl.create(:tweet, message: "Default message").action_page
+    FactoryBot.create(:tweet, message: "Default message").action_page
   end
   let!(:members) do
-    [FactoryGirl.create(:congress_member,
+    [FactoryBot.create(:congress_member,
                         twitter_id: "sisko",
                         state: "CA", bioguide_id: "C000880"),
-     FactoryGirl.create(:congress_member, state: "CA", bioguide_id: "A000360")]
+     FactoryBot.create(:congress_member, state: "CA", bioguide_id: "A000360")]
   end
   let(:location) do
     OpenStruct.new(success: true,
