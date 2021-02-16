@@ -57,11 +57,6 @@ describe User do
 
       expect(user.taken_action?(action_page)).to be_truthy
     end
-
-    it "ranks users" do
-      record_several_actions
-      expect(user.percentile_rank).to eq(50)
-    end
   end
 end
 
