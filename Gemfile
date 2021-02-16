@@ -1,10 +1,11 @@
 source "https://rubygems.org"
 
-gem "rails", "~> 5.0"
+gem "rails", "~> 5.0.7"
 
 # Database
 gem "pg", "~> 1.1"
-gem "pg_search"
+# Can upgrade after upgrading to rails 5.2
+gem "pg_search", "< 2.3.1"
 
 # Hosting-related
 gem "aws-sdk-rails", "~> 2"
@@ -22,7 +23,7 @@ gem "bundler", ">= 1.8.4" # needed for rails-assets
 gem "fontello_rails_converter", "~> 0"
 gem "react-rails", "~> 1"
 gem "redcarpet", "~> 3" # Markdown
-gem "sass-rails", "~> 5.0"
+gem "sass-rails", "< 5.1"
 gem "select2-rails"               # Autocomplete select menus
 gem "uglifier", ">= 1.3.0"        # compressor for JavaScript assets
 gem "webshims-rails", "~> 1"
@@ -71,9 +72,9 @@ gem "counter_culture", "~> 2.0"
 
 # Other
 gem "activerecord-session_store", "~> 1"
-gem "acts_as_paranoid", git: "https://github.com/ActsAsParanoid/acts_as_paranoid.git"
+# Can upgrade after upgrading to rails 5.2
+gem "acts_as_paranoid", "< 0.7"
 gem "cocoon", "~> 1"                      # Dynamically add and remove nested associations from forms
-gem "descriptive_statistics", "~> 2"      # Used for calculating percentiles
 gem "devise", "~> 4.7"
 gem "ejs", "~> 1"                         # Embedded javascript
 gem "email_validator", "~> 1"
