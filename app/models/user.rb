@@ -120,6 +120,11 @@ class User < ActiveRecord::Base
     confirmed? && super
   end
 
+  def can_view_archived?(action_page)
+    return true if admin?
+    taken_action? action_page
+  end
+
   protected
 
   def after_confirmation
