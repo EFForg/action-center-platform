@@ -50,7 +50,6 @@ gem "nokogiri", "~> 1"                    # Required for premailer-rails
 gem "premailer-rails", "~> 1"             # Inline styles for emails
 
 # Optimization
-gem "sprockets-image_compressor", "~> 0" # Optimizes png/jpg
 
 # Analytics
 gem "ahoy_matey", "~> 1.6" # Analytics
