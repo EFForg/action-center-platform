@@ -310,12 +310,7 @@ GEM
       nokogiri (>= 1.6)
     rails-html-sanitizer (1.3.0)
       loofah (~> 2.3)
-    rails_12factor (0.0.3)
-      rails_serve_static_assets
-      rails_stdout_logging
     rails_response_headers (0.1.0)
-    rails_serve_static_assets (0.0.5)
-    rails_stdout_logging (0.0.5)
     railties (5.0.7.2)
       actionpack (= 5.0.7.2)
       activesupport (= 5.0.7.2)
@@ -421,8 +416,6 @@ GEM
     sprockets (3.7.2)
       concurrent-ruby (~> 1.0)
       rack (> 1, < 3)
-    sprockets-image_compressor (0.3.0)
-      sprockets
     sprockets-rails (3.2.2)
       actionpack (>= 4.0)
       activesupport (>= 4.0)
@@ -453,8 +446,6 @@ GEM
       crack (>= 0.3.2)
       hashdiff (>= 0.4.0, < 2.0.0)
     webrick (1.7.0)
-    webshims-rails (1.16.0)
-      rails (> 3.1.0)
     websocket-driver (0.6.5)
       websocket-extensions (>= 0.1.0)
     websocket-extensions (0.1.5)
@@ -532,7 +523,6 @@ DEPENDENCIES
   rails-assets-sweetalert (= 1.0.1)!
   rails-controller-testing
   rails-dev-tweaks (~> 1.1)
-  rails_12factor
   rails_response_headers (~> 0)
   rb-fchange (~> 0)
   rb-fsevent (~> 0)
@@ -551,15 +541,13 @@ DEPENDENCIES
   sdoc
   select2-rails
   sentry-raven (~> 0.15)
-  sprockets-image_compressor (~> 0)
   uglifier (>= 1.3.0)
   warden (= 1.2.4)
   webdrivers (~> 4)
   webmock (~> 3)
-  webshims-rails (~> 1)
   whenever (~> 0)
   will_paginate (~> 3.0)
-  xmlrpc
+  xmlrpc (~> 0.3)
 
 BUNDLED WITH
    2.1.4

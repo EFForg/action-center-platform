@@ -89,7 +89,7 @@ gem "sanitize", "~> 4" # Sanitize user input
 gem "warden", "1.2.4" # This dep of devise has a bug in 1.2.5 so am avaoiding
 gem "whenever", "~> 0", require: false # Cron jobs
 gem "will_paginate", "~> 3.0"
-gem "xmlrpc"
+gem "xmlrpc", "~> 0.3"
 
 # For creating many records, quickly
 gem "fast_inserter", "~> 0.1"
