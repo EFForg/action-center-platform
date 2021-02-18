@@ -12,7 +12,6 @@ gem "aws-sdk-rails", "~> 2"
 gem "aws-sdk-s3", "~> 1"
 gem "dotenv-rails", "~> 2"
 gem "rack-attack", "~> 5"
-gem "rails_12factor", group: :production # Loads "rails_serve_static_assets" and "rails_stdout_logging"
 gem "rails_response_headers", "~> 0"
 
 # Frontend/assets
