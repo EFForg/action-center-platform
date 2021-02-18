@@ -19,10 +19,8 @@ module ActionPageHelper
   end
 
   def facebook_share_url(action_page)
-    "https://www.facebook.com/sharer/sharer.php?" + {
-      u: action_page_url(action_page),
-      display: "popup"
-    }.to_param
+    fb_params = { u: action_page_url(action_page), display: "popup" }.to_param
+    "https://www.facebook.com/sharer/sharer.php?#{fb_params}"
   end
 
   def email_friends_url(action_page)

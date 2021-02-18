@@ -25,7 +25,7 @@ namespace :signatures do
     end.compact
     sig_dups.each do |email, petition_id|
       Signature.where(petition_id: petition_id, email: email)
-        .order(:created_at).drop(1).map(&:delete)
+               .order(:created_at).drop(1).map(&:delete)
     end
 
     sub_dups = Subscription.group(:email, :partner_id).count.map do |data, count|

@@ -29,6 +29,6 @@ module AmazonCredentials
   end
 
   def self.build_s3_host_name
-    "s3-" + Rails.application.secrets.amazon_region + ".amazonaws.com"
+    "s3-#{Rails.application.secrets.amazon_region}.amazonaws.com"
   end
 end

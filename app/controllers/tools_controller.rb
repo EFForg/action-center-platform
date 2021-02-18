@@ -73,7 +73,7 @@ class ToolsController < ApplicationController
           :zipcode, :country_code, :phone
         )
 
-        @source = "action center petition :: " + @action_page.title
+        @source = "action center petition :: #{@action_page.title}"
         @user.subscribe!(opt_in: true, source: @source)
       end
 

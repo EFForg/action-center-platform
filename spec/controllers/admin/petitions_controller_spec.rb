@@ -38,7 +38,7 @@ RSpec.describe Admin::PetitionsController, type: :controller do
     end
 
     it "should delete signatures from the signature_ids param" do
-      delete :destroy_signatures, params: { id: petition.id, signature_ids: signatures[10..-1].map(&:id) }
+      delete :destroy_signatures, params: { id: petition.id, signature_ids: signatures[10..].map(&:id) }
       expect(petition.signatures.reload).to contain_exactly(*signatures[0..9])
       expect(response).to redirect_to(admin_action_page_petition_path(petition.action_page, petition))
     end

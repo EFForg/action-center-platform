@@ -18,7 +18,7 @@ describe User do
   describe "password management" do
     it "resets password reset tokens upon email change" do
       user.update(reset_password_token: "stub_token")
-      user.update(email: "2" + user.email)
+      user.update(email: "2#{user.email}")
       user.confirm
       expect(user.reset_password_token).to be_nil
     end
@@ -70,7 +70,7 @@ def record_several_actions
 
   # a user with 1 action
   ahoy.authenticate(FactoryBot.create(:user, record_activity: true))
-  1.times { track_signature(action_page) }
+  track_signature(action_page)
 
   # our friend, with 2 actions
   ahoy.authenticate(user)

@@ -1,6 +1,6 @@
 FactoryBot.define do
   factory :petition do
-    sequence(:title)      { |n| "petition-#{n}" }
+    sequence(:title) { |n| "petition-#{n}" }
     description { "A sample Petition" }
     goal { 100 }
 

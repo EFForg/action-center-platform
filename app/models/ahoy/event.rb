@@ -6,9 +6,10 @@ module Ahoy
     belongs_to :user
     belongs_to :action_page
     counter_culture :action_page, column_name: proc { |record|
-      if record.name == "Action"
+      case record.name
+      when "Action"
         "action_count"
-      elsif record.name == "View"
+      when "View"
         "view_count"
       end
     }

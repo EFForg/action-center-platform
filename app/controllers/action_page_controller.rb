@@ -88,7 +88,8 @@ class ActionPageController < ApplicationController
 
   def redirect_from_archived_to_active_action
     return unless @actionPage.redirect_from_archived_to_active_action?
-    return if current_user && current_user.can_view_archived?(@actionPage)
+    return if current_user&.can_view_archived?(@actionPage)
+
     redirect_to @actionPage.active_action_page_for_redirect
   end
 

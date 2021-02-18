@@ -59,9 +59,9 @@ RSpec.feature "Submit congress message", type: :feature do
 
   scenario "Logged in user submits a congress message" do
     giles = FactoryBot.create(:user,
-                               first_name: "Rupert",
-                               last_name: "Giles",
-                               email: "mrgiles@sunnydale.edu")
+                              first_name: "Rupert",
+                              last_name: "Giles",
+                              email: "mrgiles@sunnydale.edu")
     sign_in_user(giles)
 
     visit "/action/#{action_page.title.downcase.tr(' ', '-')}"

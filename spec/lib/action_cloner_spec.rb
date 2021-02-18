@@ -46,7 +46,7 @@ describe ActionCloner do
   shared_examples "properly duplicates campaign" do |enable_mthd, model|
     let(:page) do
       FactoryBot.create(:action_page, enable_mthd => true,
-                                       model => FactoryBot.create(model))
+                                      model => FactoryBot.create(model))
     end
     let(:clone) { described_class.run(page) }
     it "does not persist" do

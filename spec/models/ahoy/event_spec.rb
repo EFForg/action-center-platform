@@ -12,13 +12,13 @@ describe Ahoy::Event do
     let!(:now) { Time.zone.parse("12-11-2019 11:00 AM") }
     let!(:page) do
       FactoryBot.create(:action_page_with_petition,
-                         created_at: now - 1.week, updated_at: now)
+                        created_at: now - 1.week, updated_at: now)
     end
     before(:each) do
       FactoryBot.create_list(:ahoy_view, 3,
-                              action_page: page, time: now - 3.days)
+                             action_page: page, time: now - 3.days)
       FactoryBot.create_list(:ahoy_view, 2,
-                              action_page: page, time: now + 1.hour)
+                             action_page: page, time: now + 1.hour)
       FactoryBot.create(:ahoy_signature, action_page: page, time: now + 2.hours)
       FactoryBot.create(:ahoy_signature, action_page: page, time: now - 2.days)
       page.reload

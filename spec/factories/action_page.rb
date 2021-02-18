@@ -45,8 +45,8 @@ FactoryBot.define do
     after(:build) do |action_page, _evaluator|
       10.times do |n|
         FactoryBot.create(:ahoy_view,
-                           action_page: action_page,
-                           time: Time.zone.now - n.days)
+                          action_page: action_page,
+                          time: Time.zone.now - n.days)
       end
     end
   end

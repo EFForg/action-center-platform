@@ -9,7 +9,7 @@ module ApplicationHelper
   end
 
   def twitter_handle
-    "@" + Rails.application.config.twitter_handle.to_s
+    "@#{Rails.application.config.twitter_handle}"
   end
 
   def markdown(blogtext)

@@ -5,17 +5,17 @@ describe ActionPageFilters do
     category = FactoryBot.create(:category)
     basic = FactoryBot.create(:action_page)
     category_action = FactoryBot.create(:action_page,
-                                         enable_tweet: true,
-                                         category: category)
+                                        enable_tweet: true,
+                                        category: category)
     draft_old = FactoryBot.create(:action_page,
-                                   enable_tweet: true,
-                                   published: false,
-                                   created_at: Time.zone.today - 7.days)
+                                  enable_tweet: true,
+                                  published: false,
+                                  created_at: Time.zone.today - 7.days)
     authored_old = FactoryBot.create(:action_page,
-                                      enable_tweet: true,
-                                      created_at: Time.zone.today - 7.days,
-                                      author: FactoryBot.create(:user),
-                                      category: category)
+                                     enable_tweet: true,
+                                     created_at: Time.zone.today - 7.days,
+                                     author: FactoryBot.create(:user),
+                                     category: category)
     new_date_range = "#{Time.zone.today - 3.days} - #{Time.zone.today}"
 
     result = described_class.run(category: category)
@@ -34,9 +34,9 @@ describe ActionPageFilters do
   it "does not filter when values are blank or 'all'" do
     FactoryBot.create(:action_page)
     FactoryBot.create(:action_page, enable_tweet: true,
-                                     category: FactoryBot.create(:category))
+                                    category: FactoryBot.create(:category))
     FactoryBot.create(:action_page, enable_tweet: true, published: false,
-                                     created_at: Time.zone.today - 7.days)
+                                    created_at: Time.zone.today - 7.days)
     result = described_class.run(category: "all", type: "", status: "all",
                                  author: "", date_range: "")
     expect(result.size).to eq(3)

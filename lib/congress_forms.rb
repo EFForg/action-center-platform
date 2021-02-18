@@ -26,7 +26,7 @@ module CongressForms
       @fields = @fields.sort_by { |f| order.index(f.value) || Float::INFINITY }
     end
 
-    def fill(input, campaign_tag, test = false)
+    def fill(input, campaign_tag, test: false)
       params = { bio_id: @bioguide_id, campaign_tag: campaign_tag, fields: input }
       params[:test] = 1 if test
       CongressForms.post("/fill-out-form/", params)
@@ -74,9 +74,10 @@ module CongressForms
     end
 
     def options_hash
-      if @value == "$ADDRESS_STATE_POSTAL_ABBREV"
+      case @value
+      when "$ADDRESS_STATE_POSTAL_ABBREV"
         Places.us_state_codes
-      elsif @value == "$ADDRESS_STATE_FULL"
+      when "$ADDRESS_STATE_FULL"
         Places.us_states
       else
         @options_hash
@@ -113,7 +114,7 @@ module CongressForms
 
   def self.data_path(base_path, params = {}, bioguide_id = nil)
     base_path += bioguide_id unless bioguide_id.nil?
-    base_path + "?" + {
+    "#{base_path}?" + {
       debug_key: Rails.application.secrets.congress_forms_debug_key
     }.merge(params).to_query
   end

@@ -6,8 +6,8 @@ RSpec.feature "Congress actions", type: :feature, js: true do
   end
   let!(:members) do
     [FactoryBot.create(:congress_member,
-                        twitter_id: "sisko",
-                        state: "CA", bioguide_id: "C000880"),
+                       twitter_id: "sisko",
+                       state: "CA", bioguide_id: "C000880"),
      FactoryBot.create(:congress_member, state: "CA", bioguide_id: "A000360")]
   end
   let(:location) do

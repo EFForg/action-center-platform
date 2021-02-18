@@ -43,8 +43,8 @@ RSpec.describe ActionPageController, type: :controller do
 
     it "redirects to an admin specified url if redirect is enabled" do
       action_page = FactoryBot.create :action_page,
-                                       enable_redirect: true,
-                                       redirect_url: "https://example.com"
+                                      enable_redirect: true,
+                                      redirect_url: "https://example.com"
       get :show, params: { id: action_page }
       expect(response).to redirect_to "https://example.com"
     end
@@ -53,7 +53,7 @@ RSpec.describe ActionPageController, type: :controller do
       let(:active_action_page) { FactoryBot.create :action_page }
       let(:archived_action_page) do
         FactoryBot.create :archived_action_page,
-                           active_action_page_for_redirect: active_action_page
+                          active_action_page_for_redirect: active_action_page
       end
 
       it "redirects archived actions to active actions" do
@@ -100,18 +100,18 @@ RSpec.describe ActionPageController, type: :controller do
 
       # Signature with affiliations to two different institutions
       signature = FactoryBot.create(:signature,
-                                     petition: @petition)
+                                    petition: @petition)
       signature.affiliations << FactoryBot.create(:affiliation,
-                                                   institution: @actionPage.institutions.first)
+                                                  institution: @actionPage.institutions.first)
       signature.affiliations << FactoryBot.create(:affiliation,
-                                                   institution: @actionPage.institutions.last)
+                                                  institution: @actionPage.institutions.last)
 
       # Signature with an affiliation to the second institutions
       signature = FactoryBot.create(:signature,
-                                     petition: @petition)
+                                    petition: @petition)
       signature.affiliations << FactoryBot.create(:affiliation,
-                                                   institution: @actionPage.institutions.last,
-                                                   affiliation_type: @actionPage.affiliation_types.first)
+                                                  institution: @actionPage.institutions.last,
+                                                  affiliation_type: @actionPage.affiliation_types.first)
     end
 
     context "html" do
