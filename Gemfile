@@ -26,7 +26,6 @@ gem "redcarpet", "~> 3" # Markdown
 gem "sass-rails", "< 5.1"
 gem "select2-rails"               # Autocomplete select menus
 gem "uglifier", ">= 1.3.0"        # compressor for JavaScript assets
-gem "webshims-rails", "~> 1"
 source "https://rails-assets.org" do
   gem "rails-assets-chartjs", "~> 2"
   gem "rails-assets-congress-images-102x125"
