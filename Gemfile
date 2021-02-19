@@ -49,10 +49,8 @@ gem "kt-paperclip", "~> 6"
 gem "nokogiri", "~> 1"                    # Required for premailer-rails
 gem "premailer-rails", "~> 1"             # Inline styles for emails
 
-# Optimization
-
 # Analytics
-gem "ahoy_matey", "~> 1.6" # Analytics
+gem "ahoy_matey", "~> 1.6"
 gem "chartkick", "~> 3"
 gem "eff_matomo", "~> 0.2.4", require: "matomo"
 gem "groupdate", "~> 2"
@@ -125,7 +123,6 @@ group :development, :test do
   gem "rubocop-github", "~> 0.16"
   gem "rubocop-performance", require: false
   gem "rubocop-rails", require: false
-  gem "webdrivers", "~> 4"
 end
 
 group :production do
