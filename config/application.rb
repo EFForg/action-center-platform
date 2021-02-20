@@ -23,9 +23,8 @@ module Actioncenter
     config.eager_load_paths += %W(#{config.root}/lib)
     config.assets.paths << Rails.root.join('node_modules')
 
-    #config.logger = ActiveSupport::Logger.new(STDOUT)
     config.to_prepare do
-          Devise::Mailer.layout "email" # email.haml or email.erb
+      Devise::Mailer.layout "email" # email.haml or email.erb
     end
 
     config.exceptions_app = ->(env) { ExceptionsController.action(:show).call(env) }

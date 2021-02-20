@@ -17,7 +17,7 @@ class Admin::TopicCategoriesController < Admin::ApplicationController
     TopicCategory.destroy(params[:id])
     render json: { id: params[:id] }
   rescue StandardError => e
-    render text: e.message, status: 500
+    render body: e.message, status: 500
   end
 
   def update

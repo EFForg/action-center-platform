@@ -1,4 +1,4 @@
-class AddAttachmentBackgroundImageToActionPages < ActiveRecord::Migration
+class AddAttachmentBackgroundImageToActionPages < ActiveRecord::Migration[5.0]
   def self.up
     change_table :action_pages do |t|
       t.attachment :background_image

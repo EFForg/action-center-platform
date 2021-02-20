@@ -8,7 +8,7 @@ class Admin::TopicSetsController < Admin::ApplicationController
     TopicSet.destroy(params[:id])
     render json: { id: params[:id] }
   rescue StandardError => e
-    render text: e.message, status: 500
+    render body: e.message, status: 500
   end
 
   def create

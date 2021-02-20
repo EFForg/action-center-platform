@@ -52,9 +52,9 @@ class ActionPageController < ApplicationController
     @actionPage = ActionPage.friendly.find(params[:id])
 
     if @actionPage.petition
-      render text: @actionPage.petition.signatures.count
+      render body: @actionPage.petition.signatures.count
     else
-      render text: "0"
+      render body: "0"
     end
   end
 

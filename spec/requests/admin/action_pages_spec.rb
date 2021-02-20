@@ -59,7 +59,7 @@ RSpec.describe "Admin Action Pages", type: :request do
         tweet_attributes: { message: "border surveillance tweet" }
       )
 
-      xhr :get, "/admin/action_pages?q=border+surveil"
+      get "/admin/action_pages?q=border+surveil", xhr: true
 
       expect(response.body).to include(border.title)
       expect(response.body).to include(tweet.title)
