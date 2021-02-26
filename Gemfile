@@ -1,6 +1,6 @@
 source "https://rubygems.org"
 
-gem "rails", "~> 5.0.7"
+gem "rails", "~> 5.1"
 
 # Database
 gem "pg", "~> 1.1"
@@ -12,7 +12,7 @@ gem "aws-sdk-rails", "~> 2"
 gem "aws-sdk-s3", "~> 1"
 gem "dotenv-rails", "~> 2"
 gem "rack-attack", "~> 5"
-gem "rails_response_headers", "~> 0"
+gem "rails_response_headers", "~> 0.2"
 
 # Frontend/assets
 gem "bootstrap-daterangepicker-rails", "~> 3"
