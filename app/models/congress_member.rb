@@ -3,7 +3,7 @@ class CongressMember < ActiveRecord::Base
 
   scope :current, -> { where("? <= term_end", Time.zone.now) }
 
-  scope :filter, lambda { |f|
+  scope :search, lambda { |f|
     if f.present?
       fields = "first_name || ' ' || last_name || ' ' || full_name || ' ' || bioguide_id"
       where("LOWER(#{fields}) LIKE ?", "%#{f.downcase}%")
