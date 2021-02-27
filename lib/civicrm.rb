@@ -40,7 +40,7 @@ module CiviCRM
       checksum = CiviCRM.get_checksum(contact_id)
       return nil unless checksum
 
-      "#{Rails.application.secrets.supporters['host']}/update-your-preferences?" + {
+      "#{Rails.application.secrets.supporters[:host]}/update-your-preferences?" + {
         cid1: contact_id,
         cs: checksum
       }.to_param
@@ -48,7 +48,7 @@ module CiviCRM
   end
 
   def self.skip_crm?
-    Rails.application.secrets.supporters["api_key"].nil?
+    Rails.application.secrets.supporters[:api_key].nil?
   end
 
   def self.subscribe(params)
@@ -88,7 +88,7 @@ module CiviCRM
   end
 
   def self.supporters_api_url
-    "#{Rails.application.secrets.supporters['host']}/#{Rails.application.secrets.supporters['path']}"
+    "#{Rails.application.secrets.supporters[:host]}/#{Rails.application.secrets.supporters[:path]}"
   end
 
   def self.post(params)
@@ -131,6 +131,6 @@ module CiviCRM
   end
 
   def self.base_params
-    { site_key: Rails.application.secrets.supporters["api_key"] }
+    { site_key: Rails.application.secrets.supporters[:api_key] }
   end
 end

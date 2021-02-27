@@ -36,7 +36,7 @@ RSpec.describe SubscriptionsController, type: :controller do
 
     it "redirects to supporters" do
       sign_in FactoryBot.create(:user)
-      expect(subject).to redirect_to(/#{Rails.application.secrets.supporters["host"]}/)
+      expect(subject).to redirect_to(/#{Rails.application.secrets.supporters[:host]}/)
     end
 
     describe "without a successful connection to civicrm" do

@@ -42,7 +42,8 @@ class User < ActiveRecord::Base
   end
 
   def email_taken?
-    errors.added? :email, :taken
+    return false unless errors.include? :email
+    errors.details[:email].any? { |x| x.values.include? :taken }
   end
 
   def send_email_taken_notice

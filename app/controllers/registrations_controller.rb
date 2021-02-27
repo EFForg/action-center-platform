@@ -21,7 +21,7 @@ class RegistrationsController < Devise::RegistrationsController
   private
 
   def handle_nonunique_email
-    resource.errors.delete(:email)
+    resource.errors.delete(:email) unless resource.errors[:email].size > 1
 
     if resource.errors.empty?
       existing = User.find_by(email: resource.email)
