@@ -1,11 +1,10 @@
 source "https://rubygems.org"
 
-gem "rails", "~> 5.1"
+gem "rails", "~> 5"
 
 # Database
 gem "pg", "~> 1.1"
-# Can upgrade after upgrading to rails 5.2
-gem "pg_search", "< 2.3.1"
+gem "pg_search", "~> 2"
 
 # Hosting-related
 gem "aws-sdk-rails", "~> 2"
@@ -67,8 +66,7 @@ gem "counter_culture", "~> 2.0"
 
 # Other
 gem "activerecord-session_store", "~> 1"
-# Can upgrade after upgrading to rails 5.2
-gem "acts_as_paranoid", "< 0.7"
+gem "acts_as_paranoid", "~> 0.7"
 gem "cocoon", "~> 1"                      # Dynamically add and remove nested associations from forms
 gem "devise", "~> 4.7"
 gem "ejs", "~> 1"                         # Embedded javascript
@@ -84,7 +82,6 @@ gem "jbuilder", "~> 2"
 gem "oauth", "~> 0"
 gem "rest-client", "~> 2"
 gem "sanitize", "~> 4" # Sanitize user input
-gem "warden", "1.2.4" # This dep of devise has a bug in 1.2.5 so am avaoiding
 gem "whenever", "~> 0", require: false # Cron jobs
 gem "will_paginate", "~> 3.0"
 gem "xmlrpc", "~> 0.3"
