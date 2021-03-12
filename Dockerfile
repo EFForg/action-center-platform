@@ -65,6 +65,7 @@ RUN bundle exec rake assets:precompile \
   SECRET_KEY_BASE=noop \
   devise_secret_key=noop \
   amazon_region=noop \
+  amazon_bucket=noop \
   DATABASE_URL=postgres://noop
 
 RUN mkdir /opt/actioncenter/log \
