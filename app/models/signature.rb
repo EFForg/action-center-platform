@@ -13,6 +13,8 @@ class Signature < ActiveRecord::Base
   validates_presence_of :country_code, if: :location_required?
 
   validates :email, email: true
+  validates :email, uniqueness: { scope: :petition_id,
+                                  message: "You've already signed this petition!" }
   validates :zipcode, length: { maximum: 12 }
   validate :country_code, :arbitrary_opinion_of_country_string_validity
 
