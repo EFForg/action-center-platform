@@ -2,7 +2,7 @@ require "rails_helper"
 
 describe Institution do
   describe ".top" do
-    let(:petition) { FactoryGirl.create(:local_organizing_petition) }
+    let(:petition) { FactoryBot.create(:local_organizing_petition) }
 
     let(:high_rank) { petition.action_page.institutions.create(name: "A", category: "University") }
     let(:mid_rank) { petition.action_page.institutions.create(name: "B", category: "University") }
@@ -12,17 +12,17 @@ describe Institution do
 
     before(:each) do
       100.times do
-        sig = FactoryGirl.create(:signature, petition_id: petition.id)
+        sig = FactoryBot.create(:signature, petition_id: petition.id)
         sig.affiliations.create(institution_id: high_rank.id, affiliation_type: student)
       end
 
       50.times do
-        sig = FactoryGirl.create(:signature, petition_id: petition.id)
+        sig = FactoryBot.create(:signature, petition_id: petition.id)
         sig.affiliations.create(institution_id: mid_rank.id, affiliation_type: student)
       end
 
       10.times do
-        sig = FactoryGirl.create(:signature, petition_id: petition.id)
+        sig = FactoryBot.create(:signature, petition_id: petition.id)
         sig.affiliations.create(institution_id: low_rank.id, affiliation_type: student)
       end
     end
@@ -37,17 +37,17 @@ describe Institution do
   end
 
   describe ".import" do
-    let(:action_page) { FactoryGirl.create(:action_page) }
-    let(:institution) { FactoryGirl.create(:institution) }
+    let(:action_page) { FactoryBot.create(:action_page) }
+    let(:institution) { FactoryBot.create(:institution) }
     let(:names) do
       ["University of California, Berkeley",
        "University of California, Santa Cruz"]
     end
 
     it "adds institutions by name" do
-      expect {
+      expect do
         described_class.import("University", names)
-      }.to change(Institution.where(category: "University"), :count).by(names.count)
+      end.to change(Institution.where(category: "University"), :count).by(names.count)
     end
   end
 end

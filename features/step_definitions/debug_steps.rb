@@ -1,4 +1,3 @@
-
 When /^I byebug$/ do
   byebug
 end

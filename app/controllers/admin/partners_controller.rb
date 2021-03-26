@@ -1,7 +1,7 @@
 class Admin::PartnersController < Admin::ApplicationController
   layout "admin"
 
-  before_action :set_partner, only: %i(edit update show destroy)
+  before_action :set_partner, only: %i[edit update show destroy]
 
   # GET /partners
   # GET /partners.json
@@ -22,16 +22,15 @@ class Admin::PartnersController < Admin::ApplicationController
     respond_to do |format|
       if @partner.save
         format.html { redirect_to @partner, notice: "Partner was successfully created." }
-        format.json { render "show", status: :created, location: @partner }
+        format.json { render "show", status: 201, location: @partner }
       else
         format.html { render "new" }
-        format.json { render json: @partner.errors, status: :unprocessable_entity }
+        format.json { render json: @partner.errors, status: 422 }
       end
     end
   end
 
-  def edit
-  end
+  def edit; end
 
   def update
     if @partner.update(partner_params)

@@ -1,4 +1,4 @@
-FROM ruby:2.5-stretch
+FROM ruby:2.7-slim
 
 RUN mkdir /opt/actioncenter
 WORKDIR /opt/actioncenter
@@ -66,7 +66,6 @@ RUN bundle exec rake assets:precompile \
   devise_secret_key=noop \
   amazon_region=noop \
   DATABASE_URL=postgres://noop
-RUN bundle exec rake webshims:update_public
 
 RUN mkdir /opt/actioncenter/log \
           /var/www

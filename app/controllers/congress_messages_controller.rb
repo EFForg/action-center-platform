@@ -22,7 +22,7 @@ class CongressMessagesController < ApplicationController
     end
     forms, @links = CongressForms::Form.find(bioguide_ids)
     @defunct_members, @members = @members.partition do |m|
-      @links.keys.include? m.bioguide_id
+      @links.key?(m.bioguide_id)
     end
     @message = CongressMessage.new_from_lookup(location, @campaign, forms)
     render partial: "form"
@@ -37,16 +37,16 @@ class CongressMessagesController < ApplicationController
                    else
                      params[:forms][:bioguide_ids]
                    end
-    @message.forms, _ = CongressForms::Form.find(bioguide_ids)
+    @message.forms, = CongressForms::Form.find(bioguide_ids)
 
-    if EmailValidator.valid?(user_params[:email]) && @message.background_submit(params[:test])
+    if EmailValidator.valid?(user_params[:email]) && @message.background_submit(test: params[:test])
       @name = user_params[:first_name] # for deliver_thanks_message
       @email = user_params[:email] # for deliver_thanks_message
       track_action unless params[:test]
       deliver_thanks_message unless subscribe_user
       render partial: "tools/share"
     else
-      render plain: I18n.t(:invalid_submission, scope: :congress_forms), status: :bad_request
+      render plain: I18n.t(:invalid_submission, scope: :congress_forms), status: 400
     end
   end
 
@@ -84,35 +84,33 @@ class CongressMessagesController < ApplicationController
   end
 
   def update_user
-    if params[:update_user_data] == "yes"
-      current_user.update(user_params.except(:email))
-    end
+    current_user.update(user_params.except(:email)) if params[:update_user_data] == "yes"
   end
 
   def subscribe_user
     create_partner_subscription
 
     if params[:subscribe] == "1"
-      source = "action center congress message :: " + @action_page.title
+      source = "action center congress message :: #{@action_page.title}"
       user = User.find_or_initialize_by(email: user_params[:email])
       user.attributes = user_params
-      user.subscribe!(opt_in = false, source = source)["requires_confirmation"]
+      user.subscribe!(opt_in: false, source: source)["requires_confirmation"]
     end
   end
 
   def track_action
     customized_message = params[:message] != @campaign.message
     ahoy.track "Action",
-      { type: "action", actionType: "congress_message", actionPageId: params[:action_id],
-        customizedMessage: customized_message },
-      action_page: @action_page
+               { type: "action", actionType: "congress_message", actionPageId: params[:action_id],
+                 customizedMessage: customized_message },
+               action_page: @action_page
   end
 
   def address_not_found
-    render plain: I18n.t(:address_lookup_failed, scope: :congress_forms), status: :bad_request
+    render plain: I18n.t(:address_lookup_failed, scope: :congress_forms), status: 400
   end
 
   def congress_forms_request_failed
-    render plain: I18n.t(:request_failed, scope: :congress_forms), status: :internal_server_error
+    render plain: I18n.t(:request_failed, scope: :congress_forms), status: 500
   end
 end

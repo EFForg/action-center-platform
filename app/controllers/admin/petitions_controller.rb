@@ -1,5 +1,5 @@
-include PetitionHelper
 class Admin::PetitionsController < Admin::ApplicationController
+  include PetitionHelper
   before_action :set_petition
 
   allow_collaborators_to :show, :destroy_signatures
@@ -25,8 +25,8 @@ class Admin::PetitionsController < Admin::ApplicationController
     signatures = @petition.signatures
 
     if params[:institution_id].present?
-      signatures = signatures.joins(affiliations: :institution).
-                     where(institutions: { id: params[:institution_id] })
+      signatures = signatures.joins(affiliations: :institution)
+                             .where(institutions: { id: params[:institution_id] })
     end
 
     send_data signatures.to_affiliation_csv,
@@ -36,9 +36,7 @@ class Admin::PetitionsController < Admin::ApplicationController
   def destroy_signatures
     @petition.signatures.where(id: params[:signature_ids]).delete_all
 
-    if params[:page].to_i > filtered_signatures.total_pages
-      params[:page] = filtered_signatures.total_pages
-    end
+    params[:page] = filtered_signatures.total_pages if params[:page].to_i > filtered_signatures.total_pages
 
     redirect_to admin_action_page_petition_path(@petition.action_page,
                                                 @petition, search_params)
@@ -51,10 +49,10 @@ class Admin::PetitionsController < Admin::ApplicationController
   end
 
   def filtered_signatures
-    @petition.signatures.
-      filter(params[:query]).
-      order(created_at: :desc).
-      paginate(page: params[:page], per_page: params[:per_page] || 10)
+    @petition.signatures
+             .search(params[:query])
+             .order(created_at: :desc)
+             .paginate(page: params[:page], per_page: params[:per_page] || 10)
   end
 
   def search_params

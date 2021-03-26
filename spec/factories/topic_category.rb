@@ -1,8 +1,8 @@
-FactoryGirl.define do
+FactoryBot.define do
   factory :topic_category do
-    name "Demons"
+    name { "Demons" }
 
-    after(:create) do |category, evaluator|
+    after(:create) do |category, _evaluator|
       create_list(:topic_set, 2, topic_category: category)
     end
   end

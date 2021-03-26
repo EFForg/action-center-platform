@@ -1,17 +1,17 @@
 source "https://rubygems.org"
 
-gem "rails", "~> 5.0"
+gem "rails", "~> 5.0.7"
 
-#Database
+# Database
 gem "pg", "~> 1.1"
-gem "pg_search"
+# Can upgrade after upgrading to rails 5.2
+gem "pg_search", "< 2.3.1"
 
 # Hosting-related
-gem "aws-sdk", "~> 2.3"
-gem "aws-sdk-rails", "~> 1"
+gem "aws-sdk-rails", "~> 2"
+gem "aws-sdk-s3", "~> 1"
 gem "dotenv-rails", "~> 2"
 gem "rack-attack", "~> 5"
-gem "rails_12factor", group: :production # Loads "rails_serve_static_assets" and "rails_stdout_logging"
 gem "rails_response_headers", "~> 0"
 
 # Frontend/assets
@@ -22,10 +22,9 @@ gem "bundler", ">= 1.8.4" # needed for rails-assets
 gem "fontello_rails_converter", "~> 0"
 gem "react-rails", "~> 1"
 gem "redcarpet", "~> 3" # Markdown
-gem "sass-rails", "~> 5.0"
+gem "sass-rails", "< 5.1"
 gem "select2-rails"               # Autocomplete select menus
 gem "uglifier", ">= 1.3.0"        # compressor for JavaScript assets
-gem "webshims-rails", "~> 1"
 source "https://rails-assets.org" do
   gem "rails-assets-chartjs", "~> 2"
   gem "rails-assets-congress-images-102x125"
@@ -44,17 +43,14 @@ source "https://rails-assets.org" do
 end
 
 # File upload
-gem "paperclip", "~> 5.2"
+gem "kt-paperclip", "~> 6"
 
 # Email preformatting
 gem "nokogiri", "~> 1"                    # Required for premailer-rails
 gem "premailer-rails", "~> 1"             # Inline styles for emails
 
-# Optimization
-gem "sprockets-image_compressor", "~> 0" # Optimizes png/jpg
-
 # Analytics
-gem "ahoy_matey", "~> 1.6" # Analytics
+gem "ahoy_matey", "~> 1.6"
 gem "chartkick", "~> 3"
 gem "eff_matomo", "~> 0.2.4", require: "matomo"
 gem "groupdate", "~> 2"
@@ -71,9 +67,9 @@ gem "counter_culture", "~> 2.0"
 
 # Other
 gem "activerecord-session_store", "~> 1"
-gem "acts_as_paranoid", git: "https://github.com/ActsAsParanoid/acts_as_paranoid.git"
+# Can upgrade after upgrading to rails 5.2
+gem "acts_as_paranoid", "< 0.7"
 gem "cocoon", "~> 1"                      # Dynamically add and remove nested associations from forms
-gem "descriptive_statistics", "~> 2"      # Used for calculating percentiles
 gem "devise", "~> 4.7"
 gem "ejs", "~> 1"                         # Embedded javascript
 gem "email_validator", "~> 1"
@@ -84,14 +80,14 @@ gem "gravatar-ultimate", "~> 2"
 gem "http_accept_language", "~> 2"        # Detect HTTP language header
 gem "invisible_captcha", "~> 0"           # Prevent form submissions by bots
 gem "iso_country_codes", "~> 0"
-gem "jbuilder", "~> 1.2" # JSON APIs
+gem "jbuilder", "~> 2"
 gem "oauth", "~> 0"
 gem "rest-client", "~> 2"
 gem "sanitize", "~> 4" # Sanitize user input
 gem "warden", "1.2.4" # This dep of devise has a bug in 1.2.5 so am avaoiding
 gem "whenever", "~> 0", require: false # Cron jobs
 gem "will_paginate", "~> 3.0"
-gem "xmlrpc"
+gem "xmlrpc", "~> 0.3"
 
 # For creating many records, quickly
 gem "fast_inserter", "~> 0.1"
@@ -111,23 +107,22 @@ group :development do
 end
 
 group :test do
-  gem "webmock", "~> 2"
+  gem "apparition", "~> 0.6"
+  gem "webmock", "~> 3"
 end
 
 group :development, :test do
   gem "byebug"
-  gem "capybara", "~> 3.26"
-  gem "cucumber-rails", "1.6.0", require: false
+  gem "capybara", "~> 3"
   gem "database_cleaner", "~> 1"
-  gem "factory_girl_rails", "~> 4"
-  gem "poltergeist", "~> 1"
+  gem "factory_bot_rails", "~> 4"
   gem "rails-controller-testing"
   gem "rspec-core", "~> 3"
   gem "rspec-rails", "~> 3"
-  gem "rubocop", "0.52.0"
-  gem "rubocop-github", "0.9.0"
-  gem "selenium-webdriver", "~> 3"
-  gem "webdrivers", "~> 4"
+  gem "rubocop"
+  gem "rubocop-github", "~> 0.16"
+  gem "rubocop-performance", require: false
+  gem "rubocop-rails", require: false
 end
 
 group :production do
