@@ -1,9 +1,9 @@
 require "rails_helper"
 
 describe CongressMessage do
-  subject {
+  subject do
     FactoryGirl.build(:congress_message)
-  }
+  end
 
   describe "#common_fields" do
     it "groups matching opt_hashes" do

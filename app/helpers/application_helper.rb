@@ -1,11 +1,11 @@
 module ApplicationHelper
   def page_title
-    t("page_title", scope: [controller_path.gsub("/", "_"), action_name],
-      default: [@title, I18n.t("site_title")].compact.join(" | "))
+    t("page_title", scope: [controller_path.tr("/", "_"), action_name],
+                    default: [@title, I18n.t("site_title")].compact.join(" | "))
   end
 
   def escape_page_title
-    URI.escape(page_title , Regexp.new("[^#{URI::PATTERN::UNRESERVED}]"))
+    ERB::Util.url_encode page_title
   end
 
   def twitter_handle
@@ -21,7 +21,7 @@ module ApplicationHelper
   end
 
   def substitute_keywords(blogtext)
-    if @actionPage and @actionPage.description and @petition
+    if @actionPage&.description && @petition
       blogtext.gsub("$SIGNATURECOUNT", @petition.signatures.pretty_count)
     else
       blogtext
@@ -71,24 +71,26 @@ module ApplicationHelper
     if user_signed_in?
       p = params.clone
       p.delete(:email)
-      current_user.update_attributes p
+      current_user.update p
     end
   end
 
+  # REFACTOR_FLAG
+  # use ActiveStorage::Filename#sanitized after upgrading to 5.2
   def sanitize_filename(filename)
     # Split the name when finding a period which is preceded by some
     # character, and is followed by some character other than a period,
     # if there is no following period that is followed by something
     # other than a period (yeah, confusing, I know)
-    fn = filename.split /(?<=.)\.(?=[^.])(?!.*\.[^.])/m
+    fn = filename.split(/(?<=.)\.(?=[^.])(?!.*\.[^.])/m)
 
     # We now have one or two parts (depending on whether we could find
     # a suitable period). For each of these parts, replace any unwanted
     # sequence of characters with an underscore
-    fn.map! { |s| s.gsub /[^a-z0-9\-]+/i, "_" }
+    fn.map! { |s| s.gsub(/[^a-z0-9\-]+/i, "_") }
 
     # Finally, join the parts with a period and return the result
-    return fn.join "."
+    fn.join "."
   end
 
   def can?(ability)
@@ -108,20 +110,22 @@ module ApplicationHelper
     safe_join(messages)
   end
 
-  def percentage(x, y, precision: 0)
+  def percentage(x, y, precision: 0) # rubocop:todo Naming/MethodParameterName
     return "-" unless y > 0
+
     number_to_percentage((x / y.to_f) * 100, precision: precision)
   end
 
   private
 
   def user_session_data_whitelist
-    [:email, :last_name, :first_name, :street_address, :city, :state, :zipcode,
-     :country_code, :phone]
+    %i[email last_name first_name street_address city state zipcode
+       country_code phone]
   end
 
   def current_user_data(field)
     return nil unless user_session_data_whitelist.include? field
+
     current_user.try(field)
   end
 end

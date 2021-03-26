@@ -46,7 +46,7 @@ describe ActionCloner do
   shared_examples "properly duplicates campaign" do |enable_mthd, model|
     let(:page) do
       FactoryGirl.create(:action_page, enable_mthd => true,
-                         model => FactoryGirl.create(model))
+                                       model => FactoryGirl.create(model))
     end
     let(:clone) { described_class.run(page) }
     it "does not persist" do
@@ -66,10 +66,10 @@ describe ActionCloner do
   it_behaves_like "properly duplicates campaign", :enable_petition, :petition
   it_behaves_like "properly duplicates campaign", :enable_call, :call_campaign
   it_behaves_like "properly duplicates campaign", :enable_congress_message,
-    :congress_message_campaign
+                  :congress_message_campaign
 
   def filter_attrs(attrs)
-    attrs_not_cloned = %w(published archived created_at updated_at slug id)
+    attrs_not_cloned = %w[published archived created_at updated_at slug id]
     attrs.tap do |hash|
       attrs_not_cloned.each { |a| hash.delete a }
     end

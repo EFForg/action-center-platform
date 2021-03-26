@@ -25,9 +25,7 @@ class ApplicationController < ActionController::Base
   # `cors_allowed_domains` in application.yml, and if it is, the response gets
   # a header allowing the requesting domain to use this app's CRUD
   def cors
-    if Actioncenter::Application.config.cors_allowed_domains.include? request.env["HTTP_ORIGIN"] or Actioncenter::Application.config.cors_allowed_domains.include? "*"
-      response.headers["Access-Control-Allow-Origin"] = request.env["HTTP_ORIGIN"]
-    end
+    response.headers["Access-Control-Allow-Origin"] = request.env["HTTP_ORIGIN"] if Actioncenter::Application.config.cors_allowed_domains.include?(request.env["HTTP_ORIGIN"]) || Actioncenter::Application.config.cors_allowed_domains.include?("*")
   end
 
   def self.manifest(value = nil)
@@ -60,7 +58,7 @@ class ApplicationController < ActionController::Base
 
   def configure_permitted_parameters
     devise_parameter_sanitizer.permit(:sign_up,
-                                      keys: [:record_activity, :subscribe])
+                                      keys: %i[record_activity subscribe])
   end
 
   def set_locale

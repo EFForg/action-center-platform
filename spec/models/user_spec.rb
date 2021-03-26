@@ -17,16 +17,16 @@ describe User do
 
   describe "password management" do
     it "resets password reset tokens upon email change" do
-      user.update_attributes(reset_password_token: "stub_token")
-      user.update_attributes(email: "2" + user.email)
+      user.update(reset_password_token: "stub_token")
+      user.update(email: "2" + user.email)
       user.confirm
       expect(user.reset_password_token).to be_nil
     end
 
     it "resets password reset tokens upon password change" do
-      user.update_attributes(reset_password_token: "stub_token")
+      user.update(reset_password_token: "stub_token")
       expect(user.reset_password_token).not_to be_nil
-      user.update_attributes(password: "My new password is pretty great")
+      user.update(password: "My new password is pretty great")
       expect(user.reset_password_token).to be_nil
     end
 
@@ -85,12 +85,12 @@ end
 
 def track_signature(action_page)
   ahoy.track "Action",
-    { type: "action", actionType: "signature", actionPageId: action_page.id },
-    action_page: action_page
+             { type: "action", actionType: "signature", actionPageId: action_page.id },
+             action_page: action_page
 end
 
 def track_view(action_page)
   ahoy.track "View",
-    { type: "action", actionType: "view", actionPageId: action_page.id },
-    action_page: action_page
+             { type: "action", actionType: "view", actionPageId: action_page.id },
+             action_page: action_page
 end

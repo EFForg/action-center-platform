@@ -4,16 +4,13 @@ module ActionPageHelper
       action_page.share_message, action_page_url(action_page)
     ].map(&:presence).compact.join(" ")
 
-    suffix = if Rails.application.config.twitter_handle
-               " via @#{Rails.application.config.twitter_handle}"
-             end
+    suffix = (" via @#{Rails.application.config.twitter_handle}" if Rails.application.config.twitter_handle)
     message += suffix if action_page.share_message.to_s.length + suffix.length <= 117
 
     related = Rails.application.config.twitter_related.to_a.join(",")
 
     "https://twitter.com/intent/tweet?text=#{u message}&related=#{related}"
   end
-
 
   def tweet_url(target, message)
     message = [target, message].compact.join(" ")
@@ -70,16 +67,17 @@ module ActionPageHelper
     title = @actionPage.title
     name = html_escape(options[:name])
 
-    email_text.
-      gsub(/\$TITLE/, title).
-      gsub(/\$URL/, url).
-      gsub(/\$NAME/, name)
+    email_text
+      .gsub(/\$TITLE/, title)
+      .gsub(/\$URL/, url)
+      .gsub(/\$NAME/, name)
   end
 
   def visible_partners
     mailings_enabled = @actionPage.partners.includes(:partnerships)
                                   .where(partnerships: { enable_mailings: true })
     return mailings_enabled if params[:partner].blank?
+
     mailings_enabled.where(code: params[:partner])
   end
 end

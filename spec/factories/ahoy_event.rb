@@ -2,20 +2,24 @@ FactoryGirl.define do
   factory :ahoy_view, class: Ahoy::Event do
     id { SecureRandom.uuid }
     name "View"
-    properties { {
-      type: "action",
-      actionType: "view"
-    } }
+    properties do
+      {
+        type: "action",
+        actionType: "view"
+      }
+    end
     time Time.zone.now
   end
 
   factory :ahoy_signature, class: Ahoy::Event do
     id { SecureRandom.uuid }
     name "Action"
-    properties { {
-      type: "action",
-      actionType: "signature"
-    } }
+    properties do
+      {
+        type: "action",
+        actionType: "signature"
+      }
+    end
     time Time.zone.now
   end
 end

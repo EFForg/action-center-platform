@@ -4,9 +4,9 @@ describe ActionPage do
   let(:attr) { FactoryGirl.attributes_for :action_page }
 
   it "creates a new instance given a valid attribute" do
-    expect {
+    expect do
       ActionPage.create!(attr)
-    }.to change { ActionPage.count }.by(1)
+    end.to change { ActionPage.count }.by(1)
   end
 
   it "knows when to redirect from an archived action" do
@@ -29,12 +29,11 @@ describe ActionPage do
     let(:new_slug) { "a-better-slug" }
 
     it "has a friendly slug" do
-      expect(page.slug).to eq(page.title.downcase.gsub(" ", "-"))
+      expect(page.slug).to eq(page.title.downcase.tr(" ", "-"))
     end
 
     it "updates the slug when title changes" do
-      expect { page.update(title: "something else") }
-        .to change { page.slug }
+      expect { page.update(title: "something else") }.to change { page.slug }
     end
 
     it "does not update slug when unrelated attr changes" do
@@ -124,7 +123,7 @@ describe ActionPage do
       calls = ActionPage.type("call")
       expect(calls).to contain_exactly(call)
 
-      calls_and_tweets = ActionPage.type(["call", "tweet"])
+      calls_and_tweets = ActionPage.type(%w[call tweet])
       expect(calls_and_tweets).to contain_exactly(call, tweet)
 
       all = ActionPage.type("call", "congress_message", "email", "petition", "tweet")
@@ -149,19 +148,19 @@ describe ActionPage do
       before { FactoryGirl.create(:action_page) }
 
       it_behaves_like "returns only the given status", "archived",
-        [:action_page, { archived: true }]
+                      [:action_page, { archived: true }]
 
       it_behaves_like "returns only the given status", "victory",
-        [:action_page, { victory: true }]
+                      [:action_page, { victory: true }]
 
       it_behaves_like "returns only the given status", "draft",
-        [:action_page, { published: false }]
+                      [:action_page, { published: false }]
     end
 
     context "live action" do
       before { FactoryGirl.create(:action_page, published: false) }
       it_behaves_like "returns only the given status", "live",
-        [:action_page, { published: true }]
+                      [:action_page, { published: true }]
     end
 
     it "raises an ArgumentError when an invalid status is given" do

@@ -7,9 +7,7 @@ FactoryGirl.define do
   end
 
   factory :user, parent: :unconfirmed_user do
-    after(:build) do |user|
-      user.skip_confirmation!
-    end
+    after(:build, &:skip_confirmation!)
   end
 
   factory :admin_user, parent: :user do

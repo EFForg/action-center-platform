@@ -5,11 +5,12 @@ class RelatedContent
 
   def load
     return if url.blank?
+
     begin
       open_page
       @loaded_successfully = true
     rescue OpenURI::HTTPError
-      return
+      nil
     end
   end
 
@@ -23,6 +24,7 @@ class RelatedContent
 
   def image
     return @image if @image
+
     og_url = page.css("meta[property='og:image']")
     @image = if og_url.blank?
                ""
@@ -35,7 +37,9 @@ class RelatedContent
 
   attr_reader :url, :page, :loaded_successfully
 
+  # rubocop:todo Naming/MemoizedInstanceVariableName
   def open_page
     @page ||= Nokogiri::HTML(open(url))
   end
+  # rubocop:enable Naming/MemoizedInstanceVariableName
 end

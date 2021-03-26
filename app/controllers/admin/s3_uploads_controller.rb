@@ -2,11 +2,11 @@ class Admin::S3UploadsController < Admin::ApplicationController
   # GET /admin/source_files
   # GET /admin/source_files.json
   def index
-    if params[:f].present?
-      source_files = SourceFile.where("LOWER(file_name) LIKE ?", "%#{params[:f]}%".downcase)
-    else
-      source_files = SourceFile.limit(3)
-    end
+    source_files = if params[:f].present?
+                     SourceFile.where("LOWER(file_name) LIKE ?", "%#{params[:f]}%".downcase)
+                   else
+                     SourceFile.limit(3)
+                   end
 
     source_files = source_files.order(created_at: :desc)
 
@@ -22,15 +22,15 @@ class Admin::S3UploadsController < Admin::ApplicationController
     @source_file = SourceFile.new(parameters)
     respond_to do |format|
       if @source_file.save
-        format.html {
+        format.html do
           render json: @source_file.to_jq_upload,
-          content_type: "text/html",
-          layout: false
-        }
-        format.json { render json: @source_file.to_jq_upload, status: :created }
+                 content_type: "text/html",
+                 layout: false
+        end
+        format.json { render json: @source_file.to_jq_upload, status: 201 }
       else
         format.html { render "new" }
-        format.json { render json: @source_file.errors, status: :unprocessable_entity }
+        format.json { render json: @source_file.errors, status: 422 }
       end
     end
   end
@@ -52,7 +52,7 @@ class Admin::S3UploadsController < Admin::ApplicationController
   # for /admin/action_page/new
   # GET /admin/source_files/generate_key
   def generate_key
-    uid = SecureRandom.uuid.gsub(/-/, "")
+    uid = SecureRandom.uuid.delete("-")
 
     render json: {
       key: "uploads/#{uid}/#{params[:filename]}",
