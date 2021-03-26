@@ -7,8 +7,8 @@ describe CiviCRM do
 
   describe "self.get_checksum" do
     it "calls the civicrm API with method 'generate_checksum'" do
-      CiviCRM::get_checksum(123)
-      assert_requested :post, CiviCRM::supporters_api_url, body: /generate_checksum/
+      CiviCRM.get_checksum(123)
+      assert_requested :post, CiviCRM.supporters_api_url, body: /generate_checksum/
     end
   end
 end

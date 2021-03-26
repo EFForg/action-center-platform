@@ -58,8 +58,8 @@ RSpec.describe RequestOriginValidation do
 
       it "should raise an error for POST requests" do
         request["post?"] = true
-        expect { controller.verify_request_origin }.
-          to raise_error(ActionController::InvalidCrossOriginRequest)
+        expect { controller.verify_request_origin }
+          .to raise_error(ActionController::InvalidCrossOriginRequest)
       end
     end
   end

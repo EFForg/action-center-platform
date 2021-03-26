@@ -50,7 +50,7 @@ class CongressMessageCampaign < ActiveRecord::Base
     CongressForms.member_fills_url(campaign_tag)
   end
 
-  def target_bioguide_list=(x)
+  def target_bioguide_list=(x) # rubocop:todo Naming/MethodParameterName
     self.target_bioguide_ids = x.map(&:presence).compact.join(",")
   end
 
@@ -65,7 +65,7 @@ class CongressMessageCampaign < ActiveRecord::Base
   private
 
   def target_bioguide_text_or_default(custom_text, default)
-    if !target_bioguide_ids or custom_text.blank?
+    if !target_bioguide_ids || custom_text.blank?
       default
     else
       custom_text

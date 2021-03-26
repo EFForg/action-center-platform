@@ -2,7 +2,7 @@ require "rails_helper"
 require "rake"
 
 describe "User-related rake tasks" do
-  let(:user) { FactoryGirl.create(:user) }
+  let(:user) { FactoryBot.create(:user) }
   let(:email) { user.email }
   let(:run_task) { Rake.application.invoke_task "#{task}[#{email}]" }
 
@@ -56,7 +56,7 @@ describe "User-related rake tasks" do
   end
 
   describe "users:remove_admin" do
-    let(:user) { FactoryGirl.create(:user, admin: true) }
+    let(:user) { FactoryBot.create(:user, admin: true) }
     let(:task) { "users:remove_admin" }
 
     it "grants admin status to the given user" do

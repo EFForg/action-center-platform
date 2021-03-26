@@ -9,11 +9,11 @@ RSpec.describe LoggedInvisibleCaptcha, type: :controller do
 
   it "blocks requests that fill the honeypot" do
     expect(controller).not_to receive(:create)
-    post :create, foo: "bar"
+    post :create, params: { foo: "bar" }
   end
 
   it "logs spammy requests to Sentry" do
     expect(Raven).to receive(:capture_message)
-    post :create, foo: "bar"
+    post :create, params: { foo: "bar" }
   end
 end

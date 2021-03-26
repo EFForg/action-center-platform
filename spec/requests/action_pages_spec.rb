@@ -3,7 +3,7 @@ require "rails_helper"
 RSpec.describe "Action Pages", type: :request do
   describe "small petition" do
     before(:each) do
-      @action_page = FactoryGirl.create(:petition_with_99_signatures_needing_1_more).action_page
+      @action_page = FactoryBot.create(:petition_with_99_signatures_needing_1_more).action_page
     end
 
     it "lists action pages" do
@@ -25,7 +25,7 @@ RSpec.describe "Action Pages", type: :request do
 
   describe "large petition" do
     it "should present the count of signatures" do
-      @action_page = FactoryGirl.create(:petition_complete_with_one_thousand_signatures).action_page
+      @action_page = FactoryBot.create(:petition_complete_with_one_thousand_signatures).action_page
 
       path = "#{action_page_path(@action_page)}/signature_count"
       get path

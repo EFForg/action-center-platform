@@ -1,4 +1,4 @@
-class CreateCongressMessageCampaigns < ActiveRecord::Migration
+class CreateCongressMessageCampaigns < ActiveRecord::Migration[5.0]
   class CongressMessageCampaign < ActiveRecord::Base
     has_one :action_page
   end

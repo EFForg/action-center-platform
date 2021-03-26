@@ -2,15 +2,15 @@ require "rails_helper"
 
 RSpec.feature "Congress actions", type: :feature, js: true do
   let!(:action) do
-    FactoryGirl.create(:action_page_with_congress_message)
+    FactoryBot.create(:action_page_with_congress_message)
   end
-  let!(:members) {
-    [FactoryGirl.create(:congress_member,
-                        twitter_id: "sisko",
-                        state: "CA", bioguide_id: "C000880"),
-     FactoryGirl.create(:congress_member, state: "CA", bioguide_id: "A000360")]
-  }
-  let(:location) {
+  let!(:members) do
+    [FactoryBot.create(:congress_member,
+                       twitter_id: "sisko",
+                       state: "CA", bioguide_id: "C000880"),
+     FactoryBot.create(:congress_member, state: "CA", bioguide_id: "A000360")]
+  end
+  let(:location) do
     OpenStruct.new(success: true,
                    street: "1630 Ravello Drive",
                    city: "Sunnydale",
@@ -18,16 +18,16 @@ RSpec.feature "Congress actions", type: :feature, js: true do
                    zip4: 1234,
                    state: "CA",
                    district: 10)
-  }
+  end
 
   before do
     allow(SmartyStreets).to receive(:get_location).and_return(location)
-    stub_request(:post, /retrieve-form-elements/).
-      with(body: { "bio_ids" => ["C000880", "A000360"] }).
-      and_return(status: 200, body: file_fixture("retrieve-form-elements.json"))
-    stub_request(:post, /retrieve-form-elements/).
-      with(body: { "bio_ids" => ["", "C000880", "A000360"] }).
-      and_return(status: 200, body: file_fixture("retrieve-form-elements.json"))
+    stub_request(:post, /retrieve-form-elements/)
+      .with(body: { "bio_ids" => %w[C000880 A000360] })
+      .and_return(status: 200, body: file_fixture("retrieve-form-elements.json"))
+    stub_request(:post, /retrieve-form-elements/)
+      .with(body: { "bio_ids" => ["", "C000880", "A000360"] })
+      .and_return(status: 200, body: file_fixture("retrieve-form-elements.json"))
     stub_request(:post, /fill-out-form/).and_return(status: 200, body: "{}")
   end
 

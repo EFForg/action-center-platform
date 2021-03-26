@@ -2,7 +2,7 @@ require "rails_helper"
 
 describe SourceFile do
   before(:each) do
-    @source_file = FactoryGirl.create(:source_file, key: "meh.jpg")
+    @source_file = FactoryBot.create(:source_file, key: "meh.jpg")
   end
 
   it "should generate full_urls correctly when amazon_bucket_url is set" do

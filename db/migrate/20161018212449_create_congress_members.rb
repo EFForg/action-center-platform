@@ -1,4 +1,4 @@
-class CreateCongressMembers < ActiveRecord::Migration
+class CreateCongressMembers < ActiveRecord::Migration[5.0]
   def change
     create_table :congress_members do |t|
       t.string :full_name,   null: false

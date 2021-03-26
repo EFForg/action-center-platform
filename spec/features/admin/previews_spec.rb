@@ -1,12 +1,12 @@
 require "rails_helper"
 
 RSpec.describe "Admin action page previews", type: :feature, js: true do
-  before { sign_in_user(FactoryGirl.create(:admin_user)) }
+  before { sign_in_user(FactoryBot.create(:admin_user)) }
 
   xit "works for tweet actions" do
     # window switching is broken, fixing previews for now
-    tweet = FactoryGirl.create(:tweet)
-    action = FactoryGirl.create(:action_page_with_tweet, tweet: tweet)
+    tweet = FactoryBot.create(:tweet)
+    action = FactoryBot.create(:action_page_with_tweet, tweet: tweet)
     visit edit_admin_action_page_path(action)
     fill_in "Title", with: "New title"
     click_on "Action"

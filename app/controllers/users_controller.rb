@@ -7,11 +7,11 @@ class UsersController < ApplicationController
   end
 
   def update
-    if current_user.update_attributes(user_params)
-      flash[:notice] = "You updated your account successfully."
-    else
-      flash[:notice] = "Could not update your account."
-    end
+    flash[:notice] = if current_user.update(user_params)
+                       "You updated your account successfully."
+                     else
+                       "Could not update your account."
+                     end
 
     if request.xhr?
       render json: {}, status: 200
@@ -21,7 +21,9 @@ class UsersController < ApplicationController
   end
 
   def clear_activity
+    # rubocop:todo Rails/SkipsModelValidations
     current_user.events.update_all(user_id: nil)
+    # rubocop:enable Rails/SkipsModelValidations
     redirect_to user_path
   end
 

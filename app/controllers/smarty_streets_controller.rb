@@ -38,10 +38,8 @@ class SmartyStreetsController < ApplicationController
   end
 
   def proxy_request(url)
-    begin
-      return RestClient.get url, accept: :json, 'X-Include-Invalid': "true"
-    rescue => e
-      logger.error e
-    end
+    RestClient.get url, accept: :json, 'X-Include-Invalid': "true"
+  rescue StandardError => e
+    logger.error e
   end
 end

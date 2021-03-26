@@ -1,4 +1,3 @@
-
 When /^there is a persisted ([\w:]+)$/ do |model|
   @persisted_records ||= []
   @persisted_records << Kernel.const_get(model).create!

@@ -1,6 +1,6 @@
 Given(/^a congress message campaign exists$/) do
   stub_legislators
-  @action_page = FactoryGirl.create(:action_page_with_congress_message)
+  @action_page = FactoryBot.create(:action_page_with_congress_message)
 end
 
 When(/^I browse to an embedded action targetting Nancy Pelosi and Kamala Harris$/) do
@@ -49,7 +49,7 @@ Given(/^"(.*?)" is a partner on the action$/) do |name|
 end
 
 Given(/^a petition action exists$/) do
-  @action_page = FactoryGirl.create(:petition).action_page
+  @action_page = FactoryBot.create(:petition).action_page
 end
 
 Given(/^local affiliations are allowed$/) do
@@ -58,13 +58,13 @@ Given(/^local affiliations are allowed$/) do
 end
 
 Given(/^a local organizing campaign/) do
-  @action_page = FactoryGirl.create(:local_organizing_petition).action_page
+  @action_page = FactoryBot.create(:local_organizing_petition).action_page
 end
 
 Given(/^the petition has 100 signatures with affiliations/) do
   100.times {
-    signature = FactoryGirl.create(:signature, petition: @action_page.petition)
-    signature.affiliations << FactoryGirl.create(:affiliation, institution: @action_page.institutions.first)
+    signature = FactoryBot.create(:signature, petition: @action_page.petition)
+    signature.affiliations << FactoryBot.create(:affiliation, institution: @action_page.institutions.first)
   }
 end
 

@@ -23,9 +23,8 @@ module Actioncenter
     config.eager_load_paths += %W(#{config.root}/lib)
     config.assets.paths << Rails.root.join('node_modules')
 
-    #config.logger = ActiveSupport::Logger.new(STDOUT)
     config.to_prepare do
-          Devise::Mailer.layout "email" # email.haml or email.erb
+      Devise::Mailer.layout "email" # email.haml or email.erb
     end
 
     config.exceptions_app = ->(env) { ExceptionsController.action(:show).call(env) }
@@ -51,7 +50,6 @@ module Actioncenter
     config.call_tool_url = Rails.application.secrets.call_tool_url
     config.congress_forms_url = Rails.application.secrets.congress_forms_url
     config.time_zone = Rails.application.secrets.time_zone || "Eastern Time (US & Canada)"
-    config.active_record.raise_in_transactional_callbacks = true
 
     # fix file attachment:
     # https://github.com/EFForg/action-center-platform/pull/408#issuecomment-381269915

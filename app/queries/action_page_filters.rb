@@ -14,6 +14,7 @@ class ActionPageFilters
 
     filters.each do |f, val|
       next unless valid_query?(f, val)
+
       @relation = if NAMED_SCOPES.include? f
                     relation.send(f, val)
                   else
@@ -25,8 +26,8 @@ class ActionPageFilters
 
   private
 
-  NAMED_SCOPES = %i(type status).freeze
-  VALID_FILTERS = %i(type status author category).freeze
+  NAMED_SCOPES = %i[type status].freeze
+  VALID_FILTERS = %i[type status author category].freeze
 
   attr_accessor :relation, :filters
 
@@ -35,7 +36,8 @@ class ActionPageFilters
   end
 
   def process_date_range
-    return unless filters[:date_range].present?
+    return if filters[:date_range].blank?
+
     start_date, end_date = parse_date_range
     @relation = relation.where(created_at: start_date..(end_date + 1.day))
   end
@@ -44,14 +46,12 @@ class ActionPageFilters
     filters[:date_range].split(" - ").map { |d| Time.zone.parse(d) }
   end
 
-  def valid_query?(f, val)
+  def valid_query?(f, val) # rubocop:todo Naming/MethodParameterName
     validate_filter_name f
     !empty_value? val
   end
 
-  def validate_filter_name(f)
-    unless VALID_FILTERS.include? f
-      raise ArgumentError, "unrecognized filter #{f}"
-    end
+  def validate_filter_name(f) # rubocop:todo Naming/MethodParameterName
+    raise ArgumentError, "unrecognized filter #{f}" unless VALID_FILTERS.include? f
   end
 end

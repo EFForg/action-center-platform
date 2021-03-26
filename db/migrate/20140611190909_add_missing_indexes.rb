@@ -1,4 +1,4 @@
-class AddMissingIndexes < ActiveRecord::Migration
+class AddMissingIndexes < ActiveRecord::Migration[5.0]
   def change
     add_index :activities, :user_id
     add_index :activities, :action_page_id

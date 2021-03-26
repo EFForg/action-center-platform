@@ -2,8 +2,8 @@ require "rails_helper"
 
 describe UserMailer, type: :mailer do
   describe "instructions" do
-    let(:user) { FactoryGirl.create(:user) }
-    let(:action_page) { FactoryGirl.create(:action_page) }
+    let(:user) { FactoryBot.create(:user) }
+    let(:action_page) { FactoryBot.create(:action_page) }
 
     it "escapes HTML in names" do
       bad_name = "<a href='junk.org'>Mallory</a>"

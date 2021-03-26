@@ -6,14 +6,14 @@ class TopicCategory < ActiveRecord::Base
   def as_2d_array
     arr = []
     topic_sets.order(:tier).each do |ts|
-      arr.push ts.topics.map { |t| t.name }
+      arr.push ts.topics.map(&:name)
     end
     arr
   end
 
   def best_match(options)
     topics = topic_sets.order(:tier).reduce([]) do |arr, ts|
-      arr += ts.topics
+      arr + ts.topics
     end
 
     topics.each do |topic|

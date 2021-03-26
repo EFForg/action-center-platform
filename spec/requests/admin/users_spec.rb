@@ -2,14 +2,14 @@ require "rails_helper"
 
 RSpec.describe "Admin Users", type: :request do
   before(:each) do
-    admin = FactoryGirl.create(:admin_user)
+    admin = FactoryBot.create(:admin_user)
     login admin
   end
 
   describe "#index" do
     before do
       10.times do |n|
-        FactoryGirl.create(:user, created_at: Time.now - n.days, email: "user-#{n}@example.com")
+        FactoryBot.create(:user, created_at: Time.zone.now - n.days, email: "user-#{n}@example.com")
       end
     end
 

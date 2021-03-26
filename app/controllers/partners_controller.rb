@@ -6,9 +6,9 @@ class PartnersController < ApplicationController
   # GET /partners/1
   # GET /partners/1.json
   def show
-    @subscriptions = @partner.subscriptions.
-      paginate(page: params[:page], per_page: 10).
-      order("id desc")
+    @subscriptions = @partner.subscriptions
+                             .paginate(page: params[:page], per_page: 10)
+                             .order("id desc")
   end
 
   def csv
@@ -24,24 +24,22 @@ class PartnersController < ApplicationController
         format.json { head :no_content }
       else
         format.html { render "edit" }
-        format.json { render json: @partner.errors, status: :unprocessable_entity }
+        format.json { render json: @partner.errors, status: 422 }
       end
     end
   end
 
   def add_user
-    user = User.find_by_email(params[:email])
+    user = User.find_by(email: params[:email])
     if user.nil?
       flash[:notice] = "Couldn't find a user by email #{params[:email]}"
+    elsif user.partner == @partner
+      flash[:notice] = "That user is already linked to #{@partner.name}"
+    elsif user.partner.nil?
+      user.partner = @partner
+      user.save
     else
-      if user.partner.nil?
-        user.partner = @partner
-        user.save
-      elsif user.partner == @partner
-        flash[:notice] = "That user is already linked to #{@partner.name}"
-      else
-        flash[:notice] = "That user is linked to another partner: #{user.partner.name}"
-      end
+      flash[:notice] = "That user is linked to another partner: #{user.partner.name}"
     end
     redirect_to @partner
   end
@@ -66,9 +64,7 @@ class PartnersController < ApplicationController
 
   def authenticate
     authenticate_user!
-    unless current_user.admin?
-      raise ActiveRecord::RecordNotFound if current_user.partner != @partner
-    end
+    raise ActiveRecord::RecordNotFound if !current_user.admin? && (current_user.partner != @partner)
   end
 
   # Never trust parameters from the scary internet, only allow the white list through.

@@ -1,4 +1,4 @@
-class AddFieldsForToolsToActionPages < ActiveRecord::Migration
+class AddFieldsForToolsToActionPages < ActiveRecord::Migration[5.0]
   def change
     add_column :action_pages, :enable_call, :boolean, default: false
     add_column :action_pages, :enable_petition, :boolean, default: false

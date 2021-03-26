@@ -6,7 +6,7 @@ class Admin::UsersController < Admin::ApplicationController
 
   def update
     user = User.find(params[:id])
-    if user.update_attributes(user_params)
+    if user.update(user_params)
       flash[:notice] = "#{user.email} was updated"
     else
       flash[:error] = "Could not update #{user.email}"

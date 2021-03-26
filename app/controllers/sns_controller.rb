@@ -40,7 +40,7 @@ class SnsController < ApplicationController
 
   def set_message
     body = JSON.parse(request.body.read)
-    return JSON.parse(body["Message"])
+    JSON.parse(body["Message"])
   end
 
   def log_request

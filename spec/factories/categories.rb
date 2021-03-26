@@ -1,5 +1,5 @@
-FactoryGirl.define do
+FactoryBot.define do
   factory :category do
-    title "Free Speech"
+    title { "Free Speech" }
   end
 end

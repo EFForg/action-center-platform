@@ -7,7 +7,7 @@
 <section class="more-actions">
   <%= form_tag action_page_index_path, method: :get, id: "action-page-filter" do %>
     <%= select_tag :category,
-      options_from_collection_for_select(Category.all.order(:title).uniq,
+      options_from_collection_for_select(Category.all.order(:title).distinct,
                                          :title, :title, params[:category]),
       include_blank: "All campaigns" %>
   <% end %>
@@ -18,7 +18,7 @@
             <div>
               <%= link_to action_page_path(actionPage) do%>
                 <div class="image">
-                  <%= image_tag(actionPage.featured_image) %>
+                  <%= image_tag(actionPage.featured_image.url) %>
                 </div>
               <% end %>
 

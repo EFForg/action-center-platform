@@ -2,11 +2,13 @@ module AmazonCredentials
   # This module is primarily for paperclip config
   def amazon_credentials
     bucket_url_options = {}
-    bucket_url_options = {
-      s3_host_alias: Rails.application.secrets.amazon_bucket_url,
-      url: ":s3_alias_url",
-      path: "/:class/:attachment/:id_partition/:style/:filename"
-    } unless Rails.application.secrets.amazon_bucket_url.nil?
+    unless Rails.application.secrets.amazon_bucket_url.nil?
+      bucket_url_options = {
+        s3_host_alias: Rails.application.secrets.amazon_bucket_url,
+        url: ":s3_alias_url",
+        path: "/:class/:attachment/:id_partition/:style/:filename"
+      }
+    end
 
     {
       storage: Rails.application.secrets.storage.to_sym,
@@ -27,6 +29,6 @@ module AmazonCredentials
   end
 
   def self.build_s3_host_name
-    "s3-" + Rails.application.secrets.amazon_region + ".amazonaws.com"
+    "s3-#{Rails.application.secrets.amazon_region}.amazonaws.com"
   end
 end

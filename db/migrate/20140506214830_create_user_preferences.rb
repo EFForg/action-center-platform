@@ -1,4 +1,4 @@
-class CreateUserPreferences < ActiveRecord::Migration
+class CreateUserPreferences < ActiveRecord::Migration[5.0]
   def change
     create_table :user_preferences do |t|
       t.integer :user_id, null: false

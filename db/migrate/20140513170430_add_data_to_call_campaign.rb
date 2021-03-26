@@ -1,4 +1,4 @@
-class AddDataToCallCampaign < ActiveRecord::Migration
+class AddDataToCallCampaign < ActiveRecord::Migration[5.0]
   def change
     add_column :call_campaigns, :title, :string
     add_column :call_campaigns, :message, :text

@@ -6,6 +6,8 @@ class CongressScorecard < ActiveRecord::Base
   belongs_to :action_page
 
   def increment!
+    # rubocop:todo Rails/SkipsModelValidations
     CongressScorecard.increment_counter(:counter, id) # Increments counter atomically
+    # rubocop:enable Rails/SkipsModelValidations
   end
 end

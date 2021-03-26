@@ -1,4 +1,4 @@
-class AddAttachmentFeaturedImageToActionPages < ActiveRecord::Migration
+class AddAttachmentFeaturedImageToActionPages < ActiveRecord::Migration[5.0]
   def self.up
     change_table :action_pages do |t|
       t.attachment :featured_image

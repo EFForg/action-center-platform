@@ -1,13 +1,11 @@
 class Admin::InstitutionsController < Admin::ApplicationController
-  before_action :set_institution, only: %i(destroy edit update)
-  before_action :set_categories, only: %i(new edit upload index)
+  before_action :set_institution, only: %i[destroy edit update]
+  before_action :set_categories, only: %i[new edit upload index]
 
   def index
     @institutions = Institution.includes(:action_pages).all.order(created_at: :desc)
     @institutions = @institutions.search(params[:q]) if params[:q].present?
-    if params[:category].present? && params[:category] != "All"
-      @institutions = @institutions.where(category: params[:category])
-    end
+    @institutions = @institutions.where(category: params[:category]) if params[:category].present? && params[:category] != "All"
     @institutions = @institutions.paginate(page: params[:page], per_page: 20)
   end
 
@@ -42,11 +40,7 @@ class Admin::InstitutionsController < Admin::ApplicationController
     if names.empty?
       redirect_to action: "upload", notice: "Import failed. Please check CSV formatting"
     else
-      category = if import_params[:new_category].blank?
-                   import_params[:category]
-                 else
-                   import_params[:new_category]
-                 end
+      category = import_params[:new_category].presence || import_params[:category]
       Institution.delay.import(category, names)
       redirect_to action: "index", notice: "Successfully imported #{names.length} targets"
     end

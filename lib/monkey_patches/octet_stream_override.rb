@@ -8,11 +8,11 @@
 # Additionally, this only allows paperclip to interact with image files
 #
 # The class we're patching is here: https://github.com/thoughtbot/paperclip/blob/fbdcbe8da30138dac5500e4291e7b279491d1316/lib/paperclip/media_type_spoof_detector.rb
-
 module MonkeyPatches
   module OctetStreamOverride
     def spoofed?
-      return true unless is_image?
+      return true unless image?
+
       override_header_type if supplied_content_type == "binary/octet-stream"
       if has_name? && has_extension? && media_type_mismatch? && mapping_override_mismatch?
         Paperclip.log("Content Type Spoof: Filename #{File.basename(@name)} (#{supplied_content_type} from Headers, #{content_types_from_name.map(&:to_s)} from Extension), content type discovered from file command: #{calculated_content_type}. See documentation to allow this combination.")
@@ -24,8 +24,9 @@ module MonkeyPatches
 
     private
 
-    def is_image?
-      return true if /\Aimage\/.*\Z/.match? calculated_content_type
+    def image?
+      return true if %r{\Aimage/.*\Z}.match? calculated_content_type
+
       Paperclip.log("Attempted non-image upload: Filename #{File.basename(@name)} (#{supplied_content_type}")
       false
     end

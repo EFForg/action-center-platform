@@ -1,4 +1,4 @@
-class ChangeSubscriptionDefaults < ActiveRecord::Migration
+class ChangeSubscriptionDefaults < ActiveRecord::Migration[5.0]
   def up
     change_column :users, :subscribe, :boolean, default: false
     change_column :users, :record_activity, :boolean, default: false
