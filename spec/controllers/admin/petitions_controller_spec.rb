@@ -34,7 +34,7 @@ RSpec.describe Admin::PetitionsController, type: :controller do
   describe "DELETE #destroy_signatures" do
     let(:petition) { FactoryBot.create(:petition) }
     let(:signatures) do
-      30.times.map { FactoryGirl.create(:signature, petition: petition) }
+      30.times.map { FactoryBot.create(:signature, petition: petition) }
     end
 
     it "should delete signatures from the signature_ids param" do
