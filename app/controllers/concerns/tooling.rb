@@ -7,7 +7,7 @@ module Tooling
     return unless @action_page
     @action_page.partners.each do |partner|
       if params["#{partner.code}_subscribe"] == "1"
-        Subscription.create!(partner_signup_params.merge(partner: partner))
+        Subscription.create(partner_signup_params.merge(partner: partner))
       end
     end
   end

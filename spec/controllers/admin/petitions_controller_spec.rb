@@ -34,19 +34,7 @@ RSpec.describe Admin::PetitionsController, type: :controller do
   describe "DELETE #destroy_signatures" do
     let(:petition) { FactoryGirl.create(:petition) }
     let(:signatures) do
-      30.times.map do
-        petition.signatures.create(
-          first_name: "Save Kittens",
-          last_name: "Save kittens in great detail",
-          email: "johnsmith@eff.org",
-          country_code: "US",
-          zipcode: "94109",
-          street_address: "815 Eddy Street",
-          city: "San Francisco",
-          state: "CA",
-          anonymous: false
-        )
-      end
+      30.times.map { FactoryGirl.create(:signature, petition: petition) }
     end
 
     it "should delete signatures from the signature_ids param" do

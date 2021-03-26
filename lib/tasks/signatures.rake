@@ -19,16 +19,20 @@ namespace :signatures do
 
   desc "Deduplicate signatures from petitions and subscriptions from partners"
   task deduplicate: :environment do
-    sig_dups = Signature.group(:petition_id, :email).having("count(*) > 1")
-    sig_dups.pluck(:petition_id, :email).each do |petition_id, email|
-      ids = Signature.where(petition_id: petition_id, email: email).order(:created_at).ids
-      Signature.where(id: ids[1..-1]).delete_all
+    sig_dups = Signature.group(:email, :petition_id).count.map do |data, count|
+      data if count > 1
+    end.compact
+    sig_dups.each do |email, petition_id|
+      Signature.where(petition_id: petition_id, email: email)
+        .order(:created_at).drop(1).map(&:delete)
     end
 
-    sub_dups = Subscription.group(:partner_id, :email).having("count(*) > 1")
-    sub_dups.pluck(:partner_id, :email).each do |partner_id, email|
+    sub_dups = Subscription.group(:email, :partner_id).count.map do |data, count|
+      data if count > 1
+    end.compact
+    sub_dups.each do |email, partner_id|
       Subscription.where(partner_id: partner_id, email: email)
-        .order(:created_at)[1..-1].each(&:delete)
+                  .order(:created_at).drop(1).map(&:delete)
     end
   end
 end

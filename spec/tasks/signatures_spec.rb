@@ -41,7 +41,8 @@ describe "signatures namespace rake tasks" do
         FactoryGirl.create(:subscription, partner: partner)
       end
       let!(:dup_subscription) do
-        FactoryGirl.create(:subscription, email: email, partner: partner)
+        FactoryGirl.create(:subscription)
+                   .update_columns(email: email, partner_id: partner.id)
       end
 
       it "removes the newer duplicates" do
