@@ -4,11 +4,19 @@
   <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
   <meta name="viewport" content="width=device-width"/>
   <style>
+
+@font-face {
+font-family: 'Lato';
+src: url('https://eff.org/sites/all/themes/phoenix/fonts/Lato-Regular.woff') format('woff');
+font-weight: 400;
+font-style: normal;
+}
 /**********************************************
 * Ink v1.0.5 - Copyright 2013 ZURB Inc        *
 **********************************************/
 
 /* Client-specific Styles & Reset */
+
 
 #outlook a {
   padding:0;
@@ -88,7 +96,7 @@ table, tr, td {
 
 hr {
   color: #d9d9d9;
-  background-color: #d9d9d9;
+  background-color: #FFFFFF;
   height: 1px;
   border: none;
 }
@@ -101,10 +109,10 @@ table.body {
 }
 
 table.container {
-  width: 580px;
+  width: 600px;
   margin: 0 auto;
   text-align: inherit;
-  background-color:#f5f5f5;
+  background-color:#FFFFFF;
 }
 
 table.row {
@@ -324,8 +332,8 @@ img.center {
 /* Typography */
 
 body, table.body, h1, h2, h3, h4, h5, h6, p, td {
-  color: #222222;
-  font-family: "Helvetica", "Arial", sans-serif;
+  color: #000000;
+  font-family: "Lato", "Arial", sans-serif;
   font-weight: normal;
   padding:0;
   margin: 0;
@@ -334,10 +342,11 @@ body, table.body, h1, h2, h3, h4, h5, h6, p, td {
 }
 
 h1, h2, h3, h4, h5, h6 {
+  font-weight: 900;
   word-break: normal;
 }
 
-h1 {font-size: 23px; margin-bottom:15px; color: #a72323;}
+h1 {font-size: 23px; margin-bottom:15px; color: #000000;}
 h2 {font-size: 16px; font-weight:bold; margin-bottom:5px; margin-top:18px;}
 h3 {font-size: 32px;}
 h4 {font-size: 24px;}
@@ -359,21 +368,21 @@ small {
 }
 
 a {
-  color: #2ba6cb;
-  text-decoration: none;
+  color: #EC1E1E;
+  text-decoration: underline;
   font-weight:bold;
 }
 
 a:hover {
-  color: #2795b6 !important;
+  color: #b80101 !important;
 }
 
 a:active {
-  color: #2795b6 !important;
+  color: #b80101 !important;
 }
 
 a:visited {
-  color: #2ba6cb !important;
+  color: #b80101 !important;
 }
 
 h1 a,
@@ -382,7 +391,7 @@ h3 a,
 h4 a,
 h5 a,
 h6 a {
-  color: #2ba6cb;
+  color: #EC1E1E;
 }
 
 h1 a:active,
@@ -391,7 +400,7 @@ h3 a:active,
 h4 a:active,
 h5 a:active,
 h6 a:active {
-  color: #2ba6cb !important;
+  color: #b80101 !important;
 }
 
 h1 a:visited,
@@ -400,7 +409,7 @@ h3 a:visited,
 h4 a:visited,
 h5 a:visited,
 h6 a:visited {
-  color: #2ba6cb !important;
+  color: #b80101 !important;
 }
 
 /* Panels */
@@ -437,12 +446,15 @@ table.tiny-button td,
 table.small-button td,
 table.medium-button td,
 table.large-button td {
+  background: #EC1E1E;
+  border-bottom: 5px solid #B80101;
+  border-radius: 0;
+  color: #FFFFFF;
   display: block;
+  font-family: 'Lato','Trebuchet MS', sans-serif;
+  font-weight: 900;
   width: auto !important;
   text-align: center;
-  background: #2ba6cb;
-  border: 1px solid #2284a1;
-  color: #ffffff;
   padding: 8px 0;
 }
 
@@ -469,7 +481,7 @@ table.medium-button td a,
 table.large-button td a {
   font-weight: bold;
   text-decoration: none;
-  font-family: Helvetica, Arial, sans-serif;
+  font-family: 'Lato','Trebuchet MS', sans-serif;
   color: #ffffff;
   font-size: 16px;
 }
@@ -494,7 +506,8 @@ table.large-button td a {
 table.button:hover td,
 table.button:visited td,
 table.button:active td {
-  background: #2795b6 !important;
+  background: #b80101 !important;
+  border-bottom: 5px solid #B80101 !important;
 }
 
 table.button:hover td a,
@@ -508,7 +521,8 @@ table.tiny-button:hover td,
 table.small-button:hover td,
 table.medium-button:hover td,
 table.large-button:hover td {
-  background: #2795b6 !important;
+  background: #b80101 !important;
+  border-bottom: 5px solid #EC1E1E !important;
 }
 
 table.button:hover td a,
@@ -574,6 +588,17 @@ table.round td {
   -moz-border-radius: 500px;
   border-radius: 500px;
 }
+
+
+table.row.footer h1,
+table.row.footer h2,
+table.row.footer h3,
+table.row.footer h4,
+table.row.footer h5,
+table.row.footer p {
+  color: #464E4E;
+}
+
 
 /* Outlook First */
 
@@ -695,13 +720,12 @@ body.outlook p {
   </style>
   <style>
     .banner-wrapper {
-      padding: 1rem 2.3rem 1rem 1.8rem !important;
-      background-color: #007eff;
-      border-bottom: 5px solid #006fe2;
+      padding: 1rem 55px 1rem !important;
+      background-color: #FFFFFF;
     }
 
     .banner-wrapper img {
-      width: 350px !important;
+      width: 125px !important;
     }
 
     table.facebook td {
@@ -734,10 +758,7 @@ body.outlook p {
     }
 
     .header {
-      background: #999999;
-    }
-
-    .footer .wrapper {
+      background: #FFFFFF;
     }
 
     .footer h5 {
@@ -804,7 +825,7 @@ body.outlook p {
                         <tr>
                           <td class="banner-wrapper">
 
-                            <img width="350" src="<%= image_url 'EFF-logo-lockup-1color-white.png' -%>" alt="<%= t :organization_name -%>">
+                            <img width="175" src="app/assets/images/EFF_Monogram-red.svg" alt="<%= t :organization_name -%>">
 
                           </td>
                         </tr>
@@ -820,11 +841,11 @@ body.outlook p {
 
                       <table class="twelve columns">
                         <tr>
-                          <td style="padding: 10px 20px 20px 20px; border-bottom: 2px solid #cc0000;">
+                          <td style="padding: 10px 55px 20px 55px;">
 
-		   <%= yield -%>
-
+		                          <%= yield -%>
                           </td>
+
                           <td class="expander"></td>
                         </tr>
                       </table>
@@ -833,8 +854,20 @@ body.outlook p {
                   </tr>
                 </table>
 
+                <table class="row footer" style="background-color: #E8ECEB; color: #464E4E">
+                  <tr>
+                    <td style="padding: 0 55px;"><img src="https://eff.org/files/eff-email-footer.png" style="margin-bottom: 0; margin-top: 30px; max-width: 490px;" /></td>
+                  </tr>
+                  <tr>
+                    <td style="text-align: center;padding: 0 55px;" width="100%"><a class="button" href="https://eff.org/donate" style="background: #ec1e1e; border: none; border-bottom: 5px solid #B80101; color: #FFFFFF; display: inline-block; font-family: 'Lato','Trebuchet MS', sans-serif; font-size: 18px; font-weight: 900; letter-spacing: 0.5px; margin: 1rem 0; padding: 8px 30px 5px; text-transform: uppercase; text-decoration: none; cursor: pointer; -moz-appearance: none; -webkit-appearance: none; border-radius: 0;">Donate Now</a></td>
+                  </tr>
+                  <tr>
+                    <td align="left" style="padding: 30px 55px 0px;">
+                      <h3 style="color: #464E4E;font-family: 'Lato','Trebuchet MS', sans-serif;  font-size: 20px; font-style: normal; font-weight: 800; line-height: 125%; margin-bottom: 0; text-align: left;">About EFF</h3>
 
-                <table class="row" style="background-color: #fff;">
+                      <p style="font-family: 'Lato','Trebuchet MS', sans-serif;">The Electronic Frontier Foundation is the leading nonprofit defending online civil liberties. We promote digital innovation, defend free speech, fight illegal surveillance, and protect rights and freedoms for all as our use of technology grows. Find out more at <a href="https://www.eff.org/"><strong>https://eff.org</strong></a>.</p>
+                    </td>
+                  </tr>
                   <tr>
                     <td class="wrapper last" style="padding-top:0">
 
