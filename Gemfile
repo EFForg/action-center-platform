@@ -87,7 +87,7 @@ gem "iso_country_codes", "~> 0"
 gem "jbuilder", "~> 1.2" # JSON APIs
 gem "oauth", "~> 0"
 gem "rest-client", "~> 2"
-gem "sanitize", "~> 4" # Sanitize user input
+gem "sanitize", "~> 5" # Sanitize user input
 gem "warden", "1.2.4" # This dep of devise has a bug in 1.2.5 so am avaoiding
 gem "whenever", "~> 0", require: false # Cron jobs
 gem "will_paginate", "~> 3.0"
