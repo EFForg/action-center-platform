@@ -290,7 +290,8 @@ GEM
       actionmailer (>= 3, < 6)
       premailer (~> 1.7, >= 1.7.9)
     public_suffix (3.1.1)
-    puma (3.12.4)
+    puma (4.3.8)
+      nio4r (~> 2.0)
     rack (2.0.8)
     rack-attack (5.4.2)
       rack (>= 1.0, < 3)
@@ -528,7 +529,7 @@ DEPENDENCIES
   pg_search
   poltergeist (~> 1)
   premailer-rails (~> 1)
-  puma (~> 3)
+  puma (~> 4)
   rack-attack (~> 5)
   rails (~> 5.0)
   rails-assets-EpicEditor (~> 0)!
