@@ -250,7 +250,7 @@ GEM
       nokogiri (~> 1)
       rake
     mini_mime (1.0.2)
-    mini_portile2 (2.4.0)
+    mini_portile2 (2.5.1)
     minitest (5.11.3)
     multi_json (1.13.1)
     multi_test (0.1.2)
@@ -258,8 +258,9 @@ GEM
     multipart-post (2.0.0)
     netrc (0.11.0)
     nio4r (2.3.1)
-    nokogiri (1.10.8)
-      mini_portile2 (~> 2.4.0)
+    nokogiri (1.11.4)
+      mini_portile2 (~> 2.5.0)
+      racc (~> 1.4)
     nokogumbo (1.5.0)
       nokogiri
     oauth (0.5.5)
@@ -291,6 +292,7 @@ GEM
       premailer (~> 1.7, >= 1.7.9)
     public_suffix (3.1.1)
     puma (3.12.4)
+    racc (1.5.2)
     rack (2.0.8)
     rack-attack (5.4.2)
       rack (>= 1.0, < 3)
