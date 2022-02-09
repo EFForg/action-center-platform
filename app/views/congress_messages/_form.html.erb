@@ -65,6 +65,22 @@
       </p>
     <% end %>
 
+    <% unless @defunct_members.empty? %>
+      <fieldset>
+        <h3>
+          <span class="customize-message-popover" data-toggle="tooltip" data-trigger="hover">?
+            <span class="tooltiptext">Congress values personalized letters! Add a note about why this issue matters to you.</span>
+          </span>
+          Copy this message or make it unique to you:
+        </h3>
+        <div class="form-group">
+          <%= text_area_tag :message, @campaign.message,
+            class: "campaign-message form-control",
+            rows: 11, "data-original-message": @campaign.message %>
+        </div>
+      </fieldset>
+    <% end %>
+
     <div class="submit-wrapper">
       <input id="to-page-3" type="button" value="Next >" class="eff-button action">
     </div>
