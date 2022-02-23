@@ -13,16 +13,15 @@ RUN apt-get update && \
     postgresql-client \
     cron \
     gnupg \
-    libssl-dev
+    libssl-dev \
+    shared-mime-info
 
 RUN set -x; \
   curl -sL https://deb.nodesource.com/setup_14.x -o nodesource_setup.sh \
   && chmod +x nodesource_setup.sh \
   && ./nodesource_setup.sh \
   && apt-get update \
-  && apt-get install -y --no-install-recommends \
-    nodejs \
-    npm \
+  && apt-get install -y nodejs \
   && apt-get clean \
   && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
