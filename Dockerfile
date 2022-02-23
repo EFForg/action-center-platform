@@ -16,7 +16,7 @@ RUN apt-get update && \
     libssl-dev
 
 RUN set -x; \
-  curl -sL https://deb.nodesource.com/setup_6.x -o nodesource_setup.sh \
+  curl -sL https://deb.nodesource.com/setup_14.x -o nodesource_setup.sh \
   && chmod +x nodesource_setup.sh \
   && ./nodesource_setup.sh \
   && apt-get update \
