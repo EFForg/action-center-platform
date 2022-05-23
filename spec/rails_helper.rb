@@ -39,7 +39,7 @@ capabilities = Selenium::WebDriver::Remote::Capabilities.chrome(
   },
   "chromeOptions" => {
     "w3c" => false,
-    "args" => ["headless", "disable-gpu", "--window-size=1400,900"].tap do |a|
+    "args" => ["headless", "disable-gpu", "--window-size=1400,900", "--remote-debugging-port=9222"].tap do |a|
       a.push("no-sandbox") if ENV["TRAVIS"]
     end
   }

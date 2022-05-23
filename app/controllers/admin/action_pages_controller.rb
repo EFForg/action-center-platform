@@ -194,14 +194,16 @@ class Admin::ActionPagesController < Admin::ApplicationController
       petition_attributes: [:id, :title, :description, :goal, :enable_affiliations],
       affiliation_types_attributes: [:id, :name],
       tweet_attributes: [
-        :id, :target, :target_house, :target_senate, :message, :cta, :bioguide_id,
+        :id, :target, :target_house, :target_senate, :target_state_lower_chamber,
+        :target_state_upper_chamber, :message, :cta, :bioguide_id,
         tweet_targets_attributes: [:id, :_destroy, :twitter_id, :image]
       ],
       email_campaign_attributes: [
-        :id, :message, :subject, :target_house, :target_senate, :target_email,
-        :email_addresses, :target_bioguide_id, :bioguide_id, :alt_text_email_your_rep,
-        :alt_text_look_up_your_rep, :alt_text_extra_fields_explain, :topic_category_id,
-        :alt_text_look_up_helper, :alt_text_customize_message_helper, :campaign_tag
+        :id, :message, :subject, :state, :target_state_lower_chamber, :target_state_upper_chamber,
+        :target_governor, :target_email, :email_addresses, :target_bioguide_id,
+        :bioguide_id, :alt_text_email_your_rep, :alt_text_look_up_your_rep,
+        :alt_text_extra_fields_explain, :topic_category_id, :alt_text_look_up_helper,
+        :alt_text_customize_message_helper, :campaign_tag
       ],
       congress_message_campaign_attributes: [
         :id, :message, :subject, :target_house, :target_senate, { target_bioguide_list: [] },
