@@ -194,8 +194,7 @@ class Admin::ActionPagesController < Admin::ApplicationController
       petition_attributes: [:id, :title, :description, :goal, :enable_affiliations],
       affiliation_types_attributes: [:id, :name],
       tweet_attributes: [
-        :id, :target, :target_house, :target_senate, :target_state_lower_chamber,
-        :target_state_upper_chamber, :message, :cta, :bioguide_id,
+        :id, :target, :target_house, :target_senate, :message, :cta, :bioguide_id,
         tweet_targets_attributes: [:id, :_destroy, :twitter_id, :image]
       ],
       email_campaign_attributes: [

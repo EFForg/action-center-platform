@@ -358,7 +358,7 @@ ActiveRecord::Schema.define(version: 20221220172436) do
 
   create_table "tweets", force: :cascade do |t|
     t.string  "target",        limit: 255
-    t.string  "message"
+    t.string  "message",       limit: 255
     t.string  "cta",           limit: 255
     t.string  "bioguide_id",   limit: 255
     t.boolean "target_house",              default: true

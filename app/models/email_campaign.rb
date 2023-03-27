@@ -3,7 +3,7 @@ class EmailCampaign < ActiveRecord::Base
   has_one :action_page
 
   # No DC
-  STATES = %w(AK AL AR AZ CA CO CT DE FL GA HI IA ID IL IN KS KY LA MA MD ME MI MN MO MS MT NC ND NE NH NJ NM NV NY OH OK OR PA RI SC SD TN TX UT VA VT WA WI WV WY)
+  STATES = %w(AK AL AR AZ CA CO CT DE FL GA HI IA ID IL IN KS KY LA MA MD ME MI MN MO MS MT NC ND NE NH NJ NM NV NY OH OK OR PA RI SC SD TN TX UT VA VT WA WI WV WY).freeze
 
   def email_your_rep_text(default)
     target_bioguide_text_or_default alt_text_email_your_rep, default
@@ -26,11 +26,10 @@ class EmailCampaign < ActiveRecord::Base
   end
 
   def leg_level
-    role = "legislatorLowerBody" if self.target_state_lower_chamber
-    role = "legislatorUpperBody" if self.target_state_upper_chamber
-    role = "headOfGovernment" if self.target_governor
-
-    return role
+    return "legislatorLowerBody" if self.target_state_lower_chamber
+    return "legislatorUpperBody" if self.target_state_upper_chamber
+    return "headOfGovernment" if self.target_governor
+    ""
   end
 
   include ERB::Util

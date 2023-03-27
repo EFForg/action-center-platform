@@ -3,11 +3,8 @@
   <% @state_reps.each do |sr| -%>
     <div>
       <%= "Your representative is #{sr["name"]}." %>
-      <% if !sr["emails"].nil? %>
-        <%= "They can be reached at: " %>
-        <% sr["emails"].each do |e| %>
-          <%= "#{e}" %>
-        <% end %>
+      <% if sr["emails"].present? %>
+        <%= "They can be reached at: <%= sr["emails"].join(", ")" %>
       <% else %>
         <%= "We could not find their email address." %>
       <% end %>
@@ -18,3 +15,9 @@
 <div class="state-rep-email">
   <%= render 'tools/send_email' %>
 </div>
+
+<% if sr["emails"].present? %>
+  They can be reached at: <%= sr["emails"].join(", ") %>
+<% else %>
+  We could not find their email address.
+<% end %>
