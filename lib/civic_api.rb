@@ -55,10 +55,7 @@ module CivicApi
     end
     RestClient.get url, params: params
   rescue RestClient::BadRequest => e
-    begin
-      error = JSON.parse(e.http_body)["error"]
-    rescue
-      raise
-    end
+    error = JSON.parse(e.http_body)["error"]
+    raise error
   end
 end
