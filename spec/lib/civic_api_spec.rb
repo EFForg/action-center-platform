@@ -45,7 +45,7 @@ describe CivicApi do
     end
   end
 
-  describe ".all_state_reps_by_role" do
+  describe ".all_state_reps_for_role" do
     # Feature not active -- admin front-end planned but not yet implemented
   end
 end
