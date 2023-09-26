@@ -8,6 +8,7 @@
 //= require admin/gallery
 //= require admin/action_pages
 //= require admin/action_pages/petition-targets
+//= require admin/action_pages/email
 //= require admin/analytics
 //= require_tree ./admin/components
 

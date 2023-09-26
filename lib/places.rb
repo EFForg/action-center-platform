@@ -64,7 +64,7 @@ module Places
   end
 
   def self.us_states
-    us_states_codes.keys
+    us_state_codes.keys
   end
 
   def self.country_codes

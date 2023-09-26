@@ -16,8 +16,8 @@ $SHAREBUTTONS
 
 Thank you for helping us defend privacy and free speech in the digital age,
 
-Elliot Harmon
-Activism Team
+Gennie Gebhart
+Activism Director
 Electronic Frontier Foundation
 
 [https://www.eff.org](https://www.eff.org)

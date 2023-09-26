@@ -31,6 +31,10 @@ Follow these instructions to run the Action Center using Docker (recommended). T
   * Allows users to submit e-messages to congress
 * [Call Congress](https://github.com/EFForg/call-congress) url and API key
   * Connects calls between citizens and their congress person using the Twilio API
+* [Google Civic Information API](https://developers.google.com/civic-information) url and API key
+  * Representative information powered by the Civic Information API
+  * We use this when we need to give a user the ability to find their representatives to complete a state-level email action
+  * Some key limitations: https://developers.google.com/civic-information/docs/data_guidelines?hl=en e.g. "Developer’s using the API should make every effort to ensure all users are met with the same experience. We do not allow holdbacks, A/B testing, or similar experiments."
 
 
 ## Using the Action Center

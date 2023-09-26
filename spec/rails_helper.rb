@@ -33,7 +33,7 @@ apparition_opts = {
   screen_size: [1920, 1090],
   browser_options: {
     "w3c" => false,
-    "args" => ["headless", "disable-gpu", "--window-size=1400,900"]
+    "args" => ["headless", "disable-gpu", "--window-size=1400,900", "--remote-debugging-port=9222"]
   }
 }
 

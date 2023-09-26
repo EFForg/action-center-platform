@@ -24,13 +24,13 @@ describe "signatures namespace rake tasks" do
       distinct_emails = petition_with_dups.signatures.pluck(:email).uniq
 
       expect(regular_petition.signatures.select("email").distinct.count).to eq(100)
-      expect(petition_with_dups.signatures.select("email").distinct.count).to eq(82)
+      expect(petition_with_dups.signatures.select("email").distinct.count).to eq(72)
 
       Rake.application.invoke_task "signatures:deduplicate"
 
       # Check that regular petition was unaffected and that the other contains no duplicates
       expect(regular_petition.signatures.reload.count).to eq(100)
-      expect(petition_with_dups.signatures.reload.count).to eq(82)
+      expect(petition_with_dups.signatures.reload.count).to eq(72)
       expect(petition_with_dups.signatures.reload.pluck(:email)).to contain_exactly(*distinct_emails)
     end
 

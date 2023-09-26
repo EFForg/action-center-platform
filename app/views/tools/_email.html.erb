@@ -1,4 +1,11 @@
-<div id='email-tool' class="tool">
+<% if @email_campaign.state? %>
+  <div class="page-indicator">
+    <div class="page1 active">1</div>
+    <div class="page2">2</div>
+    <div class="page3">3</div>
+  </div>
+<% end %>
+<div id='email-tool' class="tool" data-action-id="<%= @actionPage.id %>">
   <div class="tool-container">
     <div class="tool-heading">
       <h2 class="tool-title">Take action</h2>
@@ -7,66 +14,74 @@
       <% end %>
     </div>
 
-    <div class="tool-body" id="target-email">
-      <h3>Send this email:</h3>
+    <div class="email-body">
+      <% if @email_campaign.state? %>
+        <div class="state-rep-lookup">
+          <p>Enter your address below and we'll help you email your representatives (US addresses only).</p>
+            <div class="address-lookup">
+            <%= form_tag(tools_state_reps_path,
+                       method: :get, remote: true,
+                       class: "form state-rep-lookup") do %>
+                       <%= hidden_field_tag :email_campaign_id, @actionPage.email_campaign.id %>
 
-      <fieldset disabled>
-        <textarea class="form-control" rows="14"><%= @email_campaign.message %></textarea>
-      </fieldset>
-      <%= form_tag '/tools/email', method: 'post', target: '_blank' do |f| -%>
-        <input type="hidden" name="action_id" value="<%= @actionPage.id %>" />
-        <input type="hidden" name="dnt" value="false" />
-        <%= invisible_captcha %>
+              <fieldset id="lookup-address">
+                <h3>
+                  <span class="customize-message-popover" data-toggle="tooltip" data-trigger="hover">?
+                    <span class="tooltiptext"><%= "We'll use your address to find your state representatives." %></span>
+                  </span>
+                  <%= "Look up your state representatives" %>
+                </h3>
+                <div id="errors"></div>
 
-        <%= render "/tools/newsletter_signup", email: true, location: true, privacy_notice: true %>
+                <div class="form-group">
+                  <%= text_field_tag :street_address,
+                                     (current_user && current_user.street_address),
+                                     placeholder: "Street Address",
+                                     "aria-label": "Street Address",
+                                     required: true,
+                                     class: "form-control" %>
+                </div>
 
-        <%= button_tag type: 'submit',
-                       name: 'service',
-                       value: 'default',
-                       class: 'eff-button' do -%>
-          Use default mail client
+                <div class="form-group">
+                  <%= text_field_tag :zipcode,
+                                     (current_user && current_user.zipcode),
+                                     placeholder: "Zip Code",
+                                     "aria-label": "Zip Code",
+                                     required: true,
+                                     class: "form-control",
+                                     title: "Must be 5 numeric numbers",
+
+
+                                     pattern: "\\d{5}",
+                                     maxlength: 5 %>
+                </div>
+
+                <div class="form-errors info-circle error hidden"></div>
+
+                <p class="privacy-notice">Uses <a href="https://developers.google.com/terms/api-services-user-data-policy" target="_blank">Google</a>'s APIs (
+                  <span class="privacy-notice-popover" data-toggle="tooltip" data-trigger="hover">why?
+                    <!-- Attribution Guidelines: https://developers.google.com/civic-information/docs/data_guidelines?hl=en#data-availability -->
+                    <span class="tooltiptext">Representative information powered by the Civic Information API.</span>
+                  </span>).
+                </p>
+              </fieldset>
+              <button type="submit" class="eff-button" id="button-state-rep-lookup"role="button" aria-pressed="false">See Your Representatives</button>
+              <%= render "tools/loading" -%>
+              </div>
+            <% end %>
+          </div>
+          <div class="state-reps"></div>
+        <% else %>
+          <%= render 'tools/send_email' %>
         <% end %>
-        <p class="small">Or send using:</p>
-
-        <%= button_tag type: 'submit',
-                       name: 'service',
-                       value: 'gmail',
-                       class: 'eff-button' do -%>
-          <i class="icon-google"></i> Gmail
-        <% end %>
-
-        <%= button_tag type: 'submit',
-                       name: 'service',
-                       value: 'hotmail',
-                       class: 'eff-button' do -%>
-          <i class="icon-windows"></i> Outlook
-        <% end %>
-        <br>
-
-        <%= button_tag type: 'submit',
-                       name: 'service',
-                       value: 'copy',
-                       data: {
-                         :'clipboard-target' => 'email_target_text',
-                         :placement => 'bottom',
-                         :toggle => 'tooltip',
-                         :title => 'Copied!',
-                         :trigger => 'click',
-                       },
-                       id: 'copy-email-action',
-                       class: 'eff-button' do -%>
-          <i class="icon-copy"></i> Copy to Clipboard
-        <% end %>
-
-        <div id='email_target_text'><%= render 'tools/email_target_text' %></div>
-      <% end %>
+      </div>
     </div>
   </div>
-</div>
 
-<div class="update-user-data-container" style="display: none;">
-  <% if current_user %>
-    <input checked="checked" id="update_user_data" name="update_user_data" type="checkbox" value="yes">
-    <label for="update_user_data", value="Save my name and address for next time."></label>
-  <% end %>
+  <div class="update-user-data-container" style="display: none;">
+    <% if current_user %>
+      <input checked="checked" id="update_user_data" name="update_user_data" type="checkbox" value="yes">
+      <label for="update_user_data" value="Save my name and address for next time."></label>
+    <% end %>
+  </div>
 </div>

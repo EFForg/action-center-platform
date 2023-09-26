@@ -33,7 +33,7 @@ RSpec.configure do |config|
   config.include Capybara::DSL
   config.include FeatureHelpers, type: :feature
 
-  WebMock.disable_net_connect!(allow_localhost: true)
+  WebMock.disable_net_connect!(allow_localhost: true, allow: "chromedriver.storage.googleapis.com")
 end
 
 # Don't prevent form fills by bots during the test run
