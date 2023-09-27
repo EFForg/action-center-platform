@@ -1,6 +1,6 @@
 module EmailCampaignHelper
   def legislative_level_from_state_representative_info(legislator_info)
-    role = case legislator_info
+    case legislator_info
     when "legislatorLowerBody"
       "state representative of the lower chamber"
     when "legislatorUpperBody"
@@ -10,6 +10,5 @@ module EmailCampaignHelper
     else
       "Invalid info"
     end
-    role
   end
 end

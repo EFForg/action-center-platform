@@ -27,21 +27,21 @@ describe CivicApi do
     it "should raise ArgumentError if a required param is missing" do
       allow(RestClient).to receive(:get)
 
-      expect {
+      expect do
         CivicApi.state_rep_search(nil)
-      }.to raise_error(ArgumentError)
+      end.to raise_error(ArgumentError)
 
-      expect {
+      expect do
         CivicApi.state_rep_search(nil, email_campaign.leg_level)
-      }.to raise_error(ArgumentError)
+      end.to raise_error(ArgumentError)
 
-      expect {
+      expect do
         CivicApi.state_rep_search(address)
-      }.to raise_error(ArgumentError)
+      end.to raise_error(ArgumentError)
 
-      expect {
+      expect do
         CivicApi.state_rep_search(address, email_campaign.leg_level)
-      }.not_to raise_error
+      end.not_to raise_error
     end
   end
 

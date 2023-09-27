@@ -115,12 +115,10 @@ class ToolsController < ApplicationController
     if params[:service] == "copy"
       @actionPage = @action_page
       render "email_target"
+    elsif params[:state_rep_email]
+      redirect_to @action_page.email_campaign.service_uri(params[:service], { email: params[:state_rep_email] })
     else
-      if params[:state_rep_email]
-        redirect_to @action_page.email_campaign.service_uri(params[:service], { email: params[:state_rep_email] })
-      else
-        redirect_to @action_page.email_campaign.service_uri(params[:service])
-      end
+      redirect_to @action_page.email_campaign.service_uri(params[:service])
     end
   end
 
@@ -136,7 +134,7 @@ class ToolsController < ApplicationController
     @state_reps = JSON.parse(civic_api_response.body)["officials"]
     state_rep_emails = []
     @state_reps.each do |sr|
-      state_rep_emails << sr["emails"] if !sr["emails"].nil?
+      state_rep_emails << sr["emails"] unless sr["emails"].nil?
     end
     # single-rep lookup only
     @state_rep_email = state_rep_emails.flatten.first

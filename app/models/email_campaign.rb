@@ -3,7 +3,7 @@ class EmailCampaign < ActiveRecord::Base
   has_one :action_page
 
   # No DC
-  STATES = %w(AK AL AR AZ CA CO CT DE FL GA HI IA ID IL IN KS KY LA MA MD ME MI MN MO MS MT NC ND NE NH NJ NM NV NY OH OK OR PA RI SC SD TN TX UT VA VT WA WI WV WY).freeze
+  STATES = %w[AK AL AR AZ CA CO CT DE FL GA HI IA ID IL IN KS KY LA MA MD ME MI MN MO MS MT NC ND NE NH NJ NM NV NY OH OK OR PA RI SC SD TN TX UT VA VT WA WI WV WY].freeze
 
   def email_your_rep_text(default)
     target_bioguide_text_or_default alt_text_email_your_rep, default
@@ -26,9 +26,10 @@ class EmailCampaign < ActiveRecord::Base
   end
 
   def leg_level
-    return "legislatorLowerBody" if self.target_state_lower_chamber
-    return "legislatorUpperBody" if self.target_state_upper_chamber
-    return "headOfGovernment" if self.target_governor
+    return "legislatorLowerBody" if target_state_lower_chamber
+    return "legislatorUpperBody" if target_state_upper_chamber
+    return "headOfGovernment" if target_governor
+
     ""
   end
 
@@ -49,7 +50,7 @@ class EmailCampaign < ActiveRecord::Base
 
     # results in comma-separated string of email addresses
     default_mailto_addresses ||= mailto_addresses.split(/\s*,\s*/).map do |email|
-      u(email.gsub(" ", "")).gsub("%40", "@").gsub("%2B", "+")
+      u(email.delete(" ")).gsub("%40", "@").gsub("%2B", "+")
     end.join(",")
 
     {

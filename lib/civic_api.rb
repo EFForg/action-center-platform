@@ -6,14 +6,12 @@ require "rest_client"
 # do not allow holdbacks, A/B testing, or similar experiments."
 
 module CivicApi
-  VALID_ROLES = %w(legislatorLowerBody legislatorUpperBody headOfGovernment)
+  VALID_ROLES = %w[legislatorLowerBody legislatorUpperBody headOfGovernment].freeze
 
   def self.state_rep_search(address, roles)
-    unless [address, roles].all?
-      raise ArgumentError.new("required argument is nil")
-    end
+    raise ArgumentError, "required argument is nil" unless [address, roles].all?
 
-    raise ArgumentError.new("Invalid role for Civic API #{roles}") unless VALID_ROLES.include?(roles)
+    raise ArgumentError, "Invalid role for Civic API #{roles}" unless VALID_ROLES.include?(roles)
 
     # `includeOffices` param is needed in order to get officials list
     # `administrativeArea1` param restricts the search to state-level legislators (and governors)
@@ -23,9 +21,7 @@ module CivicApi
   end
 
   def self.all_state_reps_for_role(state, roles)
-    unless [state, roles].all?
-      raise ArgumentError.new("required argument is nil")
-    end
+    raise ArgumentError, "required argument is nil" unless [state, roles].all?
 
     # need to append division information to API route
     path_params = { ocdId: "ocd-division%2Fcountry%3Aus%2Fstate%3A#{state.downcase}" }
@@ -36,8 +32,6 @@ module CivicApi
 
     get params
   end
-
-  private
 
   def self.civic_api_key
     Rails.application.secrets.google_civic_api_key

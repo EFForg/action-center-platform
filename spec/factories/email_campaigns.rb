@@ -8,8 +8,8 @@ FactoryBot.define do
     end
 
     trait :state_leg do
-      state "CA"
-      target_state_upper_chamber true
+      state { "CA" }
+      target_state_upper_chamber { true }
     end
 
     after(:create) do |campaign|

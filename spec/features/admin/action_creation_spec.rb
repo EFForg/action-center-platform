@@ -96,10 +96,10 @@ RSpec.describe "Admin action page creation", type: :feature, js: true do
     # Skip partners
     click_on "Next"
 
-    tempermental {
+    tempermental do
       click_button "Save"
       expect(page).to have_content("State-Level Leg Action", wait: 10)
-    }
+    end
   end
 
   it "can create congress actions" do
