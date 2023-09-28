@@ -96,11 +96,6 @@ end
 
 group :development do
   gem "better_errors", "~> 2"
-  gem "binding_of_caller", "~> 0"
-  gem "rails-dev-tweaks", "~> 1.1"
-  gem "rb-fchange", "~> 0", require: false
-  gem "rb-fsevent", "~> 0", require: false
-  gem "rb-inotify", "~> 0", require: false
 end
 
 group :test do
