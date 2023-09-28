@@ -85,6 +85,7 @@ class Signature < ActiveRecord::Base
 
   def arbitrary_opinion_of_country_string_validity
     return unless country_code.present? && full_country_name.nil?
+
     errors.add(:country_code, "Country Code might come from a spam bot.")
   end
 
@@ -141,6 +142,7 @@ class Signature < ActiveRecord::Base
 
   def validate_zipcode
     return if GoingPostal.valid_zipcode?(zipcode, country_code)
+
     errors.add(:zipcode, "Invalid zip/postal code for country")
   end
 end

@@ -2,7 +2,7 @@ require "rails_helper"
 
 describe TopInstitutionsQuery do
   describe ".run" do
-    # TODO: rewrite to use action page as the main reference record? the 
+    # TODO: rewrite to use action page as the main reference record? the
     # petition is never actually used beyond its ID
     let(:petition) { FactoryBot.create(:local_organizing_petition) }
 
