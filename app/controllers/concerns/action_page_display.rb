@@ -18,7 +18,12 @@ module ActionPageDisplay
     set_signatures
 
     if @actionPage.petition&.enable_affiliations
-      @top_institutions = @actionPage.institutions.top(300, first: @institution.try(:id))
+      @top_institutions = [
+        @institution,
+        TopInstitutionsQuery.run(action_page: @actionPage,
+                                 limit: 300,
+                                 exclude: [@institution])
+      ].flatten
       @institutions = @actionPage.institutions.order(:name)
       @institution_category = @institutions.first.category
     end
