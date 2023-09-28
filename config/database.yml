@@ -14,6 +14,7 @@ development:
   <<: *common
 
 test: &test
+  database: <%= "#{Rails.application.secrets.db_database}-test" %>
   <<: *common
 
 production:

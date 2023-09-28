@@ -3,7 +3,7 @@ require "rails_helper"
 describe EmailCampaign do
   describe "#service_uri(service)" do
     let(:custom_campaign) do
-      FactoryGirl.create(:email_campaign, :custom_email)
+      FactoryBot.create(:email_campaign, :custom_email)
     end
 
     context "service = :default" do
@@ -27,7 +27,7 @@ describe EmailCampaign do
 
   describe "#service_uri(service, opts = {})" do
     let(:state_leg_campaign) do
-      FactoryGirl.create(:email_campaign, :state_leg)
+      FactoryBot.create(:email_campaign, :state_leg)
     end
 
     context "service = :default, opts = {email: 'state_rep@example.com'}" do
