@@ -81,7 +81,7 @@ gem "iso_country_codes", "~> 0"
 gem "jbuilder", "~> 2"
 gem "oauth", "~> 0"
 gem "rest-client", "~> 2"
-gem "sanitize", "~> 4" # Sanitize user input
+gem "sanitize", "~> 6" # Sanitize user input
 gem "whenever", "~> 0", require: false # Cron jobs
 gem "will_paginate", "~> 3.0"
 gem "xmlrpc", "~> 0.3"

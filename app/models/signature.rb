@@ -1,12 +1,12 @@
 class Signature < ActiveRecord::Base
   include GoingPostal
 
-  belongs_to :user
+  belongs_to :user, optional: true
   belongs_to :petition
   has_many :affiliations
 
   before_validation :format_zipcode
-  before_save :sanitize_input
+  before_validation :sanitize_input
   validates :first_name, :last_name, :petition_id,
             presence: { message: "This can't be blank." }
 
@@ -84,7 +84,8 @@ class Signature < ActiveRecord::Base
   end
 
   def arbitrary_opinion_of_country_string_validity
-    errors.add(:country_code, "Country Code might come from a spam bot.") if country_code.present? && full_country_name.nil?
+    return unless country_code.present? && full_country_name.nil?
+    errors.add(:country_code, "Country Code might come from a spam bot.")
   end
 
   def name
@@ -139,6 +140,7 @@ class Signature < ActiveRecord::Base
   end
 
   def validate_zipcode
-    errors.add(:zipcode, "Invalid zip/postal code for country") unless GoingPostal.valid_zipcode?(zipcode, country_code)
+    return if GoingPostal.valid_zipcode?(zipcode, country_code)
+    errors.add(:zipcode, "Invalid zip/postal code for country")
   end
 end
