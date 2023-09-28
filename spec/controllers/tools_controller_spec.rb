@@ -60,8 +60,8 @@ RSpec.describe ToolsController, type: :controller do
   end
 
   describe "#email" do
-    let(:custom_email_campaign) { FactoryGirl.create(:email_campaign, :custom_email) }
-    let(:state_email_campaign) { FactoryGirl.create(:email_campaign, :state_leg) }
+    let(:custom_email_campaign) { FactoryBot.create(:email_campaign, :custom_email) }
+    let(:state_email_campaign) { FactoryBot.create(:email_campaign, :state_leg) }
 
     it "should redirect to ActionPage#service_uri(service) if email has custom recipients" do
       service = "gmail"
@@ -84,7 +84,7 @@ RSpec.describe ToolsController, type: :controller do
   end
 
   describe "#state_reps" do
-    let(:email_campaign) { FactoryGirl.create(:email_campaign, :state_leg) }
+    let(:email_campaign) { FactoryBot.create(:email_campaign, :state_leg) }
     let(:address) { "815 Eddy St 94109" }
     let(:json_parseable_state_officials) { '{"officials": [{"name": "Sponge Bob", "party": "Sandy Party", "emails": ["spongebob@clarinetfans.annoying"]}]}' }
 
