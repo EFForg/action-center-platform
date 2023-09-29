@@ -24,6 +24,7 @@ gem "redcarpet", "~> 3" # Markdown
 gem "sass-rails", "< 5.1"
 gem "select2-rails"               # Autocomplete select menus
 gem "uglifier", ">= 1.3.0"        # compressor for JavaScript assets
+
 source "https://rails-assets.org" do
   gem "rails-assets-chartjs", "~> 2"
   gem "rails-assets-congress-images-102x125"
@@ -88,6 +89,9 @@ gem "xmlrpc", "~> 0.3"
 
 # For creating many records, quickly
 gem "fast_inserter", "~> 0.1"
+
+# Pin psych to below version 4 until we're on rails 7 and ruby 3.1
+gem "psych", "< 4"
 
 group :doc do
   # bundle exec rake doc:rails generates the API under doc/api
