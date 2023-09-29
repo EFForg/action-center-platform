@@ -5,7 +5,6 @@ require File.expand_path("../config/environment", __dir__)
 abort("The Rails environment is running in production mode!") if Rails.env.production?
 require "spec_helper"
 require "rspec/rails"
-require "capybara/apparition"
 
 # Add additional requires below this line. Rails is not loaded until this point!
 
@@ -28,29 +27,8 @@ require "capybara/apparition"
 # If you are not using ActiveRecord, you can remove this line.
 ActiveRecord::Migration.maintain_test_schema!
 
-apparition_opts = {
-  window_size: [1400, 900],
-  screen_size: [1920, 1090],
-  browser_options: {
-    "w3c" => false,
-    "args" => ["headless", "disable-gpu", "--window-size=1400,900", "--remote-debugging-port=9222"]
-  }
-}
-
-if ENV["TRAVIS"]
-  apparition_opts[:browser_options] = {
-    "remote-debugging-address" => "127.0.0.1",
-    "remote-debugging-port" => 9222
-  }
-  apparition_opts[:remote] = true
-end
-
-Capybara.register_driver :chrome_headless do |app|
-  Capybara::Apparition::Driver.new(app, apparition_opts)
-end
-
 Capybara.server = :puma
-Capybara.javascript_driver = :chrome_headless
+Capybara.javascript_driver = :selenium_chrome_headless
 Capybara.enable_aria_label = true
 
 RSpec.configure do |config|
