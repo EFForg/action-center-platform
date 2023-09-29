@@ -99,8 +99,8 @@ group :development do
 end
 
 group :test do
-  gem "apparition", "~> 0.6"
   gem "webmock", "~> 3"
+  gem "selenium-webdriver", "~> 4"
 end
 
 group :development, :test do
