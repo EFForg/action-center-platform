@@ -18,7 +18,6 @@ gem "bootstrap-daterangepicker-rails", "~> 3"
 gem "bootstrap-sass", "~> 3.4"
 gem "bourbon", "~> 3"
 gem "bundler", ">= 1.8.4" # needed for rails-assets
-gem "fontello_rails_converter", "~> 0"
 gem "react-rails", "~> 1"
 gem "redcarpet", "~> 3" # Markdown
 gem "sass-rails", "< 5.1"
