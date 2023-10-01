@@ -104,7 +104,7 @@ end
 
 group :test do
   gem "webmock", "~> 3"
-  gem "selenium-webdriver", "~> 4"
+  gem "selenium-devtools"
 end
 
 group :development, :test do
