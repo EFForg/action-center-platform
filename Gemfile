@@ -65,7 +65,7 @@ gem "sentry-raven", "~> 0.15"
 gem "counter_culture", "~> 2.0"
 
 # Other
-gem "activerecord-session_store", "~> 1"
+gem "activerecord-session_store", "~> 2"
 gem "acts_as_paranoid", "~> 0.7"
 gem "cocoon", "~> 1"                      # Dynamically add and remove nested associations from forms
 gem "devise", "~> 4.7"
