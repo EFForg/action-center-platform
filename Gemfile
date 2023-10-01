@@ -105,6 +105,11 @@ end
 group :test do
   gem "webmock", "~> 3"
   gem "selenium-devtools"
+  # TODO: ruby 3 upgrade
+  # newer chrome versions need a higher version of selenium-webdriver, but
+  # those versions require ruby 3
+  # tests requiring JS will fail until we upgrade
+  # gem "selenium-webdriver", "~> 4.11"
 end
 
 group :development, :test do
