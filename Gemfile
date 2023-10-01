@@ -110,7 +110,7 @@ group :development, :test do
   gem "byebug"
   gem "capybara", "~> 3"
   gem "database_cleaner", "~> 1"
-  gem "factory_bot_rails", "~> 4"
+  gem "factory_bot_rails", "~> 5.0"
   gem "rails-controller-testing"
   gem "rspec-core", "~> 3"
   gem "rspec-rails", "~> 3"
