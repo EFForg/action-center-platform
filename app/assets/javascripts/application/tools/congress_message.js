@@ -38,9 +38,10 @@ $(document).on("ready", function() {
 
   $("#congress-message-tool").on("click", "#to-page-3", function(){
     // Run browser validation
-    if (!$("#congress-message-create")[0].reportValidity()) {
+    if (!$("#congress-message-create")[0].checkValidity()) {
       show_error('Please fill in the required fields and try again.', $('.rep-info'));
       $(window).scrollTop($('.rep-info').offset().top);
+      $("#congress-message-create")[0].reportValidity();
       return;
     }
 
