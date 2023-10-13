@@ -111,6 +111,7 @@ group :development do
 end
 
 group :test do
+  gem "apparition", "~> 0.6"
   gem "webmock", "~> 2"
 end
 
@@ -120,13 +121,11 @@ group :development, :test do
   gem "cucumber-rails", "1.6.0", require: false
   gem "database_cleaner", "~> 1"
   gem "factory_girl_rails", "~> 4"
-  gem "poltergeist", "~> 1"
   gem "rails-controller-testing"
   gem "rspec-core", "~> 3"
   gem "rspec-rails", "~> 3"
   gem "rubocop", "0.52.0"
   gem "rubocop-github", "0.9.0"
-  gem "selenium-webdriver", "~> 3"
   gem "webdrivers", "~> 4"
 end
 
