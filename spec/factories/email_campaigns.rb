@@ -1,8 +1,16 @@
 FactoryGirl.define do
   factory :email_campaign do
-    email_addresses "a@example.com, b@example.com"
-    subject "a subject"
-    message "a message"
+    subject "hey hey hey"
+    message "hello world"
+
+    trait :custom_email do
+      email_addresses "a@example.com, b@example.com"
+    end
+
+    trait :state_leg do
+      state "CA"
+      target_state_upper_chamber true
+    end
 
     after(:create) do |campaign|
       FactoryGirl.create(:action_page_with_email, email_campaign_id: campaign.id)

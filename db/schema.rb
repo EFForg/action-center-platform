@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20200324153626) do
+ActiveRecord::Schema.define(version: 20221220172436) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -213,9 +213,13 @@ ActiveRecord::Schema.define(version: 20200324153626) do
     t.text     "message"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.string   "subject",         limit: 255
-    t.string   "campaign_tag",    limit: 255
-    t.string   "email_addresses", limit: 255
+    t.string   "subject",                    limit: 255
+    t.string   "campaign_tag",               limit: 255
+    t.string   "email_addresses"
+    t.boolean  "target_state_lower_chamber"
+    t.boolean  "target_state_upper_chamber"
+    t.boolean  "target_governor"
+    t.string   "state"
   end
 
   create_table "featured_action_pages", force: :cascade do |t|

@@ -1,0 +1,57 @@
+<div class="tool-body" id="target-email">
+   <h3>Send this email:</h3>
+
+   <fieldset disabled>
+      <textarea class="form-control" rows="14"><%= @email_campaign.message %></textarea>
+   </fieldset>
+   <%= form_tag '/tools/email', method: 'post', target: '_blank' do |f| -%>
+      <input type="hidden" name="action_id" value="<%= @actionPage.id %>" />
+      <% if @state_reps %>
+         <input type="hidden" name="state_rep_email" value="<%= @state_rep_email %>" />
+      <% end %>
+      <input type="hidden" name="dnt" value="false" />
+      <%= invisible_captcha %>
+
+      <%= render "/tools/newsletter_signup", email: true, location: true, privacy_notice: true %>
+
+      <%= button_tag type: 'submit',
+                     name: 'service',
+                     value: 'default',
+                     class: 'eff-button' do -%>
+        Use default mail client
+      <% end %>
+      <p class="small">Or send using:</p>
+
+      <%= button_tag type: 'submit',
+                     name: 'service',
+                     value: 'gmail',
+                     class: 'eff-button' do -%>
+        <i class="icon-google"></i> Gmail
+      <% end %>
+
+      <%= button_tag type: 'submit',
+                     name: 'service',
+                     value: 'hotmail',
+                     class: 'eff-button' do -%>
+        <i class="icon-windows"></i> Outlook
+      <% end %>
+      <br>
+
+      <%= button_tag type: 'submit',
+                     name: 'service',
+                     value: 'copy',
+                     data: {
+                       :'clipboard-target' => 'email_target_text',
+                       :placement => 'bottom',
+                       :toggle => 'tooltip',
+                       :title => 'Copied!',
+                       :trigger => 'click',
+                     },
+                     id: 'copy-email-action',
+                     class: 'eff-button' do -%>
+        <i class="icon-copy"></i> Copy to Clipboard
+      <% end %>
+
+      <div id='email_target_text'><%= render 'tools/email_target_text' %></div>
+   <% end %>
+</div>

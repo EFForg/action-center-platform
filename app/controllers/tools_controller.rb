@@ -123,7 +123,34 @@ class ToolsController < ApplicationController
       @actionPage = @action_page
       render "email_target"
     else
-      redirect_to @action_page.email_campaign.service_uri(params[:service])
+      if params[:state_rep_email]
+        redirect_to @action_page.email_campaign.service_uri(params[:service], { email: params[:state_rep_email] })
+      else
+        redirect_to @action_page.email_campaign.service_uri(params[:service])
+      end
+    end
+  end
+
+  # GET /tools/state_reps
+  #
+  # This endpoint is hit by the js for state legislator lookup-by-address actions.
+  # It renders json containing html markup for presentation on the view
+  def state_reps
+    @email_campaign = EmailCampaign.find(params[:email_campaign_id])
+    @actionPage = @email_campaign.action_page
+    address = "#{params[:street_address]} #{params[:zipcode]}"
+    civic_api_response = CivicApi.state_rep_search(address, @email_campaign.leg_level)
+    @state_reps = JSON.parse(civic_api_response.body)["officials"]
+    state_rep_emails = []
+    @state_reps.each do |sr|
+      state_rep_emails << sr["emails"] if !sr["emails"].nil?
+    end
+    # single-rep lookup only
+    @state_rep_email = state_rep_emails.flatten.first
+    if @state_reps.present?
+      render json: { content: render_to_string(partial: "action_page/state_reps") }, status: 200
+    else
+      render json: { error: "No representatives found" }, status: 200
     end
   end
 

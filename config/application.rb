@@ -50,6 +50,7 @@ module Actioncenter
     config.facebook_handle = Rails.application.secrets.facebook_handle
     config.call_tool_url = Rails.application.secrets.call_tool_url
     config.congress_forms_url = Rails.application.secrets.congress_forms_url
+    config.google_civic_api_url = Rails.application.secrets.google_civic_api_url
     config.time_zone = Rails.application.secrets.time_zone || "Eastern Time (US & Canada)"
     config.active_record.raise_in_transactional_callbacks = true
 

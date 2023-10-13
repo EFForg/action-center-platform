@@ -12,4 +12,24 @@ $(document).on('ready', function() {
     $('.thank-you').show();
     $('#email-tool').hide();
   });
+
+  $(".state-rep-email").hide();
+
+  $("form.state-rep-lookup").on("ajax:complete", function(e, xhr, status) {
+    var $form = $(this);
+    var data = xhr.responseJSON;
+    $('.state-rep-lookup').hide();
+    $('.state-reps').replaceWith(data.content);
+    if (status == "success") {
+      $form.remove();
+      $(".state-reps").html(data);
+
+      if ($("#action-content").length) {
+        $(window).scrollTop( $("#action-content").offset().top ); // go to top of page if on action center site
+      }
+      update_tabs(1, 2);
+    } else {
+      show_error("Something went wrong. Please try again later.", $form);
+    }
+  });
 });

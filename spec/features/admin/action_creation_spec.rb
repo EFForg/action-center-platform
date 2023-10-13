@@ -49,7 +49,7 @@ RSpec.describe "Admin action page creation", type: :feature, js: true do
     }
   end
 
-  it "can create email actions" do
+  it "can create custom email actions" do
     visit new_admin_action_page_path
     fill_in_basic_info(title: "Very Important Action",
                        summary: "A summary",
@@ -57,9 +57,9 @@ RSpec.describe "Admin action page creation", type: :feature, js: true do
     click_on "Next"
 
     select_action_type("email")
-    fill_in "To", with: "test@gmail.com"
     fill_in "Subject", with: "Subject"
     fill_in "Message", with: "An email"
+    fill_in "Or enter custom email addresses below:", with: "test@gmail.com"
     click_on "Next"
 
     skip_image_selection
@@ -70,6 +70,33 @@ RSpec.describe "Admin action page creation", type: :feature, js: true do
     tempermental {
       click_button "Save"
       expect(page).to have_content("Very Important Action", wait: 10)
+    }
+  end
+
+  it "can create state-level email actions" do
+    visit new_admin_action_page_path
+    fill_in_basic_info(title: "State-Level Leg Action",
+                       summary: "A summary",
+                       description: "A description")
+    click_on "Next"
+
+    select_action_type("email")
+    fill_in "Subject", with: "Subject"
+    fill_in "Message", with: "An email"
+
+    select("CA", from: "action_page_email_campaign_attributes_state")
+    find("#action_page_email_campaign_attributes_target_state_upper_chamber").ancestor("label").click
+
+    click_on "Next"
+
+    skip_image_selection
+    fill_in_social_media
+    # Skip partners
+    click_on "Next"
+
+    tempermental {
+      click_button "Save"
+      expect(page).to have_content("State-Level Leg Action", wait: 10)
     }
   end
 
