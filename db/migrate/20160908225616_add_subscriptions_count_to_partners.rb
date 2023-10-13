@@ -1,4 +1,4 @@
-class AddSubscriptionsCountToPartners < ActiveRecord::Migration
+class AddSubscriptionsCountToPartners < ActiveRecord::Migration[5.0]
   def up
     add_column :partners, :subscriptions_count, :integer, null: false, default: 0
 

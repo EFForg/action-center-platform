@@ -1,4 +1,4 @@
-class CreateCongressScorecards < ActiveRecord::Migration
+class CreateCongressScorecards < ActiveRecord::Migration[5.0]
   def change
     create_table :congress_scorecards do |t|
       t.string :bioguide_id, required: true

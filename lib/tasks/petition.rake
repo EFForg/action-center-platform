@@ -22,11 +22,11 @@ end
 namespace :petition do
   desc "Create a local organizing petition with 99 signatures"
   task create_local: :environment do
-    petition = FactoryGirl.create(:local_organizing_petition)
+    petition = FactoryBot.create(:local_organizing_petition)
 
     (0..98).each do |i|
-      petition.signatures << FactoryGirl.build(:signature, petition: petition)
-      petition.signatures.last.affiliations << FactoryGirl.build(
+      petition.signatures << FactoryBot.build(:signature, petition: petition)
+      petition.signatures.last.affiliations << FactoryBot.build(
         :affiliation,
         institution: petition.action_page.institutions[i % 10],
         affiliation_type: petition.action_page.affiliation_types[i % 5]
@@ -39,19 +39,19 @@ namespace :petition do
     Petition.all.each do |petition|
       goal = petition.goal
       count = petition.signatures.count
-      if count > goal
-        if goal == goals.last
-          petition.goal = 100000 if count > 70000
-        elsif goal < goals.last
-          petition.goal = next_goal(petition.goal)
-        end
+      next unless count > goal
 
-        if petition.changed?
-          petition.save
-          print "Petition #{petition.id} updated. Goal: #{petition.goal}\n"
-          # TODO: email admins
-        end
+      if goal == goals.last
+        petition.goal = 100_000 if count > 70000
+      elsif goal < goals.last
+        petition.goal = next_goal(petition.goal)
       end
+
+      next unless petition.changed?
+
+      petition.save
+      print "Petition #{petition.id} updated. Goal: #{petition.goal}\n"
+      # TODO: email admins
     end
   end
 end

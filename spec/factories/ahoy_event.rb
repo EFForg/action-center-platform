@@ -1,21 +1,25 @@
-FactoryGirl.define do
+FactoryBot.define do
   factory :ahoy_view, class: Ahoy::Event do
     id { SecureRandom.uuid }
-    name "View"
-    properties { {
-      type: "action",
-      actionType: "view"
-    } }
-    time Time.zone.now
+    name { "View" }
+    properties do
+      {
+        type: "action",
+        actionType: "view"
+      }
+    end
+    time { Time.zone.now }
   end
 
   factory :ahoy_signature, class: Ahoy::Event do
     id { SecureRandom.uuid }
-    name "Action"
-    properties { {
-      type: "action",
-      actionType: "signature"
-    } }
-    time Time.zone.now
+    name { "Action" }
+    properties do
+      {
+        type: "action",
+        actionType: "signature"
+      }
+    end
+    time { Time.zone.now }
   end
 end

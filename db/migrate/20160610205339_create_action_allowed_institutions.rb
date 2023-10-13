@@ -1,4 +1,4 @@
-class CreateActionAllowedInstitutions < ActiveRecord::Migration
+class CreateActionAllowedInstitutions < ActiveRecord::Migration[5.0]
   def change
     remove_column :institutions, :institution_set_id, :integer
     remove_column :petitions, :institution_set_id, :integer

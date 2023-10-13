@@ -3,7 +3,7 @@
   <div class="partner-logos">
   <%= image_tag "EFF_Monogram-red" %>
     <% @actionPage.partners.each do |partner| %>
-      <%= image_tag partner.logo if partner.logo.present? %>
+      <%= image_tag partner.logo.url if partner.logo.present? %>
     <% end %>
   </div>
 <% end %>

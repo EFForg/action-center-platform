@@ -4,6 +4,7 @@ class UserMailer < ActionMailer::Base
   layout "email"
   after_action :check_bounces
 
+  # rubocop:todo Naming/MethodParameterName
   def thanks_message(email, actionPage, options = {})
     @email = email
     @user = options[:user]
@@ -11,8 +12,9 @@ class UserMailer < ActionMailer::Base
     @name = options[:name].presence || "Friend of Digital Freedom"
     mail(to: email, subject: "Thanks for taking action")
   end
+  # rubocop:enable Naming/MethodParameterName
 
-  def signup_attempt_with_existing_email(user, options = {})
+  def signup_attempt_with_existing_email(user, _options = {})
     @user = user
     @email = user.email
     @token = user.reset_password_token
@@ -22,8 +24,6 @@ class UserMailer < ActionMailer::Base
   private
 
   def check_bounces
-    unless Bounce.find_by_email(@email.downcase).nil?
-      mail.perform_deliveries = false
-    end
+    mail.perform_deliveries = false unless Bounce.find_by(email: @email.downcase).nil?
   end
 end

@@ -1,4 +1,4 @@
-FROM ruby:2.5-stretch
+FROM ruby:2.7-slim
 
 RUN mkdir /opt/actioncenter
 WORKDIR /opt/actioncenter
@@ -13,16 +13,15 @@ RUN apt-get update && \
     postgresql-client \
     cron \
     gnupg \
-    libssl-dev
+    libssl-dev \
+    shared-mime-info
 
 RUN set -x; \
-  curl -sL https://deb.nodesource.com/setup_6.x -o nodesource_setup.sh \
+  curl -sL https://deb.nodesource.com/setup_14.x -o nodesource_setup.sh \
   && chmod +x nodesource_setup.sh \
   && ./nodesource_setup.sh \
   && apt-get update \
-  && apt-get install -y --no-install-recommends \
-    nodejs \
-    npm \
+  && apt-get install -y nodejs \
   && apt-get clean \
   && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
@@ -65,8 +64,8 @@ RUN bundle exec rake assets:precompile \
   SECRET_KEY_BASE=noop \
   devise_secret_key=noop \
   amazon_region=noop \
+  amazon_bucket=noop \
   DATABASE_URL=postgres://noop
-RUN bundle exec rake webshims:update_public
 
 RUN mkdir /opt/actioncenter/log \
           /var/www
