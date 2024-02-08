@@ -7,7 +7,7 @@ describe CivicApi do
   end
 
   describe ".state_rep_search" do
-    let(:email_campaign) { FactoryGirl.create(:email_campaign, :state_leg) }
+    let(:email_campaign) { FactoryBot.create(:email_campaign, :state_leg) }
     let(:address) { "815 Eddy St 94109" }
 
     it "should get civic_api_url with the correct params" do
