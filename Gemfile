@@ -1,6 +1,6 @@
 source "https://rubygems.org"
 
-gem "rails", "~> 6.0.0"
+gem "rails", "~> 6.1.0"
 
 # Database
 gem "pg", "~> 1.1"
@@ -65,7 +65,7 @@ gem "sentry-raven", "~> 0.15"
 gem "counter_culture", "~> 2.0"
 
 # Other
-gem "activerecord-session_store", "~> 2"
+gem "activerecord-session_store", "~> 2.1.0"
 gem "acts_as_paranoid", "~> 0.7"
 gem "cocoon", "~> 1"                      # Dynamically add and remove nested associations from forms
 gem "devise", "~> 4.7"
