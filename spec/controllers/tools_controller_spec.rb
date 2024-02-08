@@ -93,7 +93,7 @@ RSpec.describe ToolsController, type: :controller do
       Rails.application.secrets.google_civic_api_key = "test-key-for-civic-api"
 
       stub_request(:get, "http://civic.example.com/?address=%20&includeOffices=true&key=test-key-for-civic-api&levels=administrativeArea1&roles=legislatorUpperBody")
-        .with(headers: { "Accept" => "*/*", "Accept-Encoding" => "gzip, deflate", "Host" => "civic.example.com", "User-Agent" => "rest-client/2.0.2 (linux-gnu x86_64) ruby/2.5.5p157" })
+        .with(headers: request_headers)
         .to_return(status: 200, body: json_parseable_state_officials, headers: {})
     end
 
@@ -113,4 +113,15 @@ end
 def stub_smarty_streets
   stub_resp = { "city" => "San Francisco", "state_abbreviation" => "CA", "state" => "California", "mailable_city" => true }
   allow(SmartyStreets).to receive(:get_city_state).with("94109").and_return(stub_resp)
+end
+
+def request_headers
+  # If the tests fail based on header differences, update this with what
+  # rspec tells you to stub with
+  {
+    "Accept" => "*/*",
+    'Accept-Encoding'=>'gzip;q=1.0,deflate;q=0.6,identity;q=0.3',
+    "Host" => "civic.example.com",
+    'User-Agent'=>'rest-client/2.1.0 (linux x86_64) ruby/3.0.6p216'
+  }
 end

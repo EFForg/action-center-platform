@@ -47,7 +47,7 @@ class Signature < ActiveRecord::Base
   def self.to_presentable_csv(options = {})
     column_names = %w[full_name email city state country]
 
-    CSV.generate(options) do |csv|
+    CSV.generate(**options) do |csv|
       csv << column_names
 
       all.find_each do |signature|
