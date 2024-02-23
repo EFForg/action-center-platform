@@ -91,19 +91,18 @@ GEM
     acts_as_paranoid (0.8.1)
       activerecord (>= 5.2, < 7.1)
       activesupport (>= 5.2, < 7.1)
-    addressable (2.8.5)
+    addressable (2.8.6)
       public_suffix (>= 2.0.2, < 6.0)
-    ahoy_matey (1.6.1)
+    ahoy_matey (2.2.1)
       addressable
       browser (~> 2.0)
-      geocoder
-      rack-attack (< 6)
-      railties
-      referer-parser (>= 0.3.0)
+      device_detector
+      geocoder (>= 1.4.5)
+      railties (>= 4.2)
+      referer-parser (>= 0.3)
       request_store
-      safely_block (>= 0.1.1)
+      safely_block (>= 0.2.1)
       user_agent_parser
-      uuidtools
     ast (2.4.2)
     autoprefixer-rails (10.4.15.0)
       execjs (~> 2)
@@ -182,6 +181,7 @@ GEM
     delayed_job_active_record (4.1.7)
       activerecord (>= 3.0, < 8.0)
       delayed_job (>= 3.0, < 5)
+    device_detector (1.1.2)
     devise (4.9.2)
       bcrypt (~> 3.0)
       orm_adapter (~> 0.1)
@@ -201,7 +201,6 @@ GEM
     ejs (1.1.1)
     email_validator (1.6.0)
       activemodel
-    errbase (0.2.2)
     erubi (1.12.0)
     execjs (2.9.1)
     factory_bot (6.2.1)
@@ -313,10 +312,10 @@ GEM
       net-smtp
       premailer (~> 1.7, >= 1.7.9)
     psych (3.3.4)
-    public_suffix (5.0.3)
+    public_suffix (5.0.4)
     puma (3.12.6)
     racc (1.7.3)
-    rack (2.2.8)
+    rack (2.2.8.1)
     rack-attack (5.4.2)
       rack (>= 1.0, < 3)
     rack-test (2.1.0)
@@ -369,7 +368,7 @@ GEM
     redcarpet (3.6.0)
     referer-parser (0.3.0)
     regexp_parser (2.8.1)
-    request_store (1.5.1)
+    request_store (1.6.0)
       rack (>= 1.4)
     responders (3.1.0)
       actionpack (>= 5.2)
@@ -426,8 +425,7 @@ GEM
     ruby-progressbar (1.13.0)
     ruby2_keywords (0.0.5)
     rubyzip (2.3.2)
-    safely_block (0.3.0)
-      errbase (>= 0.1.1)
+    safely_block (0.4.0)
     sanitize (6.1.0)
       crass (~> 1.0.2)
       nokogiri (>= 1.12.0)
@@ -507,7 +505,7 @@ PLATFORMS
 DEPENDENCIES
   activerecord-session_store (~> 2.1.0)
   acts_as_paranoid (~> 0.7)
-  ahoy_matey (~> 1.6)
+  ahoy_matey (~> 2)
   aws-sdk-rails (~> 2)
   aws-sdk-s3 (~> 1)
   better_errors (~> 2)
@@ -580,6 +578,7 @@ DEPENDENCIES
   selenium-devtools
   sentry-raven (~> 0.15)
   uglifier (>= 1.3.0)
+  uuidtools (~> 2)
   webmock (~> 3)
   whenever (~> 0)
   will_paginate (~> 3.0)
