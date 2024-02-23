@@ -21,7 +21,7 @@ RSpec.describe ActionPageController, type: :controller do
     it "returns json" do
       action_page
       get :index, params: { format: "json" }
-      expect(response.content_type).to eq("application/json")
+      expect(response.content_type).to eq("application/json; charset=utf-8")
       expect(response.body).to include(action_page.title)
     end
   end
