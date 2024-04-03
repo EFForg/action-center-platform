@@ -1,7 +1,6 @@
 class AhoyController < ApplicationController
   before_action :set_ahoy_cookies
   before_action :track_ahoy_visit
-  before_action :set_ahoy_request_store
 
   def visit
     action_type = params.require(:action_type)
