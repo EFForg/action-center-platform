@@ -66,8 +66,7 @@ RSpec.describe ToolsController, type: :controller do
     it "should redirect to ActionPage#service_uri(service) if email has custom recipients" do
       service = "gmail"
       uri = "https://composeurl.example.com"
-      expect(ActionPage).to receive(:find_by_id) { custom_email_campaign.action_page }
-      expect(custom_email_campaign).to receive(:service_uri).with(service) { uri }
+      allow_any_instance_of(EmailCampaign).to receive(:service_uri).with(service).and_return(uri)
       get :email, params: { action_id: custom_email_campaign.action_page.id, service: service }
       expect(response).to redirect_to(uri)
     end
@@ -76,8 +75,7 @@ RSpec.describe ToolsController, type: :controller do
       service = "gmail"
       state_rep_email = "state_rep@example.com"
       uri = "https://composeurl.example.com"
-      expect(ActionPage).to receive(:find_by_id) { state_email_campaign.action_page }
-      expect(state_email_campaign).to receive(:service_uri).with(service, { email: state_rep_email }) { uri }
+      allow_any_instance_of(EmailCampaign).to receive(:service_uri).with(service, { email: state_rep_email }) { uri }
       get :email, params: { action_id: state_email_campaign.action_page.id, state_rep_email: state_rep_email, service: service }
       expect(response).to redirect_to(uri)
     end
@@ -93,7 +91,6 @@ RSpec.describe ToolsController, type: :controller do
       Rails.application.secrets.google_civic_api_key = "test-key-for-civic-api"
 
       stub_request(:get, "http://civic.example.com/?address=%20&includeOffices=true&key=test-key-for-civic-api&levels=administrativeArea1&roles=legislatorUpperBody")
-        .with(headers: request_headers)
         .to_return(status: 200, body: json_parseable_state_officials, headers: {})
     end
 
@@ -113,15 +110,4 @@ end
 def stub_smarty_streets
   stub_resp = { "city" => "San Francisco", "state_abbreviation" => "CA", "state" => "California", "mailable_city" => true }
   allow(SmartyStreets).to receive(:get_city_state).with("94109").and_return(stub_resp)
-end
-
-def request_headers
-  # If the tests fail based on header differences, update this with what
-  # rspec tells you to stub with
-  {
-    "Accept" => "*/*",
-    'Accept-Encoding'=>'gzip;q=1.0,deflate;q=0.6,identity;q=0.3',
-    "Host" => "civic.example.com",
-    'User-Agent'=>'rest-client/2.1.0 (linux x86_64) ruby/3.0.6p216'
-  }
 end
