@@ -89,7 +89,7 @@ gem "will_paginate", "~> 3.0"
 gem "xmlrpc", "~> 0.3"
 
 # For creating many records, quickly
-gem "fast_inserter", "~> 0.1"
+gem "fast_inserter", "~> 2.0"
 
 # Pin psych to below version 4 until we're on rails 7 and ruby 3.1
 gem "psych", "< 4"
