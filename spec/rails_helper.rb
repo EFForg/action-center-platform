@@ -31,6 +31,7 @@ ActiveRecord::Migration.maintain_test_schema!
 Capybara.server = :puma
 Capybara.javascript_driver = :selenium_chrome_headless
 Capybara.enable_aria_label = true
+Capybara.disable_animation = true
 
 RSpec.configure do |config|
   config.include Devise::Test::ControllerHelpers, type: :controller
