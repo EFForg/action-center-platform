@@ -69,8 +69,7 @@ class CongressMessage
     return unless valid?
 
     @forms.each do |f|
-      f.delay.fill(attributes_for(f.bioguide_id), campaign.campaign_tag,
-                   test: test)
+      f.delay.fill(attributes_for(f.bioguide_id), campaign.campaign_tag, test)
     end
   end
 

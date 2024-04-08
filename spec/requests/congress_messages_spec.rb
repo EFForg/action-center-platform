@@ -137,7 +137,7 @@ RSpec.describe "Congress Messages", type: :request do
         .and_return(status: 200, body: "{}")
     end
 
-    it "successfully submits good input" do
+    it "successfully submits good input", :run_delayed_jobs do
       submit_congress_message
       expect(WebMock).to have_requested(:post, /fill-out-form/)
         .with(body: {
@@ -166,7 +166,7 @@ RSpec.describe "Congress Messages", type: :request do
       expect(WebMock).not_to have_requested(:post, /fill-out-form/)
     end
 
-    it "enables test mode" do
+    it "enables test mode", :run_delayed_jobs do
       message_attributes[:test] = 1
       submit_congress_message
       expect(response.status).to eq 200
@@ -174,7 +174,7 @@ RSpec.describe "Congress Messages", type: :request do
         .with(body: hash_including(test: 1)).twice
     end
 
-    it "succeeds with no common attributs" do
+    it "succeeds with no common attributes" do
       stub_congress_forms_find_with_one_rep
       submit_congress_message
       expect(response.status).to eq 200

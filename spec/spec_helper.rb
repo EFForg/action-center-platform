@@ -30,6 +30,12 @@ RSpec.configure do |config|
     mocks.verify_partial_doubles = true
   end
 
+  config.around(:each, :run_delayed_jobs) do |example|
+    Delayed::Worker.delay_jobs = false
+    example.run
+    Delayed::Worker.delay_jobs = true
+  end
+
   config.include Capybara::DSL
   config.include FeatureHelpers, type: :feature
 
