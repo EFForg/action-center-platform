@@ -11,7 +11,6 @@ RSpec.feature "State legislator email actions", type: :feature, js: true do
     Rails.application.secrets.google_civic_api_key = "test-key-for-civic-api"
 
     stub_request(:get, "http://civic.example.com/?address=815%20Eddy%20St%2094109&includeOffices=true&key=test-key-for-civic-api&levels=administrativeArea1&roles=legislatorUpperBody")
-      .with(headers: { "Accept" => "*/*", "Accept-Encoding" => "gzip, deflate", "Host" => "civic.example.com", "User-Agent" => "rest-client/2.0.2 (linux-gnu x86_64) ruby/2.5.5p157" })
       .to_return(status: 200, body: json_parseable_state_officials, headers: {})
   end
 

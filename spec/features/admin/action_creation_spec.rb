@@ -14,9 +14,7 @@ RSpec.describe "Admin action page creation", type: :feature, js: true do
     fill_in "Message", with: "A message"
     next_section
 
-    # skip banner selection
-    next_section
-
+    skip_banner_selection
     fill_in_social_media
 
     tempermental do
@@ -38,9 +36,7 @@ RSpec.describe "Admin action page creation", type: :feature, js: true do
     fill_in "Goal", with: 1000
     next_section
 
-    # skip banner selection
-    next_section
-
+    skip_banner_selection
     fill_in_social_media
 
     tempermental do
@@ -59,14 +55,10 @@ RSpec.describe "Admin action page creation", type: :feature, js: true do
     select_action_type("email")
     fill_in "Subject", with: "Subject"
     fill_in "Message", with: "An email"
-    next_section
-
-    # skip banner selection
-    next_section
     fill_in "Or enter custom email addresses below:", with: "test@gmail.com"
-    click_on "Next"
     next_section
 
+    skip_banner_selection
     fill_in_social_media
 
     tempermental do
@@ -91,10 +83,8 @@ RSpec.describe "Admin action page creation", type: :feature, js: true do
 
     click_on "Next"
 
-    skip_image_selection
+    skip_banner_selection
     fill_in_social_media
-    # Skip partners
-    click_on "Next"
 
     tempermental do
       click_button "Save"
@@ -114,9 +104,7 @@ RSpec.describe "Admin action page creation", type: :feature, js: true do
     fill_in "Message", with: "A message"
     next_section
 
-    # skip banner selection
-    next_section
-
+    skip_banner_selection
     fill_in_social_media
 
     tempermental do
@@ -137,9 +125,7 @@ RSpec.describe "Admin action page creation", type: :feature, js: true do
                    with: "Call script"
     next_section
 
-    # skip banner selection
-    next_section
-
+    skip_banner_selection
     fill_in_social_media
 
     tempermental do
@@ -152,7 +138,7 @@ RSpec.describe "Admin action page creation", type: :feature, js: true do
     fill_in "Title", with: title
     fill_in_editor "#action_page_summary", with: summary
     fill_in_editor "#action_page_description", with: description
-    fill_in_select2 "#action_page_category_id", with: category.title
+    select(category.title, from: "action_page_category_id") #we should use the label to find the select but the label here is not correctly pointing to the select
   end
 
   def next_section
@@ -160,7 +146,13 @@ RSpec.describe "Admin action page creation", type: :feature, js: true do
     sleep 0.05
   end
 
+  def skip_banner_selection
+    expect(page).to have_selector("#images", visible: true, wait: 5)
+    next_section
+  end
+
   def fill_in_social_media
+    expect(page).to have_selector("#sharing", visible: true, wait: 5)
     fill_in "Share Message", with: "Twitter message"
     fill_in "Title", with: "A social media title"
     next_section
