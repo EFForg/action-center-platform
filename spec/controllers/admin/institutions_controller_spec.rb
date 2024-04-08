@@ -57,7 +57,7 @@ RSpec.describe Admin::InstitutionsController, type: :controller do
     end
 
     context "with valid csv" do
-      let(:file) { fixture_file_upload("files/schools.csv") }
+      let(:file) { fixture_file_upload("schools.csv") }
 
       it "queues a job" do
         expect { import }.to change(Delayed::Job, :count).by(1)
@@ -76,7 +76,7 @@ RSpec.describe Admin::InstitutionsController, type: :controller do
     end
 
     context "with an invalid csv" do
-      let(:file) { fixture_file_upload("files/bad_schools.csv") }
+      let(:file) { fixture_file_upload("bad_schools.csv") }
 
       it "does not upload institutions" do
         expect(Institution).not_to receive(:import)

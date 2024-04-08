@@ -1,2 +1,4 @@
 # Monkeypatch paperclip's media type detection
-Paperclip::MediaTypeSpoofDetector.prepend MonkeyPatches::OctetStreamOverride
+Rails.application.reloader.to_prepare do
+  Paperclip::MediaTypeSpoofDetector.prepend MonkeyPatches::OctetStreamOverride
+end

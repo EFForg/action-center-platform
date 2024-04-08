@@ -18,7 +18,7 @@ Actioncenter::Application.routes.draw do
   get "tools/state_reps"
   get "tools/social_buttons_count"
 
-  get "smarty_streets/:action", controller: :smarty_streets
+  get "smarty_streets/street_address", controller: :smarty_streets
   get "petition/:id/recent_signatures", :to => "petition#recent_signatures", :format => 'json'
 
   # Handle notifications from Amazon SES
@@ -80,7 +80,7 @@ Actioncenter::Application.routes.draw do
       get :generate_key, :on => :collection
     end
 
-    get 'mailer/:action/:id' => 'mailer#:action'
+    get 'mailer/preview_thanks/:id' => 'mailer#preview_thanks'
 
     resources :congress_message_campaigns, only: :none do
       member do
