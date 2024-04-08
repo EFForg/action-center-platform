@@ -48,44 +48,31 @@ describe User do
 
   describe "track user actions" do
     let(:user) { FactoryBot.create(:user, record_activity: true) }
-    let(:ahoy) { Ahoy::Tracker.new }
     let(:action_page) { FactoryBot.create :action_page_with_petition }
 
     it "knows if the user has taken a given action" do
-      ahoy.authenticate(user)
-      track_signature(action_page)
-
+      FactoryBot.create(:ahoy_signature, action_page: action_page, user: user)
       expect(user.taken_action?(action_page)).to be_truthy
     end
   end
 end
 
+# TODO: possibly remove, this seems unused?
 def record_several_actions
-  # a user with no actions
-  FactoryBot.create(:user, record_activity: true)
-
-  # a user with three actions
-  ahoy.authenticate(FactoryBot.create(:user, record_activity: true))
-  3.times { track_signature(action_page) }
-
-  # a user with 1 action
-  ahoy.authenticate(FactoryBot.create(:user, record_activity: true))
-  track_signature(action_page)
-
-  # our friend, with 2 actions
-  ahoy.authenticate(user)
-  2.times { track_signature(action_page) }
-  track_view(action_page)
+  create_user_with_tracked_actions(signatures: 0, views: 0)
+  create_user_with_tracked_actions(signatures: 3, views: 0)
+  create_user_with_tracked_actions(signatures: 1, views: 0)
+  create_user_with_tracked_actions(signatures: 2, views: 1)
 end
 
-def track_signature(action_page)
-  ahoy.track "Action",
-             { type: "action", actionType: "signature", actionPageId: action_page.id },
-             action_page: action_page
-end
-
-def track_view(action_page)
-  ahoy.track "View",
-             { type: "action", actionType: "view", actionPageId: action_page.id },
-             action_page: action_page
+def user_with_tracked_actions(signatures: 1, views: 1)
+  user = FactoryBot.create(:user, record_activity: true)
+  signatures.times do
+    action = FactoryBot.create(:action_page_with_petition)
+    FactoryBot.create(:ahoy_signature, action_page: action, user: user)
+  end
+  views.times do
+    action = FactoryBot.create(:action_page_with_email)
+    FactoryBot.create(:ahoy_view, action_page: action, user: user)
+  end
 end
