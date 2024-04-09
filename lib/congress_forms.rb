@@ -122,7 +122,7 @@ module CongressForms
   def self.get(path)
     JSON.parse RestClient.get(base_url + path)
   rescue RestClient::ExceptionWithResponse => e
-    Raven.capture_exception(e)
+    Sentry.capture_exception(e)
     Rails.logger.error e
     {}
   end
@@ -131,7 +131,7 @@ module CongressForms
     JSON.parse RestClient.post(base_url + path, body.to_json,
                                { content_type: :json, accept: :json })
   rescue RestClient::ExceptionWithResponse => e
-    Raven.capture_exception(e)
+    Sentry.capture_exception(e)
     Rails.logger.error e
     raise RequestFailed
   end
