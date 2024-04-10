@@ -1,4 +1,4 @@
-class Tweet < ActiveRecord::Base
+class Tweet < ApplicationRecord
   has_one :action_page
   has_many :tweet_targets
   alias :targets :tweet_targets

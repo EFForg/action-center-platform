@@ -1,4 +1,4 @@
-class ActionPage < ActiveRecord::Base
+class ActionPage < ApplicationRecord
   extend AmazonCredentials
   extend FriendlyId
 

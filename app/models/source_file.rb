@@ -1,4 +1,4 @@
-class SourceFile < ActiveRecord::Base
+class SourceFile < ApplicationRecord
   include Rails.application.routes.url_helpers
 
   validates :file_name, :file_content_type, :file_size, :key, :bucket, presence: true

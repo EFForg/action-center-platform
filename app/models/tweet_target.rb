@@ -1,4 +1,4 @@
-class TweetTarget < ActiveRecord::Base
+class TweetTarget < ApplicationRecord
   extend AmazonCredentials
   require "open-uri"
 

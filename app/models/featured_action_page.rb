@@ -1,4 +1,4 @@
-class FeaturedActionPage < ActiveRecord::Base
+class FeaturedActionPage < ApplicationRecord
   belongs_to :action_page
   validates :action_page, :weight, presence: true
 

@@ -1,4 +1,4 @@
-class CongressMessageCampaign < ActiveRecord::Base
+class CongressMessageCampaign < ApplicationRecord
   belongs_to :topic_category
   has_one :action_page
 

@@ -1,3 +1,3 @@
-class Topic < ActiveRecord::Base
+class Topic < ApplicationRecord
   belongs_to :topic_set
 end

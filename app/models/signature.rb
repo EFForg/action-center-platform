@@ -1,4 +1,4 @@
-class Signature < ActiveRecord::Base
+class Signature < ApplicationRecord
   include GoingPostal
 
   belongs_to :user, optional: true

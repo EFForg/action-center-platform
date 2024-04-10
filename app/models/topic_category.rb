@@ -1,4 +1,4 @@
-class TopicCategory < ActiveRecord::Base
+class TopicCategory < ApplicationRecord
   has_many :topic_sets, dependent: :destroy
   has_many :email_campaigns
   has_many :congress_message_campaigns
