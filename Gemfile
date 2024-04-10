@@ -62,7 +62,7 @@ gem "daemons", "~> 1"
 gem "delayed_job_active_record", "~> 4"
 
 # Exception monitoring
-gem "sentry-raven", "~> 0.15"
+gem "sentry-raven", "~> 3.1.2"
 
 # Fancy counter caches
 gem "counter_culture", "~> 2.0"
