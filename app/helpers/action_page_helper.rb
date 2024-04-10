@@ -66,9 +66,9 @@ module ActionPageHelper
     name = html_escape(options[:name])
 
     email_text
-      .gsub(/\$TITLE/, title)
-      .gsub(/\$URL/, url)
-      .gsub(/\$NAME/, name)
+      .gsub("$TITLE", title)
+      .gsub("$URL", url)
+      .gsub("$NAME", name)
   end
 
   def visible_partners

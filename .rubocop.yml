@@ -10,7 +10,8 @@ inherit_gem:
 AllCops:
   TargetRailsVersion: 6.1
   TargetRubyVersion: 3.0
-  NewCops: disable
+  NewCops: enable
+  SuggestExtensions: false
   Exclude:
     - 'db/**/*'
     - 'config/**/*'

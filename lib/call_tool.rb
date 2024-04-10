@@ -43,11 +43,7 @@ module CallTool
   def self.get(action, params = {})
     RestClient.get endpoint(action), params: params
   rescue RestClient::BadRequest => e
-    begin
-      error = JSON.parse(e.http_body)["error"]
-    rescue StandardError
-      raise
-    end
+    error = JSON.parse(e.http_body)["error"]
 
     # Don't raise for twilio error 13224: number invalid
     unless error.match?(/^13224:/)

@@ -40,7 +40,7 @@ class Institution < ApplicationRecord
   end
 
   def self.categories
-    all.distinct.pluck(:category)
+    distinct.pluck(:category)
   end
 
   def included_in_active_actions?

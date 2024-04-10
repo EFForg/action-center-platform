@@ -24,7 +24,7 @@ class TweetTarget < ApplicationRecord
     # ref: https://dev.twitter.com/overview/general/user-profile-images-and-banners
     response = access_token.request(:get, "https://api.twitter.com/1.1/users/show.json?screen_name=#{twitter_id}")
     user_info = JSON.parse response.body
-    user_image_url = user_info["profile_image_url_https"].gsub(/_normal\./, "_bigger.")
+    user_image_url = user_info["profile_image_url_https"].gsub("_normal.", "_bigger.")
 
     self.image = URI.parse(user_image_url)
     save

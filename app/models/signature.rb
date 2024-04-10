@@ -38,7 +38,7 @@ class Signature < ApplicationRecord
     CSV.generate(options) do |csv|
       csv << column_names
 
-      all.find_each do |sub|
+      find_each do |sub|
         csv << sub.attributes.values_at(*column_names)
       end
     end
@@ -50,7 +50,7 @@ class Signature < ApplicationRecord
     CSV.generate(**options) do |csv|
       csv << column_names
 
-      all.find_each do |signature|
+      find_each do |signature|
         csv << signature.to_csv_line
       end
     end
@@ -62,7 +62,7 @@ class Signature < ApplicationRecord
     CSV.generate(options) do |csv|
       csv << column_names
 
-      all.find_each do |s|
+      find_each do |s|
         affiliation = s.affiliations.first or next
 
         csv << [
