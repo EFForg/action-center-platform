@@ -50,7 +50,7 @@ class CongressMessageCampaign < ActiveRecord::Base
     CongressForms.member_fills_url(campaign_tag)
   end
 
-  def target_bioguide_list=(x) # rubocop:todo Naming/MethodParameterName
+  def target_bioguide_list=(x)
     self.target_bioguide_ids = x.map(&:presence).compact.join(",")
   end
 

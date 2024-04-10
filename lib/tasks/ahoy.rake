@@ -1,9 +1,7 @@
 namespace :ahoy do
   desc "Fix name for view events"
   task fix_views: :environment do
-    # rubocop:todo Rails/SkipsModelValidations
     Ahoy::Event.where("properties ->> 'actionType' = 'view'").update_all(name: "View")
-    # rubocop:enable Rails/SkipsModelValidations
   end
 
   task fix_action_page_ids: :environment do

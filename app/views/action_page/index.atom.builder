@@ -3,7 +3,7 @@ atom_feed do |feed|
   feed.subtitle(t(:summary))
   feed.updated(@actionPages[0].created_at) unless @actionPages.empty?
 
-  @actionPages.each do |actionPage| # rubocop:todo Naming/BlockParameterName
+  @actionPages.each do |actionPage|
     feed.entry(actionPage) do |entry|
       entry.link(rel: "enclosure", type: actionPage.featured_image.content_type || "image/png",
                  href: URI.join(root_url, image_path(actionPage.featured_image)))
