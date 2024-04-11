@@ -35,4 +35,20 @@ RSpec.describe "S3 Uploads Spec", type: :request do
       post "/admin/source_files", params: valid_attributes
     end.to change { SourceFile.count }.by(1)
   end
+
+  it "should have valid response" do
+    @admin = FactoryBot.create(:admin_user)
+    login @admin
+
+    post "/admin/source_files", params: valid_attributes
+
+    expect(response.parsed_body).to include(
+      "id" => 1,
+      "delete_url" => "/admin/source_files/1.json",
+      "full_url" => a_string_matching(%r{/uploads/3be325f2b4e64d9d92a89405577280a4/img.png}),
+      "image" => true,
+      "name" => "img.png",
+      "size" => 10
+    )
+  end
 end
