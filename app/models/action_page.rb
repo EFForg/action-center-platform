@@ -1,5 +1,4 @@
 class ActionPage < ApplicationRecord
-  extend AmazonCredentials
   extend FriendlyId
 
   include PgSearch::Model
@@ -46,18 +45,10 @@ class ActionPage < ApplicationRecord
                                 :call_campaign, :congress_message_campaign, :affiliation_types, :partnerships,
                                 reject_if: :all_blank
 
-  has_attached_file :featured_image, amazon_credentials.merge(default_url: "missing.png")
-  has_attached_file :background_image, amazon_credentials
-  has_attached_file :og_image, amazon_credentials
-  validates_media_type_spoof_detection :featured_image,
-                                       if: -> { featured_image.present? && featured_image_file_name_came_from_user? }
-  validates_media_type_spoof_detection :background_image,
-                                       if: -> { background_image.present? && background_image_file_name_came_from_user? }
-  validates_media_type_spoof_detection :og_image,
-                                       if: -> { og_image.present? && og_image_file_name_came_from_user? }
-  do_not_validate_attachment_file_type %i[featured_image background_image og_image]
+  mount_uploader :featured_image, ActionPageImageUploader, mount_on: :featured_image_file_name
+  mount_uploader :background_image, ActionPageImageUploader, mount_on: :background_image_file_name
+  mount_uploader :og_image, ActionPageImageUploader, mount_on: :og_image_file_name
 
-  # validates_length_of :og_title, maximum: 65
   after_save :no_drafts_on_homepage
   after_save :set_congress_tag, if: -> { enable_congress_message }
 

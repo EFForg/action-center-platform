@@ -5,6 +5,8 @@ class Partner < ApplicationRecord
   has_many :users
   has_many :partnerships
   has_many :action_pages, through: :partnerships
+
+  # todo: doesnt appear to be used?
   has_attached_file :logo, amazon_credentials
 
   validates_media_type_spoof_detection :logo,
