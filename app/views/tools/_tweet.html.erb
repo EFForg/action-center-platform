@@ -15,9 +15,6 @@
           <% initial_targets = @tweet.targets.sample(3) %>
           <% @tweet.targets.each do |target| %>
             <div class="tweet-individual"<%= %( style="display: none").html_safe unless initial_targets.include?(target) %>>
-              <% if target.image_url.present? %>
-                <img src="<%= target.image_url %>" class="individual">
-              <% end %>
 
               <%= link_to "https://twitter.com/intent/tweet?" + {
                   text: ".@#{target.twitter_id} #{@tweet.message}",
