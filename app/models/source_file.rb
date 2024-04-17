@@ -41,7 +41,7 @@ class SourceFile < ApplicationRecord
     if ENV["amazon_bucket_url"]
       "https://#{ENV['amazon_bucket_url']}/#{key}"
     else # we have to build the url up from amazon information
-      "https://#{ENV['amazon_bucket']}.#{AmazonCredentials.build_s3_host_name}/#{key}"
+      "https://#{ENV['amazon_bucket']}.s3-#{Rails.application.secrets.amazon_region}.amazonaws.com/#{key}"
     end
   end
 

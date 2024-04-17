@@ -52,9 +52,5 @@ module Actioncenter
     config.google_civic_api_url = Rails.application.secrets.google_civic_api_url
     config.time_zone = Rails.application.secrets.time_zone || "Eastern Time (US & Canada)"
 
-    # fix file attachment:
-    # https://github.com/EFForg/action-center-platform/pull/408#issuecomment-381269915
-    # https://stackoverflow.com/questions/49176124/error-no-handler-found-with-base64-for-paperclip-5-2
-    Paperclip::HttpUrlProxyAdapter.register
   end
 end
