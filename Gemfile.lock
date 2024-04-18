@@ -174,7 +174,6 @@ GEM
     css_parser (1.16.0)
       addressable
     daemons (1.4.1)
-    database_cleaner (1.99.0)
     date (3.3.4)
     delayed_job (4.1.11)
       activesupport (>= 3.0, < 8.0)
@@ -530,7 +529,6 @@ DEPENDENCIES
   cocoon (~> 1)
   counter_culture (~> 2.0)
   daemons (~> 1)
-  database_cleaner (~> 1)
   delayed_job_active_record (~> 4)
   devise (~> 4.7)
   dotenv-rails (~> 2)
