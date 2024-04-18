@@ -7,6 +7,7 @@ require "rails/all"
 Bundler.require(:default, Rails.env)
 module Actioncenter
   class Application < Rails::Application
+    config.load_defaults 6.1
     # Settings in config/environments/* take precedence over those specified here.
     # Application configuration should go into files in config/initializers
     # -- all .rb files in that directory are automatically loaded.
@@ -18,7 +19,7 @@ module Actioncenter
     # The default locale is :en and all translations from config/locales/*.rb,yml are auto loaded.
     # config.i18n.load_path += Dir[Rails.root.join('my', 'locales', '*.{rb,yml}').to_s]
     # config.i18n.default_locale = :de
-    
+
     config.assets.paths << Rails.root.join('node_modules')
 
     config.to_prepare do
@@ -39,6 +40,8 @@ module Actioncenter
     config.action_mailer.default_options = {
       from: Rails.application.secrets.mailings_from
     }
+
+    config.active_record.belongs_to_required_by_default = false
 
     config.cors_allowed_domains = Rails.application.secrets.cors_allowed_domains ? Rails.application.secrets.cors_allowed_domains.split(" ") : []
 
