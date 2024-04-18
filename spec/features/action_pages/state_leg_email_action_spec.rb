@@ -1,6 +1,6 @@
 require "rails_helper"
 
-RSpec.feature "State legislator email actions", type: :feature, js: true do
+RSpec.describe "State legislator email actions", type: :system, js: true do
   let!(:state_action) do
     FactoryBot.create(:email_campaign, :state_leg).action_page
   end

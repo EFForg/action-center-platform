@@ -25,7 +25,7 @@ RSpec.describe "Admin Action Pages", type: :request do
   describe "Admins" do
     before(:each) do
       @admin = FactoryBot.create(:admin_user)
-      login @admin
+      sign_in @admin
     end
 
     it "should allow them creating action pages with valid attributes" do

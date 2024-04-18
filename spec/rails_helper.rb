@@ -35,8 +35,10 @@ Capybara.disable_animation = true
 
 RSpec.configure do |config|
   config.include Devise::Test::ControllerHelpers, type: :controller
+  config.include Devise::Test::IntegrationHelpers, type: :system
+  config.include Devise::Test::IntegrationHelpers, type: :request
   config.include Warden::Test::Helpers, type: :request
-  config.include Warden::Test::Helpers, type: :feature
+  config.include Warden::Test::Helpers, type: :system
 
   # Remove this line if you're not using ActiveRecord or ActiveRecord fixtures
   config.fixture_path = Rails.root.join("spec/fixtures")
@@ -64,24 +66,21 @@ RSpec.configure do |config|
   # https://relishapp.com/rspec/rspec-rails/docs
   config.infer_spec_type_from_file_location!
 
-  config.before(:each, type: :feature) do
+  config.before(:each) do
     # disable call tool by default; it will be stubbed for tests that need it
-    disable_call_tool
+    allow(CallTool).to receive(:enabled?).and_return(false)
+  end
+
+  config.before(:each, type: :system) do
+    driven_by :rack_test
+  end
+
+  config.before(:each, type: :system, js: true) do
+    driven_by :selenium_chrome_headless
   end
 
   FileUtils.mkdir_p(Rails.root.join("tmp/cache"))
   config.before(:each) do
     Rails.cache.clear
   end
-end
-
-# for request tests
-def login(user)
-  login_path = "/login"
-  post login_path, params: {
-    user: {
-      email: user.email,
-      password: "strong passwords defeat lobsters covering wealth"
-    }
-  }
 end

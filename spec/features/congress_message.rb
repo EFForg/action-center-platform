@@ -1,6 +1,6 @@
 require "rails_helper"
 
-RSpec.feature "Submit congress message", type: :feature do
+RSpec.describe "Submit congress message", type: :system do
   let(:action_page) { FactoryBot.create(:action_page_with_congress_message, :with_partner) }
 
   let(:partner) { action_page.partners.first }

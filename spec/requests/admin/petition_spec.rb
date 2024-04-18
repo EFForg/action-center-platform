@@ -4,7 +4,7 @@ RSpec.describe "Admin Action Pages", type: :request do
   describe "admins" do
     before(:each) do
       @admin = FactoryBot.create(:admin_user)
-      login @admin
+      sign_in @admin
     end
 
     it "should let admins download the CSV" do

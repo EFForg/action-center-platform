@@ -1,6 +1,6 @@
 require "rails_helper"
 
-RSpec.feature "Tweet actions", type: :feature, js: true do
+RSpec.describe "Tweet actions", type: :system, js: true do
   let!(:tweet_action) do
     FactoryBot.create(:tweet, message: "Default message").action_page
   end

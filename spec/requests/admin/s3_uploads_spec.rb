@@ -28,8 +28,7 @@ RSpec.describe "S3 Uploads Spec", type: :request do
   end
 
   it "should allow admins" do
-    @admin = FactoryBot.create(:admin_user)
-    login @admin
+    sign_in FactoryBot.create(:admin_user)
 
     expect do
       post "/admin/source_files", params: valid_attributes
@@ -37,14 +36,12 @@ RSpec.describe "S3 Uploads Spec", type: :request do
   end
 
   it "should have valid response" do
-    @admin = FactoryBot.create(:admin_user)
-    login @admin
+    sign_in FactoryBot.create(:admin_user)
 
     post "/admin/source_files", params: valid_attributes
 
     expect(response.parsed_body).to include(
-      "id" => 1,
-      "delete_url" => "/admin/source_files/1.json",
+      "delete_url" => a_string_matching(%r{/admin/source_files/[0-9]+.json}),
       "full_url" => a_string_matching(%r{/uploads/3be325f2b4e64d9d92a89405577280a4/img.png}),
       "image" => true,
       "name" => "img.png",

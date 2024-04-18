@@ -2,7 +2,7 @@ require "rails_helper"
 
 RSpec.describe "Admin Action Page Analytics", type: :request do
   let(:action_page) { FactoryBot.create(:action_page_with_views) }
-  before { login FactoryBot.create(:admin_user) }
+  before { sign_in FactoryBot.create(:admin_user) }
 
   describe "#index" do
     context "with type param" do
