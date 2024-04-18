@@ -188,7 +188,7 @@ class ToolsController < ApplicationController
       source = "action center #{@action_page.class.name.downcase} :: " + @action_page.title
       params[:subscription][:opt_in] = true
       params[:subscription][:source] = source
-      CiviCRM.subscribe params[:subscription]
+      Civicrm.subscribe params[:subscription]
     end
   end
 

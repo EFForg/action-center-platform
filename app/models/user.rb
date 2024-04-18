@@ -1,6 +1,6 @@
 require "civicrm"
 class User < ApplicationRecord
-  include CiviCRM::UserMethods
+  include Civicrm::UserMethods
 
   include PgSearch::Model
   pg_search_scope :search, against: %i[email first_name last_name]
