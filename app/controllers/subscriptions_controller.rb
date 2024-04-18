@@ -16,7 +16,7 @@ class SubscriptionsController < ApplicationController
 
     update_user_data(email: email)
     params[:subscription][:opt_in] = params[:subscription][:opt_in] || false
-    subscription = CiviCRM.subscribe params[:subscription]
+    subscription = Civicrm.subscribe params[:subscription]
     if subscription["error"]
       render json: { message: subscription["error_message"] }, status: 500
     else

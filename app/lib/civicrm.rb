@@ -1,5 +1,5 @@
 require "rest_client"
-module CiviCRM
+module Civicrm
   module UserMethods
     def contact_attributes
       attributes.symbolize_keys.slice(
@@ -9,35 +9,35 @@ module CiviCRM
     end
 
     def subscribe!(opt_in: false, source: "action center")
-      return nil if CiviCRM.skip_crm?
+      return nil if Civicrm.skip_crm?
 
-      res = CiviCRM.subscribe contact_attributes.merge(opt_in: opt_in, source: source)
+      res = Civicrm.subscribe contact_attributes.merge(opt_in: opt_in, source: source)
       update(contact_id: res["contact_id"]) if res && res["contact_id"]
       res || {}
     end
 
     def contact_id!
-      return nil if CiviCRM.skip_crm?
+      return nil if Civicrm.skip_crm?
 
-      res = CiviCRM.import_contact contact_attributes
+      res = Civicrm.import_contact contact_attributes
       update(contact_id: res["contact_id"]) if res && res["contact_id"]
       contact_id
     end
 
     def add_civicrm_activity!(action_page_id)
-      return nil if CiviCRM.skip_crm?
+      return nil if Civicrm.skip_crm?
 
       action_page = ActionPage.find_by(id: action_page_id)
       return unless contact_id && action_page
 
-      CiviCRM.add_activity(
+      Civicrm.add_activity(
         contact_id: contact_id,
         subject: "Took Action #{action_page.id}: #{action_page.title}"
       )
     end
 
     def manage_subscription_url!
-      checksum = CiviCRM.get_checksum(contact_id)
+      checksum = Civicrm.get_checksum(contact_id)
       return nil unless checksum
 
       "#{Rails.application.secrets.supporters[:host]}/update-your-preferences?" + {

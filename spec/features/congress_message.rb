@@ -51,7 +51,7 @@ RSpec.describe "Submit congress message", type: :system do
 
     expect(page).to have_content "Now help spread the word"
     expect(partner.subscriptions.count).to eq 1
-    expect(WebMock).to have_requested(:post, CiviCRM.supporters_api_url)
+    expect(WebMock).to have_requested(:post, Civicrm.supporters_api_url)
       .with(body: hash_including({
                                    data: '{"contact_params":{"email":"mrgiles@sunnydale.edu","first_name":"Rupert","last_name":"Giles","source":"action center congress message :: Sample Action Page","subscribe":true,"opt_in":true},"address_params":{"city":"Sunnydale","state":null,"street":"The Library","zip":"94109","country":null},"phone":null}'
                                  }))

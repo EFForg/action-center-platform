@@ -1,5 +1,4 @@
 require "rails_helper"
-require "lib/civicrm_spec"
 
 describe User do
   let(:attr) { FactoryBot.attributes_for :user }
@@ -8,8 +7,6 @@ describe User do
   before(:each) do
     stub_civicrm
   end
-
-  it_behaves_like "civicrm_user_methods"
 
   it "creates a new instance given a valid attributes" do
     User.create!(attr)
@@ -56,6 +53,13 @@ describe User do
       track_signature(action_page)
 
       expect(user.taken_action?(action_page)).to be_truthy
+    end
+  end
+
+  describe ".manage_subscription_url!" do
+    it "encodes a checksum" do
+      allow(Civicrm).to receive(:get_checksum).and_return("xyz")
+      expect(user.manage_subscription_url!).to include("cs=xyz")
     end
   end
 end
