@@ -136,9 +136,9 @@ RSpec.describe "Admin action page creation", type: :feature, js: true do
 
   it "can add images" do
     stub_request(:get, %r{uploads/featured-image.png}).to_return(status: 200, body: fixture_file_upload("test-image.png", "image/png").tempfile.to_io, headers: {})
-    stub_request(:any, %r{/action_pages/featured_images/000/000/([0-9]+)/original/featured-image.png}).to_return(status: 200, body: "", headers: {})
+    stub_request(:any, %r{/action_pages/featured_images/([0-9]+)/([0-9]+)/([0-9]+)/original/featured-image.png}).to_return(status: 200, body: "", headers: {})
     stub_request(:get, %r{uploads/og-image.png}).to_return(status: 200, body: fixture_file_upload("test-image.png", "image/png").tempfile.to_io, headers: {})
-    stub_request(:any, %r{/action_pages/og_images/000/000/([0-9]+)/original/og-image.png}).to_return(status: 200, body: "", headers: {})
+    stub_request(:any, %r{/action_pages/og_images/([0-9]+)/([0-9]+)/([0-9]+)/original/og-image.png}).to_return(status: 200, body: "", headers: {})
     FactoryBot.create(:source_file, key: "uploads/featured-image.png", file_name: "featured-image.png")
     FactoryBot.create(:source_file, key: "uploads/og-image.png", file_name: "og-image.png")
     visit new_admin_action_page_path

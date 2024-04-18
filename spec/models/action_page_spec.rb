@@ -181,14 +181,14 @@ describe ActionPage do
       let(:test_image_file_upload) { fixture_file_upload("test-image.png", "image/png").tempfile.to_io }
       it "creates a new record with image fields" do
         stub_request(:get, %r{fakeimages/test.png}).to_return(status: 200, body: test_image_file_upload, headers: { content_type: "image/png" })
-        stub_request(:put, %r{/action_pages/featured_images/000/000/([0-9]+)/original/test.png}).to_return(status: 200, body: "", headers: {})
+        stub_request(:put, %r{/action_pages/featured_images/([0-9]+)/([0-9]+)/([0-9]+)/original/test.png}).to_return(status: 200, body: "", headers: {})
 
         page = ActionPage.create!(page_attr)
         expect(page.featured_image_file_name).to eq("test.png")
         expect(page.featured_image.content_type).to eq("image/png")
-        expect(WebMock).to have_requested(:put, %r{/action_pages/featured_images/000/000/([0-9]+)/original/test.png})
-        expect(page.featured_image.url).to match(%r{/action_pages/featured_images/000/000/([0-9]+)/original/test.png})
-        expect(page.image.url).to match(%r{/action_pages/featured_images/000/000/([0-9]+)/original/test.png})
+        expect(WebMock).to have_requested(:put, %r{/action_pages/featured_images/([0-9]+)/([0-9]+)/([0-9]+)/original/test.png})
+        expect(page.featured_image.url).to match(%r{/action_pages/featured_images/([0-9]+)/([0-9]+)/([0-9]+)/original/test.png})
+        expect(page.image.url).to match(%r{/action_pages/featured_images/([0-9]+)/([0-9]+)/([0-9]+)/original/test.png})
       end
     end
   end
