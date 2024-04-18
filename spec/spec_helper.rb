@@ -43,17 +43,6 @@ InvisibleCaptcha.setup do |config|
   config.timestamp_enabled = false
 end
 
-# for controller tests
-def login_as_admin
-  @request.env["devise.mapping"] = Devise.mappings[:admin]
-  sign_in FactoryBot.create(:admin_user)
-end
-
-def login_as_collaborator
-  @request.env["devise.mapping"] = Devise.mappings[:admin]
-  sign_in FactoryBot.create(:collaborator_user)
-end
-
 def set_weak_password(user)
   weak_password = "12345678"
   user.password = weak_password

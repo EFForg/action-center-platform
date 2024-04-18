@@ -1,6 +1,6 @@
 require "rails_helper"
 
-RSpec.feature "Congress actions", type: :feature, js: true do
+RSpec.describe "Congress actions", type: :system, js: true do
   let!(:action) do
     FactoryBot.create(:action_page_with_congress_message)
   end

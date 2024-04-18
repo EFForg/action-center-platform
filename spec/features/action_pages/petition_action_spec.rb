@@ -1,6 +1,6 @@
 require "rails_helper"
 
-RSpec.feature "Petition actions", type: :feature, js: true do
+RSpec.describe "Petition actions", type: :system, js: true do
   let!(:action) do
     FactoryBot.create(:petition).action_page
   end
