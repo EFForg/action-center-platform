@@ -8,7 +8,7 @@ inherit_gem:
     - config/rails.yml
 
 AllCops:
-  TargetRailsVersion: 6.1
+  TargetRailsVersion: 7.0
   TargetRubyVersion: 3.0
   NewCops: enable
   SuggestExtensions: false
