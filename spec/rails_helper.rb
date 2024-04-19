@@ -29,6 +29,18 @@ require "selenium/webdriver"
 ActiveRecord::Migration.maintain_test_schema!
 
 Capybara.server = :puma
+Capybara.register_driver :selenium_chrome_headless do |app|
+  # Capybara::Selenium::Driver.load_selenium
+  browser_options = ::Selenium::WebDriver::Chrome::Options.new.tap do |opts|
+    opts.args << '--window-size=1920,1080'
+    opts.args << '--force-device-scale-factor=0.95'
+    opts.args << '--headless'
+    opts.args << '--disable-gpu'
+    opts.args << '--disable-site-isolation-trials'
+    opts.args << '--no-sandbox'
+  end
+  Capybara::Selenium::Driver.new(app, browser: :chrome, options: browser_options)
+end
 Capybara.javascript_driver = :selenium_chrome_headless
 Capybara.enable_aria_label = true
 Capybara.disable_animation = true
