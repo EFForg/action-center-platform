@@ -1,7 +1,8 @@
 class Ahoy::Store < Ahoy::DatabaseStore
   def autheticate(data)
-    # Documentation says to make this method blank to disable automatic
-    # linking of visits and users
+    # Opt-in to link users & visits
+    return unless user.record_activity?
+    super(data)
   end
 
   def user
@@ -10,16 +11,13 @@ class Ahoy::Store < Ahoy::DatabaseStore
   end
 
   def track_event(data)
-    # TODO: this will probably break because it's getting a data hash not these
-    # individual variables...
-    # can get request info via request.parameters
-    action_page_id = data[:action_page_id] || data[:action_page].try(:id)
     data[:id] = ensure_uuid(data.delete(:event_id))
     super(data)
   end
 
   # Based on https://github.com/ankane/ahoy/blob/ee2d0b3afff6284f57e372926d4a82fc91c8a948/docs/Ahoy-2-Upgrade.md#activerecordstore
-  # TODO: find better uuid?
+  # TODO: find better uuid? maybe druuid? UUIDTools is what was recommended by
+  # the ahoy upgrade docs but those were very old; probably shouldn't rely on sha1
   def track_visit(data)
     data[:id] = ensure_uuid(data.delete(:visit_token))
     data[:visitor_id] = ensure_uuid(data.delete(:visitor_token))
@@ -44,10 +42,11 @@ class Ahoy::Store < Ahoy::DatabaseStore
 end
 
 module Ahoy
+  # api disables visit tracking for all controllers; seems to mimic the settings
+  # we had before
+  self.api = true
   self.visit_duration = nil
   self.visitor_duration = nil
-  self.api = true
-  self.server_side_visits = false
   self.mask_ips = true
   self.cookies = false
 end
