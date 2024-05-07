@@ -3,7 +3,7 @@ FactoryBot.define do
     subject { "hey hey hey" }
     message { "hello world" }
 
-    trait :custom_email do
+    trait :custom do
       email_addresses { "a@example.com, b@example.com" }
     end
 
