@@ -114,7 +114,7 @@ group :development, :test do
   gem "database_cleaner", "~> 1"
   gem "factory_bot_rails", "~> 6.2"
   gem "rails-controller-testing"
-  gem "rspec-rails", "~> 4.0"
+  gem "rspec-rails", "~> 6.1"
   gem "rubocop"
   gem "rubocop-github", "~> 0.16"
   gem "rubocop-performance", require: false
