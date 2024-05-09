@@ -1,2 +1,2 @@
-class Bounce < ActiveRecord::Base
+class Bounce < ApplicationRecord
 end

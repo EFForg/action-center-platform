@@ -43,11 +43,9 @@ namespace :congress do
           twitter_id = info["social"]["twitter"]
           next unless twitter_id
 
-          # rubocop:todo Rails/SkipsModelValidations
           CongressMember
             .where(bioguide_id: info["id"]["bioguide"])
             .update_all(twitter_id: twitter_id)
-          # rubocop:enable Rails/SkipsModelValidations
         end
       end
     end

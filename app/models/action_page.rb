@@ -1,4 +1,4 @@
-class ActionPage < ActiveRecord::Base
+class ActionPage < ApplicationRecord
   extend AmazonCredentials
   extend FriendlyId
 
@@ -36,13 +36,11 @@ class ActionPage < ActiveRecord::Base
   belongs_to :congress_message_campaign
   belongs_to :call_campaign
   belongs_to :category, optional: true
-  # rubocop:todo Rails/InverseOf
   belongs_to :active_action_page_for_redirect, class_name: "ActionPage",
                                                foreign_key: "archived_redirect_action_page_id"
-  # rubocop:enable Rails/InverseOf
-  # rubocop:todo Rails/InverseOf
+
   belongs_to :author, class_name: "User", foreign_key: :user_id, optional: true
-  # rubocop:enable Rails/InverseOf
+
 
   accepts_nested_attributes_for :tweet, :petition, :email_campaign,
                                 :call_campaign, :congress_message_campaign, :affiliation_types, :partnerships,
@@ -151,13 +149,11 @@ class ActionPage < ActiveRecord::Base
     [og_image, background_image, featured_image].find(&:present?)
   end
 
-  # rubocop:todo Naming/MemoizedInstanceVariableName
   def actions_taken_percent
     return 0 if view_count == 0
 
     @percent ||= (action_count / view_count.to_f) * 100
   end
-  # rubocop:enable Naming/MemoizedInstanceVariableName
 
   def status
     if archived?

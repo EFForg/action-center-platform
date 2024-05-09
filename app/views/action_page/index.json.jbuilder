@@ -1,4 +1,3 @@
-# rubocop:todo Naming/BlockParameterName
 json.array! @actionPages do |actionPage|
   json.url action_page_url actionPage
   json.title actionPage.title
@@ -10,4 +9,3 @@ json.array! @actionPages do |actionPage|
     end
   end
 end
-# rubocop:enable Naming/BlockParameterName

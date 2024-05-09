@@ -179,11 +179,9 @@ class ToolsController < ApplicationController
     @user = current_user
   end
 
-  # rubocop:todo Naming/MemoizedInstanceVariableName
   def set_action_page
     @action_page ||= ActionPage.find_by(id: params[:action_id])
   end
-  # rubocop:enable Naming/MemoizedInstanceVariableName
 
   def create_newsletter_subscription
     if params[:subscribe] && EmailValidator.valid?(params[:subscription][:email])

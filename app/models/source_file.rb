@@ -1,4 +1,4 @@
-class SourceFile < ActiveRecord::Base
+class SourceFile < ApplicationRecord
   include Rails.application.routes.url_helpers
 
   validates :file_name, :file_content_type, :file_size, :key, :bucket, presence: true
@@ -56,7 +56,7 @@ class SourceFile < ActiveRecord::Base
     }
   end
 
-  def is_image? # rubocop:todo Naming/PredicateName
+  def is_image?
     !!file_content_type.try(:match, /image/)
   end
 

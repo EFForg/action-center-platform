@@ -1,4 +1,4 @@
-class Petition < ActiveRecord::Base
+class Petition < ApplicationRecord
   has_one :action_page
   has_many :signatures
   after_initialize :set_goal

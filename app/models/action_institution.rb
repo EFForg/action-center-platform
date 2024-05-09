@@ -1,4 +1,4 @@
-class ActionInstitution < ActiveRecord::Base
+class ActionInstitution < ApplicationRecord
   belongs_to :institution
   belongs_to :action_page
 

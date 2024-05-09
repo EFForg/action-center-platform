@@ -23,7 +23,7 @@ class Admin::ActionPagesController < Admin::ApplicationController
   allow_collaborators_to :index, :edit
 
   def index
-    @categories = Category.all.order(:title)
+    @categories = Category.order(:title)
     @authors = User.authors.order(:last_name)
     @actionPages = filter_action_pages
 

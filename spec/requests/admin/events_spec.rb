@@ -19,7 +19,7 @@ RSpec.describe "Admin Action Page Analytics", type: :request do
         expect(response.code).to eq "200"
 
         # Default is to return data for the previous month.
-        expect(JSON.parse(response.body).keys)
+        expect(response.parsed_body.keys)
           .to include(*(1..31).map { |i| format("Dec %d 2018", i) })
       end
 
@@ -32,7 +32,7 @@ RSpec.describe "Admin Action Page Analytics", type: :request do
             headers: { "ACCEPT" => "application/json" }
 
         # Returns one datapoint per day in range.
-        expect(JSON.parse(response.body).keys)
+        expect(response.parsed_body.keys)
           .to eq([
                    "Jan 1 2019",
                    "Jan 2 2019",

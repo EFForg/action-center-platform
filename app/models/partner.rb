@@ -1,4 +1,4 @@
-class Partner < ActiveRecord::Base
+class Partner < ApplicationRecord
   extend AmazonCredentials
   acts_as_paranoid
   has_many :subscriptions

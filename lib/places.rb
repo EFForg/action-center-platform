@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 
+# rubocop:disable Metrics/CollectionLiteralLength
 module Places
   def self.us_state_codes
     { "Alabama" => "AL",
@@ -325,3 +326,4 @@ module Places
     ].freeze
   end
 end
+# rubocop:enable Metrics/CollectionLiteralLength

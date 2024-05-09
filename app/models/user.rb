@@ -1,5 +1,5 @@
 require "civicrm"
-class User < ActiveRecord::Base
+class User < ApplicationRecord
   include CiviCRM::UserMethods
 
   include PgSearch::Model

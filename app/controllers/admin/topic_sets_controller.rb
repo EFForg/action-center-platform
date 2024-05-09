@@ -1,6 +1,6 @@
 class Admin::TopicSetsController < Admin::ApplicationController
   def index
-    topic_sets = TopicSet.all.order(:tier)
+    topic_sets = TopicSet.order(:tier)
     render json: topic_sets
   end
 

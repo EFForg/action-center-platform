@@ -1,4 +1,4 @@
-class Affiliation < ActiveRecord::Base
+class Affiliation < ApplicationRecord
   belongs_to :action_page
   belongs_to :signature
   belongs_to :affiliation_type

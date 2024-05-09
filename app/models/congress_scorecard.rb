@@ -2,12 +2,10 @@
 # petition action that drew in a signature from one of their constituents
 # So calling #counter on a model will display the number of signatures from
 # that member's constituents
-class CongressScorecard < ActiveRecord::Base
+class CongressScorecard < ApplicationRecord
   belongs_to :action_page
 
   def increment!
-    # rubocop:todo Rails/SkipsModelValidations
     CongressScorecard.increment_counter(:counter, id) # Increments counter atomically
-    # rubocop:enable Rails/SkipsModelValidations
   end
 end
