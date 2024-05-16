@@ -33,3 +33,4 @@ public/webshims
 
 # Ignore dotenv file
 /.env
+/public/uploads

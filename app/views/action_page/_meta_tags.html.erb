@@ -1,7 +1,7 @@
 <% summary = strip_tags stripdown(@actionPage.summary) -%>
 <%
-    image_url = if @actionPage.image.try(:exists?)
-                  image_url(@actionPage.image.to_s)
+    image_url = if @actionPage.image.present?
+                  image_url(@actionPage.image.url)
                 else
                   image_url("og-image-default.png")
                 end

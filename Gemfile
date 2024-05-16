@@ -42,7 +42,8 @@ source "https://rails-assets.org" do
 end
 
 # File upload
-gem "kt-paperclip", "~> 6"
+gem "carrierwave", "~> 3.0"
+gem "fog-aws"
 
 # Email preformatting
 gem "nokogiri", "~> 1"                    # Required for premailer-rails
