@@ -1,17 +1,16 @@
 class Ahoy::Store < Ahoy::DatabaseStore
-  def autheticate(data)
-    # Opt-in to link users & visits
-    return unless user.record_activity?
-    super(data)
-  end
+  # This method is empty to disable linking of users and visits
+  def autheticate(data); end
 
   def user
     current_user = super
-    current_user if current_user.try(:record_activity?)
+    return nil unless current_user.try(:record_activity?)
+    current_user
   end
 
   def track_event(data)
     data[:id] = ensure_uuid(data.delete(:event_id))
+    data[:action_page_id] = data[:properties].delete(:actionPageId)
     super(data)
   end
 
