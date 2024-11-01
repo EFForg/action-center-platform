@@ -11,7 +11,7 @@ gem "aws-sdk-rails", "~> 2"
 gem "aws-sdk-s3", "~> 1"
 gem "dotenv-rails", "~> 2"
 gem "rack-attack", "~> 5"
-gem "rails_response_headers", "~> 0.2"
+gem "rails_response_headers", git: "https://github.com/EFForg/rails_response_headers.git"
 
 # Frontend/assets
 gem "bootstrap-daterangepicker-rails", "~> 3"

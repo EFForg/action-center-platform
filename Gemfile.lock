@@ -1,3 +1,9 @@
+GIT
+  remote: https://github.com/EFForg/rails_response_headers.git
+  revision: 472d93ad39876c350cfb388cf6f7d68433793dc1
+  specs:
+    rails_response_headers (0.3.0)
+
 GEM
   remote: https://rails-assets.org/
   specs:
@@ -357,7 +363,6 @@ GEM
     rails-html-sanitizer (1.6.0)
       loofah (~> 2.21)
       nokogiri (~> 1.14)
-    rails_response_headers (0.2.0)
     railties (6.1.7.6)
       actionpack (= 6.1.7.6)
       activesupport (= 6.1.7.6)
@@ -571,7 +576,7 @@ DEPENDENCIES
   rails-assets-roboto-webfont (~> 0)!
   rails-assets-sweetalert (= 1.0.1)!
   rails-controller-testing
-  rails_response_headers (~> 0.2)
+  rails_response_headers!
   react-rails (~> 1)
   redcarpet (~> 3)
   rest-client (~> 2)
