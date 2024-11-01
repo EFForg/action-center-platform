@@ -1,4 +1,4 @@
-FROM ruby:3.0-slim
+FROM ruby:3.3-slim
 
 RUN mkdir /opt/actioncenter
 WORKDIR /opt/actioncenter
@@ -54,8 +54,7 @@ RUN bundle exec rake assets:precompile \
   amazon_bucket=noop \
   DATABASE_URL=postgres://noop
 
-RUN mkdir /opt/actioncenter/log \
-          /var/www
+RUN mkdir /var/www
 RUN chown -R www-data /opt/actioncenter/public \
                       /opt/actioncenter/db \
                       /opt/actioncenter/tmp \
