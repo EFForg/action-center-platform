@@ -1,9 +1,7 @@
 require "rails_helper"
 
 RSpec.describe Admin::UsersController, type: :controller do
-  include Devise::Test::ControllerHelpers
-
-  before { login_as_admin }
+  before { sign_in FactoryBot.create(:admin_user) }
 
   describe "GET #index" do
     it "returns http success" do

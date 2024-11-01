@@ -1,6 +1,6 @@
 require "rails_helper"
 
-RSpec.feature "Call actions", type: :feature, js: true do
+RSpec.describe "Call actions", type: :system, js: true do
   let!(:action) do
     FactoryBot.create(:call_campaign).action_page
   end

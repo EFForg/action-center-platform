@@ -3,12 +3,12 @@ module LoggedInvisibleCaptcha
 
   def on_spam(options = {})
     log_failure
-    super options
+    super(options)
   end
 
   def on_timestamp_spam(options = {})
     log_failure
-    super options
+    super(options)
   end
 
   def log_failure

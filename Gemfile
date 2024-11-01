@@ -1,6 +1,6 @@
 source "https://rubygems.org"
 
-gem "rails", "~> 6.1.0"
+gem "rails", "~> 7.0.0"
 
 # Database
 gem "pg", "~> 1.1"
@@ -112,7 +112,6 @@ end
 group :development, :test do
   gem "byebug"
   gem "capybara", "~> 3"
-  gem "database_cleaner", "~> 1"
   gem "factory_bot_rails", "~> 6.2"
   gem "rails-controller-testing"
   gem "rspec-rails", "~> 6.1"

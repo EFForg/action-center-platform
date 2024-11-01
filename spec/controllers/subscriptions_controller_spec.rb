@@ -41,7 +41,7 @@ RSpec.describe SubscriptionsController, type: :controller do
 
     describe "without a successful connection to civicrm" do
       before do
-        stub_request(:post, CiviCRM.supporters_api_url)
+        stub_request(:post, Civicrm.supporters_api_url)
           .and_return(status: 400, body: "{}", headers: {})
       end
 

@@ -3,7 +3,7 @@ require "rails_helper"
 RSpec.describe "Admin Users", type: :request do
   before(:each) do
     admin = FactoryBot.create(:admin_user)
-    login admin
+    sign_in admin
   end
 
   describe "#index" do

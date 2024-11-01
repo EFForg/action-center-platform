@@ -1,10 +1,7 @@
 require "rails_helper"
 
 RSpec.describe Admin::PetitionsController, type: :controller do
-  include Devise::Test::ControllerHelpers
-
   before(:each) do
-    @request.env["devise.mapping"] = Devise.mappings[:admin]
     sign_in FactoryBot.create(:admin_user)
   end
 

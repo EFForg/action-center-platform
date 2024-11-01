@@ -4,11 +4,9 @@ class TopicCategory < ApplicationRecord
   has_many :congress_message_campaigns
 
   def as_2d_array
-    arr = []
-    topic_sets.order(:tier).each do |ts|
-      arr.push ts.topics.map(&:name)
+    arr = topic_sets.order(:tier).map do |ts|
+      ts.topics.map(&:name)
     end
-    arr
   end
 
   def best_match(options)
