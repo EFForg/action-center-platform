@@ -6,6 +6,9 @@ require "rails/all"
 # you've limited to :test, :development, or :production.
 Bundler.require(*Rails.groups)
 
+# needed after rails 7 + ruby 3.3
+require "ostruct"
+
 module Actioncenter
   class Application < Rails::Application
     # Initialize configuration defaults for originally generated Rails version.
