@@ -50,7 +50,7 @@ gem "nokogiri", "~> 1"                    # Required for premailer-rails
 gem "premailer-rails", "~> 1"             # Inline styles for emails
 
 # Analytics
-gem "ahoy_matey", "~> 3"
+gem "ahoy_matey", "~> 4.0"
 # required for ahoy_matey 2.0 with activerecordstore
 gem "uuidtools", "~> 2"
 gem "chartkick", "~> 3"
