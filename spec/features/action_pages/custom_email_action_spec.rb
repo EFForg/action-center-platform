@@ -2,7 +2,7 @@ require "rails_helper"
 
 RSpec.feature "Custom email actions", type: :feature, js: true do
   let!(:custom_action) do
-    FactoryBot.create(:email_campaign, :custom).action_page
+    FactoryBot.create(:email_campaign).action_page
   end
 
   it "allows vistors to send emails" do
