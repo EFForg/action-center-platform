@@ -2,12 +2,10 @@ FactoryBot.define do
   factory :email_campaign do
     subject { "hey hey hey" }
     message { "hello world" }
-
-    trait :custom_email do
-      email_addresses { "a@example.com, b@example.com" }
-    end
+    email_addresses { "a@example.com, b@example.com" }
 
     trait :state_leg do
+      email_addresses { "" }
       state { "CA" }
       target_state_upper_chamber { true }
     end
