@@ -12,7 +12,7 @@ before_script:
 build:
   stage: build
   script:
-  - docker build --pull --label "repo=$CI_PROJECT_URL" -t $IMAGE_NAME ./app
+  - docker build --pull --label "repo=$CI_PROJECT_URL" -t $IMAGE_NAME .
   - docker push $IMAGE_NAME
   - |
     if [[ "$CI_COMMIT_BRANCH" == "$CI_DEFAULT_BRANCH" ]]; then
