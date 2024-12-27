@@ -3,6 +3,8 @@ FROM ruby:3.3-slim
 RUN mkdir /opt/actioncenter
 WORKDIR /opt/actioncenter
 
+COPY db/global-bundle.pem /opt/actioncenter/vendor/assets/certificates/
+
 RUN apt-get update && \
   apt-get install -y --no-install-recommends \
     curl \
