@@ -23,7 +23,7 @@ class Admin::ActionPagesController < Admin::ApplicationController
   allow_collaborators_to :index, :edit
 
   def index
-    @categories = Category.all.order(:title)
+    @categories = Category.order(:title)
     @authors = User.authors.order(:last_name)
     @actionPages = filter_action_pages
 
@@ -72,10 +72,6 @@ class Admin::ActionPagesController < Admin::ApplicationController
   end
 
   def update
-    @actionPage.background_image = nil if params[:destroy_background_image]
-    @actionPage.featured_image   = nil if params[:destroy_featured_image]
-    @actionPage.og_image         = nil if params[:destroy_og_image]
-
     @actionPage.update(action_page_params)
     if (institutions_params[:reset] && institutions_params[:reset] == "1") ||
        (institutions_params[:category] && @actionPage.institutions.empty?)
@@ -175,9 +171,9 @@ class Admin::ActionPagesController < Admin::ApplicationController
 
   def action_page_params
     params.require(:action_page).permit(
-      :title, :summary, :description, :category_id, :related_content_url, :featured_image,
+      :title, :summary, :description, :category_id, :related_content_url, :remote_featured_image_url,
       :enable_call, :enable_petition, :enable_email, :enable_tweet,
-      :enable_congress_message, :og_title, :og_image, :share_message, :published,
+      :enable_congress_message, :og_title, :remote_og_image_url, :share_message, :published,
       :call_campaign_id, :what_to_say, :redirect_url, :email_text, :enable_redirect,
       :victory, :victory_message, :archived_redirect_action_page_id, :archived, :status,
       partner_ids: [],

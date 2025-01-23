@@ -1,6 +1,6 @@
 # This file is copied to spec/ when you run 'rails generate rspec:install'
 ENV["RAILS_ENV"] ||= "test"
-require File.expand_path("../config/environment", __dir__)
+require_relative "../config/environment"
 # Prevent database truncation if the environment is production
 abort("The Rails environment is running in production mode!") if Rails.env.production?
 require "spec_helper"
@@ -29,14 +29,28 @@ require "selenium/webdriver"
 ActiveRecord::Migration.maintain_test_schema!
 
 Capybara.server = :puma
+Capybara.register_driver :selenium_chrome_headless do |app|
+  # Capybara::Selenium::Driver.load_selenium
+  browser_options = Selenium::WebDriver::Chrome::Options.new.tap do |opts|
+    opts.args << "--window-size=1920,1080"
+    opts.args << "--force-device-scale-factor=0.95"
+    opts.args << "--headless"
+    opts.args << "--disable-gpu"
+    opts.args << "--disable-site-isolation-trials"
+    opts.args << "--no-sandbox"
+  end
+  Capybara::Selenium::Driver.new(app, browser: :chrome, options: browser_options)
+end
 Capybara.javascript_driver = :selenium_chrome_headless
 Capybara.enable_aria_label = true
 Capybara.disable_animation = true
 
 RSpec.configure do |config|
   config.include Devise::Test::ControllerHelpers, type: :controller
+  config.include Devise::Test::IntegrationHelpers, type: :system
+  config.include Devise::Test::IntegrationHelpers, type: :request
   config.include Warden::Test::Helpers, type: :request
-  config.include Warden::Test::Helpers, type: :feature
+  config.include Warden::Test::Helpers, type: :system
 
   # Remove this line if you're not using ActiveRecord or ActiveRecord fixtures
   config.fixture_path = Rails.root.join("spec/fixtures")
@@ -44,7 +58,7 @@ RSpec.configure do |config|
   # If you're not using ActiveRecord, or you'd prefer not to run each of your
   # examples within a transaction, remove the following line or assign false
   # instead of true.
-  config.use_transactional_fixtures = false
+  config.use_transactional_fixtures = true
 
   # Filter lines from Rails gems in backtraces.
   config.filter_rails_from_backtrace!
@@ -64,30 +78,21 @@ RSpec.configure do |config|
   # https://relishapp.com/rspec/rspec-rails/docs
   config.infer_spec_type_from_file_location!
 
-  config.before(:suite) { DatabaseCleaner.clean_with(:truncation) }
-  config.before(:each) { DatabaseCleaner.strategy = :transaction }
-  config.before(:each, js: true) { DatabaseCleaner.strategy = :truncation }
-  config.before(:each) { DatabaseCleaner.start }
-  config.append_after(:each) { DatabaseCleaner.clean }
-
-  config.before(:each, type: :feature) do
+  config.before(:each) do
     # disable call tool by default; it will be stubbed for tests that need it
-    disable_call_tool
+    allow(CallTool).to receive(:enabled?).and_return(false)
+  end
+
+  config.before(:each, type: :system) do
+    driven_by :rack_test
+  end
+
+  config.before(:each, type: :system, js: true) do
+    driven_by :selenium_chrome_headless
   end
 
   FileUtils.mkdir_p(Rails.root.join("tmp/cache"))
   config.before(:each) do
     Rails.cache.clear
   end
-end
-
-# for request tests
-def login(user)
-  login_path = "/login"
-  post login_path, params: {
-    user: {
-      email: user.email,
-      password: "strong passwords defeat lobsters covering wealth"
-    }
-  }
 end

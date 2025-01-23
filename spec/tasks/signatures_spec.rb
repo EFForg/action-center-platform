@@ -14,12 +14,8 @@ describe "signatures namespace rake tasks" do
       regular_petition = FactoryBot.create(:petition_complete_with_one_hundred_signatures)
 
       petition_with_dups = FactoryBot.create(:petition_complete_with_one_hundred_signatures)
-      # rubocop:todo Rails/SkipsModelValidations
       petition_with_dups.signatures.take(20).each { |sig| sig.update_column(:email, "dup1@example.com") }
-      # rubocop:enable Rails/SkipsModelValidations
-      # rubocop:todo Rails/SkipsModelValidations
       petition_with_dups.signatures.take(10).each { |sig| sig.update_column(:email, "dup2@example.com") }
-      # rubocop:enable Rails/SkipsModelValidations
 
       distinct_emails = petition_with_dups.signatures.pluck(:email).uniq
 

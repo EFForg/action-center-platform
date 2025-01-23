@@ -24,9 +24,9 @@ $(function() {
     });
   }
 
-  attachGalleryImage('#image-gallery', '#action_page_featured_image', '#attached-featured_image');
-  attachGalleryImage('#image-gallery', '#action_page_background_image', '#attached-background_image');
-  attachGalleryImage('#image-gallery', '#action_page_og_image', '#attached-og_image');
+  attachGalleryImage('#image-gallery', '#action_page_remote_featured_image_url', '#attached-featured_image');
+  attachGalleryImage('#image-gallery', '#action_page_remote_background_image_url', '#attached-background_image');
+  attachGalleryImage('#image-gallery', '#action_page_remote_og_image_url', '#attached-og_image');
 
   $('.tweet-target').each(function(i, target) {
     attachGalleryImage('#image-gallery', $(target).find('.image-input'), target);

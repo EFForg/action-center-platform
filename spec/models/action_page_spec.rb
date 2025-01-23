@@ -167,4 +167,29 @@ describe ActionPage do
       expect { ActionPage.status("unknown") }.to raise_error(ArgumentError)
     end
   end
+
+  describe "image attachment" do
+    context "when there is no image" do
+      it "uses missing" do
+        page = ActionPage.create!(attr)
+        expect(page.featured_image.url).to match "missing.png"
+      end
+    end
+
+    context "when there is a featured image" do
+      let(:page_attr) { FactoryBot.attributes_for :action_page, remote_featured_image_url: "https://example.com/fakeimages/test.png" }
+      let(:test_image_file_upload) { fixture_file_upload("test-image.png", "image/png").tempfile.to_io }
+      it "creates a new record with image fields" do
+        stub_request(:get, %r{fakeimages/test.png}).to_return(status: 200, body: test_image_file_upload, headers: { content_type: "image/png" })
+        stub_request(:put, %r{/action_pages/featured_images/([0-9]+)/([0-9]+)/([0-9]+)/original/test.png}).to_return(status: 200, body: "", headers: {})
+
+        page = ActionPage.create!(page_attr)
+        expect(page.featured_image_file_name).to eq("test.png")
+        expect(page.featured_image.content_type).to eq("image/png")
+        expect(WebMock).to have_requested(:put, %r{/action_pages/featured_images/([0-9]+)/([0-9]+)/([0-9]+)/original/test.png})
+        expect(page.featured_image.url).to match(%r{/action_pages/featured_images/([0-9]+)/([0-9]+)/([0-9]+)/original/test.png})
+        expect(page.image.url).to match(%r{/action_pages/featured_images/([0-9]+)/([0-9]+)/([0-9]+)/original/test.png})
+      end
+    end
+  end
 end

@@ -1,4 +1,4 @@
-class SourceFile < ActiveRecord::Base
+class SourceFile < ApplicationRecord
   include Rails.application.routes.url_helpers
 
   validates :file_name, :file_content_type, :file_size, :key, :bucket, presence: true
@@ -41,7 +41,7 @@ class SourceFile < ActiveRecord::Base
     if ENV["amazon_bucket_url"]
       "https://#{ENV['amazon_bucket_url']}/#{key}"
     else # we have to build the url up from amazon information
-      "https://#{ENV['amazon_bucket']}.#{AmazonCredentials.build_s3_host_name}/#{key}"
+      "https://#{ENV['amazon_bucket']}.s3-#{Rails.application.secrets.amazon_region}.amazonaws.com/#{key}"
     end
   end
 
@@ -56,7 +56,7 @@ class SourceFile < ActiveRecord::Base
     }
   end
 
-  def is_image? # rubocop:todo Naming/PredicateName
+  def is_image?
     !!file_content_type.try(:match, /image/)
   end
 

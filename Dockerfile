@@ -1,7 +1,9 @@
-FROM ruby:2.7-slim
+FROM ruby:3.3-slim
 
 RUN mkdir /opt/actioncenter
 WORKDIR /opt/actioncenter
+
+COPY db/global-bundle.pem /opt/actioncenter/vendor/assets/certificates/
 
 RUN apt-get update && \
   apt-get install -y --no-install-recommends \
@@ -14,22 +16,9 @@ RUN apt-get update && \
     cron \
     gnupg \
     libssl-dev \
-    shared-mime-info
-
-RUN set -x; \
-  curl -sL https://deb.nodesource.com/setup_14.x -o nodesource_setup.sh \
-  && chmod +x nodesource_setup.sh \
-  && ./nodesource_setup.sh \
-  && apt-get update \
-  && apt-get install -y nodejs \
-  && apt-get clean \
-  && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
-
-RUN curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | apt-key add - \
-  && echo "deb https://dl.yarnpkg.com/debian/ stable main" | tee /etc/apt/sources.list.d/yarn.list \
-  && apt-get update \
-  && apt-get install \
-    yarn
+    shared-mime-info \
+    nodejs \
+    npm
 
 COPY package.json package-lock.json ./
 RUN npm install
@@ -67,8 +56,7 @@ RUN bundle exec rake assets:precompile \
   amazon_bucket=noop \
   DATABASE_URL=postgres://noop
 
-RUN mkdir /opt/actioncenter/log \
-          /var/www
+RUN mkdir /var/www
 RUN chown -R www-data /opt/actioncenter/public \
                       /opt/actioncenter/db \
                       /opt/actioncenter/tmp \

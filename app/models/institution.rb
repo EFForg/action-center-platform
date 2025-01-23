@@ -1,4 +1,4 @@
-class Institution < ActiveRecord::Base
+class Institution < ApplicationRecord
   require "csv"
   extend FriendlyId
 
@@ -40,7 +40,7 @@ class Institution < ActiveRecord::Base
   end
 
   def self.categories
-    all.distinct.pluck(:category)
+    distinct.pluck(:category)
   end
 
   def included_in_active_actions?

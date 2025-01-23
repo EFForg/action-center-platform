@@ -1,5 +1,5 @@
 module Ahoy
-  class Event < ActiveRecord::Base
+  class Event < ApplicationRecord
     self.table_name = "ahoy_events"
 
     belongs_to :visit
@@ -26,8 +26,6 @@ module Ahoy
       where(time: start_date..end_date.tomorrow)
     }
 
-    before_save :user_opt_out
-    before_save :anonymize_views
     after_create :record_civicrm
 
     TYPES = %i[views emails tweets calls signatures congress_messages].freeze
@@ -85,16 +83,9 @@ module Ahoy
       { view: views.count, action: actions.count }
     end
 
-    def user_opt_out
-      self.user_id = nil if user && !user.record_activity?
-    end
-
     def record_civicrm
-      user.add_civicrm_activity! action_page_id if name == "Action" && user && action_page_id
-    end
-
-    def anonymize_views
-      self.user_id = nil if name == "View"
+      return unless name == "Action" && user && action_page_id
+      user.add_civicrm_activity! action_page_id
     end
   end
 end

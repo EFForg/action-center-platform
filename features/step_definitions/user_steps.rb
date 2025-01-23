@@ -450,9 +450,9 @@ end
 Then(/^"(.*?)" should be signed up for mailings$/) do |email|
   email = email.sub("@", "%40")
   wait_until {
-    WebMock::WebMockMatcher.new(:post, CiviCRM::supporters_api_url).matches?(nil)
+    WebMock::WebMockMatcher.new(:post, Civicrm::supporters_api_url).matches?(nil)
   }
-  WebMock.should have_requested(:post, CiviCRM::supporters_api_url)
+  WebMock.should have_requested(:post, Civicrm::supporters_api_url)
     .with(body: /.*#{email}.*/)
 end
 

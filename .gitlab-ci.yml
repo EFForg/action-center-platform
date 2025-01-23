@@ -1,0 +1,26 @@
+stages:
+  - build
+
+variables:
+  IMAGE_NAME: $CI_REGISTRY_IMAGE:$CI_COMMIT_REF_SLUG
+
+before_script:
+  - env
+  - docker info
+  - docker login -u gitlab-ci-token -p $CI_JOB_TOKEN $CI_REGISTRY
+
+build:
+  stage: build
+  script:
+  - docker build --pull --label "repo=$CI_PROJECT_URL" -t $IMAGE_NAME .
+  - docker push $IMAGE_NAME
+  - |
+    if [[ "$CI_COMMIT_BRANCH" == "$CI_DEFAULT_BRANCH" ]]; then
+      docker tag "$IMAGE_NAME" "$CI_REGISTRY_IMAGE:latest"
+      docker push "$CI_REGISTRY_IMAGE:latest"
+    fi
+  # Run this job in a branch where a Dockerfile exists
+  rules:
+    - if: $CI_COMMIT_BRANCH
+      exists:
+        - Dockerfile

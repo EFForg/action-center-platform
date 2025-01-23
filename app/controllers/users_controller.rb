@@ -21,9 +21,7 @@ class UsersController < ApplicationController
   end
 
   def clear_activity
-    # rubocop:todo Rails/SkipsModelValidations
     current_user.events.update_all(user_id: nil)
-    # rubocop:enable Rails/SkipsModelValidations
     redirect_to user_path
   end
 

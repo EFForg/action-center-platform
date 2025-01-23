@@ -1,11 +1,7 @@
 require "rails_helper"
 
 RSpec.describe ActionPageController, type: :controller do
-  include Devise::Test::ControllerHelpers
-
   let(:action_page) { FactoryBot.create :action_page }
-  let(:admin) { login_as_admin }
-  let(:collaborator) { login_as_collaborator }
 
   describe "GET #index" do
     render_views
@@ -78,13 +74,13 @@ RSpec.describe ActionPageController, type: :controller do
       end
 
       it "notifies admin users that a page is unpublished" do
-        admin
+        sign_in FactoryBot.create(:admin_user)
         get :show, params: { id: unpublished_action_page }
         expect(flash[:notice]).to include("not published")
       end
 
       it "notifies collaborator users that a page is unpublished" do
-        collaborator
+        sign_in FactoryBot.create(:collaborator_user)
         get :show, params: { id: unpublished_action_page }
         expect(flash[:notice]).to include("not published")
       end

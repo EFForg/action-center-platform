@@ -134,6 +134,44 @@ RSpec.describe "Admin action page creation", type: :feature, js: true do
     end
   end
 
+  it "can add images" do
+    stub_request(:get, %r{uploads/featured-image.png}).to_return(status: 200, body: fixture_file_upload("test-image.png", "image/png").tempfile.to_io, headers: {})
+    stub_request(:any, %r{/action_pages/featured_images/([0-9]+)/([0-9]+)/([0-9]+)/original/featured-image.png}).to_return(status: 200, body: "", headers: {})
+    stub_request(:get, %r{uploads/og-image.png}).to_return(status: 200, body: fixture_file_upload("test-image.png", "image/png").tempfile.to_io, headers: {})
+    stub_request(:any, %r{/action_pages/og_images/([0-9]+)/([0-9]+)/([0-9]+)/original/og-image.png}).to_return(status: 200, body: "", headers: {})
+    FactoryBot.create(:source_file, key: "uploads/featured-image.png", file_name: "featured-image.png")
+    FactoryBot.create(:source_file, key: "uploads/og-image.png", file_name: "og-image.png")
+    visit new_admin_action_page_path
+    fill_in_basic_info(title: "Very Important Action",
+                       summary: "A summary",
+                       description: "A description")
+    next_section
+
+    select_action_type("tweet")
+    fill_in "Message", with: "A message"
+    next_section
+
+    expect(page).to have_selector("#images", visible: true, wait: 5)
+    click_on "featured-image.png"
+    next_section
+
+    expect(page).to have_selector("#sharing", visible: true, wait: 5)
+    fill_in "Share Message", with: "Twitter message"
+    fill_in "Title", with: "A social media title"
+    click_on "og-image.png"
+    next_section
+
+    tempermental do
+      click_button "Save"
+      expect(page).to have_content("Very Important Action", wait: 10)
+    end
+
+    # save_and_open_page
+    # expect(page).to have_xpath("//img[contains(@src,'missing')]")
+    expect(page).to have_xpath("//img[contains(@src,'featured-image.png')]")
+    expect(page).to have_xpath("//meta[contains(@content,'og-image.png')]", visible: false)
+  end
+
   def fill_in_basic_info(title:, summary:, description:)
     fill_in "Title", with: title
     fill_in_editor "#action_page_summary", with: summary

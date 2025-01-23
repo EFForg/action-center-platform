@@ -3,10 +3,6 @@ require "webmock/rspec"
 Dir[Rails.root.join("spec/support/**/*.rb")].sort.each { |f| require f }
 
 RSpec.configure do |config|
-  config.before(:each) do
-    DatabaseCleaner.clean_with :truncation
-  end
-
   # rspec-expectations config goes here. You can use an alternate
   # assertion/expectation library such as wrong or the stdlib/minitest
   # assertions if you prefer.
@@ -47,25 +43,14 @@ InvisibleCaptcha.setup do |config|
   config.timestamp_enabled = false
 end
 
-# for controller tests
-def login_as_admin
-  @request.env["devise.mapping"] = Devise.mappings[:admin]
-  sign_in FactoryBot.create(:admin_user)
-end
-
-def login_as_collaborator
-  @request.env["devise.mapping"] = Devise.mappings[:admin]
-  sign_in FactoryBot.create(:collaborator_user)
-end
-
-def set_weak_password(user) # rubocop:todo Naming/AccessorMethodName
+def set_weak_password(user)
   weak_password = "12345678"
   user.password = weak_password
   user.password_confirmation = weak_password
   user.save
 end
 
-def set_strong_password(user) # rubocop:todo Naming/AccessorMethodName
+def set_strong_password(user)
   weak_password = "strong passwords defeat lobsters covering wealth"
   user.password = weak_password
   user.password_confirmation = weak_password

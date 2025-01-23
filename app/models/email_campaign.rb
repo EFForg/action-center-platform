@@ -1,4 +1,4 @@
-class EmailCampaign < ActiveRecord::Base
+class EmailCampaign < ApplicationRecord
   belongs_to :topic_category
   has_one :action_page
 

@@ -31,9 +31,7 @@ class RegistrationsController < Devise::RegistrationsController
       existing.update(sign_up_params) unless existing.confirmed?
 
       if resource.persisted?
-        # rubocop:todo Rails/SkipsModelValidations
         resource.update_attribute(:unconfirmed_email, account_update_params[:email])
-        # rubocop:enable Rails/SkipsModelValidations
         flash[:notice] = I18n.t "devise.registrations.update_needs_confirmation"
         respond_with resource, location: after_update_path_for(resource)
       else

@@ -1,14 +1,17 @@
-inherit_from: .rubocop_todo.yml
+require:
+  - rubocop-rails
+  - rubocop-performance
 
 inherit_gem:
   rubocop-github:
-    - config/default_edge.yml
-    - config/rails_edge.yml
+    - config/default.yml
+    - config/rails.yml
 
 AllCops:
-  TargetRailsVersion: 5.0
-  TargetRubyVersion: 2.7
-  NewCops: disable
+  TargetRailsVersion: 7.0
+  TargetRubyVersion: 3.0
+  NewCops: enable
+  SuggestExtensions: false
   Exclude:
     - 'db/**/*'
     - 'config/**/*'
@@ -66,7 +69,10 @@ Performance/Squeeze:
 Performance/StringInclude:
   Enabled: true
 
-### Override rubcop-github ###
+Bundler/OrderedGems:
+  Enabled: false
+
+### Override rubocop-github ###
 
 Style/FrozenStringLiteralComment:
   # We aren't upgrading to Ruby 3.0, so this is just noise
@@ -84,9 +90,6 @@ GitHub/RailsControllerRenderPathsExist:
   # Doesn't seem to work; can't find templates that exist
   Enabled: false
 
-GitHub/RailsApplicationRecord:
-  # Rails/ApplicationRecord does the same thing
-  Enabled: false
 
 Lint/Void:
   Exclude:

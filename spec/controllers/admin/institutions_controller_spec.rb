@@ -1,8 +1,6 @@
 require "rails_helper"
 
 RSpec.describe Admin::InstitutionsController, type: :controller do
-  include Devise::Test::ControllerHelpers
-
   # This should return the minimal set of attributes required to create a valid
   # Admin::Institution. As you add validations to Admin::InstitutionSet, be sure to
   # adjust the attributes here as well.
@@ -11,8 +9,6 @@ RSpec.describe Admin::InstitutionsController, type: :controller do
   end
 
   before(:each) do
-    # Admin login
-    @request.env["devise.mapping"] = Devise.mappings[:admin]
     sign_in FactoryBot.create(:admin_user)
 
     # Set parent action

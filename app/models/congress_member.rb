@@ -1,4 +1,4 @@
-class CongressMember < ActiveRecord::Base
+class CongressMember < ApplicationRecord
   validates :bioguide_id, uniqueness: true
 
   scope :current, -> { where("? <= term_end", Time.zone.now) }
