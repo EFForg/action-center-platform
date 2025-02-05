@@ -60,7 +60,7 @@ RSpec.describe ToolsController, type: :controller do
   end
 
   describe "#email" do
-    let(:custom_email_campaign) { FactoryBot.create(:email_campaign, :custom_email) }
+    let(:custom_email_campaign) { FactoryBot.create(:email_campaign) }
     let(:state_email_campaign) { FactoryBot.create(:email_campaign, :state_leg) }
 
     it "should redirect to ActionPage#service_uri(service) if email has custom recipients" do

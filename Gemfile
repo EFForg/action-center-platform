@@ -1,6 +1,6 @@
 source "https://rubygems.org"
 
-gem "rails", "~> 6.1.0"
+gem "rails", "~> 7.0.0"
 
 # Database
 gem "pg", "~> 1.1"
@@ -11,7 +11,7 @@ gem "aws-sdk-rails", "~> 2"
 gem "aws-sdk-s3", "~> 1"
 gem "dotenv-rails", "~> 2"
 gem "rack-attack", "~> 5"
-gem "rails_response_headers", "~> 0.2"
+gem "rails_response_headers", git: "https://github.com/EFForg/rails_response_headers.git"
 
 # Frontend/assets
 gem "bootstrap-daterangepicker-rails", "~> 3"
@@ -50,7 +50,7 @@ gem "nokogiri", "~> 1"                    # Required for premailer-rails
 gem "premailer-rails", "~> 1"             # Inline styles for emails
 
 # Analytics
-gem "ahoy_matey", "~> 3"
+gem "ahoy_matey", "~> 4.0"
 # required for ahoy_matey 2.0 with activerecordstore
 gem "uuidtools", "~> 2"
 gem "chartkick", "~> 3"
@@ -62,7 +62,7 @@ gem "daemons", "~> 1"
 gem "delayed_job_active_record", "~> 4"
 
 # Exception monitoring
-gem "sentry-raven", "~> 0.15"
+gem "sentry-raven", "~> 3.1.2"
 
 # Fancy counter caches
 gem "counter_culture", "~> 2.0"

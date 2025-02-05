@@ -106,7 +106,7 @@ class ToolsController < ApplicationController
   end
 
   def email
-    unless (@user && @user.events.emails.find_by(action_page_id: params[:action_id])) || (params[:dnt] == "true")
+    unless @user&.taken_action?(@action_page) || params[:dnt] == "true"
       ahoy.track "Action",
                  { type: "action", actionType: "email", actionPageId: params[:action_id] },
                  action_page: @action_page
@@ -116,9 +116,9 @@ class ToolsController < ApplicationController
       @actionPage = @action_page
       render "email_target"
     elsif params[:state_rep_email]
-      redirect_to @action_page.email_campaign.service_uri(params[:service], { email: params[:state_rep_email] })
+      redirect_to @action_page.email_campaign.service_uri(params[:service], { email: params[:state_rep_email] }), allow_other_host: true
     else
-      redirect_to @action_page.email_campaign.service_uri(params[:service])
+      redirect_to @action_page.email_campaign.service_uri(params[:service]), allow_other_host: true
     end
   end
 
@@ -129,6 +129,7 @@ class ToolsController < ApplicationController
   def state_reps
     @email_campaign = EmailCampaign.find(params[:email_campaign_id])
     @actionPage = @email_campaign.action_page
+    # TODO: strong params this
     address = "#{params[:street_address]} #{params[:zipcode]}"
     civic_api_response = CivicApi.state_rep_search(address, @email_campaign.leg_level)
     @state_reps = JSON.parse(civic_api_response.body)["officials"]

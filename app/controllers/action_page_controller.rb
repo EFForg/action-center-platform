@@ -83,7 +83,7 @@ class ActionPageController < ApplicationController
   end
 
   def redirect_to_specified_url
-    redirect_to @actionPage.redirect_url, status: 301 if @actionPage.enable_redirect
+    redirect_to @actionPage.redirect_url, status: 301, allow_other_host: true if @actionPage.enable_redirect
   end
 
   def redirect_from_archived_to_active_action

@@ -16,67 +16,13 @@
 
     <div class="email-body">
       <% if @email_campaign.state? %>
-        <div class="state-rep-lookup">
-          <p>Enter your address below and we'll help you email your representatives (US addresses only).</p>
-            <div class="address-lookup">
-            <%= form_tag(tools_state_reps_path,
-                       method: :get, remote: true,
-                       class: "form state-rep-lookup") do %>
-                       <%= hidden_field_tag :email_campaign_id, @actionPage.email_campaign.id %>
-
-              <fieldset id="lookup-address">
-                <h3>
-                  <span class="customize-message-popover" data-toggle="tooltip" data-trigger="hover">?
-                    <span class="tooltiptext"><%= "We'll use your address to find your state representatives." %></span>
-                  </span>
-                  <%= "Look up your state representatives" %>
-                </h3>
-                <div id="errors"></div>
-
-                <div class="form-group">
-                  <%= text_field_tag :street_address,
-                                     (current_user && current_user.street_address),
-                                     placeholder: "Street Address",
-                                     "aria-label": "Street Address",
-                                     required: true,
-                                     class: "form-control" %>
-                </div>
-
-                <div class="form-group">
-                  <%= text_field_tag :zipcode,
-                                     (current_user && current_user.zipcode),
-                                     placeholder: "Zip Code",
-                                     "aria-label": "Zip Code",
-                                     required: true,
-                                     class: "form-control",
-                                     title: "Must be 5 numeric numbers",
-
-
-                                     pattern: "\\d{5}",
-                                     maxlength: 5 %>
-                </div>
-
-                <div class="form-errors info-circle error hidden"></div>
-
-                <p class="privacy-notice">Uses <a href="https://developers.google.com/terms/api-services-user-data-policy" target="_blank">Google</a>'s APIs (
-                  <span class="privacy-notice-popover" data-toggle="tooltip" data-trigger="hover">why?
-                    <!-- Attribution Guidelines: https://developers.google.com/civic-information/docs/data_guidelines?hl=en#data-availability -->
-                    <span class="tooltiptext">Representative information powered by the Civic Information API.</span>
-                  </span>).
-                </p>
-              </fieldset>
-              <button type="submit" class="eff-button" id="button-state-rep-lookup"role="button" aria-pressed="false">See Your Representatives</button>
-              <%= render "tools/loading" -%>
-              </div>
-            <% end %>
-          </div>
-          <div class="state-reps"></div>
-        <% else %>
-          <%= render 'tools/send_email' %>
-        <% end %>
-      </div>
+        <%= render 'tools/lookup_state_rep' %>
+      <% else %>
+        <%= render 'tools/send_email' %>
+      <% end %>
     </div>
   </div>
+</div>
 
   <div class="update-user-data-container" style="display: none;">
     <% if current_user %>
