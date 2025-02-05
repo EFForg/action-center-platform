@@ -71,6 +71,7 @@ RSpec.describe "Action Pages", type: :request do
       allow_any_instance_of(ActionPageImageUploader).to receive(:content_type).and_return("image/png")
       stub_request(:get, %r{fakeimages/test.png}).to_return(status: 200, body: file_fixture("test-image.png").read, headers: { content_type: "image/png" })
       stub_request(:any, %r{/action_pages/featured_images/([0-9]+)/([0-9]+)/([0-9]+)/original/test.png}).to_return(status: 200, body: file_fixture("test-image.png").read, headers: { content_type: "image/png" })
+
       FactoryBot.create(:action_page, remote_featured_image_url: "https://example.com/fakeimages/test.png")
 
       get "/action.atom"

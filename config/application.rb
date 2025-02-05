@@ -11,9 +11,7 @@ require "ostruct"
 
 module Actioncenter
   class Application < Rails::Application
-    # Initialize configuration defaults for originally generated Rails version.
     config.load_defaults 7.0
-
 
     config.assets.paths << Rails.root.join('node_modules')
 
@@ -37,7 +35,6 @@ module Actioncenter
     }
 
     config.active_record.belongs_to_required_by_default = false
-    #  config.active_support.cache_format_version = 7.0
 
     config.cors_allowed_domains = Rails.application.secrets.cors_allowed_domains ? Rails.application.secrets.cors_allowed_domains.split(" ") : []
 

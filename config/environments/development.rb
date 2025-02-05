@@ -34,7 +34,7 @@ Actioncenter::Application.configure do
   end
 
   # Store uploaded files on the local file system (see config/storage.yml for options).
-  config.active_storage.service = :local
+  # config.active_storage.service = :local
 
   # Don't care if the mailer can't send.
   config.action_mailer.raise_delivery_errors = true
@@ -56,6 +56,11 @@ Actioncenter::Application.configure do
   # Raise an error on page load if there are pending migrations.
   config.active_record.migration_error = :page_load
 
+  unless Rails.application.secrets.sentry_dsn.nil?
+    config.action_dispatch.show_exceptions = false
+    config.consider_all_requests_local = false
+  end
+
   # Highlight code that triggered database queries in logs.
   config.active_record.verbose_query_logs = true
 
@@ -72,6 +77,10 @@ Actioncenter::Application.configure do
 
   # Annotate rendered view with file names.
   # config.action_view.annotate_rendered_view_with_filenames = true
+
+  # Use an evented file watcher to asynchronously detect changes in source code,
+  # routes, locales, etc. This feature depends on the listen gem.
+  # config.file_watcher = ActiveSupport::EventedFileUpdateChecker
 
   # Uncomment if you wish to allow Action Cable access from any origin.
   # config.action_cable.disable_request_forgery_protection = true
