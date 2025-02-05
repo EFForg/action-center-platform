@@ -12,7 +12,6 @@ module LoggedInvisibleCaptcha
   end
 
   def log_failure
-    Raven.capture_message("A suspected automated form fill was rejected",
-                          level: :info)
+    Sentry.capture_message("A suspected automated form fill was rejected", level: :info)
   end
 end

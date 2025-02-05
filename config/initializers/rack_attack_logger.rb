@@ -5,5 +5,5 @@ ActiveSupport::Notifications.subscribe('rack.attack') do |name, start, finish, r
     ip = req.ip
   end
   message = "Rate limit exceeded on #{req.fullpath}"
-  Raven.capture_message(message, extra: { ip: ip })
+  Sentry.capture_message(message, extra: { ip: ip })
 end

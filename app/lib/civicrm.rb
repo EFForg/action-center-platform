@@ -97,7 +97,7 @@ module Civicrm
 
     res
   rescue StandardError => e
-    Raven.capture_exception(e)
+    Sentry.capture_exception(e)
     Rails.logger.error "#{e} (#{e.class})!"
     false
   end

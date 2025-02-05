@@ -50,7 +50,7 @@ module CallTool
       if Rails.application.secrets.sentry_dsn.nil?
         raise error
       else
-        Raven.capture_message(error, level: "info")
+        Sentry.capture_message(error, level: "info")
       end
     end
   end
