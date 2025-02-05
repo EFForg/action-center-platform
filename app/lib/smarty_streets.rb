@@ -32,7 +32,7 @@ module SmartyStreets
   def self.post(url, params)
     JSON.parse RestClient.get("#{url}?#{params.to_query}")
   rescue StandardError => e
-    Raven.capture_exception(e)
+    Sentry.capture_exception(e)
     Rails.logger.error "#{e} (#{e.class})!"
     false
   end

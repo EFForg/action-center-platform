@@ -61,8 +61,9 @@ gem "groupdate", "~> 2"
 gem "daemons", "~> 1"
 gem "delayed_job_active_record", "~> 4"
 
-# Exception monitoring
-gem "sentry-raven", "~> 3.1.2"
+gem "sentry-ruby", "~> 5.17.2"
+gem "sentry-rails", "~> 5.17.2"
+gem "sentry-delayed_job", "~> 5.17.2"
 
 # Fancy counter caches
 gem "counter_culture", "~> 2.0"

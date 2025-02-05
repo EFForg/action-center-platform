@@ -13,7 +13,7 @@ RSpec.describe LoggedInvisibleCaptcha, type: :controller do
   end
 
   it "logs spammy requests to Sentry" do
-    expect(Raven).to receive(:capture_message)
+    expect(Sentry).to receive(:capture_message)
     post :create, params: { foo: "bar" }
   end
 end

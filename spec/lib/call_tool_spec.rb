@@ -70,7 +70,7 @@ describe CallTool do
       expect(exception).to receive(:http_body) { %({"error": "13224: number invalid"}) }
       expect(RestClient).to receive(:get).and_raise(exception)
 
-      expect(Raven).not_to receive(:capture_message)
+      expect(Sentry).not_to receive(:capture_message)
       expect { CallTool.campaign_call(campaign, **keywords) }.not_to raise_exception
     end
   end
