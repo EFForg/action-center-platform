@@ -137,7 +137,10 @@ class ActionPage < ApplicationRecord
   end
 
   def image
-    [og_image, background_image, featured_image].find(&:present?)
+    [og_image, background_image, featured_image].compact.each do |uploader|
+      return uploader unless uploader.url == uploader.default_url
+    end
+    og_image
   end
 
   def actions_taken_percent

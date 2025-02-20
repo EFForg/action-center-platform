@@ -1,19 +1,12 @@
 <% summary = strip_tags stripdown(@actionPage.summary) -%>
-<%
-    image_url = if @actionPage.image.present?
-                  image_url(@actionPage.image.url)
-                else
-                  image_url("og-image-default.png")
-                end
--%>
 
 <meta name='description' content='<%= summary -%>'>
 <meta property='og:type' content='article'>
 <meta property='og:url' content='<%= action_page_url(@actionPage) -%>'>
 <meta property='og:title' content='<%= @actionPage.og_title -%>'>
 <meta property='og:description' content='<%= summary -%>'>
-<meta property='og:image' content='<%= asset_path(image_url) -%>'>
-<meta property='og:image:secure_url' content='<%= asset_path(image_url) -%>'>
+<meta property='og:image' content='<%= asset_path(@actionPage.image.url) -%>'>
+<meta property='og:image:secure_url' content='<%= asset_path(@actionPage.image.url) -%>'>
 <% if fb = Rails.application.config.facebook_handle %>
   <meta property='article:publisher' content='https://www.facebook.com/<%= fb -%>'>
 <% end %>
@@ -21,7 +14,7 @@
 <meta name='twitter:card' content='summary_large_image'>
 <meta name='twitter:site' content='<%= twitter_handle -%>'>
 <meta name='twitter:creator' content='<%= twitter_handle -%>'>
-<meta name='twitter:image:src' content='<%= asset_path(image_url) -%>'>
+<meta name='twitter:image:src' content='<%= asset_path(@actionPage.image.url) -%>'>
 <meta name='twitter:title' content='<%= @actionPage.og_title -%>'>
 <meta name='twitter:description' content='<%= summary -%>'>
 
