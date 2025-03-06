@@ -44,11 +44,11 @@
 
 
 /* Controllers*/
-@import "welcome";
-@import "users";
-@import "action_page";
+@import "application/welcome";
+@import "application/users";
+@import "application/action_page";
 @import "sweetalert";
-@import "sessions"
+@import "application/sessions"
 
 
 /*

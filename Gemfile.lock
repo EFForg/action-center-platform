@@ -207,6 +207,7 @@ GEM
     dotenv-rails (2.8.1)
       dotenv (= 2.8.1)
       railties (>= 3.2)
+    drb (2.2.1)
     eff_matomo (0.2.4)
       activesupport
       httparty
@@ -306,6 +307,7 @@ GEM
     multi_json (1.15.0)
     multi_xml (0.7.1)
       bigdecimal (~> 3.1)
+    mutex_m (0.3.0)
     net-imap (0.5.5)
       date
       net-protocol
@@ -337,6 +339,7 @@ GEM
       snaky_hash (~> 2.0)
       version_gem (~> 1.1)
     orm_adapter (0.5.0)
+    ostruct (0.6.1)
     parallel (1.26.3)
     parser (3.3.7.1)
       ast (~> 2.4.1)
@@ -576,6 +579,7 @@ DEPENDENCIES
   delayed_job_active_record (~> 4)
   devise (~> 4.7)
   dotenv-rails (~> 2)
+  drb
   eff_matomo (~> 0.2.4)
   ejs (~> 1)
   email_validator (~> 1)
@@ -591,8 +595,10 @@ DEPENDENCIES
   invisible_captcha (~> 0)
   iso_country_codes (~> 0)
   jbuilder (~> 2)
+  mutex_m
   nokogiri (~> 1)
   oauth (~> 0)
+  ostruct
   pg (~> 1.1)
   pg_search (~> 2)
   premailer-rails (~> 1)
