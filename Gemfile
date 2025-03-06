@@ -20,7 +20,7 @@ gem "bourbon", "~> 3"
 gem "bundler", ">= 1.8.4" # needed for rails-assets
 gem "react-rails", "~> 1"
 gem "redcarpet", "~> 3" # Markdown
-gem "sass-rails", "< 5.1"
+gem "sassc-rails"
 gem "select2-rails"               # Autocomplete select menus
 gem "uglifier", ">= 1.3.0"        # compressor for JavaScript assets
 
