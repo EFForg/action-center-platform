@@ -96,6 +96,10 @@ gem "fast_inserter", "~> 2.0"
 # Pin psych to below version 4 until we're on rails 7 and ruby 3.1
 gem "psych", "< 4"
 
+# these will be removed from stdlib in later ruby versions
+gem "ostruct"
+gem "mutex_m"
+
 group :doc do
   # bundle exec rake doc:rails generates the API under doc/api
   gem "sdoc", require: false
@@ -108,6 +112,8 @@ end
 group :test do
   gem "webmock", "~> 3"
   gem "selenium-devtools"
+  # this will be removed from stdlib in later ruby versions
+  gem "drb"
 end
 
 group :development, :test do
