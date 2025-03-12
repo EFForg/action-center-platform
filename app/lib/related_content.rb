@@ -1,4 +1,8 @@
 class RelatedContent
+  def self.as_hash(url)
+    new(url).as_hash
+  end
+
   def initialize(url)
     @url = url
   end
@@ -12,6 +16,12 @@ class RelatedContent
     rescue OpenURI::HTTPError
       nil
     end
+  end
+
+  def as_hash
+    load unless found?
+    return {} unless found?
+    { title: title, image_url: image }
   end
 
   def found?

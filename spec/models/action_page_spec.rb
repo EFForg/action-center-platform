@@ -14,16 +14,6 @@ describe ActionPage do
     expect(action_page.redirect_from_archived_to_active_action?).to be_truthy
   end
 
-  # The test was a no-go because of the ajaxy html requiring nils... and Then
-  # changing them from nils to ""???  Needs effeciency review before crashyness review
-  # it "should not allow the creation of a model with so few attrs that it would crash the views" do
-  #   expect {
-  #     ActionPage.create!({ })
-  #   }.to raise_exception(ActiveRecord::RecordInvalid)
-  #
-  #   expect(ActionPage.count).to eq 0
-  # end
-
   describe "slug" do
     let(:page) { FactoryBot.create(:action_page) }
     let(:new_slug) { "a-better-slug" }
@@ -190,6 +180,45 @@ describe ActionPage do
         expect(page.featured_image.url).to match(%r{/action_pages/featured_images/([0-9]+)/([0-9]+)/([0-9]+)/original/test.png})
         expect(page.image.url).to match(%r{/action_pages/featured_images/([0-9]+)/([0-9]+)/([0-9]+)/original/test.png})
       end
+    end
+  end
+
+  describe "#related_content" do
+    include_context "with cache"
+    let(:url) { "related-content-url" }
+    let(:action_page) do
+      FactoryBot.create(:action_page, related_content_url: url)
+    end
+    let(:rc_hash) { { title: "Blog Title", image_url: "image-url" } }
+    let(:rc) do
+      class_double("RelatedContent")
+        .as_stubbed_const(transfer_nested_constants: true)
+    end
+    before { allow(rc).to receive(:as_hash).with(url).and_return(rc_hash) }
+
+    it "returns required data from the related content url" do
+      expect(action_page.related_content).to eq(rc_hash)
+    end
+
+    it "caches the hash" do
+      action_page.related_content
+      cache_key = "#{action_page.cache_key_with_version}/related_content"
+      expect(Rails.cache.fetch(cache_key)).to eq(rc_hash)
+    end
+
+    it "doesn't hit RelatedContent when cached" do
+      action_page.related_content
+      expect(rc).not_to receive(:as_hash)
+      action_page.related_content
+    end
+
+    it "cache becomes stale when the model is updated" do
+      action_page.related_content
+      new_url = "new-url"
+      new_hash = { title: "New", image_url: "new-image-url" }
+      action_page.update(related_content_url: "new-url")
+      allow(rc).to receive(:as_hash).with(new_url).and_return(new_hash)
+      expect(action_page.reload.related_content).to eq(new_hash)
     end
   end
 end
