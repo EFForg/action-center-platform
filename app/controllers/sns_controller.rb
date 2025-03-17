@@ -40,10 +40,6 @@ class SnsController < ApplicationController
 
   def log_request
     logger.info "Received Amazon SES #{action_name} notification"
-    Sentry.with_scope do |scope|
-      scope.set_extras(message: request.body.read)
-      Sentry.capture_message("Received Amazon SES #{action_name} notification", level: "info")
-    end
-    request.body.rewind
+    Sentry.capture_message("Received Amazon SES #{action_name} notification", level: "info")
   end
 end
