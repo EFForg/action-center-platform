@@ -8,6 +8,7 @@ Rails.application.config.filter_parameters += [
     /name_first/i,
     /name_last/i,
     :last_name,
+    :street_address,
     # :zipcode,
     :street,
     :city,
@@ -23,5 +24,5 @@ Rails.application.config.filter_parameters += [
     :certificate,
     :otp,
     :ssn,
-    /\$?message/i,
+    /^\$?message$/i, # for congress message body
 ]

@@ -5,7 +5,6 @@ require "active_support/parameter_filter"
 # https://docs.sentry.io/platforms/ruby/configuration/options/
 Sentry.init do |config|
   config.dsn = Rails.application.secrets.sentry_dsn
-  # get breadcrumbs from logs
   config.breadcrumbs_logger = [:active_support_logger, :http_logger]
 
   config.environment = ENV['SENTRY_ENVIRONMENT']
@@ -13,40 +12,17 @@ Sentry.init do |config|
   config.send_default_pii = false
 
   config.before_breadcrumb = lambda do |breadcrumb, hint|
-    # Remove query params from path in request breadcrumbs, since they can share sensitive info like addresses
-    if hint.dig('request').present?
-      breadcrumb.path = begin
-        url = URI.parse(breadcrumb.path)
+    # # Remove query params from path in request breadcrumbs, since they can share sensitive info like addresses
+    if breadcrumb.category =~ /\.action_controller/
+      breadcrumb.data[:path] = begin
+        url = URI.parse(breadcrumb.data[:path])
         url.query = nil
         url.to_s
       rescue URI::Error
-        url.split("?").first
+        breadcrumb.data[:path].split("?").first
       end
     end
     breadcrumb
-  end
-
-  # Filter out potentially sensitive data before sending to Sentry.io
-  # This applies any filters we've set to logs to also apply to Sentry data
-  #
-  # https://docs.sentry.io/platforms/ruby/guides/rails/configuration/filtering/
-  filter = ActiveSupport::ParameterFilter.new(Rails.application.config.filter_parameters)
-  config.before_send = lambda do |event, _hint|
-    # Sanitize extra data
-    if event.extra
-      event.extra = filter.filter(event.extra)
-    end
-    # Sanitize user data
-    if event.user
-      event.user = filter.filter(event.user)
-    end
-    # Sanitize context data (if present)
-    if event.contexts
-      event.contexts = filter.filter(event.contexts)
-    end
-
-    # Return the sanitized event object
-    event
   end
 
   # https://docs.sentry.io/platforms/ruby/configuration/sampling/
