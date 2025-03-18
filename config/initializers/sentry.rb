@@ -19,7 +19,7 @@ Sentry.init do |config|
         url.query = nil
         url.to_s
       rescue URI::Error
-        breadcrumb.data[:path].split("?").first
+        breadcrumb.data[:path]&.split("?")&.first
       end
     end
     breadcrumb
