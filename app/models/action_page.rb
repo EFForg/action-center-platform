@@ -196,7 +196,6 @@ class ActionPage < ApplicationRecord
   end
 
   def related_content
-    # TODO: remove view fragment caching, implement in views
     Rails.cache.fetch("#{cache_key_with_version}/related_content") do
       RelatedContent.as_hash(related_content_url)
     end

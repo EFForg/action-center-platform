@@ -34,7 +34,7 @@ RSpec.feature "Ahoy", type: :feature, js: true do
       end
     end
   end
-  
+
   def take_email_action(action_page)
     visit action_page_path(action_page)
     click_on "Use default mail client"
