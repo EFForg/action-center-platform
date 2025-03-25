@@ -92,7 +92,7 @@ module CongressForms
   end
 
   def self.member_fills_url(campaign_tag)
-    base_url + data_path("/successful-fills-by-member/", { campaign_tag: campaign_tag })
+    URI.join(base_url, data_path("/successful-fills-by-member/", { campaign_tag: campaign_tag })).to_s
   end
 
   def self.date_fills_path(campaign_tag = nil, start_date = nil, end_date = nil, bioguide_id = nil)
@@ -105,7 +105,7 @@ module CongressForms
   end
 
   def self.date_fills_url(*args)
-    base_url + date_fills_path(*args)
+    URI.join(base_url, date_fills_path(*args)).to_s
   end
 
   def self.date_fills(*args)
@@ -120,7 +120,7 @@ module CongressForms
   end
 
   def self.get(path)
-    JSON.parse RestClient.get(base_url + path)
+    JSON.parse RestClient.get(URI.join(base_url, path).to_s)
   rescue RestClient::ExceptionWithResponse => e
     Sentry.capture_exception(e)
     Rails.logger.error e
@@ -128,7 +128,7 @@ module CongressForms
   end
 
   def self.post(path, body = {})
-    JSON.parse RestClient.post(base_url + path, body.to_json,
+    JSON.parse RestClient.post(URI.join(base_url, path).to_s, body.to_json,
                                { content_type: :json, accept: :json })
   rescue RestClient::ExceptionWithResponse => e
     Sentry.capture_exception(e)
