@@ -12,7 +12,7 @@ on:
     branches: [ $default-branch, 2024-upgrades-main ]
 jobs:
   test:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-22.04
     services:
       postgres:
         image: postgres:11-alpine
