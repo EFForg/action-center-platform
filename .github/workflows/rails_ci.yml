@@ -7,9 +7,9 @@
 name: "Ruby on Rails CI"
 on:
   push:
-    branches: [ $default-branch ]
+    branches: [ $default-branch, 2024-upgrades-main ]
   pull_request:
-    branches: [ $default-branch ]
+    branches: [ $default-branch, 2024-upgrades-main ]
 jobs:
   test:
     runs-on: ubuntu-latest
