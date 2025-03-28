@@ -120,7 +120,8 @@ module CongressForms
   end
 
   def self.get(path)
-    JSON.parse RestClient.get(URI.join(base_url, path).to_s)
+    result = RestClient.get(URI.join(base_url, path).to_s)
+    JSON.parse(result)
   rescue RestClient::ExceptionWithResponse => e
     Sentry.capture_exception(e)
     Rails.logger.error e
@@ -128,9 +129,12 @@ module CongressForms
   end
 
   def self.post(path, body = {})
-    JSON.parse RestClient.post(URI.join(base_url, path).to_s, body.to_json,
-                               { content_type: :json, accept: :json })
+    result = RestClient.post(URI.join(base_url, path).to_s, body.to_json,
+                             { content_type: :json, accept: :json })
+    JSON.parse(result)
   rescue RestClient::ExceptionWithResponse => e
+    bio_ids = body[:bio_ids] || [body[:bio_id]]
+    capture_context(e, bio_ids: bio_ids)
     Sentry.capture_exception(e)
     Rails.logger.error e
     raise RequestFailed
@@ -138,6 +142,22 @@ module CongressForms
 
   def self.base_url
     Rails.application.config.congress_forms_url
+  end
+
+  def self.capture_context(e, bio_ids: nil)
+    body = JSON.parse(e.http_body)
+    Sentry.configure_scope do |scope|
+      scope.set_context(
+        "response",
+        {
+          message: body["message"],
+          status_code: e.http_code,
+          status: body["status"],
+          bio_ids: bio_ids
+        }
+      )
+    end
+
   end
 
   class RequestFailed < RestClient::ExceptionWithResponse; end
