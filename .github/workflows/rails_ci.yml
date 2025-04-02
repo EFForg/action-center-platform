@@ -13,6 +13,11 @@ on:
 jobs:
   test:
     runs-on: ubuntu-latest
+    env:
+      RAILS_ENV: test
+      DATABASE_URL: "postgres://rails:password@localhost:5432/rails_test"
+      aws_access_key_id: test
+      aws_secret_access_key: test
     services:
       postgres:
         image: postgres:latest
@@ -22,16 +27,13 @@ jobs:
           POSTGRES_DB: rails_test
           POSTGRES_USER: rails
           POSTGRES_PASSWORD: password
-    env:
-      RAILS_ENV: test
-      DATABASE_URL: "postgres://rails:password@localhost:5432/rails_test"
-
     steps:
       - uses: actions/checkout@v4
       - name: Install dependencies
         uses: ./.github/actions/setup-action
       - name: Set up database schema
         run: bin/rails db:schema:load
+      - run: echo $aws_access_key_id
       - name: Run tests
         run: bundle exec rspec
 
