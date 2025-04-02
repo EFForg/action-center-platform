@@ -12,10 +12,10 @@ on:
     branches: [ $default-branch, 2024-upgrades-main ]
 jobs:
   test:
-    runs-on: ubuntu-22.04
+    runs-on: ubuntu-latest
     services:
       postgres:
-        image: postgres:11-alpine
+        image: postgres:latest
         ports:
           - "5432:5432"
         env:
@@ -25,33 +25,24 @@ jobs:
     env:
       RAILS_ENV: test
       DATABASE_URL: "postgres://rails:password@localhost:5432/rails_test"
+      aws_access_key_id: test
+      aws_secret_access_key: test
+
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v4
-      # Add or replace dependency steps here
-      - name: Install Ruby and gems
-        uses: ruby/setup-ruby@v1
-        with:
-          bundler-cache: true
-      # Add or replace database setup steps here
+      - uses: actions/checkout@v4
+      - uses: ./.github/actions/setup-action
       - name: Set up database schema
         run: bin/rails db:schema:load
-      # Add or replace test runners here
       - name: Run tests
         run: bundle exec rspec
 
   lint:
-    runs-on: ubuntu-22.04
+    runs-on: ubuntu-latest
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v4
-      - name: Install Ruby and gems
-        uses: ruby/setup-ruby@78c01b705fd9d5ad960d432d3a0cfa341d50e410 # v1.179.1
-        with:
-          bundler-cache: true
+      - uses: actions/checkout@v4
+      - uses: ./.github/actions/setup-action
       - name: Generate binstubs
         run: bundle binstubs bundler-audit brakeman rubocop
-      # Add or replace any other lints here
       - name: Security audit dependencies
         run: bin/bundler-audit --update
       - name: Security audit application code

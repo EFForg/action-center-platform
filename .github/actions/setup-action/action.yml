@@ -1,0 +1,10 @@
+name: "Setup"
+description: "Installs dependencies"
+runs:
+  using: "composite"
+  steps:
+    - name: Install Ruby and gems
+      uses: ruby/setup-ruby@v1
+      with:
+        ruby-version: "3.3"
+        bundler-cache: true
