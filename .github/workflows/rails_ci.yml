@@ -25,8 +25,6 @@ jobs:
     env:
       RAILS_ENV: test
       DATABASE_URL: "postgres://rails:password@localhost:5432/rails_test"
-      aws_access_key_id: test
-      aws_secret_access_key: test
 
     steps:
       - uses: actions/checkout@v4
