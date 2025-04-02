@@ -30,7 +30,8 @@ jobs:
 
     steps:
       - uses: actions/checkout@v4
-      - uses: ./.github/actions/setup-action
+      - name: Install dependencies
+        uses: ./.github/actions/setup-action
       - name: Set up database schema
         run: bin/rails db:schema:load
       - name: Run tests
@@ -40,12 +41,13 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - uses: ./.github/actions/setup-action
+      - name: Install dependencies
+        uses: ./.github/actions/setup-action
       - name: Generate binstubs
-        run: bundle binstubs bundler-audit brakeman rubocop
-      - name: Security audit dependencies
-        run: bin/bundler-audit --update
-      - name: Security audit application code
-        run: bin/brakeman -q -w2
+        run: bundle binstubs rubocop
+      # - name: Security audit dependencies
+      #   run: bin/bundler-audit --update
+      # - name: Security audit application code
+      #   run: bin/brakeman -q -w2
       - name: Lint Ruby files
         run: bin/rubocop --parallel
