@@ -6,8 +6,12 @@ CarrierWave.configure do |config|
     # use_iam_profile:      true,                         # optional, defaults to false
     region:                Rails.application.secrets.amazon_region,                  # optional, defaults to 'us-east-1'
     # host:                  's3.example.com',             # optional, defaults to nil
-    # endpoint:              'https://s3.example.com',             # optional, defaults to nil
   }
+
+  if ENV["amazon_bucket_url"].present?
+    config.fog_credentials[:endpoint] = ENV["amazon_bucket_url"]
+  end
+
   config.fog_directory  = Rails.application.secrets.amazon_bucket                                    # required
   # config.fog_public     = false                                                 # optional, defaults to true
   # config.fog_attributes = { cache_control: "public, max-age=#{365.days.to_i}" } # optional, defaults to {}
