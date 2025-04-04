@@ -233,6 +233,7 @@ GEM
     ffi (1.17.1-x86_64-darwin)
     ffi (1.17.1-x86_64-linux-gnu)
     ffi (1.17.1-x86_64-linux-musl)
+    fiddle (1.1.6)
     fog-aws (3.30.0)
       base64 (~> 0.2.0)
       fog-core (~> 2.6)
@@ -586,6 +587,7 @@ DEPENDENCIES
   factory_bot_rails (~> 6.2)
   fast_inserter (~> 2.0)
   fastly (~> 2)
+  fiddle
   fog-aws
   friendly_id (~> 5.0)
   going_postal (~> 0)
