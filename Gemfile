@@ -99,6 +99,7 @@ gem "psych", "< 4"
 # these will be removed from stdlib in later ruby versions
 gem "ostruct"
 gem "mutex_m"
+gem "fiddle"
 
 group :doc do
   # bundle exec rake doc:rails generates the API under doc/api
