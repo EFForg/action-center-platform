@@ -21,7 +21,7 @@
           <input type='checkbox' style='display: none' id="learn-more">
           <label for="learn-more">Learn More</label>
           <div class="description" id="description">
-            <% unless @actionPage.related_content.empty? %>
+            <% if @actionPage.related_content.present? %>
                 <%= render(partial: "related_content", locals: { action_page: @actionPage }) %>
             <% else %>
               <div class="desc-text full">

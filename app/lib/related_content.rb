@@ -7,25 +7,24 @@ class RelatedContent
     @url = url
   end
 
+  def as_hash
+    load unless found?
+    return unless found?
+    { title: title, image_url: image }
+  end
+
   def load
     return if url.blank?
 
     begin
       open_page
-      @loaded_successfully = true
-    rescue OpenURI::HTTPError
+    rescue OpenURI::HttpError
       nil
     end
   end
 
-  def as_hash
-    load unless found?
-    return {} unless found?
-    { title: title, image_url: image }
-  end
-
   def found?
-    @loaded_successfully
+    !page.nil?
   end
 
   def title
@@ -45,7 +44,7 @@ class RelatedContent
 
   private
 
-  attr_reader :url, :page, :loaded_successfully
+  attr_reader :url, :page
 
   def open_page
     @page ||= Nokogiri::HTML(URI::open(url))

@@ -2,9 +2,9 @@
   <h4>Related Content</h4>
   <%= link_to action_page.related_content_url do %>
     <div class="image">
-      <%= image_tag(action_page.related_content.image) %>
+      <%= image_tag(action_page.related_content[:image_url]) %>
     </div>
-    <h5><%= action_page.related_content.title %></h5>
+    <h5><%= action_page.related_content[:title] %></h5>
   <% end %>
 </div>
 <div class="desc-text">
@@ -14,8 +14,8 @@
   <h4>Related Content</h4>
   <%= link_to action_page.related_content_url do %>
     <div class="image">
-      <%= image_tag(action_page.related_content.image) %>
+      <%= image_tag(action_page.related_content[:image_url]) %>
     </div>
-    <h5><%= action_page.related_content.title %></h5>
+    <h5><%= action_page.related_content[:title] %></h5>
   <% end %>
 </div>

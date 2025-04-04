@@ -196,7 +196,8 @@ class ActionPage < ApplicationRecord
   end
 
   def related_content
-    Rails.cache.fetch("#{cache_key_with_version}/related_content") do
+    key = "#{cache_key_with_version}/related_content"
+    Rails.cache.fetch(key, skip_nil: true) do
       RelatedContent.as_hash(related_content_url)
     end
   end
