@@ -16,6 +16,7 @@ RUN apt-get update && \
     cron \
     gnupg \
     libssl-dev \
+    libffi-dev \
     shared-mime-info \
     nodejs \
     npm
