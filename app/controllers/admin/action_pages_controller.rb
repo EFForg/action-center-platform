@@ -14,8 +14,8 @@ class Admin::ActionPagesController < Admin::ApplicationController
     edit_partners
   ]
 
-  before_action :set_petition_targets, only: %i[new edit duplicate]
-  before_action :set_partners, only: %i[new edit duplicate]
+  before_action :set_petition_targets, only: %i[new edit create update duplicate]
+  before_action :set_partners, only: %i[new edit create update duplicate]
   before_action :set_source_files, only: %i[new edit create update duplicate]
 
   after_action :purge_cache, only: %i[update publish]
