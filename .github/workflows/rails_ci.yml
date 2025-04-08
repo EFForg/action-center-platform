@@ -5,11 +5,11 @@
 # This workflow will install a prebuilt Ruby version, install dependencies, and
 # run tests and linters.
 name: "Ruby on Rails CI"
-on:
-  push:
-    branches: [ $default-branch, 2024-upgrades-main ]
-  pull_request:
-    branches: [ $default-branch, 2024-upgrades-main ]
+on: push
+  # push:
+  #   branches: [ $default-branch, 2024-upgrades-main ]
+  # pull_request:
+  #   branches: [ $default-branch, 2024-upgrades-main ]
 jobs:
   test:
     runs-on: ubuntu-latest
