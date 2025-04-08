@@ -24,25 +24,25 @@ RUN apt-get update && \
 COPY package.json package-lock.json ./
 RUN npm install
 
-ADD Gemfile* ./
+COPY Gemfile* ./
 
 RUN gem install bundler && bundle install
 
-ADD bin/ ./bin
-ADD config/ ./config
-ADD config.ru ./
-ADD Rakefile ./
-ADD db/ ./db
-ADD lib/ ./lib
-ADD public/ ./public
-ADD app/ ./app
-ADD features/ ./features
-ADD script/ ./script
-ADD spec/ ./spec
-ADD vendor/ ./vendor
-ADD docker/ ./docker
-ADD .rubocop.yml ./.rubocop.yml
-ADD .sass-lint.yml ./.sass-lint.yml
+COPY bin/ ./bin
+COPY config/ ./config
+COPY config.ru ./
+COPY Rakefile ./
+COPY db/ ./db
+COPY lib/ ./lib
+COPY public/ ./public
+COPY app/ ./app
+COPY features/ ./features
+COPY script/ ./script
+COPY spec/ ./spec
+COPY vendor/ ./vendor
+COPY docker/ ./docker
+COPY .rubocop.yml ./.rubocop.yml
+COPY .sass-lint.yml ./.sass-lint.yml
 
 RUN usermod -u 1000 www-data
 
