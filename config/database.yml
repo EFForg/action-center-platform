@@ -1,5 +1,5 @@
 common: &common
-  adapter: <%= Rails.application.secrets.db_adapter %>
+  adapter: postgresql
   encoding: <%= Rails.application.secrets.db_encoding %>
   pool: 5
   username: <%= Rails.application.secrets.db_username %>
@@ -11,7 +11,7 @@ common: &common
 
 development:
   <<: *common
-  database: <%= Rails.application.secrets.db_database || "action_center_development" %>
+  database: <%= Rails.application.secrets.db_database || "actioncenter_development" %>
 
 production:
   <<: *common
@@ -19,7 +19,7 @@ production:
 
 test: &test
   <<: *common
-  database: action_center_test
+  database: actioncenter_test
 
 cucumber:
   <<: *test

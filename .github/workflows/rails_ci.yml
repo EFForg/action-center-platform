@@ -16,22 +16,30 @@ jobs:
     env:
       RAILS_ENV: test
 
-      DB_HOST: db
-      DB_PORT: 5432
-      DB_USER: rails
-      DB_PASSWORD: password
+      db_host: localhost
+      db_port: 5432
+      db_username: testuser
+      db_password: password
     services:
       postgres:
         image: postgres:latest
+        ports:
+          - "5432:5432"
         env:
-          POSTGRES_USER: rails
+          POSTGRES_DB: actioncenter_test # must be same as in database.yml for test.database
+          POSTGRES_USER: testuser
           POSTGRES_PASSWORD: password
+        options: >-
+          --health-cmd pg_isready
+          --health-interval 10s
+          --health-timeout 500ms
+          --health-retries 15
     steps:
       - uses: actions/checkout@v4
       - name: Install dependencies
         uses: ./.github/actions/setup-action
       - name: Set up database schema
-        run: bundle exec db:create db:schema:load
+        run: bin/rails db:create db:schema:load
       - name: Run tests
         run: bundle exec rspec
 
