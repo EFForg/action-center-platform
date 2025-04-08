@@ -15,7 +15,11 @@ development:
 
 test: &test
   <<: *common
-  database: <%= "#{Rails.application.secrets.db_database}-test" %>
+  database: <%= ENV["test_db_database"] %>
+  username: <%= ENV["test_db_username"] %>
+  password: <%= ENV["test_db_password"] %>
+  host: <%= ENV["test_db_host"] %>
+  port: <%= ENV["test_db_port"] %>
 
 production:
   <<: *common
