@@ -39,8 +39,7 @@ class SourceFile < ApplicationRecord
   def full_url
     # if we have a custom amazon_bucket_url...
     if ENV["amazon_bucket_url"]
-      # make sure there's a scheme prefixed (http, https)
-      base_url = URI.parse(ENV['amazon_bucket_url']).scheme ? ENV['amazon_bucket_url'] : "https://#{ENV['amazon_bucket_url']}"
+      base_url = URI.parse(ENV["amazon_bucket_url"])
       URI.join(base_url, key).to_s
     else # we have to build the url up from amazon information
       "https://#{ENV['amazon_bucket']}.s3-#{Rails.application.secrets.amazon_region}.amazonaws.com/#{key}"

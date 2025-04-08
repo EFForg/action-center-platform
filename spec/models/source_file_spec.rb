@@ -1,13 +1,13 @@
 require "rails_helper"
 
 describe SourceFile do
-  before(:each) do
+  before do
     @source_file = FactoryBot.create(:source_file, key: "meh.jpg")
   end
 
   it "should generate full_urls correctly when amazon_bucket_url is set" do
-    bucket_url = ENV["amazon_bucket_url"] = "act.s.eff.org"
-    expect(@source_file.full_url).to eq "https://#{bucket_url}/meh.jpg"
+    bucket_url = ENV["amazon_bucket_url"] = "https://act.s.eff.org"
+    expect(@source_file.full_url).to eq "#{bucket_url}/meh.jpg"
   end
 
   it "should generate full_urls correctly when amazon_bucket_url is not set based on region" do

@@ -20,7 +20,7 @@ CarrierWave.configure do |config|
   # Use this if you have Google Cloud Storage uniform bucket-level access enabled.
   # config.fog_attributes = { uniform: true }
   # Use if you use a CDN
-  # config.asset_host = "http://mycdn.cdn.com"
+  config.asset_host = Rails.application.secrets.amazon_bucket_url if Rails.application.secrets.amazon_bucket_url.present?
   # setting here allows you to setup a local dev env that points to production assets if `amazon_bucket_url` doesnt match the bucket other things will break
   # config.asset_host = Rails.application.secrets.amazon_bucket_url.present? ? "https://#{Rails.application.secrets.amazon_bucket_url}" : nil
   # For an application which utilizes multiple servers but does not need caches persisted across requests,
