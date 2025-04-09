@@ -42,9 +42,6 @@ module ActionPageDisplay
                               zipcode: current_zipcode,
                               country_code: current_country_code,
                               email: current_email }
-
-    @related_content = RelatedContent.new(@actionPage.related_content_url)
-    @related_content.load
   end
 
   def set_signatures

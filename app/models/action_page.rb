@@ -194,4 +194,11 @@ class ActionPage < ApplicationRecord
 
     congress_message_campaign.update(campaign_tag: slug)
   end
+
+  def related_content
+    key = "#{cache_key_with_version}/related_content"
+    Rails.cache.fetch(key, skip_nil: true) do
+      RelatedContent.as_hash(related_content_url)
+    end
+  end
 end
