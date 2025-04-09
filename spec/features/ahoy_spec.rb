@@ -6,7 +6,7 @@ require "rails_helper"
 #
 # For the logged in user spec, can also / maybe should test the display on the user
 # page instead?
-RSpec.feature "Ahoy", type: :feature, js: true do
+RSpec.feature "Ahoy", type: :system, js: true do
   let!(:action_page) { FactoryBot.create(:email_campaign).action_page }
   let!(:user) { FactoryBot.create(:user) }
 
