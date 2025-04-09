@@ -1,6 +1,6 @@
 require "rails_helper"
 
-RSpec.describe "Admin action page previews", type: :feature, js: true do
+RSpec.describe "Admin action page previews", type: :system, js: true do
   before { sign_in_user(FactoryBot.create(:admin_user)) }
 
   xit "works for tweet actions" do

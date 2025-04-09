@@ -33,7 +33,7 @@ RSpec.configure do |config|
   end
 
   config.include Capybara::DSL
-  config.include FeatureHelpers, type: :feature
+  config.include FeatureHelpers, type: :system
 
   WebMock.disable_net_connect!(allow_localhost: true, allow: "chromedriver.storage.googleapis.com")
 end
