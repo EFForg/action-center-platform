@@ -9,9 +9,3 @@ module ServiceHelpers
       .and_return(status: 200, body: { checksum: "xyz" }.to_json, headers: {})
   end
 end
-
-RSpec.configure do |c|
-  c.include ServiceHelpers
-end
-
-World(ServiceHelpers) if respond_to?(:World) # cucumber

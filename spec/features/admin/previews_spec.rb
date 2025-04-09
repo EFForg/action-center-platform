@@ -1,7 +1,7 @@
 require "rails_helper"
 
 RSpec.describe "Admin action page previews", type: :system, js: true do
-  before { sign_in_user(FactoryBot.create(:admin_user)) }
+  before { warden_sign_in(FactoryBot.create(:admin_user)) }
 
   xit "works for tweet actions" do
     # window switching is broken, fixing previews for now
