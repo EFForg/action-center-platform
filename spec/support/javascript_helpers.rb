@@ -16,13 +16,4 @@ module JavascriptHelpers
     find(locator).sibling(".select2-container").click
     find("li.select2-results__option[role=treeitem]", text: with).click
   end
-
-  def tempermental(try: 2.times)
-    try.each do |attempt|
-      yield
-      break
-    rescue RSpec::Expectations::ExpectationNotMetError => e
-      raise e if attempt == try.size - 1
-    end
-  end
 end

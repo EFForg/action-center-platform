@@ -17,10 +17,8 @@ RSpec.describe "Admin action page creation", type: :system, js: true do
     skip_banner_selection
     fill_in_social_media
 
-    tempermental do
-      click_button "Save"
-      expect(page).to have_content("Very Important Action", wait: 10)
-    end
+    click_button "Save"
+    expect(page).to have_content("Very Important Action", wait: 10)
   end
 
   it "can create basic petition actions" do
@@ -39,10 +37,8 @@ RSpec.describe "Admin action page creation", type: :system, js: true do
     skip_banner_selection
     fill_in_social_media
 
-    tempermental do
-      click_button "Save"
-      expect(page).to have_content("Very Important Action", wait: 10)
-    end
+    click_button "Save"
+    expect(page).to have_content("Very Important Action", wait: 10)
   end
 
   it "can create custom email actions" do
@@ -61,10 +57,8 @@ RSpec.describe "Admin action page creation", type: :system, js: true do
     skip_banner_selection
     fill_in_social_media
 
-    tempermental do
-      click_button "Save"
-      expect(page).to have_content("Very Important Action", wait: 10)
-    end
+    click_button "Save"
+    expect(page).to have_content("Very Important Action", wait: 10)
   end
 
   it "can create state-level email actions" do
@@ -86,10 +80,8 @@ RSpec.describe "Admin action page creation", type: :system, js: true do
     skip_banner_selection
     fill_in_social_media
 
-    tempermental do
-      click_button "Save"
-      expect(page).to have_content("State-Level Leg Action", wait: 10)
-    end
+    click_button "Save"
+    expect(page).to have_content("State-Level Leg Action", wait: 10)
   end
 
   it "can create congress actions" do
@@ -107,10 +99,8 @@ RSpec.describe "Admin action page creation", type: :system, js: true do
     skip_banner_selection
     fill_in_social_media
 
-    tempermental do
-      click_button "Save"
-      expect(page).to have_content("Very Important Action", wait: 10)
-    end
+    click_button "Save"
+    expect(page).to have_content("Very Important Action", wait: 10)
   end
 
   it "can create call actions" do
@@ -128,10 +118,8 @@ RSpec.describe "Admin action page creation", type: :system, js: true do
     skip_banner_selection
     fill_in_social_media
 
-    tempermental do
-      click_button "Save"
-      expect(page).to have_content("Very Important Action", wait: 10)
-    end
+    click_button "Save"
+    expect(page).to have_content("Very Important Action", wait: 10)
   end
 
   it "can add images" do
@@ -161,10 +149,8 @@ RSpec.describe "Admin action page creation", type: :system, js: true do
     click_on "og-image.png"
     next_section
 
-    tempermental do
-      click_button "Save"
-      expect(page).to have_content("Very Important Action", wait: 10)
-    end
+    click_button "Save"
+    expect(page).to have_content("Very Important Action", wait: 10)
 
     # save_and_open_page
     # expect(page).to have_xpath("//img[contains(@src,'missing')]")
