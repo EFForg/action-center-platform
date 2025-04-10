@@ -1,7 +1,7 @@
 <div class="state-rep-lookup">
   <p>Enter your address below and we'll help you email your representatives (US addresses only).</p>
   <div class="address-lookup">
-    <%= form_tag(tools_state_reps_path, method: :get, remote: true, class: "form state-rep-lookup") do %>
+    <%= form_tag(tools_state_reps_path, method: :post, remote: true, class: "form state-rep-lookup") do %>
       <%= hidden_field_tag :email_campaign_id, @actionPage.email_campaign.id %>
 
       <fieldset id="lookup-address">
@@ -35,7 +35,7 @@
         </span>).
         </p>
       </fieldset>
-      <button type="submit" class="eff-button" id="button-state-rep-lookup"role="button" aria-pressed="false">See Your Representatives</button>
+      <input type="submit" class="eff-button" value="Find your reps">
       <%= render "tools/loading" -%>
   </div>
 <% end %>

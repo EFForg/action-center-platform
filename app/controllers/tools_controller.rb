@@ -131,18 +131,19 @@ class ToolsController < ApplicationController
     @actionPage = @email_campaign.action_page
     # TODO: strong params this
     address = "#{params[:street_address]} #{params[:zipcode]}"
-    civic_api_response = CivicApi.state_rep_search(address, @email_campaign.leg_level)
-    @state_reps = JSON.parse(civic_api_response.body)["officials"]
+    @state_reps = CivicApi.state_rep_search(address, @email_campaign.leg_level)
+
+    # TODO: clean this up, we just need to get the first non nil
     state_rep_emails = []
     @state_reps.each do |sr|
       state_rep_emails << sr["emails"] unless sr["emails"].nil?
     end
     # single-rep lookup only
     @state_rep_email = state_rep_emails.flatten.first
-    if @state_reps.present?
-      render json: { content: render_to_string(partial: "action_page/state_reps") }, status: 200
-    else
-      render json: { error: "No representatives found" }, status: 200
+    # end cleanup
+
+    unless @state_reps.present?
+      render plain: "No representatives found", status: 200
     end
   end
 

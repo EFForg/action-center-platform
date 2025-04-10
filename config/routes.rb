@@ -15,7 +15,7 @@ Actioncenter::Application.routes.draw do
   post "tools/message-congress"
   get "tools/reps"
   get "tools/reps_raw"
-  get "tools/state_reps"
+  post "tools/state_reps"
   get "tools/social_buttons_count"
 
   get "smarty_streets/street_address", controller: :smarty_streets

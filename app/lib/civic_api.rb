@@ -6,27 +6,48 @@ require "rest_client"
 # do not allow holdbacks, A/B testing, or similar experiments."
 
 module CivicApi
-  VALID_ROLES = %w[legislatorLowerBody legislatorUpperBody headOfGovernment].freeze
+  VALID_ROLES = %w[legislatorLowerBody legislatorUpperBody
+                   headOfGovernment].freeze
 
   def self.state_rep_search(address, roles)
-    raise ArgumentError, "required argument is nil" unless [address, roles].all?
-
-    raise ArgumentError, "Invalid role for Civic API #{roles}" unless VALID_ROLES.include?(roles)
+    unless [address, roles].all?
+      raise ArgumentError, "required argument is nil "\
+                           "{address: #{address}, roles: #{roles}}"
+    end
+    unless VALID_ROLES.include?(roles)
+      raise ArgumentError, "Invalid role for Civic API #{roles}"
+    end
 
     # `includeOffices` param is needed in order to get officials list
-    # `administrativeArea1` param restricts the search to state-level legislators (and governors)
-    params = { address: address, includeOffices: true, levels: "administrativeArea1", roles: roles, key: civic_api_key }
+    # `administrativeArea1` param restricts the search to state-level
+    #   legislators (and governors)
+    params = {
+      address: address,
+      includeOffices: true,
+      levels: "administrativeArea1",
+      roles: roles,
+      key: civic_api_key
+    }
 
-    get params
+    response = get params
+    JSON.parse(response.body)["officials"]
   end
 
   def self.all_state_reps_for_role(state, roles)
     raise ArgumentError, "required argument is nil" unless [state, roles].all?
 
     # need to append division information to API route
-    path_params = { ocdId: "ocd-division%2Fcountry%3Aus%2Fstate%3A#{state.downcase}" }
-    # `administrativeArea1` param restricts the search to state-level legislators (and governors)
-    query_params = { levels: "administrativeArea1", recursive: true, roles: roles, key: civic_api_key }
+    path_params = {
+      ocdId: "ocd-division%2Fcountry%3Aus%2Fstate%3A#{state.downcase}"
+    }
+    # `administrativeArea1` param restricts the search to state-level
+    #   legislators (and governors)
+    query_params = {
+      levels: "administrativeArea1",
+      recursive: true,
+      roles: roles,
+      key: civic_api_key
+    }
 
     params = { path_params: path_params, query_params: query_params }
 

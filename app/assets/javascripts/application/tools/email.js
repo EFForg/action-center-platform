@@ -14,21 +14,21 @@ $(document).on('ready', function() {
     $('#email-tool').hide();
   });
 
-  $(".state-rep-email").hide();
+  $("#state-email-tool").on("ajax:beforeSend", function() {
+    show_progress_bars();
+  });
 
-  $("form.state-rep-lookup").on("ajax:complete", function(e, xhr, status) {
+  $(".state-rep-lookup").on("ajax:complete", function(xhr, data, status) {
     var $form = $(this);
-    var data = xhr.responseJSON;
-    $('.state-rep-lookup').hide();
-    $('.state-reps').replaceWith(data.content);
     if (status == "success") {
-      $form.remove();
-      $(".state-reps").html(data);
-
       if ($("#action-content").length) {
         $(window).scrollTop( $("#action-content").offset().top ); // go to top of page if on action center site
       }
       update_tabs(1, 2);
+      $(".progress-striped").hide();
+      $form.remove();
+    } else if (data.responseText) {
+      show_error(data.responseText, $form);
     } else {
       show_error("Something went wrong. Please try again later.", $form);
     }
