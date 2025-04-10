@@ -55,7 +55,6 @@ RSpec.configure do |config|
 
   config.include Devise::Test::IntegrationHelpers, type: :system
   config.include Warden::Test::Helpers, type: :system
-  config.include FeatureHelpers, type: :system
 
   config.include JavascriptHelpers, type: :system, js: true
 
