@@ -11,7 +11,7 @@ common: &common
 
 development:
   <<: *common
-  database: <%= Rails.application.secrets.db_database || "actioncenter_development" %>
+  database: act_development
 
 production:
   <<: *common
@@ -19,7 +19,7 @@ production:
 
 test: &test
   <<: *common
-  database: actioncenter_test
+  database: act_test
 
 cucumber:
   <<: *test
