@@ -1,7 +1,4 @@
 module JavascriptHelpers
-  # TODO:
-  # - switch to warden_sign_in for JS tests
-  # - switch to the devise helper for non-JS system tests
   def warden_sign_in(user)
     # this calls a helper from Warden::Test::Helpers
     login_as(user, scope: :user)
