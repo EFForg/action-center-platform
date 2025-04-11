@@ -36,7 +36,7 @@ jobs:
       - name: Set up database schema
         run: bin/rails db:create db:schema:load
       - name: Run tests
-        run: bundle exec rspec --format documentation
+        run: bundle exec rspec
 
   lint:
     runs-on: ubuntu-latest
