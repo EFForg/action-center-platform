@@ -46,11 +46,17 @@ Capybara.enable_aria_label = true
 Capybara.disable_animation = true
 
 RSpec.configure do |config|
+  config.include ServiceHelpers
+
   config.include Devise::Test::ControllerHelpers, type: :controller
-  config.include Devise::Test::IntegrationHelpers, type: :system
+
   config.include Devise::Test::IntegrationHelpers, type: :request
   config.include Warden::Test::Helpers, type: :request
+
+  config.include Devise::Test::IntegrationHelpers, type: :system
   config.include Warden::Test::Helpers, type: :system
+
+  config.include JavascriptHelpers, type: :system, js: true
 
   # Remove this line if you're not using ActiveRecord or ActiveRecord fixtures
   config.fixture_path = Rails.root.join("spec/fixtures")
@@ -84,10 +90,12 @@ RSpec.configure do |config|
   end
 
   config.before(:each, type: :system) do
+    stub_civicrm
     driven_by :rack_test
   end
 
   config.before(:each, type: :system, js: true) do
+    stub_civicrm
     driven_by :selenium_chrome_headless
   end
 

@@ -18,7 +18,7 @@ RSpec.feature "Ahoy", type: :system, js: true do
   end
 
   context "user logged in" do
-    before { sign_in_user(user) }
+    before { warden_sign_in(user) }
     context "has enabled action tracking" do
       before { user.update(record_activity: true) }
       it "creates an event with the user after taking an action" do
@@ -34,7 +34,7 @@ RSpec.feature "Ahoy", type: :system, js: true do
       end
     end
   end
-  
+
   def take_email_action(action_page)
     visit action_page_path(action_page)
     click_on "Use default mail client"
