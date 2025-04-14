@@ -30,10 +30,6 @@ module ActionPageHelper
     "mailto:?subject=#{u subject}&body=#{u message}"
   end
 
-  def rep_photo_src(bioguide_id)
-    asset_path "congress-images-102x125/i/#{bioguide_id}.jpg"
-  end
-
   def rep_tweet_link(rep)
     tweet_link("@#{rep.twitter_id}", class: "btn-tweet rep")
   end
