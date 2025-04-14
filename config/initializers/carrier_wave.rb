@@ -8,8 +8,8 @@ CarrierWave.configure do |config|
     # host:                  's3.example.com',             # optional, defaults to nil
   }
 
-  if ENV["amazon_bucket_url"].present?
-    config.fog_credentials[:endpoint] = ENV["amazon_bucket_url"]
+  if Rails.application.secrets.amazon_bucket_url.present?
+    config.fog_credentials[:endpoint] = Rails.application.secrets.amazon_bucket_url
   end
 
   config.fog_directory  = Rails.application.secrets.amazon_bucket                                    # required
