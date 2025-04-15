@@ -28,7 +28,7 @@ RSpec.describe "State legislator email actions", type: :system, js: true do
 
     fill_in "street_address", with: "815 Eddy St"
     fill_in "zipcode", with: "94109"
-    click_on "See Your Representatives"
+    click_on "Find your reps"
 
     expect(page).to have_content("Sponge Bob")
     expect(page).not_to have_content("Thank You!")

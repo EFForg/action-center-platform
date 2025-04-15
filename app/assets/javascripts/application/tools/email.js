@@ -26,7 +26,7 @@ $(document).on('ready', function() {
       }
       update_tabs(1, 2);
       $(".progress-striped").hide();
-      $form.remove();
+      $(".address-lookup").remove();
     } else if (data.responseText) {
       show_error(data.responseText, $form);
     } else {

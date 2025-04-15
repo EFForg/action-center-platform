@@ -18,23 +18,22 @@ RSpec.describe "Tools Controller", type: :request do
     }
   end
   let!(:address) { "#{params[:street_address]} #{params[:zipcode]}" }
+  let!(:headers) { { "CONTENT_TYPE" => "application/javascript" } }
 
   before do
     Rails.application.config.google_civic_api_url = "https://civic.example.com"
     Rails.application.secrets.google_civic_api_key = "test-key-for-civic-api"
   end
 
-  describe "GET tools/state_reps" do
-    # TODO: should this be a POST?
+  describe "POST tools/state_reps" do
     it "returns json containing rep data for a given address" do
-      # mock civic api
       civic_api = class_double("CivicApi")
         .as_stubbed_const(transfer_nested_constants: true)
       allow(civic_api).to receive(:state_rep_search)
         .with(address, campaign.leg_level)
         .and_return(officials)
 
-      get "/tools/state_reps", params: params
+      post "/tools/state_reps", params: params, xhr: true
 
       expect(response).to have_http_status(200)
       expect(response.body).to include(officials.first["name"])
