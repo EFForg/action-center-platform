@@ -9,7 +9,6 @@ GEM
   specs:
     rails-assets-EpicEditor (0.2.3)
     rails-assets-chartjs (2.9.4)
-    rails-assets-congress-images-102x125 (0.1.2)
     rails-assets-html5shiv (3.7.2)
     rails-assets-ionicons (2.0.1)
     rails-assets-jquery (2.1.3)
@@ -610,7 +609,6 @@ DEPENDENCIES
   rails (~> 7.0.0)
   rails-assets-EpicEditor (~> 0)!
   rails-assets-chartjs (~> 2)!
-  rails-assets-congress-images-102x125!
   rails-assets-html5shiv (= 3.7.2)!
   rails-assets-ionicons (~> 2)!
   rails-assets-jquery (= 2.1.3)!

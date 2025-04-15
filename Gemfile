@@ -26,7 +26,6 @@ gem "uglifier", ">= 1.3.0"        # compressor for JavaScript assets
 
 source "https://rails-assets.org" do
   gem "rails-assets-chartjs", "~> 2"
-  gem "rails-assets-congress-images-102x125"
   gem "rails-assets-EpicEditor", "~> 0"
   gem "rails-assets-html5shiv", "3.7.2"
   gem "rails-assets-ionicons", "~> 2"
