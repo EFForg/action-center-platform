@@ -1,14 +1,17 @@
-<div id='email-tool' class="tool" data-action-id="<%= @actionPage.id %>">
+<div class="page-indicator">
+  <div class="page1 active">1</div>
+  <div class="page2">2</div>
+  <div class="page3">3</div>
+</div>
+<div id='state-email-tool' class="tool" data-action-id="<%= @actionPage.id %>">
   <div class="tool-container">
     <div class="tool-heading">
       <h2 class="tool-title">Take action</h2>
-      <% if params.include?('non_us_option') and params['non_us_option'] == "petition" %>
-        <h3 id="non-us-option">Not in the U.S.?</h3>
-      <% end %>
     </div>
 
-    <div class="email-body">
-      <%= render 'tools/send_email' %>
+    <div class="tool-body state-email-body">
+      <%= render 'tools/lookup_state_rep' %>
+      <div class="state-reps"></div>
     </div>
   </div>
 </div>

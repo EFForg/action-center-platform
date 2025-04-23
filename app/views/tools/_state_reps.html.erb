@@ -1,13 +1,15 @@
 <div class="state-rep-names-and-emails">
-  <%= "This action is for the #{legislative_level_from_state_representative_info(@email_campaign.leg_level)}." %>
+  <p><%= "This action is for the #{legislative_level_from_state_representative_info(@email_campaign.leg_level)}." %></p>
   <% @state_reps.each do |sr| %>
     <div>
+      <p>
       <%= "Your representative is #{sr['name']}" %>.
       <% if sr["emails"].present? %>
         <%= "They can be reached at: #{sr['emails'].join(', ')}" %>
       <% else %>
         <%= "We could not find their email address." %>
       <% end %>
+      </p>
     </div>
   <% end %>
 </div>

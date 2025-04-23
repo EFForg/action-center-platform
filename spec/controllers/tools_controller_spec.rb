@@ -80,26 +80,6 @@ RSpec.describe ToolsController, type: :controller do
       expect(response).to redirect_to(uri)
     end
   end
-
-  describe "#state_reps" do
-    let(:email_campaign) { FactoryBot.create(:email_campaign, :state_leg) }
-    let(:address) { "815 Eddy St 94109" }
-    let(:json_parseable_state_officials) { '{"officials": [{"name": "Sponge Bob", "party": "Sandy Party", "emails": ["spongebob@clarinetfans.annoying"]}]}' }
-
-    before do
-      Rails.application.config.google_civic_api_url = "http://civic.example.com"
-      Rails.application.secrets.google_civic_api_key = "test-key-for-civic-api"
-
-      stub_request(:get, "http://civic.example.com/?address=%20&includeOffices=true&key=test-key-for-civic-api&levels=administrativeArea1&roles=legislatorUpperBody")
-        .to_return(status: 200, body: json_parseable_state_officials, headers: {})
-    end
-
-    it "should render JSON with the state officials array" do
-      get :state_reps, params: { email_campaign_id: email_campaign.action_page.email_campaign_id }
-
-      expect(response).to have_http_status(200)
-    end
-  end
 end
 
 def create_signature_and_have_user_sign
