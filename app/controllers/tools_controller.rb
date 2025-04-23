@@ -1,13 +1,9 @@
 require "rest_client"
 require "uri"
 require "json"
-# TODO: remove
-require "webmock"
 
 class ToolsController < ApplicationController
   include Tooling
-# TODO: remove
-  include WebMock::API
 
   before_action :set_user
   before_action :set_action_page
@@ -131,25 +127,6 @@ class ToolsController < ApplicationController
   # This endpoint is hit by the js for state legislator lookup-by-address actions.
   # It renders json containing html markup for presentation on the view
   def state_reps
-    # TODO: remove
-    WebMock.enable!
-    WebMock.disable_net_connect!(allow_localhost: true)
-
-    mock_data = {
-      "officials" => [{
-        "name" => "Sponge Bob",
-        "party" => "Sandy Party",
-        "emails" => ["spongebob@clarinetfans.annoying"]
-      }]
-    }
-
-    Rails.application.config.google_civic_api_url = "https://civic.example.com"
-    Rails.application.secrets.google_civic_api_key = "test-key-for-civic-api"
-
-    stub_request(:get, "https://civic.example.com/?address=815%20Eddy%20St%2094109&includeOffices=true&key=test-key-for-civic-api&levels=administrativeArea1&roles=legislatorLowerBody")
-      .to_return(status: 200, body: mock_data.to_json, headers: {})
-
-    # end remove
     @email_campaign = EmailCampaign.find(params[:email_campaign_id])
     @actionPage = @email_campaign.action_page
     # TODO: strong params this
