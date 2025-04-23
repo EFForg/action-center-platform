@@ -14,6 +14,6 @@ module JavascriptHelpers
 
   def fill_in_select2(locator, with:)
     find(locator).sibling(".select2-container").click
-    find("li.select2-results__option[role=treeitem]", text: with).click
+    find("li.select2-results__option[role=option]", text: with).click
   end
 end

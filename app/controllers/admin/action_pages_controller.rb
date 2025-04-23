@@ -226,6 +226,6 @@ class Admin::ActionPagesController < Admin::ApplicationController
     pages = pages.search(filter_params[:q]) if filter_params[:q].present?
     filters = filter_params[:action_filters].to_h || {}
     filters[:date_range] = filter_params[:date_range]
-    ActionPageFilters.run(relation: pages, **filters.transform_keys(&:to_sym))
+    ActionPageFilters.run(relation: pages, **filters.deep_symbolize_keys.to_h)
   end
 end
