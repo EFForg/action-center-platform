@@ -133,8 +133,8 @@ class ToolsController < ApplicationController
     address = "#{params[:street_address]} #{params[:zipcode]}"
     @state_reps = CivicApi.state_rep_search(address, @email_campaign.leg_level)
 
-    # get first non-null email for a state rep
-    @state_rep_email = @state_reps.map{|sr| sr["emails"] }.flatten.compact.first
+    # Get first non-null email for a state rep
+    @state_rep_email = @state_reps.map { |sr| sr["emails"] }.flatten.compact.first
 
     unless @state_reps.present?
       render plain: "No representatives found", status: 200
