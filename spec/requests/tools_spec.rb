@@ -20,11 +20,6 @@ RSpec.describe "Tools Controller", type: :request do
   let!(:address) { "#{params[:street_address]} #{params[:zipcode]}" }
   let!(:headers) { { "CONTENT_TYPE" => "application/javascript" } }
 
-  before do
-    Rails.application.config.google_civic_api_url = "https://civic.example.com"
-    Rails.application.secrets.google_civic_api_key = "test-key-for-civic-api"
-  end
-
   describe "POST tools/state_reps" do
     it "returns json containing rep data for a given address" do
       civic_api = class_double("CivicApi")

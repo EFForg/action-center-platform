@@ -9,13 +9,17 @@ module CivicApi
   VALID_ROLES = %w[legislatorLowerBody legislatorUpperBody
                    headOfGovernment].freeze
 
+  #  4/22 note - address and roles are both strings for now, as we
+  #  don't yet support multiple targets for state campaigns
   def self.state_rep_search(address, roles)
-    unless [address, roles].all?
-      raise ArgumentError, "required argument is nil "\
-                           "{address: #{address}, roles: #{roles}}"
+    unless [address, roles].all?(&:present?)
+      missing_fields = []
+      missing_fields << :address unless address.present?
+      missing_fields << :roles unless roles.present?
+      raise ArgumentError, "required argument(s) `#{missing_fields.join(", ")}` is nil"
     end
     unless VALID_ROLES.include?(roles)
-      raise ArgumentError, "Invalid role for Civic API #{roles}"
+      raise ArgumentError, "Invalid role for Civic API `#{roles}`"
     end
 
     # `includeOffices` param is needed in order to get officials list

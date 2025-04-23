@@ -156,14 +156,8 @@ class ToolsController < ApplicationController
     address = "#{params[:street_address]} #{params[:zipcode]}"
     @state_reps = CivicApi.state_rep_search(address, @email_campaign.leg_level)
 
-    # TODO: clean this up, we just need to get the first non nil
-    state_rep_emails = []
-    @state_reps.each do |sr|
-      state_rep_emails << sr["emails"] unless sr["emails"].nil?
-    end
-    # single-rep lookup only
-    @state_rep_email = state_rep_emails.flatten.first
-    # end cleanup
+    # get first non-null email for a state rep
+    @state_rep_email = @state_reps.map{|sr| sr["emails"] }.flatten.compact.first
 
     unless @state_reps.present?
       render plain: "No representatives found", status: 200

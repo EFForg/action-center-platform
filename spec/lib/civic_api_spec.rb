@@ -1,11 +1,6 @@
 require "rails_helper"
 
 describe CivicApi do
-  before do
-    Rails.application.config.google_civic_api_url = "https://civic.example.com"
-    Rails.application.secrets.google_civic_api_key = "test-key-for-civic-api"
-  end
-
   let!(:data) do
     {
       "officials" => [{
