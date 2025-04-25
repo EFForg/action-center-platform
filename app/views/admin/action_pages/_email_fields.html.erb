@@ -10,30 +10,32 @@
     <%= sf.text_area :message %>
   </div>
 
-  <fieldset class="form-item">
-    <legend>Select State-Level Legislators</legend>
+  <% if Rails.application.config.state_actions_enabled %>
+    <fieldset class="form-item">
+      <legend>Select State-Level Legislators</legend>
 
-    <%= sf.label :state, class: "fancy" do %>
-      <%= sf.select :state, options_for_select(EmailCampaign::STATES, @actionPage.email_campaign.state), include_blank: "- none -" %><span class="ui"></span>
+      <%= sf.label :state, class: "fancy" do %>
+        <%= sf.select :state, options_for_select(EmailCampaign::STATES, @actionPage.email_campaign.state), include_blank: "- none -" %><span class="ui"></span>
+      <% end %>
+
+      <div id="state-level-target-selection">
+        <p>For now, please choose only one.</p>
+        <%= sf.label :target_state_lower_chamber do %>
+          <%= sf.check_box :target_state_lower_chamber, class: "fancy" %><span class="ui"></span>
+          Lower Chamber
+        <% end %>
+
+        <%= sf.label :target_state_upper_chamber do %>
+          <%= sf.check_box :target_state_upper_chamber, class: "fancy" %><span class="ui"></span>
+          Upper Chamber
+        <% end %>
+
+        <%= sf.label :target_governor do %>
+          <%= sf.check_box :target_governor, class: "fancy" %><span class="ui"></span>
+          Governor
+        <% end %>
+      </div>
     <% end %>
-
-    <div id="state-level-target-selection">
-      <p>For now, please choose only one.</p>
-      <%= sf.label :target_state_lower_chamber do %>
-        <%= sf.check_box :target_state_lower_chamber, class: "fancy" %><span class="ui"></span>
-        Lower Chamber
-      <% end %>
-
-      <%= sf.label :target_state_upper_chamber do %>
-        <%= sf.check_box :target_state_upper_chamber, class: "fancy" %><span class="ui"></span>
-        Upper Chamber
-      <% end %>
-
-      <%= sf.label :target_governor do %>
-        <%= sf.check_box :target_governor, class: "fancy" %><span class="ui"></span>
-        Governor
-      <% end %>
-    </div>
 
     <br></br>
 

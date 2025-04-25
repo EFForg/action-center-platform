@@ -127,6 +127,8 @@ class ToolsController < ApplicationController
   # This endpoint is hit by the js for state legislator lookup-by-address actions.
   # It renders json containing html markup for presentation on the view
   def state_reps
+    raise ActionController::RoutingError.new("Not Found") unless Rails.application.config.state_actions_enabled
+
     @email_campaign = EmailCampaign.find(params[:email_campaign_id])
     @actionPage = @email_campaign.action_page
     # TODO: strong params this

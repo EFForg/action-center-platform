@@ -7,7 +7,7 @@
     <%= render "tools/petition" if @actionPage.enable_petition? && @actionPage.petition %>
     <%= render "tools/call" if @actionPage.enable_call? && @actionPage.call_campaign %>
     <% if @actionPage.enable_email? && @actionPage.email_campaign %>
-      <% if @actionPage.email_campaign.state? %>
+      <% if Rails.application.config.state_actions_enabled && @actionPage.email_campaign.state? %>
         <%= render "tools/state_leg_email" %>
       <% else %>
         <%= render "tools/email" %>

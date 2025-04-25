@@ -21,17 +21,23 @@ RSpec.describe "Tools Controller", type: :request do
   let!(:headers) { { "CONTENT_TYPE" => "application/javascript" } }
 
   describe "POST tools/state_reps" do
-    it "returns json containing rep data for a given address" do
-      civic_api = class_double("CivicApi")
-        .as_stubbed_const(transfer_nested_constants: true)
-      allow(civic_api).to receive(:state_rep_search)
-        .with(address, campaign.leg_level)
-        .and_return(officials)
+    context "when state actions enabled" do
+      before do
+        allow(Rails.application.config).to receive(:state_actions_enabled) { "true" }
+      end
 
-      post "/tools/state_reps", params: params, xhr: true
+      it "returns json containing rep data for a given address" do
+        civic_api = class_double("CivicApi")
+          .as_stubbed_const(transfer_nested_constants: true)
+        allow(civic_api).to receive(:state_rep_search)
+          .with(address, campaign.leg_level)
+          .and_return(officials)
 
-      expect(response).to have_http_status(200)
-      expect(response.body).to include(officials.first["name"])
+        post "/tools/state_reps", params: params, xhr: true
+
+        expect(response).to have_http_status(200)
+        expect(response.body).to include(officials.first["name"])
+      end
     end
   end
 end
