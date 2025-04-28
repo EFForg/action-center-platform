@@ -51,7 +51,7 @@ RSpec.describe "Admin action page creation", type: :system, js: true do
     select_action_type("email")
     fill_in "Subject", with: "Subject"
     fill_in "Message", with: "An email"
-    fill_in "Or enter custom email addresses below:", with: "test@gmail.com"
+    fill_in "Target email(s)", with: "test@gmail.com"
     next_section
 
     skip_banner_selection

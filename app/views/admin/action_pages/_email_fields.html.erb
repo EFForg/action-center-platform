@@ -1,4 +1,15 @@
 <%= f.fields_for(:email_campaign) do |sf| %>
+  <% if Rails.application.config.state_actions_enabled %>
+    <%= render partial: "state_level_fields", locals: { sf: sf } %>
+  <% else %>
+    <div class="form-item">
+      <%= sf.label :email_addresses do %>
+        Target email(s)
+        <span class="hint">(Separate multiple addresses with commas, e.g. "dax@eff.org,kira@eff.org")</span>
+      <% end %>
+      <%= sf.text_field :email_addresses %>
+    </div>
+  <% end %>
 
   <div class="form-item">
     <%= sf.label :subject %>
@@ -9,38 +20,4 @@
     <%= sf.label :message %>
     <%= sf.text_area :message %>
   </div>
-
-  <% if Rails.application.config.state_actions_enabled %>
-    <fieldset class="form-item">
-      <legend>Select State-Level Legislators</legend>
-
-      <%= sf.label :state, class: "fancy" do %>
-        <%= sf.select :state, options_for_select(EmailCampaign::STATES, @actionPage.email_campaign.state), include_blank: "- none -" %><span class="ui"></span>
-      <% end %>
-
-      <div id="state-level-target-selection">
-        <p>For now, please choose only one.</p>
-        <%= sf.label :target_state_lower_chamber do %>
-          <%= sf.check_box :target_state_lower_chamber, class: "fancy" %><span class="ui"></span>
-          Lower Chamber
-        <% end %>
-
-        <%= sf.label :target_state_upper_chamber do %>
-          <%= sf.check_box :target_state_upper_chamber, class: "fancy" %><span class="ui"></span>
-          Upper Chamber
-        <% end %>
-
-        <%= sf.label :target_governor do %>
-          <%= sf.check_box :target_governor, class: "fancy" %><span class="ui"></span>
-          Governor
-        <% end %>
-      </div>
-    <% end %>
-
-    <br></br>
-
-    <%= sf.label :email_addresses, "Or enter custom email addresses below:" %>
-    <%= sf.text_field :email_addresses %>
-  </fieldset>
-
 <% end %>
