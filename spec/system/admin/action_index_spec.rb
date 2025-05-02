@@ -8,7 +8,8 @@ RSpec.describe "Admin action page index", type: :system, js: true do
     email_action = FactoryBot.create(:action_page, enable_email: true)
 
     visit admin_action_pages_path
-    fill_in_select2("#action_filters_type", with: "email")
+    find("#action_filters_type").sibling(".select2-container").click
+    find("ul#select2-action_filters_type-results li", text: "email").click
     click_on "Search"
 
     expect(page).to have_content(email_action.title)
