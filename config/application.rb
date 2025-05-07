@@ -45,6 +45,6 @@ module Actioncenter
     config.congress_forms_url = Rails.application.secrets.congress_forms_url
     config.google_civic_api_url = Rails.application.secrets.google_civic_api_url
     config.time_zone = Rails.application.secrets.time_zone || "Eastern Time (US & Canada)"
-
+    config.state_actions_enabled = Rails.application.secrets.state_actions_enabled
   end
 end

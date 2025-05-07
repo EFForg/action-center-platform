@@ -17,6 +17,8 @@ RSpec.describe "State legislator email actions", type: :system, js: true do
   before do
     stub_request(:get, "https://civic.example.com/?address=815%20Eddy%20St%2094109&includeOffices=true&key=test-key-for-civic-api&levels=administrativeArea1&roles=legislatorUpperBody")
       .to_return(status: 200, body: data.to_json, headers: {})
+
+    allow(Rails.application.config).to receive(:state_actions_enabled) { "true" }
   end
 
   it "allows vistors to see look up their representatives" do
