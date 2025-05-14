@@ -129,5 +129,5 @@ group :development, :test do
 end
 
 group :production do
-  gem "puma", "~> 3"
+  gem "puma", "~> 5"
 end
