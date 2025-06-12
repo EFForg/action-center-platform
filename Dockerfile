@@ -26,7 +26,7 @@ RUN npm install
 
 COPY Gemfile* ./
 
-RUN gem install bundler && bundle install
+RUN gem install bundler && bundle install --deployment
 
 COPY bin/ ./bin
 COPY config/ ./config
