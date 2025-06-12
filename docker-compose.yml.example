@@ -1,19 +1,12 @@
 version: '2'
 services:
 
-  # db and testdb define local database containers for development.
-  # If you plan to use a remote database (like RDS), remove the db and testdb
-  # services and add your own database hosts to the db_host and test_db_host
-  # environment variables.
+  # If you plan to use a remote database (like RDS), remove the db
+  # service and add your own database hosts to the db_host environment variables.
   db:
     image: postgres
     environment:
       POSTGRES_PASSWORD: mysecretpassword
-
-  testdb:
-    image: postgres
-    environment:
-      POSTGRES_PASSWORD: mysecrettestpassword
 
   app:
     build: .

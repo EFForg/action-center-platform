@@ -1,15 +1,14 @@
 class AhoyController < ApplicationController
   before_action :set_ahoy_cookies
   before_action :track_ahoy_visit
-  before_action :set_ahoy_request_store
 
   def visit
     action_type = params.require(:action_type)
     action_page_id = params.require(:action_page_id)
 
     ahoy.track "View",
-      { type: "action", actionType: action_type, actionPageId: action_page_id },
-      action_page_id: action_page_id
+               { type: "action", actionType: action_type, actionPageId: action_page_id },
+               action_page_id: action_page_id
 
     send_data image_asset, content_type: "image/gif"
   end

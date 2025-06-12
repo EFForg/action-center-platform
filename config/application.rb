@@ -1,31 +1,22 @@
-require File.expand_path("../boot", __FILE__)
+require_relative "boot"
 
 require "rails/all"
 
 # Require the gems listed in Gemfile, including any gems
 # you've limited to :test, :development, or :production.
-Bundler.require(:default, Rails.env)
+Bundler.require(*Rails.groups)
+
+# needed after rails 7 + ruby 3.3
+require "ostruct"
+
 module Actioncenter
   class Application < Rails::Application
-    # Settings in config/environments/* take precedence over those specified here.
-    # Application configuration should go into files in config/initializers
-    # -- all .rb files in that directory are automatically loaded.
+    config.load_defaults 7.0
 
-    # Set Time.zone default to the specified zone and make Active Record auto-convert to this zone.
-    # Run "rake -D time" for a list of tasks for finding time zone names. Default is UTC.
-    # config.time_zone = 'Central Time (US & Canada)'
-
-    # The default locale is :en and all translations from config/locales/*.rb,yml are auto loaded.
-    # config.i18n.load_path += Dir[Rails.root.join('my', 'locales', '*.{rb,yml}').to_s]
-    # config.i18n.default_locale = :de
-
-    config.autoload_paths += %W(#{config.root}/lib)
-    config.eager_load_paths += %W(#{config.root}/lib)
     config.assets.paths << Rails.root.join('node_modules')
 
-    #config.logger = ActiveSupport::Logger.new(STDOUT)
     config.to_prepare do
-          Devise::Mailer.layout "email" # email.haml or email.erb
+      Devise::Mailer.layout "email" # email.haml or email.erb
     end
 
     config.exceptions_app = ->(env) { ExceptionsController.action(:show).call(env) }
@@ -43,6 +34,8 @@ module Actioncenter
       from: Rails.application.secrets.mailings_from
     }
 
+    config.active_record.belongs_to_required_by_default = false
+
     config.cors_allowed_domains = Rails.application.secrets.cors_allowed_domains ? Rails.application.secrets.cors_allowed_domains.split(" ") : []
 
     config.twitter_handle = Rails.application.secrets.twitter_handle
@@ -50,12 +43,8 @@ module Actioncenter
     config.facebook_handle = Rails.application.secrets.facebook_handle
     config.call_tool_url = Rails.application.secrets.call_tool_url
     config.congress_forms_url = Rails.application.secrets.congress_forms_url
+    config.google_civic_api_url = Rails.application.secrets.google_civic_api_url
     config.time_zone = Rails.application.secrets.time_zone || "Eastern Time (US & Canada)"
-    config.active_record.raise_in_transactional_callbacks = true
-
-    # fix file attachment:
-    # https://github.com/EFForg/action-center-platform/pull/408#issuecomment-381269915
-    # https://stackoverflow.com/questions/49176124/error-no-handler-found-with-base64-for-paperclip-5-2
-    Paperclip::HttpUrlProxyAdapter.register
+    config.state_actions_enabled = Rails.application.secrets.state_actions_enabled
   end
 end

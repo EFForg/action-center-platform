@@ -1,8 +1,15 @@
 <%= f.fields_for(:email_campaign) do |sf| %>
-  <div class="form-item">
-    <%= sf.label :email_addresses, "To" %>
-    <%= sf.text_field :email_addresses %>
-  </div>
+  <% if Rails.application.config.state_actions_enabled %>
+    <%= render partial: "state_level_fields", locals: { sf: sf } %>
+  <% else %>
+    <div class="form-item">
+      <%= sf.label :email_addresses do %>
+        Target email(s)
+        <span class="hint">(Separate multiple addresses with commas, e.g. "dax@eff.org,kira@eff.org")</span>
+      <% end %>
+      <%= sf.text_field :email_addresses %>
+    </div>
+  <% end %>
 
   <div class="form-item">
     <%= sf.label :subject %>

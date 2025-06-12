@@ -4,6 +4,6 @@ ActiveSupport::Notifications.subscribe('rack.attack') do |name, start, finish, r
   else
     ip = req.ip
   end
-  message = "Rate limit exceeded on #{req.fullpath}"
-  Raven.capture_message(message, extra: { ip: ip })
+  message = "Rate limit exceeded on #{URI(req.fullpath).path}" # Drop query params, which may be sensitive
+  Sentry.capture_message(message, extra: { ip: ip })
 end

@@ -1,11 +1,17 @@
-FactoryGirl.define do
+FactoryBot.define do
   factory :email_campaign do
-    email_addresses "a@example.com, b@example.com"
-    subject "a subject"
-    message "a message"
+    subject { "hey hey hey" }
+    message { "hello world" }
+    email_addresses { "a@example.com, b@example.com" }
+
+    trait :state_leg do
+      email_addresses { "" }
+      state { "CA" }
+      target_state_upper_chamber { true }
+    end
 
     after(:create) do |campaign|
-      FactoryGirl.create(:action_page_with_email, email_campaign_id: campaign.id)
+      FactoryBot.create(:action_page_with_email, email_campaign_id: campaign.id)
     end
   end
 end

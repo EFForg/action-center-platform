@@ -1,19 +1,19 @@
-class CongressMember < ActiveRecord::Base
-  validates_uniqueness_of :bioguide_id
+class CongressMember < ApplicationRecord
+  validates :bioguide_id, uniqueness: true
 
-  scope :current, -> { where("? <= term_end", Time.now) }
+  scope :current, -> { where("? <= term_end", Time.zone.now) }
 
-  scope :filter, ->(f) do
+  scope :search, lambda { |f|
     if f.present?
       fields = "first_name || ' ' || last_name || ' ' || full_name || ' ' || bioguide_id"
       where("LOWER(#{fields}) LIKE ?", "%#{f.downcase}%")
     else
       all
     end
-  end
+  }
 
   def current?
-    Time.now <= term_end
+    Time.zone.now <= term_end
   end
 
   def senate?

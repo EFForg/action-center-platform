@@ -1,18 +1,78 @@
+require:
+  - rubocop-rails
+  - rubocop-performance
+
 inherit_gem:
   rubocop-github:
     - config/default.yml
     - config/rails.yml
 
 AllCops:
-  TargetRailsVersion: 4.2
-  TargetRubyVersion: 2.3
+  TargetRailsVersion: 7.0
+  TargetRubyVersion: 3.0
+  NewCops: enable
+  SuggestExtensions: false
   Exclude:
     - 'db/**/*'
     - 'config/**/*'
     - 'bin/**/*'
     - 'vendor/**/*'
+    - 'features/**/*'
 
-### Override rubcop-github ###
+# Handle cops not enabled by default
+# Should probably be checked on rubocop version upgrades
+# Last checked 02/09/21
+# Disables cops marked as unsafe in docs
+
+Layout/SpaceAroundMethodCallOperator:
+  Enabled: true
+
+Lint/RaiseException:
+  Enabled: true
+
+Lint/StructNewOverride:
+  Enabled: true
+
+Style/ExponentialNotation:
+  Enabled: true
+
+Style/HashEachMethods:
+  Enabled: false
+
+Style/HashTransformKeys:
+  Enabled: false
+
+Style/HashTransformValues:
+  Enabled: false
+
+Performance/AncestorsInclude:
+  Enabled: false
+
+Performance/BigDecimalWithNumericArgument:
+  Enabled: true
+
+Performance/RedundantSortBlock:
+  Enabled: true
+
+Performance/RedundantStringChars:
+  Enabled: true
+
+Performance/ReverseFirst:
+  Enabled: true
+
+Performance/SortReverse:
+  Enabled: true
+
+Performance/Squeeze:
+  Enabled: true
+
+Performance/StringInclude:
+  Enabled: true
+
+Bundler/OrderedGems:
+  Enabled: false
+
+### Override rubocop-github ###
 
 Style/FrozenStringLiteralComment:
   # We aren't upgrading to Ruby 3.0, so this is just noise
@@ -30,9 +90,6 @@ GitHub/RailsControllerRenderPathsExist:
   # Doesn't seem to work; can't find templates that exist
   Enabled: false
 
-GitHub/RailsApplicationRecord:
-  # Doesn't apply to < Rails 5.0, and ignores TargetRailsVersion
-  Enabled: false
 
 Lint/Void:
   Exclude:
@@ -43,7 +100,7 @@ Lint/Debugger:
   Exclude:
     - 'features/step_definitions/debug_steps.rb'
 
-Style/BlockComments:
+Lint/AmbiguousBlockAssociation:
   Exclude:
     - 'spec/**/*'
 
@@ -65,7 +122,30 @@ Layout/MultilineHashBraceLayout:
 Layout/SpaceAroundOperators:
   Enabled: true
 
+Naming/PredicateName:
+  Exclude:
+    - 'spec/**/*'
+
 Security/JSONLoad:
   Enabled: true
   Exclude:
     - 'spec/**/*'
+
+Rails/HttpStatus:
+  EnforcedStyle: 'numeric'
+
+Style/Alias:
+  Enabled: false
+
+Style/BlockComments:
+  Exclude:
+    - 'spec/**/*'
+
+Style/ClassAndModuleChildren:
+  EnforcedStyle: 'compact'
+
+Style/Documentation:
+  Enabled: false
+
+Style/NumericLiterals:
+  MinDigits: 6

@@ -1,4 +1,3 @@
-
 When(/^there is an uploaded file named "([^\"]+)"$/) do |file_name|
   step "there is a persisted SourceFile with:", table(%{
     |file_name|#{file_name}|

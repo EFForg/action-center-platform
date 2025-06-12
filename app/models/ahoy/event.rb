@@ -1,17 +1,16 @@
 module Ahoy
-  class Event < ActiveRecord::Base
+  class Event < ApplicationRecord
     self.table_name = "ahoy_events"
 
     belongs_to :visit
     belongs_to :user
     belongs_to :action_page
     counter_culture :action_page, column_name: proc { |record|
-      if record.name == "Action"
+      case record.name
+      when "Action"
         "action_count"
-      elsif record.name == "View"
+      when "View"
         "view_count"
-      else
-        nil
       end
     }
 
@@ -22,25 +21,23 @@ module Ahoy
     scope :calls,      -> { where("properties ->> 'actionType' = 'call'") }
     scope :signatures, -> { where("properties ->> 'actionType' = 'signature'") }
     scope :tweets,     -> { where("properties ->> 'actionType' = 'tweet'") }
-    scope :on_page,    -> (id) { where(action_page_id: id) }
-    scope :in_range, ->(start_date, end_date) {
+    scope :on_page,    ->(id) { where(action_page_id: id) }
+    scope :in_range, lambda { |start_date, end_date|
       where(time: start_date..end_date.tomorrow)
     }
 
-    before_save :user_opt_out
-    before_save :anonymize_views
     after_create :record_civicrm
 
-    TYPES = %i(views emails tweets calls signatures congress_messages).freeze
+    TYPES = %i[views emails tweets calls signatures congress_messages].freeze
 
     def self.action_types(action_page = nil)
       TYPES.dup.tap do |t|
         if action_page.present?
-          t.delete(:calls) if !action_page.enable_call
-          t.delete(:congress_messages) if !action_page.enable_congress_message
-          t.delete(:emails) if !action_page.enable_email
-          t.delete(:signatures) if !action_page.enable_petition
-          t.delete(:tweets) if !action_page.enable_tweet
+          t.delete(:calls) unless action_page.enable_call
+          t.delete(:congress_messages) unless action_page.enable_congress_message
+          t.delete(:emails) unless action_page.enable_email
+          t.delete(:signatures) unless action_page.enable_petition
+          t.delete(:tweets) unless action_page.enable_tweet
         end
       end
     end
@@ -86,20 +83,9 @@ module Ahoy
       { view: views.count, action: actions.count }
     end
 
-    def user_opt_out
-      if user
-         user_id = nil unless user.record_activity?
-      end
-    end
-
     def record_civicrm
-      if name == "Action" && user && action_page_id
-        user.add_civicrm_activity! action_page_id
-      end
-    end
-
-    def anonymize_views
-      self.user_id = nil if name == "View"
+      return unless name == "Action" && user && action_page_id
+      user.add_civicrm_activity! action_page_id
     end
   end
 end

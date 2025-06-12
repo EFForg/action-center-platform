@@ -1,16 +1,14 @@
 class Admin::TopicSetsController < Admin::ApplicationController
   def index
-    topic_sets = TopicSet.all.order(:tier)
+    topic_sets = TopicSet.order(:tier)
     render json: topic_sets
   end
 
   def destroy
-    begin
-      TopicSet.destroy(params[:id])
-      render json: { id: params[:id] }
-    rescue => e
-      render text: e.message, status: 500
-    end
+    TopicSet.destroy(params[:id])
+    render json: { id: params[:id] }
+  rescue StandardError => e
+    render body: e.message, status: 500
   end
 
   def create
@@ -28,7 +26,7 @@ class Admin::TopicSetsController < Admin::ApplicationController
   def update
     topic_set = TopicSet.find(params[:id])
 
-    if topic_set.update_attributes(topic_set_params)
+    if topic_set.update(topic_set_params)
       render json: topic_set
     else
       render json: topic_set.errors, status: 500

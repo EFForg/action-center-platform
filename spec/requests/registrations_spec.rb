@@ -15,10 +15,8 @@ RSpec.describe "Registrations", type: :request do
         }
       }
     end
-    subject { post "/", params: valid_attributes }
-
     it "creates users" do
-      subject
+      post "/", params: valid_attributes
       expect(response.code).to eq "302"
       expect(User.count).to eq 1
       # Expect an email confirmation message.
@@ -26,7 +24,7 @@ RSpec.describe "Registrations", type: :request do
     end
 
     it "lets unconfirmed users register a new password" do
-      subject
+      post "/", params: valid_attributes
       # Attempt to re-register+confirm with a new password,
       post "/", params: {
         user: {

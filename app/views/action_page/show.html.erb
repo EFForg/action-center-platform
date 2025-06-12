@@ -10,10 +10,8 @@
           <h5 class="category"><%= @actionPage.category.title -%></h5>
         <% end %>
         <h1><%= @actionPage.title -%></h1>
-        <%= image_tag(@actionPage.featured_image) %>
+        <%= image_tag(@actionPage.featured_image.url) %>
         <%= markdown @actionPage.summary -%>
-
-        <%= render "action_page/partner_logos" %>
 
         <% if @actionPage.enable_petition? && @petition && @petition.description.present? && !@actionPage.description.include?('``` letter') -%>
           <%= render(partial: "action_page/letter", layout: false) %>

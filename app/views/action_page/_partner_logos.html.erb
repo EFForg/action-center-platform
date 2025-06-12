@@ -1,9 +1,0 @@
-<% if @actionPage.partners.present? && @actionPage.partners.any? { |p| p.logo.present? } %>
-  <h2 class="partners-title">Who We Are</h2>
-  <div class="partner-logos">
-  <%= image_tag "EFF_Monogram-red" %>
-    <% @actionPage.partners.each do |partner| %>
-      <%= image_tag partner.logo if partner.logo.present? %>
-    <% end %>
-  </div>
-<% end %>

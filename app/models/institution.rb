@@ -1,14 +1,14 @@
-class Institution < ActiveRecord::Base
+class Institution < ApplicationRecord
   require "csv"
   extend FriendlyId
 
-  friendly_id :name, use: [:slugged, :history]
+  friendly_id :name, use: %i[slugged history]
 
-  include PgSearch
+  include PgSearch::Model
   pg_search_scope :search,
-                  against: [
-                    :name,
-                    :category
+                  against: %i[
+                    name
+                    category
                   ],
                   using: { tsearch: { prefix: true } }
 
@@ -16,15 +16,16 @@ class Institution < ActiveRecord::Base
   has_many :action_pages, through: :action_institutions
   has_many :affiliations
 
-  validates_presence_of :name
-  validates_uniqueness_of :name
-  validates_presence_of :category
+  validates :name, presence: true
+  validates :name, uniqueness: true
+  validates :category, presence: true
 
   def self.process_csv(csv_file)
     [].tap do |names|
       CSV.foreach(csv_file.path, headers: true) do |row|
         row = row.to_hash
         return [] unless row["name"]
+
         names << row["name"]
       end
     end
@@ -39,22 +40,12 @@ class Institution < ActiveRecord::Base
   end
 
   def self.categories
-    all.distinct.pluck(:category)
-  end
-
-  # Sort institutions by most popular.
-  # Put `first` at the top of the list if it exists.
-  def self.top(n, first: 0)
-    select("institutions.*, COUNT(signatures.id) AS s_count")
-      .joins("LEFT OUTER JOIN affiliations ON institutions.id = affiliations.institution_id")
-      .joins("LEFT OUTER JOIN signatures ON affiliations.signature_id = signatures.id")
-      .group("institutions.id")
-      .order("institutions.id = #{first.to_i} desc", "s_count DESC", "institutions.name")
-      .limit(n)
+    distinct.pluck(:category)
   end
 
   def included_in_active_actions?
     return false if action_pages.empty?
+
     action_pages.map(&:status).any? "live"
   end
 end

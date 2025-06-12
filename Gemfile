@@ -1,34 +1,31 @@
 source "https://rubygems.org"
 
-gem "rails", "~> 5.0"
+gem "rails", "~> 7.0.0"
 
-#Database
+# Database
 gem "pg", "~> 1.1"
-gem "pg_search"
+gem "pg_search", "~> 2"
 
 # Hosting-related
-gem "aws-sdk", "~> 2.3"
-gem "aws-sdk-rails", "~> 1"
+gem "aws-sdk-rails", "~> 2"
+gem "aws-sdk-s3", "~> 1"
 gem "dotenv-rails", "~> 2"
 gem "rack-attack", "~> 5"
-gem "rails_12factor", group: :production # Loads "rails_serve_static_assets" and "rails_stdout_logging"
-gem "rails_response_headers", "~> 0"
+gem "rails_response_headers", git: "https://github.com/EFForg/rails_response_headers.git"
 
 # Frontend/assets
 gem "bootstrap-daterangepicker-rails", "~> 3"
 gem "bootstrap-sass", "~> 3.4"
 gem "bourbon", "~> 3"
 gem "bundler", ">= 1.8.4" # needed for rails-assets
-gem "fontello_rails_converter", "~> 0"
 gem "react-rails", "~> 1"
 gem "redcarpet", "~> 3" # Markdown
-gem "sass-rails", "~> 5.0"
+gem "sassc-rails"
 gem "select2-rails"               # Autocomplete select menus
 gem "uglifier", ">= 1.3.0"        # compressor for JavaScript assets
-gem "webshims-rails", "~> 1"
+
 source "https://rails-assets.org" do
   gem "rails-assets-chartjs", "~> 2"
-  gem "rails-assets-congress-images-102x125"
   gem "rails-assets-EpicEditor", "~> 0"
   gem "rails-assets-html5shiv", "3.7.2"
   gem "rails-assets-ionicons", "~> 2"
@@ -44,17 +41,17 @@ source "https://rails-assets.org" do
 end
 
 # File upload
-gem "paperclip", "~> 5.2"
+gem "carrierwave", "~> 3.0"
+gem "fog-aws"
 
 # Email preformatting
 gem "nokogiri", "~> 1"                    # Required for premailer-rails
 gem "premailer-rails", "~> 1"             # Inline styles for emails
 
-# Optimization
-gem "sprockets-image_compressor", "~> 0" # Optimizes png/jpg
-
 # Analytics
-gem "ahoy_matey", "~> 1.6" # Analytics
+gem "ahoy_matey", "~> 4.0"
+# required for ahoy_matey 2.0 with activerecordstore
+gem "uuidtools", "~> 2"
 gem "chartkick", "~> 3"
 gem "eff_matomo", "~> 0.2.4", require: "matomo"
 gem "groupdate", "~> 2"
@@ -63,17 +60,17 @@ gem "groupdate", "~> 2"
 gem "daemons", "~> 1"
 gem "delayed_job_active_record", "~> 4"
 
-# Exception monitoring
-gem "sentry-raven", "~> 0.15"
+gem "sentry-ruby", "~> 5.23"
+gem "sentry-rails", "~> 5.23"
+gem "sentry-delayed_job", "~> 5.23"
 
 # Fancy counter caches
 gem "counter_culture", "~> 2.0"
 
 # Other
-gem "activerecord-session_store", "~> 1"
-gem "acts_as_paranoid", git: "https://github.com/ActsAsParanoid/acts_as_paranoid.git"
+gem "activerecord-session_store", "~> 2.1.0"
+gem "acts_as_paranoid", "~> 0.7"
 gem "cocoon", "~> 1"                      # Dynamically add and remove nested associations from forms
-gem "descriptive_statistics", "~> 2"      # Used for calculating percentiles
 gem "devise", "~> 4.7"
 gem "ejs", "~> 1"                         # Embedded javascript
 gem "email_validator", "~> 1"
@@ -84,17 +81,24 @@ gem "gravatar-ultimate", "~> 2"
 gem "http_accept_language", "~> 2"        # Detect HTTP language header
 gem "invisible_captcha", "~> 0"           # Prevent form submissions by bots
 gem "iso_country_codes", "~> 0"
-gem "jbuilder", "~> 1.2" # JSON APIs
+gem "jbuilder", "~> 2"
 gem "oauth", "~> 0"
 gem "rest-client", "~> 2"
-gem "sanitize", "~> 4" # Sanitize user input
-gem "warden", "1.2.4" # This dep of devise has a bug in 1.2.5 so am avaoiding
+gem "sanitize", "~> 6" # Sanitize user input
 gem "whenever", "~> 0", require: false # Cron jobs
 gem "will_paginate", "~> 3.0"
-gem "xmlrpc"
+gem "xmlrpc", "~> 0.3"
 
 # For creating many records, quickly
-gem "fast_inserter", "~> 0.1"
+gem "fast_inserter", "~> 2.0"
+
+# Pin psych to below version 4 until we're on rails 7 and ruby 3.1
+gem "psych", "< 4"
+
+# these will be removed from stdlib in later ruby versions
+gem "ostruct"
+gem "mutex_m"
+gem "fiddle"
 
 group :doc do
   # bundle exec rake doc:rails generates the API under doc/api
@@ -103,31 +107,25 @@ end
 
 group :development do
   gem "better_errors", "~> 2"
-  gem "binding_of_caller", "~> 0"
-  gem "rails-dev-tweaks", "~> 1.1"
-  gem "rb-fchange", "~> 0", require: false
-  gem "rb-fsevent", "~> 0", require: false
-  gem "rb-inotify", "~> 0", require: false
 end
 
 group :test do
-  gem "webmock", "~> 2"
+  gem "webmock", "~> 3"
+  gem "selenium-devtools"
+  # this will be removed from stdlib in later ruby versions
+  gem "drb"
 end
 
 group :development, :test do
   gem "byebug"
-  gem "capybara", "~> 3.26"
-  gem "cucumber-rails", "1.6.0", require: false
-  gem "database_cleaner", "~> 1"
-  gem "factory_girl_rails", "~> 4"
-  gem "poltergeist", "~> 1"
+  gem "capybara", "~> 3"
+  gem "factory_bot_rails", "~> 6.2"
   gem "rails-controller-testing"
-  gem "rspec-core", "~> 3"
-  gem "rspec-rails", "~> 3"
-  gem "rubocop", "0.52.0"
-  gem "rubocop-github", "0.9.0"
-  gem "selenium-webdriver", "~> 3"
-  gem "webdrivers", "~> 4"
+  gem "rspec-rails", "~> 6.1"
+  gem "rubocop"
+  gem "rubocop-github", "~> 0.16"
+  gem "rubocop-performance", require: false
+  gem "rubocop-rails", require: false
 end
 
 group :production do

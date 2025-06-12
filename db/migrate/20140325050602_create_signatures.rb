@@ -1,4 +1,4 @@
-class CreateSignatures < ActiveRecord::Migration
+class CreateSignatures < ActiveRecord::Migration[5.0]
   def change
     create_table :signatures do |t|
       t.integer :petition_id

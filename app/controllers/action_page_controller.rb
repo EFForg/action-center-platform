@@ -5,15 +5,15 @@ class ActionPageController < ApplicationController
                 :protect_unpublished,
                 :redirect_to_specified_url,
                 :redirect_from_archived_to_active_action,
-                only: [:show, :show_by_institution, :embed_iframe,
-                       :signature_count, :filter]
+                only: %i[show show_by_institution embed_iframe
+                         signature_count filter]
   before_action :redirect_to_cannonical_slug, only: [:show]
-  before_action :set_institution, only: [:show_by_institution, :filter]
-  before_action :set_action_display_variables, only: [:show,
-                                                      :show_by_institution,
-                                                      :embed_iframe,
-                                                      :signature_count,
-                                                      :filter]
+  before_action :set_institution, only: %i[show_by_institution filter]
+  before_action :set_action_display_variables, only: %i[show
+                                                        show_by_institution
+                                                        embed_iframe
+                                                        signature_count
+                                                        filter]
 
   skip_before_action :verify_authenticity_token, only: :embed
 
@@ -26,9 +26,9 @@ class ActionPageController < ApplicationController
   end
 
   def index
-    @actionPages = ActionPage.where(published: true, archived: false, victory: false).
-      paginate(page: params[:page], per_page: 9).
-      order(created_at: :desc)
+    @actionPages = ActionPage.where(published: true, archived: false, victory: false)
+                             .paginate(page: params[:page], per_page: 9)
+                             .order(created_at: :desc)
 
     @actionPages = @actionPages.categorized(params[:category]) if params[:category].present?
 
@@ -51,10 +51,10 @@ class ActionPageController < ApplicationController
   def signature_count
     @actionPage = ActionPage.friendly.find(params[:id])
 
-    if petition = @actionPage.petition
-      render text: petition.signatures.count
+    if @actionPage.petition
+      render body: @actionPage.petition.signatures.count
     else
-      render text: "0"
+      render body: "0"
     end
   end
 
@@ -83,18 +83,14 @@ class ActionPageController < ApplicationController
   end
 
   def redirect_to_specified_url
-    if @actionPage.enable_redirect
-      redirect_to @actionPage.redirect_url, status: 301
-    end
+    redirect_to @actionPage.redirect_url, status: 301, allow_other_host: true if @actionPage.enable_redirect
   end
 
   def redirect_from_archived_to_active_action
-    if @actionPage.redirect_from_archived_to_active_action?
-      # Users can access actions they've taken in the past as a historical record
-      unless current_user and (current_user.taken_action? @actionPage or current_user.admin?)
-        redirect_to @actionPage.active_action_page_for_redirect
-      end
-    end
+    return unless @actionPage.redirect_from_archived_to_active_action?
+    return if current_user&.can_view_archived?(@actionPage)
+
+    redirect_to @actionPage.active_action_page_for_redirect
   end
 
   def redirect_to_cannonical_slug

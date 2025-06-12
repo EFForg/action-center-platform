@@ -1,28 +1,28 @@
-class ActionPage < ActiveRecord::Base
-  extend FriendlyId, AmazonCredentials
+class ActionPage < ApplicationRecord
+  extend FriendlyId
 
-  include PgSearch
+  include PgSearch::Model
   pg_search_scope :search,
-                  against: [
-                    :title,
-                    :slug,
-                    :summary,
-                    :description,
-                    :email_text,
+                  against: %i[
+                    title
+                    slug
+                    summary
+                    description
+                    email_text
                   ],
                   associated_against: {
-                    call_campaign: [:title, :message],
-                    congress_message_campaign: [:subject, :message, :campaign_tag],
-                    email_campaign: [:subject, :message],
-                    petition: [:title, :description],
-                    tweet: [:target, :message, :cta]
+                    call_campaign: %i[title message],
+                    congress_message_campaign: %i[subject message campaign_tag],
+                    email_campaign: %i[subject message],
+                    petition: %i[title description],
+                    tweet: %i[target message cta]
                   },
                   using: { tsearch: { prefix: true } }
 
-  friendly_id :title, use: [:slugged, :history]
+  friendly_id :title, use: %i[slugged history]
   scope :published, -> { where(published: true) }
 
-  has_many :events, class_name: Ahoy::Event
+  has_many :events, class_name: "Ahoy::Event"
   has_many :partnerships
   has_many :partners, through: :partnerships
   has_many :action_institutions
@@ -36,25 +36,19 @@ class ActionPage < ActiveRecord::Base
   belongs_to :call_campaign
   belongs_to :category, optional: true
   belongs_to :active_action_page_for_redirect, class_name: "ActionPage",
-             foreign_key: "archived_redirect_action_page_id"
+                                               foreign_key: "archived_redirect_action_page_id"
+
   belongs_to :author, class_name: "User", foreign_key: :user_id, optional: true
 
+
   accepts_nested_attributes_for :tweet, :petition, :email_campaign,
-    :call_campaign, :congress_message_campaign, :affiliation_types, :partnerships,
-    reject_if: :all_blank
+                                :call_campaign, :congress_message_campaign, :affiliation_types, :partnerships,
+                                reject_if: :all_blank
 
-  has_attached_file :featured_image, amazon_credentials.merge(default_url: "missing.png")
-  has_attached_file :background_image, amazon_credentials
-  has_attached_file :og_image, amazon_credentials
-  validates_media_type_spoof_detection :featured_image,
-    if: -> { featured_image.present? && featured_image_file_name_came_from_user? }
-  validates_media_type_spoof_detection :background_image,
-    if: -> { background_image.present? && background_image_file_name_came_from_user? }
-  validates_media_type_spoof_detection :og_image,
-    if: -> { og_image.present? && og_image_file_name_came_from_user? }
-  do_not_validate_attachment_file_type [:featured_image, :background_image, :og_image]
+  mount_uploader :featured_image, ActionPageImageUploader, mount_on: :featured_image_file_name
+  mount_uploader :background_image, ActionPageImageUploader, mount_on: :background_image_file_name
+  mount_uploader :og_image, ActionPageImageUploader, mount_on: :og_image_file_name
 
-  #validates_length_of :og_title, maximum: 65
   after_save :no_drafts_on_homepage
   after_save :set_congress_tag, if: -> { enable_congress_message }
 
@@ -62,18 +56,16 @@ class ActionPage < ActiveRecord::Base
 
   def self.type(*types)
     scopes = Array(types).flatten.map do |t|
-      unless %w(call congress_message email petition tweet redirect).include?(t)
-        raise ArgumentError, "unrecognized type #{t}"
-      end
+      raise ArgumentError, "unrecognized type #{t}" unless %w[call congress_message email petition tweet redirect].include?(t)
 
-      where(:"enable_#{t}" => true)
+      where("enable_#{t}": true)
     end
 
     scopes.inject(:or) || all
   end
 
   def action_type
-    %w(call congress_message email petition tweet redirect).each do |type|
+    %w[call congress_message email petition tweet redirect].each do |type|
       return type.titleize if self[:"enable_#{type}"]
     end
 
@@ -81,9 +73,8 @@ class ActionPage < ActiveRecord::Base
   end
 
   def self.status(status)
-    unless %w(archived victory live draft).include?(status)
-      raise ArgumentError, "unrecognized status #{status}"
-    end
+    raise ArgumentError, "unrecognized status #{status}" unless %w[archived victory live draft].include?(status)
+
     case status
     when "live"
       where(published: true, archived: false, victory: false)
@@ -106,14 +97,14 @@ class ActionPage < ActiveRecord::Base
 
   def call_tool_title
     call_campaign &&
-      call_campaign.title.length > 0 &&
+      !call_campaign.title.empty? &&
       call_campaign.title ||
       "Call Your Legislators"
   end
 
   def message_rendered
     # TODO: just write a test for this and rename this to .to_md
-    call_campaign && call_campaign.message || ""
+    call_campaign&.message || ""
   end
 
   def verb
@@ -146,11 +137,15 @@ class ActionPage < ActiveRecord::Base
   end
 
   def image
-    [og_image, background_image, featured_image].find(&:present?)
+    [og_image, background_image, featured_image].compact.each do |uploader|
+      return uploader unless uploader.url == uploader.default_url
+    end
+    og_image
   end
 
   def actions_taken_percent
     return 0 if view_count == 0
+
     @percent ||= (action_count / view_count.to_f) * 100
   end
 
@@ -195,7 +190,8 @@ class ActionPage < ActiveRecord::Base
   end
 
   def set_congress_tag
-    return unless congress_message_campaign.campaign_tag.blank?
+    return if congress_message_campaign.campaign_tag.present?
+
     congress_message_campaign.update(campaign_tag: slug)
   end
 end

@@ -1,5 +1,5 @@
-class UserPreference < ActiveRecord::Base
+class UserPreference < ApplicationRecord
   belongs_to :user
-  validates_presence_of :name
-  validates_presence_of :value
+  validates :name, presence: true
+  validates :value, presence: true
 end

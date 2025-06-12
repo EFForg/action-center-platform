@@ -1,8 +1,7 @@
 module CongressMessageHelper
   def congress_forms_prefills(campaign, field)
-    if field.value == "$TOPIC" && campaign.topic_category.present?
-      return campaign.topic_category.best_match(field.options_hash)
-    end
+    return campaign.topic_category.best_match(field.options_hash) if field.value == "$TOPIC" && campaign.topic_category.present?
+
     {
       "$NAME_FIRST" => current_first_name,
       "$NAME_LAST" => current_last_name,
@@ -10,16 +9,16 @@ module CongressMessageHelper
       "$PHONE" => number_to_phone(current_user.try(:phone)),
       "$ADDRESS_STREET" => current_street_address,
       "$ADDRESS_CITY" => current_city,
-      "$SUBJECT" => campaign.subject,
+      "$SUBJECT" => campaign.subject
     }[field.value]
   end
 
   def congress_forms_field(field, campaign, message_attributes, bioguide_id = nil)
-    if bioguide_id
-      name = "member_attributes[#{bioguide_id}][#{field.value}]"
-    else
-      name = "common_attributes[#{field.value}]"
-    end
+    name = if bioguide_id
+             "member_attributes[#{bioguide_id}][#{field.value}]"
+           else
+             "common_attributes[#{field.value}]"
+           end
 
     # Try to guess the input based on saved info about the campaign + user.
     prefill = congress_forms_prefills(campaign, field)
@@ -30,11 +29,11 @@ module CongressMessageHelper
     elsif field.value == "$PHONE"
       telephone_field_tag name, prefill, congress_forms_field_defaults(field)
         .merge({
-          class: "form-control bfh-phone",
-          "data-format": "ddd-ddd-dddd",
-          pattern: "^((5\\d[123467890])|(5[123467890]\\d)|([2346789]\\d\\d))-\\d\\d\\d-\\d\\d\\d\\d$",
-          title: "Must be a valid US phone number entered in 555-555-5555 format"
-        })
+                 class: "form-control bfh-phone",
+                 "data-format": "ddd-ddd-dddd",
+                 pattern: "^((5\\d[123467890])|(5[123467890]\\d)|([2346789]\\d\\d))-\\d\\d\\d-\\d\\d\\d\\d$",
+                 title: "Must be a valid US phone number entered in 555-555-5555 format"
+               })
     elsif field.value == "$EMAIL"
       email_field_tag name, prefill, congress_forms_field_defaults(field)
     elsif field.value.include?("ADDRESS") && !field.is_select?
@@ -44,7 +43,7 @@ module CongressMessageHelper
       text_field_tag name, prefill, congress_forms_field_defaults(field, placeholder: address_label, "aria-label": address_label)
     elsif field.is_select?
       select_tag name, options_for_select(field.options_hash, prefill),
-        class: "form-control", "aria-label": field.label, include_blank: field.label, required: true
+                 class: "form-control", "aria-label": field.label, include_blank: field.label, required: true
     else
       text_field_tag name, prefill, congress_forms_field_defaults(field)
     end

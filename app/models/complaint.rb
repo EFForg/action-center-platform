@@ -1,2 +1,2 @@
-class Complaint < ActiveRecord::Base
+class Complaint < ApplicationRecord
 end

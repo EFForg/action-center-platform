@@ -9,10 +9,13 @@ class SmartyStreetsController < ApplicationController
     render json: get_data_on_address_zip(params), status: 200
   end
 
-  # This endpoint appears unused
-  def suggest
-    render json: get_suggestions_for_address(params), status: 200
-  end
+  # This endpoint appears unused (TheNotary 1/16)
+  # Lets remove it and see if anything breaks! (jparr 4/23)
+  # todo: remove if not used
+
+  # def suggest
+  #   render json: get_suggestions_for_address(params), status: 200
+  # end
 
   private
 
@@ -38,10 +41,8 @@ class SmartyStreetsController < ApplicationController
   end
 
   def proxy_request(url)
-    begin
-      return RestClient.get url, accept: :json, 'X-Include-Invalid': "true"
-    rescue => e
-      logger.error e
-    end
+    RestClient.get url, accept: :json, 'X-Include-Invalid': "true"
+  rescue StandardError => e
+    logger.error e
   end
 end

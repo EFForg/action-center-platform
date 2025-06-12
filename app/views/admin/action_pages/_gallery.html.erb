@@ -1,10 +1,12 @@
 <div class="gallery">
   <% if defined?(f) %>
+  <!-- todo: remove? -->
     <%= f.send :hidden_field, field, value: nil %>
+    <%= f.send :hidden_field, "remote_#{field}_url", value: nil %>
 
     <% if current_value = f.object.send(field).presence %>
       <figure class="current">
-        <%= image_tag current_value, class: "original" %>
+        <%= image_tag current_value.url, class: "original" %>
 
         <span class="change">
           &rarr; <img />

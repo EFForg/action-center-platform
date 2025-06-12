@@ -1,16 +1,16 @@
 require "rails_helper"
 
 RSpec.describe "Congress Messages", type: :request do
-  let!(:members) {
-    [FactoryGirl.create(:congress_member, state: "CA", bioguide_id: "C000880"),
-     FactoryGirl.create(:congress_member, state: "CA", bioguide_id: "A000360")]
-  }
+  let!(:members) do
+    [FactoryBot.create(:congress_member, state: "CA", bioguide_id: "C000880"),
+     FactoryBot.create(:congress_member, state: "CA", bioguide_id: "A000360")]
+  end
 
-  let(:action_page) {
-    FactoryGirl.create(:action_page_with_congress_message)
-  }
+  let(:action_page) do
+    FactoryBot.create(:action_page_with_congress_message)
+  end
 
-  let(:location) {
+  let(:location) do
     OpenStruct.new(success: true,
                    street: "1630 Ravello Drive",
                    city: "Sunnydale",
@@ -18,20 +18,20 @@ RSpec.describe "Congress Messages", type: :request do
                    zip4: 1234,
                    state: "CA",
                    district: 10)
-  }
+  end
 
   def stub_congress_forms_find_with_two_reps
-    stub_request(:post, /retrieve-form-elements/).
-      with(body: { "bio_ids" => ["C000880", "A000360"] }).
-      and_return(status: 200, body: file_fixture("retrieve-form-elements.json"))
+    stub_request(:post, /retrieve-form-elements/)
+      .with(body: { "bio_ids" => %w[C000880 A000360] })
+      .and_return(status: 200, body: file_fixture("retrieve-form-elements.json"))
   end
 
   def stub_congress_forms_find_with_one_rep
     forms_body = JSON.parse(file_fixture("retrieve-form-elements.json").read)
     forms_body.delete("A000360")
-    stub_request(:post, /retrieve-form-elements/).
-      with(body: { "bio_ids" => ["C000880"] }).
-      and_return(status: 200, body: forms_body.to_json)
+    stub_request(:post, /retrieve-form-elements/)
+      .with(body: { "bio_ids" => ["C000880"] })
+      .and_return(status: 200, body: forms_body.to_json)
   end
 
   before do
@@ -73,7 +73,7 @@ RSpec.describe "Congress Messages", type: :request do
       end
 
       it "to target bioguide_ids" do
-        campaign = FactoryGirl.create(:congress_message_campaign, :targeting_bioguide_ids)
+        campaign = FactoryBot.create(:congress_message_campaign, :targeting_bioguide_ids)
         action_page.update_attribute(:congress_message_campaign, campaign)
         get_congress_message_form
         expect(response.body).to include("C000880")
@@ -81,8 +81,8 @@ RSpec.describe "Congress Messages", type: :request do
       end
 
       it "to target a single chamber" do
-        members.last.update_attributes(chamber: "house", district: 10)
-        campaign = FactoryGirl.create(:congress_message_campaign, :targeting_senate)
+        members.last.update(chamber: "house", district: 10)
+        campaign = FactoryBot.create(:congress_message_campaign, :targeting_senate)
         action_page.update_attribute(:congress_message_campaign, campaign)
         get_congress_message_form
         expect(response.body).to include("C000880")
@@ -101,13 +101,13 @@ RSpec.describe "Congress Messages", type: :request do
           "$ADDRESS_CITY" => "Sunnydale",
           "$ADDRESS_ZIP5" => "94109",
           "$EMAIL" => "jsummers@altavista.com",
-          "$NAME_PREFIX" => "Mrs.",
+          "$NAME_PREFIX" => "Mrs."
         },
         member_attributes: {
           "C000880" => {
             "$SUBJECT" => "Take Action",
             "$ADDRESS_STATE_POSTAL_ABBREV" => "CA",
-            "$TOPIC" => "JU",
+            "$TOPIC" => "JU"
           },
           "A000360" => {
             "$ADDRESS_STATE" => "CA",
@@ -115,7 +115,7 @@ RSpec.describe "Congress Messages", type: :request do
           }
         },
         forms: {
-          bioguide_ids: %w(C000880 A000360)
+          bioguide_ids: %w[C000880 A000360]
         },
         message: "Impeach Mayor Richard Wilkins III"
       }
@@ -129,30 +129,30 @@ RSpec.describe "Congress Messages", type: :request do
     end
 
     before do
-      stub_request(:post, /fill-out-form/).
-        and_return(status: 200, body: "{}")
+      stub_request(:post, /fill-out-form/)
+        .and_return(status: 200, body: "{}")
     end
 
-    it "successfully submits good input" do
+    it "successfully submits good input", :run_delayed_jobs do
       submit_congress_message
-      expect(WebMock).to have_requested(:post, /fill-out-form/).
-        with(body: {
-        "bio_id": "C000880",
-        "fields": {
-          "$NAME_FIRST": "Joyce",
-          "$NAME_LAST": "Summers",
-          "$ADDRESS_STREET": "1630 Ravello Drive",
-          "$ADDRESS_CITY": "Sunnydale",
-          "$ADDRESS_ZIP5": "94109",
-          "$EMAIL": "jsummers@altavista.com",
-          "$SUBJECT": "Take Action",
-          "$NAME_PREFIX": "Mrs.",
-          "$ADDRESS_STATE_POSTAL_ABBREV": "CA",
-          "$MESSAGE": "Impeach Mayor Richard Wilkins III",
-          "$TOPIC": "JU"
-        },
-        campaign_tag: "a campaign tag"
-      })
+      expect(WebMock).to have_requested(:post, /fill-out-form/)
+        .with(body: {
+                "bio_id": "C000880",
+                "fields": {
+                  "$NAME_FIRST": "Joyce",
+                  "$NAME_LAST": "Summers",
+                  "$ADDRESS_STREET": "1630 Ravello Drive",
+                  "$ADDRESS_CITY": "Sunnydale",
+                  "$ADDRESS_ZIP5": "94109",
+                  "$EMAIL": "jsummers@altavista.com",
+                  "$SUBJECT": "Take Action",
+                  "$NAME_PREFIX": "Mrs.",
+                  "$ADDRESS_STATE_POSTAL_ABBREV": "CA",
+                  "$MESSAGE": "Impeach Mayor Richard Wilkins III",
+                  "$TOPIC": "JU"
+                },
+                campaign_tag: "a campaign tag"
+              })
     end
 
     it "returns an error when validation fails" do
@@ -162,34 +162,16 @@ RSpec.describe "Congress Messages", type: :request do
       expect(WebMock).not_to have_requested(:post, /fill-out-form/)
     end
 
-    it "enables test mode" do
+    it "enables test mode", :run_delayed_jobs do
       message_attributes[:test] = 1
       submit_congress_message
       expect(response.status).to eq 200
-      expect(WebMock).to have_requested(:post, /fill-out-form/).
-        with(body: hash_including(test: 1)).twice
+      expect(WebMock).to have_requested(:post, /fill-out-form/)
+        .with(body: hash_including(test: 1)).twice
     end
 
-    it "succeeds with no common attributs" do
+    it "succeeds with no common attributes" do
       stub_congress_forms_find_with_one_rep
-      message_attributes = {
-        member_attributes: {
-          "C000880" => {
-            "$NAME_FIRST" => "Joyce",
-            "$NAME_LAST" => "Summers",
-            "$ADDRESS_STREET" => "1630 Ravello Drive",
-            "$ADDRESS_CITY" => "Sunnydale",
-            "$ADDRESS_ZIP5" => "94109",
-            "$EMAIL" => "jsummers@altavista.com",
-            "$NAME_PREFIX" => "Mrs.",
-            "$MESSAGE" => "Impeach Mayor Richard Wilkins III",
-            "$SUBJECT" => "Take Action",
-            "$ADDRESS_STATE_POSTAL_ABBREV" => "CA",
-            "$TOPIC" => "JU",
-          }
-        },
-        bioguide_ids: "C000880"
-      }
       submit_congress_message
       expect(response.status).to eq 200
     end

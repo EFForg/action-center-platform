@@ -1,0 +1,20 @@
+require "rails_helper"
+
+RSpec.describe "Admin action page previews", type: :system, js: true do
+  before { warden_sign_in(FactoryBot.create(:admin_user)) }
+
+  xit "works for tweet actions" do
+    # window switching is broken, fixing previews for now
+    tweet = FactoryBot.create(:tweet)
+    action = FactoryBot.create(:action_page_with_tweet, tweet: tweet)
+    visit edit_admin_action_page_path(action)
+    fill_in "Title", with: "New title"
+    click_on "Action"
+    fill_in "Message", with: "New message"
+    click_on "Preview"
+    sleep 0.1
+    page.driver.switch_to_window page.driver.window_handles.last
+    expect(page).to have_content("New title")
+    expect(page).to have_content("New message")
+  end
+end

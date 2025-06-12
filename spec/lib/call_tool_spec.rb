@@ -7,9 +7,9 @@ describe CallTool do
   end
 
   describe ".campaign_call" do
-    let(:campaign) { FactoryGirl.create(:call_campaign) }
+    let(:campaign) { FactoryBot.create(:call_campaign) }
 
-    let(:keywords) {
+    let(:keywords) do
       {
         phone: "000-000-0000",
         location: "00000",
@@ -17,11 +17,11 @@ describe CallTool do
         action_id: 789,
         callback_url: "/"
       }
-    }
+    end
 
     it "should get call_tool_url/call/create, transforming keyword arguments into params" do
       expect(RestClient).to receive(:get) do |url, opts|
-        base_href = Rails.application.config.call_tool_url.sub(/\/$/, "")
+        base_href = Rails.application.config.call_tool_url.sub(%r{/$}, "")
         expect(url).to eq("#{base_href}/call/create")
         expect(opts[:params]).not_to be_nil
         expect(opts[:params][:campaignId]).to eq(campaign.to_param)
@@ -40,29 +40,29 @@ describe CallTool do
     it "should raise ArgumentError if a required param is missing" do
       allow(RestClient).to receive(:get)
 
-      expect {
+      expect do
         CallTool.campaign_call(nil, **keywords)
-      }.to raise_error(ArgumentError)
+      end.to raise_error(ArgumentError)
 
-      expect {
+      expect do
         CallTool.campaign_call(campaign, **keywords.dup.tap { |x| x[:phone] = nil })
-      }.to raise_error(ArgumentError)
+      end.to raise_error(ArgumentError)
 
-      expect {
+      expect do
         CallTool.campaign_call(campaign, **keywords.dup.tap { |x| x[:location] = nil })
-      }.to raise_error(ArgumentError)
+      end.to raise_error(ArgumentError)
 
-      expect {
+      expect do
         CallTool.campaign_call(campaign, **keywords.dup.tap { |x| x[:action_id] = nil })
-      }.to raise_error(ArgumentError)
+      end.to raise_error(ArgumentError)
 
-      expect {
+      expect do
         CallTool.campaign_call(campaign, **keywords.dup.tap { |x| x[:callback_url] = nil })
-      }.to raise_error(ArgumentError)
+      end.to raise_error(ArgumentError)
 
-      expect {
+      expect do
         CallTool.campaign_call(campaign, **keywords.dup.tap { |x| x[:user_id] = nil })
-      }.not_to raise_error
+      end.not_to raise_error
     end
 
     it "should not raise any errors for twilio 'number invalid' error" do
@@ -70,7 +70,7 @@ describe CallTool do
       expect(exception).to receive(:http_body) { %({"error": "13224: number invalid"}) }
       expect(RestClient).to receive(:get).and_raise(exception)
 
-      expect(Raven).not_to receive(:capture_message)
+      expect(Sentry).not_to receive(:capture_message)
       expect { CallTool.campaign_call(campaign, **keywords) }.not_to raise_exception
     end
   end
@@ -79,7 +79,7 @@ describe CallTool do
     it "should get call_tool_url/api/campaign/:id with the call tool api key" do
       campaign = 12345
       expect(RestClient).to receive(:get) do |url, opts|
-        base_href = Rails.application.config.call_tool_url.sub(/\/$/, "")
+        base_href = Rails.application.config.call_tool_url.sub(%r{/$}, "")
         expect(url).to eq("#{base_href}/api/campaign/#{campaign}")
         expect(opts[:params][:api_key]).to eq(Rails.application.secrets.call_tool_api_key)
         OpenStruct.new(body: { required_fields: { userLocation: "postal", userPhone: "US" } }.to_json)
@@ -90,13 +90,13 @@ describe CallTool do
   end
 
   describe ".campaigns" do
-    let(:calltool_campaign) {
+    let(:calltool_campaign) do
       { "id" => 1, "name" => "call someone", "status" => "live" }
-    }
+    end
 
     before do
-      stub_request(:get, %r{/api/campaign\?api_key(.*)?&page=1}).
-        to_return(status: 200, body: { "objects" => [calltool_campaign], "page" => 1, "total_pages" => 1 }.to_json)
+      stub_request(:get, %r{/api/campaign\?api_key(.*)?&page=1})
+        .to_return(status: 200, body: { "objects" => [calltool_campaign], "page" => 1, "total_pages" => 1 }.to_json)
     end
 
     it "should get call_tool_url/api/campaign and return values with id, name, status" do

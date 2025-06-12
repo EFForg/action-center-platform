@@ -1,0 +1,25 @@
+<div class="page-indicator">
+  <div class="page1 active">1</div>
+  <div class="page2">2</div>
+  <div class="page3">3</div>
+</div>
+<div id='state-email-tool' class="tool" data-action-id="<%= @actionPage.id %>">
+  <div class="tool-container">
+    <div class="tool-heading">
+      <h2 class="tool-title">Take action</h2>
+    </div>
+
+    <div class="tool-body state-email-body">
+      <%= render 'tools/lookup_state_rep' %>
+      <div class="state-reps"></div>
+    </div>
+  </div>
+</div>
+
+  <div class="update-user-data-container" style="display: none;">
+    <% if current_user %>
+      <input checked="checked" id="update_user_data" name="update_user_data" type="checkbox" value="yes">
+      <label for="update_user_data" value="Save my name and address for next time."></label>
+    <% end %>
+  </div>
+</div>

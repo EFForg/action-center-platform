@@ -1,26 +1,25 @@
 common: &common
-  adapter: <%= Rails.application.secrets.db_adapter %>
-  encoding: <%= Rails.application.secrets.db_encoding %>
+  adapter: postgresql
+  encoding: <%= ENV["db_encoding"] %>
   pool: 5
-  database: <%= Rails.application.secrets.db_database %>
-  username: <%= Rails.application.secrets.db_username %>
-  password: <%= Rails.application.secrets.db_password %>
-  host: <%= Rails.application.secrets.db_host %>
-  port: <%= Rails.application.secrets.db_port %>
-  sslmode: <%= Rails.application.secrets.db_sslmode %>
-  sslrootcert: <%= Rails.application.secrets.db_sslrootcert %>
+  username: <%= ENV["db_username"] %>
+  password: <%= ENV["db_password"] %>
+  host: <%= ENV["DB_PORT_5432_TCP_ADDR"] || ENV["db_host"] %>
+  port: <%= ENV["db_port"] %>
+  sslmode: <%=ENV["db_sslmode"] %>
+  sslrootcert: <%= ENV["db_sslrootcert"] %>
 
 development:
   <<: *common
-
-test: &test
-  <<: *common
+  database: act_development
 
 production:
   <<: *common
+  database: <%= ENV["db_database"] %>
 
-staging:
+test: &test
   <<: *common
+  database: act_test
 
 cucumber:
   <<: *test

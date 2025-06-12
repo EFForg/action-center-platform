@@ -3,8 +3,7 @@ class Admin::CongressMessageCampaignsController < Admin::ApplicationController
 
   allow_collaborators_to :congress_tabulation, :staffer_report
 
-  def congress_tabulation
-  end
+  def congress_tabulation; end
 
   def staffer_report
     @bioguide_id = params[:bioguide_id]

@@ -16,7 +16,7 @@ $SHAREBUTTONS
 
 Thank you for helping us defend privacy and free speech in the digital age,
 
-Gennie Gebhart
+Jason Kelley
 Activism Director
 Electronic Frontier Foundation
 

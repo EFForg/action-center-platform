@@ -3,7 +3,7 @@ class SessionsController < Devise::SessionsController
   before_action :unset_logged_in, only: :destroy
 
   def set_logged_in
-    if (user_signed_in?)
+    if user_signed_in?
       # Sets a "permanent" cookie (which expires in 20 years from now).
       # This is exclusively used to never cache content for logged in users
       cookies.permanent[:logged_in] = "I <3 EFF"

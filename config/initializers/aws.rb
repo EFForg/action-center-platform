@@ -4,5 +4,8 @@ Aws.config.update({
                                       Rails.application.secrets.amazon_secret_access_key)
 })
 
-S3_BUCKET = Aws::S3::Resource.new.bucket(Rails.application.secrets.amazon_bucket)
+if Rails.application.secrets.amazon_bucket_url.present?
+  Aws.config.update({ endpoint: Rails.application.secrets.amazon_bucket_url })
+end
 
+S3_BUCKET = Aws::S3::Resource.new.bucket(Rails.application.secrets.amazon_bucket)

@@ -11,23 +11,17 @@ class ApplicationController < ActionController::Base
   before_action :set_locale
   before_action :user_conditional_logic
 
-  skip_before_action :set_ahoy_cookies
   skip_before_action :track_ahoy_visit
-  skip_before_action :set_ahoy_request_store
 
   def user_conditional_logic
-    if user_signed_in?
-      lock_users_with_expired_passwords! unless user_is_being_told_to_reset_pass_or_is_resetting_pass?
-    end
+    lock_users_with_expired_passwords! if user_signed_in? && !user_is_being_told_to_reset_pass_or_is_resetting_pass?
   end
 
   # This method seems to check if the request is coming from a domain listed in
   # `cors_allowed_domains` in application.yml, and if it is, the response gets
   # a header allowing the requesting domain to use this app's CRUD
   def cors
-    if Actioncenter::Application.config.cors_allowed_domains.include? request.env["HTTP_ORIGIN"] or Actioncenter::Application.config.cors_allowed_domains.include? "*"
-      response.headers["Access-Control-Allow-Origin"] = request.env["HTTP_ORIGIN"]
-    end
+    response.headers["Access-Control-Allow-Origin"] = request.env["HTTP_ORIGIN"] if Actioncenter::Application.config.cors_allowed_domains.include?(request.env["HTTP_ORIGIN"]) || Actioncenter::Application.config.cors_allowed_domains.include?("*")
   end
 
   def self.manifest(value = nil)
@@ -60,7 +54,7 @@ class ApplicationController < ActionController::Base
 
   def configure_permitted_parameters
     devise_parameter_sanitizer.permit(:sign_up,
-                                      keys: [:record_activity, :subscribe])
+                                      keys: %i[record_activity subscribe])
   end
 
   def set_locale

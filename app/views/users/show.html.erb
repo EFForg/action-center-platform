@@ -37,9 +37,6 @@
       <% if current_user.record_activity? %>
         <div class="action-stats">
           <h3>Stats</h3>
-          <div class="percentile">
-            <p>You are in the <span><%= current_user.percentile_rank.ordinalize %> </span>percentile of users.</p>
-          </div>
           <p>Actions you've taken so far:</p>
           <div class="action-grid">
             <div class="quad-1">

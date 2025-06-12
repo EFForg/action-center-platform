@@ -23,6 +23,7 @@ pickle-email-*.html
 docker-compose.yml
 .DS_Store
 /node_modules/*
+.byebug_history
 
 # Ignore custom quotes
 /config/custom_quotes.yml
@@ -33,3 +34,4 @@ public/webshims
 
 # Ignore dotenv file
 /.env
+/public/uploads

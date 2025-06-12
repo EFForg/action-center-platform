@@ -1,7 +1,9 @@
-FROM ruby:2.5-stretch
+FROM ruby:3.3-slim
 
 RUN mkdir /opt/actioncenter
 WORKDIR /opt/actioncenter
+
+COPY db/global-bundle.pem /opt/actioncenter/vendor/assets/certificates/
 
 RUN apt-get update && \
   apt-get install -y --no-install-recommends \
@@ -13,47 +15,34 @@ RUN apt-get update && \
     postgresql-client \
     cron \
     gnupg \
-    libssl-dev
-
-RUN set -x; \
-  curl -sL https://deb.nodesource.com/setup_6.x -o nodesource_setup.sh \
-  && chmod +x nodesource_setup.sh \
-  && ./nodesource_setup.sh \
-  && apt-get update \
-  && apt-get install -y --no-install-recommends \
+    libssl-dev \
+    libffi-dev \
+    shared-mime-info \
     nodejs \
-    npm \
-  && apt-get clean \
-  && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
-
-RUN curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | apt-key add - \
-  && echo "deb https://dl.yarnpkg.com/debian/ stable main" | tee /etc/apt/sources.list.d/yarn.list \
-  && apt-get update \
-  && apt-get install \
-    yarn
+    npm
 
 COPY package.json package-lock.json ./
 RUN npm install
 
-ADD Gemfile* ./
+COPY Gemfile* ./
 
 RUN gem install bundler && bundle install
 
-ADD bin/ ./bin
-ADD config/ ./config
-ADD config.ru ./
-ADD Rakefile ./
-ADD db/ ./db
-ADD lib/ ./lib
-ADD public/ ./public
-ADD app/ ./app
-ADD features/ ./features
-ADD script/ ./script
-ADD spec/ ./spec
-ADD vendor/ ./vendor
-ADD docker/ ./docker
-ADD .rubocop.yml ./.rubocop.yml
-ADD .sass-lint.yml ./.sass-lint.yml
+COPY bin/ ./bin
+COPY config/ ./config
+COPY config.ru ./
+COPY Rakefile ./
+COPY db/ ./db
+COPY lib/ ./lib
+COPY public/ ./public
+COPY app/ ./app
+COPY features/ ./features
+COPY script/ ./script
+COPY spec/ ./spec
+COPY vendor/ ./vendor
+COPY docker/ ./docker
+COPY .rubocop.yml ./.rubocop.yml
+COPY .sass-lint.yml ./.sass-lint.yml
 
 RUN usermod -u 1000 www-data
 
@@ -65,11 +54,10 @@ RUN bundle exec rake assets:precompile \
   SECRET_KEY_BASE=noop \
   devise_secret_key=noop \
   amazon_region=noop \
+  amazon_bucket=noop \
   DATABASE_URL=postgres://noop
-RUN bundle exec rake webshims:update_public
 
-RUN mkdir /opt/actioncenter/log \
-          /var/www
+RUN mkdir /var/www
 RUN chown -R www-data /opt/actioncenter/public \
                       /opt/actioncenter/db \
                       /opt/actioncenter/tmp \

@@ -21,16 +21,14 @@ class RegistrationsController < Devise::RegistrationsController
   private
 
   def handle_nonunique_email
-    resource.errors.delete(:email)
+    resource.errors.delete(:email) unless resource.errors[:email].size > 1
 
     if resource.errors.empty?
-      existing = User.find_by_email(resource.email)
+      existing = User.find_by(email: resource.email)
       existing.send_email_taken_notice
 
       # Allow unconfirmed users to set a new password by re-registering.
-      if !existing.confirmed?
-        existing.update_attributes(sign_up_params)
-      end
+      existing.update(sign_up_params) unless existing.confirmed?
 
       if resource.persisted?
         resource.update_attribute(:unconfirmed_email, account_update_params[:email])
