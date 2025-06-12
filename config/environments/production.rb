@@ -65,8 +65,6 @@ Actioncenter::Application.configure do
   # information to avoid inadvertent exposure of personally identifiable information (PII).
   # TODO: revert to :info
   config.log_level = :debug
-  # TODO: remove
-  Rails.logger.level = 0
 
   # Prepend all log lines with the following tags.
   config.log_tags = [ :request_id ]
