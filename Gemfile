@@ -95,6 +95,8 @@ gem "fast_inserter", "~> 2.0"
 # Pin psych to below version 4 until we're on rails 7 and ruby 3.1
 gem "psych", "< 4"
 
+gem "puma", "~> 6"
+
 # these will be removed from stdlib in later ruby versions
 gem "ostruct"
 gem "mutex_m"
@@ -126,8 +128,4 @@ group :development, :test do
   gem "rubocop-github", "~> 0.16"
   gem "rubocop-performance", require: false
   gem "rubocop-rails", require: false
-end
-
-group :production do
-  gem "puma", "~> 3"
 end
