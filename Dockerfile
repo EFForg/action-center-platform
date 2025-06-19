@@ -19,7 +19,8 @@ RUN apt-get update && \
     libffi-dev \
     shared-mime-info \
     nodejs \
-    npm
+    npm \
+    strace
 
 COPY package.json package-lock.json ./
 RUN npm install
@@ -66,4 +67,4 @@ RUN chown -R www-data /opt/actioncenter/public \
 
 USER www-data
 CMD ["bin/rails", "s", "-b", "0.0.0.0"]
-ENTRYPOINT ["/opt/actioncenter/docker/entrypoint.sh"]
+ENTRYPOINT ["strace", "/opt/actioncenter/docker/entrypoint.sh"]
