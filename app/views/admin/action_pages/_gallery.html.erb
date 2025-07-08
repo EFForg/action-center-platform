@@ -20,14 +20,6 @@
   <div class="images">
     <input type="search" placeholder="Search" />
 
-    <div class="upload">
-      <label for="fileupload">Upload new image</label>
-      <input id="fileupload" type="file"
-             data-url="<%= S3_BUCKET.url %>"
-             data-s3_fields="<%= s3_presigned_post_fields %>"
-             name="file" />
-    </div>
-
     <%= render "admin/s3_uploads/list", source_files: @source_files %>
   </div>
 </div>
