@@ -1,8 +1,9 @@
+<% content_for(:nav) { render "admin/nav" } %>
 <div class="gallery">
   <div class="images">
-    <input type="search" placeholder="Search" />
+    <%= render partial: "upload_and_search" %>
 
-    <ul class="source-files-collection">
+    <ul class="source-file-collection">
       <%= render @source_files unless @source_files.empty? %>
     </ul>
   </div>

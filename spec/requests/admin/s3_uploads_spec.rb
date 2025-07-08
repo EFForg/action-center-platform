@@ -16,11 +16,6 @@ RSpec.describe "S3 Uploads Spec", type: :request do
     }
   end
 
-  before(:each) do
-    # bypasses a 3rd party lookup (s3)
-    allow_any_instance_of(SourceFile).to receive(:pull_down_s3_object_attributes).and_return(true)
-  end
-
   it "should deny non-admins" do
     expect do
       post "/admin/source_files", params: valid_attributes

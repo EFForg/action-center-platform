@@ -35,20 +35,4 @@ $(function() {
       }
     });
   }, 200));
-
-  $('.gallery input[type=file]').fileupload({
-    formData: function(form) {
-      return this.s3_fields.slice(0);
-    },
-
-    done: function(e, data) {
-      $.post('/admin/source_files.json', {
-        'source_file[bucket]': $(data.result).find('Bucket').text(),
-        'source_file[key]': $(data.result).find('Key').text(),
-        authenticity_token: $('meta[name=csrf-token]').attr('content')
-      }, function(data) {
-
-      }, 'json');
-    }
-  });
 });
