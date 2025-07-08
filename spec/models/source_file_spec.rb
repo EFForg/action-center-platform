@@ -1,34 +1,25 @@
 require "rails_helper"
 
 describe SourceFile do
-  before do
-    @source_file = FactoryBot.create(:source_file, key: "meh.jpg")
-  end
+  before { StorageHelpers.mock_fog! }
 
-  it "should generate full_urls correctly when amazon_bucket_url is set" do
-    begin
-      original_bucket_url = Rails.application.secrets.amazon_bucket_url
-      bucket_url = Rails.application.secrets.amazon_bucket_url = "https://act.s.eff.org"
-      expect(@source_file.full_url).to eq "#{bucket_url}/meh.jpg"
-    ensure
-      Rails.application.secrets.amazon_bucket_url = original_bucket_url
+  context "methods that do not require image processing" do
+    let(:generated_part) { "subfolder12345-67890" }
+    let(:file_name) { "image.png" }
+    let(:folder) { "uploads" }
+    let(:full_key) { [folder, generated_part, file_name].join("/") }
+    describe "#generated_key_part" do
+      it "returns the key without folder name or file name" do
+        file = FactoryBot.create(:source_file, key: full_key)
+        expect(file.generated_key_part).to eq(generated_part)
+      end
     end
-  end
-
-  it "should generate full_urls correctly when amazon_bucket_url is not set based on region" do
-    begin
-      original_bucket_url = Rails.application.secrets.amazon_bucket_url
-      original_bucket = Rails.application.secrets.amazon_bucket
-      original_region = Rails.application.secrets.amazon_region
-
-      Rails.application.secrets.amazon_bucket_url = nil
-      bucket = Rails.application.secrets.amazon_bucket = "testbucket"
-      region = Rails.application.secrets.amazon_region = "testregion"
-      expect(@source_file.full_url).to eq "https://#{bucket}.s3-#{region}.amazonaws.com/meh.jpg"
-    ensure
-      Rails.application.secrets.amazon_bucket_url = original_bucket_url
-      Rails.application.secrets.amazon_bucket = original_bucket
-      Rails.application.secrets.amazon_region = original_region
+    describe "#key_without_file_name" do
+      it "does not include the filename" do
+        file = FactoryBot.create(:source_file, key: full_key)
+        expect(file.key_without_file_name).to \
+          eq([folder, generated_part].join("/"))
+      end
     end
   end
 end

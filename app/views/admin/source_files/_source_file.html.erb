@@ -1,0 +1,12 @@
+<li>
+  <%= form_with(url: admin_source_file_path(source_file),
+                method: "DELETE") do |f| %>
+    <%= f.button "X", data: { confirm: "Are you sure you want to delete #{source_file.file_name}?" } %>
+  <% end %>
+  <%= link_to source_file.image.url, target: "_new" do %>
+    <figure>
+      <%= image_tag source_file.image.url %>
+      <figcaption><%= source_file.file_name %></figcaption>
+    </figure>
+  <% end %>
+</li>
