@@ -24,5 +24,6 @@ Rails.application.config.filter_parameters += [
     :certificate,
     :otp,
     :ssn,
-    /^\$?message$/i, # for congress message body
+    /^\$?message$/i, # for congress message body,
+    :_token,
 ]
