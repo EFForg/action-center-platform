@@ -88,17 +88,16 @@ RSpec.configure do |config|
     # disable call tool by default; it will be stubbed for tests that need it
     allow(CallTool).to receive(:enabled?).and_return(false)
     StorageHelpers.disable_carrierwave_processing
+    StorageHelpers.mock_fog!
   end
 
   config.before(:each, type: :system) do
     stub_civicrm
-    StorageHelpers.mock_fog!
     driven_by :rack_test
   end
 
   config.before(:each, type: :system, js: true) do
     stub_civicrm
-    StorageHelpers.mock_fog!
     driven_by :selenium_chrome_headless
   end
 

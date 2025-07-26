@@ -1,8 +1,6 @@
 require "rails_helper"
 
 describe SourceFile do
-  before { StorageHelpers.mock_fog! }
-
   context "methods that do not require image processing" do
     let(:generated_part) { "subfolder12345-67890" }
     let(:file_name) { "image.png" }

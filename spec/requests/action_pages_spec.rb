@@ -43,19 +43,29 @@ RSpec.describe "Action Pages", type: :request do
     end
 
     it "returns image attributes in json" do
-      stub_request(:get, %r{fakeimages/test.png}).to_return(status: 200, body: fixture_file_upload("test-image.png", "image/png").tempfile.to_io, headers: { content_type: "image/png" })
-      stub_request(:any, %r{/action_pages/featured_images/([0-9]+)/([0-9]+)/([0-9]+)/original/test.png}).to_return(status: 200, body: "", headers: {})
-      FactoryBot.create(:action_page, remote_featured_image_url: "https://example.com/fakeimages/test.png")
+      file_name = "test-image.png"
+      content_type = "image/png"
+      url_pattern = %r{/action_pages/featured_images/([0-9]+)/([0-9]+)/([0-9]+)/original/#{file_name}}
+      StorageHelpers.unmock_and_stub!(url_pattern,
+                                      status: 200,
+                                      body: file_fixture(file_name).read,
+                                      headers: { content_type: content_type })
+      FactoryBot.create(:action_page, :with_image,
+                        type: :featured,
+                        file_name: file_name,
+                        content_type: "image/png")
 
       get "/action.json"
-      expect(response.code).to eq "200"
-      expect(response.parsed_body).to include(a_hash_including({
+
+      expected = {
         "title" => "Sample Action Page",
-        "featured_image" => a_hash_including({
-          "alt" => "Test.Png",
-          "url" => a_string_matching(%r{/action_pages/featured_images/([0-9]+)/([0-9]+)/([0-9]+)/original/test.png})
-        })
-      }))
+        "featured_image" => {
+          "alt" => file_name.titleize,
+          "url" => a_string_matching(url_pattern)
+        }
+      }
+      expect(response.code).to eq "200"
+      expect(response.parsed_body.first).to include(**expected)
     end
   end
 
@@ -68,16 +78,22 @@ RSpec.describe "Action Pages", type: :request do
     end
 
     it "returns image attributes in atom" do
-      allow_any_instance_of(ActionPageImageUploader).to receive(:content_type).and_return("image/png")
-      stub_request(:get, %r{fakeimages/test.png}).to_return(status: 200, body: file_fixture("test-image.png").read, headers: { content_type: "image/png" })
-      stub_request(:any, %r{/action_pages/featured_images/([0-9]+)/([0-9]+)/([0-9]+)/original/test.png}).to_return(status: 200, body: file_fixture("test-image.png").read, headers: { content_type: "image/png" })
-
-      FactoryBot.create(:action_page, remote_featured_image_url: "https://example.com/fakeimages/test.png")
+      file_name = "test-image.png"
+      content_type = "image/png"
+      url_pattern = %r{/action_pages/featured_images/([0-9]+)/([0-9]+)/([0-9]+)/original/#{file_name}}
+      StorageHelpers.unmock_and_stub!(url_pattern,
+                                      status: 200,
+                                      body: file_fixture(file_name).read,
+                                      headers: { content_type: content_type })
+      FactoryBot.create(:action_page, :with_image,
+                        type: :featured,
+                        file_name: file_name,
+                        content_type: content_type)
 
       get "/action.atom"
       expect(response.code).to eq "200"
       expect(response.body).to match("Sample Action Page")
-      expect(response.body).to match(%r{/action_pages/featured_images/([0-9]+)/([0-9]+)/([0-9]+)/original/test.png})
+      expect(response.body).to match(url_pattern)
     end
   end
 end

@@ -7,8 +7,8 @@ atom_feed do |feed|
     feed.entry(actionPage) do |entry|
       entry.link(
         rel: "enclosure",
-        type: (actionPage.featured_image.content_type.presence || "image/png"),
-        href: URI.join(root_url, image_path(actionPage.featured_image.url))
+        type: (actionPage.featured_image_content_type || "image/png"),
+        href: actionPage.featured_image.url
       )
 
       entry.title(actionPage.title)

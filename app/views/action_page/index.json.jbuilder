@@ -5,7 +5,7 @@ json.array! @actionPages do |actionPage|
   if actionPage.featured_image_file_name
     json.featured_image do
       json.alt actionPage.featured_image_file_name.titleize
-      json.url image_url actionPage.featured_image
+      json.url actionPage.featured_image.url
     end
   end
 end

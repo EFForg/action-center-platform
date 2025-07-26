@@ -168,27 +168,41 @@ describe ActionPage do
     end
   end
 
-  describe "image attachment" do
-    context "when there is no image" do
-      it "uses missing" do
+  describe "attached images" do
+    let(:default_image) { "missing.png" }
+    context "none present" do
+      it "defaults to missing.png" do
         page = ActionPage.create!(attr)
-        expect(page.featured_image.url).to match "missing.png"
+        expect(page.image.url).to match default_image
       end
     end
+    context "attached featured image" do
+      let(:default_url) { "https://default.com/#{default_image}" }
+      let(:featured_url) { "https://featured.com/display.png" }
+      let(:og_url) { "https://og.com/og-img.png" }
 
-    context "when there is a featured image" do
-      let(:page_attr) { FactoryBot.attributes_for :action_page, remote_featured_image_url: "https://example.com/fakeimages/test.png" }
-      let(:test_image_file_upload) { fixture_file_upload("test-image.png", "image/png").tempfile.to_io }
-      it "creates a new record with image fields" do
-        stub_request(:get, %r{fakeimages/test.png}).to_return(status: 200, body: test_image_file_upload, headers: { content_type: "image/png" })
-        stub_request(:put, %r{/action_pages/featured_images/([0-9]+)/([0-9]+)/([0-9]+)/original/test.png}).to_return(status: 200, body: "", headers: {})
+      def image_double(**stubs)
+        instance_double("ActionPageImageUploader",
+                        default_url: default_url, **stubs)
+      end
 
-        page = ActionPage.create!(page_attr)
-        expect(page.featured_image_file_name).to eq("test.png")
-        expect(page.featured_image.content_type).to eq("image/png")
-        expect(WebMock).to have_requested(:put, %r{/action_pages/featured_images/([0-9]+)/([0-9]+)/([0-9]+)/original/test.png})
-        expect(page.featured_image.url).to match(%r{/action_pages/featured_images/([0-9]+)/([0-9]+)/([0-9]+)/original/test.png})
-        expect(page.image.url).to match(%r{/action_pages/featured_images/([0-9]+)/([0-9]+)/([0-9]+)/original/test.png})
+      let!(:featured_double) { image_double(url: featured_url) }
+      let!(:og_double) { image_double(url: og_url) }
+      let!(:action_page) do
+        FactoryBot.build(:action_page).tap do |page|
+          allow(page).to receive(:featured_image).and_return(featured_double)
+        end
+      end
+
+      it "returns the featured image url" do
+        expect(action_page.image.url).to eq(featured_url)
+      end
+
+      context "AND og image" do
+        it "returns the og image url" do
+          allow(action_page).to receive(:og_image).and_return(og_double)
+          expect(action_page.image.url).to eq(og_url)
+        end
       end
     end
   end
