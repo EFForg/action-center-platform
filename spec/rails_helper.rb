@@ -87,6 +87,8 @@ RSpec.configure do |config|
   config.before(:each) do
     # disable call tool by default; it will be stubbed for tests that need it
     allow(CallTool).to receive(:enabled?).and_return(false)
+    StorageHelpers.disable_carrierwave_processing
+    StorageHelpers.mock_fog!
   end
 
   config.before(:each, type: :system) do

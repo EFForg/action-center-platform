@@ -12,6 +12,23 @@ FactoryBot.define do
         action_page.partners << FactoryBot.create(:partner)
       end
     end
+
+    trait :with_image do
+      transient do
+        type { :featured }
+        file_name { "test-image.png" }
+        content_type { "image/png" }
+      end
+
+      after(:build) do |page, context|
+        assign_method = :"#{context.type}_image="
+        img = Rack::Test::UploadedFile.new(
+          Rails.root.join("spec/fixtures/files", context.file_name),
+          context.content_type
+        )
+        page.send(assign_method, img)
+      end
+    end
   end
 
   factory :action_page_with_petition, parent: :action_page do

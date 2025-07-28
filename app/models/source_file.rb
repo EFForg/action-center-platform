@@ -1,73 +1,47 @@
 class SourceFile < ApplicationRecord
   include Rails.application.routes.url_helpers
 
-  validates :file_name, :file_content_type, :file_size, :key, :bucket, presence: true
+  mount_uploader :image, GalleryUploader, mount_on: :file_name
+  validates :file_name, presence: true
 
-  delegate :secrets, to: "Rails.application".to_sym
+  before_save :update_image_attributes
 
-  before_validation(on: :create) do
-    are_we_testing = pull_down_s3_object_attributes
+  default_scope { order(created_at: :desc) }
 
-    if are_we_testing # true if you stub pull_down_s3_object_attributes with true
-      self.file_name = key.split("/").last if key
-      self.file_size = 10
-      self.file_content_type = "image"
-    end
+  def self.search_by_name(str)
+    where("LOWER(file_name) LIKE %?%", sanitize_sql_like(str.downcase))
   end
 
-  # make all attributes readonly after creating the record (not sure we need this?)
-  after_create { readonly! }
-  # cleanup; destroy corresponding file on S3
-  after_destroy { s3_object.try(:delete) }
+  def generate_key
+    return if key.present?
+    self.key = "uploads/#{SecureRandom.uuid}"
+  end
 
-  def pull_down_s3_object_attributes
-    Rails.logger.debug "Trying to validate S3 object."
-    self.file_name = key.split("/").last if key
-    self.file_size ||= begin
-      s3_object.content_length
-    rescue StandardError
-      nil
-    end
-    self.file_content_type ||= begin
-      s3_object.content_type
-    rescue StandardError
-      nil
-    end
-    false
+  # returns the key with base folder and file name removed
+  def generated_key_part
+    return "" unless key.present?
+    (key.split("/") - ["uploads", file_name]).join("/")
+  end
+
+  def key_without_file_name
+    return "" unless key.present?
+    (key.split("/") - [file_name]).join("/")
+  end
+
+  def key_for_carrierwave
+    generated_key_part
   end
 
   def full_url
-    # if we have a custom amazon_bucket_url...
-    if Rails.application.secrets.amazon_bucket_url.present?
-      base_url = URI.parse(Rails.application.secrets.amazon_bucket_url)
-      URI.join(base_url, key).to_s
-    else # we have to build the url up from amazon information
-      "https://#{Rails.application.secrets.amazon_bucket}.s3-#{Rails.application.secrets.amazon_region}.amazonaws.com/#{key}"
+    image.url
+  end
+
+  private
+
+  def update_image_attributes
+    if image.present? && file_name_changed?
+      self.file_content_type = image.file.content_type
+      self.file_size = image.file.size
     end
   end
-
-  def to_jq_upload
-    {
-      "id" => id,
-      "name" => file_name,
-      "size" => file_size,
-      "full_url" => full_url,
-      "image" => is_image?,
-      "delete_url" => Rails.application.routes.url_helpers.admin_source_file_path(self, format: :json)
-    }
-  end
-
-  def is_image?
-    !!file_content_type.try(:match, /image/)
-  end
-
-  #---- start S3 related methods -----
-  def s3_object
-    Rails.logger.debug "Trying to get S3 object."
-    @s3_object = S3_BUCKET.object(key)
-  rescue e
-    Rails.logger.debug "Attempt to get S3 object failed: #{e.message}"
-    nil
-  end
-  #---- end S3 related methods -----
 end

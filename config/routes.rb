@@ -75,11 +75,6 @@ Actioncenter::Application.routes.draw do
   end
 
   namespace :admin do
-
-    resources :source_files, :only => [:index, :create, :destroy], :controller => 's3_uploads' do
-      get :generate_key, :on => :collection
-    end
-
     get 'mailer/preview_thanks/:id' => 'mailer#preview_thanks'
 
     resources :congress_message_campaigns, only: :none do
@@ -136,5 +131,7 @@ Actioncenter::Application.routes.draw do
     resources :events, only: [:index]
 
     resources :categories, only: [:index, :create, :destroy]
+
+    resources :source_files, only: %i(index create destroy)
   end
 end

@@ -49,6 +49,7 @@ class ActionPage < ApplicationRecord
   mount_uploader :background_image, ActionPageImageUploader, mount_on: :background_image_file_name
   mount_uploader :og_image, ActionPageImageUploader, mount_on: :og_image_file_name
 
+  before_save :update_image_attributes
   after_save :no_drafts_on_homepage
   after_save :set_congress_tag, if: -> { enable_congress_message }
 
@@ -182,6 +183,14 @@ class ActionPage < ApplicationRecord
       self.published = false
       self.archived = false
       self.victory = false
+    end
+  end
+
+  def update_image_attributes
+    %i(og featured background).each do |type|
+      image = self.send(:"#{type}_image")
+      next unless image.url != image.default_url
+      self.send(:"#{type}_image_content_type=", image.content_type)
     end
   end
 

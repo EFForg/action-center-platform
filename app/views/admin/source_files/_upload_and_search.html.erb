@@ -1,0 +1,10 @@
+<input type="search" placeholder="Search" />
+
+<div class="upload">
+  <%= form_with model: [:admin, @upload], authenticity_token: true do |f| %>
+    <%= f.label :image, "Add new image to the gallery" %>
+    <%= image_tag(@upload.image.try(:url)) if @upload.image? %>
+    <%= f.file_field :image %>
+    <%= f.submit "Upload" %>
+  <% end %>
+</div>
