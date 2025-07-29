@@ -3,7 +3,7 @@
     <input type="search" placeholder="Search" />
 
     <ul class="source-files-collection">
-      <%= render @source_files unless @source_files.empty? %>
+      <%= render @source_files, locals: { enable_delete: false } unless @source_files.empty? %>
     </ul>
   </div>
 </div>
