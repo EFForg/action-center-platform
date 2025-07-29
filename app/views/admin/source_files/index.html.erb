@@ -4,7 +4,8 @@
     <%= render partial: "upload_and_search" %>
 
     <ul class="source-file-collection">
-      <%= render @source_files unless @source_files.empty? %>
+      <%= render partial: "source_file", collection: @source_files, as: :source_file,
+        locals: { enable_delete: true } unless @source_files.empty? %>
     </ul>
   </div>
 </div>
