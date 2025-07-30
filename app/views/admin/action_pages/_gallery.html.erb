@@ -2,6 +2,8 @@
   <div class="images">
     <input type="search" placeholder="Search" />
 
+    <%= f.hidden_field "#{field}_url" %>
+
     <ul class="source-files-collection">
       <%= render @source_files, locals: { enable_delete: false } unless @source_files.empty? %>
     </ul>
