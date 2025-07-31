@@ -23,7 +23,7 @@ module ActionPageDisplay
         TopInstitutionsQuery.run(action_page: @actionPage,
                                  limit: 300,
                                  exclude: [@institution])
-      ].flatten
+      ].compact.flatten
       @institutions = @actionPage.institutions.order(:name)
       @institution_category = @institutions.first.category
     end
