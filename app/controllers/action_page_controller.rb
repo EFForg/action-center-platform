@@ -40,10 +40,16 @@ class ActionPageController < ApplicationController
   end
 
   def embed
+    unless Rails.application.config.embeds_enabled?
+      raise ActionController::RoutingError.new("Not found")
+    end
     render "action_page/embed.js.erb", layout: false
   end
 
   def embed_iframe
+    unless Rails.application.config.embeds_enabled?
+      raise ActionController::RoutingError.new("Not found")
+    end
     @css = params[:css] if params.include? :css
     render layout: "application-blank"
   end
