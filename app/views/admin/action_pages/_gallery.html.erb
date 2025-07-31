@@ -1,8 +1,15 @@
+<% if @actionPage.send(field).file.present? %>
+  <h3>Current Image</h3>
+  <div class="selected-img">
+    <%= image_tag @actionPage.send(field).url %>
+  </div>
+<% end %>
+
 <div class="gallery">
   <div class="images">
     <input type="search" placeholder="Search" />
 
-    <%= f.hidden_field "#{field}_url" %>
+    <%= f.hidden_field "remote_#{field}_url" %>
 
     <ul class="source-files-collection">
       <%= render @source_files, locals: { enable_delete: false } unless @source_files.empty? %>

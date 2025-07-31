@@ -134,6 +134,14 @@
   margin-right: 1em;
 }
 
+.action_page_setup {
+  .selected-img {
+    img {
+      max-width: 33%;
+    }
+  }
+}
+
 .hidden {
   display: none;
 }
