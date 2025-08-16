@@ -46,5 +46,6 @@ module Actioncenter
     config.google_civic_api_url = Rails.application.secrets.google_civic_api_url
     config.time_zone = Rails.application.secrets.time_zone || "Eastern Time (US & Canada)"
     config.state_actions_enabled = Rails.application.secrets.state_actions_enabled
+    config.embeds_enabled = Rails.application.secrets.embeds_enabled
   end
 end
