@@ -170,7 +170,7 @@ GEM
       image_processing (~> 1.1)
       marcel (~> 1.0.0)
       ssrf_filter (~> 1.0)
-    cgi (0.4.1)
+    cgi (0.4.2)
     chartkick (3.4.2)
     chronic (0.10.2)
     cocoon (1.2.15)
