@@ -29,13 +29,19 @@ Actioncenter::Application.routes.draw do
 
   # EFF Resources
 
-  devise_for :users, path: '', path_names:  {sign_in:  'login',
-                                             sign_out: 'logout',
-                                             sign_up:  'register'},
-                               controllers: {sessions: 'sessions', registrations: 'registrations'}
+  devise_for :users, path: '', path_names:  {sign_in:  'login', sign_out: 'logout'},
+                               skip: [:registrations],
+                               controllers: {sessions: 'sessions'}
+
 
   devise_scope :user do
     get "/sessions/password_reset" => "sessions#password_reset"
+
+    get 'cancel', to: 'registrations#cancel', as: :cancel_user_registration
+    get 'edit', to: 'registrations#edit', as: :edit_user_registration
+    patch '/', to: 'registrations#update', as: :user_registration
+    put '/', to: 'registrations#update'
+    delete '/', to: 'registrations#destroy'
   end
 
   resource :user, path: 'account', only: [:show, :edit, :update] do
