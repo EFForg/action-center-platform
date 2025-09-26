@@ -1,5 +1,5 @@
 <div class="tool <%= tweet_tool_classes -%>" id="tweet-tool"
-     data-tweet-targets="<%= @tweet.targets.to_json(only: :twitter_id, methods: :image_url) %>"
+     data-tweet-targets="<%= @tweet.targets.to_json(only: :twitter_id) %>"
      data-tweet-message="<%= @tweet.message %>"
      data-tweet-related="<%= Rails.application.config.twitter_related.to_a.join(",") %>">
   <div class="tool-container">
