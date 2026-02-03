@@ -74,7 +74,10 @@ To get started using the Action Center, create a user and grant them admin privi
 
 **To create an admin user**:
 
-1. If the user doesn't exist yet, create them through the web interface by following the `register` link in the top nav.
+1. If the user doesn't exist yet, create them through the a rake task. We have disabled user self-registration for now:
+```
+rake users:create[youremail@example.org]
+```
 2. Run the rake task to grant them admin access (including square brackets):
 ```
 rake users:add_admin[youremail@example.org]

@@ -1,4 +1,25 @@
 namespace :users do
+  desc "Create a new user, given an email"
+  task :create, [:email] => :environment do |_t, args|
+    email = args[:email]
+    STDOUT.puts "Password for user: "
+    password = STDIN.gets.strip
+
+    STDOUT.puts "Confirm password: "
+    password_confirmation = STDIN.gets.strip
+
+    user = User.new(email: email, password: password, password_confirmation: password_confirmation)
+
+    if password != password_confirmation
+      abort("Password and password confirmation must match")
+    elsif !user.valid?
+      abort("Error creating user: #{user.errors.full_messages.join(", ")}")
+    else
+      user.save
+      puts "User #{email} successfully created"
+    end
+  end
+
   desc "List the emails of all admin accounts"
   task list_admins: :environment do
     admins = User.where(admin: true).map(&:email).sort

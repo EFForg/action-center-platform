@@ -29,13 +29,21 @@ Actioncenter::Application.routes.draw do
 
   # EFF Resources
 
+  
   devise_for :users, path: '', path_names:  {sign_in:  'login',
-                                             sign_out: 'logout',
-                                             sign_up:  'register'},
-                               controllers: {sessions: 'sessions', registrations: 'registrations'}
+                                             sign_out: 'logout'},
+                               controllers: {sessions: 'sessions'},
+                               skip: [:registrations]
 
   devise_scope :user do
     get "/sessions/password_reset" => "sessions#password_reset"
+    #  Remove the new registration paths, but maintain edit / cancel / update
+    get '/cancel' => 'registrations#cancel', :as => 'cancel_user_registration'
+    get '/edit' => 'registrations#edit', :as => 'edit_user_registration'
+    patch '/' => 'registrations#update', :as => 'user_registration'
+    put '/' => 'registrations#update'
+    post '/' => 'registrations#create'
+    delete '/' => 'registrations#destroy'
   end
 
   resource :user, path: 'account', only: [:show, :edit, :update] do

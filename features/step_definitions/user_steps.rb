@@ -468,11 +468,6 @@ Then(/^I should see a sign up form for mailings$/) do
   expect(page).to have_css("form.newsletter-subscription")
 end
 
-When(/^I enter the email "(.*?)" and click Sign Up$/) do |email|
-  find("input[name=subscription\\[email\\]]").set(email)
-  click_on "Sign up"
-end
-
 When(/^I wait for the tweet submission to succeed$/) do
   expect(page).to have_selector("input[value='Subscribed!']")
 end
