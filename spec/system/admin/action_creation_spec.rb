@@ -122,23 +122,14 @@ RSpec.describe "Admin action page creation", type: :system, js: true do
     expect(page).to have_content("Very Important Action", wait: 10)
   end
 
-  it "can create call actions" do
+  it "cannot create call actions" do
     visit new_admin_action_page_path
     fill_in_basic_info(title: "Very Important Action",
                        summary: "A summary",
                        description: "A description")
     next_section
 
-    select_action_type "call"
-    fill_in_editor "#action_page_call_campaign_attributes_message",
-                   with: "Call script"
-    next_section
-
-    skip_banner_selection
-    fill_in_social_media
-
-    click_button "Save"
-    expect(page).to have_content("Very Important Action", wait: 10)
+    expect(page).not_to have_content("Call")
   end
 
   # TODO: fix and reenable
