@@ -152,27 +152,6 @@
 
       <p style="margin-top: 12px">Please note that this does not affect your newsletter subscriptions or <%= t :organization_abbreviation -%> membership.</p>
 </div>
-<div class="user-info">
-
-      <h4>Change your email preferences</h4>
-      <% if current_user.contact_id! -%>
-        <p>Click below to change your EFF newsletter subscriptions.</p>
-        <%= link_to "Edit subscriptions",
-          edit_subscription_path(current_user),
-          :class => 'eff-button' -%>
-      <% else -%>
-        <form action="https://supporters.eff.org/" method="post" id="eff-supporters-library-account-form" accept-charset="UTF-8" _lpchecked="1" role="form">
-          <p>Want to change your EFF newsletter subscriptions? Click below and we'll email <%= current_user.email %> with instructions.</p>
-          <div class="form-group">
-            <label for="edit-email" class="sr-only">Email Address </label>
-            <input type="hidden" name="email" value="<%= current_user.email %>">
-          </div>
-          <input type="submit" id="edit-submit" name="op" value="Send me a link" class="eff-button" role="button" aria-pressed="false">
-          <input type="hidden" name="form_build_id" value="form-w4OjonMGPm3-u3bgN5jbX43pS-archmsJkVORQvdPZ4">
-          <input type="hidden" name="form_id" value="eff_supporters_library_account_form" >
-        </form>
-      <% end -%>
-      </div>
       </div>
     </div>
   </div>

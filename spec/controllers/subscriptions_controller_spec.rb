@@ -29,27 +29,4 @@ RSpec.describe SubscriptionsController, type: :controller do
       expect(response.code).to eq "400"
     end
   end
-
-  describe "#edit" do
-    let(:subscription) { FactoryBot.create(:subscription) }
-    subject { get :edit, params: { id: subscription } }
-
-    it "redirects to supporters" do
-      sign_in FactoryBot.create(:user)
-      expect(subject).to redirect_to(/#{Rails.application.secrets.supporters[:host]}/)
-    end
-
-    describe "without a successful connection to civicrm" do
-      before do
-        stub_request(:post, Civicrm.supporters_api_url)
-          .and_return(status: 400, body: "{}", headers: {})
-      end
-
-      it "fails gracefully" do
-        sign_in FactoryBot.create(:user)
-        expect(subject).to redirect_to("/account")
-        expect(flash[:error]).to be_present
-      end
-    end
-  end
 end

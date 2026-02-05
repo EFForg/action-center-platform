@@ -23,14 +23,4 @@ class SubscriptionsController < ApplicationController
       render json: {}
     end
   end
-
-  def edit
-    civicrm_url = current_user.manage_subscription_url!
-    if civicrm_url
-      redirect_to civicrm_url, allow_other_host: true
-    else
-      flash.now[:error] = I18n.t "subscriptions.edit_error"
-      redirect_to "/account"
-    end
-  end
 end
