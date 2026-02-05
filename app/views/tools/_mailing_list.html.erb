@@ -6,17 +6,7 @@
       </h2>
     </div>
     <div class="tool-body">
-      <%= form_for :subscription, url: subscriptions_path, remote: true,
-                    html: { id: "subscription-form", class: "", role: "form" } do |f| -%>
-        <%= invisible_captcha %>
-        <%= token_tag(form_authenticity_token) %>
-        <%= f.hidden_field :mailing_list, value: "effector" -%>
-        <fieldset>
-          <%= f.email_field :email, id: :email, value: current_email,
-                            class: "form-control", placeholder: "Email", "aria-label": "Email" -%>
-        </fieldset>
-        <%= f.submit "Subscribe", class: "eff-button", name: "commit" -%>
-      <% end %>
+      <%= link_to t(:sign_up_eff_mailing_list), "https://join.eff.org/Subscription/", :target => "_blank" %>
     </div>
   </div>
 </div>
