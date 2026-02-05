@@ -37,7 +37,7 @@ module CallTool
   end
 
   def self.enabled?
-    Rails.application.secrets.fetch_values(:call_tool_url, :call_tool_api_key).all?
+    false # Permanently disable calltool
   end
 
   def self.get(action, params = {})

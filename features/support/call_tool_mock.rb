@@ -20,7 +20,7 @@ module CallTool
   end
 
   def self.enabled?
-    true
+    false # Permanently disabling call actions
   end
 
   def self.campaigns
