@@ -67,8 +67,6 @@ Actioncenter::Application.routes.draw do
     end
   end
 
-  resources :subscriptions, only: [:create, :edit]
-
   resources :partners, only: [:show, :edit, :update] do
     member do
       get :csv

@@ -39,13 +39,10 @@ es:
   email: correo electrónico
   save_my_info: "Guardar mi %{info} para una próxima vez"
   dont_show_my_name: "No suma mi nombre o ciudad en esta petición (mencionaremos solo su país)"
-  sign_up_for_mailings_from_org: ¡Si! Quiero suscribirme a la lista de correo de %{name}
-  why_sign_up_for_mailings_from_org: para recibir noticias, eventos, campañas de %{name}, y otras formas de apoyar las libertades digitales.
+  sign_up_eff_mailing_list: "Suscribirse a las listas de correo de EFF para recibir noticias, información sobre eventos, campañas y formas de apoyar la libertad digital."
   i: ''
   want: Quiero
   do_not_want: No quiero
-  to_sign_up_for_mailings_from: firmar la lista de interés de
-  sign_up_for_mailings_from: ¿Quieres firmar la lista de interés de
   outside_the_us: ¿Fuera de los Estados Unidos?
   in_the_us: ¿Está en los EE.UU.?
   speak_out: Pronúnciate
