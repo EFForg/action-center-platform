@@ -46,16 +46,17 @@ RSpec.describe ToolsController, type: :controller do
   end
 
   describe "#call" do
-    it "should CallTool#campaign_call, passing parameters in" do
+    it "should return a 410 Gone without calling calltool" do
       call_campaign = FactoryBot.create(:call_campaign)
 
-      expect(CallTool).to receive(:campaign_call)
+      expect(CallTool).to_not receive(:campaign_call)
       post :call, params: {
         phone: "000-000-0000",
         location: "00000",
         call_campaign_id: call_campaign.id,
         action_id: call_campaign.action_page.id
       }
+      expect(response.status).to eq(410)
     end
   end
 

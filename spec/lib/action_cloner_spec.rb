@@ -64,7 +64,6 @@ describe ActionCloner do
   it_behaves_like "properly duplicates campaign", :enable_tweet, :tweet
   it_behaves_like "properly duplicates campaign", :enable_email, :email_campaign
   it_behaves_like "properly duplicates campaign", :enable_petition, :petition
-  it_behaves_like "properly duplicates campaign", :enable_call, :call_campaign
   it_behaves_like "properly duplicates campaign", :enable_congress_message,
                   :congress_message_campaign
 

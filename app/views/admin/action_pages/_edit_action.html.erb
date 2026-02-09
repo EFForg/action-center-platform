@@ -3,7 +3,7 @@
 <fieldset class="form-item">
   <legend>Type of Action</legend>
 
-  <% %w(call congress_message email petition tweet redirect).each do |type| %>
+  <% %w(congress_message email petition tweet redirect).each do |type| %>
     <%= f.hidden_field :"enable_#{type}" %>
 
     <label for="action_type_<%= type %>">
@@ -13,7 +13,7 @@
   <% end %>
 </fieldset>
 
-<% %w(call congress_message email petition tweet redirect).each do |type| %>
+<% %w(congress_message email petition tweet redirect).each do |type| %>
   <fieldset class="action-fields <%= 'active' if @actionPage[:"enable_#{type}"] %>" data-action_type="<%= type %>">
     <%= render "#{type}_fields", f: f %>
   </fieldset>

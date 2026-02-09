@@ -21,27 +21,17 @@ class ToolsController < ApplicationController
   before_action :verify_request_origin, except: :email
 
   def call
-    ahoy.track "Action",
-               { type: "action", actionType: "call", actionPageId: params[:action_id] },
-               action_page: @action_page
-
-    @name = current_user.try :name
-
-    update_user_data(call_params) if params[:update_user_data] == "yes"
-
-    CallTool.campaign_call(params[:call_campaign_id],
-                           phone: params[:phone],
-                           location: params[:location],
-                           user_id: @user.try(:id),
-                           action_id: @action_page.to_param,
-                           callback_url: root_url)
-
-    render json: {}, status: 200
+    @error = "Unsupported action"
+    @message = "This API action (GET /tools/call) is no longer supported"
+    render "error", status: 410 # Gone
   end
 
   # GET /tools/social_buttons_count
   def social_buttons_count
-    render "application/error.html.erb", status: 500
+    @error = "Unsupported action"
+    @message = "This API action (GET /tools/social_buttons_count) is no longer supported"
+
+    render "error", status: 410 # Gone
   end
 
   # POST /tools/petition
