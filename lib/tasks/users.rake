@@ -48,4 +48,16 @@ namespace :users do
       puts "Granting admin status to #{email} failed."
     end
   end
+
+  desc "Delete non-admins"
+  task delete_nonadmins: :environment do |_t, args|
+    delete_count = User.where(admin: false).count
+    retain_count = User.where(admin: true).count
+    puts "#{Time.now}: Deleting #{delete_count} non-admin user accounts. Retaining #{retain_count} admin accounts."
+    User.where(admin: false).in_batches.each_with_index do |batch, batch_index|
+      puts "#{Time.now}: Processing batch #{batch_index}"
+      batch.delete_all
+    end
+    puts "#{Time.now}: Deletion complete"
+  end
 end
