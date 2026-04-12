@@ -2,11 +2,11 @@
   padding: 15px 20px;
 }
 
-*[data-react-class=TopicCategoryTables] {
+.topic-category-tables-root {
   @import "bootstrap";
 }
 
-*[data-react-class=TopicCategoryTables] {
+.topic-category-tables-root {
   .create-category-btn {
     margin: 10px;
   }

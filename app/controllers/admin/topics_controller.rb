@@ -1,6 +1,8 @@
 class Admin::TopicsController < Admin::ApplicationController
   layout "admin"
 
+  def index; end
+
   def destroy
     Topic.destroy(params[:id])
     render json: { id: params[:id] }

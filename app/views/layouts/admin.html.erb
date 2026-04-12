@@ -6,6 +6,7 @@
 
     <title><%= page_title -%></title>
     <%= stylesheet_link_tag "admin", media: "all" %>
+    <%= stylesheet_pack_tag %>
     <%= yield(:head) if content_for?(:head) -%>
     <%= csrf_meta_tags %>
   </head>
@@ -42,6 +43,7 @@
     </div>
 
     <%= javascript_include_tag "admin" %>
+    <%= javascript_pack_tag %>
     <%= yield :charts_js %>
   </body>
 </html>
