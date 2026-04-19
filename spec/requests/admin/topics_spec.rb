@@ -1,6 +1,6 @@
 require "rails_helper"
 
-RSpec.describe "Admin Topics", type: :request do
+RSpec.describe "Admin Topics", type: :request, js: true do
   before do
     sign_in FactoryBot.create(:admin_user)
   end

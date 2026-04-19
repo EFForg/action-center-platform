@@ -46,6 +46,9 @@ Capybara.enable_aria_label = true
 Capybara.disable_animation = true
 
 RSpec.configure do |config|
+  config.before(:suite) do
+    FileUtils.rm_rf(Rails.root.join("public/packs-test"))
+  end
 
   # Ensure that if we are running js tests, we are using latest webpack assets
 
