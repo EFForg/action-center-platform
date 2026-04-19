@@ -1,7 +1,17 @@
+FROM node:20-bullseye AS node
+
 FROM ruby:3.3-bullseye
+
+COPY --from=node /usr/local/bin/node /usr/local/bin/
+COPY --from=node /usr/local/bin/npm /usr/local/bin/
+COPY --from=node /usr/local/bin/npx /usr/local/bin/
+COPY --from=node /usr/local/include/node /usr/local/include/node
+COPY --from=node /usr/local/lib/node_modules /usr/local/lib/node_modules
 
 RUN mkdir /opt/actioncenter
 WORKDIR /opt/actioncenter
+
+RUN ln -sf /usr/local/bin/node /usr/local/bin/nodejs
 
 COPY db/global-bundle.pem /opt/actioncenter/vendor/assets/certificates/
 
@@ -17,9 +27,7 @@ RUN apt-get update && \
     gnupg \
     libssl-dev \
     libffi-dev \
-    shared-mime-info \
-    nodejs \
-    npm
+    shared-mime-info
 
 COPY package.json package-lock.json ./
 RUN npm install

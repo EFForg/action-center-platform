@@ -14,6 +14,7 @@ RSpec.describe "Admin Topics", type: :request do
       expect(response).to have_http_status(:ok)
       expect(response.body).to include("TopicCategoryTables")
       expect(response.body).to include("Privacy")
+      expect(response.body).to include("admin_topics")
       expect(response.body).not_to include("data-react-class")
       expect(response.body).to include(topic_category.id.to_s)
     end

@@ -29,11 +29,6 @@ default: &default
   # Location for manifest.json, defaults to {public_output_path}/manifest.json if unset
   # manifest_path: public/packs/manifest.json
 
-  # Location for private server-side bundles (e.g., for SSR)
-  # These bundles are not served publicly, unlike public_output_path
-  # Shakapacker 9.0+ feature - automatically detected by React on Rails
-  private_output_path: ssr-generated
-
   # Additional paths webpack should look up modules
   # ['app/assets', 'engine/foo/app/assets']
   additional_paths: []
@@ -53,11 +48,6 @@ default: &default
 
   # Raises an error if there is a mismatch in the shakapacker gem and npm package being used
   ensure_consistent_versioning: true
-
-  # Hook to run before webpack compilation (e.g., for generating dynamic entry points)
-  # SECURITY: Only reference trusted scripts within your project. Ensure the hook path
-  # points to a file within the project root that you control.
-  precompile_hook: 'bin/shakapacker-precompile-hook'
 
   # Select whether the compiler will use SHA digest ('digest' option) or most recent modified timestamp ('mtime') to determine freshness
   compiler_strategy: digest
@@ -90,6 +80,7 @@ default: &default
 development:
   <<: *default
   compiler_strategy: mtime
+  compile: true
 
   # Reference: https://webpack.js.org/configuration/dev-server/
   # Keys not described there are documented inline and in https://github.com/shakacode/shakapacker/
