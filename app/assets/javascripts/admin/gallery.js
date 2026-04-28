@@ -27,11 +27,12 @@ $(function() {
   $('.gallery').on('input', 'input[type=search]', debounce(function(e) {
     var gallery = $(this).closest('.gallery');
     $.ajax({
-      method: 'GET',
-      url: '/admin/source_files',
+      method: 'POST',
+      url: '/admin/source_files/search',
       data: { f: encodeURIComponent(e.target.value) },
       success: function(resp) {
-        gallery.find('.images ul').replaceWith($(resp));
+        gallery.find('.source-file-collection')
+          .replaceWith($("<ul class='source-file-collection'>".concat(resp, "</ul>")));
       }
     });
   }, 200));

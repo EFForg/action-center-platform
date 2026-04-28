@@ -138,6 +138,8 @@ Actioncenter::Application.routes.draw do
 
     resources :categories, only: [:index, :create, :destroy]
 
-    resources :source_files, only: %i(index create destroy)
+    resources :source_files, only: %i(index create destroy) do
+      post :search, on: :collection
+    end
   end
 end

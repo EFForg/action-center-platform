@@ -1,8 +1,17 @@
 class Admin::SourceFilesController < Admin::ApplicationController
-  before_action :set_source_files, only: %i(index create destroy)
+  before_action :set_source_files, only: %i(index create destroy search)
 
   def index
     @upload = SourceFile.new
+  end
+
+  def search
+    if @source_files.empty?
+      render plain: "No banners found"
+    else
+      render partial: "source_file", collection: @source_files,
+        as: :source_file, locals: { enable_delete: true }
+    end
   end
 
   def create
