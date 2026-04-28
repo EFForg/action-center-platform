@@ -9,7 +9,7 @@ class SourceFile < ApplicationRecord
   default_scope { order(created_at: :desc) }
 
   def self.search_by_name(str)
-    where("LOWER(file_name) LIKE %?%", sanitize_sql_like(str.downcase))
+    where("LOWER(file_name) LIKE ?", "%#{sanitize_sql_like(str.downcase)}%")
   end
 
   def generate_key
