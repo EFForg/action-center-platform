@@ -1,4 +1,4 @@
-const { generateWebpackConfig, merge } = require("shakapacker");
+const { generateWebpackConfig, merge } = require("shakapacker-webpack");
 
 module.exports = merge(generateWebpackConfig(), {
   resolve: {
