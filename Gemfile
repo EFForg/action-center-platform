@@ -18,8 +18,8 @@ gem "bootstrap-daterangepicker-rails", "~> 3"
 gem "bootstrap-sass", "~> 3.4"
 gem "bourbon", "~> 3"
 gem "bundler", ">= 1.8.4" # needed for rails-assets
-gem "shakapacker", "10.1.0.rc.1"
-gem "react_on_rails", "16.7.0.rc.0"
+gem "shakapacker", "10.1.0"
+gem "react_on_rails", "17.0.0.rc.1"
 gem "redcarpet", "~> 3" # Markdown
 gem "sassc-rails"
 gem "select2-rails"               # Autocomplete select menus

@@ -12,11 +12,6 @@
   resolved "https://registry.npmjs.org/@discoveryjs/json-ext/-/json-ext-0.6.3.tgz#f13c7c205915eb91ae54c557f5e92bddd8be0e83"
   integrity sha512-4B4OijXeVNOPZlYA2oEwWOTkzyltLao+xbotHQeqN++Rv27Y6s818+n2Qkp8q+Fxhn0t/5lA5X1Mxktud8eayQ==
 
-"@discoveryjs/json-ext@^1.0.0":
-  version "1.1.0"
-  resolved "https://registry.npmjs.org/@discoveryjs/json-ext/-/json-ext-1.1.0.tgz#44b5ce3485e95235aca06e628eeaaa3c816bc4cc"
-  integrity sha512-Xc3VhU02wqZ1HvHRJUwL09HkZSTvidqY5Ya0NXBSYOxAp+Ln9dcJr9fySI+CkONzP3PekQo9WdzCv0PGER/mOA==
-
 "@jest/pattern@30.0.1":
   version "30.0.1"
   resolved "https://registry.npmjs.org/@jest/pattern/-/pattern-30.0.1.tgz#d5304147f49a052900b4b853dedb111d080e199f"
@@ -1283,11 +1278,6 @@ commander@^12.1.0:
   resolved "https://registry.npmjs.org/commander/-/commander-12.1.0.tgz#01423b36f501259fdaac4d0e4d60c96c991585d3"
   integrity sha512-Vw8qHK3bZM9y/P10u3Vib8o/DdkvA2OtPtZvD871QKjy74Wj1WSKFILMPRPSdUSx5RFK1arlJzEtA4PkFgnbuA==
 
-commander@^14.0.3:
-  version "14.0.3"
-  resolved "https://registry.npmjs.org/commander/-/commander-14.0.3.tgz#425d79b48f9af82fcd9e4fc1ea8af6c5ec07bbc2"
-  integrity sha512-H+y0Jo/T1RZ9qPP4Eh1pkcQcLRglraJaSLoyOtHxu6AapkjWVCy2Sit1QQ4x3Dng8qDlSsZEet7g5Pq06MvTgw==
-
 commander@^2.20.0:
   version "2.20.3"
   resolved "https://registry.npmjs.org/commander/-/commander-2.20.3.tgz#fd485e84c03eb4881c20722ba48035e8531aeb33"
@@ -1373,7 +1363,7 @@ core-util-is@~1.0.0:
   version "1.0.2"
   resolved "https://registry.yarnpkg.com/core-util-is/-/core-util-is-1.0.2.tgz#b5fd54220aa2bc5ab57aab7140c940754503c1a7"
 
-cross-spawn@^7.0.3, cross-spawn@^7.0.6:
+cross-spawn@^7.0.3:
   version "7.0.6"
   resolved "https://registry.npmjs.org/cross-spawn/-/cross-spawn-7.0.6.tgz#8a58fe78f00dcd70c370451759dfbfaf03e8ee9f"
   integrity sha512-uV2QOWP2nWzsy2aMp8aRibhi9dlzF5Hgh5SHaB9OiTGEyDTiJJyx0uy51QXdyWbtAHNua4XJzUKca3OzKUd3vA==
@@ -3342,10 +3332,10 @@ react-is@^16.13.1:
   resolved "https://registry.npmjs.org/react-is/-/react-is-16.13.1.tgz#789729a4dc36de2999dc156dd6c1d9c18cea56a4"
   integrity sha512-24e6ynE2H+OKt4kqsOvNd8kBpV65zoxbA4BVsEOB3ARVWQki/DHzaUoC5KuON/BiccDaCCTZBuOcfZs70kR8bQ==
 
-react-on-rails@16.7.0-rc.0:
-  version "16.7.0-rc.0"
-  resolved "https://registry.npmjs.org/react-on-rails/-/react-on-rails-16.7.0-rc.0.tgz#4fb47203ab9f65528605233c3b6cddba69536107"
-  integrity sha512-81Lu9ToSlunduiPQm+R+C+DJ9irdPDFEN3Jvq8dyI6r5uKc9kgfsTiJkyeULjk613RBAT0apkr08GOyhaSe94A==
+react-on-rails@17.0.0-rc.1:
+  version "17.0.0-rc.1"
+  resolved "https://registry.npmjs.org/react-on-rails/-/react-on-rails-17.0.0-rc.1.tgz#5c13081957612e3cb176674217efbc6785ecb362"
+  integrity sha512-TLR+LdpdefizXIDR7PUnXL3bUa38hex24AiuMxrrdY2w2ju8GGAKFNZM/6mTc+FatO1Y1MEoPnsRuabtXt8nVQ==
 
 react-refresh@0.18.0:
   version "0.18.0"
@@ -3634,20 +3624,18 @@ setprototypeof@1.2.0, setprototypeof@~1.2.0:
   resolved "https://registry.npmjs.org/setprototypeof/-/setprototypeof-1.2.0.tgz#66c9a24a73f9fc28cbe66b09fed3d33dcaf1b424"
   integrity sha512-E5LDX7Wrp85Kil5bhZv46j8jOeboKq5JMmYM3gVGdGH8xFpPWXUMsNrlODCrkoxMEeNi/XZIwuRvY4XNwYMJpw==
 
-shakapacker-webpack@10.1.0-rc.1:
-  version "10.1.0-rc.1"
-  resolved "https://registry.npmjs.org/shakapacker-webpack/-/shakapacker-webpack-10.1.0-rc.1.tgz#1a0043684af96045c520feff0e368eafd427a6d2"
-  integrity sha512-1vpQ4r7W9KCGJU39FGiZgdPebvowIH97sN7EwK+UUNBymLwAMIz2p9WZxyYOHCGNJer2RF+sGqRwLHlEC2G/cg==
+shakapacker-webpack@10.1.0:
+  version "10.1.0"
+  resolved "https://registry.npmjs.org/shakapacker-webpack/-/shakapacker-webpack-10.1.0.tgz#2f7164606c78f694730fba5b7c8551245ac19d2b"
+  integrity sha512-1Hrly+DgrIf4Lid+U2ByTiRflceaCP/3Hw/ciY+Gigqquiw40X2LA2kdChypKozbheUtj3cODl9GbXxs8Sd7vg==
   dependencies:
-    shakapacker "~10.1.0-rc.1"
-    webpack "~5.106.2"
-    webpack-assets-manifest "~6.5.1"
-    webpack-cli "~7.0.2"
+    shakapacker "~10.1.0"
+    terser-webpack-plugin "^5.3.1"
 
-shakapacker@10.1.0-rc.1, shakapacker@~10.1.0-rc.1:
-  version "10.1.0-rc.1"
-  resolved "https://registry.npmjs.org/shakapacker/-/shakapacker-10.1.0-rc.1.tgz#74fb5fc5e38da3359a9cf32e44f17f06d5129c17"
-  integrity sha512-iDf2E9zgQrNgooYNETNXge39TDf5BRROa8mvQVah5qhMSD5KeHJWxxisksUCi5dAw52JG1xXW/1fPxvu1DT6lw==
+shakapacker@10.1.0, shakapacker@~10.1.0:
+  version "10.1.0"
+  resolved "https://registry.npmjs.org/shakapacker/-/shakapacker-10.1.0.tgz#081b4e30900bbe92d6030b42f96e74f4da1b1c40"
+  integrity sha512-FMo4nXpM21rZyNNhXt5jn/rm40olFF1udWC0BPE9QO9QVY6utJAEv1bkKhM/mXY/k3/nDT8ur8B3ZcEs+HoLFg==
   dependencies:
     js-yaml "^4.1.0"
     pack-config-diff "^0.1.0"
@@ -4108,7 +4096,7 @@ wbuf@^1.1.0, wbuf@^1.7.3:
   dependencies:
     minimalistic-assert "^1.0.0"
 
-webpack-assets-manifest@^6.0.0, webpack-assets-manifest@~6.5.1:
+webpack-assets-manifest@^6.0.0:
   version "6.5.1"
   resolved "https://registry.npmjs.org/webpack-assets-manifest/-/webpack-assets-manifest-6.5.1.tgz#a0a2d8eefcad4f9cb1dd9f0829c3cb0a051d4230"
   integrity sha512-aMuOF9+UB4oHyKxi0ixQpKiI52nZ2onHFgqOmLlyIFgBh/lU7hcy+zPryaoHrBR1polqTPE3atz/SZ7xFc2QSQ==
@@ -4130,21 +4118,6 @@ webpack-cli@^6.0.0:
     colorette "^2.0.14"
     commander "^12.1.0"
     cross-spawn "^7.0.3"
-    envinfo "^7.14.0"
-    fastest-levenshtein "^1.0.12"
-    import-local "^3.0.2"
-    interpret "^3.1.1"
-    rechoir "^0.8.0"
-    webpack-merge "^6.0.1"
-
-webpack-cli@~7.0.2:
-  version "7.0.2"
-  resolved "https://registry.npmjs.org/webpack-cli/-/webpack-cli-7.0.2.tgz#c916e324acc7c14f895226ed351020924900db12"
-  integrity sha512-dB0R4T+C/8YuvM+fabdvil6QE44/ChDXikV5lOOkrUeCkW5hTJv2pGLE3keh+D5hjYw8icBaJkZzpFoaHV4T+g==
-  dependencies:
-    "@discoveryjs/json-ext" "^1.0.0"
-    commander "^14.0.3"
-    cross-spawn "^7.0.6"
     envinfo "^7.14.0"
     fastest-levenshtein "^1.0.12"
     import-local "^3.0.2"
@@ -4252,36 +4225,6 @@ webpack@^5.101.0:
     json-parse-even-better-errors "^2.3.1"
     loader-runner "^4.3.1"
     mime-types "^2.1.27"
-    neo-async "^2.6.2"
-    schema-utils "^4.3.3"
-    tapable "^2.3.0"
-    terser-webpack-plugin "^5.3.17"
-    watchpack "^2.5.1"
-    webpack-sources "^3.3.4"
-
-webpack@~5.106.2:
-  version "5.106.2"
-  resolved "https://registry.npmjs.org/webpack/-/webpack-5.106.2.tgz#ca8174b4fd80f055cc5a45fcc5577d6db76c8ac5"
-  integrity sha512-wGN3qcrBQIFmQ/c0AiOAQBvrZ5lmY8vbbMv4Mxfgzqd/B6+9pXtLo73WuS1dSGXM5QYY3hZnIbvx+K1xxe6FyA==
-  dependencies:
-    "@types/eslint-scope" "^3.7.7"
-    "@types/estree" "^1.0.8"
-    "@types/json-schema" "^7.0.15"
-    "@webassemblyjs/ast" "^1.14.1"
-    "@webassemblyjs/wasm-edit" "^1.14.1"
-    "@webassemblyjs/wasm-parser" "^1.14.1"
-    acorn "^8.16.0"
-    acorn-import-phases "^1.0.3"
-    browserslist "^4.28.1"
-    chrome-trace-event "^1.0.2"
-    enhanced-resolve "^5.20.0"
-    es-module-lexer "^2.0.0"
-    eslint-scope "5.1.1"
-    events "^3.2.0"
-    glob-to-regexp "^0.4.1"
-    graceful-fs "^4.2.11"
-    loader-runner "^4.3.1"
-    mime-db "^1.54.0"
     neo-async "^2.6.2"
     schema-utils "^4.3.3"
     tapable "^2.3.0"
