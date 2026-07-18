@@ -403,7 +403,7 @@ GEM
     rb-inotify (0.11.1)
       ffi (~> 1.0)
     rdoc (6.3.4.1)
-    react_on_rails (17.0.0.rc.1)
+    react_on_rails (17.0.0)
       addressable
       connection_pool
       execjs (~> 2.5)
@@ -630,7 +630,7 @@ DEPENDENCIES
   rails-assets-sweetalert (= 1.0.1)!
   rails-controller-testing
   rails_response_headers!
-  react_on_rails (= 17.0.0.rc.1)
+  react_on_rails (= 17.0.0)
   redcarpet (~> 3)
   rest-client (~> 2)
   rspec-rails (~> 6.1)
