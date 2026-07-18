@@ -35,3 +35,9 @@ public/webshims
 # Ignore dotenv file
 /.env
 /public/uploads
+
+/public/packs
+/public/packs-test
+/yarn-error.log
+yarn-debug.log*
+.yarn-integrity

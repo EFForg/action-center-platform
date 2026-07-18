@@ -46,6 +46,20 @@ Capybara.enable_aria_label = true
 Capybara.disable_animation = true
 
 RSpec.configure do |config|
+  config.before(:suite) do
+    FileUtils.rm_rf(Rails.root.join("public/packs-test"))
+  end
+
+  # Ensure that if we are running js tests, we are using latest webpack assets
+
+  # This will use the defaults of :js and :server_rendering meta tags
+
+  # Requires config.build_test_command in config/initializers/react_on_rails.rb.
+
+  # This is the default setup for React on Rails generated apps.
+
+  ReactOnRails::TestHelper.configure_rspec_to_compile_assets(config)
+
   config.include ServiceHelpers
 
   config.include Devise::Test::ControllerHelpers, type: :controller

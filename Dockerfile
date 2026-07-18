@@ -1,7 +1,13 @@
+FROM node:20-bullseye AS node
+
 FROM ruby:3.3-bullseye
+
+COPY --from=node /usr/local/ /usr/local/
 
 RUN mkdir /opt/actioncenter
 WORKDIR /opt/actioncenter
+
+RUN ln -sf /usr/local/bin/node /usr/local/bin/nodejs
 
 COPY db/global-bundle.pem /opt/actioncenter/vendor/assets/certificates/
 
@@ -17,12 +23,12 @@ RUN apt-get update && \
     gnupg \
     libssl-dev \
     libffi-dev \
-    shared-mime-info \
-    nodejs \
-    npm
+    shared-mime-info
 
-COPY package.json package-lock.json ./
-RUN npm install
+COPY package.json package-lock.json yarn.lock ./
+RUN rm -f /usr/local/bin/yarn /usr/local/bin/yarnpkg && \
+  npm install -g yarn@1.22.22 && \
+  yarn install --frozen-lockfile
 
 COPY Gemfile* ./
 

@@ -1,4 +1,10 @@
 module Admin::TopicsHelper
+  def topic_category_tables_props
+    {
+      topicCategories: TopicCategory.order(id: :desc).map { |topic_category| topic_category_props(topic_category) }
+    }
+  end
+
   def topic_category_props(topic_category)
     topic_sets = topic_category.topic_sets.map do |topic_set|
       {
